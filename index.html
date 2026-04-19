@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אחיטוב תכנון פיננסי | יועץ פנסיוני אובייקטיבי</title>
+<meta name="description" content="תכנון פיננסי הוליסטי וייעוץ פנסיוני אובייקטיבי. 1 מתוך 100 יועצים מורשים בישראל.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ================================================
+   PALETTE — Derived from the Carmel painting
+   ================================================ */
+:root {
+  /* Paper / background — matches the cream areas of the painting */
+  --paper: #f5ede0;
+  --paper-deep: #ece2cf;
+  --paper-warm: #e6dcc5;
+  
+  /* Ink / text — warm dark brown from the tree trunks */
+  --ink: #1e1a14;
+  --ink-2: #2e281f;
+  --muted: #6b5f4d;
+  --muted-2: #938670;
+  
+  /* Lines & borders */
+  --line: #c9bc9e;
+  --line-soft: #ddd2b5;
+  
+  /* Accents — from the painting itself */
+  --pine: #3e5a3a;          /* The pine green */
+  --pine-deep: #2a3f28;
+  --sea: #6b89a0;            /* The sea blue-gray */
+  --sea-deep: #4b6578;
+  --gold: #b8904a;           /* Warm honey-gold from light */
+  --gold-deep: #8a6a2d;
+  --terracotta: #b56a4a;    /* Earth tones from the hills */
+  --cyclamen: #c9557a;       /* The pink flowers */
+  
+  --shadow-warm: 20 17 12;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.serif { font-family: 'Frank Ruhl Libre', serif; }
+.serif-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+/* ================================================
+   CANVAS TEXTURE — very subtle paper grain
+   ================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(62, 90, 58, 0.025) 0%, transparent 55%),
+    radial-gradient(circle at 85% 80%, rgba(184, 144, 74, 0.03) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+main, nav, footer, header, section, div { position: relative; }
+section, header, footer, nav { z-index: 1; }
+
+/* ================================================
+   TOP BAR
+   ================================================ */
+.topbar {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 9px 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  z-index: 101;
+  position: relative;
+}
+.topbar-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.topbar-meta {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  opacity: 0.85;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+.topbar-links { display: flex; gap: 20px; font-size: 12px; }
+.topbar a { color: var(--paper); text-decoration: none; opacity: 0.85; transition: opacity .2s; }
+.topbar a:hover { opacity: 1; color: var(--gold); }
+
+/* ================================================
+   NAV
+   ================================================ */
+nav {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 237, 224, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.nav-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.logo-mark {
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--ink);
+  position: relative;
+  background: var(--paper);
+  transition: all .3s;
+}
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--ink);
+  opacity: 0.25;
+  transition: all .3s;
+}
+.logo-wrap:hover .logo-mark { background: var(--ink); color: var(--paper); }
+.logo-wrap:hover .logo-mark::before { border-color: var(--gold); opacity: 0.6; }
+.logo-text { line-height: 1; }
+.logo-name {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.logo-tag {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; right: 0; left: 0;
+  height: 1px;
+  background: var(--pine);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s;
+}
+.nav-links a:hover { color: var(--pine); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 11px 22px;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .25s;
+  border: 1px solid var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--pine-deep); border-color: var(--pine-deep); }
+
+/* ================================================
+   MASTHEAD LINE
+   ================================================ */
+.masthead-line {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 28px 0;
+}
+.issue-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+  font-style: italic;
+}
+.issue-line strong { color: var(--terracotta); font-weight: 500; font-style: normal; }
+.issue-line-center {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* ================================================
+   HERO
+   ================================================ */
+.hero {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 40px 28px 0;
+}
+
+/* Hero painting — big, centered, no frame (like a true painting displayed) */
+.hero-painting {
+  position: relative;
+  margin-bottom: 60px;
+  box-shadow: 
+    0 30px 60px -20px rgba(20, 17, 12, 0.18),
+    0 60px 120px -40px rgba(20, 17, 12, 0.12);
+}
+.hero-painting img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Overlay text on painting */
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 50px 50px 40px;
+  background: linear-gradient(to top,
+    rgba(30, 26, 20, 0.85) 0%,
+    rgba(30, 26, 20, 0.65) 40%,
+    rgba(30, 26, 20, 0.2) 75%,
+    transparent 100%);
+  color: var(--paper);
+}
+.hero-overlay-inner {
+  max-width: 860px;
+}
+.hero-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.hero-caption::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero-overlay h1 {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+  margin-bottom: 20px;
+}
+.hero-overlay h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.5;
+  color: rgba(245, 237, 224, 0.92);
+  font-weight: 400;
+  max-width: 720px;
+}
+
+/* Plate label below painting (museum-ish but not museum) */
+.painting-plate {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.painting-plate::before, .painting-plate::after {
+  content: '—';
+  margin: 0 10px;
+  color: var(--line);
+}
+
+/* ================================================
+   HERO BELOW — message + CTAs + stats
+   ================================================ */
+.hero-below {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px 90px;
+  border-bottom: 3px double var(--ink);
+}
+
+.hero-message {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 70px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 0.25em;
+  color: var(--terracotta);
+  font-weight: 500;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--terracotta);
+}
+
+.hero-headline {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.hero-headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--pine);
+}
+
+.hero-body-text {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink-2);
+  margin-bottom: 28px;
+}
+.hero-body-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero-body-text em {
+  font-style: italic;
+  color: var(--pine-deep);
+  font-weight: 500;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'Heebo', sans-serif;
+}
+.btn-arrow { transition: transform .3s; display: inline-block; }
+.btn:hover .btn-arrow { transform: translateX(-6px); }
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.btn-primary:hover { background: var(--pine-deep); border-color: var(--pine-deep); }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+/* Aside card — "the number that matters" */
+.hero-aside {
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  padding: 40px 34px;
+  position: relative;
+}
+.hero-aside::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+.hero-aside::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: 4px;
+  background: var(--terracotta);
+}
+.aside-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: var(--terracotta);
+  font-weight: 500;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.aside-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.3;
+  margin-bottom: 28px;
+  letter-spacing: -0.015em;
+}
+.aside-number {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 88px;
+  font-weight: 900;
+  color: var(--terracotta);
+  line-height: 0.9;
+  margin-bottom: 4px;
+  letter-spacing: -0.04em;
+}
+.aside-number-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.aside-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 24px 0 20px;
+}
+.aside-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.aside-row strong {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.aside-row.highlight strong { color: var(--terracotta); }
+.aside-source {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+.aside-source a { color: var(--terracotta); text-decoration: underline; font-style: normal; }
+
+/* Stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 32px 0;
+}
+.stat {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid var(--line-soft);
+}
+.stat:last-child { border-right: none; }
+.stat-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.stat-value {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.stat-value.terracotta { color: var(--terracotta); }
+.stat-value.pine { color: var(--pine); }
+.stat-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ================================================
+   ORNAMENT between sections
+   ================================================ */
+.ornament {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--gold);
+  font-size: 16px;
+  letter-spacing: 1em;
+}
+
+/* ================================================
+   SECTION 2 — WHY PAY ("Why Pay?!")
+   ================================================ */
+.whypay {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 100px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Giant "?" in background */
+.whypay::before {
+  content: '?';
+  position: absolute;
+  top: -80px;
+  left: -40px;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 560px;
+  font-weight: 900;
+  color: rgba(245, 237, 224, 0.03);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.whypay-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section header */
+.whypay-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  padding-bottom: 24px;
+  border-bottom: 3px double rgba(245, 237, 224, 0.22);
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.whypay-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.whypay-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  flex: 1 1 auto;
+  text-align: center;
+  color: var(--paper);
+}
+.whypay-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.whypay-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(245, 237, 224, 0.5);
+}
+
+/* Main layout: painting + quote side by side */
+.whypay-lead {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+.whypay-painting {
+  position: relative;
+  box-shadow: 
+    0 30px 60px -20px rgba(0, 0, 0, 0.5),
+    0 60px 120px -40px rgba(0, 0, 0, 0.3);
+}
+.whypay-painting img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.whypay-painting-caption {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(20, 17, 12, 0.85);
+  color: var(--gold);
+  padding: 10px 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(4px);
+}
+
+.whypay-quote {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--paper);
+  position: relative;
+  padding: 0 20px;
+}
+.whypay-quote .accent {
+  color: var(--gold);
+  font-style: italic;
+  font-weight: 300;
+}
+.whypay-quote-mark {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 140px;
+  color: var(--gold);
+  line-height: 0.5;
+  opacity: 0.4;
+  display: block;
+  margin-bottom: -10px;
+  height: 50px;
+}
+.whypay-quote-attribution {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(245, 237, 224, 0.2);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(245, 237, 224, 0.65);
+  letter-spacing: 0.08em;
+}
+
+/* 4 biases grid */
+.biases-intro {
+  max-width: 720px;
+  margin: 0 auto 50px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-style: italic;
+  line-height: 1.5;
+  color: rgba(245, 237, 224, 0.8);
+}
+.biases-intro strong { color: var(--gold); font-style: normal; font-weight: 600; }
+
+.biases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid rgba(245, 237, 224, 0.2);
+}
+.bias-cell {
+  padding: 40px 28px;
+  border-right: 1px solid rgba(245, 237, 224, 0.2);
+  position: relative;
+  transition: background .4s;
+}
+.bias-cell:last-child { border-right: none; }
+.bias-cell:hover { background: rgba(184, 144, 74, 0.06); }
+.bias-num {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.04em;
+  opacity: 0.9;
+}
+.bias-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--paper);
+}
+.bias-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.bias-desc {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(245, 237, 224, 0.75);
+}
+
+/* Law conclusion box */
+.whypay-law {
+  margin-top: 64px;
+  padding: 44px 48px;
+  border: 2px solid var(--gold);
+  background: rgba(184, 144, 74, 0.06);
+  position: relative;
+}
+.whypay-law::before {
+  content: '§';
+  position: absolute;
+  top: -24px;
+  right: 40px;
+  background: var(--ink);
+  color: var(--gold);
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 36px;
+  font-weight: 900;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+}
+.whypay-law-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.whypay-law-text {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: clamp(20px, 2.3vw, 28px);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--paper);
+}
+.whypay-law-text strong { color: var(--gold); font-weight: 700; }
+.whypay-law-text em { font-style: italic; color: var(--gold); }
+.whypay-law-source {
+  margin-top: 22px;
+  font-size: 13.5px;
+  color: rgba(245, 237, 224, 0.6);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+}
+.whypay-law-source a { color: var(--gold); text-decoration: underline; }
+
+/* Section responsive */
+@media (max-width: 980px) {
+  .whypay-lead { grid-template-columns: 1fr; gap: 40px; }
+  .whypay-quote { padding: 0; }
+  .biases-grid { grid-template-columns: 1fr 1fr; }
+  .bias-cell:nth-child(2) { border-right: none; }
+  .bias-cell:nth-child(1), .bias-cell:nth-child(2) {
+    border-bottom: 1px solid rgba(245, 237, 224, 0.2);
+  }
+}
+@media (max-width: 600px) {
+  .whypay { padding: 60px 0 80px; }
+  .whypay-header { flex-direction: column; align-items: flex-start; }
+  .whypay-painting-caption { font-size: 11px; padding: 6px 12px; bottom: 10px; right: 10px; }
+  .biases-grid { grid-template-columns: 1fr; }
+  .bias-cell { border-right: none; border-bottom: 1px solid rgba(245, 237, 224, 0.2); padding: 32px 22px; }
+  .bias-cell:last-child { border-bottom: none; }
+  .whypay-law { padding: 32px 24px; }
+  .whypay-law::before { width: 40px; height: 40px; font-size: 28px; top: -20px; }
+}
+
+/* ================================================
+   GLOBAL RESPONSIVE
+   ================================================ */
+  .nav-links { display: none; }
+  .hero-overlay { padding: 30px 28px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 28px 0; }
+  .hero-stats .stat:nth-child(2) { border-right: none; }
+  .hero-stats .stat:nth-child(3),
+  .hero-stats .stat:nth-child(4) {
+    border-top: 1px solid var(--line-soft);
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero { padding: 24px 16px 0; }
+  .hero-below { padding: 0 16px 60px; }
+  .masthead-line { padding: 16px 16px 0; }
+  .issue-line { font-size: 12px; justify-content: center; text-align: center; gap: 8px; }
+  .hero-overlay { padding: 24px 20px 20px; }
+  .hero-overlay h1 { font-size: 28px; }
+  .hero-tagline { font-size: 15px; }
+  .hero-caption { font-size: 11px; margin-bottom: 12px; }
+  .hero-aside { padding: 28px 22px; }
+  .aside-number { font-size: 68px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; padding: 22px 0; gap: 22px 0; }
+  .stat-value { font-size: 30px; }
+  .painting-plate { font-size: 12px; }
+  .nav-cta { padding: 9px 16px; font-size: 12.5px; }
+  .logo-mark { width: 40px; height: 40px; font-size: 20px; }
+  .logo-name { font-size: 22px; }
+  .logo-tag { font-size: 9px; }
+}
+
+@media (max-width: 500px) {
+  .hero-overlay h1 { font-size: 22px; }
+  .hero-tagline { font-size: 14px; }
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-meta">אחיטוב תכנון פיננסי · מאז 2010</span>
+    <div class="topbar-links">
+      <a href="tel:+972527700599">☎ 052-770-0599</a>
+      <a href="https://wa.me/972527700599">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo-wrap">
+      <div class="logo-mark">א</div>
+      <div class="logo-text">
+        <div class="logo-name">אחיטוב</div>
+        <div class="logo-tag">תכנון פיננסי אובייקטיבי</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">למה לשלם?!</a></li>
+      <li><a href="#">השירות</a></li>
+      <li><a href="#">להייטקיסטים</a></li>
+      <li><a href="#">מי אני</a></li>
+      <li><a href="#">לקוחות</a></li>
+      <li><a href="#">רובייקטיבי</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">פגישת היכרות ←</a>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<div class="masthead-line">
+  <div class="issue-line">
+    <span><strong>אחיטוב</strong> · תכנון פיננסי אובייקטיבי</span>
+    <span class="issue-line-center">פנסיה · משכנתאות · ביטוחים · חסכונות</span>
+    <span>מאז 2010</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-painting">
+    <img src="painting-01-carmel.png" alt="משפחה מביטה לאופק מרכס הכרמל">
+    <div class="hero-overlay">
+      <div class="hero-overlay-inner">
+        <div class="hero-caption">יועץ פנסיוני מורשה · 1 מתוך 100 בישראל</div>
+        <h1>
+          תכנון פיננסי.<br>
+          <em>חושבים רחוק.</em>
+        </h1>
+        <p class="hero-tagline">
+          ייעוץ הוליסטי — פנסיה, השתלמות, ביטוחים וחסכונות, כחבילה אחת. בלי עמלות, בלי קונפליקט אינטרסים. עשרות שנים קדימה, אחריות אחת.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="painting-plate">חושבים רחוק · מבט לאופק · הכרמל, 2026</div>
+</section>
+
+<!-- HERO BELOW — the message -->
+<section class="hero-below">
+  <div class="hero-message">
+    <div>
+      <div class="hero-eyebrow">ברוכים הבאים לאחיטוב</div>
+      <h2 class="hero-headline">
+        אתה מרוויח טוב.<br>
+        אבל הכסף שלך — <em>לא עובד נכון.</em>
+      </h2>
+      <p class="hero-body-text">
+        בישראל פועלים <strong>רק כ־100 יועצים פנסיוניים אובייקטיביים</strong>. מולם — 12,000 סוכני ביטוח עם אינטרסים מנוגדים לשלך. מבקר המדינה התריע על הפער הזה ב־2016, ושוב ב־2022. הפער לא הצטמצם.
+      </p>
+      <p class="hero-body-text">
+        אני פועל לפי המודל שבו <em>אתה הצד היחיד שמשלם לי</em> — כך שהאינטרס שלי הוא רק שלך. בלי עמלות מחברות ביטוח, בלי "מבצעים" מיצרנים, בלי פוליסות שמכניסות לי יותר.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#cta" class="btn btn-primary"><span>פגישת היכרות · 15 דקות</span><span class="btn-arrow">←</span></a>
+        <a href="#why" class="btn btn-secondary"><span>למה לשלם על ייעוץ?</span><span class="btn-arrow">←</span></a>
+      </div>
+    </div>
+
+    <aside class="hero-aside">
+      <div class="aside-eyebrow">הנתון שלא תשמע מהסוכן שלך</div>
+      <h3 class="aside-title">כמה יועצים פנסיוניים אובייקטיביים פועלים בישראל?</h3>
+      <div class="aside-number">100</div>
+      <div class="aside-number-sub">מול 12,000 סוכני ביטוח. יחס של 1 ל־120.</div>
+      <div class="aside-divider"></div>
+      <div class="aside-row">
+        <span>סוכני ביטוח פעילים</span>
+        <strong>12,000</strong>
+      </div>
+      <div class="aside-row highlight">
+        <span>יועצים פנסיוניים אובייקטיביים</span>
+        <strong>100</strong>
+      </div>
+      <div class="aside-source">
+        מקור: <a href="https://www.mevaker.gov.il/sites/DigitalLibrary/Documents/2016-Pension-Single.pdf" target="_blank">דוח מבקר המדינה 2016</a>, ודוח <a href="https://www.mevaker.gov.il/sites/DigitalLibrary/Documents/2022/2022.11/2022.11-307-Pension.pdf" target="_blank">ביקורת חוזרת 2022</a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-label">Est.</div>
+      <div class="stat-value">2010</div>
+      <div class="stat-desc">שנות עצמאות כיועץ</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">יועצים בארץ</div>
+      <div class="stat-value terracotta">100</div>
+      <div class="stat-desc">מול 12,000 סוכנים</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">עמלות מיצרנים</div>
+      <div class="stat-value pine">0 ₪</div>
+      <div class="stat-desc">אפס קונפליקט אינטרסים</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">רקע בנקאי</div>
+      <div class="stat-value">מזרחי</div>
+      <div class="stat-desc">ניסיון מבפנים</div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">❖ ❖ ❖</div>
+
+<!-- ================================================
+     SECTION 2 — WHY PAY ("Why Pay?!")
+     ================================================ -->
+<section class="whypay" id="why">
+  <div class="whypay-inner">
+    <div class="whypay-header">
+      <span class="whypay-eyebrow">פרק ראשון · הבעיה</span>
+      <h2 class="whypay-title">למה לשלם<em>?!</em></h2>
+      <span class="whypay-number">§ 01</span>
+    </div>
+
+    <!-- Painting + Quote side by side -->
+    <div class="whypay-lead">
+      <div class="whypay-painting">
+        <img src="painting-02-market.png" alt="משפחה בשוק בוחנת מוצרים מקרוב">
+        <div class="whypay-painting-caption">בשוק האמיתי — בודקים. בשוק הפיננסי — למה לא?</div>
+      </div>
+      <div class="whypay-quote">
+        <span class="whypay-quote-mark">"</span>
+        אני לא מצליח להבין את זה —<br>
+        איך אנשים חכמים נופלים בקביעות <span class="accent">במלכודת הזו</span>,<br>
+        ולא מבינים שאם הם לא משלמים על הארוחה —<br>
+        <span class="accent">הם כנראה המנה.</span>
+        <div class="whypay-quote-attribution">— איתן אחיטוב</div>
+      </div>
+    </div>
+
+    <!-- 4 biases -->
+    <p class="biases-intro">
+      מערכת התמריצים שבתוכה פועלים סוכני הביטוח יוצרת אצלם <strong>ארבע הטיות מובנות</strong>. לא רעות בכוונה — פשוט בלתי נמנעות.
+    </p>
+    <div class="biases-grid">
+      <div class="bias-cell">
+        <div class="bias-num">I</div>
+        <h3 class="bias-title">הטיה לטובת <em>מכירה</em></h3>
+        <p class="bias-desc">
+          אם סוכן ימליץ לקנות מוצר — הוא ירוויח. אם יאמר שלא לקנות — ממה יחיה? ליועץ אין שום קושי להמליץ לבטל מוצר. התגמול שלו מגיע ישירות מהלקוח ולא מושפע מההמלצה.
+        </p>
+      </div>
+      <div class="bias-cell">
+        <div class="bias-num">II</div>
+        <h3 class="bias-title">הטיה לטובת <em>מוצרים יקרים</em></h3>
+        <p class="bias-desc">
+          סוכן מתוגמל "נדיב" יותר על מוצרים יקרים. הטיה להמליץ על פוליסת חיסכון למשל — למרות שגמל להשקעה כמעט תמיד עדיף. כך סוכנים "דחפו" ביטוחי מנהלים גם כשהנחיתות מול קרן פנסיה הייתה ברורה.
+        </p>
+      </div>
+      <div class="bias-cell">
+        <div class="bias-num">III</div>
+        <h3 class="bias-title">הטיה לטובת <em>יצרנים נדיבים</em></h3>
+        <p class="bias-desc">
+          יצרנים מפעילים "מבצעים" לסוכנים כדי לעודד אותם למכור מוצרים ספציפיים. המלצות הסוכן מוטות לטובת מי שמשלם לו הכי טוב — לא בהכרח לטובתך.
+        </p>
+      </div>
+      <div class="bias-cell">
+        <div class="bias-num">IV</div>
+        <h3 class="bias-title">הטיה לטובת <em>פעולות מיותרות</em></h3>
+        <p class="bias-desc">
+          אם ביצוע פעולות מכניס לסוכן כסף — תהיה לו הטיה לבצע אותן. גם אם הן לא לטובתך. ליועץ אין שום תמריץ מסוג זה. הוא יתערב רק כשיש תועלת אמיתית.
+        </p>
+      </div>
+    </div>
+
+    <!-- Law conclusion -->
+    <div class="whypay-law">
+      <div class="whypay-law-label">חוק הפיקוח על שירותים פיננסיים, תשס"ה־2005</div>
+      <p class="whypay-law-text">
+        החוק מחייב את בעל הרישיון <strong>לבחור מודל</strong>: או להחזיק רישיון <em>"יועץ פנסיוני"</em> ולקבל תשלום רק מהלקוח — או להחזיק רישיון <em>"משווק"</em> ולקבל עמלות מיצרנים. <strong>אסור להיות שניהם.</strong><br>
+        החוק ברור. הבחירה שלי — ברורה.
+      </p>
+      <div class="whypay-law-source">
+        § <a href="https://fs.knesset.gov.il//16/law/16_lsr_299985.pdf" target="_blank">חוק רישוי העוסקים בייעוץ פנסיוני ובשיווק פנסיוני</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" style="color: var(--gold);">❖ ❖ ❖</div>
+
+</body>
+</html>
