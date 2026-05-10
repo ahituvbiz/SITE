@@ -3,3257 +3,1494 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אחיטוב תכנון פיננסי | יועץ פנסיוני אובייקטיבי</title>
-<meta name="description" content="תכנון פיננסי אובייקטיבי וייעוץ משכנתאות — איתן אחיטוב, יועץ פנסיוני מורשה.">
+<title>איתן אחיטוב | יועץ פנסיוני בעל רישיון משרד האוצר</title>
+<meta name="description" content="ייעוץ פנסיוני ותכנון פיננסי הוליסטי. רישיון משרד האוצר. אובייקטיבי לפי חוק. בלי קונפליקט אינטרסים.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
 
-/* ================================================
-   PALETTE — Derived from the Carmel painting
-   ================================================ */
+<style>
+/* =========================================================
+   pensya.info — Homepage Mockup v1
+   Design system: CONTEXT.md v1.5 + DESIGN_BRIEF_v3
+   ========================================================= */
+
 :root {
-  /* Paper / background — matches the cream areas of the painting */
-  --paper: #f5ede0;
-  --paper-deep: #ece2cf;
-  --paper-warm: #e6dcc5;
-  
-  /* Ink / text — warm dark brown from the tree trunks */
-  --ink: #1e1a14;
-  --ink-2: #2e281f;
-  --muted: #6b5f4d;
-  --muted-2: #938670;
-  
-  /* Lines & borders */
-  --line: #c9bc9e;
-  --line-soft: #ddd2b5;
-  
-  /* Accents — from the painting itself */
-  --pine: #3e5a3a;          /* The pine green */
-  --pine-deep: #2a3f28;
-  --sea: #6b89a0;            /* The sea blue-gray */
-  --sea-deep: #4b6578;
-  --gold: #b8904a;           /* Warm honey-gold from light */
-  --gold-deep: #8a6a2d;
-  --terracotta: #b56a4a;    /* Earth tones from the hills */
-  --cyclamen: #c9557a;       /* The pink flowers */
-  
-  --shadow-warm: 20 17 12;
+  /* Brand */
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+
+  /* Neutrals */
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+
+  /* Status */
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+
+  /* Spacing (8px base) */
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+  --s-3xl: 96px;
+
+  /* Other */
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Heebo', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  line-height: 1.75;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  font-size: 17px;
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text-1);
+  background: var(--bg-white);
   font-weight: 400;
 }
 
-.serif { font-family: 'Frank Ruhl Libre', serif; }
-.serif-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-/* ================================================
-   CANVAS TEXTURE — very subtle paper grain
-   ================================================ */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(62, 90, 58, 0.025) 0%, transparent 55%),
-    radial-gradient(circle at 85% 80%, rgba(184, 144, 74, 0.03) 0%, transparent 55%);
-  pointer-events: none;
-  z-index: 0;
-}
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: multiply;
-}
+img, svg { max-width: 100%; display: block; }
 
-main, nav, footer, header, section, div { position: relative; }
-section, header, footer, nav { z-index: 1; }
-
-/* ================================================
-   TOP BAR
-   ================================================ */
-.topbar {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 9px 0;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  z-index: 101;
-  position: relative;
-}
-.topbar-inner {
-  max-width: 1320px;
+.container {
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.topbar-meta {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  opacity: 0.85;
-  font-size: 14px;
-  letter-spacing: 0.06em;
-}
-.topbar-links { display: flex; gap: 20px; font-size: 12px; }
-.topbar a { color: var(--paper); text-decoration: none; opacity: 0.85; transition: opacity .2s; }
-.topbar a:hover { opacity: 1; color: var(--gold); }
-
-/* ================================================
-   NAV
-   ================================================ */
-nav {
-  border-bottom: 1px solid var(--line);
-  padding: 18px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(245, 237, 224, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-.nav-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-}
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  color: var(--ink);
-}
-.logo-mark {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  color: var(--ink);
-  transition: all .3s;
-}
-.logo-mark svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.logo-mark .horizon {
-  transition: stroke .3s;
-}
-.logo-wrap:hover .logo-mark { color: var(--pine-deep); }
-.logo-wrap:hover .logo-mark .horizon { stroke: var(--gold); }
-.logo-text { line-height: 1; }
-.logo-name {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-}
-.logo-tag {
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: var(--muted);
-  margin-top: 4px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-.nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
-.nav-links a {
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 14.5px;
-  font-weight: 500;
-  transition: color .2s;
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; right: 0; left: 0;
-  height: 1px;
-  background: var(--pine);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .3s;
-}
-.nav-links a:hover { color: var(--pine); }
-.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-.nav-cta {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 11px 22px;
-  font-size: 13.5px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all .25s;
-  border: 1px solid var(--ink);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-.nav-cta:hover { background: var(--pine-deep); border-color: var(--pine-deep); }
-
-/* ================================================
-   MASTHEAD LINE
-   ================================================ */
-.masthead-line {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 24px 28px 0;
-}
-.issue-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  flex-wrap: wrap;
-  gap: 12px;
-  font-style: italic;
-}
-.issue-line strong { color: var(--terracotta); font-weight: 500; font-style: normal; }
-.issue-line-center {
-  font-family: 'Heebo', sans-serif;
-  font-weight: 500;
-  color: var(--ink);
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  font-style: normal;
-  text-transform: uppercase;
+  padding: 0 var(--s-md);
 }
 
-/* ================================================
-   HERO
-   ================================================ */
-.hero {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 40px 28px 0;
-}
+h1, h2, h3 { line-height: 1.25; color: var(--text-1); }
+h1 { font-size: 44px; font-weight: 700; }
+h2 { font-size: 32px; font-weight: 600; }
+h3 { font-size: 22px; font-weight: 600; }
 
-/* Hero painting — big, centered, no frame (like a true painting displayed) */
-.hero-painting {
-  position: relative;
-  margin-bottom: 60px;
-  box-shadow: 
-    0 30px 60px -20px rgba(20, 17, 12, 0.18),
-    0 60px 120px -40px rgba(20, 17, 12, 0.12);
-}
-.hero-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+section { padding: var(--s-3xl) 0; }
+section.tight { padding: var(--s-2xl) 0; }
 
-/* Overlay text on painting */
-.hero-overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  padding: 50px 50px 40px;
-  background: linear-gradient(to top,
-    rgba(30, 26, 20, 0.85) 0%,
-    rgba(30, 26, 20, 0.65) 40%,
-    rgba(30, 26, 20, 0.2) 75%,
-    transparent 100%);
-  color: var(--paper);
-}
-.hero-overlay-inner {
-  max-width: 860px;
-}
-.hero-caption {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  margin-bottom: 18px;
-  text-transform: uppercase;
-}
-.hero-caption::before {
-  content: '';
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-}
-.hero-overlay h1 {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(36px, 5vw, 68px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.025em;
-  color: var(--paper);
-  margin-bottom: 20px;
-}
-.hero-overlay h1 em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold);
-}
-.hero-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(18px, 1.8vw, 24px);
-  line-height: 1.5;
-  color: rgba(245, 237, 224, 0.92);
-  font-weight: 400;
-  max-width: 720px;
-}
-
-/* Plate label below painting (museum-ish but not museum) */
-.painting-plate {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 60px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-}
-.painting-plate::before, .painting-plate::after {
-  content: '—';
-  margin: 0 10px;
-  color: var(--line);
-}
-
-/* ================================================
-   HERO BELOW — message + CTAs + stats
-   ================================================ */
-.hero-below {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px 90px;
-  border-bottom: 3px double var(--ink);
-}
-
-.hero-message {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 70px;
-  align-items: start;
-  max-width: 1200px;
-  margin: 0 auto 60px;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  font-style: italic;
-  letter-spacing: 0.25em;
-  color: var(--terracotta);
-  font-weight: 500;
-  margin-bottom: 24px;
-  text-transform: uppercase;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--terracotta);
-}
-
-.hero-headline {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 28px;
-}
-.hero-headline em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-
-.hero-body-text {
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink-2);
-  margin-bottom: 28px;
-}
-.hero-body-text strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-.hero-body-text em {
-  font-style: italic;
-  color: var(--pine-deep);
-  font-weight: 500;
-}
-
-.hero-cta-row {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px 28px;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-  border: 1px solid transparent;
+  gap: var(--s-xs);
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
   cursor: pointer;
-  font-family: 'Heebo', sans-serif;
+  transition: background .15s, transform .15s;
+  text-decoration: none !important;
+  font-family: inherit;
 }
-.btn-arrow { transition: transform .3s; display: inline-block; }
-.btn:hover .btn-arrow { transform: translateX(-6px); }
-.btn-primary {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
-}
-.btn-primary:hover { background: var(--pine-deep); border-color: var(--pine-deep); }
-.btn-secondary {
-  background: transparent;
-  color: var(--ink);
-  border-color: var(--ink);
-}
-.btn-secondary:hover { background: var(--ink); color: var(--paper); }
-
-/* Inverse button for dark backgrounds */
-.btn-inverse {
-  background: var(--paper);
-  color: var(--ink);
-  border-color: var(--paper);
-}
-.btn-inverse:hover {
-  background: #8fb28a;
-  border-color: #8fb28a;
-  color: var(--ink);
-}
-
-/* Aside card — "the number that matters" */
-.hero-aside {
-  background: var(--paper-warm);
-  border: 1px solid var(--line);
-  padding: 40px 34px;
-  position: relative;
-}
-.hero-aside::before {
-  content: '';
-  position: absolute;
-  top: -6px; left: -6px; right: -6px; bottom: -6px;
-  border: 1px solid var(--line-soft);
-  pointer-events: none;
-}
-.hero-aside::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; left: 0;
-  height: 4px;
-  background: var(--terracotta);
-}
-.aside-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  color: var(--terracotta);
-  font-weight: 500;
-  margin-bottom: 14px;
-  text-transform: uppercase;
-}
-.aside-title {
-  font-family: 'Frank Ruhl Libre', serif;
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+.btn-link {
+  color: var(--primary);
   font-weight: 700;
-  color: var(--ink);
-  font-size: 19px;
-  line-height: 1.3;
-  margin-bottom: 28px;
-  letter-spacing: -0.015em;
-}
-.aside-number {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 88px;
-  font-weight: 900;
-  color: var(--terracotta);
-  line-height: 0.9;
-  margin-bottom: 4px;
-  letter-spacing: -0.04em;
-}
-.aside-number-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-.aside-divider {
-  height: 1px;
-  background: var(--line);
-  margin: 24px 0 20px;
-}
-.aside-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 8px 0;
-  font-size: 14px;
-  color: var(--muted);
-}
-.aside-row strong {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-}
-.aside-row.highlight strong { color: var(--terracotta); }
-.aside-source {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-}
-.aside-source a { color: var(--terracotta); text-decoration: underline; font-style: normal; }
-
-/* Stats */
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 32px 0;
-}
-.stat {
-  text-align: center;
-  padding: 0 20px;
-  border-right: 1px solid var(--line-soft);
-}
-.stat:last-child { border-right: none; }
-.stat-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-  margin-bottom: 10px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-.stat-value {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 42px;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 8px;
-  color: var(--ink);
-}
-.stat-value.terracotta { color: var(--terracotta); }
-.stat-value.pine { color: var(--pine); }
-.stat-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-/* ================================================
-   ORNAMENT between sections
-   ================================================ */
-.ornament {
-  text-align: center;
-  padding: 40px 0;
-  color: var(--gold);
-  font-size: 16px;
-  letter-spacing: 1em;
-}
-
-/* ================================================
-   SECTION SIGNPOST — "Which are you?"
-   3 cards for Hi-tech / Self-employed / Mortgage
-   ================================================ */
-.signpost {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 80px 28px 100px;
-}
-.signpost-head {
-  text-align: center;
-  max-width: 820px;
-  margin: 0 auto 60px;
-}
-.signpost-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--pine);
-  font-weight: 500;
-  margin-bottom: 22px;
-  text-transform: uppercase;
-}
-.signpost-eyebrow::before, .signpost-eyebrow::after {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--pine);
-}
-.signpost-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 18px;
-}
-.signpost-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-.signpost-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(18px, 1.8vw, 22px);
-  line-height: 1.55;
-  color: var(--muted);
-}
-
-.signpost-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-.path-card {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  transition: all .4s cubic-bezier(.4,0,.2,1);
-  position: relative;
-  overflow: hidden;
-}
-.path-card::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; left: 0;
-  height: 3px;
-  background: var(--pine);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .4s;
-}
-.path-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -15px rgba(20, 17, 12, 0.2);
-  border-color: var(--ink);
-}
-.path-card:hover::before { transform: scaleX(1); transform-origin: left; }
-
-.path-card-image {
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  position: relative;
-  background: var(--paper-warm);
-}
-.path-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
-}
-.path-card:hover .path-card-image img { transform: scale(1.04); }
-
-.path-card-body {
-  padding: 32px 30px 30px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.path-card-tag {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: var(--terracotta);
-  font-weight: 500;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-.path-card-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 32px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-.path-card-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-.path-card-pain {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 18px;
-  line-height: 1.45;
-  color: var(--ink-2);
-  margin-bottom: 22px;
-  font-weight: 400;
-  flex: 1;
-}
-.path-card-pain strong {
-  color: var(--terracotta);
-  font-weight: 700;
-}
-.path-card-cta {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line-soft);
-  transition: color .3s;
-}
-.path-card-cta-arrow { transition: transform .3s; }
-.path-card:hover .path-card-cta { color: var(--pine); }
-.path-card:hover .path-card-cta-arrow { transform: translateX(-6px); }
-
-@media (max-width: 980px) {
-  .signpost-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
-  .signpost { padding: 60px 20px 70px; }
-}
-@media (max-width: 600px) {
-  .path-card-body { padding: 24px 22px 22px; }
-  .path-card-title { font-size: 28px; }
-  .path-card-pain { font-size: 16px; }
-  .signpost-head { margin-bottom: 40px; }
-}
-
-/* ================================================
-   SECTION PLANNING — "Financial Planning" (the service)
-   ================================================ */
-.planning {
-  background: var(--paper);
-  padding: 120px 0;
-  position: relative;
-}
-.planning::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(ellipse at 20% 30%, rgba(62, 90, 58, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(184, 144, 74, 0.04) 0%, transparent 50%);
-  pointer-events: none;
-}
-.planning-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.planning-header {
-  text-align: center;
-  margin-bottom: 70px;
-  padding-bottom: 24px;
-  border-bottom: 3px double var(--ink);
-}
-.planning-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--terracotta);
-  font-weight: 500;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.planning-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(40px, 5.5vw, 76px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  flex: 1 1 auto;
-  text-align: center;
-  color: var(--ink);
-}
-.planning-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-.planning-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: var(--muted);
-}
-.planning-painting {
-  position: relative;
-  margin-bottom: 80px;
-  box-shadow: 
-    0 30px 60px -20px rgba(20, 17, 12, 0.15),
-    0 60px 120px -40px rgba(20, 17, 12, 0.1);
-}
-.planning-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.planning-painting-caption {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  background: rgba(20, 17, 12, 0.82);
-  color: var(--gold);
-  padding: 12px 22px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  backdrop-filter: blur(4px);
-  max-width: 460px;
-}
-.planning-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
-  margin-bottom: 80px;
-  align-items: start;
-}
-.planning-lead {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(24px, 2.6vw, 34px);
-  line-height: 1.35;
-  font-weight: 400;
-  color: var(--ink);
-  letter-spacing: -0.015em;
-}
-.planning-lead em {
-  font-style: italic;
-  color: var(--pine);
-  font-weight: 300;
-}
-.planning-lead strong {
-  font-weight: 700;
-}
-.planning-body {
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink-2);
-}
-.planning-body p {
-  margin-bottom: 22px;
-}
-.planning-body p:last-child { margin-bottom: 0; }
-.planning-body strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-.planning-body em {
-  font-style: italic;
-  color: var(--terracotta);
-  font-weight: 500;
-}
-.planning-includes {
-  margin-top: 28px;
-  padding: 28px 32px;
-  border-right: 3px solid var(--pine);
-  background: rgba(62, 90, 58, 0.04);
-}
-.planning-includes-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.22em;
-  color: var(--pine);
-  font-weight: 500;
-  margin-bottom: 14px;
-  text-transform: uppercase;
-}
-.planning-includes-list {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 19px;
-  line-height: 1.6;
-  color: var(--ink);
-  font-weight: 400;
-}
-.planning-includes-list strong {
-  font-weight: 700;
-}
-.planning-principle {
-  margin-top: 20px;
-  padding: 50px 60px;
-  background: var(--ink);
-  color: var(--paper);
-  text-align: center;
-  position: relative;
-}
-.planning-principle::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; left: 0;
-  height: 4px;
-  background: var(--gold);
-}
-.planning-principle-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  margin-bottom: 22px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-.planning-principle-text {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(22px, 2.6vw, 32px);
-  line-height: 1.45;
-  font-weight: 400;
-  max-width: 820px;
-  margin: 0 auto;
-}
-.planning-principle-text strong {
-  color: var(--gold);
-  font-weight: 700;
-}
-.planning-principle-text em {
-  font-style: italic;
-  font-weight: 300;
-}
-@media (max-width: 980px) {
-  .planning-content { grid-template-columns: 1fr; gap: 40px; }
-  .planning-header { flex-direction: column; align-items: flex-start; }
-  .planning-header .planning-title { text-align: right; }
-  .planning-principle { padding: 36px 28px; }
-}
-@media (max-width: 600px) {
-  .planning { padding: 70px 0; }
-  .planning-painting { margin-bottom: 50px; }
-  .planning-painting-caption { font-size: 12px; padding: 8px 14px; bottom: 12px; right: 12px; max-width: 280px; }
-  .planning-includes { padding: 22px 20px; }
-  .planning-includes-list { font-size: 17px; }
-}
-
-/* ================================================
-   SECTION HIGHTECH — For the tech workers
-   ================================================ */
-.hightech {
-  background: var(--paper-deep);
-  padding: 120px 0;
-  position: relative;
-  overflow: hidden;
-}
-.hightech::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -15%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(135deg, transparent 0%, rgba(107, 137, 160, 0.06) 50%, transparent 100%);
-  pointer-events: none;
-}
-.hightech-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.hightech-header {
-  text-align: center;
-  margin-bottom: 70px;
-  padding-bottom: 24px;
-  border-bottom: 3px double var(--ink);
-}
-.hightech-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--sea-deep);
-  font-weight: 500;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.hightech-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(40px, 5.5vw, 76px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  flex: 1 1 auto;
-  text-align: center;
-  color: var(--ink);
-}
-.hightech-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--sea-deep);
-}
-.hightech-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: var(--muted);
-}
-
-/* Top grid: painting + opening paragraph */
-.hightech-top {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 90px;
-}
-.hightech-painting {
-  box-shadow: 
-    0 20px 40px -15px rgba(20, 17, 12, 0.2),
-    0 40px 80px -30px rgba(20, 17, 12, 0.1);
-}
-.hightech-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.hightech-opening {
-  padding-right: 10px;
-}
-.hightech-opening-quote {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(26px, 3vw, 40px);
-  line-height: 1.3;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 28px;
-  letter-spacing: -0.02em;
-}
-.hightech-opening-quote em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--sea-deep);
-}
-.hightech-opening-body {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  line-height: 1.6;
-  font-style: italic;
-  color: var(--ink-2);
-}
-.hightech-opening-body strong { font-style: normal; font-weight: 600; color: var(--ink); }
-
-/* Compact reasons list inside opening */
-.hightech-reasons-compact {
-  list-style: none;
-  margin-top: 14px;
-  padding: 0;
-}
-.hightech-reasons-compact li {
-  padding: 12px 0;
-  padding-right: 22px;
-  border-bottom: 1px solid var(--line-soft);
-  position: relative;
-  font-family: 'Heebo', sans-serif;
-  font-size: 15.5px;
-  line-height: 1.55;
-  color: var(--ink-2);
-}
-.hightech-reasons-compact li:last-child { border-bottom: none; }
-.hightech-reasons-compact li::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 22px;
-  width: 12px;
-  height: 1px;
-  background: var(--sea-deep);
-}
-.hightech-reasons-compact li strong { color: var(--ink); font-weight: 700; }
-
-/* Centered CTA for short sections */
-.section-cta {
-  text-align: center;
-  margin-top: 30px;
-}
-.btn-wide {
-  padding: 18px 40px;
-  font-size: 16px;
-}
-
-/* ================================================
-   SECTION SELFEMPLOYED — For self-employed
-   ================================================ */
-.selfemp {
-  background: var(--paper);
-  padding: 120px 0;
-  position: relative;
-  overflow: hidden;
-}
-.selfemp::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(184, 144, 74, 0.06) 0%, transparent 60%);
-  pointer-events: none;
-}
-.selfemp::after {
-  content: '';
-  position: absolute;
-  bottom: -20%;
-  right: -10%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(181, 106, 74, 0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-.selfemp-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.selfemp-header {
-  text-align: center;
-  margin-bottom: 70px;
-  padding-bottom: 24px;
-  border-bottom: 3px double var(--ink);
-}
-.selfemp-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(40px, 5.5vw, 76px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  color: var(--ink);
-}
-.selfemp-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--terracotta);
-}
-
-/* The big number opening */
-.selfemp-hook {
-  text-align: center;
-  margin-bottom: 70px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.selfemp-hook-number {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(88px, 12vw, 180px);
-  font-weight: 900;
-  color: var(--terracotta);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  margin-bottom: 10px;
-}
-.selfemp-hook-number sup {
-  font-size: 0.35em;
-  font-weight: 500;
-  color: var(--gold-deep);
-  letter-spacing: 0;
-  vertical-align: super;
-  margin-right: 6px;
-}
-.selfemp-hook-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-  margin-bottom: 18px;
-}
-.selfemp-hook-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--terracotta);
-}
-.selfemp-hook-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(18px, 1.9vw, 22px);
-  line-height: 1.6;
-  color: var(--muted);
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-/* Bottom: painting + content */
-.selfemp-bottom {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 60px;
-}
-.selfemp-painting {
-  box-shadow: 
-    0 20px 40px -15px rgba(20, 17, 12, 0.2),
-    0 40px 80px -30px rgba(20, 17, 12, 0.1);
-}
-.selfemp-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.selfemp-content {
-  padding-right: 10px;
-}
-.selfemp-intro {
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink-2);
-  margin-bottom: 32px;
-}
-.selfemp-intro strong { color: var(--ink); font-weight: 700; }
-.selfemp-intro em { font-style: italic; color: var(--terracotta); font-weight: 500; }
-
-.selfemp-points {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 36px;
-}
-.selfemp-points li {
-  padding: 16px 0 16px 26px;
-  padding-right: 0;
-  border-bottom: 1px solid var(--line-soft);
-  position: relative;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink-2);
-}
-.selfemp-points li:last-child { border-bottom: none; }
-.selfemp-points li::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 26px;
-  width: 14px;
-  height: 2px;
-  background: var(--terracotta);
-}
-.selfemp-points li strong { color: var(--ink); font-weight: 700; }
-.selfemp-points li em { font-style: italic; color: var(--terracotta); font-weight: 500; }
-
-@media (max-width: 980px) {
-  .selfemp-bottom { grid-template-columns: 1fr; gap: 40px; }
-  .selfemp-content { padding-right: 0; }
-}
-@media (max-width: 600px) {
-  .selfemp { padding: 70px 0; }
-  .selfemp-hook { margin-bottom: 50px; }
-  .selfemp-hook-number { font-size: 80px; }
-}
-
-/* ================================================
-   SECTION MORTGAGE — Mortgage advisory
-   ================================================ */
-.mortgage {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 120px 0;
-  position: relative;
-  overflow: hidden;
-}
-.mortgage::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 20% 20%, rgba(62, 90, 58, 0.18) 0%, transparent 55%),
-              radial-gradient(ellipse at 80% 80%, rgba(62, 90, 58, 0.1) 0%, transparent 55%);
-  pointer-events: none;
-}
-.mortgage-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.mortgage-header {
-  text-align: center;
-  margin-bottom: 60px;
-  padding-bottom: 24px;
-  border-bottom: 3px double rgba(245, 237, 224, 0.22);
-}
-.mortgage-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(36px, 5vw, 68px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  color: var(--paper);
-}
-.mortgage-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-  color: #8fb28a; /* brighter pine for dark background */
-}
-
-/* Top: painting + opening statement */
-.mortgage-top {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 80px;
-}
-.mortgage-painting {
-  box-shadow: 
-    0 30px 60px -20px rgba(0, 0, 0, 0.5),
-    0 60px 120px -40px rgba(0, 0, 0, 0.3);
-}
-.mortgage-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.mortgage-statement {
-  padding-right: 10px;
-}
-.mortgage-statement-quote {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(24px, 2.8vw, 34px);
-  line-height: 1.4;
-  font-weight: 400;
-  color: var(--paper);
-  margin-bottom: 28px;
-  letter-spacing: -0.015em;
-}
-.mortgage-statement-quote em {
-  font-style: italic;
-  font-weight: 300;
-  color: #8fb28a;
-}
-.mortgage-statement-quote strong {
-  font-weight: 700;
-  color: var(--paper);
-}
-.mortgage-statement-body {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  line-height: 1.65;
-  font-style: italic;
-  color: rgba(245, 237, 224, 0.8);
-}
-
-/* Two mini-stories */
-.mortgage-stories {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-bottom: 60px;
-}
-.mortgage-story {
-  padding: 40px 36px;
-  background: rgba(245, 237, 224, 0.04);
-  border: 1px solid rgba(245, 237, 224, 0.15);
-  position: relative;
-  transition: all .35s;
-}
-.mortgage-story:hover {
-  background: rgba(245, 237, 224, 0.07);
-  border-color: #8fb28a;
-}
-.mortgage-story-tag {
-  display: inline-block;
-  padding: 5px 12px;
-  background: #8fb28a;
-  color: var(--ink);
-  font-family: 'Heebo', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  margin-bottom: 22px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.mortgage-story-name {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--paper);
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-.mortgage-story-name em {
-  font-style: italic;
-  font-weight: 300;
-  color: #8fb28a;
-}
-.mortgage-story-meta {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(245, 237, 224, 0.6);
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(245, 237, 224, 0.15);
-}
-.mortgage-story-body {
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: rgba(245, 237, 224, 0.85);
-  margin-bottom: 0;
-}
-.mortgage-story-body strong { color: var(--paper); font-weight: 700; }
-.mortgage-story-body em { font-style: italic; color: #8fb28a; }
-
-@media (max-width: 980px) {
-  .mortgage-top { grid-template-columns: 1fr; gap: 40px; }
-  .mortgage-statement { padding-right: 0; }
-  .mortgage-stories { grid-template-columns: 1fr; }
-}
-@media (max-width: 600px) {
-  .mortgage { padding: 70px 0; }
-  .mortgage-story { padding: 28px 24px; }
-}
-
-/* ================================================
-   SECTION ABOUT — Who I am
-   ================================================ */
-.about {
-  background: var(--paper);
-  padding: 120px 0;
-  position: relative;
-  overflow: hidden;
-}
-.about::before {
-  content: '';
-  position: absolute;
-  top: -15%;
-  right: -10%;
-  width: 40%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(184, 144, 74, 0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-.about-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.about-header {
-  text-align: center;
-  margin-bottom: 70px;
-  padding-bottom: 24px;
-  border-bottom: 3px double var(--ink);
-}
-.about-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(40px, 5.5vw, 76px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  color: var(--ink);
-}
-.about-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold-deep);
-}
-
-/* Top: photo + text */
-.about-top {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 70px;
-  align-items: start;
-  margin-bottom: 60px;
-}
-
-/* The photo frame */
-.about-photo {
-  position: relative;
-  padding: 14px;
-  background: var(--paper-warm);
-  border: 1px solid var(--line);
-  box-shadow: 
-    0 20px 40px -15px rgba(20, 17, 12, 0.15),
-    0 40px 80px -30px rgba(20, 17, 12, 0.08);
-}
-.about-photo::before {
-  content: '';
-  position: absolute;
-  top: -6px; right: -6px; left: -6px; bottom: -6px;
-  border: 1px solid var(--line-soft);
-  pointer-events: none;
-}
-.about-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: contrast(1.02) saturate(0.95);
-}
-.about-photo-caption {
-  margin-top: 18px;
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-}
-
-/* Text content */
-.about-text p {
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink-2);
-  margin-bottom: 22px;
-}
-.about-text p:first-child {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(22px, 2.4vw, 28px);
-  line-height: 1.4;
-  color: var(--ink);
-  font-weight: 400;
-  margin-bottom: 28px;
-  letter-spacing: -0.015em;
-}
-.about-text p strong { color: var(--ink); font-weight: 700; }
-.about-text p em { font-style: italic; color: var(--gold-deep); font-weight: 500; }
-
-.about-text .highlight-phrase {
-  display: inline-block;
-  padding: 2px 8px;
-  background: rgba(184, 144, 74, 0.15);
-  font-weight: 700;
-  color: var(--ink);
-}
-
-/* Timeline */
-.about-timeline {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-bottom: 70px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 40px 0;
-}
-.about-timeline-item {
-  text-align: center;
-  padding: 0 24px;
-  border-right: 1px solid var(--line-soft);
-}
-.about-timeline-item:last-child { border-right: none; }
-.about-timeline-year {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 42px;
-  font-weight: 900;
-  color: var(--gold-deep);
-  letter-spacing: -0.025em;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.about-timeline-year.small {
-  font-size: 28px;
-  color: var(--ink);
-  font-style: italic;
-  font-weight: 400;
-}
-.about-timeline-label {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-.about-timeline-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* Signature quote */
-.about-quote {
-  margin: 0 auto;
-  max-width: 900px;
-  padding: 60px 50px;
-  background: var(--ink);
-  color: var(--paper);
-  text-align: center;
-  position: relative;
-}
-.about-quote::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; left: 0;
-  height: 4px;
-  background: var(--gold);
-}
-.about-quote-mark {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 100px;
-  color: var(--gold);
-  line-height: 0.5;
-  display: block;
-  margin-bottom: 10px;
-  opacity: 0.6;
-  height: 40px;
-}
-.about-quote-text {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(22px, 2.8vw, 32px);
-  line-height: 1.45;
-  font-weight: 400;
-  max-width: 720px;
-  margin: 0 auto;
-}
-.about-quote-text strong { color: var(--gold); font-weight: 700; }
-.about-quote-text em { font-style: italic; font-weight: 300; color: var(--gold); }
-.about-quote-attribution {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(245, 237, 224, 0.2);
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(245, 237, 224, 0.7);
-  letter-spacing: 0.1em;
-}
-
-@media (max-width: 980px) {
-  .about-top { grid-template-columns: 1fr; gap: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
-  .about-photo { max-width: 420px; margin: 0 auto; }
-  .about-timeline { grid-template-columns: 1fr; gap: 30px 0; }
-  .about-timeline-item { border-right: none; border-bottom: 1px solid var(--line-soft); padding-bottom: 24px; }
-  .about-timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
-}
-@media (max-width: 600px) {
-  .about { padding: 70px 0; }
-  .about-quote { padding: 40px 28px; }
-  .about-timeline { padding: 28px 0; }
-}
-
-
-
-/* 3 reasons grid */
-.hightech-reasons-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(26px, 3vw, 38px);
-  font-weight: 700;
-  line-height: 1.15;
-  text-align: center;
-  margin-bottom: 50px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-.hightech-reasons-title em {
-  font-style: italic;
-  color: var(--sea-deep);
-  font-weight: 300;
-}
-.hightech-reasons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-bottom: 90px;
-}
-.reason {
-  padding: 40px 32px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  position: relative;
-  transition: all .35s;
-}
-.reason:hover {
-  border-color: var(--sea-deep);
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px -15px rgba(20, 17, 12, 0.15);
-}
-.reason-num {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 60px;
-  font-weight: 900;
-  color: var(--sea-deep);
-  line-height: 1;
-  margin-bottom: 24px;
-  letter-spacing: -0.04em;
-  opacity: 0.85;
-}
-.reason-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 14px;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-.reason-desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--ink-2);
-}
-.reason-desc strong { color: var(--ink); font-weight: 600; }
-
-/* Case study box */
-.case-study {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  padding: 56px 60px;
-  position: relative;
-}
-.case-study::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0;
-  width: 6px;
-  background: var(--sea-deep);
-}
-.case-study-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  letter-spacing: 0.28em;
-  color: var(--sea-deep);
-  font-weight: 500;
-  margin-bottom: 18px;
-  text-transform: uppercase;
-}
-.case-study-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 14px;
-}
-.case-study-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--sea-deep);
-}
-.case-study-meta {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--muted);
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
-}
-.case-study-body {
-  font-size: 17px;
-  line-height: 1.85;
-  color: var(--ink-2);
-}
-.case-study-body p {
-  margin-bottom: 20px;
-}
-.case-study-body p:last-child { margin-bottom: 0; }
-.case-study-body strong {
-  color: var(--ink);
-  font-weight: 700;
-}
-.case-study-body em {
-  font-style: italic;
-  color: var(--sea-deep);
-}
-
-.case-study-numbers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 32px 0;
-  padding: 28px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.case-study-number {
-  text-align: center;
-  padding: 0 16px;
-  border-right: 1px solid var(--line-soft);
-}
-.case-study-number:first-child { border-right: 1px solid var(--line-soft); }
-.case-study-number:last-child { border-right: none; }
-.case-study-number-value {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 36px;
-  font-weight: 900;
-  letter-spacing: -0.025em;
-  line-height: 1;
-  color: var(--sea-deep);
-  margin-bottom: 6px;
-}
-.case-study-number-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.case-study-conclusion {
-  margin-top: 28px;
-  padding: 24px 28px;
-  background: rgba(107, 137, 160, 0.08);
-  border-right: 3px solid var(--sea-deep);
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--ink);
-  font-style: italic;
-}
-
-/* CTA block */
-.hightech-cta {
-  margin-top: 70px;
-  text-align: center;
-  padding: 50px 40px;
-  border-top: 3px double var(--ink);
-  border-bottom: 3px double var(--ink);
-}
-.hightech-cta-pre {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 18px;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-.hightech-cta-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 28px;
-  letter-spacing: -0.02em;
-}
-.hightech-cta-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--sea-deep);
-}
-
-@media (max-width: 980px) {
-  .hightech-top { grid-template-columns: 1fr; gap: 40px; }
-  .hightech-reasons { grid-template-columns: 1fr; }
-  .hightech-header { flex-direction: column; align-items: flex-start; }
-  .hightech-header .hightech-title { text-align: right; }
-  .case-study { padding: 40px 32px; }
-  .case-study-numbers { grid-template-columns: 1fr; gap: 24px 0; }
-  .case-study-number { border-right: none; border-bottom: 1px solid var(--line-soft); padding-bottom: 20px; }
-  .case-study-number:last-child { border-bottom: none; padding-bottom: 0; }
-}
-@media (max-width: 600px) {
-  .hightech { padding: 70px 0; }
-  .case-study { padding: 30px 22px; }
-  .case-study-number-value { font-size: 28px; }
-  .hightech-cta { padding: 36px 24px; }
-}
-
-
-.whypay {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 100px 0 120px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Giant "?" in background */
-.whypay::before {
-  content: '?';
-  position: absolute;
-  top: -80px;
-  left: -40px;
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 560px;
-  font-weight: 900;
-  color: rgba(245, 237, 224, 0.03);
-  line-height: 1;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.whypay-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Section header */
-.whypay-header {
-  text-align: center;
-  margin-bottom: 56px;
-  padding-bottom: 24px;
-  border-bottom: 3px double rgba(245, 237, 224, 0.22);
-}
-.whypay-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--gold);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-.whypay-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(40px, 5.5vw, 80px);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  flex: 1 1 auto;
-  text-align: center;
-  color: var(--paper);
-}
-.whypay-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold);
-}
-.whypay-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: rgba(245, 237, 224, 0.5);
-}
-
-/* Main layout: painting + quote side by side */
-.whypay-lead {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 80px;
-}
-.whypay-painting {
-  position: relative;
-  box-shadow: 
-    0 30px 60px -20px rgba(0, 0, 0, 0.5),
-    0 60px 120px -40px rgba(0, 0, 0, 0.3);
-}
-.whypay-painting img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.whypay-painting-caption {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(20, 17, 12, 0.85);
-  color: var(--gold);
-  padding: 10px 18px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  backdrop-filter: blur(4px);
-}
-
-.whypay-quote {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(26px, 3vw, 42px);
-  line-height: 1.35;
-  font-weight: 400;
-  color: var(--paper);
-  position: relative;
-  padding: 0 20px;
-}
-.whypay-quote .accent {
-  color: var(--gold);
-  font-style: italic;
-  font-weight: 300;
-}
-.whypay-quote-mark {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 140px;
-  color: var(--gold);
-  line-height: 0.5;
-  opacity: 0.4;
-  display: block;
-  margin-bottom: -10px;
-  height: 50px;
-}
-.whypay-quote-attribution {
-  margin-top: 32px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(245, 237, 224, 0.2);
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(245, 237, 224, 0.65);
-  letter-spacing: 0.08em;
-}
-
-/* 4 biases grid */
-.biases-intro {
-  max-width: 720px;
-  margin: 0 auto 50px;
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(18px, 1.8vw, 22px);
-  font-style: italic;
-  line-height: 1.5;
-  color: rgba(245, 237, 224, 0.8);
-}
-.biases-intro strong { color: var(--gold); font-style: normal; font-weight: 600; }
-
-.biases-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border: 1px solid rgba(245, 237, 224, 0.2);
-}
-.bias-cell {
-  padding: 40px 28px;
-  border-right: 1px solid rgba(245, 237, 224, 0.2);
-  position: relative;
-  transition: background .4s;
-}
-.bias-cell:last-child { border-right: none; }
-.bias-cell:hover { background: rgba(184, 144, 74, 0.06); }
-.bias-num {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 56px;
-  font-weight: 900;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 24px;
-  letter-spacing: -0.04em;
-  opacity: 0.9;
-}
-.bias-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 14px;
-  color: var(--paper);
-}
-.bias-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold);
-}
-.bias-desc {
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: rgba(245, 237, 224, 0.75);
-}
-
-/* Law conclusion box */
-.whypay-law {
-  margin-top: 64px;
-  padding: 44px 48px;
-  border: 2px solid var(--gold);
-  background: rgba(184, 144, 74, 0.06);
-  position: relative;
-}
-.whypay-law::before {
-  content: '§';
-  position: absolute;
-  top: -24px;
-  right: 40px;
-  background: var(--ink);
-  color: var(--gold);
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 36px;
-  font-weight: 900;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-}
-.whypay-law-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  margin-bottom: 18px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-.whypay-law-text {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(20px, 2.3vw, 28px);
-  line-height: 1.55;
-  font-weight: 400;
-  color: var(--paper);
-}
-.whypay-law-text strong { color: var(--gold); font-weight: 700; }
-.whypay-law-text em { font-style: italic; color: var(--gold); }
-.whypay-law-source {
-  margin-top: 22px;
-  font-size: 13.5px;
-  color: rgba(245, 237, 224, 0.6);
-  font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-}
-.whypay-law-source a { color: var(--gold); text-decoration: underline; }
-
-/* ================================================
-   HOMEPAGE — "What I offer" combined section
-   ================================================ */
-.offer {
-  background: var(--paper);
-  padding: 120px 0;
-  position: relative;
-}
-.offer-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-}
-
-/* Top — services label */
-.offer-subheader {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.offer-subheader-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--pine);
-  font-weight: 500;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-}
-.offer-subheader-eyebrow::before, .offer-subheader-eyebrow::after {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--pine);
-}
-.offer-subheader-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(32px, 4.5vw, 56px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-}
-.offer-subheader-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-
-/* 2 Services grid */
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 90px;
-}
-.service-card {
-  background: var(--paper-deep);
-  border: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  transition: all .4s cubic-bezier(.4,0,.2,1);
-  position: relative;
-  overflow: hidden;
-}
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; left: 0;
-  height: 4px;
-  background: var(--pine);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .4s;
-}
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -15px rgba(20, 17, 12, 0.2);
-  border-color: var(--ink);
-}
-.service-card:hover::before { transform: scaleX(1); transform-origin: left; }
-.service-card-image {
-  width: 100%;
-  aspect-ratio: 16/10;
-  overflow: hidden;
-  position: relative;
-  background: var(--paper-warm);
-}
-.service-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
-}
-.service-card:hover .service-card-image img { transform: scale(1.04); }
-.service-card-body {
-  padding: 36px 36px 32px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.service-card-tag {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: var(--terracotta);
-  font-weight: 500;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-.service-card-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 36px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 18px;
-}
-.service-card-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--pine);
-}
-.service-card-desc {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 19px;
-  line-height: 1.5;
-  color: var(--ink-2);
-  margin-bottom: 26px;
-  font-weight: 400;
-  flex: 1;
-}
-.service-card-desc strong { color: var(--ink); font-weight: 700; }
-.service-card-cta {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line-soft);
-  transition: color .3s;
-}
-.service-card:hover .service-card-cta { color: var(--pine); }
-.service-card-cta-arrow { transition: transform .3s; }
-.service-card:hover .service-card-cta-arrow { transform: translateX(-6px); }
-
-/* Divider */
-.offer-divider {
-  text-align: center;
-  margin-bottom: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--line);
-}
-.offer-divider-text {
-  display: inline-block;
-  transform: translateY(-14px);
-  background: var(--paper);
-  padding: 0 24px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-}
-
-/* Audiences grid — 3 small cards */
-.audiences-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(26px, 3.3vw, 42px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  text-align: center;
-  margin-bottom: 14px;
-}
-.audiences-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--terracotta);
-}
-.audiences-sub {
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 18px;
-  color: var(--muted);
-  margin-bottom: 44px;
-}
-.audiences-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.audience-card {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  transition: all .35s;
-  position: relative;
-  overflow: hidden;
-}
-.audience-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--terracotta);
-  box-shadow: 0 16px 32px -12px rgba(20, 17, 12, 0.15);
-}
-.audience-card-image {
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--paper-warm);
-}
-.audience-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .6s;
-}
-.audience-card:hover .audience-card-image img { transform: scale(1.05); }
-.audience-card-body {
-  padding: 24px 24px 22px;
-}
-.audience-card-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 10px;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-.audience-card-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--terracotta);
-}
-.audience-card-tagline {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-.audience-card-cta {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: color .3s;
 }
-.audience-card:hover .audience-card-cta { color: var(--terracotta); }
+.btn-link:hover { text-decoration: underline; }
 
-/* ================================================
-   HOMEPAGE — Final CTA
-   ================================================ */
-.final-cta {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 120px 0;
-  text-align: center;
+/* =========================================================
+   HEADER
+   ========================================================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  gap: var(--s-md);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--primary);
+  text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-2);
+  letter-spacing: 0.5px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-md);
+}
+.nav a {
+  color: var(--text-1);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 8px 4px;
+  position: relative;
+  transition: color .15s;
+}
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; right: 0;
+  width: 100%; height: 2px;
+  background: var(--cta);
+  border-radius: 2px;
+}
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  transition: transform .15s;
+}
+.whatsapp-btn:hover { transform: scale(1.06); text-decoration: none; }
+.whatsapp-btn svg { width: 22px; height: 22px; fill: #fff; }
+
+@media (max-width: 900px) {
+  .nav { display: none; }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-3xl) 0 var(--s-2xl);
   position: relative;
   overflow: hidden;
 }
-.final-cta::before {
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--s-2xl);
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: var(--s-sm);
+  border: 1px solid #cfdcea;
+}
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: var(--s-sm);
+}
+.hero h1 .accent { color: var(--primary); }
+.hero p.lead {
+  font-size: 20px;
+  color: var(--text-2);
+  margin-bottom: var(--s-lg);
+  max-width: 540px;
+}
+.hero-actions {
+  display: flex;
+  gap: var(--s-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-lg);
+}
+.trust-row {
+  display: flex;
+  gap: var(--s-md);
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.trust-item svg { width: 18px; height: 18px; color: var(--positive); }
+
+.hero-visual {
+  position: relative;
+}
+.hero-card {
+  background: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  box-shadow: 0 20px 50px rgba(31,78,121,0.12);
+  border: 1px solid var(--border);
+}
+.hero-card .stat-big {
+  font-size: 84px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+.hero-card .stat-big sup { font-size: 36px; vertical-align: super; }
+.hero-card .stat-label {
+  font-size: 17px;
+  color: var(--text-2);
+  margin-top: var(--s-sm);
+}
+.hero-card .stat-source {
+  font-size: 12px;
+  color: var(--text-meta);
+  margin-top: var(--s-md);
+  border-top: 1px dashed var(--border);
+  padding-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 34px; }
+  .hero-card .stat-big { font-size: 64px; }
+}
+
+/* =========================================================
+   STATS GRID — used twice
+   ========================================================= */
+.stats-section { background: var(--bg-cream); }
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--s-xl);
+}
+.section-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cta);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-header h2 { margin-bottom: var(--s-sm); }
+.section-header p { color: var(--text-2); font-size: 18px; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md);
+}
+.stat-card {
+  background: #fff;
+  padding: var(--s-lg);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+.stat-card.flag-bad::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 4px; height: 100%;
+  background: var(--negative);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+}
+.stat-card.flag-good::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 4px; height: 100%;
+  background: var(--positive);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+}
+.stat-num {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.stat-card.flag-bad .stat-num { color: var(--negative); }
+.stat-card.flag-good .stat-num { color: var(--positive); }
+.stat-num sup { font-size: 28px; }
+.stat-text {
+  margin-top: var(--s-sm);
+  font-size: 16px;
+  color: var(--text-1);
+  font-weight: 600;
+}
+.stat-sub {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   VIDEO SECTION
+   ========================================================= */
+.video-section { background: #fff; }
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-xl);
+  align-items: start;
+}
+.video-card { }
+.video-frame {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #1F4E79 0%, #2d6395 100%);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transition: transform .2s;
+}
+.video-frame:hover { transform: translateY(-2px); }
+.video-frame::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(184, 144, 74, 0.15) 0%, transparent 60%);
-  pointer-events: none;
+  background-image: radial-gradient(circle at 30% 70%, rgba(255,255,255,.08) 0, transparent 40%),
+                    radial-gradient(circle at 80% 20%, rgba(255,255,255,.06) 0, transparent 40%);
 }
-.final-cta-inner {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.final-cta-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  margin-bottom: 22px;
-  text-transform: uppercase;
-}
-.final-cta-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 26px;
-  color: var(--paper);
-}
-.final-cta-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold);
-}
-.final-cta-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.55;
-  color: rgba(245, 237, 224, 0.85);
-  margin-bottom: 44px;
-  max-width: 680px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.final-cta-buttons {
+.play-btn {
+  position: absolute;
+  top: 50%; right: 50%;
+  transform: translate(50%, -50%);
+  width: 76px; height: 76px;
+  background: var(--cta);
+  border-radius: 50%;
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
-}
-.final-cta-note {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(245, 237, 224, 0.6);
-  padding-top: 28px;
-  border-top: 1px solid rgba(245, 237, 224, 0.15);
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-@media (max-width: 980px) {
-  .services-grid { grid-template-columns: 1fr; gap: 24px; }
-  .audiences-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-}
-@media (max-width: 600px) {
-  .offer, .final-cta { padding: 70px 0; }
-  .service-card-body { padding: 28px 24px 24px; }
-  .service-card-title { font-size: 30px; }
-  .service-card-desc { font-size: 17px; }
-  .final-cta-buttons { flex-direction: column; align-items: stretch; }
-  .final-cta-buttons .btn { justify-content: center; }
-}
-
-/* ================================================
-   HOMEPAGE — Tools teaser (short)
-   ================================================ */
-.tools-teaser {
-  background: var(--paper-deep);
-  padding: 80px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.tools-teaser-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 28px;
-  text-align: center;
-}
-.tools-teaser-eyebrow {
-  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  letter-spacing: 0.28em;
-  color: var(--gold-deep);
-  font-weight: 500;
-  margin-bottom: 14px;
-  text-transform: uppercase;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(215,78,60,0.4);
+  z-index: 2;
 }
-.tools-teaser-eyebrow::before, .tools-teaser-eyebrow::after {
+.play-btn svg {
+  width: 28px; height: 28px;
+  fill: #fff;
+  margin-right: -4px;
+}
+.video-overlay-text {
+  position: absolute;
+  top: var(--s-md); right: var(--s-md);
+  color: rgba(255,255,255,0.9);
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 2;
+  background: rgba(0,0,0,0.25);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.video-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: var(--s-md) 0 8px;
+}
+.video-desc {
+  color: var(--text-2);
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   AUDIENCE SPLIT (שכירים / עצמאים)
+   ========================================================= */
+.audience-section {
+  background: linear-gradient(180deg, #fff 0%, var(--bg-cream) 100%);
+}
+.audience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+}
+.audience-card {
+  background: #fff;
+  padding: var(--s-xl);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow .2s, transform .2s;
+}
+.audience-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+.audience-icon {
+  width: 64px; height: 64px;
+  background: var(--primary-soft);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: var(--s-md);
+}
+.audience-icon svg { width: 32px; height: 32px; }
+.audience-card h3 { margin-bottom: var(--s-sm); }
+.audience-card ul {
+  list-style: none;
+  margin: var(--s-md) 0 var(--s-lg);
+}
+.audience-card li {
+  padding: 6px 0;
+  padding-right: 24px;
+  position: relative;
+  color: var(--text-2);
+  font-size: 16px;
+}
+.audience-card li::before {
   content: '';
-  width: 34px;
-  height: 1px;
-  background: var(--gold-deep);
+  position: absolute;
+  right: 0; top: 14px;
+  width: 8px; height: 8px;
+  background: var(--cta);
+  border-radius: 50%;
 }
-.tools-teaser-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(26px, 3.2vw, 38px);
+
+@media (max-width: 900px) {
+  .audience-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   FINANCIAL MIRROR QUIZ
+   ========================================================= */
+.quiz-section {
+  background: var(--primary);
+  color: #fff;
+}
+.quiz-section .section-header h2 { color: #fff; }
+.quiz-section .section-header p { color: rgba(255,255,255,0.85); }
+.quiz-section .section-eyebrow { color: #FFB098; }
+
+.quiz-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--s-xl);
+  color: var(--text-1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+.quiz-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s-md);
+  font-size: 14px;
+  color: var(--text-meta);
+}
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  margin-right: var(--s-sm);
+  overflow: hidden;
+}
+.progress-bar > div {
+  height: 100%;
+  background: var(--cta);
+  border-radius: 3px;
+  transition: width .3s ease;
+}
+.quiz-question {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: var(--s-md);
+  min-height: 60px;
+}
+.quiz-answers {
+  display: grid;
+  gap: 12px;
+}
+.quiz-answer {
+  background: var(--bg-cream);
+  border: 1.5px solid var(--border);
+  padding: 14px 18px;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: all .15s;
+  font-size: 16px;
+  text-align: right;
+  font-family: inherit;
+  color: var(--text-1);
+}
+.quiz-answer:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.quiz-result {
+  text-align: center;
+  display: none;
+}
+.quiz-result.active { display: block; }
+.quiz-result .score {
+  font-size: 64px;
   font-weight: 700;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+  color: var(--primary);
+  line-height: 1;
+  margin: var(--s-md) 0;
 }
-.tools-teaser-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold-deep);
-}
-.tools-teaser-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 17px;
-  color: var(--muted);
-  margin-bottom: 48px;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.quiz-result h3 { margin-bottom: var(--s-sm); }
+.quiz-result p { color: var(--text-2); margin-bottom: var(--s-lg); }
+
+/* =========================================================
+   TOOLS / KIT
+   ========================================================= */
+.tools-section { background: var(--bg-white); }
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
+  gap: var(--s-md);
 }
 .tool-card {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  padding: 32px 24px;
-  text-decoration: none;
-  color: inherit;
-  transition: all .3s;
+  background: var(--bg-cream);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  border: 1px solid transparent;
+  transition: all .2s;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
 }
 .tool-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -12px rgba(20, 17, 12, 0.12);
+  background: #fff;
+  border-color: var(--border);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
 }
-.tool-card-icon {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 18px;
-  color: var(--gold-deep);
-  transition: color .3s;
+.tool-card.featured {
+  background: linear-gradient(135deg, var(--primary) 0%, #2d6395 100%);
+  color: #fff;
 }
-.tool-card:hover .tool-card-icon { color: var(--terracotta); }
-.tool-card-icon svg { width: 100%; height: 100%; }
-.tool-card-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: -0.015em;
+.tool-card.featured h3, .tool-card.featured .tool-meta { color: #fff; }
+.tool-card.featured .tool-icon-box { background: rgba(255,255,255,0.15); color: #fff; }
+.tool-card.featured .tool-link { color: #fff; }
+.tool-card.featured p { color: rgba(255,255,255,0.85); }
+.tool-icon-box {
+  width: 56px; height: 56px;
+  background: var(--primary-soft);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: var(--s-md);
+  font-size: 28px;
 }
-.tool-card-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+.tool-card h3 { margin-bottom: 8px; }
+.tool-card p {
+  color: var(--text-2);
   font-size: 15px;
-  color: var(--muted);
-  line-height: 1.5;
-  margin-bottom: 16px;
+  margin-bottom: var(--s-md);
   flex: 1;
 }
-.tool-card-cta {
+.tool-meta {
   font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.02em;
+  color: var(--text-meta);
+  margin-bottom: var(--s-sm);
+}
+.tool-link {
+  font-weight: 700;
+  color: var(--primary);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line-soft);
-  transition: color .3s;
-  align-self: stretch;
-  justify-content: center;
-}
-.tool-card:hover .tool-card-cta { color: var(--gold-deep); }
-
-@media (max-width: 760px) {
-  .tools-grid { grid-template-columns: 1fr; max-width: 360px; }
+  gap: 4px;
+  margin-top: auto;
 }
 
-/* ================================================
-   FOOTER
-   ================================================ */
-footer {
-  background: var(--ink);
-  color: rgba(245, 237, 224, 0.75);
-  padding: 80px 0 28px;
-  position: relative;
-  overflow: hidden;
+@media (max-width: 900px) {
+  .tools-grid { grid-template-columns: 1fr; }
 }
-footer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 20% 30%, rgba(62, 90, 58, 0.08) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 70%, rgba(184, 144, 74, 0.06) 0%, transparent 50%);
-  pointer-events: none;
-}
-.footer-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 1;
-}
-.footer-main {
+
+/* =========================================================
+   TESTIMONIALS
+   ========================================================= */
+.testimonials-section { background: var(--bg-cream); }
+.testimonials-grid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md);
 }
-.footer-brand {
+.testimonial {
+  background: #fff;
+  padding: var(--s-lg);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.testimonial-stars {
+  color: #F5A623;
+  font-size: 18px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+.testimonial-quote {
+  font-size: 16px;
+  color: var(--text-1);
+  line-height: 1.6;
+  margin-bottom: var(--s-md);
+  min-height: 110px;
+}
+.testimonial-author {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 12px;
 }
-.footer-brand .logo-mark {
-  width: 52px;
-  height: 52px;
-  color: var(--paper);
+.author-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 16px;
 }
-.footer-brand-name {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--paper);
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-}
-.footer-brand-tag {
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  margin-top: 4px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-.footer-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(245, 237, 224, 0.7);
-  margin-bottom: 22px;
-  max-width: 340px;
-}
-.footer-license {
-  font-size: 12px;
-  line-height: 1.6;
-  color: rgba(245, 237, 224, 0.5);
-  padding-top: 16px;
-  border-top: 1px solid rgba(245, 237, 224, 0.12);
-  max-width: 340px;
+.author-info .name { font-weight: 600; font-size: 15px; }
+.author-info .role { font-size: 13px; color: var(--text-meta); }
+
+@media (max-width: 900px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .testimonial-quote { min-height: auto; }
 }
 
-footer h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12px;
-  letter-spacing: 0.28em;
-  color: var(--gold);
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-weight: 500;
+/* =========================================================
+   CONTACT CTA
+   ========================================================= */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  color: #fff;
+  padding: var(--s-3xl) 0;
+  text-align: center;
 }
-.footer-links { list-style: none; padding: 0; }
-.footer-links li { margin-bottom: 11px; }
-.footer-links a {
-  color: rgba(245, 237, 224, 0.75);
-  text-decoration: none;
-  font-size: 14.5px;
-  transition: color .2s;
+.contact-section h2 { color: #fff; font-size: 36px; margin-bottom: var(--s-sm); }
+.contact-section p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: var(--s-lg);
+  max-width: 580px;
+  margin-right: auto;
+  margin-left: auto;
 }
-.footer-links a:hover { color: var(--gold); }
+.contact-actions {
+  display: flex;
+  gap: var(--s-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.contact-actions .btn-light {
+  background: #fff;
+  color: var(--primary);
+}
+.contact-actions .btn-light:hover { background: var(--bg-cream); }
+.contact-actions .btn-outline-light {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.contact-actions .btn-outline-light:hover { background: rgba(255,255,255,0.08); }
 
-.footer-contact {
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-section { background: #fff; }
+.faq-list {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item summary {
+  padding: var(--s-md) 0;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-1);
   list-style: none;
-  padding: 0;
-}
-.footer-contact li {
-  margin-bottom: 14px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(245, 237, 224, 0.8);
-}
-.footer-contact-label {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12px;
-  color: rgba(245, 237, 224, 0.5);
-  margin-bottom: 2px;
-  letter-spacing: 0.05em;
-}
-.footer-contact a {
-  color: var(--paper);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color .2s;
-}
-.footer-contact a:hover { color: var(--gold); }
-
-.footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(245, 237, 224, 0.12);
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  gap: var(--s-md);
+  transition: color .15s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--primary); }
+.faq-item summary::after {
+  content: '';
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-right: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
+  transform: rotate(45deg);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { transform: rotate(-135deg); }
+.faq-item .faq-body {
+  padding: 0 0 var(--s-md);
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: #1A1A1A;
+  color: #C9CDD3;
+  padding: var(--s-2xl) 0 var(--s-md);
+  font-size: 15px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--s-xl);
+  margin-bottom: var(--s-xl);
+}
+.footer h4 {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: var(--s-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; transition: color .15s; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p {
+  color: #9097A0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: var(--s-sm);
+  max-width: 320px;
+}
+.footer-bottom {
+  border-top: 1px solid #2A2D33;
+  padding-top: var(--s-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 13px;
-  color: rgba(245, 237, 224, 0.55);
+  color: #6E747D;
+  flex-wrap: wrap;
+  gap: var(--s-sm);
 }
-.footer-bottom a { color: rgba(245, 237, 224, 0.7); text-decoration: underline; }
-
-@media (max-width: 980px) {
-  .footer-main { grid-template-columns: 1fr 1fr; gap: 36px; }
+.license-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2A2D33;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #C9CDD3;
 }
-@media (max-width: 600px) {
-  footer { padding: 60px 0 24px; }
-  .footer-main { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
-}
+.license-badge svg { width: 14px; height: 14px; }
 
-
-
-
-@media (max-width: 600px) {
-  .whypay { padding: 60px 0 80px; }
-  .whypay-header { flex-direction: column; align-items: flex-start; }
-  .whypay-painting-caption { font-size: 11px; padding: 6px 12px; bottom: 10px; right: 10px; }
-  .biases-grid { grid-template-columns: 1fr; }
-  .bias-cell { border-right: none; border-bottom: 1px solid rgba(245, 237, 224, 0.2); padding: 32px 22px; }
-  .bias-cell:last-child { border-bottom: none; }
-  .whypay-law { padding: 32px 24px; }
-  .whypay-law::before { width: 40px; height: 40px; font-size: 28px; top: -20px; }
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); }
 }
 
-/* ================================================
-   GLOBAL RESPONSIVE
-   ================================================ */
-  .nav-links { display: none; }
-  .hero-overlay { padding: 30px 28px; }
-  .hero-stats { grid-template-columns: 1fr 1fr; gap: 28px 0; }
-  .hero-stats .stat:nth-child(2) { border-right: none; }
-  .hero-stats .stat:nth-child(3),
-  .hero-stats .stat:nth-child(4) {
-    border-top: 1px solid var(--line-soft);
-    padding-top: 28px;
-  }
+/* =========================================================
+   FLOATING WHATSAPP (mobile-friendly)
+   ========================================================= */
+.fab-whatsapp {
+  position: fixed;
+  bottom: 24px; left: 24px;
+  width: 56px; height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+  z-index: 99;
+  transition: transform .15s;
 }
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
 
-@media (max-width: 720px) {
-  .hero { padding: 24px 16px 0; }
-  .hero-below { padding: 0 16px 60px; }
-  .masthead-line { padding: 16px 16px 0; }
-  .issue-line { font-size: 12px; justify-content: center; text-align: center; gap: 8px; }
-  .hero-overlay { padding: 24px 20px 20px; }
-  .hero-overlay h1 { font-size: 28px; }
-  .hero-tagline { font-size: 15px; }
-  .hero-caption { font-size: 11px; margin-bottom: 12px; }
-  .hero-aside { padding: 28px 22px; }
-  .aside-number { font-size: 68px; }
-  .hero-stats { grid-template-columns: 1fr 1fr; padding: 22px 0; gap: 22px 0; }
-  .stat-value { font-size: 30px; }
-  .painting-plate { font-size: 12px; }
-  .nav-cta { padding: 9px 16px; font-size: 12.5px; }
-  .logo-mark { width: 40px; height: 40px; font-size: 20px; }
-  .logo-name { font-size: 22px; }
-  .logo-tag { font-size: 9px; }
-}
-
-@media (max-width: 500px) {
-  .hero-overlay h1 { font-size: 22px; }
-  .hero-tagline { font-size: 14px; }
-  .hero-cta-row { flex-direction: column; align-items: stretch; }
-  .btn { justify-content: center; }
-}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <span class="topbar-meta">אחיטוב תכנון פיננסי · מאז 2010</span>
-    <div class="topbar-links">
-      <a href="tel:+972527700599">☎ 052-770-0599</a>
-      <a href="https://wa.me/972527700599">WhatsApp</a>
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <!-- Logo SVG: balance scale + rising chart bar -->
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <!-- Balance / objectivity icon -->
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <!-- Rising bars (left) -->
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <!-- Rising bars (right) -->
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+        <!-- Base line -->
+        <path d="M5 30 L 35 30" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>
+        אחיטוב
+        <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="ראשי">
+      <a href="#" class="active">בית</a>
+      <a href="#tools">🤖 רובייקטיבי</a>
+      <a href="#audiences">שירותים</a>
+      <a href="#tools">מחשבונים</a>
+      <a href="#articles">כדאי לדעת</a>
+      <a href="#about">אודות</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-primary" style="padding:10px 20px; font-size:15px;">קבע שיחה</a>
+      <a href="https://wa.me/972000000000" class="whatsapp-btn" aria-label="פתח שיחת וואטסאפ">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
+        </svg>
+      </a>
     </div>
   </div>
-</div>
+</header>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="logo-wrap">
-      <div class="logo-mark">
-        <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Decorative outer border -->
-          <rect x="2" y="2" width="48" height="48" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-          <!-- Hebrew letter Aleph -->
-          <text x="26" y="34" text-anchor="middle" font-family="Frank Ruhl Libre, serif" font-weight="900" font-size="28" fill="currentColor">א</text>
-          <!-- Horizon line below -->
-          <line class="horizon" x1="14" y1="42" x2="38" y2="42" stroke="currentColor" stroke-width="1.2"/>
-          <!-- Small sun/dot -->
-          <circle cx="26" cy="42" r="1.4" fill="currentColor" opacity="0.7"/>
-        </svg>
-      </div>
-      <div class="logo-text">
-        <div class="logo-name">אחיטוב</div>
-        <div class="logo-tag">תכנון פיננסי · משכנתאות</div>
-      </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#why">למה לשלם?!</a></li>
-      <li><a href="#planning">תכנון פיננסי</a></li>
-      <li><a href="#mortgage">משכנתאות</a></li>
-      <li><a href="#hightech">להייטקיסטים</a></li>
-      <li><a href="#selfemployed">לעצמאים</a></li>
-      <li><a href="#about">מי אני</a></li>
-    </ul>
-    <a href="#cta" class="nav-cta">פגישת היכרות ←</a>
-  </div>
-</nav>
-
-<!-- MASTHEAD -->
-<div class="masthead-line">
-  <div class="issue-line">
-    <span><strong>אחיטוב</strong> · תכנון פיננסי אובייקטיבי</span>
-    <span class="issue-line-center">פנסיה · משכנתאות · ביטוחים · חסכונות</span>
-    <span>מאז 2010</span>
-  </div>
-</div>
-
-<!-- HERO -->
+<!-- =========================================================
+     HERO
+     ========================================================= -->
 <section class="hero">
-  <div class="hero-painting">
-    <img src="painting-01-carmel.png" alt="משפחה מביטה לאופק מרכס הכרמל">
-    <div class="hero-overlay">
-      <div class="hero-overlay-inner">
-        <h1>
-          תכנון פיננסי.<br>
-          <em>חושבים רחוק.</em>
-        </h1>
-        <p class="hero-tagline">
-          לעשרות השנים הבאות. בלי ניגוד אינטרסים.
+  <div class="container hero-grid">
+    <div>
+      <span class="hero-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L10 5.5h6l-4.8 3.5 1.8 5.5L8 11l-5 3.5 1.8-5.5L0 5.5h6L8 0z"/></svg>
+        רישיון משרד האוצר #X-XXXX
+      </span>
+      <h1>
+        תכנון פיננסי <span class="accent">בלי קונפליקט אינטרסים.</span><br>
+        כי הכסף שלך לא צריך לממן עמלות לאף אחד.
+      </h1>
+      <p class="lead">
+        אני יועץ פנסיוני בעל רישיון. לפי החוק — אסור לי לקבל עמלות מחברות הביטוח או הקרנות.
+        זה אומר דבר אחד פשוט: אני בצד שלך. לא בצד של אף אחד אחר.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">קבע שיחת היכרות 20 דקות — ללא עלות</a>
+        <a href="#mirror" class="btn btn-ghost">בדוק כמה אתה בעניינים →</a>
+      </div>
+      <div class="trust-row">
+        <span class="trust-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+          רישיון משרד האוצר
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+          ללא עמלות מהיצרנים
+        </span>
+        <span class="trust-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+          תכנון 360°: פנסיה + ביטוח + חיסכון + משכנתא
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div style="font-size:13px; color:var(--text-meta); font-weight:700; letter-spacing:1px;">
+          הסטטיסטיקה שמכאיבה
+        </div>
+        <div class="stat-big">75<sup>%</sup></div>
+        <div class="stat-label">
+          מהחוסכים בישראל <strong>אפילו לא בחרו</strong> את מסלול ההשקעה של הפנסיה שלהם.
+        </div>
+        <div class="stat-source">
+          ככה מאות אלפי שקלים נעלמים — בלי שתשים לב.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     STATS GRID #1 — סוכן vs יועץ — סטטיסטיקות מבניות
+     ========================================================= -->
+<section class="stats-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">סוכן ≠ יועץ</span>
+      <h2>הפער המבני שאף אחד לא מספר לך עליו</h2>
+      <p>לסוכן ביטוח יש אינטרס. ליועץ פנסיוני אסור שיהיה. זו לא הצהרה — זה החוק.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card flag-bad">
+        <div class="stat-num">11<sup>מיליארד ₪</sup></div>
+        <div class="stat-text">סך העמלות שמשולמות בישראל לסוכני ביטוח בכל שנה</div>
+        <div class="stat-sub">הציבור משלם — בעקיפין, מתוך החיסכון.</div>
+      </div>
+      <div class="stat-card flag-bad">
+        <div class="stat-num">~100</div>
+        <div class="stat-text">סוכני ביטוח על כל יועץ פנסיוני אחד בישראל</div>
+        <div class="stat-sub">רוב הציבור פשוט לא יודע שהיועץ קיים.</div>
+      </div>
+      <div class="stat-card flag-good">
+        <div class="stat-num">0<sup>₪</sup></div>
+        <div class="stat-text">העמלות שאני מקבל מהקרנות והביטוחים</div>
+        <div class="stat-sub">לפי חוק הייעוץ הפנסיוני — אסור לי. נקודה.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     VIDEOS — שני סרטונים
+     ========================================================= -->
+<section class="video-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">סרטונים</span>
+      <h2>שני דברים שאני רוצה שתבין לפני שאתה ממשיך</h2>
+      <p>שני סרטונים קצרים — אחד על אובייקטיביות, אחד על כמה הייעוץ באמת שווה לך.</p>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-frame">
+          <span class="video-overlay-text">סרטון 1 · 90 שניות</span>
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <h3 class="video-title">למה אתה חייב מישהו אובייקטיבי</h3>
+        <p class="video-desc">
+          ההבדל החוקי בין סוכן (עמלות), מתכנן פיננסי (אין רישיון), ויועץ פנסיוני (אסור עמלות).
+        </p>
+      </div>
+
+      <div class="video-card">
+        <div class="video-frame" style="background:linear-gradient(135deg, #2a5d8a 0%, #3d77a8 100%);">
+          <span class="video-overlay-text">סרטון 2 · 90 שניות</span>
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <h3 class="video-title">כמה הייעוץ באמת שווה לך</h3>
+        <p class="video-desc">
+          לקוח בן 38 שילם X — חסך 800,000 ₪ לאורך החיים. דוגמה אמיתית, מספרים אמיתיים.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HERO BELOW — the message -->
-<section class="hero-below">
-  <div class="hero-message">
-    <div>
-      <div class="hero-eyebrow">ברוכים הבאים לאחיטוב</div>
-      <h2 class="hero-headline">
-        אתה מרוויח טוב.<br>
-        אבל הכסף שלך — <em>לא עובד נכון.</em>
-      </h2>
-      <p class="hero-body-text">
-        ייעוץ פיננסי אובייקטיבי נשען על עיקרון אחד פשוט: <em>אתה הצד היחיד שמשלם לי.</em> אין עמלות מחברות ביטוח. אין "מבצעים" מיצרנים. אין פוליסות שמכניסות לי יותר.
-      </p>
-      <p class="hero-body-text">
-        התוצאה — <strong>האינטרס שלי הוא רק שלך</strong>. בשוק שבו הנתון הזה נדיר, זו הסיבה שלקוחות חוסכים מאות אלפי שקלים על פני עשרות שנים.
-      </p>
-      <div class="hero-cta-row">
-        <a href="#cta" class="btn btn-primary"><span>פגישת היכרות · 15 דקות</span><span class="btn-arrow">←</span></a>
-        <a href="#why" class="btn btn-secondary"><span>למה לשלם על ייעוץ?</span><span class="btn-arrow">←</span></a>
-      </div>
+<!-- =========================================================
+     STATS GRID #2 — ROI / השלכות פיננסיות
+     ========================================================= -->
+<section class="stats-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">המספרים שמדברים</span>
+      <h2>כמה כסף באמת אתה משאיר על השולחן?</h2>
+      <p>ההבדל בין ייעוץ אובייקטיבי לבין "סוכן חבר" — נמדד במאות אלפי שקלים. לא בעמלות.</p>
     </div>
-
-    <aside class="hero-aside">
-      <div class="aside-eyebrow">הנתון שלא תשמע מהסוכן שלך</div>
-      <h3 class="aside-title">כמה יועצים פנסיוניים אובייקטיביים פועלים בישראל?</h3>
-      <div class="aside-number">100</div>
-      <div class="aside-number-sub">מול 12,000 סוכני ביטוח. יחס של 1 ל־120.</div>
-      <div class="aside-divider"></div>
-      <div class="aside-row">
-        <span>סוכני ביטוח פעילים</span>
-        <strong>12,000</strong>
+    <div class="stats-grid">
+      <div class="stat-card flag-bad">
+        <div class="stat-num">~400<sup>אלף ₪</sup></div>
+        <div class="stat-text">כמה דמי ניהול גבוהים מדי "אוכלים" לאורך הקריירה</div>
+        <div class="stat-sub">חיסכון של 30 שנה × פער דמי ניהול של 0.5%.</div>
       </div>
-      <div class="aside-row highlight">
-        <span>יועצים פנסיוניים אובייקטיביים</span>
-        <strong>100</strong>
+      <div class="stat-card flag-bad">
+        <div class="stat-num">~3.4<sup>מיליון ₪</sup></div>
+        <div class="stat-text">היעד הריאלי לפנסיה של 15,000 ₪ בחודש</div>
+        <div class="stat-sub">רובנו לא מודעים לפער בין מה שיש למה שצריך.</div>
       </div>
-      <div class="aside-source">
-        מקור: <a href="https://www.mevaker.gov.il/sites/DigitalLibrary/Documents/2016-Pension-Single.pdf" target="_blank">דוח מבקר המדינה 2016</a>, ודוח <a href="https://www.mevaker.gov.il/sites/DigitalLibrary/Documents/2022/2022.11/2022.11-307-Pension.pdf" target="_blank">ביקורת חוזרת 2022</a>
+      <div class="stat-card flag-good">
+        <div class="stat-num">×50<sup>-200</sup></div>
+        <div class="stat-text">פי כמה הייעוץ משתלם — ביחס לעלות שלו</div>
+        <div class="stat-sub">פגישה אחת. עלות מוגדרת. תועלת לעשורים.</div>
       </div>
-    </aside>
-  </div>
-</section>
-
-
-<!-- ================================================
-     SECTION — "What I offer" combined (services + audiences)
-     ================================================ -->
-<section class="offer">
-  <div class="offer-inner">
-
-    <!-- 2 Services -->
-    <div class="offer-subheader">
-      <div class="offer-subheader-eyebrow">מה אני מציע</div>
-      <h2 class="offer-subheader-title">שני שירותים, <em>ראייה אחת</em></h2>
-    </div>
-
-    <div class="services-grid">
-      <!-- Financial Planning -->
-      <a href="#" class="service-card">
-        <div class="service-card-image">
-          <img src="painting-06-planning.png" alt="תכנון פיננסי">
-        </div>
-        <div class="service-card-body">
-          <div class="service-card-tag">שירות ראשי</div>
-          <h3 class="service-card-title">תכנון <em>פיננסי</em></h3>
-          <p class="service-card-desc">
-            מבט אחד על כל הפיננסים שלך — <strong>פנסיה, השתלמות, ביטוחים, חסכונות</strong>. לא פרטים נפרדים. מערכת אחת.
-          </p>
-          <span class="service-card-cta">
-            <span>למד על השירות</span>
-            <span class="service-card-cta-arrow">←</span>
-          </span>
-        </div>
-      </a>
-
-      <!-- Mortgage -->
-      <a href="#" class="service-card">
-        <div class="service-card-image">
-          <img src="painting-05-mortgage.png" alt="ייעוץ משכנתאות">
-        </div>
-        <div class="service-card-body">
-          <div class="service-card-tag">שירות משלים</div>
-          <h3 class="service-card-title">ייעוץ <em>משכנתאות</em></h3>
-          <p class="service-card-desc">
-            שליטה בשני התחומים הגדולים — <strong>משכנתא ופנסיה יחד</strong>. נדיר בישראל, קריטי לרוב רוכשי הדירה.
-          </p>
-          <span class="service-card-cta">
-            <span>למד על השירות</span>
-            <span class="service-card-cta-arrow">←</span>
-          </span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Audiences divider -->
-    <div class="offer-divider">
-      <span class="offer-divider-text">· למי זה מתאים ·</span>
-    </div>
-
-    <h3 class="audiences-title">
-      <em>הסיפור שלך</em> — מחכה
-    </h3>
-    <p class="audiences-sub">לכל קהל המלצות, דוגמאות ומסלול ייעוץ מותאם</p>
-
-    <div class="audiences-grid">
-      <a href="#" class="audience-card">
-        <div class="audience-card-image">
-          <img src="painting-03-hightech.png" alt="הייטקיסטים">
-        </div>
-        <div class="audience-card-body">
-          <h4 class="audience-card-title">אתה <em>הייטקיסט?</em></h4>
-          <p class="audience-card-tagline">שכר גבוה לא אומר פנסיה מסודרת.</p>
-          <span class="audience-card-cta">לעמוד ההייטקיסטים ←</span>
-        </div>
-      </a>
-
-      <a href="#" class="audience-card">
-        <div class="audience-card-image">
-          <img src="painting-04-selfemployed.png" alt="עצמאים">
-        </div>
-        <div class="audience-card-body">
-          <h4 class="audience-card-title">אתה <em>עצמאי?</em></h4>
-          <p class="audience-card-tagline">על כל שקל שלא הפקדת — המדינה לוקחת 47 אגורות.</p>
-          <span class="audience-card-cta">לעמוד העצמאים ←</span>
-        </div>
-      </a>
-
-      <a href="#" class="audience-card">
-        <div class="audience-card-image">
-          <img src="painting-05-mortgage.png" alt="רוכשי דירה">
-        </div>
-        <div class="audience-card-body">
-          <h4 class="audience-card-title">לוקח <em>משכנתא?</em></h4>
-          <p class="audience-card-tagline">המשכנתא והפנסיה שלך — אותו סיפור.</p>
-          <span class="audience-card-cta">לעמוד המשכנתאות ←</span>
-        </div>
-      </a>
     </div>
   </div>
 </section>
 
+<!-- =========================================================
+     AUDIENCE — שכירים ועצמאים
+     ========================================================= -->
+<section class="audience-section" id="audiences">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">בחר את המסלול שלך</span>
+      <h2>תכנון פיננסי — מותאם בדיוק לאיך שאתה מרוויח</h2>
+      <p>השכיר והעצמאי לא בנויים אותו דבר. הייעוץ שלי מתחיל מהמבנה — ולא מתבנית גנרית.</p>
+    </div>
 
-<!-- ================================================
-     SECTION — Tools teaser (short)
-     ================================================ -->
-<section class="tools-teaser">
-  <div class="tools-teaser-inner">
-    <div class="tools-teaser-eyebrow">הכלים שלי</div>
-    <h2 class="tools-teaser-title">הכירו אותי <em>בדרכים נוספות</em></h2>
-    <p class="tools-teaser-sub">
-      בלי התחייבות, בלי שיחה — פשוט כלים להתחיל איתם
-    </p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3zm-1 14l-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg>
+        </div>
+        <h3>תכנון פיננסי לשכירים</h3>
+        <p style="color:var(--text-2); font-size:16px;">
+          המעסיק מפקיד עבורך. אבל מה הוא בחר לך? באיזה מסלול? עם איזה דמי ניהול? ומה הפער בין מה שיש לך למה שאתה אמור לקבל?
+        </p>
+        <ul>
+          <li>בדיקת קרן הפנסיה והגמל בפועל</li>
+          <li>אופטימיזציה של דמי ניהול ומסלול השקעה</li>
+          <li>קרן השתלמות — שימוש חכם בכלי הכי משתלם בישראל</li>
+          <li>ביטוחים אישיים: מה באמת נחוץ ומה מיותר</li>
+        </ul>
+        <a href="#contact" class="btn-link">למסלול לשכירים ←</a>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L10 14v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <h3>תכנון פיננסי לעצמאים</h3>
+        <p style="color:var(--text-2); font-size:16px;">
+          אתה גם המעסיק וגם העובד. אין בית, אין מנהל משאבי אנוש, אין סוכן שמתקשר אוטומטית. כל החלטה — שלך. ואין מי שיגיד לך אם היא נכונה.
+        </p>
+        <ul>
+          <li>אופטימיזציה של הפקדות לפנסיה והשתלמות (תקרות מס!)</li>
+          <li>קרן השתלמות לעצמאי — הכלי הכי שווה במשק</li>
+          <li>תכנון תזרים בין שנים שמנות לרזות</li>
+          <li>איזון בין הון, השקעות אקטיביות, ופנסיה</li>
+        </ul>
+        <a href="#contact" class="btn-link">למסלול לעצמאים ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FINANCIAL MIRROR QUIZ
+     ========================================================= -->
+<section class="quiz-section" id="mirror">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">מראה פיננסית</span>
+      <h2>בדוק כמה אתה <em>באמת</em> בעניינים</h2>
+      <p>3 שאלות. דקה. ובסוף — ציון, ניתוח, והמלצה אישית.</p>
+    </div>
+
+    <div class="quiz-card">
+      <!-- Quiz state -->
+      <div id="quiz-step" class="quiz-step">
+        <div class="quiz-progress">
+          <span id="q-counter">שאלה 1 מתוך 3</span>
+          <div class="progress-bar"><div id="q-bar" style="width:33%"></div></div>
+        </div>
+        <div class="quiz-question" id="q-text">איזה מסלול השקעה יש לך בקרן הפנסיה?</div>
+        <div class="quiz-answers" id="q-answers"></div>
+      </div>
+
+      <!-- Result state -->
+      <div id="quiz-result" class="quiz-result">
+        <div style="font-size:14px; color:var(--text-meta); font-weight:700; letter-spacing:1px;">הציון שלך</div>
+        <div class="score" id="result-score">0</div>
+        <h3 id="result-title">עדיין יש לנו מה לתרום לך</h3>
+        <p id="result-text">כל ההמלצות שלי מבוססות על המבנה שלך, לא על תבנית.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="#contact" class="btn btn-primary">קבע שיחת היכרות</a>
+          <button class="btn btn-ghost" onclick="restartQuiz()">חזור לחידון →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     TOOLS — כלים לשימושך
+     ========================================================= -->
+<section class="tools-section" id="tools">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">כלים לשימושך</span>
+      <h2>חינם. בלי הרשמה. בלי הטעיה.</h2>
+      <p>אני מאמין שכלים שיעזרו לך להבין את הכסף שלך — צריכים להיות זמינים. בלי תנאי.</p>
+    </div>
 
     <div class="tools-grid">
-      <a href="#" class="tool-card">
-        <div class="tool-card-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="8" y="8" width="32" height="32" rx="2"/>
-            <path d="M14 30l5-8 6 6 9-14"/>
-            <circle cx="19" cy="22" r="1.5" fill="currentColor"/>
-            <circle cx="25" cy="28" r="1.5" fill="currentColor"/>
-            <circle cx="34" cy="14" r="1.5" fill="currentColor"/>
-          </svg>
-        </div>
-        <h3 class="tool-card-title">רובייקטיבי</h3>
-        <p class="tool-card-desc">ניתוח AI אוטומטי לדוח הפנסיה שלך, בעברית מלאה</p>
-        <span class="tool-card-cta">נסו עכשיו ←</span>
-      </a>
+      <div class="tool-card featured">
+        <div class="tool-icon-box">🤖</div>
+        <div class="tool-meta">כלי AI · 60 שניות</div>
+        <h3>רובייקטיבי — בוט בדיקת פנסיה</h3>
+        <p>העלה את דוח הפנסיה השנתי שלך. הבוט מנתח 4 פרמטרים מרכזיים — הפקדות, ביטוחים, דמי ניהול, מסלול — ומחזיר תשובה בעברית פשוטה.</p>
+        <a href="#" class="tool-link">התחל ניתוח עכשיו ←</a>
+      </div>
 
-      <a href="#" class="tool-card">
-        <div class="tool-card-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="10" y="6" width="28" height="36" rx="2"/>
-            <rect x="14" y="10" width="20" height="6" rx="1"/>
-            <circle cx="17" cy="22" r="1.5" fill="currentColor"/>
-            <circle cx="24" cy="22" r="1.5" fill="currentColor"/>
-            <circle cx="31" cy="22" r="1.5" fill="currentColor"/>
-            <circle cx="17" cy="28" r="1.5" fill="currentColor"/>
-            <circle cx="24" cy="28" r="1.5" fill="currentColor"/>
-            <circle cx="31" cy="28" r="1.5" fill="currentColor"/>
-            <circle cx="17" cy="34" r="1.5" fill="currentColor"/>
-            <circle cx="24" cy="34" r="1.5" fill="currentColor"/>
-            <rect x="29" y="32" width="5" height="5" rx="0.5" fill="currentColor" opacity="0.3"/>
-          </svg>
-        </div>
-        <h3 class="tool-card-title">מחשבונים</h3>
-        <p class="tool-card-desc">חישוב מהיר של תועלות מס, הפקדות, ועוד</p>
-        <span class="tool-card-cta">לכל המחשבונים ←</span>
-      </a>
+      <div class="tool-card">
+        <div class="tool-icon-box">🧮</div>
+        <div class="tool-meta">3 מחשבונים פעילים</div>
+        <h3>מחשבונים אינטראקטיביים</h3>
+        <p>מחשבון פנסיה, מחשבון השתלמות, מחשבון ROI ייעוץ — כמה ייעוץ אובייקטיבי אחד באמת חוסך לך לאורך החיים.</p>
+        <a href="#" class="tool-link">לכל המחשבונים ←</a>
+      </div>
 
-      <a href="#" class="tool-card">
-        <div class="tool-card-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 8h24a4 4 0 014 4v28a0 0 0 01-0 0H12a4 4 0 01-4-4V8z"/>
-            <path d="M8 36a4 4 0 014-4h24"/>
-            <line x1="16" y1="16" x2="28" y2="16"/>
-            <line x1="16" y1="22" x2="30" y2="22"/>
-            <line x1="16" y1="28" x2="26" y2="28"/>
-          </svg>
-        </div>
-        <h3 class="tool-card-title">המחברת</h3>
-        <p class="tool-card-desc">מאמרים ותובנות שאני כותב על פיננסים בישראל</p>
-        <span class="tool-card-cta">לכל המאמרים ←</span>
-      </a>
+      <div class="tool-card" id="articles">
+        <div class="tool-icon-box">📚</div>
+        <div class="tool-meta">מרכז ידע</div>
+        <h3>מאמרים ומדריכים</h3>
+        <p>מבין שאתה רוצה להבין לפני שאתה פועל. הכנתי מדריכים מובנים — בלי מילים גדולות, בלי שיווקיות, בלי "אצלנו אתה במקום הראשון".</p>
+        <a href="#" class="tool-link">לכל המאמרים ←</a>
+      </div>
     </div>
   </div>
 </section>
 
-
-<!-- ================================================
-     SECTION — Final CTA
-     ================================================ -->
-<section class="final-cta" id="cta">
-  <div class="final-cta-inner">
-    <div class="final-cta-eyebrow">§ פגישת היכרות</div>
-    <h2 class="final-cta-title">
-      15 דקות של שיחה.<br>
-      <em>אפס התחייבות.</em>
-    </h2>
-    <p class="final-cta-sub">
-      נכיר, אני אבין מה המצב שלך, ואגיד לך ישר אם יש פה מקום לייעוץ או שאתה כבר בסדר גמור.
-    </p>
-    <div class="final-cta-buttons">
-      <a href="tel:+972527700599" class="btn btn-inverse btn-wide"><span>☎ 052-770-0599</span></a>
-      <a href="https://wa.me/972527700599" class="btn btn-inverse btn-wide"><span>WhatsApp</span><span class="btn-arrow">←</span></a>
+<!-- =========================================================
+     TESTIMONIALS
+     ========================================================= -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">מה אומרים לקוחות</span>
+      <h2>לא הצהרות שיווק. אנשים אמיתיים.</h2>
     </div>
-    <p class="final-cta-note">
-      ימים א׳–ה׳, 9:00–19:00 · תשובה תוך 24 שעות
-    </p>
-  </div>
-</section>
 
-<!-- ================================================
-     FOOTER
-     ================================================ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-main">
-
-      <!-- Brand + description -->
-      <div>
-        <div class="footer-brand">
-          <div class="logo-mark">
-            <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="2" y="2" width="48" height="48" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-              <text x="26" y="34" text-anchor="middle" font-family="Frank Ruhl Libre, serif" font-weight="900" font-size="28" fill="currentColor">א</text>
-              <line x1="14" y1="42" x2="38" y2="42" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="26" cy="42" r="1.4" fill="currentColor" opacity="0.7"/>
-            </svg>
-          </div>
-          <div>
-            <div class="footer-brand-name">אחיטוב</div>
-            <div class="footer-brand-tag">תכנון פיננסי · משכנתאות</div>
-          </div>
-        </div>
-        <p class="footer-desc">
-          איתן אחיטוב — יועץ פנסיוני ומשכנתאות מורשה. תכנון פיננסי אובייקטיבי מאז 2010.
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "הגעתי אליו אחרי שנים שהמשכתי בעיוורון את הקרן שהמעסיק בחר לי. בפגישה אחת הוא הראה לי איפה כסף שלי 'דולף' — ובלי קשר ליועץ עצמו, פשוט מהאופטימיזציה שעשיתי, אני מעריך שחסכתי 200 אלף ש"ח לאורך השנים."
         </p>
-        <div class="footer-license">
-          רישיון יועץ פנסיוני מטעם משרד האוצר<br>
-          כפוף לחוק הפיקוח על שירותים פיננסיים, תשס"ה־2005
+        <div class="testimonial-author">
+          <div class="author-avatar">א.ל</div>
+          <div class="author-info">
+            <div class="name">אורן ל׳</div>
+            <div class="role">מהנדס תוכנה, שכיר, גיל 34</div>
+          </div>
         </div>
       </div>
 
-      <!-- Services links -->
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "הייתי בטוח שהסוכן שלי עובד בשבילי. איתן הראה לי ב-30 דקות מה הוא קיבל מאיתי בעמלות לאורך 8 שנים. החלטתי שאני רוצה ייעוץ אובייקטיבי. זו ההחלטה הכי טובה שעשיתי השנה."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ר.ב</div>
+          <div class="author-info">
+            <div class="name">רינת ב׳</div>
+            <div class="role">פרילנסרית בתחום השיווק, גיל 41</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "שילמתי לאיתן עלות מוגדרת — והוא בנה לי תכנית פיננסית הוליסטית שכוללת פנסיה, ביטוחים, וגם את המשכנתא. הכי חשוב — הוא לא ניסה למכור לי כלום. הוא פשוט הסביר."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">י.ש</div>
+          <div class="author-info">
+            <div class="name">יואב ש׳</div>
+            <div class="role">בעל עסק עצמאי, גיל 38</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CONTACT CTA
+     ========================================================= -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>שיחת היכרות של 20 דקות. ללא עלות.</h2>
+    <p>
+      בלי "מצגת מכירות". בלי "פגישה ראשונה היא הכי חשובה". פשוט שיחה — נראה אם יש מה לעבוד עליו, ואם כן — איך.
+    </p>
+    <div class="contact-actions">
+      <a href="#" class="btn btn-light">קבע שיחה ביומן →</a>
+      <a href="https://wa.me/972000000000" class="btn btn-outline-light">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" style="margin-left:6px;"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
+        שלח הודעה בוואטסאפ
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FAQ
+     ========================================================= -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">שאלות נפוצות</span>
+      <h2>מה ששאלו לפניך</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>מה ההבדל בין יועץ פנסיוני לסוכן ביטוח?</summary>
+        <div class="faq-body">
+          סוכן ביטוח מקבל עמלות מחברות הביטוח/הקרנות שאיתן הוא עובד — כלומר יש לו אינטרס מי תהיה הקרן שלך, באיזה ביטוח תקנה, ובאיזה מסלול. ליועץ פנסיוני בעל רישיון משרד האוצר — אסור לפי חוק לקבל עמלות. ההכנסה היחידה שלי היא תשלום ישיר ושקוף ממך. זה לא הצהרה — זה החוק.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם אני "מספיק עשיר" כדי לעבוד עם יועץ פנסיוני?</summary>
+        <div class="faq-body">
+          זו אחת השאלות הכי נפוצות — ובדרך כלל, התשובה היא "כן, ואפילו יותר ממה שחשבת". תכנון פיננסי מועיל במיוחד דווקא לצעירים ולבעלי הכנסה ממוצעת-גבוהה, כי שם ההבדלים בריבית-דריבית הופכים לעשרות ומאות אלפי שקלים לאורך הקריירה.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>כמה עולה ייעוץ פנסיוני?</summary>
+        <div class="faq-body">
+          העלות נקבעת לפי היקף הייעוץ ומידת המורכבות. הכל שקוף ומוסכם מראש. במחשבון ה-ROI שלי תוכל לראות באופן ספציפי כמה הייעוץ באמת משתלם לך — ברוב המקרים, פי 50-200 מהעלות שלו.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מה כולל הייעוץ — האם רק פנסיה?</summary>
+        <div class="faq-body">
+          לא. הרישיון שלי הוא יועץ פנסיוני, אבל השירות הוא תכנון פיננסי הוליסטי — פנסיה, קרנות השתלמות, גמל להשקעה, ביטוחים אישיים, משכנתאות, ותכנון מס. אני מסתכל על כל התמונה.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מתי כדאי לפנות — האם זה רק לפני פרישה?</summary>
+        <div class="faq-body">
+          הפוך. הזמן הכי טוב לעשות תכנון פיננסי הוא בגיל 25-45 — כי אז ריבית-דריבית עוד עובדת לטובתך. ככל שמתעכבים, ההזדמנויות מצטמצמות. אבל גם אם אתה אחרי גיל 45 — עדיין יש מה לעשות, פשוט הדגש משתנה.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם הבוט (רובייקטיבי) מחליף ייעוץ אישי?</summary>
+        <div class="faq-body">
+          לא, ולא במקרה. הבוט הוא כלי שמאפשר לך לקבל בדיקה ראשונית של קרן הפנסיה תוך 60 שניות. הוא נותן כיוון, אבל אינו מחליף את הניתוח ההוליסטי שאני עושה — שכולל את כל המוצרים שלך, התמונה הביטוחית, המשכנתא, וההיסטוריה.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
+        </div>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים בני 27-47.</p>
+      </div>
+
       <div>
-        <h4>השירותים</h4>
-        <ul class="footer-links">
+        <h4>שירותים</h4>
+        <ul>
           <li><a href="#">תכנון פיננסי</a></li>
-          <li><a href="#">ייעוץ משכנתאות</a></li>
           <li><a href="#">ייעוץ פנסיוני</a></li>
-          <li><a href="#">תיק השקעות</a></li>
-          <li><a href="#">ביטוחי פרט</a></li>
+          <li><a href="#">ייעוץ ביטוחי</a></li>
+          <li><a href="#">ייעוץ משכנתאות</a></li>
         </ul>
       </div>
 
-      <!-- Audiences / content links -->
       <div>
-        <h4>עוד באתר</h4>
-        <ul class="footer-links">
-          <li><a href="#">להייטקיסטים</a></li>
-          <li><a href="#">לעצמאים</a></li>
-          <li><a href="#">למה לשלם?!</a></li>
-          <li><a href="#">מי אני</a></li>
-          <li><a href="#">המלצות</a></li>
-          <li><a href="#">רובייקטיבי</a></li>
-          <li><a href="#">המחברת</a></li>
+        <h4>כלים</h4>
+        <ul>
+          <li><a href="#">🤖 רובייקטיבי</a></li>
+          <li><a href="#">מחשבון פנסיה</a></li>
+          <li><a href="#">מחשבון ROI</a></li>
+          <li><a href="#">מאמרים</a></li>
         </ul>
       </div>
 
-      <!-- Contact -->
       <div>
-        <h4>יצירת קשר</h4>
-        <ul class="footer-contact">
-          <li>
-            <span class="footer-contact-label">טלפון</span>
-            <a href="tel:+972527700599">052-770-0599</a>
-          </li>
-          <li>
-            <span class="footer-contact-label">WhatsApp</span>
-            <a href="https://wa.me/972527700599">הודעה מיידית</a>
-          </li>
-          <li>
-            <span class="footer-contact-label">שעות</span>
-            ימים א׳–ה׳<br>09:00–19:00
-          </li>
+        <h4>צור קשר</h4>
+        <ul>
+          <li><a href="#contact">קבע שיחה</a></li>
+          <li><a href="https://wa.me/972000000000">וואטסאפ</a></li>
+          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
+          <li><a href="#">לינקדאין</a></li>
         </ul>
       </div>
     </div>
 
-    <!-- Bottom bar -->
     <div class="footer-bottom">
-      <span>© 2026 אחיטוב תכנון פיננסי · כל הזכויות שמורות</span>
-      <span>
-        <a href="#">תנאי שימוש</a> · <a href="#">הצהרת נגישות</a>
+      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        רישיון יועץ פנסיוני · משרד האוצר
       </span>
     </div>
   </div>
 </footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/972000000000" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
+  </svg>
+</a>
+
+<script>
+/* =========================================================
+   Quiz interaction
+   ========================================================= */
+const questions = [
+  {
+    q: 'איזה מסלול השקעה יש לך בקרן הפנסיה שלך?',
+    answers: [
+      { text: 'בחרתי בעצמי לפי גיל ויחס סיכון/תשואה', score: 3 },
+      { text: 'יש לי מסלול אבל לא בטוח איזה — אני מנחש שזה מה שהמעסיק בחר', score: 1 },
+      { text: 'מה זה בכלל מסלול השקעה?', score: 0 }
+    ]
+  },
+  {
+    q: 'אתה יודע כמה דמי ניהול אתה משלם — באחוזים?',
+    answers: [
+      { text: 'כן, ברור — בדקתי מול בנצ׳מארק שוק', score: 3 },
+      { text: 'יודע פחות או יותר, לא בדקתי לאחרונה', score: 1 },
+      { text: 'לא ממש — אבל הסוכן אמר שזה "טוב"', score: 0 }
+    ]
+  },
+  {
+    q: 'האם בדקת לאחרונה (12 חודשים) את הביטוחים שיש לך?',
+    answers: [
+      { text: 'כן — עברתי שורה-שורה והתאמתי למצב המשפחתי', score: 3 },
+      { text: 'לא ממש — יש לי ביטוחים אבל לא בדוק שהם רלוונטיים היום', score: 1 },
+      { text: 'אני לא בטוח אילו ביטוחים יש לי בכלל', score: 0 }
+    ]
+  }
+];
+
+let currentQ = 0;
+let totalScore = 0;
+
+function renderQuestion() {
+  const item = questions[currentQ];
+  document.getElementById('q-counter').textContent = `שאלה ${currentQ + 1} מתוך ${questions.length}`;
+  document.getElementById('q-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+  document.getElementById('q-text').textContent = item.q;
+  const ansContainer = document.getElementById('q-answers');
+  ansContainer.innerHTML = '';
+  item.answers.forEach((a, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-answer';
+    btn.textContent = a.text;
+    btn.onclick = () => answer(a.score);
+    ansContainer.appendChild(btn);
+  });
+}
+
+function answer(score) {
+  totalScore += score;
+  currentQ++;
+  if (currentQ < questions.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-step').style.display = 'none';
+  document.getElementById('quiz-result').classList.add('active');
+
+  const max = questions.length * 3;
+  const pct = Math.round((totalScore / max) * 100);
+  document.getElementById('result-score').textContent = pct;
+
+  let title, text;
+  if (pct >= 80) {
+    title = 'אתה ב-Top 10%';
+    text = 'מרשים — אתה כבר בעניינים. למרות זאת, לרובכם יש 1-2 נקודות עיוורון שהייעוץ יכול לחסוך עליהן עשרות אלפים. בוא נבדוק.';
+  } else if (pct >= 40) {
+    title = 'יש לנו על מה לעבוד';
+    text = 'כמו רוב הקהל. מספיק טוב כדי לא להיות "אבוד", אבל מספיק רחוק מהאופטימום כדי שהפער יעלה לך מאות אלפי שקלים לאורך הקריירה.';
+  } else {
+    title = 'אתה בנקודת ההתחלה — וזה דווקא חדשות טובות';
+    text = 'אתה לא לבד. רוב הציבור באותו מקום בדיוק. החדשות הטובות: ההשפעה של תיקון מוקדם היא הכי גדולה. ההפרש בין "להתחיל היום" ל"להתחיל בעוד 5 שנים" = מאות אלפי שקלים.';
+  }
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-text').textContent = text;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  totalScore = 0;
+  document.getElementById('quiz-step').style.display = 'block';
+  document.getElementById('quiz-result').classList.remove('active');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
 
 </body>
 </html>
