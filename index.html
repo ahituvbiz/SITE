@@ -176,26 +176,80 @@ section.tight { padding: var(--s-2xl) 0; }
   background: var(--cta);
   border-radius: 2px;
 }
-.nav-cta {
+/* Header search box */
+.header-search {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
 }
-.whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px; height: 44px;
-  background: #25D366;
-  color: #fff;
-  border-radius: 50%;
-  transition: transform .15s;
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
 }
-.whatsapp-btn:hover { transform: scale(1.06); text-decoration: none; }
-.whatsapp-btn svg { width: 22px; height: 22px; fill: #fff; }
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+
+/* Search results panel */
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 
 @media (max-width: 900px) {
   .nav { display: none; }
+  .header-search input { width: 160px; }
+  .header-search input:focus { width: 200px; }
+}
+@media (max-width: 600px) {
+  .header-search input { width: 130px; }
 }
 
 /* =========================================================
@@ -372,16 +426,22 @@ section.tight { padding: var(--s-2xl) 0; }
 }
 
 /* =========================================================
-   VIDEO SECTION
+   VIDEO BLOCK (embedded inside stats sections)
    ========================================================= */
-.video-section { background: #fff; }
-.video-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s-xl);
-  align-items: start;
+.video-block {
+  max-width: 760px;
+  margin: var(--s-2xl) auto 0;
+  text-align: center;
 }
-.video-card { }
+.video-block-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-meta);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
 .video-frame {
   position: relative;
   border-radius: var(--radius-card);
@@ -907,13 +967,15 @@ section.tight { padding: var(--s-2xl) 0; }
       <a href="#about">אודות</a>
     </nav>
 
-    <div class="nav-cta">
-      <a href="#contact" class="btn btn-primary" style="padding:10px 20px; font-size:15px;">קבע שיחה</a>
-      <a href="https://wa.me/972000000000" class="whatsapp-btn" aria-label="פתח שיחת וואטסאפ">
-        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
         </svg>
-      </a>
+      </span>
+      <div class="search-results" id="search-results"></div>
     </div>
   </div>
 </header>
@@ -937,8 +999,8 @@ section.tight { padding: var(--s-2xl) 0; }
         זה אומר דבר אחד פשוט: אני בצד שלך. לא בצד של אף אחד אחר.
       </p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">קבע שיחת היכרות 20 דקות — ללא עלות</a>
-        <a href="#mirror" class="btn btn-ghost">בדוק כמה אתה בעניינים →</a>
+        <a href="#mirror" class="btn btn-secondary">בדוק כמה אתה בעניינים →</a>
+        <a href="#audiences" class="btn btn-ghost">ראה איך אני עובד ↓</a>
       </div>
       <div class="trust-row">
         <span class="trust-item">
@@ -1000,46 +1062,20 @@ section.tight { padding: var(--s-2xl) 0; }
         <div class="stat-sub">לפי חוק הייעוץ הפנסיוני — אסור לי. נקודה.</div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- =========================================================
-     VIDEOS — שני סרטונים
-     ========================================================= -->
-<section class="video-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">סרטונים</span>
-      <h2>שני דברים שאני רוצה שתבין לפני שאתה ממשיך</h2>
-      <p>שני סרטונים קצרים — אחד על אובייקטיביות, אחד על כמה הייעוץ באמת שווה לך.</p>
-    </div>
-
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-frame">
-          <span class="video-overlay-text">סרטון 1 · 90 שניות</span>
-          <div class="play-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
+    <!-- Video 1: על אובייקטיביות — מתחבר ישירות לפער יועץ/סוכן -->
+    <div class="video-block">
+      <span class="video-block-eyebrow">סרטון · 90 שניות</span>
+      <h3 class="video-title" style="font-size:22px; margin-bottom:var(--s-md);">למה אתה חייב מישהו אובייקטיבי</h3>
+      <div class="video-frame">
+        <span class="video-overlay-text">סרטון 1 · 90 שניות</span>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <h3 class="video-title">למה אתה חייב מישהו אובייקטיבי</h3>
-        <p class="video-desc">
-          ההבדל החוקי בין סוכן (עמלות), מתכנן פיננסי (אין רישיון), ויועץ פנסיוני (אסור עמלות).
-        </p>
       </div>
-
-      <div class="video-card">
-        <div class="video-frame">
-          <span class="video-overlay-text">סרטון 2 · 90 שניות</span>
-          <div class="play-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <h3 class="video-title">כמה הייעוץ באמת שווה לך</h3>
-        <p class="video-desc">
-          לקוח בן 38 שילם X — חסך 800,000 ₪ לאורך החיים. דוגמה אמיתית, מספרים אמיתיים.
-        </p>
-      </div>
+      <p class="video-desc" style="margin-top:var(--s-md);">
+        ההבדל החוקי בין סוכן (עמלות), מתכנן פיננסי (אין רישיון), ויועץ פנסיוני (אסור עמלות).
+      </p>
     </div>
   </div>
 </section>
@@ -1070,6 +1106,21 @@ section.tight { padding: var(--s-2xl) 0; }
         <div class="stat-text">פי כמה הייעוץ משתלם — ביחס לעלות שלו</div>
         <div class="stat-sub">פגישה אחת. עלות מוגדרת. תועלת לעשורים.</div>
       </div>
+    </div>
+
+    <!-- Video 2: ROI — מתחבר ישירות למספרים הפיננסיים -->
+    <div class="video-block">
+      <span class="video-block-eyebrow">סרטון · 90 שניות</span>
+      <h3 class="video-title" style="font-size:22px; margin-bottom:var(--s-md);">כמה הייעוץ באמת שווה לך</h3>
+      <div class="video-frame">
+        <span class="video-overlay-text">סרטון 2 · 90 שניות</span>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <p class="video-desc" style="margin-top:var(--s-md);">
+        לקוח בן 38 שילם X — חסך 800,000 ₪ לאורך החיים. דוגמה אמיתית, מספרים אמיתיים.
+      </p>
     </div>
   </div>
 </section>
@@ -1152,7 +1203,7 @@ section.tight { padding: var(--s-2xl) 0; }
         <h3 id="result-title">עדיין יש לנו מה לתרום לך</h3>
         <p id="result-text">כל ההמלצות שלי מבוססות על המבנה שלך, לא על תבנית.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="#contact" class="btn btn-primary">קבע שיחת היכרות</a>
+          <a href="#audiences" class="btn btn-secondary">ראה את מסלולי הייעוץ ↓</a>
           <button class="btn btn-ghost" onclick="restartQuiz()">חזור לחידון →</button>
         </div>
       </div>
@@ -1260,13 +1311,14 @@ section.tight { padding: var(--s-2xl) 0; }
      ========================================================= -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <h2>שיחת היכרות של 20 דקות. ללא עלות.</h2>
+    <h2>הגיע הרגע לשמוע יותר.</h2>
     <p>
-      בלי "מצגת מכירות". בלי "פגישה ראשונה היא הכי חשובה". פשוט שיחה — נראה אם יש מה לעבוד עליו, ואם כן — איך.
+      קראת. הבנת. אולי גם זיהית את עצמך באחת מהדוגמאות. אם הגעת עד לכאן —
+      סימן שיש לך שאלות אמיתיות שכדאי לדבר עליהן. שיחה של 20 דקות, ללא עלות, בלי מצגת מכירות.
     </p>
     <div class="contact-actions">
-      <a href="#" class="btn btn-light">קבע שיחה ביומן →</a>
-      <a href="https://wa.me/972000000000" class="btn btn-outline-light">
+      <a href="#" class="btn btn-light">קבע שיחה כדי לשמוע יותר →</a>
+      <a href="https://wa.me/972527700599" class="btn btn-outline-light">
         <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" style="margin-left:6px;"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
         שלח הודעה בוואטסאפ
       </a>
@@ -1375,8 +1427,8 @@ section.tight { padding: var(--s-2xl) 0; }
       <div>
         <h4>צור קשר</h4>
         <ul>
-          <li><a href="#contact">קבע שיחה</a></li>
-          <li><a href="https://wa.me/972000000000">וואטסאפ</a></li>
+          <li><a href="#contact">קבע שיחה לשמוע יותר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
           <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
           <li><a href="#">לינקדאין</a></li>
         </ul>
@@ -1394,7 +1446,7 @@ section.tight { padding: var(--s-2xl) 0; }
 </footer>
 
 <!-- Floating WhatsApp -->
-<a href="https://wa.me/972000000000" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
   <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
     <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
   </svg>
@@ -1492,8 +1544,59 @@ function restartQuiz() {
 }
 
 renderQuestion();
+
+/* =========================================================
+   In-page search
+   ========================================================= */
+const searchInput = document.getElementById('site-search');
+const searchResults = document.getElementById('search-results');
+
+function buildSearchIndex() {
+  const items = [];
+  document.querySelectorAll('h1, h2, h3, .section-eyebrow').forEach(el => {
+    const text = el.textContent.trim();
+    if (!text || text.length < 2) return;
+    const section = el.closest('section') || el.closest('[id]');
+    const id = section ? section.id : '';
+    items.push({ text, id });
+  });
+  return items;
+}
+
+const searchIndex = buildSearchIndex();
+
+function performSearch(query) {
+  if (!query || query.length < 2) {
+    searchResults.classList.remove('open');
+    searchResults.innerHTML = '';
+    return;
+  }
+  const q = query.toLowerCase();
+  const matches = searchIndex.filter(item => item.text.toLowerCase().includes(q)).slice(0, 8);
+
+  if (matches.length === 0) {
+    searchResults.innerHTML = '<div class="no-results">לא נמצאו תוצאות לחיפוש זה</div>';
+  } else {
+    searchResults.innerHTML = matches.map(m => {
+      const idx = m.text.toLowerCase().indexOf(q);
+      const before = m.text.slice(0, idx);
+      const match = m.text.slice(idx, idx + query.length);
+      const after = m.text.slice(idx + query.length);
+      return '<a href="#' + m.id + '">' + before + '<mark style="background:#ffe9b8; padding:0 2px;">' + match + '</mark>' + after + '</a>';
+    }).join('');
+  }
+  searchResults.classList.add('open');
+}
+
+searchInput.addEventListener('input', e => performSearch(e.target.value));
+searchInput.addEventListener('focus', e => { if (e.target.value) performSearch(e.target.value); });
+document.addEventListener('click', e => { if (!e.target.closest('.header-search')) { searchResults.classList.remove('open'); } });
+searchResults.addEventListener('click', e => {
+  if (e.target.closest('a')) {
+    setTimeout(() => { searchResults.classList.remove('open'); searchInput.value = ''; }, 100);
+  }
+});
 </script>
 
 </body>
 </html>
-                                                                                                          
