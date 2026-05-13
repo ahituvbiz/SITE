@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כללי ההשקעה ב-IRA — מה מותר ומה אסור | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="כללי ההשקעה בקופת גמל וקרן השתלמות בניהול אישי לפי תקנות תש''ע-2009: ניירות ערך מותרים, מגבלות ריכוז, מגבלת כסף פנסיוני, ותקרות הפקדה ל-2026.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #1F4E79; --primary-soft: #E7F0F7;
+  --cta: #D74E3C; --cta-hover: #B83E2E;
+  --text-1: #1A1A1A; --text-2: #555555; --text-meta: #999999;
+  --bg-white: #FFFFFF; --bg-cream: #F8F6F2; --border: #E5E7EB;
+  --positive: #5C8D5A; --positive-soft: #D5E8D4;
+  --warning: #E8B450; --warning-soft: #FFF2CC;
+  --negative: #C53030; --negative-soft: #F8CECC;
+  --s-xs: 8px; --s-sm: 16px; --s-md: 24px; --s-lg: 32px;
+  --s-xl: 48px; --s-2xl: 64px; --s-3xl: 96px;
+  --radius-btn: 8px; --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 17px; line-height: 1.7;
+  color: var(--text-1); background: var(--bg-white);
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1 { font-size: 38px; line-height: 1.25; margin-bottom: var(--s-sm); }
+h2 { font-size: 26px; line-height: 1.3; margin: var(--s-2xl) 0 var(--s-md); }
+h3 { font-size: 19px; line-height: 1.3; margin: var(--s-lg) 0 var(--s-sm); }
+section { padding: var(--s-2xl) 0; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 12px 24px; border-radius: var(--radius-btn);
+  font-size: 16px; font-weight: 600;
+  text-decoration: none !important; font-family: inherit;
+  transition: background .15s, transform .15s;
+}
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+
+/* Header */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: var(--s-md); }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--primary); }
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+.breadcrumb { background: var(--bg-cream); padding: 14px 0; font-size: 14px; color: var(--text-2); border-bottom: 1px solid var(--border); }
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* Hero */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .container { max-width: 900px; }
+.page-hero .eyebrow {
+  display: inline-block;
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  margin-bottom: var(--s-sm); border: 1px solid #cfdcea;
+}
+.page-hero p.lede { font-size: 18px; color: var(--text-2); margin-top: var(--s-sm); max-width: 760px; }
+
+/* Section header */
+.section-header { text-align: center; max-width: 760px; margin: 0 auto var(--s-lg); }
+.section-eyebrow {
+  display: inline-block;
+  font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-header h2 { margin: 0 0 var(--s-sm); }
+.section-header p { color: var(--text-2); font-size: 17px; }
+
+/* Body */
+.body-container { max-width: 860px; margin: 0 auto; }
+.body-container p { margin: var(--s-sm) 0; font-size: 17px; }
+.body-container ul, .body-container ol { margin: var(--s-sm) 0; padding-right: var(--s-md); }
+.body-container li { margin: 6px 0; font-size: 16px; line-height: 1.7; }
+.body-container strong { color: var(--text-1); font-weight: 700; }
+
+/* Rule cards */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-md);
+  margin: var(--s-lg) 0;
+}
+.rule-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-md);
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.rule-card.allowed { border-right: 4px solid var(--positive); }
+.rule-card.blocked { border-right: 4px solid var(--negative); }
+.rule-card .rule-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.rule-card.allowed .rule-icon { background: var(--positive-soft); color: var(--positive); }
+.rule-card.blocked .rule-icon { background: var(--negative-soft); color: var(--negative); }
+.rule-card h4 { font-size: 17px; margin: 0 0 4px; }
+.rule-card p { font-size: 14px; color: var(--text-2); margin: 0; line-height: 1.6; }
+
+@media (max-width: 700px) {
+  .rules-grid { grid-template-columns: 1fr; }
+}
+
+/* Limit cards (concentration) */
+.limits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-md);
+  margin: var(--s-lg) 0;
+}
+.limit-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-md);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.limit-card .pct {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+.limit-card .label { font-size: 15px; color: var(--text-1); font-weight: 600; margin-bottom: 4px; }
+.limit-card .sub { font-size: 13px; color: var(--text-meta); }
+
+/* Callout box */
+.callout {
+  background: var(--primary-soft);
+  border-right: 4px solid var(--primary);
+  padding: var(--s-md);
+  border-radius: var(--radius-btn);
+  margin: var(--s-md) 0;
+  font-size: 16px;
+}
+.callout strong { color: var(--primary); }
+
+.callout-warn {
+  background: var(--warning-soft);
+  border-right: 4px solid var(--warning);
+  padding: var(--s-md);
+  border-radius: var(--radius-btn);
+  margin: var(--s-md) 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.callout-warn strong { color: #B58E2A; }
+
+/* Threshold table */
+.threshold-table {
+  width: 100%;
+  max-width: 700px;
+  margin: var(--s-md) auto;
+  background: #fff;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.threshold-table th, .threshold-table td {
+  padding: 12px 16px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+.threshold-table thead th { background: var(--primary); color: #fff; }
+.threshold-table tbody tr:last-child td { border-bottom: none; }
+
+/* Related */
+.related-section { background: var(--bg-cream); padding: var(--s-2xl) 0; }
+.related-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+}
+.related-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  text-decoration: none !important;
+  transition: transform .15s, box-shadow .15s;
+}
+.related-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+.related-card .micro {
+  font-size: 12px; color: var(--cta);
+  font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.related-card h4 { font-size: 18px; color: var(--primary); margin: 6px 0 8px; }
+.related-card p { font-size: 14px; color: var(--text-2); margin: 0; }
+@media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom { border-top: 1px solid #2A2D33; padding-top: var(--s-md); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s-sm); font-size: 13px; color: #6E747D; }
+.license-badge { display: inline-flex; align-items: center; gap: 6px; background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+  z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools">מחשבונים</a>
+      <a href="/ira/explained/">כדאי לדעת</a>
+      <a href="/#contact">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/ira/">IRA</a>
+    <span class="sep">›</span>
+    <span class="current">כללי ההשקעה</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">תקנות תש"ע-2009 · נוסח 2026</span>
+    <h1>כללי ההשקעה ב-IRA — מה מותר ומה אסור</h1>
+    <p class="lede">
+      בניגוד לקופת גמל רגילה — שבה מנהל ההשקעות מחליט הכל — ב-IRA אתה בוחר.
+      אבל לא הכל. החוק הישראלי מטיל מגבלות מוגדרות על מה אפשר לקנות בקופה בניהול אישי, מאיפה, ובאיזה ריכוז.
+      המגבלות נועדו להגן עליך מטעויות יקרות, ומפוקחות על ידי גלובלנט (החברה המנהלת) באופן אוטומטי.
+    </p>
+  </div>
+</section>
+
+<!-- Investment universe -->
+<section>
+  <div class="container">
+    <div class="body-container">
+      <h2 id="universe">היקף ההשקעה — מה מותר לקנות</h2>
+      <p>
+        על פי <strong>תקנות הפיקוח על שירותים פיננסיים (קופות גמל) (קופת גמל בניהול אישי) תש"ע-2009</strong>,
+        כספי החוסך ב-IRA ניתנים להשקעה אך ורק בכלים הבאים:
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card allowed">
+          <div class="rule-icon">📈</div>
+          <div>
+            <h4>ניירות ערך סחירים</h4>
+            <p>מניות, אג"ח (ממשלתי וקונצרני), קרנות סל, ETF, ותעודות סל — בבורסות מאושרות.</p>
+          </div>
+        </div>
+        <div class="rule-card allowed">
+          <div class="rule-icon">🏦</div>
+          <div>
+            <h4>פיקדונות בבנקים</h4>
+            <p>פק"מ ופיקדונות חוקיים בבנקים מורשים בישראל ובחו"ל.</p>
+          </div>
+        </div>
+        <div class="rule-card allowed">
+          <div class="rule-icon">💱</div>
+          <div>
+            <h4>מטבע חוץ</h4>
+            <p>החזקת מט"ח (דולר, יורו) בחשבון הנאמנות.</p>
+          </div>
+        </div>
+        <div class="rule-card allowed">
+          <div class="rule-icon">🔬</div>
+          <div>
+            <h4>מוצרים מובנים</h4>
+            <p>Structured Products עם חשיפה לנכסי בסיס סחירים.</p>
+          </div>
+        </div>
+        <div class="rule-card allowed">
+          <div class="rule-icon">📊</div>
+          <div>
+            <h4>יחידות בקרן נאמנות</h4>
+            <p>קרנות נאמנות ישראליות מורשות וקרנות חוץ מאושרות.</p>
+          </div>
+        </div>
+        <div class="rule-card allowed">
+          <div class="rule-icon">🌎</div>
+          <div>
+            <h4>קרנות אלטרנטיביות</h4>
+            <p>קרנות השקעה זרות — אבל רק כאלה הרשומות מחוץ לישראל ומאושרות על ידי החברה המנהלת.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>היכן מותר להשקיע — גיאוגרפית</h3>
+      <p>הכספים ניתנים להשקעה רק ב:</p>
+      <ul>
+        <li><strong>ישראל</strong></li>
+        <li><strong>מדינות חוץ מאושרות</strong> — מדינה שדירוג האשראי שלה הוא לפחות BBB,
+            או מדינה החברה ב-OECD.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Concentration limits -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">מגבלות ריכוז</span>
+      <h2>אסור להשקיע יותר מדי במקום אחד</h2>
+      <p>
+        החוק מחייב פיזור. בכוונה. גם אם אתה משוכנע במניה ספציפית, יש תקרה לכמה ממנה אתה יכול
+        להחזיק בקופה. זה למנוע מצב בו טעות אחת תמחק את החיסכון הפנסיוני שלך.
+      </p>
+    </div>
+
+    <div class="body-container">
+      <div class="limits-grid">
+        <div class="limit-card">
+          <div class="pct">10%</div>
+          <div class="label">תקרת תאגיד יחיד</div>
+          <div class="sub">השקעה בני"ע סחיר של תאגיד מסוים — לא יותר מ-10% משווי הקופה</div>
+        </div>
+        <div class="limit-card">
+          <div class="pct">5%</div>
+          <div class="label">תקרת אופציות</div>
+          <div class="sub">סך אופציות שנרכשו (פרט לאופציית רכש 001) — לא יותר מ-5% משווי הקופה</div>
+        </div>
+        <div class="limit-card">
+          <div class="pct">10%</div>
+          <div class="label">בטוחות במכירה בחסר</div>
+          <div class="sub">שווי הבטוחות בעסקאות מכירה בחסר — לא יותר מ-10% משווי הקופה</div>
+        </div>
+        <div class="limit-card">
+          <div class="pct">5%</div>
+          <div class="label">אמצעי שליטה בתאגיד</div>
+          <div class="sub">לא יותר מ-5% מסוג מסוים של אמצעי שליטה בתאגיד שמוחזק על ידי קרנות חוץ</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>חשוב:</strong> מגבלת ה-10% על תאגיד יחיד <strong>לא חלה</strong> על:
+        קרן חוץ, קרן סל, ואג"ח ממשלתי של ישראל או מדינות חוץ מאושרות. כך, ניתן להחזיק
+        100% בקרן סל מנייתית אחת אם תרצה (למרות שכמובן הקרן עצמה מפזרת בין מאות מניות).
+      </div>
+
+      <h3>חוזים עתידיים ואופציות — דקויות</h3>
+      <p>
+        השקעה ביצירת חוזים עתידיים שהם ניירות ערך סחירים, או ברכישתם, מותרת — אבל בתנאי
+        שהחשיפה לנכס הבסיס לא חורגת מהמגבלות הכלליות. בנוסף:
+      </p>
+      <ul>
+        <li><strong>אסור לכתוב אופציות</strong> (כלומר להיות בצד המוכר). מותר רק לרכוש.</li>
+        <li><strong>אופציות מכר</strong> — מותר עד 5% משווי התיק.</li>
+        <li><strong>חריגה פסיבית</strong> (כתוצאה משינוי מחירי שוק) לא תוביל לחסימת החשבון.
+            רק חריגה אקטיבית (קנייה חדשה) תיחסם.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Pension money rules -->
+<section>
+  <div class="container">
+    <div class="body-container">
+      <h2 id="pension-money">מגבלת כסף פנסיוני — חוסכים צעירים</h2>
+      <p>
+        חוסכים בקופת גמל בניהול אישי שעדיין לא צברו סכום משמעותי, או שלא מקבלים קצבת זקנה,
+        <strong>מוגבלים להשקעה במוצרים פסיביים בלבד</strong> — כלומר רק מחקי מדד (S&P 500,
+        נאסד"ק, ת"א 35 וכו'). אין אפשרות לרכוש מניות בודדות, אג"ח ספציפי, או קרנות אקטיביות.
+      </p>
+
+      <h3>הסכומים המאפשרים יציאה ממגבלה (2026)</h3>
+      <table class="threshold-table">
+        <thead>
+          <tr><th>תנאי</th><th>הסכום</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>קצבת זקנה מינימלית</td><td>5,306 ₪ לחודש</td></tr>
+          <tr><td>צבירה לקצבה (לחילופין)</td><td>1,575,882 ₪</td></tr>
+          <tr><td>תקרת הפקדה מקסימלית לקופה</td><td>6,303,528 ₪ פר מוצר</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        אם אתה צובר באחד מהתנאים הראשונים — נפתח עבורך כל היקף ההשקעה (מניות, אג"ח קונצרני,
+        קרנות אקטיביות). אם לא — אתה מוגבל למחקי מדד בלבד, וזה בעצם הופך את ה-IRA לפחות
+        אטרקטיבי לחוסכים צעירים בקופות פנסיוניות (כי בקופה רגילה יש מסלולי מחקה מדד בעלות
+        סבירה ובלי הכאב ראש של ניהול עצמי).
+      </p>
+
+      <div class="callout">
+        <strong>נקודה חשובה:</strong> המגבלה הזו <strong>לא חלה על קרן השתלמות</strong>, ולא
+        על כסף שאינו פנסיוני בקופת גמל (כספי מוטב, פיצויים שעברו התחשבנות, קופות גמל הוניות
+        שנפתחו לפני 2008). לכן IRA זוהר בעיקר בקרן השתלמות —
+        <a href="/ira/explained/#keren-good">קרא יותר במדריך</a>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Forbidden things -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">איסורים</span>
+      <h2>מה אסור ב-IRA</h2>
+      <p>חמש המגבלות שהכי חשוב שתכיר לפני שאתה ניגש.</p>
+    </div>
+
+    <div class="body-container">
+      <div class="rules-grid">
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור לקבל הלוואה</h4>
+            <p>אחד מהיתרונות הגדולים של קרן השתלמות רגילה הוא הלוואה זולה בריבית פריים. ב-IRA — אסור.</p>
+          </div>
+        </div>
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור לכתוב אופציות</h4>
+            <p>מותר רק לקנות אופציות. אסור להיות הצד המוכר (writer) — סיכון בלתי מוגבל.</p>
+          </div>
+        </div>
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור להשקיע במדינות לא מאושרות</h4>
+            <p>השקעה מחוץ לישראל מותרת רק במדינות עם דירוג BBB+ ומעלה, או חברות OECD.</p>
+          </div>
+        </div>
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור IRA בקרן פנסיה</h4>
+            <p>קרן פנסיה לא יכולה להיות בניהול אישי. רק קופת גמל וקרן השתלמות. <a href="/ira/explained/#pension-no" style="color:var(--negative); font-weight:700;">למה זה רעיון רע לעבור</a>.</p>
+          </div>
+        </div>
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור גמל להשקעה ב-IRA</h4>
+            <p>קופת גמל להשקעה (המוצר ההוני הנפרד) אינה כשירה לניהול אישי.</p>
+          </div>
+        </div>
+        <div class="rule-card blocked">
+          <div class="rule-icon">✗</div>
+          <div>
+            <h4>אסור לחרוג ממגבלות הריכוז</h4>
+            <p>חריגה אקטיבית (קנייה חדשה שמפרה את התקרה) תיחסם אוטומטית על ידי גלובלנט.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Future regulation -->
+<section>
+  <div class="container">
+    <div class="body-container">
+      <h2 id="future-regulation">טיוטת תקנות 2025 — שינוי צפוי</h2>
+      <p>
+        ביוני 2025 פורסמה <strong>טיוטת תקנות חדשה</strong> מטעם רשות שוק ההון, שמטרתה לצמצם את
+        השימוש בקופות גמל IRA לחוסכים שאינם "מתאימים" לפי קריטריונים אובייקטיביים.
+      </p>
+
+      <div class="callout-warn">
+        <strong>עיקרי הטיוטה:</strong>
+        <ul style="margin: 8px 0 0; padding-right: 20px;">
+          <li>אסור ניהול אישי בקופת גמל למי שאינו מקבל קצבה של 10,400 ₪ ומעלה לחודש.</li>
+          <li>אסור ניהול אישי לחוסכים עם פחות מ-2.8 מיליון ₪ צבירה.</li>
+          <li>איסור על העברת כספים הוניים לקופת גמל בניהול אישי.</li>
+        </ul>
+        <p style="margin-top: 12px;">
+          <strong>חשוב:</strong> התקנות <strong>לא חלות על קרן השתלמות</strong>, ולא חלות על
+          חוסכים שכבר מנהלים כיום קופת גמל IRA. אם הטיוטה תיכנס לתוקף כפי שהוצעה — קרן השתלמות
+          תהפוך למסלול היחיד הנגיש לרוב הציבור ב-IRA.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Oversight -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">פיקוח</span>
+      <h2>מי מוודא שאתה מציית לכללים</h2>
+    </div>
+
+    <div class="body-container">
+      <p>
+        אתה לא צריך לזכור את כל המגבלות. <strong>גלובלנט</strong> — החברה המנהלת של ה-IRA —
+        מפקחת אוטומטית על עמידה בכל הכללים שפורטו בעמוד הזה. אם תנסה לבצע פעולה שתחרוג ממגבלת
+        ה-10% של תאגיד יחיד, המערכת תחסום אותה לפני הביצוע.
+      </p>
+      <p>
+        חריגה <strong>פסיבית</strong> (תוצאה של שינוי מחירי שוק — לדוגמה, מנייה שעלתה והפכה
+        להיות יותר מ-10% מהתיק) לא תחסום את החשבון, אבל גלובלנט תודיע לך ותדרוש איזון בתוך זמן
+        סביר.
+      </p>
+      <p>
+        בנוסף לפיקוח של גלובלנט, יש פיקוח-על של רשות שוק ההון, ביטוח וחיסכון — אותה רשות שמפקחת
+        על קופות הגמל הרגילות.
+      </p>
+
+      <div class="callout">
+        <strong>לסיכום:</strong> ב-IRA יש לך חופש פעולה רחב, אבל לא חופש מוחלט. המגבלות נועדו
+        למנוע מטעויות חמורות לפגוע בחיסכון הפנסיוני שלך. רוב המשקיעים הפסיביים שמשקיעים בקרנות
+        סל רחבות (S&P 500, נאסד"ק, MSCI World) לא נפגעים מהמגבלות כלל — הקרנות עצמן מפזרות בין
+        מאות חברות, ולכן לא מתקרבות לתקרת 10% הריכוז.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related -->
+<section class="related-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">המשך</span>
+      <h2>תוכל גם ל...</h2>
+    </div>
+    <div class="related-grid">
+      <a href="/ira/" class="related-card">
+        <div class="micro">דף שירות</div>
+        <h4>השאלון — קבל המלצה אישית</h4>
+        <p>אם הבנת את הכללים, השאלון יחשב לך את הברוקר הזול ביותר לתמהיל ההשקעות שלך.</p>
+      </a>
+      <a href="/ira/fees/" class="related-card">
+        <div class="micro">השוואה</div>
+        <h4>עמלות הברוקרים</h4>
+        <p>טבלת השוואה מלאה של עמלות 5 הברוקרים בכל סוגי ניירות הערך — ישראל וחו"ל.</p>
+      </a>
+      <a href="/ira/explained/" class="related-card">
+        <div class="micro">מדריך עומק</div>
+        <h4>מתי IRA כן ומתי לא</h4>
+        <p>מדריך עומק — בקרן השתלמות זה זוהר, בגמל בזהירות, ובקרן פנסיה לא לגעת.</p>
+      </a>
+      <a href="/#contact" class="related-card">
+        <div class="micro">שיחה</div>
+        <h4>קבע שיחה לשמוע יותר</h4>
+        <p>החלטה כזו לא לבד. שיחה של 20 דקות תיתן לך את התמונה המלאה.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
+        </div>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/ira/">IRA — ניהול אישי</a></li>
+          <li><a href="/">קרן השתלמות</a></li>
+          <li><a href="/">קופת גמל</a></li>
+          <li><a href="/">גמל להשקעה</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>שירותים</h4>
+        <ul>
+          <li><a href="/">תכנון פיננסי</a></li>
+          <li><a href="/">ייעוץ פנסיוני</a></li>
+          <li><a href="/">ייעוץ ביטוחי</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צור קשר</h4>
+        <ul>
+          <li><a href="/#contact">קבע שיחה</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
+          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        רישיון יועץ פנסיוני · משרד האוצר
+      </span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
+  </svg>
+</a>
+
+</body>
+</html>
