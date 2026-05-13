@@ -309,6 +309,13 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--positive);
   font-weight: 700;
 }
+.hero-card .card-cta {
+  display: block;
+  text-align: center;
+  margin-top: var(--s-md);
+  width: 100%;
+  justify-content: center;
+}
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -465,6 +472,18 @@ section.tight { padding: var(--s-2xl) 0; }
   margin: 6px 0;
   font-size: 16px;
   color: var(--text-1);
+}
+.examples-intro {
+  max-width: 760px;
+  margin: 0 auto var(--s-md);
+  text-align: right;
+}
+.examples-intro-label {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.3px;
 }
 .examples-grid {
   display: grid;
@@ -1368,12 +1387,11 @@ section.tight { padding: var(--s-2xl) 0; }
         אתה בוחר. אתה משלם. אתה רואה הכל.
       </h1>
       <p class="lead">
-        במקום שמסלול ההשקעה ייבחר בשבילך — אתה מנהל בעצמך את הכסף של הגמל וההשתלמות שלך.
-        דמי הניהול נמוכים פי כמה, יש לך גישה ל-ETF זרים, מניות בודדות, ואג"ח שאף בית השקעות לא מציע במדף.
-        החיסרון: זה דורש מעורבות. ולא כל סכום מתאים לכל ברוקר.
+        בקופה רגילה תוכל לבחור מסלול — אבל רק מתוך עשרות מסלולים בודדים שבית ההשקעות מציע במדף.
+        ב-IRA אתה מנהל את הכסף בעצמך, וניגש ל<strong>אלפי</strong> קרנות סל, מניות, ואגרות חוב.
+        דמי הניהול נמוכים פי כמה. החיסרון: זה דורש מעורבות, ולא כל סכום מתאים לכל ברוקר.
       </p>
       <div class="hero-actions">
-        <a href="#wizard" class="btn btn-secondary">בדוק התאמה ב-2 דקות ←</a>
         <a href="/ira/explained/" class="btn btn-ghost">קרא קודם את המדריך המלא ↗</a>
       </div>
       <div class="trust-row">
@@ -1394,14 +1412,15 @@ section.tight { padding: var(--s-2xl) 0; }
 
     <div class="hero-visual">
       <div class="hero-card">
-        <div class="micro-label">מה אתה מקבל בשאלון</div>
-        <h3>המלצה אישית + פירוט עלויות</h3>
+        <div class="micro-label">כלי חינמי</div>
+        <h3>סימולטור לבדיקת התאמה וחישוב עלויות</h3>
         <ul class="feature-list">
           <li>בדיקת התאמת המוצר אליך</li>
           <li>סינון ברוקרים לפי רף מינימום והגבלות</li>
           <li>חישוב עמלות חזויות לכל ברוקר זמין</li>
           <li>הזול ביותר עבורך — עם הסבר למה</li>
         </ul>
+        <a href="#wizard" class="btn btn-secondary card-cta">בדוק התאמה ב-2 דקות ←</a>
       </div>
     </div>
   </div>
@@ -1446,15 +1465,16 @@ section.tight { padding: var(--s-2xl) 0; }
       <h2>קופת גמל / השתלמות שאתה מנהל בעצמך</h2>
       <p>
         IRA — ראשי תיבות של Individual Retirement Account — הוא חשבון השקעות פנסיוני
-        בניהול אישי. במקום שמנהל השקעות ייקח את הכסף שלך וישקיע אותו לפי מסלול מדף,
-        אתה הופך להיות מנהל ההשקעות של עצמך.
+        בניהול אישי. בקופת גמל וקרן השתלמות רגילות יש לך מסלולים לבחירה — אבל מדובר
+        בהיצע מצומצם של עשרות מסלולים שבית ההשקעות מציע במדף. ב-IRA אתה מנהל את ההשקעות
+        בעצמך, וניגש ל<strong>אלפי</strong> קרנות סל, מניות, ואגרות חוב שלא קיימים בשום מסלול מדף.
       </p>
     </div>
     <div class="explainer-grid">
       <div class="explainer-card">
         <div class="explainer-icon">🎯</div>
-        <h3>שליטה מלאה</h3>
-        <p>אתה בוחר בדיוק לאן הכסף הולך — ETF על נאסד"ק, מניות בודדות, אג"ח ספציפיות, או קרנות אלטרנטיביות. בלי לחכות למסלול מדף.</p>
+        <h3>שליטה מלאה והיצע רחב</h3>
+        <p>במסלולי המדף של קופה רגילה ההיצע מצומצם לעשרות מסלולים. ב-IRA אתה ניגש ל<strong>אלפי</strong> ניירות ערך: קרנות סל ישראליות וזרות, ETF על נאסד"ק / S&P, מניות בודדות בארץ ובחו"ל, אג"ח קונצרני אמריקאי, וקרנות אלטרנטיביות. אתה בוחר את התמהיל בעצמך.</p>
       </div>
       <div class="explainer-card">
         <div class="explainer-icon">💰</div>
@@ -1466,13 +1486,22 @@ section.tight { padding: var(--s-2xl) 0; }
         <h3>הטבות מס מלאות</h3>
         <p>אותן הטבות כמו קופת גמל וקרן השתלמות רגילות: 15% מס רווח הון נומינלי, דחיית מס, ופטור מלא בתנאים. הכסף לא יוצא מהמסגרת הפנסיונית.</p>
       </div>
-      <div class="explainer-card">
-        <div class="explainer-icon">🔓</div>
-        <h3>גמישות בהשקעה</h3>
-        <p>אפשרויות שלא קיימות בקופות רגילות: ETF זרים על מדדים מסוימים, מניות ספציפיות, ואג"ח קונצרני אמריקאי. כולל מסלולים שמותאמים לתקופות שוק.</p>
-      </div>
       <div class="explainer-card" style="border:2px solid var(--primary); background:#fff;">
-        <div class="explainer-icon" style="background:#fff7f5; color:var(--cta);">🇺🇸</div>
+        <div class="explainer-icon" style="background:#fff7f5; padding:0; overflow:hidden;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" width="40" height="28" aria-hidden="true" style="display:block;">
+            <rect width="60" height="40" fill="#fff"/>
+            <g fill="#B22234">
+              <rect y="0"  width="60" height="3.08"/>
+              <rect y="6.15" width="60" height="3.08"/>
+              <rect y="12.31" width="60" height="3.08"/>
+              <rect y="18.46" width="60" height="3.08"/>
+              <rect y="24.62" width="60" height="3.08"/>
+              <rect y="30.77" width="60" height="3.08"/>
+              <rect y="36.92" width="60" height="3.08"/>
+            </g>
+            <rect width="24" height="21.54" fill="#3C3B6E"/>
+          </svg>
+        </div>
         <h3>יתרון לאזרחי ארה"ב</h3>
         <p>קרנות נאמנות ישראליות נחשבות PFIC לפי דיני המס האמריקאי — דיווחים מסובכים ומיסוי פוגעני. ב-IRA אפשר לבחור ני"ע אמריקאיים שאינם PFIC.</p>
       </div>
@@ -1612,7 +1641,7 @@ section.tight { padding: var(--s-2xl) 0; }
 <section class="threshold-section" id="thresholds">
   <div class="container">
     <div class="section-header">
-      <span class="section-eyebrow">תנאי הסף</span>
+      <span class="section-eyebrow">סכומי מינימום לפתיחת IRA</span>
       <h2>שני תנאים שחייבים להתקיים יחד</h2>
       <p class="threshold-intro">
         כדי לפתוח חשבון IRA בישראל, אתה צריך לעמוד בשתי דרישות במקביל — לא באחת מהן.
@@ -1627,6 +1656,10 @@ section.tight { padding: var(--s-2xl) 0; }
         <li><strong>בכל מוצר שאתה מנייד</strong> בנפרד (גמל / השתלמות) — לפחות <strong>30,000 ₪</strong>.</li>
         <li>אם רק אחד מהמוצרים מנוייד — הוא לבדו חייב להגיע ל-75,000 ₪.</li>
       </ul>
+    </div>
+
+    <div class="examples-intro">
+      <span class="examples-intro-label">לדוגמא —</span>
     </div>
 
     <div class="examples-grid">
@@ -2456,26 +2489,4 @@ function getIraFitVerdict(data, hasEligibleBroker) {
       };
     }
     return {
-      type: 'bad',
-      label: 'אין ברוקר זמין',
-      title: 'התנאים שלך לא תואמים לאף ברוקר',
-      text: `לפי המידע שהזנת, אף ברוקר לא יפתח לך חשבון IRA. ראה בטבלה למטה את הסיבה הספציפית לכל אחד. אם זה תלוי בלקוחות בנק — שווה לבדוק אם פתיחת חשבון בבנק מתאים אליך לפני שמוותרים.`
-    };
-  }
-
-  // יש ברוקר זמין — בודקים פרופיל ניסיון
-  if (lowExperience && data.frequency === 'high') {
-    return {
-      type: 'warn',
-      label: 'התאמה מסוייגת',
-      title: 'מסחר פעיל ללא ניסיון — שילוב מסוכן',
-      text: `יש ברוקר זמין עבורך, אבל מסחר תכוף ללא ניסיון מעלה את הסיכון להחלטות אמוציונליות, ועלול לאכל את היתרון בדמי הניהול הנמוכים. שקול ייעוץ צמוד או אסטרטגיה פסיבית יותר.`
-    };
-  }
-
-  if (lowExperience) {
-    return {
-      type: 'warn',
-      label: 'מתאים — בזהירות',
-      title: 'מתאים, אבל לא להישען לבד',
-      text: `מבחינת סכום ופרופיל — יש ברוקר זמין ו-IRA יכול לעבוד
+      t
