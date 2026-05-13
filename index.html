@@ -1252,6 +1252,45 @@ section.tight { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- =========================================================
+     KNOWLEDGE / מדריכים — מאמרים שכדאי לדעת
+     ========================================================= -->
+<section class="tools-section" id="knowledge" style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">כדאי לדעת</span>
+      <h2>מדריכים — בלי מצגות מכירה</h2>
+      <p>מאמרי עומק שעוזרים להבין איפה כסף שלך באמת עובד, ואיפה הוא רק נשחק. בעברית פשוטה.</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-icon-box">👶</div>
+        <div class="tool-meta">מדריך · 8 דק' קריאה</div>
+        <h3>חיסכון לכל ילד — איך לבחור נכון</h3>
+        <p>ביטוח לאומי מפקיד 58 ₪ בחודש לכל ילד. הבחירה בין בנק לקופת גמל ובין מסלולי השקעה תקבע אם הסכום בגיל 18 יהיה 12,500 ₪ או 30,000 ₪.</p>
+        <a href="/savings/hisachon-layeled/" class="tool-link">קרא את המדריך ←</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-box">💰</div>
+        <div class="tool-meta">מדריך · 9 דק' קריאה</div>
+        <h3>קרן כספית — תשואה, מס, וקנייה צעד-צעד</h3>
+        <p>הכלי הנכון לכסף שלא רוצים לסכן בשוק ההון — אבל גם לא רוצים שיתבזבז בעו"ש. למה היא לרוב עדיפה על פיקדון, ואיך קונים בעצמכם בלי עמלות.</p>
+        <a href="/savings/keren-kaspit/" class="tool-link">קרא את המדריך ←</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon-box">🇮🇱</div>
+        <div class="tool-meta">מדריך · 10 דק' קריאה</div>
+        <h3>IRA — קרן השתלמות וקופת גמל בניהול אישי</h3>
+        <p>למה דווקא בקרן השתלמות זה זוהר, למה בקופת גמל זה הימור, ולמה לעולם לא להעביר מקרן פנסיה ל-IRA.</p>
+        <a href="/ira/explained/" class="tool-link">קרא את המדריך ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      TESTIMONIALS
      ========================================================= -->
 <section class="testimonials-section">
@@ -1416,12 +1455,12 @@ section.tight { padding: var(--s-2xl) 0; }
       </div>
 
       <div>
-        <h4>כלים</h4>
+        <h4>כדאי לדעת</h4>
         <ul>
-          <li><a href="#">🤖 רובייקטיבי</a></li>
           <li><a href="/ira/">IRA — ניהול אישי</a></li>
-          <li><a href="#">מחשבון פנסיה</a></li>
-          <li><a href="#">מחשבון ROI</a></li>
+          <li><a href="/ira/explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
         </ul>
       </div>
 
@@ -1530,71 +1569,4 @@ function showResult() {
     text = 'כמו רוב הקהל. מספיק טוב כדי לא להיות "אבוד", אבל מספיק רחוק מהאופטימום כדי שהפער יעלה לך מאות אלפי שקלים לאורך הקריירה.';
   } else {
     title = 'אתה בנקודת ההתחלה — וזה דווקא חדשות טובות';
-    text = 'אתה לא לבד. רוב הציבור באותו מקום בדיוק. החדשות הטובות: ההשפעה של תיקון מוקדם היא הכי גדולה. ההפרש בין "להתחיל היום" ל"להתחיל בעוד 5 שנים" = מאות אלפי שקלים.';
-  }
-  document.getElementById('result-title').textContent = title;
-  document.getElementById('result-text').textContent = text;
-}
-
-function restartQuiz() {
-  currentQ = 0;
-  totalScore = 0;
-  document.getElementById('quiz-step').style.display = 'block';
-  document.getElementById('quiz-result').classList.remove('active');
-  renderQuestion();
-}
-
-renderQuestion();
-
-/* =========================================================
-   In-page search
-   ========================================================= */
-const searchInput = document.getElementById('site-search');
-const searchResults = document.getElementById('search-results');
-
-function buildSearchIndex() {
-  const items = [];
-  document.querySelectorAll('h1, h2, h3, .section-eyebrow').forEach(el => {
-    const text = el.textContent.trim();
-    if (!text || text.length < 2) return;
-    const section = el.closest('section') || el.closest('[id]');
-    const id = section ? section.id : '';
-    items.push({ text, id });
-  });
-  return items;
-}
-
-const searchIndex = buildSearchIndex();
-
-function performSearch(query) {
-  if (!query || query.length < 2) {
-    searchResults.classList.remove('open');
-    searchResults.innerHTML = '';
-    return;
-  }
-  const q = query.toLowerCase();
-  const matches = searchIndex.filter(item => item.text.toLowerCase().includes(q)).slice(0, 8);
-
-  if (matches.length === 0) {
-    searchResults.innerHTML = '<div class="no-results">לא נמצאו תוצאות לחיפוש זה</div>';
-  } else {
-    searchResults.innerHTML = matches.map(m => {
-      const idx = m.text.toLowerCase().indexOf(q);
-      const before = m.text.slice(0, idx);
-      const match = m.text.slice(idx, idx + query.length);
-      const after = m.text.slice(idx + query.length);
-      return '<a href="#' + m.id + '">' + before + '<mark style="background:#ffe9b8; padding:0 2px;">' + match + '</mark>' + after + '</a>';
-    }).join('');
-  }
-  searchResults.classList.add('open');
-}
-
-searchInput.addEventListener('input', e => performSearch(e.target.value));
-searchInput.addEventListener('focus', e => { if (e.target.value) performSearch(e.target.value); });
-document.addEventListener('click', e => { if (!e.target.closest('.header-search')) { searchResults.classList.remove('open'); } });
-searchResults.addEventListener('click', e => {
-  if (e.target.closest('a')) {
-    setTimeout(() => { searchResults.classList.remove('open'); searchInput.value = ''; }, 100);
-  }
-});
-</script>
+    text = 'אתה לא לבד. רוב הציבור באותו מקום בדיוק. החדשות הטובות: ההשפעה של תיקון מוקדם היא הכי גדולה. ההפרש בין "להתחיל היום" ל"להתחיל בעוד 5 שנים" = מאות אלפי שקלים.'
