@@ -699,6 +699,83 @@ section.tight { padding: var(--s-2xl) 0; }
   .service-card .price-box { order: -1; }
 }
 
+/* ---------- Standing Order (Pisgot) ---------- */
+.standing-order-section {
+  background: var(--bg-white);
+}
+.standing-order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.standing-order-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+}
+.standing-order-card.good { border-right: 4px solid var(--positive); background: rgba(92,141,90,0.04); }
+.standing-order-card.warn { border-right: 4px solid var(--warning); background: rgba(232,180,80,0.06); }
+.standing-order-card .card-label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: var(--s-sm);
+}
+.standing-order-card.good .card-label { background: var(--positive); color: #fff; }
+.standing-order-card.warn .card-label { background: var(--warning); color: #fff; }
+.standing-order-card h3 { font-size: 20px; margin: 0 0 12px; color: var(--text-1); }
+.standing-order-card p { font-size: 15px; line-height: 1.7; color: var(--text-2); margin: 0; }
+.standing-order-card p strong { color: var(--text-1); }
+.standing-order-example {
+  margin-top: var(--s-md);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  padding: var(--s-md);
+}
+.standing-order-example .example-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-meta);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.standing-order-example ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.standing-order-example li {
+  padding: 6px 18px 6px 0;
+  position: relative;
+  font-size: 14px;
+  color: var(--text-1);
+  line-height: 1.6;
+  border-bottom: 1px dashed var(--border);
+}
+.standing-order-example li:last-child { border-bottom: none; }
+.standing-order-example li::before {
+  content: '◀';
+  position: absolute;
+  right: 0;
+  top: 9px;
+  color: var(--cta);
+  font-size: 8px;
+}
+
+@media (max-width: 900px) {
+  .standing-order-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Critical Warning Banner ---------- */
 .critical-warning {
   background: linear-gradient(135deg, #FFF6F4 0%, #FFE9E5 100%);
@@ -1865,6 +1942,66 @@ section.tight { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- =========================================================
+     PISGOT STANDING ORDER — פיצ'ר ייחודי
+     ========================================================= -->
+<section class="standing-order-section" id="pisgot-standing-order">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">פיצ'ר ייחודי של פסגות</span>
+      <h2>הוראת קבע לרכישת קרנות נאמנות</h2>
+      <p>
+        אם אתה מפקיד סכום קבוע כל חודש — אפשר להפוך את הקנייה לאוטומטית בלי להיכנס לחשבון.
+        זה פיצ'ר שמציעה כיום רק פסגות, וחשוב להבין את היתרון ואת הנקודה שדורשת תשומת לב.
+      </p>
+    </div>
+
+    <div class="standing-order-grid">
+      <div class="standing-order-card good">
+        <div class="card-label">✓ היתרון</div>
+        <h3>מינימום התעסקות שוטפת</h3>
+        <p>
+          פסגות מאפשרת לרכוש <strong>קרנות נאמנות</strong> (כולל קרנות נאמנות מחקות־מדד)
+          בהוראת קבע חודשית. הקנייה מתבצעת אוטומטית — בלי שתצטרך להיכנס לחשבון בכל פעם
+          ולבצע פעולה ידנית.
+        </p>
+        <p style="margin-top:12px;">
+          <strong>למי זה מתאים?</strong> למי שההפקדה החודשית שלו קבועה ומעוניין לצמצם
+          את ההתעסקות עם החשבון למינימום — אסטרטגיה פסיבית "הפקד ושכח".
+        </p>
+        <p style="margin-top:12px; padding-top:12px; border-top:1px dashed rgba(92,141,90,0.4); font-size:14px;">
+          <strong>שימו לב:</strong> הפיצ'ר חל על <strong>קרנות נאמנות בלבד</strong> —
+          לא על קרנות סל (ETF). אם התמהיל שלך כולל ETF, תצטרך לבצע אותם ידנית.
+        </p>
+      </div>
+
+      <div class="standing-order-card warn">
+        <div class="card-label">⚠ מה צריך לדעת</div>
+        <h3>השאר מרווח ביטחון — סיכון חריגה</h3>
+        <p>
+          הוראת הקבע נשלחת <strong>לפני</strong> שנקבע שער היחידה של אותו יום. אם בסוף
+          היום השער יעלה — החשבון עלול להיכנס ל<strong>חריגה</strong>.
+        </p>
+        <div class="standing-order-example">
+          <div class="example-title">דוגמה לחישוב</div>
+          <ul>
+            <li>הפקדה חודשית: <strong>1,500 ₪</strong></li>
+            <li>הוראת הקבע: לרכוש קרן ספציפית ב-<strong>1,490 ₪</strong> (10 ₪ נשמרים לעמלת קנייה)</li>
+            <li>מחיר היחידה ביום הקודם: <strong>149 אגורות</strong></li>
+            <li>הוראה שתישלח: לקנות <strong>1,000 יחידות</strong> (1,490 ÷ 1.49)</li>
+            <li>אם בסוף היום השער עלה ל-<strong>150 אגורות</strong> → החשבון יחויב ב-<strong>1,500 ₪</strong> + עמלות → <strong>חריגה</strong>.</li>
+          </ul>
+          <p style="margin-top:12px; font-size:14px; color: var(--text-2);">
+            <strong>הפתרון אם נכנסת לחריגה:</strong> מכירה של מספר יחידות מהקרן כדי לסגור
+            את החריגה. עדיף מראש לבחור סכום הוראת קבע <strong>שמרני</strong> (למשל
+            93%-95% מההפקדה החודשית) שיכסה גם תנודות שער אפשריות וגם את עמלת הקנייה.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      SERVICE OFFERING — מה אני נותן
      ========================================================= -->
 <section class="service-section" id="my-service">
@@ -2010,6 +2147,8 @@ section.tight { padding: var(--s-2xl) 0; }
           כמו פסגות ו-IBI נגישים יחסית (75K ₪ פר ת.ז) ומציעים עמלות תחרותיות. בנקים כמו מזרחי,
           לאומי, והבינלאומי דורשים 300K ₪ ויותר אבל מציעים לפעמים עמלות נמוכות יותר.
           הבינלאומי גם מציע מסלול "הכל כלול" של 0.22% שנתי שמתאים למשקיעים פעילים מאוד.
+          ל<strong>פסגות יש פיצ'ר ייחודי</strong> — אפשרות לרכוש קרנות נאמנות בהוראת קבע,
+          ראה <a href="#pisgot-standing-order">סקציית הוראת קבע</a> בעמוד.
           השאלון למעלה עושה את ההשוואה הזו במדויק לפי הנתונים שלך.
         </div>
       </details>
@@ -2176,7 +2315,7 @@ const BROKERS = {
     requires_bank_client: null,
     physical_visit: false,
     annual_account_fee_ils: 0,
-    notes: 'נגיש יחסית, עמלות תחרותיות, ללא דמי ניהול חשבון',
+    notes: 'נגיש יחסית, עמלות תחרותיות, ללא דמי ניהול חשבון. ⭐ <strong>מאפשרת רכישת קרנות נאמנות בהוראת קבע</strong> — <a href="#pisgot-standing-order" style="color:inherit; text-decoration:underline;">פרטים</a>',
     fees: {
       etf_il:    { pct: 0.0007, min_ils: 0 },
       stock_il:  { pct: 0.0007, min_ils: 0 },
@@ -2350,143 +2489,4 @@ function singleTradeCostIls(feeConfig, isForeign, tradeValueIls) {
     return costPerTradeUsd * USD_TO_ILS;
   } else {
     const pctFee = (feeConfig.pct || 0) * tradeValueIls;
-    const minFee = feeConfig.min_ils || 0;
-    return Math.max(pctFee, minFee);
-  }
-}
-
-// Returns { brokerFees, globalnetFees, total } — all in ILS, rounded.
-// brokerFees:    perakim of buy/sell + annual account fee (broker/bank side)
-// globalnetFees: Globalnet's % annual management fee (charged automatically on portfolio)
-function calcBrokerAnnualCost(brokerKey, data) {
-  const broker = BROKERS[brokerKey];
-  const tradesPerYear = FREQ_TRADES[data.frequency];
-  const numSecurities = data.securities.length;
-  if (numSecurities === 0 || !tradesPerYear) return { brokerFees: 0, globalnetFees: 0, total: 0 };
-
-  // Regular activity trades — distributed equally across selected securities
-  const tradesPerSecurity = tradesPerYear / numSecurities;
-
-  // Monthly deposit trades — every deposited month creates one purchase op,
-  // distributed across the selected securities (12 buys/year if monthly>0)
-  const depositTradesPerYear = data.monthly > 0 ? 12 : 0;
-  const depositTradesPerSecurity = depositTradesPerYear / numSecurities;
-  // Value of each deposit-driven trade (rough split across securities)
-  const depositValuePerSecIls = numSecurities > 0 ? (data.monthly / numSecurities) : 0;
-
-  let brokerFees = 0;
-
-  data.securities.forEach(sec => {
-    const feeKey = SECURITY_TO_FEE_KEY[sec];
-    const feeConfig = broker.fees[feeKey];
-    if (!feeConfig) return;
-    const isForeign = FOREIGN_SECURITIES.includes(sec);
-
-    // 1) Regular activity at average trade value
-    const avgTradeIls = isForeign ? (AVG_TRADE_VALUE_USD * USD_TO_ILS) : AVG_TRADE_VALUE_ILS;
-    brokerFees += singleTradeCostIls(feeConfig, isForeign, avgTradeIls) * tradesPerSecurity;
-
-    // 2) Monthly deposit-driven buys at deposit value
-    if (depositTradesPerSecurity > 0 && depositValuePerSecIls > 0) {
-      brokerFees += singleTradeCostIls(feeConfig, isForeign, depositValuePerSecIls) * depositTradesPerSecurity;
-    }
-  });
-
-  // Add broker's annual account fee
-  brokerFees += broker.annual_account_fee_ils;
-
-  // Globalnet management fee — applied automatically as % of portfolio
-  // The portfolio at year-start is data.total; mid-year average ≈ data.total + 6 months of monthly deposits.
-  const avgPortfolioValue = data.total + (data.monthly * 6);
-  const globalnetPct = getGlobalnetAnnualFeePct(avgPortfolioValue);
-  const globalnetFees = avgPortfolioValue * globalnetPct;
-
-  return {
-    brokerFees: Math.round(brokerFees),
-    globalnetFees: Math.round(globalnetFees),
-    total: Math.round(brokerFees + globalnetFees)
-  };
-}
-
-// Beinleumi all-inclusive alternative — broker side is 0.22% on portfolio (covers all trade fees)
-function calcBeinleumiAllInclusive(data) {
-  const portfolioValue = data.total + (data.monthly * 12); // forecast portfolio at year end
-  const avgPortfolio = data.total + (data.monthly * 6);    // avg for Globalnet calc
-  // Beinleumi all-inclusive: 0.22% annual on portfolio (covers trades)
-  const brokerFees = portfolioValue * 0.0022;
-  // Globalnet management fee — applied regardless of broker choice
-  const globalnetFees = avgPortfolio * getGlobalnetAnnualFeePct(avgPortfolio);
-  return {
-    brokerFees: Math.round(brokerFees),
-    globalnetFees: Math.round(globalnetFees),
-    total: Math.round(brokerFees + globalnetFees)
-  };
-}
-
-// ============================================================
-// ELIGIBILITY CHECK
-// ============================================================
-function checkEligibility(brokerKey, data) {
-  const broker = BROKERS[brokerKey];
-  const reasons = [];
-
-  // Minimum total
-  if (data.total < broker.min_total_ils) {
-    reasons.push(`רף כניסה: ₪${broker.min_total_ils.toLocaleString()} (יש לך ₪${data.total.toLocaleString()})`);
-  }
-
-  // Minimum per product
-  if (data.gemel > 0 && data.gemel < broker.min_per_product_ils) {
-    reasons.push(`רף לקופת גמל: ₪${broker.min_per_product_ils.toLocaleString()} (יש לך ₪${data.gemel.toLocaleString()})`);
-  }
-  if (data.keren > 0 && data.keren < broker.min_per_product_ils) {
-    reasons.push(`רף לקרן השתלמות: ₪${broker.min_per_product_ils.toLocaleString()} (יש לך ₪${data.keren.toLocaleString()})`);
-  }
-
-  // Bank client requirement
-  if (broker.requires_bank_client && data.bank !== broker.requires_bank_client) {
-    const bankNames = { leumi: 'לאומי', mizrahi: 'מזרחי', hapoalim: 'הפועלים (פלטינום)' };
-    reasons.push(`פתוח רק ללקוחות בנק ${bankNames[broker.requires_bank_client] || broker.requires_bank_client}`);
-  }
-
-  return {
-    eligible: reasons.length === 0,
-    reasons
-  };
-}
-
-// ============================================================
-// IRA OVERALL FIT VERDICT
-// ============================================================
-function getIraFitVerdict(data, hasEligibleBroker) {
-  const lowExperience = data.experience === 'low';
-
-  // עקרון על: אם אף ברוקר לא יקבל אותך — IRA לא יכול לעבוד עבורך, נקודה.
-  if (!hasEligibleBroker) {
-    // הסבר ספציפי לפי הסיבה הראשית
-    if (data.total < 75000) {
-      return {
-        type: 'bad',
-        label: 'לא מתאים כרגע',
-        title: 'הצבירה נמוכה מהמינימום בשוק',
-        text: `הרף הנמוך ביותר לפתיחת IRA בישראל הוא 75,000 ₪ סך הכל (פסגות / IBI), עם לפחות 30,000 ₪ פר מוצר. עד שתצבור עוד — שווה להישאר במסלול מחקה מדד בקופה רגילה, ולחזור אלי כשהסכום יגדל.`
-      };
-    }
-    if (data.gemel > 0 && data.gemel < 30000) {
-      return {
-        type: 'bad',
-        label: 'גמל מתחת לרף',
-        title: 'סכום הגמל נמוך מ-30,000 ₪',
-        text: `כל הברוקרים בשוק דורשים לפחות 30,000 ₪ פר מוצר. שקול להתחיל רק עם קרן ההשתלמות, או לחכות עד שתצבור 30,000 ₪ בגמל.`
-      };
-    }
-    if (data.keren > 0 && data.keren < 30000) {
-      return {
-        type: 'bad',
-        label: 'השתלמות מתחת לרף',
-        title: 'סכום קרן ההשתלמות נמוך מ-30,000 ₪',
-        text: `כל הברוקרים בשוק דורשים לפחות 30,000 ₪ פר מוצר. שקול להתחיל רק עם קופת הגמל, או לחכות עד שתצבור עוד בקרן ההשתלמות.`
-      };
-    }
-    return {
-      t
+    const minFee = feeConfi
