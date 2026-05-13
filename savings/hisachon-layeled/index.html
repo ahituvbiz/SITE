@@ -701,6 +701,115 @@ section { padding: var(--s-2xl) 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); }
 }
 
+
+/* Calculator */
+.calc-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--s-md);
+}
+.calc-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+  margin-bottom: var(--s-lg);
+  padding-bottom: var(--s-lg);
+  border-bottom: 1px solid var(--border);
+}
+.calc-control { display: flex; flex-direction: column; gap: 6px; }
+.calc-control .label-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px; color: var(--text-2); font-weight: 600;
+}
+.calc-control .label-row .value { font-size: 18px; color: var(--primary); font-weight: 700; }
+.calc-control input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+.toggle-row {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px var(--s-sm);
+  background: var(--bg-cream);
+  border-radius: var(--radius-btn);
+  cursor: pointer; user-select: none;
+}
+.toggle-row input { cursor: pointer; width: 20px; height: 20px; accent-color: var(--cta); }
+.toggle-row .toggle-text { font-size: 15px; }
+.toggle-row .toggle-text strong { color: var(--text-1); }
+.toggle-row .toggle-note { color: var(--text-meta); font-size: 13px; margin-top: 2px; }
+.calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+.calc-result {
+  background: linear-gradient(135deg, var(--primary-soft) 0%, #F0F6FA 100%);
+  border-radius: var(--radius-card);
+  padding: var(--s-md);
+  text-align: center;
+}
+.calc-result .age-label {
+  font-size: 13px; color: var(--text-2); font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.calc-result .net-value { font-size: 32px; font-weight: 700; color: var(--primary); margin: 6px 0 2px; }
+.calc-result .real-value { font-size: 13px; color: var(--text-meta); }
+.calc-breakdown {
+  margin-top: var(--s-md); padding-top: var(--s-md);
+  border-top: 1px solid var(--border);
+  font-size: 14px; color: var(--text-2);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+}
+.calc-breakdown .row { display: flex; justify-content: space-between; padding: 2px 0; }
+.calc-breakdown .row .val { color: var(--text-1); font-weight: 600; }
+
+/* Pension comparison */
+.pension-compare {
+  background: #1A1A1A; color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--s-lg); margin-top: var(--s-md);
+  position: relative; overflow: hidden;
+}
+.pension-compare::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 5px; height: 100%; background: var(--cta);
+}
+.pension-compare .pc-eyebrow {
+  display: block; font-size: 12px; color: var(--cta);
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.pension-compare h3 { color: #fff; font-size: 22px; margin: 0 0 var(--s-sm); line-height: 1.35; }
+.pension-compare p { color: rgba(255,255,255,0.85); font-size: 16px; margin: 0 0 var(--s-md); }
+.pension-compare .pc-numbers {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--s-sm); margin: var(--s-md) 0;
+}
+.pension-compare .pc-num {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 12px; text-align: center;
+}
+.pension-compare .pc-num .pcn-label { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
+.pension-compare .pc-num .pcn-value { font-size: 22px; font-weight: 700; color: #fff; }
+.pension-compare .pc-num.highlight {
+  background: rgba(215, 78, 60, 0.12);
+  border-color: rgba(215, 78, 60, 0.4);
+}
+.pension-compare .pc-num.highlight .pcn-value { color: #FFB89E; }
+.pension-compare .pc-cta { margin-top: var(--s-md); }
+.pension-compare .pc-cta a {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--cta); color: #fff;
+  padding: 12px 24px; border-radius: var(--radius-btn);
+  font-weight: 700; text-decoration: none !important;
+  transition: background .15s, transform .15s;
+}
+.pension-compare .pc-cta a:hover { background: var(--cta-hover); transform: translateY(-1px); }
+@media (max-width: 700px) {
+  .calc-controls { grid-template-columns: 1fr; gap: var(--s-md); }
+  .calc-results { grid-template-columns: 1fr; }
+  .calc-breakdown { grid-template-columns: 1fr; }
+  .pension-compare .pc-numbers { grid-template-columns: 1fr; }
+}
+
 /* WhatsApp FAB */
 .fab-whatsapp {
   position: fixed;
@@ -814,9 +923,10 @@ section { padding: var(--s-2xl) 0; }
         <li><a href="#what-is">מה זה תכנית חיסכון לכל ילד</a></li>
         <li><a href="#perspective">פתיחה קצרה — והפרספקטיבה המקצועית</a></li>
         <li><a href="#sum">סכום החיסכון — בפועל</a></li>
+        <li><a href="#calculator">מחשבון אינטראקטיבי — וההשוואה לפנסיה</a></li>
         <li><a href="#bank-vs-gemel">בנק או קופת גמל — ההחלטה החשובה</a></li>
         <li><a href="#tracks">מסלולי השקעה — איזה מסלול בוחרים</a></li>
-        <li><a href="#doubling">הכפלת החיסכון מקצבת הילדים</a></li>
+        <li><a href="#doubling">הכפלת החיסכון מקצבת הילדים — וההמלצה שלי</a></li>
         <li><a href="#change">שינוי קופה ומסלול תוך כדי</a></li>
         <li><a href="#withdrawal">משיכה — גיל 18, גיל 21, והמענקים</a></li>
         <li><a href="#checklist">צ'קליסט: 5 פעולות לבדיקה היום</a></li>
@@ -901,6 +1011,106 @@ section { padding: var(--s-2xl) 0; }
     </p>
     <p>
       <a href="https://www.btl.gov.il/Simulators/childrenCalc/Pages/savings.aspx" target="_blank" rel="noopener">למחשבון חישוב הסכום באתר ביטוח לאומי ←</a>
+    </p>
+
+    
+    <!-- CALCULATOR -->
+    <h2 id="calculator">מחשבון: כמה ייצא בסוף — נטו</h2>
+    <p>
+      בחרו את ההנחות שלכם: האם להכפיל, מה צפויה האינפלציה, ומה התשואה הנומינלית. המחשבון מציג את
+      הערך נטו לאחר 25% מס על רווח ריאלי, וכולל את המענקים של 582 ₪ בגיל 18 ובגיל 21
+      (המענקים <strong>אינם</strong> מוכפלים — הם קבועים לפי החוק).
+    </p>
+
+    <div class="calc-card">
+      <div class="calc-controls">
+        <label class="toggle-row">
+          <input type="checkbox" id="calc-double">
+          <div class="toggle-text">
+            <strong>להכפיל את ההפקדה</strong> (מ-58 ₪ ל-116 ₪ בחודש)
+            <div class="toggle-note">ברירת מחדל: לא — ראו את ההמלצה שלי בהמשך</div>
+          </div>
+        </label>
+
+        <div class="calc-control">
+          <div class="label-row">
+            <span>אינפלציה צפויה (שנתית)</span>
+            <span class="value"><span id="calc-infl-out">2.0</span>%</span>
+          </div>
+          <input type="range" id="calc-infl" min="0" max="6" step="0.1" value="2">
+        </div>
+
+        <div class="calc-control">
+          <div class="label-row">
+            <span>תשואה נומינלית צפויה (שנתית)</span>
+            <span class="value"><span id="calc-ret-out">8.0</span>%</span>
+          </div>
+          <input type="range" id="calc-ret" min="0" max="15" step="0.1" value="8">
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="calc-result">
+          <div class="age-label">בגיל 18 — נטו</div>
+          <div class="net-value" id="calc-age18">—</div>
+          <div class="real-value">בכוח קנייה של היום: <span id="calc-age18-real">—</span></div>
+        </div>
+        <div class="calc-result">
+          <div class="age-label">בגיל 21 — נטו</div>
+          <div class="net-value" id="calc-age21">—</div>
+          <div class="real-value">בכוח קנייה של היום: <span id="calc-age21-real">—</span></div>
+        </div>
+      </div>
+
+      <div class="calc-breakdown">
+        <div class="row"><span class="label">סך הפקדות חודשיות (קרן)</span><span class="val" id="calc-deposits">—</span></div>
+        <div class="row"><span class="label">סך מענקים (582 ₪ × 2)</span><span class="val">₪ 1,164</span></div>
+        <div class="row"><span class="label">רווח ברוטו (נומינלי) עד גיל 21</span><span class="val" id="calc-gain">—</span></div>
+        <div class="row"><span class="label">מס רווחי הון (25% מהריאלי) בגיל 21</span><span class="val" id="calc-tax">—</span></div>
+      </div>
+    </div>
+
+    <!-- PENSION COMPARE -->
+    <div class="pension-compare">
+      <span class="pc-eyebrow">ועכשיו לדבר האמיתי</span>
+      <h3>אותה החלטה — בפנסיה — שווה פי 100 ויותר</h3>
+      <p>
+        אם הקדשתם 10 דקות לבחירת הקופה של הילד, בדקו את ההחלטה הזו: באותן הנחות תשואה ואינפלציה,
+        2,000 ₪ בחודש לקרן פנסיה במשך 40 שנה צפויים להצטבר ל<strong>מיליוני שקלים</strong>
+        — לעומת עשרות אלפים בלבד בחיסכון לכל ילד. <em>שני סדרי גודל. זו לא טעות.</em>
+      </p>
+
+      <div class="pc-numbers">
+        <div class="pc-num">
+          <div class="pcn-label">חיסכון לכל ילד — בגיל 21</div>
+          <div class="pcn-value" id="pc-child">—</div>
+        </div>
+        <div class="pc-num">
+          <div class="pcn-label">פנסיה: 2,000 ₪/חודש × 40 שנה</div>
+          <div class="pcn-value" id="pc-pension">—</div>
+        </div>
+        <div class="pc-num highlight">
+          <div class="pcn-label">פער</div>
+          <div class="pcn-value" id="pc-ratio">—</div>
+        </div>
+      </div>
+
+      <p style="font-size:15px;">
+        בחירה אופטימלית בפנסיה — דמי ניהול נמוכים, מסלול השקעה מתאים לגיל, ביטוחים בלי כפילויות —
+        יכולה להוסיף <strong>מאות אלפי שקלים</strong> לפנסיה שלכם לעומת ברירת המחדל של המעסיק או של
+        סוכן עם אינטרס זר. זה הסכום שמשנה את החיים — לא ה-30,000 ₪ של חיסכון לכל ילד.
+      </p>
+
+      <div class="pc-cta">
+        <a href="/#contact">קבע שיחת תכנון פיננסי כדי לשמוע יותר →</a>
+      </div>
+    </div>
+
+    <p style="margin-top:var(--s-lg); font-size:14px; color: var(--text-meta);">
+      <strong>הערה על החישוב:</strong> המחשבון משתמש בריבית-דריבית חודשית, מס רווחי הון של 25%
+      על הרווח הריאלי (שמעבר לאינפלציה), ומחיר עתידי של 582 ₪ × 2 למענקים. ההנחות הן כלליות — שוק
+      ההון אינו לינארי, ותשואות בפועל ישתנו. השוואת הפנסיה מבוססת על הפקדה חודשית של 2,000 ₪
+      במשך 480 חודשים (40 שנה), באותן הנחות תשואה ואינפלציה כמו של החיסכון לילד.
     </p>
 
     <!-- BANK VS GEMEL -->
@@ -1015,34 +1225,53 @@ section { padding: var(--s-2xl) 0; }
     </div>
 
     <!-- DOUBLING -->
-    <h2 id="doubling">הכפלת החיסכון מקצבת הילדים</h2>
+    <h2 id="doubling">הכפלת החיסכון מקצבת הילדים — וההמלצה שלי</h2>
     <p>
       ביטוח לאומי מאפשר להפקיד עוד 58 ₪ בחודש מקצבת הילדים שמשולמת לכם ממילא — וכך להכפיל את סכום
       החיסכון של הילד ל-116 ₪ בחודש. ההפקדה הזאת באה <strong>על חשבון</strong> קצבת הילדים, לא
       מעבר לה.
     </p>
 
-    <h3>האם כדאי להכפיל?</h3>
     <p>
-      מתמטית — כן. 18 שנים של 58 ₪ נוספים בחודש, בריבית-דריבית של מסלול מנייתי, יכולים להכפיל את
-      סכום החיסכון. זו אחת ההשקעות היחידות שניתן להמשיך אותן ברציפות מהלידה ועד הבגרות.
-    </p>
-    <p>
-      אבל יש <strong>אבל</strong> חשוב, שלא קשור למתמטיקה:
+      מתמטית — אם משווים "להוסיף 58 ₪ לחיסכון של הילד" מול "לתת ל-58 ₪ להתאדות בעו"ש", הבחירה
+      ברורה לטובת ההכפלה. אבל זו <em>השאלה הלא נכונה</em>.
     </p>
 
-    <div class="verdict-block warn">
-      <span class="label">סדר עדיפויות חיוני</span>
-      <h3>לפני שמכפילים את חיסכון הילד — תבדקו את התמונה שלכם</h3>
+    <h3>השאלה הנכונה — מי מחזיק במפתחות</h3>
+    <p>
+      כשאתם מכפילים את ההפקדה, הכסף הופך לכספי <strong>הילד</strong> — לא שלכם. בגיל 18 הוא יכול
+      למשוך אותו, ובגיל 21 ביוזמתו, ללא צורך באישורכם. אתם <strong>מאבדים שליטה</strong> על כיצד
+      הכסף ינוצל.
+    </p>
+
+    <div class="verdict-block bad">
+      <span class="label">ההמלצה שלי</span>
+      <h3>אל תכפילו. חסכו את ה-58 ₪ על שמכם — שמרו את הבחירה בידיכם</h3>
       <p>
-        58 ₪ נוספים בחודש לחיסכון של הילד זה דבר טוב. אבל אם הביטוחים שלכם לא מסודרים, אם אין לכם
-        ביטוח חיים מספק, או אם אתם משלמים דמי ניהול גבוהים על הפנסיה — אותם 58 ₪ ילכו רחוק יותר
-        אצלכם. סדר העדיפויות תמיד: קודם הביטחון של ההורים, אחר כך החיסכון של הילד.
+        ההמלצה שלי <strong>לא להכפיל</strong> את ההפקדה. במקום זה — חסכו את ה-58 ₪ באפיק על
+        <em>שמכם</em>: קרן השתלמות, קופת גמל להשקעה, או גם קרן כספית. ככה הכסף ימשיך לעבוד עבור
+        הילד באותה ריבית-דריבית — אבל אתם תחליטו, כשיגיע הרגע, אם להפנות אותו לחתונה, לדירה, ללימודים,
+        או להמתין עוד שנים. השליטה — קריטית. אל תוותרו עליה בלי תועלת אמיתית במקביל.
       </p>
     </div>
 
+    <h3>מי שכן מכפיל — בתנאים האלה</h3>
     <p>
-      <a href="https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledInfo.aspx?IsBankOrGemel=gemel" target="_blank" rel="noopener">להכפלת סכום החיסכון באתר ביטוח לאומי ←</a>
+      אם אתם מכפילים, ודאו את שלושת אלה תחילה. אם משהו מהם לא מסומן, 58 ₪ הולכים רחוק יותר אצלכם:
+    </p>
+    <ul>
+      <li><strong>הביטוחים שלכם נבדקו ב-12 החודשים האחרונים</strong> — חיים, נכות (אובדן כושר עבודה),
+      בריאות.</li>
+      <li><strong>קרן הפנסיה שלכם נבדקה</strong> — מסלול השקעה, דמי ניהול, סכום ההפקדה.</li>
+      <li><strong>קרן ההשתלמות שלכם פעילה ומופקדת אליה הסכום המקסימלי</strong> שמזכה בהטבת מס.</li>
+    </ul>
+    <p>
+      בלי שלושת אלה — 58 ₪ נוספים על שמכם, באחד מהאפיקים הנכונים שלכם, יחזירו לכם הרבה יותר מאשר
+      58 ₪ על שם הילד.
+    </p>
+
+    <p style="font-size:14px;">
+      <a href="https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledInfo.aspx?IsBankOrGemel=gemel" target="_blank" rel="noopener">לטופס ההכפלה באתר ביטוח לאומי ←</a> (אם בכל זאת תרצו)
     </p>
 
     <!-- CHANGE -->
@@ -1206,10 +1435,11 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item">
         <summary>האם כדאי להכפיל את החיסכון מתוך קצבת הילדים?</summary>
         <div class="faq-body">
-          מבחינת חינוך פיננסי וריבית-דריבית של 18 שנים — כן, בהחלט. ההפקדה הנוספת של 58 ₪ בחודש
-          מקצבת הילדים מכפילה את היקף החיסכון, ובמסלול מנייתי לטווח ארוך הסכום יכול להיות משמעותי.
-          אבל לפני שמסמנים את התיבה — חשוב לוודא שהפנסיה שלכם, ההפקדות לקרן השתלמות, וביטוחי החיים
-          והנכות שלכם מסודרים. סדר עדיפויות זה הכל.
+          ההמלצה שלי <strong>לא להכפיל</strong>. ברגע שתפקידו 58 ₪ נוספים מקצבת הילדים — הכסף הופך
+          לכספי הילד, ובגיל 21 (או 18 באישור הורה) הוא ינצל אותו לפי שיקול דעתו. עדיף לחסוך את אותם
+          58 ₪ באפיק על שמכם — קרן השתלמות, קופת גמל להשקעה, או קרן כספית — וכך לשמור בידיכם את
+          הבחירה על איך לעזור לילד כשיגיע הרגע (חתונה, דירה, לימודים). אותה ריבית-דריבית, אבל שליטה
+          מלאה.
         </div>
       </details>
 
@@ -1255,10 +1485,11 @@ section { padding: var(--s-2xl) 0; }
 <!-- CONTACT CTA -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <h2>הגיע הרגע לשמוע יותר</h2>
+    <h2>הקדשתם 15 דקות לילד. תקדישו 20 דקות לעצמכם</h2>
     <p>
-      בחרתם נכון את החיסכון לילד? יופי. עכשיו תנו לי 20 דקות לעבור איתכם על הפנסיה והביטוחים שלכם
-      — שם הסכומים גדולים פי 40, וההזנחה עולה הרבה יותר.
+      ה-30,000 ₪ של חיסכון לכל ילד הם דבר נחמד. <strong>הפנסיה שלכם — שווה פי 100 ויותר.</strong>
+      תכנון פיננסי הוליסטי בודק את כל התמונה: פנסיה, השתלמות, ביטוחים, משכנתא — בלי קונפליקט
+      אינטרסים, עם רישיון של משרד האוצר. שיחת היכרות של 20 דקות תיתן לכם כיוון ברור.
     </p>
     <div class="contact-actions">
       <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר →</a>
@@ -1352,6 +1583,101 @@ section { padding: var(--s-2xl) 0; }
     <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
   </svg>
 </a>
+
+
+<script>
+/* Child savings calculator */
+(function () {
+  const $double = document.getElementById('calc-double');
+  const $infl   = document.getElementById('calc-infl');
+  const $ret    = document.getElementById('calc-ret');
+  const $inflO  = document.getElementById('calc-infl-out');
+  const $retO   = document.getElementById('calc-ret-out');
+  const $age18  = document.getElementById('calc-age18');
+  const $age21  = document.getElementById('calc-age21');
+  const $age18R = document.getElementById('calc-age18-real');
+  const $age21R = document.getElementById('calc-age21-real');
+  const $dep    = document.getElementById('calc-deposits');
+  const $gain   = document.getElementById('calc-gain');
+  const $tax    = document.getElementById('calc-tax');
+  const $pcChild   = document.getElementById('pc-child');
+  const $pcPension = document.getElementById('pc-pension');
+  const $pcRatio   = document.getElementById('pc-ratio');
+  if (!$double) return;
+
+  function fmt(n) {
+    if (!isFinite(n)) return '—';
+    return '₪ ' + Math.round(Math.abs(n)).toLocaleString('he-IL');
+  }
+  function fmtShort(n) {
+    if (!isFinite(n)) return '—';
+    if (Math.abs(n) >= 1e6) return '₪ ' + (n / 1e6).toFixed(2).replace(/\.00$/, '') + 'M';
+    if (Math.abs(n) >= 1e4) return '₪ ' + Math.round(n / 1000).toLocaleString('he-IL') + 'K';
+    return '₪ ' + Math.round(n).toLocaleString('he-IL');
+  }
+  function fvAnnuity(r, n) {
+    if (r === 0) return n;
+    return (Math.pow(1 + r, n) - 1) / r;
+  }
+
+  function compute() {
+    const isDoubled = $double.checked;
+    const inflA = parseFloat($infl.value) / 100;
+    const retA  = parseFloat($ret.value)  / 100;
+    const monthly = isDoubled ? 116 : 58;
+    const m18 = 216, m3 = 36, grant = 582;
+    const rM = Math.pow(1 + retA,  1/12) - 1;
+    const iM = Math.pow(1 + inflA, 1/12) - 1;
+
+    const fvNom18 = monthly * fvAnnuity(rM, m18);
+    const fvInf18 = monthly * fvAnnuity(iM, m18);
+
+    const nomAt18Pre = fvNom18 + grant;
+    const infAt18Pre = fvInf18 + grant;
+    const realGain18 = Math.max(0, nomAt18Pre - infAt18Pre);
+    const netAt18 = nomAt18Pre - 0.25 * realGain18;
+
+    const nomAt21 = fvNom18 * Math.pow(1 + rM, m3) + grant * Math.pow(1 + rM, m3) + grant;
+    const infAt21 = fvInf18 * Math.pow(1 + iM, m3) + grant * Math.pow(1 + iM, m3) + grant;
+    const realGain21 = Math.max(0, nomAt21 - infAt21);
+    const tax21 = 0.25 * realGain21;
+    const netAt21 = nomAt21 - tax21;
+
+    const todayAt18 = netAt18 / Math.pow(1 + inflA, 18);
+    const todayAt21 = netAt21 / Math.pow(1 + inflA, 21);
+
+    const totalDeposits = monthly * m18;
+    const grossGain21 = nomAt21 - totalDeposits - grant * 2;
+
+    const m40 = 480;
+    const fvNomPension = 2000 * fvAnnuity(rM, m40);
+    const fvInfPension = 2000 * fvAnnuity(iM, m40);
+    const realGainPension = Math.max(0, fvNomPension - fvInfPension);
+    const netPension = fvNomPension - 0.25 * realGainPension;
+    const ratio = netPension / netAt21;
+
+    $inflO.textContent = (inflA * 100).toFixed(1);
+    $retO.textContent  = (retA  * 100).toFixed(1);
+    $age18.textContent  = fmt(netAt18);
+    $age21.textContent  = fmt(netAt21);
+    $age18R.textContent = fmt(todayAt18);
+    $age21R.textContent = fmt(todayAt21);
+    $dep.textContent    = fmt(totalDeposits);
+    $gain.textContent   = fmt(grossGain21);
+    $tax.textContent    = fmt(tax21);
+    $pcChild.textContent   = fmtShort(netAt21);
+    $pcPension.textContent = fmtShort(netPension);
+    $pcRatio.textContent   = 'פי ' + Math.round(ratio).toLocaleString('he-IL');
+  }
+
+  ['input', 'change'].forEach(ev => {
+    $double.addEventListener(ev, compute);
+    $infl.addEventListener(ev, compute);
+    $ret.addEventListener(ev, compute);
+  });
+  compute();
+})();
+</script>
 
 </body>
 </html>
