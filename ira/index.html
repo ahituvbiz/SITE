@@ -1548,7 +1548,20 @@ section.tight { padding: var(--s-2xl) 0; }
     </div>
     <div class="explainer-grid">
       <div class="explainer-card">
-        <div class="explainer-icon">🎯</div>
+        <div class="explainer-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="16" cy="16" r="13"/>
+            <circle cx="16" cy="16" r="3.2"/>
+            <line x1="16" y1="3" x2="16" y2="12.8"/>
+            <line x1="16" y1="19.2" x2="16" y2="29"/>
+            <line x1="3" y1="16" x2="12.8" y2="16"/>
+            <line x1="19.2" y1="16" x2="29" y2="16"/>
+            <line x1="6.8" y1="6.8" x2="13.4" y2="13.4"/>
+            <line x1="18.6" y1="18.6" x2="25.2" y2="25.2"/>
+            <line x1="25.2" y1="6.8" x2="18.6" y2="13.4"/>
+            <line x1="13.4" y1="18.6" x2="6.8" y2="25.2"/>
+          </svg>
+        </div>
         <h3>שליטה מלאה והיצע רחב</h3>
         <p>במסלולי המדף של קופה רגילה ההיצע מצומצם לעשרות מסלולים. ב-IRA אתה ניגש ל<strong>אלפי</strong> ניירות ערך: קרנות סל ישראליות וזרות, ETF על נאסד"ק / S&P, מניות בודדות בארץ ובחו"ל, אג"ח קונצרני אמריקאי, וקרנות אלטרנטיביות. אתה בוחר את התמהיל בעצמך.</p>
       </div>
@@ -1563,12 +1576,25 @@ section.tight { padding: var(--s-2xl) 0; }
         <p>אותם כללי מיסוי ומשיכה כמו בקרנות השתלמות וקופות גמל 'רגילות'. הוותק נשמר והפטורים ממס נשמרים.</p>
       </div>
       <div class="explainer-card">
-        <div class="explainer-icon">🔍</div>
+        <div class="explainer-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 32" width="36" height="28" aria-hidden="true">
+            <!-- incoming white beam -->
+            <line x1="0" y1="16" x2="13" y2="16" stroke="#1F4E79" stroke-width="2" stroke-linecap="round"/>
+            <!-- prism (triangle) -->
+            <polygon points="14,4 14,28 28,16" fill="none" stroke="#1F4E79" stroke-width="2" stroke-linejoin="round"/>
+            <!-- dispersed rainbow output -->
+            <line x1="22" y1="16" x2="40" y2="8"  stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="16" x2="40" y2="12" stroke="#FB8C00" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="16" x2="40" y2="16" stroke="#FDD835" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="16" x2="40" y2="20" stroke="#43A047" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="16" x2="40" y2="24" stroke="#1E88E5" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>שקיפות מלאה</h3>
         <p>משרד האוצר קבע מספר מוגדר של שמות מסלולים שניתן לפתוח. השמות הללו כלליים מאוד ולא משקפים את הרכב ניירות הערך שבמסלול. גם אם הצלחת לגלות מה ההרכב הנוכחי והוא מצא חן בעיניך — ייתכן שמחר ועדת ההשקעות תשנה אותו ובכלל לא תדע. ב-IRA אתה יודע בכל רגע מה הרכב הקרן שלך.</p>
       </div>
-      <div class="explainer-card" style="border:2px solid var(--primary); background:#fff;">
-        <div class="explainer-icon" style="background:#fff7f5; padding:0; overflow:hidden;">
+      <div class="explainer-card">
+        <div class="explainer-icon" style="background:var(--primary-soft); padding:0; overflow:hidden;">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" width="40" height="28" aria-hidden="true" style="display:block;">
             <rect width="60" height="40" fill="#fff"/>
             <g fill="#B22234">
@@ -2709,47 +2735,4 @@ function restartWizard() {
   Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
   document.getElementById('amount-gemel').value = 0;
   document.getElementById('amount-keren').value = 0;
-  document.getElementById('monthly-deposit').value = 0;
-  document.getElementById('total-display').textContent = 'סה"כ: ₪0';
-  document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
-  document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
-  document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
-  document.getElementById('result-card').classList.remove('show');
-  document.getElementById('wizard-steps').style.display = 'block';
-  clearError();
-  updateUI();
-}
-
-// ============================================================
-// EVENT LISTENERS
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-  const g = document.getElementById('amount-gemel');
-  const k = document.getElementById('amount-keren');
-  function updateTotal() {
-    const tot = (parseFloat(g.value)||0) + (parseFloat(k.value)||0);
-    document.getElementById('total-display').textContent = 'סה"כ: ' + formatIls(tot);
-  }
-  g.addEventListener('input', updateTotal);
-  k.addEventListener('input', updateTotal);
-
-  document.querySelectorAll('.choice-item').forEach(function(label) {
-    const input = label.querySelector('input');
-    if (!input) return;
-    input.addEventListener('change', function() {
-      if (input.type === 'radio') {
-        document.querySelectorAll('input[name="' + input.name + '"]').forEach(function(other) {
-          other.closest('.choice-item').classList.toggle('selected', other.checked);
-        });
-      } else {
-        label.classList.toggle('selected', input.checked);
-      }
-    });
-  });
-
-  updateUI();
-});
-</script>
-
-</body>
-</html>
+  document.getElementById('monthly-deposit').va
