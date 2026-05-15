@@ -1832,13 +1832,13 @@ section.tight { padding: var(--s-2xl) 0; }
             <div class="input-group">
               <label for="amount-gemel">קופות גמל (₪)</label>
               <div class="input-prefix">
-                <input type="number" id="amount-gemel" min="0" step="1000" value="0" inputmode="numeric">
+                <input type="number" id="amount-gemel" min="0" step="1000" placeholder="0" inputmode="numeric">
               </div>
             </div>
             <div class="input-group">
               <label for="amount-keren">קרנות השתלמות (₪)</label>
               <div class="input-prefix">
-                <input type="number" id="amount-keren" min="0" step="1000" value="0" inputmode="numeric">
+                <input type="number" id="amount-keren" min="0" step="1000" placeholder="0" inputmode="numeric">
               </div>
             </div>
           </div>
@@ -1851,7 +1851,7 @@ section.tight { padding: var(--s-2xl) 0; }
           <p class="step-hint">סכום הפקדה חודשי צפוי (יכול להיות 0 — אם אתה רק מנהל את הקיים בלי הפקדות חדשות).</p>
           <div class="input-group">
             <label for="monthly-deposit">הפקדה חודשית (₪)</label>
-            <input type="number" id="monthly-deposit" min="0" step="100" value="0" inputmode="numeric">
+            <input type="number" id="monthly-deposit" min="0" step="100" placeholder="0" inputmode="numeric">
           </div>
         </div>
 
@@ -2734,5 +2734,58 @@ function restartWizard() {
   currentStep = 1;
   Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
   document.getElementById('amount-gemel').value = 0;
-  document.getElementById('amount-keren').value = 0;
-  document.getElementById('monthly-deposit').va
+  document.getElementById('amount-keren').value = '';
+  document.getElementById('monthly-deposit').value = '';
+  document.getElementById('total-display').textContent = 'סה"כ: ₪0';
+  document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
+  document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
+  document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
+  document.getElementById('result-card').classList.remove('show');
+  document.getElementById('wizard-steps').style.display = 'block';
+  clearError();
+  updateUI();
+}
+
+// ============================================================
+// EVENT LISTENERS — runs immediately since script is at end of body
+// ============================================================
+(function init() {
+  const g = document.getElementById('amount-gemel');
+  const k = document.getElementById('amount-keren');
+  function updateTotal() {
+    const tot = (parseFloat(g.value)||0) + (parseFloat(k.value)||0);
+    document.getElementById('total-display').textContent = 'סה"כ: ' + formatIls(tot);
+  }
+  g.addEventListener('input', updateTotal);
+  k.addEventListener('input', updateTotal);
+  // Clear leading 0 on focus
+  [g, k, document.getElementById('monthly-deposit')].forEach(function(el) {
+    el.addEventListener('focus', function() {
+      if (el.value === '0' || el.value === 0) el.value = '';
+    });
+    el.addEventListener('blur', function() {
+      if (el.value === '') el.value = 0;
+      updateTotal();
+    });
+  });
+
+  document.querySelectorAll('.choice-item').forEach(function(label) {
+    const input = label.querySelector('input');
+    if (!input) return;
+    input.addEventListener('change', function() {
+      if (input.type === 'radio') {
+        document.querySelectorAll('input[name="' + input.name + '"]').forEach(function(other) {
+          other.closest('.choice-item').classList.toggle('selected', other.checked);
+        });
+      } else {
+        label.classList.toggle('selected', input.checked);
+      }
+    });
+  });
+
+  updateUI();
+})();
+</script>
+
+</body>
+</html>
