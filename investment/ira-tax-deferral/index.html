@@ -389,6 +389,68 @@ section { padding: var(--s-2xl) 0; }
 .footer-col p { font-size: 13px; line-height: 1.7; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--s-md); font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s-sm); }
 
+/* ===== Calculator ===== */
+.calc-section { padding: var(--s-2xl) 0; background: var(--bg-cream); }
+.calc-form {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card);
+  padding: var(--s-lg); margin: var(--s-lg) 0;
+}
+.calc-inputs {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-md) var(--s-lg);
+}
+.calc-field label { display: block; font-size: 14px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+.calc-field input[type="number"] {
+  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+  border-radius: var(--radius-btn); font-size: 16px; font-family: inherit;
+  transition: border-color .15s; direction: ltr; text-align: right;
+  -moz-appearance: textfield;
+}
+.calc-field input[type="number"]::-webkit-outer-spin-button,
+.calc-field input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.calc-field input:focus { outline: none; border-color: var(--primary); }
+.calc-field .hint { font-size: 12px; color: var(--text-meta); margin-top: 4px; line-height: 1.5; }
+.calc-btn-row { margin-top: var(--s-lg); text-align: center; }
+.calc-results { margin-top: var(--s-xl); }
+.scenarios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-md); margin: var(--s-lg) 0; }
+.scenario-card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card);
+  padding: var(--s-lg); position: relative; margin-top: 14px;
+}
+.scenario-card.best { border: 2px solid var(--positive); }
+.best-badge {
+  position: absolute; top: -13px; right: var(--s-md);
+  background: var(--positive); color: #fff; font-size: 12px; font-weight: 700;
+  padding: 4px 14px; border-radius: 999px; white-space: nowrap;
+}
+.sc-title { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 10px; line-height: 1.4; }
+.sc-net { font-size: 30px; font-weight: 700; color: var(--text-1); line-height: 1.1; direction: ltr; text-align: right; }
+.sc-label { font-size: 12px; color: var(--text-meta); margin-bottom: 8px; margin-top: 2px; }
+.sc-saving { font-size: 14px; font-weight: 700; color: var(--positive); padding: 5px 0; }
+.sc-saving.neutral { color: var(--text-meta); font-weight: 400; }
+.sc-saving.negative { color: var(--negative); }
+.sc-row {
+  display: flex; justify-content: space-between; font-size: 13px;
+  border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px;
+  color: var(--text-2);
+}
+.sc-warn {
+  font-size: 12px; color: #7A5500; background: var(--warning-soft);
+  border-radius: 6px; padding: 6px 10px; margin-top: 8px; line-height: 1.5;
+}
+.calc-chart {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card);
+  padding: var(--s-lg); margin: var(--s-lg) 0;
+}
+.calc-chart h4 { margin: 0 0 var(--s-sm); font-size: 16px; }
+.chart-legend { display: flex; gap: var(--s-md); flex-wrap: wrap; margin-bottom: var(--s-sm); font-size: 13px; color: var(--text-2); }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+.calc-disclaimer {
+  font-size: 13px; color: var(--text-meta); line-height: 1.65;
+  border-top: 1px solid var(--border); padding-top: var(--s-md); margin-top: var(--s-md);
+}
+
 /* Floating WhatsApp */
 .wa-float {
   position: fixed; bottom: 28px; left: 28px; z-index: 200;
@@ -479,6 +541,7 @@ section { padding: var(--s-2xl) 0; }
         <li><a href="#trap">המלכודת: IRA במקום קרן פנסיה</a></li>
         <li><a href="#who">לא כולם מתאימים — תנאי הכניסה</a></li>
         <li><a href="#eitan">איך אני עוזר</a></li>
+        <li><a href="#calculator">מחשבון: כמה שווה לך ה-IRA?</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
       </ol>
     </div>
@@ -638,6 +701,59 @@ section { padding: var(--s-2xl) 0; }
   </div>
 </article>
 
+<!-- Calculator -->
+<section class="calc-section" id="calculator">
+  <div class="article-container">
+    <h2 style="margin-top:0;">מחשבון דחיית מס — כמה שווה לך ה-IRA?</h2>
+    <p>הזן את הנתונים שלך ותראה בדיוק כמה כסף נוסף תצבור. המחשבון מריץ סימולציה חודשית ומשווה שלושה תרחישים: המצב הנוכחי, העברת הכל ל-IRA, והעברת קרן ההשתלמות בלבד.</p>
+
+    <div class="calc-form">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label for="inp-sf-bal">יתרת קרן השתלמות (₪)</label>
+          <input type="number" id="inp-sf-bal" value="100000" min="0" step="1000">
+          <div class="hint">כמה כסף יש לך היום בקרן השתלמות</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-sf-fee">דמי ניהול קרן השתלמות הנוכחית (% לשנה)</label>
+          <input type="number" id="inp-sf-fee" value="0.6" min="0" max="2" step="0.05">
+          <div class="hint">לרוב 0.5%–1.2%. בדוק בדו"ח הרבעוני שלך</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-pf-val">שווי תיק ניירות ערך (₪)</label>
+          <input type="number" id="inp-pf-val" value="250000" min="0" step="5000">
+          <div class="hint">תיק השקעות חיצוני בבנק / ברוקר. 0 אם אין.</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-return">תשואה שנתית צפויה (%)</label>
+          <input type="number" id="inp-return" value="9" min="1" max="25" step="0.5">
+          <div class="hint">ברוטו לפני מס. ממוצע S&amp;P 500 היסטורי: ~10%</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-rollover">גלגולי תיק חיצוני בשנה (פעמים)</label>
+          <input type="number" id="inp-rollover" value="2" min="1" max="12" step="1">
+          <div class="hint">כמה פעמים בשנה מוכרים ניירות ערך בתיק החיצוני</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-years">אופק זמן (שנים)</label>
+          <input type="number" id="inp-years" value="20" min="5" max="40" step="1">
+          <div class="hint">לכמה שנים מתכננים לחסוך לפני משיכה</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-monthly">הפקדה חודשית (₪)</label>
+          <input type="number" id="inp-monthly" value="2500" min="0" step="100">
+          <div class="hint">עד 1,713 ₪ לקרן השתלמות (פטור ממס). מעל — לתיק.</div>
+        </div>
+      </div>
+      <div class="calc-btn-row">
+        <button class="btn btn-primary" onclick="runCalc()" style="font-size:18px;padding:16px 44px;">חשב את ההפרש ←</button>
+      </div>
+    </div>
+
+    <div class="calc-results" id="calc-results" style="display:none;"></div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="article-container">
@@ -672,125 +788,4 @@ section { padding: var(--s-2xl) 0; }
         מה זה מיסוי שקלי ולמה זה יתרון?
         <span class="icon">+</span>
       </button>
-      <div class="faq-a">במוצרי IRA המיסוי הוא שקלי — כלומר, אם מניה עלתה ב-8% אך הדולר ירד ב-8%, לא שילמת מס בפועל כי אין רווח שקלי. בחשבון השקעות רגיל, יתכן שתשלם מס למרות שלא הרווחת בפועל במונחי כוח קנייה.</div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        כמה שנים צריך לחסוך כדי שדחיית המס תהיה משמעותית?
-        <span class="icon">+</span>
-      </button>
-      <div class="faq-a">דחיית המס מתחילה לייצר הפרש גדול לאחר 10 שנים, ומואצת משמעותית מעבר ל-20 שנה. ב-10 שנות חיסכון ההבדל קטן יחסית; ב-30 שנה הוא יכול לעמוד על מאות אלפי שקלים. לכן ככל שמתחילים מוקדם יותר, הכוח של מנגנון זה גדל.</div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        האם ניתן לפדות IRA לפני גיל פרישה?
-        <span class="icon">+</span>
-      </button>
-      <div class="faq-a">קרן השתלמות ב-IRA ניתנת למשיכה פטורה ממס לאחר שש שנות ותק. קופת גמל ב-IRA — פדיון לפני גיל 60 מחייב תשלום מס של 35% על הרווח, ולכן פחות גמישה. לכן אני ממליץ להתחיל מקרן השתלמות.</div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        מה עושה יועץ פנסיוני בתהליך הצטרפות ל-IRA?
-        <span class="icon">+</span>
-      </button>
-      <div class="faq-a">יועץ פנסיוני בעל רישיון (כמוני) מבצע מסלקה פנסיונית לאיתור כל החסכונות, בוחר את הברוקר המתאים לדפוס הפעילות שלך, ומחתים על מסמכי ההצטרפות. השירות שלי: 890 ₪ חד-פעמי, בלי עמלות מהחברות — כי על פי חוק אסור לי לקבל אותן.</div>
-    </div>
-  </div>
-</section>
-
-<!-- Related articles -->
-<section class="related-section">
-  <div class="article-container">
-    <h2 style="margin-top:0;">מאמרים קשורים</h2>
-    <div class="related-grid">
-      <a href="/ira/explained/" class="related-card">
-        <div class="rc-tag">מדריך IRA</div>
-        <h4>IRA בישראל: מתי להעדיף השתלמות ומתי לא לגעת בפנסיה</h4>
-      </a>
-      <a href="/ira/fees/" class="related-card">
-        <div class="rc-tag">עמלות ברוקרים</div>
-        <h4>השוואת עמלות 6 הברוקרים — מי הכי זול לך?</h4>
-      </a>
-      <a href="/ira/rules/" class="related-card">
-        <div class="rc-tag">רגולציה</div>
-        <h4>כללי ההשקעה ב-IRA: מה מותר ומה אסור</h4>
-      </a>
-      <a href="/about/license/" class="related-card">
-        <div class="rc-tag">אודות</div>
-        <h4>רישיון יועץ פנסיוני — למה זה שונה מסוכן ביטוח</h4>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Contact CTA -->
-<section class="contact-section" id="contact">
-  <div class="article-container" style="text-align:center;">
-    <h2>רוצה לדעת אם IRA מתאים לך?</h2>
-    <p>20 דקות שיחה. אני אבדוק את הנתונים שלך — בלי עמלות, בלי לחצים. אם לא מתאים — אגיד לך בגלוי.</p>
-    <div class="contact-btns" style="justify-content:center;">
-      <a href="https://wa.me/972527700599?text=שלום%2C%20אשמח%20לדבר%20על%20IRA%20ודחיית%20מס" class="btn btn-whatsapp">💬 וואטסאפ</a>
-      <a href="mailto:ahituv.biz@gmail.com" class="btn btn-white">📧 שלח מייל</a>
-    </div>
-    <p style="margin-top: var(--s-md); font-size: 14px; color: rgba(255,255,255,0.6);">איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי בחוק לקבל עמלות מהחברות.</p>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h5>IRA — ניהול אישי</h5>
-        <a href="/ira/">דף שירות IRA</a>
-        <a href="/ira/explained/">מדריך IRA</a>
-        <a href="/ira/fees/">עמלות ברוקרים</a>
-        <a href="/ira/rules/">כללי השקעה</a>
-        <a href="/investment/ira-tax-deferral/">דחיית מס ב-IRA</a>
-      </div>
-      <div class="footer-col">
-        <h5>כדאי לדעת</h5>
-        <a href="/savings/keren-kaspit/">קרן כספית</a>
-        <a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a>
-        <a href="/about/license/">רישיון יועץ פנסיוני</a>
-        <a href="/about/advisor-vs-agent/">יועץ מול סוכן מול מתכנן</a>
-      </div>
-      <div class="footer-col">
-        <h5>אודות</h5>
-        <a href="/about/">אודות איתן אחיטוב</a>
-        <a href="#contact">יצירת קשר</a>
-        <a href="https://wa.me/972527700599">וואטסאפ: 052-7700599</a>
-      </div>
-      <div class="footer-col">
-        <h5>אחיטוב | תכנון פיננסי</h5>
-        <p>יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות — ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
-      <span>המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</span>
-    </div>
-  </div>
-</footer>
-
-<!-- Floating WhatsApp -->
-<a href="https://wa.me/972527700599?text=שלום%2C%20אשמח%20לשאול%20על%20IRA" class="wa-float" title="שלח וואטסאפ">💬</a>
-
-<script>
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const isOpen = answer.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-a.open').forEach(el => el.classList.remove('open'));
-  document.querySelectorAll('.faq-q.open').forEach(el => el.classList.remove('open'));
-  if (!isOpen) {
-    answer.classList.add('open');
-    btn.classList.add('open');
-  }
-}
-</script>
-</body>
-</html>
+      <div class="faq-a">במוצרי IRA המיס
