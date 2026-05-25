@@ -115,10 +115,14 @@ section.tight { padding: var(--s-xl) 0; }
 /* Broker quick cards */
 .brokers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--s-md);
   margin-bottom: var(--s-xl);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
+@media (max-width: 700px) { .brokers-grid { grid-template-columns: 1fr; } }
 .broker-quick {
   background: #fff;
   border: 1px solid var(--border);
@@ -285,7 +289,7 @@ section.tight { padding: var(--s-xl) 0; }
 <!-- Header -->
 <header class="header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">
+    <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
         <rect width="40" height="40" rx="9" fill="#1F4E79"/>
         <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -298,22 +302,22 @@ section.tight { padding: var(--s-xl) 0; }
       <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
     </a>
     <nav class="nav">
-      <a href="index.html">בית</a>
-      <a href="index.html#tools">🤖 רובייקטיבי</a>
-      <a href="ira-v1.html">IRA</a>
-      <a href="index.html#audiences">שירותים</a>
-      <a href="index.html#tools">מחשבונים</a>
-      <a href="ira-explained-v1.html">כדאי לדעת</a>
-      <a href="about-v1.html">אודות</a>
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools">מחשבונים</a>
+      <a href="/ira/explained/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
     </nav>
   </div>
 </header>
 
 <nav class="breadcrumb">
   <div class="container">
-    <a href="index.html">בית</a>
+    <a href="/">בית</a>
     <span class="sep">›</span>
-    <a href="ira-v1.html">IRA</a>
+    <a href="/ira/">IRA</a>
     <span class="sep">›</span>
     <span class="current">עמלות הברוקרים — השוואה מלאה</span>
   </div>
@@ -325,10 +329,7 @@ section.tight { padding: var(--s-xl) 0; }
     <span class="eyebrow">נתוני 6 ברוקרים · מקור: גלובלנט</span>
     <h1>עמלות הברוקרים IRA — השוואה מלאה</h1>
     <p class="lede">
-      בכל IRA יש שלוש שכבות של עלות: <strong>עמלות הברוקר/בנק</strong> (פר פעולה), <strong>דמי ניהול
-      גלובלנט</strong> (% מהצבירה השנתית), ו<strong>השירות שלי</strong> (חד-פעמי). בעמוד הזה
-      מפורט פירוט מלא של עמלות 6 הברוקרים/בנקים: פסגות, IBI, מזרחי טפחות, הבינלאומי הראשון,
-      לאומי, והפועלים (פלטינום). הנתונים נכונים לחודש מאי 2026 ומתבססים על תעריפי גלובלנט.
+      מעבר לתועלת המרכזית של IRA — גמישות ושקיפות בבחירת ההשקעות, העלויות ב-IRA צפויות להיות זולות מהעלויות בקופה "רגילה", בייחוד בחשבונות עם צבירה מעל 250,000 ₪. העלויות ב-IRA מורכבות מתשלום לגלובלנט שנותנת את המעטפת שהופכת את החשבון לקופת גמל/קרן השתלמות, ומעמלות הקנייה והמכירה שהבנק/ברוקר גובה. הנתונים נכונים לחודש מאי 2026 ומתבססים על תעריפי גלובלנט.
     </p>
   </div>
 </section>
@@ -393,13 +394,70 @@ section.tight { padding: var(--s-xl) 0; }
   </div>
 </section>
 
+<!-- Service fee -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <h2>השירות שלי — צירוף לקופה</h2>
+      <p>זה התשלום היחיד שאני מקבל. תשלום חד-פעמי בעת ההצטרפות.</p>
+    </div>
+
+    <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:var(--radius-card); border:1px solid var(--border); padding:var(--s-xl); text-align:center; box-shadow: var(--shadow-card);">
+      <div style="font-size:48px; font-weight:700; color:var(--primary); line-height:1;">₪890</div>
+      <div style="color:var(--text-2); margin-top:8px;">חד-פעמי</div>
+      <hr style="margin: var(--s-md) 0; border:none; border-top:1px solid var(--border);">
+      <p style="font-size:15px; color:var(--text-2); margin:0;">
+        כולל: מסלקה פנסיונית (מיפוי הקופות הקיימות), בחירת הברוקר המתאים, החתמה על מסמכי
+        ההצטרפות, וצירוף לגלובלנט ולברוקר. אסור לי לקבל עמלה מאף אחת מהחברות —
+        הכנסתי היחידה היא העמלה החד-פעמי.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Globalnet tier -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>דמי ניהול גלובלנט (חברת הגמל)</h2>
+      <p>
+        גלובלנט גובה דמי ניהול שנתיים כאחוז מהצבירה. הם נגבים אוטומטית
+        מתוך הקופה, מדי חודש, לפי המדרג הבא כשמצטרפים דרכי.
+      </p>
+    </div>
+
+    <table class="tier-table">
+      <thead>
+        <tr>
+          <th>גובה הצבירה</th>
+          <th>דמי ניהול שנתיים</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>75,000 — 250,000 ₪</td><td>0.38%</td></tr>
+        <tr><td>250,000 — 1,000,000 ₪</td><td>0.25%</td></tr>
+        <tr><td>1,000,000 ₪ ומעלה</td><td>0.23%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top: var(--s-lg);">
+      <strong>מה זה אומר במספרים:</strong>
+      <ul style="margin: 8px 0 0; padding-right: 20px;">
+        <li>תיק 100K → ₪380/שנה בדמי ניהול גלובלנט</li>
+        <li>תיק 500K → ₪1,250/שנה</li>
+        <li>תיק 1.5M → ₪3,450/שנה</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- Main fees table - Israel -->
 <section style="background: var(--bg-cream);">
   <div class="container">
     <div class="section-header">
       <span class="section-eyebrow">עמלות פעולות בישראל</span>
       <h2>קנייה / מכירה בבורסה הישראלית</h2>
-      <p>אחוז מערך הפעולה. למזרחי יש עמלות מצטיינות; פסגות והבינלאומי תחרותיים.</p>
+      <p>אחוז מערך הפעולה. העמלות של מזרחי הן הנמוכות ביותר — פסגות במקום השני.</p>
     </div>
 
     <div class="fees-table-wrap">
@@ -410,7 +468,7 @@ section.tight { padding: var(--s-xl) 0; }
             <th>לאומי</th>
             <th>מזרחי</th>
             <th>הבינלאומי*</th>
-            <th>IBI</th>
+            <th>IBI**</th>
             <th>פסגות</th>
             <th>הפועלים</th>
           </tr>
@@ -427,7 +485,7 @@ section.tight { padding: var(--s-xl) 0; }
         </tbody>
       </table>
     </div>
-    <p style="font-size: 13px; color: var(--text-meta); margin-top: 8px; padding: 0 4px;">* הבינלאומי: עמלות אלו חלות בחשבונות עם צבירה של מיליון ₪ ומעלה.</p>
+    <p style="font-size: 13px; color: var(--text-meta); margin-top: 8px; padding: 0 4px;">* הבינלאומי: עמלות אלו חלות בחשבונות עם צבירה של מיליון ₪ ומעלה.<br>** IBI: יש עמלת מינימום 2.35 ₪ לפעולה, וכן דמי ניהול חודשיים בסך 15 ₪ מהם מקוזזות עמלות על פעולות באותו חודש.</p>
   </div>
 </section>
 
@@ -482,7 +540,7 @@ section.tight { padding: var(--s-xl) 0; }
     <div class="section-header">
       <span class="section-eyebrow">המרת מט"ח</span>
       <h2>עמלות המרה ופערי שערים</h2>
-      <p>כשמשקיעים בחו"ל, יש גם עלות של המרת מטבע. זה לא נראה בטופס — אבל זה ממש משפיע.</p>
+      <p>כשמשקיעים בחו"ל, יש גם עלות של המרת מטבע.</p>
     </div>
 
     <div class="fees-table-wrap">
@@ -531,65 +589,6 @@ section.tight { padding: var(--s-xl) 0; }
   </div>
 </section>
 
-<!-- Globalnet tier -->
-<section>
-  <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">השכבה השנייה</span>
-      <h2>דמי ניהול גלובלנט (החברה המנהלת)</h2>
-      <p>
-        מעבר לעמלות הברוקר, גלובלנט גובה דמי ניהול שנתיים כאחוז מהצבירה. הם נגבים אוטומטית
-        מתוך הקופה, מדי חודש, לפי המדרג הבא (כשמצטרפים דרך יועץ פנסיוני).
-      </p>
-    </div>
-
-    <table class="tier-table">
-      <thead>
-        <tr>
-          <th>גובה הצבירה</th>
-          <th>דמי ניהול שנתיים</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>75,000 — 250,000 ₪</td><td>0.38%</td></tr>
-        <tr><td>250,000 — 1,000,000 ₪</td><td>0.25%</td></tr>
-        <tr><td>1,000,000 ₪ ומעלה</td><td>0.23%</td></tr>
-      </tbody>
-    </table>
-
-    <div class="callout" style="margin-top: var(--s-lg);">
-      <strong>מה זה אומר במספרים:</strong>
-      <ul style="margin: 8px 0 0; padding-right: 20px;">
-        <li>תיק 100K → ₪380/שנה בדמי ניהול גלובלנט</li>
-        <li>תיק 500K → ₪1,250/שנה</li>
-        <li>תיק 1.5M → ₪3,450/שנה</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- Service fee -->
-<section style="background: var(--bg-cream);">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">השכבה השלישית</span>
-      <h2>השירות שלי — צירוף לקופה</h2>
-      <p>זה התשלום היחיד שאני מקבל. תשלום חד-פעמי בעת ההצטרפות, לא מתחדש.</p>
-    </div>
-
-    <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:var(--radius-card); border:1px solid var(--border); padding:var(--s-xl); text-align:center; box-shadow: var(--shadow-card);">
-      <div style="font-size:48px; font-weight:700; color:var(--primary); line-height:1;">₪890</div>
-      <div style="color:var(--text-2); margin-top:8px;">חד-פעמי</div>
-      <hr style="margin: var(--s-md) 0; border:none; border-top:1px solid var(--border);">
-      <p style="font-size:15px; color:var(--text-2); margin:0;">
-        כולל: מסלקה פנסיונית (מיפוי הקופות הקיימות), בחירת הברוקר המתאים, החתמה על מסמכי
-        ההצטרפות, וצירוף לגלובלנט ולברוקר. אסור לי לקבל עמלה מאף אחת מהחברות —
-        הכנסתי היחידה היא ישירות ממך.
-      </p>
-    </div>
-  </div>
-</section>
-
 <!-- Important notes -->
 <section>
   <div class="container">
@@ -604,7 +603,7 @@ section.tight { padding: var(--s-xl) 0; }
         מזרחי הכי זול לפעולות בישראל — אבל יקר יותר לפעולות קטנות בחו"ל (מינ' $10). פסגות הכי
         זול לפעולות קטנות בחו"ל. הפועלים (פלטינום) תחרותי בעיקר בארץ, ופטור מלא בקרנות נאמנות
         ישראליות — אבל מינ' $10/$25 בחו"ל. הבינלאומי במסלול "הכל כלול" משתלם רק לתיקים גדולים
-        עם מסחר פעיל. <a href="ira-v1.html#wizard">השאלון בדף השירות</a> עושה את ההשוואה הזו עבורך.
+        עם מסחר פעיל. <a href="/ira/#wizard">השאלון בדף השירות</a> עושה את ההשוואה הזו עבורך.
       </p>
 
       <h4>2. דמי ניהול גלובלנט תמיד באים בנוסף</h4>
@@ -616,19 +615,18 @@ section.tight { padding: var(--s-xl) 0; }
       <h4>3. ניירות הערך רשומים על שמך</h4>
       <p style="color: var(--text-2); font-size: 15px;">
         ניירות הערך והמזומנים רשומים על שמך — בחבר הבורסה (הניירות) ובחשבון נאמנות בבנק
-        (המזומנים). גם אם גלובלנט תיכנס לחדלות פירעון, הכסף נשאר שלך.
+        (המזומנים). אם גלובלנט תגיע לחדלות פירעון, ניירות הערך נשארים רשומים על שמך והכסף נשאר שלך בחשבון הנאמנות בבנק.
       </p>
 
       <h4>4. עמלות הקנייה משולמות בנפרד</h4>
       <p style="color: var(--text-2); font-size: 15px;">
-        בקופה רגילה, עמלות המסחר נכללות בדמי הניהול. ב-IRA — אתה משלם בנפרד, פר פעולה. זה אומר
-        שתדירות פעולות גבוהה תייקר את ה-IRA יחסית.
+        בקופה "רגילה" העמלות נגרעות ישירות מהתשואה ואינך מודע לכך ששילמת אותן. ב-IRA העלות הזו שקופה ותלויה בתדירות ואופי הפעולות שלך. תדירות גבוהה של פעולות תייקר עבורך את העמלות. מחקרים מראים שמיעוט פעולות מניב סטטיסטית תשואה גבוהה יותר בטווח הארוך.
       </p>
 
       <h4>5. הנתונים בעמוד מתעדכנים</h4>
       <p style="color: var(--text-2); font-size: 15px;">
         העמלות והתנאים יכולים להשתנות. הנתונים בעמוד נכונים לחודש מאי 2026, מקור: מסמכי
-        גלובלנט. לפני הצטרפות — שווה לוודא עם הברוקר שאין שינוי.
+        גלובלנט. העמלות המחייבות הן אלו עליהן תחתום במסמכי ההצטרפות של גלובלנט והברוקר בו תבחר.
       </p>
     </div>
   </div>
@@ -642,22 +640,22 @@ section.tight { padding: var(--s-xl) 0; }
       <h2>תוכל גם ל...</h2>
     </div>
     <div class="related-grid">
-      <a href="ira-v1.html" class="related-card">
+      <a href="/ira/" class="related-card">
         <div class="micro">דף שירות</div>
         <h4>השאלון — קבל המלצה אישית</h4>
         <p>השאלון מחשב לפי הנתונים שלך — סכום, תמהיל, פעילות — איזה ברוקר הזול ביותר עבורך.</p>
       </a>
-      <a href="ira-investment-rules-v1.html" class="related-card">
+      <a href="/ira/rules/" class="related-card">
         <div class="micro">מדריך</div>
         <h4>כללי השקעה ב-IRA</h4>
         <p>מה מותר ומה אסור לקנות ב-IRA — לפי תקנות הפיקוח על שירותים פיננסיים תש"ע-2009.</p>
       </a>
-      <a href="ira-explained-v1.html" class="related-card">
+      <a href="/ira/explained/" class="related-card">
         <div class="micro">מדריך עומק</div>
         <h4>מתי IRA כן ומתי לא</h4>
         <p>מדריך עומק — בקרן השתלמות זה זוהר, בגמל בזהירות, ובקרן פנסיה לא לגעת.</p>
       </a>
-      <a href="index.html#contact" class="related-card">
+      <a href="/#contact" class="related-card">
         <div class="micro">שיחה</div>
         <h4>קבע שיחה לשמוע יותר</h4>
         <p>אם החלטת שזה הכיוון — אני עוזר לך לעבור את כל התהליך. שיחה של 20 דקות.</p>
@@ -688,19 +686,19 @@ section.tight { padding: var(--s-xl) 0; }
       <div>
         <h4>מוצרי השקעה</h4>
         <ul>
-          <li><a href="ira-v1.html">IRA — ניהול אישי</a></li>
-          <li><a href="index.html">קרן השתלמות</a></li>
-          <li><a href="index.html">קופת גמל</a></li>
-          <li><a href="index.html">גמל להשקעה</a></li>
-          <li><a href="about-v1.html">אודות איתן</a></li>
-          <li><a href="license-v1.html">רישיון יועץ פנסיוני</a></li>
-          <li><a href="advisor-vs-agent-v1.html">יועץ vs מתכנן vs סוכן</a></li>
-          <li><a href="recommended-advisor-v1.html">יועץ פנסיוני מומלץ</a></li>
-          <li><a href="pricing-v1.html">כמה עולה ייעוץ פנסיוני</a></li>
+          <li><a href="/ira/">IRA — ניהול אישי</a></li>
+          <li><a href="/">קרן השתלמות</a></li>
+          <li><a href="/">קופת גמל</a></li>
+          <li><a href="/">גמל להשקעה</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
+          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
         </ul>
       </div>
       <div>
         <h4>שירותים</h4>
         <ul>
-          <li><a href="index.html">תכנון פיננסי</a></li>
+          <li><a href="/">תכנון פיננסי</a></li>
         
