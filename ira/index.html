@@ -205,7 +205,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .header-search-icon svg { width: 18px; height: 18px; }
 
 @media (max-width: 900px) {
-  .nav { display: none; }
+  .nav {  }
   .header-search input { width: 160px; }
 }
 
@@ -344,7 +344,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .explainer-section { background: var(--bg-white); }
 .explainer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--s-md);
   margin-top: var(--s-lg);
 }
@@ -1390,6 +1390,114 @@ section.tight { padding: var(--s-2xl) 0; }
 .fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
 .fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
 
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+
+/* ── Mobile hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--primary, #1F4E79);
+  border-radius: 2px;
+  transition: all .25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0; right: 0;
+    width: min(280px, 85vw);
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    padding: 5rem 1.5rem 2rem;
+    gap: 0;
+    box-shadow: -4px 0 20px rgba(0,0,0,.15);
+    z-index: 150;
+    overflow-y: auto;
+  }
+  .nav.open { display: flex; }
+  .nav a {
+    padding: 1rem 0;
+    border-bottom: 1px solid #E7F0F7;
+    font-size: 1.05rem;
+  }
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: 140;
+  }
+  .nav-overlay.open { display: block; }
+}
+
 </style>
 </head>
 <body>
@@ -1399,7 +1507,7 @@ section.tight { padding: var(--s-2xl) 0; }
      ========================================================= -->
 <header class="header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">
+    <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
         <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
@@ -1417,14 +1525,18 @@ section.tight { padding: var(--s-2xl) 0; }
     </a>
 
     <nav class="nav" aria-label="ראשי">
-      <a href="index.html">בית</a>
-      <a href="index.html#tools">🤖 רובייקטיבי</a>
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="#" class="active">IRA</a>
-      <a href="index.html#audiences">שירותים</a>
-      <a href="index.html#tools">מחשבונים</a>
-      <a href="ira-explained-v1.html">כדאי לדעת</a>
-      <a href="about-v1.html">אודות</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
     </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
 
     <div class="header-search">
       <input type="search" id="site-search" placeholder="חיפוש בדף..." autocomplete="off">
@@ -1441,7 +1553,7 @@ section.tight { padding: var(--s-2xl) 0; }
 <!-- Breadcrumb -->
 <nav class="breadcrumb" aria-label="נתיב ניווט">
   <div class="container">
-    <a href="index.html">בית</a>
+    <a href="/">בית</a>
     <span class="sep">›</span>
     <a href="#">מוצרי השקעה</a>
     <span class="sep">›</span>
@@ -1470,7 +1582,7 @@ section.tight { padding: var(--s-2xl) 0; }
         מעבר לכך, דמי הניהול שתשלם יהיו נמוכים מאלו ששילמת עד היום. החיסרון: זה דורש מעורבות ויש סכום מינימום.
       </p>
       <div class="hero-actions">
-        <a href="ira-explained-v1.html" class="btn btn-ghost">קרא קודם את המדריך המלא ↗</a>
+        <a href="/investment/ira-explained/" class="btn btn-ghost">קרא קודם את המדריך המלא ↗</a>
       </div>
       <div class="trust-row">
         <span class="trust-item">
@@ -1520,12 +1632,12 @@ section.tight { padding: var(--s-2xl) 0; }
           הבטחת תשואה על 30% מהכסף ודמי ניהול זולים במיוחד.
         </p>
         <p>
-          המקום בו <strong>IRA זוהר</strong> הוא קרן השתלמות. בקופת גמל קיימת — בזהירות, ועם ייעוץ
+          המקום בו <strong>IRA זוהר</strong> הוא <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>. בקופת גמל קיימת — בזהירות, ועם ייעוץ
           מקצועי. בכספי פנסיה — לא לגעת.
         </p>
         <div class="warn-actions">
-          <a href="ira-explained-v1.html" class="btn btn-warn">קרא את המדריך המלא — מתי כן, מתי לא →</a>
-          <a href="ira-explained-v1.html#pension-no" class="btn btn-warn-ghost">חמש סיבות לא לעבור מפנסיה</a>
+          <a href="/investment/ira-explained/" class="btn btn-warn">קרא את המדריך המלא — מתי כן, מתי לא →</a>
+          <a href="/investment/ira-explained/#pension-no" class="btn btn-warn-ghost">חמש סיבות לא לעבור מפנסיה</a>
         </div>
       </div>
     </div>
@@ -1549,17 +1661,15 @@ section.tight { padding: var(--s-2xl) 0; }
     <div class="explainer-grid">
       <div class="explainer-card">
         <div class="explainer-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- outer ring -->
             <circle cx="16" cy="16" r="13"/>
-            <circle cx="16" cy="16" r="3.2"/>
-            <line x1="16" y1="3" x2="16" y2="12.8"/>
-            <line x1="16" y1="19.2" x2="16" y2="29"/>
-            <line x1="3" y1="16" x2="12.8" y2="16"/>
-            <line x1="19.2" y1="16" x2="29" y2="16"/>
-            <line x1="6.8" y1="6.8" x2="13.4" y2="13.4"/>
-            <line x1="18.6" y1="18.6" x2="25.2" y2="25.2"/>
-            <line x1="25.2" y1="6.8" x2="18.6" y2="13.4"/>
-            <line x1="13.4" y1="18.6" x2="6.8" y2="25.2"/>
+            <!-- center hub -->
+            <circle cx="16" cy="16" r="3"/>
+            <!-- 3 spokes: top, bottom-left, bottom-right -->
+            <line x1="16" y1="13" x2="16" y2="3"/>
+            <line x1="13.4" y1="18.6" x2="5.6" y2="25.2"/>
+            <line x1="18.6" y1="18.6" x2="26.4" y2="25.2"/>
           </svg>
         </div>
         <h3>שליטה מלאה והיצע רחב</h3>
@@ -1574,6 +1684,28 @@ section.tight { padding: var(--s-2xl) 0; }
         <div class="explainer-icon">📜</div>
         <h3>אותם כללי מיסוי ומשיכה</h3>
         <p>אותם כללי מיסוי ומשיכה כמו בקרנות השתלמות וקופות גמל 'רגילות'. הוותק נשמר והפטורים ממס נשמרים.</p>
+      </div>
+      <div class="explainer-card">
+        <div class="explainer-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- calendar body -->
+            <rect x="3" y="6" width="26" height="23" rx="3"/>
+            <!-- top bar -->
+            <line x1="3" y1="12" x2="29" y2="12"/>
+            <!-- binding posts -->
+            <line x1="10" y1="3" x2="10" y2="9"/>
+            <line x1="22" y1="3" x2="22" y2="9"/>
+            <!-- day dots -->
+            <circle cx="10" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="22" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="10" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="22" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h3>יתרון דחיית מס</h3>
+        <p>הרווחים בתוך קופת ה-IRA לא ממוסים בשוטף — המס נדחה עד למשיכה. כך כל רווח ממשיך לעבוד ולצבור תשואה כאילו לא שולם עליו מס, ואפקט הריבית דריבית על הכסף שהיה אמור ללכת למס עובד לטובתך לאורך שנים.</p>
       </div>
       <div class="explainer-card">
         <div class="explainer-icon">
@@ -1662,7 +1794,7 @@ section.tight { padding: var(--s-2xl) 0; }
           <li>אני מצרף אותך אליה — היא ה"קופה" בפועל</li>
           <li>מבצעת את ההפקדות והמשיכות</li>
           <li>מפיקה את הדוחות הרבעוניים והשנתיים</li>
-          <li>מפקחת על עמידה ב<a href="ira-investment-rules-v1.html">כללי ההשקעה</a> של רשות שוק ההון</li>
+          <li>מפקחת על עמידה ב<a href="/investment/ira-investment-rules/">כללי ההשקעה</a> של רשות שוק ההון</li>
           <li>מקשרת בינך לבין הבנק/ברוקר שבחרת</li>
         </ul>
         <div class="layer-cost">
@@ -1688,7 +1820,7 @@ section.tight { padding: var(--s-2xl) 0; }
         </ul>
         <div class="layer-cost">
           <strong>6 ברוקרים נגישים:</strong> פסגות, IBI, מזרחי, הבינלאומי, לאומי, הפועלים (פלטינום).
-          השוואה מפורטת — <a href="ira-fees-v1.html">בדף העמלות הייעודי</a>.
+          השוואה מפורטת — <a href="/investment/ira-fees/">בדף העמלות הייעודי</a>.
         </div>
       </div>
 
@@ -1725,7 +1857,7 @@ section.tight { padding: var(--s-2xl) 0; }
       <div class="fit-card bad">
         <h3><span class="fit-icon">✗</span> לא מתאים אם...</h3>
         <ul>
-          <li><strong>אתה שוקל להעביר כספים מקרן פנסיה</strong> — לא להעביר! ראה <a href="ira-explained-v1.html#pension-no" style="color:var(--negative); text-decoration:underline;">את הסיבות במדריך</a></li>
+          <li><strong>אתה שוקל להעביר כספים מקרן פנסיה</strong> — לא להעביר! ראה <a href="/investment/ira-explained/#pension-no" style="color:var(--negative); text-decoration:underline;">את הסיבות במדריך</a></li>
           <li>סך הצבירה שלך פחות מ-75,000 ₪, או שיש לך מוצר שבו פחות מ-30,000 ₪ (שני התנאים חייבים יחד)</li>
           <li><strong>אתה לא בטוח שתעמוד במשמעת השקעה</strong> — אם אתה לא בטוח שלא תמכור בירידות, זה לא בשבילך. ניהול עצמאי יזיק לך</li>
           <li>אתה לא מעוניין להקדיש אפילו כמה דקות אחת לכמה חודשים במעקב אחרי מצב החשבון</li>
@@ -1930,7 +2062,7 @@ section.tight { padding: var(--s-2xl) 0; }
               <tr>
                 <th>ברוקר/בנק</th>
                 <th>זמינות</th>
-                <th>עמלות ברוקר/בנק <small style="font-weight:400; color:var(--text-meta);">(משוער)</small></th>
+                <th><a href="/investment/ira-fees/">עמלות ברוקר</a>/בנק <small style="font-weight:400; color:var(--text-meta);">(משוער)</small></th>
                 <th>דמי ניהול גלובלנט</th>
                 <th>סה"כ שנתי</th>
                 <th>הערות</th>
@@ -2203,12 +2335,27 @@ section.tight { padding: var(--s-2xl) 0; }
 <!-- =========================================================
      CONTACT CTA
      ========================================================= -->
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/investment/ira-explained/">IRA — מתי כן ומתי לא (מאמר)</a>
+      <a class="related-link-card" href="/investment/ira-fees/">השוואת עמלות ברוקרים IRA</a>
+      <a class="related-link-card" href="/investment/ira-investment-rules/">כללי ההשקעה ב-IRA</a>
+      <a class="related-link-card" href="/investment/ira-tax-deferral/">יתרון דחיית המס ב-IRA</a>
+      <a class="related-link-card" href="/savings/keren-hishtalmut/">קרן השתלמות — המדריך</a>
+    </div>
+  </div>
+</section>
+
 <section class="contact-section" id="contact">
   <div class="container">
     <h2>IRA זו החלטה. אל תקבל אותה לבד.</h2>
     <p>
       קיבלת כיוון מהסימולטור — אבל ההחלטה אם להיכנס ל-IRA, ומה מתוך התיק הפנסיוני שלך לנהל ככה,
-      היא חלק מתמונה הוליסטית. תכנון פיננסי אובייקטיבי והוליסטי יאפשר לך לשלב נכון את ה-IRA בתוך
+      היא חלק מתמונה הוליסטית. <a href="/about/">תכנון פיננסי</a> אובייקטיבי והוליסטי יאפשר לך לשלב נכון את ה-IRA בתוך
       התכנית הפיננסית שלך.
     </p>
     <div class="contact-actions">
@@ -2240,16 +2387,16 @@ section.tight { padding: var(--s-2xl) 0; }
           </svg>
           <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
         </div>
-        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים בני 27-47.</p>
+        <p>איתן אחיטוב — <a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר. <a href="/about/">תכנון פיננסי הוליסטי</a> לשכירים ולעצמאים בני 27-47.</p>
       </div>
 
       <div>
         <h4>שירותים</h4>
         <ul>
-          <li><a href="index.html">תכנון פיננסי</a></li>
-          <li><a href="index.html">ייעוץ פנסיוני</a></li>
-          <li><a href="index.html">ייעוץ ביטוחי</a></li>
-          <li><a href="index.html">ייעוץ משכנתאות</a></li>
+          <li><a href="/">תכנון פיננסי</a></li>
+          <li><a href="/">ייעוץ פנסיוני</a></li>
+          <li><a href="/">ייעוץ ביטוחי</a></li>
+          <li><a href="/">ייעוץ משכנתאות</a></li>
         </ul>
       </div>
 
@@ -2257,14 +2404,14 @@ section.tight { padding: var(--s-2xl) 0; }
         <h4>מוצרי השקעה</h4>
         <ul>
           <li><a href="#">IRA — ניהול אישי (אתה כאן)</a></li>
-          <li><a href="index.html">קרן השתלמות</a></li>
-          <li><a href="index.html">קופת גמל</a></li>
-          <li><a href="index.html">גמל להשקעה</a></li>
-          <li><a href="about-v1.html">אודות איתן</a></li>
-          <li><a href="license-v1.html">רישיון יועץ פנסיוני</a></li>
-          <li><a href="advisor-vs-agent-v1.html">יועץ vs מתכנן vs סוכן</a></li>
-          <li><a href="recommended-advisor-v1.html">יועץ פנסיוני מומלץ</a></li>
-          <li><a href="pricing-v1.html">כמה עולה ייעוץ פנסיוני</a></li>
+          <li><a href="/">קרן השתלמות</a></li>
+          <li><a href="/">קופת גמל</a></li>
+          <li><a href="/">גמל להשקעה</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
+          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
         </ul>
       </div>
 
@@ -2282,7 +2429,7 @@ section.tight { padding: var(--s-2xl) 0; }
       <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
       <span class="license-badge">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        רישיון יועץ פנסיוני · משרד האוצר
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
       </span>
     </div>
   </div>
@@ -2763,29 +2910,4 @@ function restartWizard() {
     el.addEventListener('focus', function() {
       if (el.value === '0' || el.value === 0) el.value = '';
     });
-    el.addEventListener('blur', function() {
-      if (el.value === '') el.value = 0;
-      updateTotal();
-    });
-  });
-
-  document.querySelectorAll('.choice-item').forEach(function(label) {
-    const input = label.querySelector('input');
-    if (!input) return;
-    input.addEventListener('change', function() {
-      if (input.type === 'radio') {
-        document.querySelectorAll('input[name="' + input.name + '"]').forEach(function(other) {
-          other.closest('.choice-item').classList.toggle('selected', other.checked);
-        });
-      } else {
-        label.classList.toggle('selected', input.checked);
-      }
-    });
-  });
-
-  updateUI();
-})();
-</script>
-
-</body>
-</html>
+    el.addEventListener('blur', fun

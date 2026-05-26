@@ -344,7 +344,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .explainer-section { background: var(--bg-white); }
 .explainer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--s-md);
   margin-top: var(--s-lg);
 }
@@ -1661,17 +1661,15 @@ section.tight { padding: var(--s-2xl) 0; }
     <div class="explainer-grid">
       <div class="explainer-card">
         <div class="explainer-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- outer ring -->
             <circle cx="16" cy="16" r="13"/>
-            <circle cx="16" cy="16" r="3.2"/>
-            <line x1="16" y1="3" x2="16" y2="12.8"/>
-            <line x1="16" y1="19.2" x2="16" y2="29"/>
-            <line x1="3" y1="16" x2="12.8" y2="16"/>
-            <line x1="19.2" y1="16" x2="29" y2="16"/>
-            <line x1="6.8" y1="6.8" x2="13.4" y2="13.4"/>
-            <line x1="18.6" y1="18.6" x2="25.2" y2="25.2"/>
-            <line x1="25.2" y1="6.8" x2="18.6" y2="13.4"/>
-            <line x1="13.4" y1="18.6" x2="6.8" y2="25.2"/>
+            <!-- center hub -->
+            <circle cx="16" cy="16" r="3"/>
+            <!-- 3 spokes: top, bottom-left, bottom-right -->
+            <line x1="16" y1="13" x2="16" y2="3"/>
+            <line x1="13.4" y1="18.6" x2="5.6" y2="25.2"/>
+            <line x1="18.6" y1="18.6" x2="26.4" y2="25.2"/>
           </svg>
         </div>
         <h3>שליטה מלאה והיצע רחב</h3>
@@ -1686,6 +1684,28 @@ section.tight { padding: var(--s-2xl) 0; }
         <div class="explainer-icon">📜</div>
         <h3>אותם כללי מיסוי ומשיכה</h3>
         <p>אותם כללי מיסוי ומשיכה כמו בקרנות השתלמות וקופות גמל 'רגילות'. הוותק נשמר והפטורים ממס נשמרים.</p>
+      </div>
+      <div class="explainer-card">
+        <div class="explainer-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- calendar body -->
+            <rect x="3" y="6" width="26" height="23" rx="3"/>
+            <!-- top bar -->
+            <line x1="3" y1="12" x2="29" y2="12"/>
+            <!-- binding posts -->
+            <line x1="10" y1="3" x2="10" y2="9"/>
+            <line x1="22" y1="3" x2="22" y2="9"/>
+            <!-- day dots -->
+            <circle cx="10" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="22" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="10" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+            <circle cx="22" cy="23" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h3>יתרון דחיית מס</h3>
+        <p>הרווחים בתוך קופת ה-IRA לא ממוסים בשוטף — המס נדחה עד למשיכה. כך כל רווח ממשיך לעבוד ולצבור תשואה כאילו לא שולם עליו מס, ואפקט הריבית דריבית על הכסף שהיה אמור ללכת למס עובד לטובתך לאורך שנים.</p>
       </div>
       <div class="explainer-card">
         <div class="explainer-icon">
@@ -2890,48 +2910,4 @@ function restartWizard() {
     el.addEventListener('focus', function() {
       if (el.value === '0' || el.value === 0) el.value = '';
     });
-    el.addEventListener('blur', function() {
-      if (el.value === '') el.value = 0;
-      updateTotal();
-    });
-  });
-
-  document.querySelectorAll('.choice-item').forEach(function(label) {
-    const input = label.querySelector('input');
-    if (!input) return;
-    input.addEventListener('change', function() {
-      if (input.type === 'radio') {
-        document.querySelectorAll('input[name="' + input.name + '"]').forEach(function(other) {
-          other.closest('.choice-item').classList.toggle('selected', other.checked);
-        });
-      } else {
-        label.classList.toggle('selected', input.checked);
-      }
-    });
-  });
-
-  updateUI();
-})();
-</script>
-
-<script>
-// Mobile nav
-(function(){
-  const btn = document.getElementById('hamburger');
-  const nav = document.querySelector('.nav');
-  const overlay = document.getElementById('nav-overlay');
-  if (!btn || !nav) return;
-  function toggle(open) {
-    btn.classList.toggle('open', open);
-    nav.classList.toggle('open', open);
-    overlay.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-  btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
-  overlay.addEventListener('click', () => toggle(false));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
-})();
-</script>
-</body>
-</html>
+    el.addEventListener('blur', fun
