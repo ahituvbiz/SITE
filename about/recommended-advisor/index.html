@@ -188,6 +188,58 @@ section { padding: var(--s-2xl) 0; }
 .fab-whatsapp { position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(37,211,102,0.4); z-index: 99; transition: transform .15s; }
 .fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
 .fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
 </style>
 </head>
 <body>
@@ -209,7 +261,7 @@ section { padding: var(--s-2xl) 0; }
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
       <a href="/#tools">🤖 רובייקטיבי</a>
-      <a href="/ira/">IRA</a>
+      <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
       <a href="/#tools">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
@@ -233,7 +285,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
       <span class="dot">·</span>
-      <span>יועץ פנסיוני בעל רישיון משרד האוצר</span>
+      <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
       <span>13.5.2026</span>
       <span class="dot">·</span>
@@ -298,7 +350,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h2 id="free-trap">מלכודת ה"חינם" והכלכלה שמאחורי ההמלצות</h2>
     <p>
-      בוא נדבר רגע על כסף. סוכן ביטוח ממוצע מקבל שני סוגים של הכנסה:
+      בוא נדבר רגע על כסף. <a href="/about/advisor-vs-agent/">סוכן ביטוח</a> ממוצע מקבל שני סוגים של הכנסה:
     </p>
     <ul>
       <li><strong>עמלת היקף</strong> — תשלום חד-פעמי גדול על כל מכירה (1-3% מסכום הניוד).</li>
@@ -329,7 +381,7 @@ section { padding: var(--s-2xl) 0; }
       </div>
       <div class="item">
         <div class="num">3</div>
-        <div class="text"><strong>בדיקת ספציאליזציה.</strong> מי הקהל שהוא עובד איתו — שכירים בכירים, עצמאים, זוגות צעירים, פורשים? התאמה לקהל לעיתים יותר חשובה מוותק.</div>
+        <div class="text"><strong>בדיקת ספציאליזציה.</strong> מי הקהל שהוא עובד איתו — <a href="/audiences/senior-employees/">שכירים בכירים</a>, עצמאים, זוגות צעירים, פורשים? התאמה לקהל לעיתים יותר חשובה מוותק.</div>
       </div>
       <div class="item">
         <div class="num">4</div>
@@ -355,7 +407,7 @@ section { padding: var(--s-2xl) 0; }
         <div class="rf-num">2</div>
         <div>
           <h4>"יש לי רישיון פנסיוני" — בלי הבחנה</h4>
-          <p>"רישיון פנסיוני" יכול להיות רישיון <em>סוכן</em> או רישיון <em>יועץ</em>. אם הוא לא מבחין במפורש — הוא משחק על הערפול. <a href="/about/advisor-vs-agent/">קרא על מסך העשן הזה</a>.</p>
+          <p>"רישיון פנסיוני" יכול להיות רישיון <em>סוכן</em> או רישיון <em>יועץ</em>. אם הוא לא מבחין במפורש — הוא משחק על הערפול. <a href="/about/advisor-vs-planner-vs-agent/">קרא על מסך העשן הזה</a>.</p>
         </div>
       </div>
       <div class="red-flag-card">
@@ -421,7 +473,7 @@ section { padding: var(--s-2xl) 0; }
 
     <div class="verdict-block good">
       <span class="label">היתרון של pensya.info</span>
-      <h3>שילוב משכנתא ופנסיה — לא נפוץ בשוק</h3>
+      <h3>שילוב <a href="/mortgage/mortgage-and-pension/">משכנתא ופנסיה</a> — לא נפוץ בשוק</h3>
       <p>
         רוב היועצים הפנסיוניים מתמחים בפנסיה. רוב יועצי המשכנתאות מתמחים במשכנתאות. השילוב
         בין השניים — איש המקצוע שמבין איך החלטה משכנתאית משפיעה על הפנסיה ולהפך — הוא
@@ -493,7 +545,7 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item">
         <summary>האם יועץ פנסיוני יכול להמליץ על משכנתא?</summary>
         <div class="faq-body">
-          יועץ פנסיוני בעל רישיון יכול לייעץ בנושאי תכנון פיננסי הוליסטי שכוללים גם
+          יועץ פנסיוני בעל רישיון יכול לייעץ בנושאי <a href="/about/">תכנון פיננסי הוליסטי</a> שכוללים גם
           תפיסה משכנתאית, אך ייעוץ משכנתאות ספציפי דורש לרוב רישיון נפרד. השילוב יקר
           במיוחד — מי שמבין גם את המשכנתא וגם את הפנסיה רואה תמונה הוליסטית שלא נראית
           בייעוץ נפרד.
@@ -525,7 +577,7 @@ section { padding: var(--s-2xl) 0; }
 <section class="related-section">
   <div class="container">
     <div class="related-grid">
-      <a href="/about/advisor-vs-agent/" class="related-card">
+      <a href="/about/advisor-vs-planner-vs-agent/" class="related-card">
         <div class="micro">חשיפה</div>
         <h4>יועץ vs מתכנן vs סוכן</h4>
         <p>"מסך העשן" הפיננסי — איך לזהות מי באמת עומד מולך, וטבלת השוואה מסכמת של 8 קריטריונים.</p>
@@ -535,6 +587,21 @@ section { padding: var(--s-2xl) 0; }
         <h4>רישיון יועץ פנסיוני</h4>
         <p>מה זה רישיון, מה הרגולציה דורשת, ולמה זה ההגנה המבנית של אובייקטיביות אמיתית.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/about/">אודות איתן אחיטוב</a>
+      <a class="related-link-card" href="/about/license/">מה זה רישיון יועץ פנסיוני</a>
+      <a class="related-link-card" href="/about/advisor-vs-agent/">יועץ פנסיוני מול סוכן ביטוח</a>
+      <a class="related-link-card" href="/about/pricing/">כמה עולה ייעוץ פנסיוני?</a>
+      <a class="related-link-card" href="/ai/">בדוק את דוח הפנסיה שלך — חינם</a>
     </div>
   </div>
 </section>
@@ -570,7 +637,7 @@ section { padding: var(--s-2xl) 0; }
             <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
             <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
           </svg>
-          <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | <a href="/about/">תכנון פיננסי</a></strong>
         </div>
         <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים בני 27-47.</p>
       </div>
@@ -586,12 +653,12 @@ section { padding: var(--s-2xl) 0; }
       <div>
         <h4>כדאי לדעת</h4>
         <ul>
-          <li><a href="/ira/explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
           <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
           <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
           <li><a href="/about/">אודות איתן</a></li>
           <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
-          <li><a href="/about/advisor-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
           <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
           <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
         </ul>
@@ -609,7 +676,7 @@ section { padding: var(--s-2xl) 0; }
       <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
       <span class="license-badge">
         <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        רישיון יועץ פנסיוני #1013 · משרד האוצר
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> #1013 · משרד האוצר
       </span>
     </div>
   </div>

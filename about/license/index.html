@@ -422,6 +422,58 @@ section { padding: var(--s-2xl) 0; }
 }
 .fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
 .fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
 </style>
 </head>
 <body>
@@ -444,7 +496,7 @@ section { padding: var(--s-2xl) 0; }
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
       <a href="/#tools">🤖 רובייקטיבי</a>
-      <a href="/ira/">IRA</a>
+      <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
       <a href="/#tools">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
@@ -557,7 +609,7 @@ section { padding: var(--s-2xl) 0; }
       הפרדה חוקית חדה בין שני תפקידים שעד אז התבלבלו זה בזה:
     </p>
     <ul>
-      <li><strong>סוכן פנסיוני / סוכן ביטוח</strong> — מקבל עמלות מחברות הביטוח. תפקידו לשווק מוצרים.</li>
+      <li><strong>סוכן פנסיוני / <a href="/about/advisor-vs-agent/">סוכן ביטוח</a></strong> — מקבל עמלות מחברות הביטוח. תפקידו לשווק מוצרים.</li>
       <li><strong>יועץ פנסיוני בעל רישיון</strong> — מקבל שכר ישיר מהלקוח, ואסור לו לקבל עמלות. תפקידו לייעץ.</li>
     </ul>
     <p>
@@ -652,7 +704,7 @@ section { padding: var(--s-2xl) 0; }
     </table>
 
     <!-- VS PLANNER -->
-    <h2 id="vs-planner">יועץ פנסיוני מול 'מתכנן פיננסי' ללא רישיון</h2>
+    <h2 id="vs-planner">יועץ פנסיוני מול '<a href="/about/advisor-vs-planner-vs-agent/">מתכנן פיננסי</a>' ללא רישיון</h2>
     <p>
       בשנים האחרונות צצו בארץ עשרות "מתכננים פיננסיים", "יועצי השקעות פרטיים" ו"מומחים
       להון משפחתי". חלקם אנשי מקצוע רציניים, חלקם פחות. הבעיה: <strong>'מתכנן פיננסי'
@@ -670,7 +722,7 @@ section { padding: var(--s-2xl) 0; }
       <span class="label">להיזהר</span>
       <h3>"מתכנן פיננסי" — חיפוש בלי תאריות</h3>
       <p>
-        כל מי שמציע לך "תכנון פיננסי" — תשאל אותו ישירות: <strong>"יש לך רישיון יועץ פנסיוני
+        כל מי שמציע לך "<a href="/about/">תכנון פיננסי</a>" — תשאל אותו ישירות: <strong>"יש לך רישיון יועץ פנסיוני
         ממשרד האוצר?"</strong> אם התשובה היא "לא, אבל..." או "יש לי רישיון אחר" — אתה לא
         מקבל את הפיקוח, את חובת האובייקטיביות, ואת איסור העמלות שמגיעים עם הרישיון הזה.
       </p>
@@ -679,7 +731,7 @@ section { padding: var(--s-2xl) 0; }
     <!-- CONFLICT -->
     <h2 id="conflict">ניגוד העניינים המובנה — איך זה פוגע בך</h2>
     <p>
-      סוכן ביטוח, מוכשר ואדיב ככל שיהיה, נמצא ב<strong>ניגוד עניינים מבני</strong> — לא
+      סוכן ביטוח, מוכשר ואדיב ככל שיהיה, נמצא ב<strong><a href="/about/advisor-vs-agent/">ניגוד עניינים מבני</a></strong> — לא
       אישי. גם אם הוא רוצה לעזור לך באמת, המודל העסקי שלו מושך אותו בכיוון אחר. אם
       הוא ימליץ לך לעבור לחברה שגובה דמי ניהול נמוכים יותר אך אינה משלמת לו עמלה
       גבוהה, הוא פוגע בפרנסתו.
@@ -728,7 +780,7 @@ section { padding: var(--s-2xl) 0; }
         <li>ביטוח אובדן כושר עבודה כפול — סוכן שכח לבטל אחד מהם בעת מעבר ביטוח.</li>
       </ul>
 
-      <p>אחרי תהליך ייעוץ — ניוד לקרן פנסיה מקיפה ומשלימה עם דמי ניהול של 0.2%, שינוי
+      <p>אחרי תהליך ייעוץ — ניוד ל<a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> ומשלימה עם דמי ניהול של 0.2%, שינוי
       מסלול השקעה מותאם גיל (תוספת תשואה צפויה של ~1% שנתי), וביטול הביטוח הכפול:</p>
 
       <div class="case-numbers">
@@ -747,7 +799,7 @@ section { padding: var(--s-2xl) 0; }
       </div>
 
       <p style="font-size:15px; color: var(--text-2); margin-top: 1em;">
-        <em>הערה: המספרים מבוססים על הנחות תשואה צפויות (ריבית דריבית של ~6% שנתי)
+        <em>הערה: המספרים מבוססים על הנחות תשואה צפויות (<a href="/savings/start-saving-early/">ריבית דריבית</a> של ~6% שנתי)
         לאורך ~25 שנה עד פרישה. תשואה בפועל אינה מובטחת.</em>
       </p>
     </div>
@@ -837,7 +889,7 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>כמה עולה ייעוץ פנסיוני בתשלום מול "בחינם" של סוכן?</summary>
+        <summary><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a> בתשלום מול "בחינם" של סוכן?</summary>
         <div class="faq-body">
           שכר טרחה ישיר נע ברוב המקרים בין כמה אלפי שקלים ל-15 אלף ₪, תלוי במורכבות.
           עמלות הסוכן, לעומת זאת, מתאוורות בסמוי מהחיסכון הפנסיוני — לאורך עשרות שנים
@@ -852,7 +904,7 @@ section { padding: var(--s-2xl) 0; }
           לא. רישיון יועץ פנסיוני מכסה תכנון פנסיוני וייעוץ פיננסי הוליסטי. ייעוץ
           ספציפי לגבי ניירות ערך (מניות, אג"ח, קרנות כספיות בבחירה ספציפית) דורש
           רישיון נפרד — רישיון יועץ השקעות, שאני לא מחזיק בו. ראה גם את המאמר על
-          <a href="/ira/explained/">IRA — ניהול אישי</a> שמסביר את החלוקה.
+          <a href="/investment/ira-explained/">IRA — ניהול אישי</a> שמסביר את החלוקה.
         </div>
       </details>
 
@@ -889,6 +941,20 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- CONTACT CTA -->
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/about/">אודות איתן אחיטוב</a>
+      <a class="related-link-card" href="/about/advisor-vs-agent/">יועץ פנסיוני מול מתכנן מול סוכן</a>
+      <a class="related-link-card" href="/articles/true-cost-free/">המחיר האמיתי של ייעוץ חינם</a>
+      <a class="related-link-card" href="/ai/">בדוק את דוח הפנסיה שלך — חינם</a>
+    </div>
+  </div>
+</section>
+
 <section class="contact-section" id="contact">
   <div class="container">
     <h2>הגיע הרגע לשמוע יותר</h2>
@@ -923,7 +989,7 @@ section { padding: var(--s-2xl) 0; }
           </svg>
           <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
         </div>
-        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים בני 27-47.</p>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. <a href="/about/">תכנון פיננסי הוליסטי</a> לשכירים ולעצמאים בני 27-47.</p>
       </div>
       <div>
         <h4>שירותים</h4>
@@ -937,12 +1003,12 @@ section { padding: var(--s-2xl) 0; }
       <div>
         <h4>כדאי לדעת</h4>
         <ul>
-          <li><a href="/ira/explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
           <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
           <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
           <li><a href="/about/">אודות איתן</a></li>
           <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
-          <li><a href="/about/advisor-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
           <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
           <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
         </ul>

@@ -36,7 +36,7 @@
         "name": "אחיטוב | תכנון פיננסי"
       },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-05-13",
+      "dateModified": "2026-05-13T18:30:00+03:00",
       "inLanguage": "he-IL",
       "about": ["חיסכון לכל ילד", "תכנית חיסכון לכל ילד", "קופת גמל לילדים", "ביטוח לאומי"]
     },
@@ -88,7 +88,7 @@
           "name": "האם כדאי להכפיל את החיסכון מתוך קצבת הילדים?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "מבחינת חינוך פיננסי וריבית-דריבית של 18 שנים — כן, בהחלט. ההפקדה הנוספת של 58 ₪ בחודש מקצבת הילדים מכפילה את היקף החיסכון. אבל לפני שמסמנים את התיבה — חשוב לוודא שהפנסיה שלכם, ההפקדות לקרן השתלמות, וביטוחי החיים והנכות שלכם מסודרים. סדר עדיפויות זה הכל."
+            "text": "ההמלצה שלי לא להכפיל. ברגע שתפקידו 58 ₪ נוספים מקצבת הילדים — הכסף הופך לכספי הילד, ובגיל 21 הוא ינצל אותו לפי שיקול דעתו. עדיף לחסוך את אותם 58 ₪ באפיק על שמכם (קרן השתלמות, קופת גמל להשקעה, או קרן כספית) — וכך לשמור בידיכם את הבחירה כיצד לעזור לילד כשיגיע הרגע. אותה ריבית-דריבית, אבל שליטה מלאה."
           }
         },
         {
@@ -701,8 +701,34 @@ section { padding: var(--s-2xl) 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); }
 }
 
-
 /* Calculator */
+.calc-section {
+  background: linear-gradient(135deg, var(--bg-cream) 0%, #FBF8F2 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.calc-wrap {
+  max-width: var(--article-width);
+  margin: 0 auto;
+}
+.calc-eyebrow {
+  display: block;
+  font-size: 13px;
+  color: var(--cta);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.calc-title {
+  font-size: 30px;
+  margin: 0 0 var(--s-sm);
+}
+.calc-lede {
+  color: var(--text-2);
+  font-size: 17px;
+  margin-bottom: var(--s-lg);
+}
 .calc-card {
   background: #fff;
   border: 1px solid var(--border);
@@ -719,26 +745,50 @@ section { padding: var(--s-2xl) 0; }
   padding-bottom: var(--s-lg);
   border-bottom: 1px solid var(--border);
 }
-.calc-control { display: flex; flex-direction: column; gap: 6px; }
-.calc-control .label-row {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 14px; color: var(--text-2); font-weight: 600;
+.calc-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.calc-control .label-row .value { font-size: 18px; color: var(--primary); font-weight: 700; }
-.calc-control input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+.calc-control .label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 14px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+.calc-control .label-row .value {
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 700;
+}
+.calc-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
 .toggle-row {
   grid-column: 1 / -1;
-  display: flex; align-items: center; gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 12px var(--s-sm);
   background: var(--bg-cream);
   border-radius: var(--radius-btn);
-  cursor: pointer; user-select: none;
+  cursor: pointer;
+  user-select: none;
 }
 .toggle-row input { cursor: pointer; width: 20px; height: 20px; accent-color: var(--cta); }
 .toggle-row .toggle-text { font-size: 15px; }
 .toggle-row .toggle-text strong { color: var(--text-1); }
 .toggle-row .toggle-note { color: var(--text-meta); font-size: 13px; margin-top: 2px; }
-.calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+
+.calc-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+}
 .calc-result {
   background: linear-gradient(135deg, var(--primary-soft) 0%, #F0F6FA 100%);
   border-radius: var(--radius-card);
@@ -746,63 +796,127 @@ section { padding: var(--s-2xl) 0; }
   text-align: center;
 }
 .calc-result .age-label {
-  font-size: 13px; color: var(--text-2); font-weight: 600;
-  letter-spacing: 1px; text-transform: uppercase;
+  font-size: 13px;
+  color: var(--text-2);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
-.calc-result .net-value { font-size: 32px; font-weight: 700; color: var(--primary); margin: 6px 0 2px; }
-.calc-result .real-value { font-size: 13px; color: var(--text-meta); }
+.calc-result .net-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 6px 0 2px;
+}
+.calc-result .real-value {
+  font-size: 13px;
+  color: var(--text-meta);
+}
 .calc-breakdown {
-  margin-top: var(--s-md); padding-top: var(--s-md);
+  margin-top: var(--s-md);
+  padding-top: var(--s-md);
   border-top: 1px solid var(--border);
-  font-size: 14px; color: var(--text-2);
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  font-size: 14px;
+  color: var(--text-2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
 }
-.calc-breakdown .row { display: flex; justify-content: space-between; padding: 2px 0; }
+.calc-breakdown .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+.calc-breakdown .row .label { color: var(--text-2); }
 .calc-breakdown .row .val { color: var(--text-1); font-weight: 600; }
 
 /* Pension comparison */
 .pension-compare {
-  background: #1A1A1A; color: #fff;
+  background: #1A1A1A;
+  color: #fff;
   border-radius: var(--radius-card);
-  padding: var(--s-lg); margin-top: var(--s-md);
-  position: relative; overflow: hidden;
+  padding: var(--s-lg);
+  margin-top: var(--s-md);
+  position: relative;
+  overflow: hidden;
 }
 .pension-compare::before {
-  content: ''; position: absolute; top: 0; left: 0;
-  width: 5px; height: 100%; background: var(--cta);
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 5px; height: 100%;
+  background: var(--cta);
 }
 .pension-compare .pc-eyebrow {
-  display: block; font-size: 12px; color: var(--cta);
-  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  display: block;
+  font-size: 12px;
+  color: var(--cta);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   margin-bottom: 8px;
 }
-.pension-compare h3 { color: #fff; font-size: 22px; margin: 0 0 var(--s-sm); line-height: 1.35; }
-.pension-compare p { color: rgba(255,255,255,0.85); font-size: 16px; margin: 0 0 var(--s-md); }
+.pension-compare h3 {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 0 var(--s-sm);
+  line-height: 1.35;
+}
+.pension-compare p {
+  color: rgba(255,255,255,0.85);
+  font-size: 16px;
+  margin: 0 0 var(--s-md);
+}
 .pension-compare .pc-numbers {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--s-sm); margin: var(--s-md) 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--s-sm);
+  margin: var(--s-md) 0;
 }
 .pension-compare .pc-num {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px; padding: 12px; text-align: center;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
 }
-.pension-compare .pc-num .pcn-label { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
-.pension-compare .pc-num .pcn-value { font-size: 22px; font-weight: 700; color: #fff; }
+.pension-compare .pc-num .pcn-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 4px;
+}
+.pension-compare .pc-num .pcn-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
 .pension-compare .pc-num.highlight {
   background: rgba(215, 78, 60, 0.12);
   border-color: rgba(215, 78, 60, 0.4);
 }
-.pension-compare .pc-num.highlight .pcn-value { color: #FFB89E; }
-.pension-compare .pc-cta { margin-top: var(--s-md); }
+.pension-compare .pc-num.highlight .pcn-value {
+  color: #FFB89E;
+}
+.pension-compare .pc-cta {
+  margin-top: var(--s-md);
+}
 .pension-compare .pc-cta a {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--cta); color: #fff;
-  padding: 12px 24px; border-radius: var(--radius-btn);
-  font-weight: 700; text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cta);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  text-decoration: none !important;
   transition: background .15s, transform .15s;
 }
-.pension-compare .pc-cta a:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.pension-compare .pc-cta a:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 700px) {
   .calc-controls { grid-template-columns: 1fr; gap: var(--s-md); }
   .calc-results { grid-template-columns: 1fr; }
@@ -826,6 +940,58 @@ section { padding: var(--s-2xl) 0; }
 }
 .fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
 .fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
 </style>
 </head>
 <body>
@@ -848,10 +1014,10 @@ section { padding: var(--s-2xl) 0; }
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
       <a href="/#tools">🤖 רובייקטיבי</a>
-      <a href="/ira/">IRA</a>
+      <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
       <a href="/#tools">מחשבונים</a>
-      <a href="/#knowledge" class="active">כדאי לדעת</a>
+      <a href="#" class="active">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
   </div>
@@ -874,7 +1040,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
       <span class="dot">·</span>
-      <span>יועץ פנסיוני בעל רישיון משרד האוצר</span>
+      <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
       <span>13.5.2026</span>
       <span class="dot">·</span>
@@ -921,7 +1087,7 @@ section { padding: var(--s-2xl) 0; }
       <h4>מה תקראו בעמוד הזה</h4>
       <ol>
         <li><a href="#what-is">מה זה תכנית חיסכון לכל ילד</a></li>
-        <li><a href="#perspective">פתיחה קצרה — והפרספקטיבה המקצועית</a></li>
+        <li><a href="#perspective">הפרספקטיבה החשובה — לפני שמתחילים</a></li>
         <li><a href="#sum">סכום החיסכון — בפועל</a></li>
         <li><a href="#calculator">מחשבון אינטראקטיבי — וההשוואה לפנסיה</a></li>
         <li><a href="#bank-vs-gemel">בנק או קופת גמל — ההחלטה החשובה</a></li>
@@ -942,7 +1108,7 @@ section { padding: var(--s-2xl) 0; }
       הראשון לחייו ועד שיגיע לגיל 18.
     </p>
     <p>
-      ההורים בוחרים <strong>חד-פעמית</strong> איפה החיסכון ינוהל — בקופת גמל להשקעה או בבנק — וגם
+      ההורים בוחרים <strong>חד-פעמית</strong> איפה החיסכון ינוהל — בקופת <a href="/savings/gamal-lehashkaa/">גמל להשקעה</a> או בבנק — וגם
       את מסלול ההשקעה (סיכון נמוך, בינוני, מוגבר, או מסלול הלכה). אפשר גם להוסיף עוד 58 ₪ בחודש
       מקצבת הילדים, כך שסך ההפקדה החודשית יוכפל ויעמוד על 116 ₪.
     </p>
@@ -971,7 +1137,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="callout">
       <strong>תפעמת:</strong> תכנית החיסכון לכל ילד היא הזדמנות טובה לחנך את עצמכם פיננסית — וגם
       תזכורת מתבקשת. אם אתם משקיעים זמן בבחירת קופה לילד שלכם, השקיעו לפחות באותה מידה זמן בבדיקה
-      של <a href="/ira/explained/">קרן ההשתלמות שלכם</a> ושל
+      של <a href="/investment/ira-explained/">קרן ההשתלמות שלכם</a> ושל
       <a href="/#tools">קרן הפנסיה שלכם</a>. הפער בהשפעה — פי 40.
     </div>
 
@@ -1009,11 +1175,7 @@ section { padding: var(--s-2xl) 0; }
       18 שנים, בחירה נכונה היא ההבדל בין "כסף כיס לטיול אחרי הצבא" ל"מימון משמעותי ללימודים או לדירה
       ראשונה".
     </p>
-    <p>
-      <a href="https://www.btl.gov.il/Simulators/childrenCalc/Pages/savings.aspx" target="_blank" rel="noopener">למחשבון חישוב הסכום באתר ביטוח לאומי ←</a>
-    </p>
 
-    
     <!-- CALCULATOR -->
     <h2 id="calculator">מחשבון: כמה ייצא בסוף — נטו</h2>
     <p>
@@ -1123,7 +1285,7 @@ section { padding: var(--s-2xl) 0; }
       <thead>
         <tr>
           <th>קריטריון</th>
-          <th class="col-yes">קופת גמל להשקעה</th>
+          <th class="col-yes"><a href="/savings/gamal-lehashkaa/">קופת גמל להשקעה</a></th>
           <th class="col-no">בנק</th>
         </tr>
       </thead>
@@ -1219,7 +1381,7 @@ section { padding: var(--s-2xl) 0; }
     </ul>
 
     <div class="callout">
-      <strong>הסתייגות מקצועית:</strong> הרישיון שלי הוא רישיון יועץ פנסיוני, לא יועץ השקעות. ההמלצות
+      <strong>הסתייגות מקצועית:</strong> הרישיון שלי הוא <a href="/about/license/">רישיון יועץ פנסיוני</a>, לא יועץ השקעות. ההמלצות
       כאן הן <em>כלליות וחינוכיות</em>. הבחירה הספציפית של קופה ומסלול היא של ההורים, לפי הסיכון
       שהם מוכנים לקחת ולפי השקפותיהם. בכל מקרה — עדיף מסלול פסיבי גלובלי מאשר ברירת מחדל אקראית.
     </div>
@@ -1249,7 +1411,7 @@ section { padding: var(--s-2xl) 0; }
       <h3>אל תכפילו. חסכו את ה-58 ₪ על שמכם — שמרו את הבחירה בידיכם</h3>
       <p>
         ההמלצה שלי <strong>לא להכפיל</strong> את ההפקדה. במקום זה — חסכו את ה-58 ₪ באפיק על
-        <em>שמכם</em>: קרן השתלמות, קופת גמל להשקעה, או גם קרן כספית. ככה הכסף ימשיך לעבוד עבור
+        <em>שמכם</em>: <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, קופת גמל להשקעה, או גם <a href="/savings/keren-kaspit/">קרן כספית</a>. ככה הכסף ימשיך לעבוד עבור
         הילד באותה ריבית-דריבית — אבל אתם תחליטו, כשיגיע הרגע, אם להפנות אותו לחתונה, לדירה, ללימודים,
         או להמתין עוד שנים. השליטה — קריטית. אל תוותרו עליה בלי תועלת אמיתית במקביל.
       </p>
@@ -1263,7 +1425,7 @@ section { padding: var(--s-2xl) 0; }
       <li><strong>הביטוחים שלכם נבדקו ב-12 החודשים האחרונים</strong> — חיים, נכות (אובדן כושר עבודה),
       בריאות.</li>
       <li><strong>קרן הפנסיה שלכם נבדקה</strong> — מסלול השקעה, דמי ניהול, סכום ההפקדה.</li>
-      <li><strong>קרן ההשתלמות שלכם פעילה ומופקדת אליה הסכום המקסימלי</strong> שמזכה בהטבת מס.</li>
+      <li><strong><a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a> שלכם פעילה ומופקדת אליה הסכום המקסימלי</strong> שמזכה בהטבת מס.</li>
     </ul>
     <p>
       בלי שלושת אלה — 58 ₪ נוספים על שמכם, באחד מהאפיקים הנכונים שלכם, יחזירו לכם הרבה יותר מאשר
@@ -1397,292 +1559,16 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item">
         <summary>מה עדיף — חיסכון בבנק או בקופת גמל?</summary>
         <div class="faq-body">
-          ברוב המקרים — קופת גמל. בקופה הכסף מושקע בשוק ההון עם פוטנציאל תשואה ארוך-טווח גבוה
-          משמעותית מהריבית בבנק. ניתן לעבור בין קופות בכל עת, וניתן לשנות מסלול בכל שלב. בבנק
-          הריבית קבועה או צמודה, ההחלפה מוגבלת לתחנות יציאה כל 5 שנים, ולא ניתן לעבור בנק כלל.
-          לטווח של 18 שנים — הפער בתשואה צפוי להיות אלפי שקלים לטובת הקופה.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>איזה מסלול השקעה מומלץ לבחור בקופת הגמל?</summary>
-        <div class="faq-body">
-          לאופק של 18 שנים — מסלול מנייתי או מחקה מדד גלובלי. הסיכון של מסלולים מנייתיים בטווח כל
-          כך ארוך הוא נמוך בפועל, והתשואה הצפויה גבוהה משמעותית ממסלולים סולידיים. עדיף לבחור מסלול
-          פסיבי (מחקה מדד) — דמי הניהול נמוכים יותר, וההיסטוריה מראה שהם מנצחים את רוב המנהלים
-          האקטיביים. הרישיון שלי הוא ייעוץ פנסיוני, לא ייעוץ השקעות — אז הבחירה הספציפית היא שלכם.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>אפשר לשנות את הקופה אחרי שכבר בחרתי?</summary>
-        <div class="faq-body">
-          בקופת גמל — כן, בכל עת. ניתן להעביר את הצבירה לקופה אחרת ולשנות מסלול השקעה בכל שלב.
-          בבנק — אפשר רק לעצור את החיסכון ולפתוח חדש בקופת גמל; לא ניתן לעבור לבנק אחר, ומסלול
-          ניתן לשנות רק במסלולים עם תחנות יציאה כל 5 שנים, ורק במועד התחנה.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>מתי הילד יכול למשוך את הכסף?</summary>
-        <div class="faq-body">
-          בגיל 18 — באישור הורה. בגיל 21 — באופן עצמאי וללא צורך באישור. מי שלא ימשוך עד גיל 21
-          יקבל מענק נוסף של 582 ₪ מביטוח לאומי. ילדים שנולדו מ-1.1.2017 ואילך לא יקבלו את המענק
-          בגיל 18, אלא 291 ₪ בגיל 3, 291 ₪ בגיל בר/בת מצווה, ו-582 ₪ בגיל 21.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>האם כדאי להכפיל את החיסכון מתוך קצבת הילדים?</summary>
-        <div class="faq-body">
-          ההמלצה שלי <strong>לא להכפיל</strong>. ברגע שתפקידו 58 ₪ נוספים מקצבת הילדים — הכסף הופך
-          לכספי הילד, ובגיל 21 (או 18 באישור הורה) הוא ינצל אותו לפי שיקול דעתו. עדיף לחסוך את אותם
-          58 ₪ באפיק על שמכם — קרן השתלמות, קופת גמל להשקעה, או קרן כספית — וכך לשמור בידיכם את
-          הבחירה על איך לעזור לילד כשיגיע הרגע (חתונה, דירה, לימודים). אותה ריבית-דריבית, אבל שליטה
-          מלאה.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>האם הילד משלם דמי ניהול?</summary>
-        <div class="faq-body">
-          עד גיל 21 — לא. ביטוח לאומי משלם את דמי הניהול בקופת הגמל ואת עלויות התפעול בבנק. מגיל
-          21 ואילך, אם הכסף לא נמשך, דמי הניהול ייגבו מהחיסכון לפי תעריף הקופה או הבנק. גם זו סיבה
-          לבחור בקופת גמל עם דמי ניהול נמוכים — זה ישפיע אחרי גיל 21.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>אפשר להמשיך לחסוך אחרי גיל 18 או 21?</summary>
-        <div class="faq-body">
-          כן — אם הילד מחליט שלא למשוך, הכסף ימשיך לעבוד עבורו בקופת הגמל להשקעה. במקרה כזה, אם
-          ירצה להמתין עד גיל פרישה ולמשוך את הכסף כקצבה, יוכל לקבל אותו <strong>פטור ממס רווחי
-          הון</strong> לחלוטין. זה מהלך שכדאי לדעת עליו מראש.
-        </div>
-      </details>
+          ברוב המקרים — קופת �
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/savings/keren-hishtalmut/">קרן השתלמות — הצעד הבא</a>
+      <a class="related-link-card" href="/savings/keren-kaspit/">קרן כספית — מדריך</a>
+      <a class="related-link-card" href="/pension/">הפנסיה שלך — שווה פי 100</a>
+      <a class="related-link-card" href="/ai/">בדוק את דוח הפנסיה שלך — חינם</a>
     </div>
   </div>
 </section>
-
-<!-- RELATED -->
-<section class="related-section">
-  <div class="container">
-    <div class="related-grid">
-      <a href="/ira/explained/" class="related-card">
-        <div class="micro">מדריך מקיף</div>
-        <h4>IRA — קרן השתלמות בניהול אישי</h4>
-        <p>אם כבר בחרתם להוסיף 58 ₪ מקצבת הילדים — בדקו גם את קרן ההשתלמות שלכם. הסכומים שם גדולים פי כמה ואפשר לחסוך משמעותית בדמי ניהול.</p>
-      </a>
-      <a href="/savings/keren-kaspit/" class="related-card">
-        <div class="micro">חלופה לטווח קצר</div>
-        <h4>קרן כספית — איפה הכסף שאתם לא משקיעים</h4>
-        <p>אם יש לכם בעו"ש סכומים שאתם לא רוצים לסכן בשוק ההון — קרן כספית כלי טוב לטווח קצר ובינוני.</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT CTA -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <h2>הקדשתם 15 דקות לילד. תקדישו 20 דקות לעצמכם</h2>
-    <p>
-      ה-30,000 ₪ של חיסכון לכל ילד הם דבר נחמד. <strong>הפנסיה שלכם — שווה פי 100 ויותר.</strong>
-      תכנון פיננסי הוליסטי בודק את כל התמונה: פנסיה, השתלמות, ביטוחים, משכנתא — בלי קונפליקט
-      אינטרסים, עם רישיון של משרד האוצר. שיחת היכרות של 20 דקות תיתן לכם כיוון ברור.
-    </p>
-    <div class="contact-actions">
-      <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר →</a>
-      <a href="https://wa.me/972527700599" class="btn btn-outline-light">
-        <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" style="margin-left:6px;"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
-        שלח הודעה בוואטסאפ
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- SOURCES -->
-<section class="sources-section">
-  <div class="container">
-    <h3>מקורות</h3>
-    <div class="sources-list">
-      <ol>
-        <li><a href="https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/default.aspx" target="_blank" rel="noopener">ביטוח לאומי — תכנית חיסכון לכל ילד</a></li>
-        <li><a href="https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/sum.aspx" target="_blank" rel="noopener">ביטוח לאומי — סכום החיסכון והמענקים</a></li>
-        <li><a href="https://hly.gov.il/Differences.html" target="_blank" rel="noopener">משרד האוצר — ההבדלים בין חיסכון בקופת גמל לחיסכון בבנק</a></li>
-        <li><a href="https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/mavar.aspx" target="_blank" rel="noopener">ביטוח לאומי — שינוי הגוף החוסך ומסלול החיסכון</a></li>
-        <li><a href="https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/MeshihaHisahon.aspx" target="_blank" rel="noopener">ביטוח לאומי — משיכה של כספי החיסכון</a></li>
-        <li><a href="https://www.btl.gov.il/Simulators/childrenCalc/Pages/savings.aspx" target="_blank" rel="noopener">ביטוח לאומי — מחשבון לחישוב סכום החיסכון</a></li>
-      </ol>
-      <p style="font-size:13px; text-align:center; margin-top:20px;">
-        <strong>הערה:</strong> המידע במאמר נכתב על ידי איתן אחיטוב, יועץ פנסיוני בעל רישיון משרד
-        האוצר. הסכומים והכללים מבוססים על אתר ביטוח לאומי, נכון ל-1.1.2026. המידע כללי ולא מהווה
-        ייעוץ פנסיוני אישי או ייעוץ השקעות.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
-            <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-            <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-            <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
-            <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
-            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-          </svg>
-          <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
-        </div>
-        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים בני 27-47.</p>
-      </div>
-      <div>
-        <h4>שירותים</h4>
-        <ul>
-          <li><a href="/">תכנון פיננסי</a></li>
-          <li><a href="/">ייעוץ פנסיוני</a></li>
-          <li><a href="/">ייעוץ ביטוחי</a></li>
-          <li><a href="/">ייעוץ משכנתאות</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>כדאי לדעת</h4>
-        <ul>
-          <li><a href="/ira/explained/">מתי IRA כן ומתי לא</a></li>
-          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
-          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
-          <li><a href="/about/">אודות איתן</a></li>
-          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
-          <li><a href="/about/advisor-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
-          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
-          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>צור קשר</h4>
-        <ul>
-          <li><a href="/#contact">קבע שיחה לשמוע יותר</a></li>
-          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
-          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
-      <span class="license-badge">
-        <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        רישיון יועץ פנסיוני · משרד האוצר
-      </span>
-    </div>
-  </div>
-</footer>
-
-<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
-  </svg>
-</a>
-
-
-<script>
-/* Child savings calculator */
-(function () {
-  const $double = document.getElementById('calc-double');
-  const $infl   = document.getElementById('calc-infl');
-  const $ret    = document.getElementById('calc-ret');
-  const $inflO  = document.getElementById('calc-infl-out');
-  const $retO   = document.getElementById('calc-ret-out');
-  const $age18  = document.getElementById('calc-age18');
-  const $age21  = document.getElementById('calc-age21');
-  const $age18R = document.getElementById('calc-age18-real');
-  const $age21R = document.getElementById('calc-age21-real');
-  const $dep    = document.getElementById('calc-deposits');
-  const $gain   = document.getElementById('calc-gain');
-  const $tax    = document.getElementById('calc-tax');
-  const $pcChild   = document.getElementById('pc-child');
-  const $pcPension = document.getElementById('pc-pension');
-  const $pcRatio   = document.getElementById('pc-ratio');
-  if (!$double) return;
-
-  function fmt(n) {
-    if (!isFinite(n)) return '—';
-    return '₪ ' + Math.round(Math.abs(n)).toLocaleString('he-IL');
-  }
-  function fmtShort(n) {
-    if (!isFinite(n)) return '—';
-    if (Math.abs(n) >= 1e6) return '₪ ' + (n / 1e6).toFixed(2).replace(/\.00$/, '') + 'M';
-    if (Math.abs(n) >= 1e4) return '₪ ' + Math.round(n / 1000).toLocaleString('he-IL') + 'K';
-    return '₪ ' + Math.round(n).toLocaleString('he-IL');
-  }
-  function fvAnnuity(r, n) {
-    if (r === 0) return n;
-    return (Math.pow(1 + r, n) - 1) / r;
-  }
-
-  function compute() {
-    const isDoubled = $double.checked;
-    const inflA = parseFloat($infl.value) / 100;
-    const retA  = parseFloat($ret.value)  / 100;
-    const monthly = isDoubled ? 116 : 58;
-    const m18 = 216, m3 = 36, grant = 582;
-    const rM = Math.pow(1 + retA,  1/12) - 1;
-    const iM = Math.pow(1 + inflA, 1/12) - 1;
-
-    const fvNom18 = monthly * fvAnnuity(rM, m18);
-    const fvInf18 = monthly * fvAnnuity(iM, m18);
-
-    const nomAt18Pre = fvNom18 + grant;
-    const infAt18Pre = fvInf18 + grant;
-    const realGain18 = Math.max(0, nomAt18Pre - infAt18Pre);
-    const netAt18 = nomAt18Pre - 0.25 * realGain18;
-
-    const nomAt21 = fvNom18 * Math.pow(1 + rM, m3) + grant * Math.pow(1 + rM, m3) + grant;
-    const infAt21 = fvInf18 * Math.pow(1 + iM, m3) + grant * Math.pow(1 + iM, m3) + grant;
-    const realGain21 = Math.max(0, nomAt21 - infAt21);
-    const tax21 = 0.25 * realGain21;
-    const netAt21 = nomAt21 - tax21;
-
-    const todayAt18 = netAt18 / Math.pow(1 + inflA, 18);
-    const todayAt21 = netAt21 / Math.pow(1 + inflA, 21);
-
-    const totalDeposits = monthly * m18;
-    const grossGain21 = nomAt21 - totalDeposits - grant * 2;
-
-    const m40 = 480;
-    const fvNomPension = 2000 * fvAnnuity(rM, m40);
-    const fvInfPension = 2000 * fvAnnuity(iM, m40);
-    const realGainPension = Math.max(0, fvNomPension - fvInfPension);
-    const netPension = fvNomPension - 0.25 * realGainPension;
-    const ratio = netPension / netAt21;
-
-    $inflO.textContent = (inflA * 100).toFixed(1);
-    $retO.textContent  = (retA  * 100).toFixed(1);
-    $age18.textContent  = fmt(netAt18);
-    $age21.textContent  = fmt(netAt21);
-    $age18R.textContent = fmt(todayAt18);
-    $age21R.textContent = fmt(todayAt21);
-    $dep.textContent    = fmt(totalDeposits);
-    $gain.textContent   = fmt(grossGain21);
-    $tax.textContent    = fmt(tax21);
-    $pcChild.textContent   = fmtShort(netAt21);
-    $pcPension.textContent = fmtShort(netPension);
-    $pcRatio.textContent   = 'פי ' + Math.round(ratio).toLocaleString('he-IL');
-  }
-
-  ['input', 'change'].forEach(ev => {
-    $double.addEventListener(ev, compute);
-    $infl.addEventListener(ev, compute);
-    $ret.addEventListener(ev, compute);
-  });
-  compute();
-})();
-</script>
-
-</body>
-</html>

@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון חיסכון במס לעצמאים ושכירים | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="מחשבון חיסכון במס לפנסיה — חשב כמה תחסוך במס בזכות הפקדות לפנסיה, קרן השתלמות וגמל. מותאם לשכירים ולעצמאים. הפקדה אופטימלית לפי הכנסה.">
+
+<meta property="og:title" content="מחשבון חיסכון במס לפנסיה — שכירים ועצמאים">
+<meta property="og:description" content="גלה כמה כסף אתה משאיר על השולחן בגלל שאתה לא ממצה את הטבות המס. מחשבון חינמי, 2 דקות, תוצאה מיידית.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "מחשבון חיסכון במס לעצמאים ושכירים",
+      "description": "מחשבון אינטראקטיבי לחישוב הטבות מס מהפקדות לפנסיה, קרן השתלמות וקופת גמל — לשכירים ולעצמאים.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "he-IL",
+      "author": {
+        "@type": "Person",
+        "name": "איתן אחיטוב",
+        "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר",
+        "url": "https://pensya.info/about"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
+        { "@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/tools" },
+        { "@type": "ListItem", "position": 3, "name": "מחשבון חיסכון במס", "item": "https://pensya.info/tools/tax-savings" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "מה זה הטבת מס על הפקדה לפנסיה?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "המדינה מעניקה שתי הטבות: זיכוי מס (35% מהפקדה עד תקרה מסוימת — כסף שחוזר ישירות מהמס שלך) וניכוי מס (הפחתת ההכנסה החייבת, שמאפשרת לשלם מס בשיעור שולי נמוך יותר על חלק מהסכום)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מה ההבדל בין זיכוי מס לניכוי מס?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "זיכוי מס = כסף שיורד ישירות מחשבון המס שלך (שקל תמורת שקל עד 35%). ניכוי מס = הוצאה שמופחתת מההכנסה החייבת, כך שאתה ממוסה על פחות הכנסה. הזיכוי 'שווה' יותר שקל-לשקל."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "האם עצמאי יכול לנכות הפקדות לפנסיה כהוצאה מוכרת?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "כן. עצמאי יכול לנכות עד 11% מהכנסתו המבוטחת (עד תקרת שכר ממוצע × 1.5) כהוצאה מוכרת לצרכי מס, ובנוסף לקבל זיכוי מס של 35% על הפקדה של עד 5% מהכנסה עד תקרה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מה תקרת הפקדה לקרן השתלמות לעצמאי?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בשנת 2025, עצמאי יכול להפקיד עד 4.5% מהכנסתו (עד שכר ממוצע × 4.5) לקרן השתלמות כהוצאה מוכרת. הסכום המקסימלי המוכר לניכוי הוא כ-20,520 ₪ לשנה (1,710 ₪ לחודש)."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+  --s-3xl: 96px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+  --article-width: 820px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+.article-container { max-width: var(--article-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+h1 { font-size: 40px; font-weight: 700; }
+h2 { font-size: 28px; font-weight: 700; margin: var(--s-2xl) 0 var(--s-md); }
+h3 { font-size: 21px; font-weight: 600; margin: var(--s-lg) 0 var(--s-sm); }
+h4 { font-size: 18px; font-weight: 700; margin: var(--s-md) 0 var(--s-xs); }
+section { padding: var(--s-2xl) 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+  text-decoration: none !important;
+  font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+
+/* ── Header ── */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; gap: var(--s-md);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 20px; color: var(--primary);
+  text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+  background: var(--bg-cream); padding: 14px 0;
+  font-size: 14px; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* ── Hero ── */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .container { max-width: var(--article-width); }
+.article-meta {
+  display: flex; align-items: center; gap: var(--s-sm);
+  font-size: 14px; color: var(--text-2);
+  margin-bottom: var(--s-md); flex-wrap: wrap;
+}
+.article-meta .author {
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+}
+.article-meta .author::before {
+  content: 'א'; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--primary); color: #fff; font-size: 13px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.article-meta .pill {
+  display: inline-block; background: var(--primary-soft); color: var(--primary);
+  padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+}
+.article-meta .dot { color: var(--text-meta); }
+.page-hero h1 { font-size: 40px; margin-bottom: var(--s-md); }
+.page-hero h1 .accent { color: var(--primary); }
+.page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; }
+@media (max-width: 700px) {
+  .page-hero h1 { font-size: 30px; }
+  .page-hero .lede { font-size: 17px; }
+}
+
+/* ── Article body ── */
+.article-body { padding: var(--s-xl) 0; }
+.article-body p {
+  margin: var(--s-sm) 0; font-size: 17px;
+  line-height: 1.75; color: var(--text-1);
+}
+.article-body ul, .article-body ol {
+  margin: var(--s-sm) 0 var(--s-md); padding-right: var(--s-md);
+}
+.article-body li { margin: 8px 0; font-size: 17px; }
+.article-body strong { font-weight: 700; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-right: 4px solid var(--primary); border-radius: var(--radius-btn);
+  padding: var(--s-md) var(--s-lg); margin: var(--s-lg) 0;
+}
+.toc h4 {
+  margin: 0 0 var(--s-sm); font-size: 14px; color: var(--text-meta);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.toc ol { margin: 0; padding-right: var(--s-md); list-style: decimal; list-style-position: outside; }
+.toc li { font-size: 16px; margin: 6px 0; }
+.toc a { color: var(--text-1); font-weight: 500; }
+
+/* ── Callout ── */
+.callout {
+  background: var(--primary-soft); border-right: 4px solid var(--primary);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: var(--s-md) 0; font-size: 16px; color: var(--text-1);
+}
+.callout strong { color: var(--primary); }
+.callout-warn {
+  background: var(--warning-soft); border-right: 4px solid var(--warning);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: var(--s-md) 0; font-size: 16px;
+}
+.callout-warn strong { color: #B58E2A; }
+
+/* ── Calculator card ── */
+.calc-wrapper {
+  background: var(--bg-cream);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: var(--s-2xl) 0;
+}
+.calc-inner { max-width: var(--article-width); margin: 0 auto; padding: 0 var(--s-md); }
+.calc-eyebrow {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.calc-title { font-size: 30px; font-weight: 700; margin-bottom: var(--s-sm); }
+.calc-lede { color: var(--text-2); font-size: 17px; margin-bottom: var(--s-lg); }
+
+/* Tab switcher */
+.tab-switch {
+  display: flex; background: #fff;
+  border: 1px solid var(--border); border-radius: var(--radius-btn);
+  padding: 4px; margin-bottom: var(--s-lg);
+  width: fit-content; gap: 4px;
+}
+.tab-btn {
+  padding: 10px 24px; border-radius: 6px;
+  border: none; background: transparent;
+  font-family: inherit; font-size: 16px; font-weight: 600;
+  cursor: pointer; color: var(--text-2); transition: all .15s;
+}
+.tab-btn.active { background: var(--primary); color: #fff; }
+.tab-btn:not(.active):hover { background: var(--primary-soft); color: var(--primary); }
+
+/* Panels */
+.calc-panel { display: none; }
+.calc-panel.active { display: block; }
+
+/* Input grid */
+.input-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-md); margin-bottom: var(--s-lg);
+}
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-group label {
+  font-size: 15px; font-weight: 600; color: var(--text-1);
+}
+.input-group .input-hint { font-size: 12px; color: var(--text-meta); margin-top: 2px; }
+.input-wrap { position: relative; }
+.input-wrap input[type="number"],
+.input-wrap select {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 16px; color: var(--text-1);
+  background: #fff; outline: none; transition: border-color .15s;
+  appearance: none; -webkit-appearance: none;
+}
+.input-wrap input[type="number"]:focus,
+.input-wrap select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+}
+.input-suffix {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%); color: var(--text-meta);
+  font-size: 14px; pointer-events: none;
+}
+.input-range-wrap { display: flex; flex-direction: column; gap: 6px; }
+.input-range-row { display: flex; align-items: center; gap: 12px; }
+.input-range-row input[type="range"] {
+  flex: 1; accent-color: var(--primary); cursor: pointer; height: 6px;
+}
+.input-range-row .range-val {
+  font-size: 16px; font-weight: 700; color: var(--primary);
+  min-width: 60px; text-align: left;
+}
+.input-grid-full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .input-grid { grid-template-columns: 1fr; } }
+
+/* Calc button */
+.calc-btn-row { display: flex; gap: 12px; margin-bottom: var(--s-lg); flex-wrap: wrap; }
+
+/* Result panel */
+.result-panel {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: none;
+}
+.result-panel.show { display: block; }
+.result-header {
+  background: var(--primary); color: #fff;
+  padding: var(--s-md) var(--s-lg);
+  display: flex; align-items: center; gap: 12px;
+}
+.result-header h3 { color: #fff; margin: 0; font-size: 20px; }
+.result-header .result-icon { font-size: 28px; }
+.result-body { padding: var(--s-lg); }
+
+/* Big saving number */
+.saving-big {
+  text-align: center; padding: var(--s-lg) 0;
+  border-bottom: 1px solid var(--border); margin-bottom: var(--s-lg);
+}
+.saving-big .label {
+  font-size: 14px; color: var(--text-meta); font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;
+}
+.saving-big .amount {
+  font-size: 56px; font-weight: 700; color: var(--positive);
+  line-height: 1; letter-spacing: -2px;
+}
+.saving-big .amount.big { font-size: 64px; }
+.saving-big .sub { font-size: 16px; color: var(--text-2); margin-top: 8px; }
+
+/* Result breakdown grid */
+.result-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-sm); margin-bottom: var(--s-lg);
+}
+.result-box {
+  background: var(--bg-cream); border-radius: var(--radius-btn);
+  padding: var(--s-md); text-align: center;
+}
+.result-box .rb-label { font-size: 12px; color: var(--text-2); margin-bottom: 6px; font-weight: 600; }
+.result-box .rb-val { font-size: 22px; font-weight: 700; color: var(--primary); }
+.result-box .rb-sub { font-size: 12px; color: var(--text-meta); margin-top: 2px; }
+.result-box.good { background: var(--positive-soft); }
+.result-box.good .rb-val { color: var(--positive); }
+@media (max-width: 640px) { .result-grid { grid-template-columns: 1fr; } }
+
+/* Breakdown table */
+.breakdown-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 15px; margin-bottom: var(--s-md);
+}
+.breakdown-table th, .breakdown-table td {
+  padding: 10px 14px; text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+.breakdown-table thead th {
+  background: var(--bg-cream); font-weight: 700; color: var(--text-2);
+  font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.breakdown-table tbody tr:last-child td { border-bottom: none; }
+.breakdown-table .row-total td {
+  font-weight: 700; font-size: 16px; color: var(--positive);
+  background: var(--positive-soft);
+}
+.breakdown-table .row-good td { color: var(--positive); }
+
+/* CTA inside result */
+.result-cta {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  color: #fff; margin-top: var(--s-md);
+}
+.result-cta h4 { color: #fff; margin: 0 0 8px; font-size: 20px; }
+.result-cta p { color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: var(--s-md); }
+.result-cta .cta-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-light { background: #fff; color: var(--primary); }
+.btn-light:hover { background: var(--bg-cream); }
+.btn-outline-light {
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.btn-outline-light:hover { background: rgba(255,255,255,0.08); }
+
+/* Disclaimer */
+.calc-disclaimer {
+  font-size: 13px; color: var(--text-meta);
+  margin-top: var(--s-md); line-height: 1.6;
+}
+
+/* ── Info sections ── */
+.info-section { padding: var(--s-2xl) 0; }
+.info-section:nth-child(even) { background: var(--bg-cream); }
+.limits-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 15px; background: #fff;
+  border-radius: var(--radius-card); overflow: hidden;
+  border: 1px solid var(--border);
+  margin: var(--s-md) 0 var(--s-lg);
+}
+.limits-table th, .limits-table td {
+  padding: 12px 14px; text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+.limits-table thead th { background: var(--primary); color: #fff; font-weight: 700; }
+.limits-table tbody tr:last-child td { border-bottom: none; }
+.limits-table td:last-child { font-weight: 600; color: var(--positive); }
+.limits-table .head-row td { background: var(--bg-cream); font-weight: 700; color: var(--primary); }
+@media (max-width: 700px) {
+  .limits-table { font-size: 13px; }
+  .limits-table th, .limits-table td { padding: 8px; }
+}
+
+/* ── FAQ ── */
+.faq-section { background: var(--bg-cream); padding: var(--s-3xl) 0; }
+.faq-list { max-width: var(--article-width); margin: 0 auto; }
+.faq-list h2 { text-align: center; margin-bottom: var(--s-lg); }
+.faq-item {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.faq-item summary {
+  padding: var(--s-md); cursor: pointer;
+  font-size: 17px; font-weight: 600; color: var(--text-1);
+  list-style: none; display: flex;
+  justify-content: space-between; align-items: center; gap: var(--s-md);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--primary); }
+.faq-item summary::after {
+  content: ''; display: inline-block;
+  width: 12px; height: 12px;
+  border-right: 2px solid var(--primary); border-bottom: 2px solid var(--primary);
+  transform: rotate(45deg); transition: transform .2s;
+}
+.faq-item[open] summary::after { transform: rotate(-135deg); }
+.faq-item .faq-body {
+  padding: 0 var(--s-md) var(--s-md);
+  color: var(--text-2); font-size: 15px; line-height: 1.7;
+}
+
+/* ── Related ── */
+.related-section { background: #fff; padding: var(--s-2xl) 0; border-top: 1px solid var(--border); }
+.related-grid { max-width: var(--article-width); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+.related-card {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  transition: transform .15s, box-shadow .15s; display: block; text-decoration: none !important;
+}
+.related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.related-card .micro { font-size: 12px; color: var(--cta); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.related-card h4 { font-size: 18px; color: var(--primary); margin: 6px 0 8px; }
+.related-card p { font-size: 14px; color: var(--text-2); margin: 0; }
+@media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ── Contact CTA ── */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  color: #fff; padding: var(--s-3xl) 0; text-align: center;
+}
+.contact-section h2 { color: #fff; font-size: 32px; margin: 0 0 var(--s-sm); }
+.contact-section p {
+  font-size: 18px; color: rgba(255,255,255,0.85);
+  margin: 0 auto var(--s-lg); max-width: 600px;
+}
+.contact-actions { display: flex; gap: var(--s-sm); justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ── */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom {
+  border-top: 1px solid #2A2D33; padding-top: var(--s-md);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm);
+}
+.license-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3;
+}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+/* ── FAB WhatsApp ── */
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4); z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════ -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools" class="active">מחשבונים</a>
+      <a href="/#knowledge">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     BREADCRUMB
+     ═══════════════════════════════════════════ -->
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/#tools">מחשבונים</a>
+    <span class="sep">›</span>
+    <span class="current">מחשבון חיסכון במס</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="article-meta">
+      <span class="author">איתן אחיטוב</span>
+      <span class="dot">·</span>
+      <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
+      <span class="dot">·</span>
+      <span>עודכן 2026</span>
+      <span class="pill">מחשבון חינמי</span>
+    </div>
+    <h1>
+      <span class="accent">מחשבון חיסכון במס</span><br>
+      לעצמאים ושכירים
+    </h1>
+    <p class="lede">
+      הפקדות לפנסיה, <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, וקופת גמל מזכות אותך בהטבות <strong>מס ממשיות</strong> —
+      אלפי עד עשרות אלפי שקלים בשנה. רוב האנשים לא יודעים כמה הם יכולים לחסוך, ולא
+      מנצלים את מה שמגיע להם. המחשבון הזה יחשב את זה תוך 2 דקות.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CALCULATOR
+     ═══════════════════════════════════════════ -->
+<section class="calc-wrapper" id="calculator">
+  <div class="calc-inner">
+    <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
+    <h2 class="calc-title" style="margin:0 0 var(--s-sm);" id="how-to-use">איך להשתמש במחשבון</h2>
+    <p class="calc-lede">
+      בחר את סוג ההעסקה שלך, הזן הכנסה ופרטי הפקדה — וקבל חישוב מיידי של
+      <strong>סך חיסכון המס השנתי</strong> שלך, מחולק לפי סוג הטבה.
+    </p>
+
+    <!-- Tab switch: שכיר / עצמאי -->
+    <div class="tab-switch" role="tablist" aria-label="סוג העסקה">
+      <button class="tab-btn active" id="tab-sakhir" role="tab" aria-selected="true"
+              onclick="switchTab('sakhir')">שכיר</button>
+      <button class="tab-btn" id="tab-atzmai" role="tab" aria-selected="false"
+              onclick="switchTab('atzmai')">עצמאי</button>
+    </div>
+
+    <!-- ─────────────── PANEL: שכיר ─────────────── -->
+    <div class="calc-panel active" id="panel-sakhir" role="tabpanel">
+      <div class="input-grid">
+
+        <div class="input-group">
+          <label for="sakhir-income">משכורת ברוטו חודשית (₪)</label>
+          <div class="input-wrap">
+            <input type="number" id="sakhir-income" min="5000" max="150000"
+                   step="500" value="20000" placeholder="20000"
+                   oninput="updateSakhirCalc()">
+            <span class="input-suffix">₪</span>
+          </div>
+          <span class="input-hint">הכנסה ברוטו לפני ניכויים</span>
+        </div>
+
+        <div class="input-group">
+          <label for="sakhir-pension-pct">% הפקדת עובד לפנסיה</label>
+          <div class="input-range-wrap">
+            <div class="input-range-row">
+              <input type="range" id="sakhir-pension-pct" min="0" max="7" step="0.5" value="6"
+                     oninput="updateRangeDisplay('sakhir-pension-pct','sakhir-pension-pct-val','%'); updateSakhirCalc()">
+              <span class="range-val" id="sakhir-pension-pct-val">6%</span>
+            </div>
+          </div>
+          <span class="input-hint">חוק: מינימום 6% | מקסימום מוטב: 7%</span>
+        </div>
+
+        <div class="input-group">
+          <label for="sakhir-hishtalmut-pct">% הפקדת עובד לקרן השתלמות</label>
+          <div class="input-range-wrap">
+            <div class="input-range-row">
+              <input type="range" id="sakhir-hishtalmut-pct" min="0" max="2.5" step="0.5" value="2.5"
+                     oninput="updateRangeDisplay('sakhir-hishtalmut-pct','sakhir-hishtalmut-pct-val','%'); updateSakhirCalc()">
+              <span class="range-val" id="sakhir-hishtalmut-pct-val">2.5%</span>
+            </div>
+          </div>
+          <span class="input-hint">תקרה פטורה ממס: 2.5% מהשכר (עד 15,712 ₪/שנה)</span>
+        </div>
+
+        <div class="input-group">
+          <label for="sakhir-extra">הפקדה עצמאית נוספת לגמל/פנסיה (₪/חודש)</label>
+          <div class="input-wrap">
+            <input type="number" id="sakhir-extra" min="0" max="10000"
+                   step="100" value="0" placeholder="0"
+                   oninput="updateSakhirCalc()">
+            <span class="input-suffix">₪</span>
+          </div>
+          <span class="input-hint">הפקדה "מכיסך" מעבר לניכוי מתלוש</span>
+        </div>
+
+      </div>
+
+      <div class="calc-btn-row">
+        <button class="btn btn-primary" onclick="calcSakhir()">חשב חיסכון מס ←</button>
+        <button class="btn btn-secondary" style="background:transparent; color:var(--primary); border:1.5px solid var(--primary);"
+                onclick="resetSakhir()">אפס</button>
+      </div>
+
+      <div class="result-panel" id="result-sakhir">
+        <div class="result-header">
+          <span class="result-icon">💰</span>
+          <h3>חיסכון המס השנתי שלך</h3>
+        </div>
+        <div class="result-body">
+          <div class="saving-big">
+            <div class="label">סך חיסכון מס שנתי</div>
+            <div class="amount big" id="sakhir-total-saving">—</div>
+            <div class="sub" id="sakhir-total-sub">—</div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-box good">
+              <div class="rb-label">זיכוי מס (35%)</div>
+              <div class="rb-val" id="sakhir-zikui">—</div>
+              <div class="rb-sub">חוזר כסף ממס</div>
+            </div>
+            <div class="result-box">
+              <div class="rb-label">פטור השתלמות</div>
+              <div class="rb-val" id="sakhir-hishtalmut-save">—</div>
+              <div class="rb-sub">ריבית/רווח פטור</div>
+            </div>
+            <div class="result-box">
+              <div class="rb-label">ניכוי מס (הפקדה עצמאית)</div>
+              <div class="rb-val" id="sakhir-nikui">—</div>
+              <div class="rb-sub">הפחתת הכנסה חייבת</div>
+            </div>
+          </div>
+
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>מרכיב</th>
+                <th>הפקדה שנתית</th>
+                <th>חיסכון מס</th>
+                <th>בסיס חוקי</th>
+              </tr>
+            </thead>
+            <tbody id="sakhir-breakdown-body"></tbody>
+          </table>
+
+          <div class="callout" style="margin-bottom:var(--s-md);">
+            <strong>הפקדה מקסימלית מומלצת?</strong>
+            <span id="sakhir-recommendation">—</span>
+          </div>
+
+          <div class="result-cta">
+            <h4>רוצה לוודא שאתה ממצה את כל הטבות המס?</h4>
+            <p>המחשבון נותן כיוון. ייעוץ פנסיוני אובייקטיבי בודק את <strong>כל התמונה</strong> — פנסיה, השתלמות, גמל, ביטוחים — ומוצא כל שקל שמגיע לך.</p>
+            <div class="cta-actions">
+              <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר ←</a>
+              <a href="https://wa.me/972527700599" class="btn btn-outline-light">שלח בוואטסאפ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-sakhir -->
+
+    <!-- ─────────────── PANEL: עצמאי ─────────────── -->
+    <div class="calc-panel" id="panel-atzmai" role="tabpanel">
+      <div class="input-grid">
+
+        <div class="input-group">
+          <label for="atzmai-income">הכנסה נטו שנתית מהעסק (₪)</label>
+          <div class="input-wrap">
+            <input type="number" id="atzmai-income" min="30000" max="2000000"
+                   step="5000" value="240000" placeholder="240000"
+                   oninput="updateAtzmaiCalc()">
+            <span class="input-suffix">₪</span>
+          </div>
+          <span class="input-hint">רווח נקי לאחר הוצאות, לפני מס (הכנסה חייבת)</span>
+        </div>
+
+        <div class="input-group">
+          <label for="atzmai-pension-monthly">הפקדה חודשית לפנסיה / גמל (₪)</label>
+          <div class="input-wrap">
+            <input type="number" id="atzmai-pension-monthly" min="0" max="8000"
+                   step="100" value="1000" placeholder="1000"
+                   oninput="updateAtzmaiCalc()">
+            <span class="input-suffix">₪</span>
+          </div>
+          <span class="input-hint">ההפקדה שאתה מפקיד בפועל — להשוואה עם התקרות</span>
+        </div>
+
+        <div class="input-group">
+          <label for="atzmai-hishtalmut-monthly">הפקדה חודשית לקרן השתלמות (₪)</label>
+          <div class="input-wrap">
+            <input type="number" id="atzmai-hishtalmut-monthly" min="0" max="5000"
+                   step="100" value="1710" placeholder="1710"
+                   oninput="updateAtzmaiCalc()">
+            <span class="input-suffix">₪</span>
+          </div>
+          <span class="input-hint">תקרה מוטבת 2025: כ-1,710 ₪/חודש</span>
+        </div>
+
+        <div class="input-group">
+          <label for="atzmai-marginal">שיעור המס השולי שלך (%)</label>
+          <div class="input-wrap">
+            <select id="atzmai-marginal" onchange="updateAtzmaiCalc()">
+              <option value="10">10% — הכנסה עד 81,480 ₪</option>
+              <option value="14">14% — הכנסה עד 116,760 ₪</option>
+              <option value="20">20% — הכנסה עד 187,440 ₪</option>
+              <option value="31">31% — הכנסה עד 260,520 ₪</option>
+              <option value="35" selected>35% — הכנסה עד 542,160 ₪</option>
+              <option value="47">47% — הכנסה מעל 542,160 ₪</option>
+              <option value="50">50% — הכנסה מעל 698,280 ₪</option>
+            </select>
+          </div>
+          <span class="input-hint">שיעור מדרגת המס הגבוהה שחלה עליך</span>
+        </div>
+
+      </div>
+
+      <div class="calc-btn-row">
+        <button class="btn btn-primary" onclick="calcAtzmai()">חשב חיסכון מס ←</button>
+        <button class="btn btn-secondary" style="background:transparent; color:var(--primary); border:1.5px solid var(--primary);"
+                onclick="resetAtzmai()">אפס</button>
+      </div>
+
+      <div class="result-panel" id="result-atzmai">
+        <div class="result-header">
+          <span class="result-icon">💼</span>
+          <h3>חיסכון המס השנתי שלך — עצמאי</h3>
+        </div>
+        <div class="result-body">
+          <div class="saving-big">
+            <div class="label">סך חיסכון מס שנתי</div>
+            <div class="amount big" id="atzmai-total-saving">—</div>
+            <div class="sub" id="atzmai-total-sub">—</div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-box good">
+              <div class="rb-label">ניכוי מס (11% פנסיה)</div>
+              <div class="rb-val" id="atzmai-nikui-pension">—</div>
+              <div class="rb-sub">הוצאה מוכרת מלאה</div>
+            </div>
+            <div class="result-box good">
+              <div class="rb-label">זיכוי מס (5% פנסיה)</div>
+              <div class="rb-val" id="atzmai-zikui-pension">—</div>
+              <div class="rb-sub">35% × הפקדה</div>
+            </div>
+            <div class="result-box">
+              <div class="rb-label">ניכוי השתלמות</div>
+              <div class="rb-val" id="atzmai-hishtalmut-save">—</div>
+              <div class="rb-sub">הוצאה מוכרת</div>
+            </div>
+          </div>
+
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>מרכיב</th>
+                <th>הפקדה שנתית</th>
+                <th>סוג הטבה</th>
+                <th>חיסכון מס</th>
+              </tr>
+            </thead>
+            <tbody id="atzmai-breakdown-body"></tbody>
+          </table>
+
+          <div class="callout" style="margin-bottom:var(--s-md);">
+            <strong>אופטימיזציה מומלצת:</strong>
+            <span id="atzmai-recommendation">—</span>
+          </div>
+
+          <div class="result-cta">
+            <h4>יש לך עוד פוטנציאל חיסכון מס שלא מיצית?</h4>
+            <p>כעצמאי יש לך גמישות שאין לשכיר — אבל גם מורכבות. ייעוץ פנסיוני אובייקטיבי מאפשר לך למצות כל שקל תוך שמירה על הנזילות הנכונה.</p>
+            <div class="cta-actions">
+              <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר ←</a>
+              <a href="https://wa.me/972527700599" class="btn btn-outline-light">שלח בוואטסאפ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-atzmai -->
+
+    <p class="calc-disclaimer">
+      <strong>הסתייגות:</strong> המחשבון מספק אומדן כללי בלבד לצרכים חינוכיים.
+      נתוני תקרות ושיעורי מס לשנת 2025. חישוב מס מדויק בהתאם לנסיבות האישיות — פנה
+      ליועץ מס או לרואה חשבון. ייעוץ פנסיוני אינו ייעוץ מס.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ARTICLE BODY
+     ═══════════════════════════════════════════ -->
+<article class="article-body">
+  <div class="article-container">
+
+    <nav class="toc" aria-label="תוכן עניינים">
+      <h4>מה תקרא בהמשך</h4>
+      <ol>
+        <li><a href="#calc-sakhir-section">החישוב לשכיר — 3 הטבות שאתה חייב להכיר</a></li>
+        <li><a href="#calc-atzmai-section">החישוב לעצמאי — הגמישות שאין לשכיר</a></li>
+        <li><a href="#limits-section">תקרות ומגבלות — מה מותר וכמה</a></li>
+        <li><a href="#what-to-do">התוצאה — מה לעשות איתה</a></li>
+      </ol>
+    </nav>
+
+    <!-- ─── שכיר ─── -->
+    <h2 id="calc-sakhir-section">החישוב לשכיר — 3 הטבות שאתה חייב להכיר</h2>
+    <p>
+      שכיר שמפקיד לפנסיה ולקרן השתלמות נהנה מ<strong>שלוש שכבות</strong> של הטבת מס בו-זמנית.
+      לרוב הציבור יש מושג על אחת מהן, ולא יודע שיש עוד שתיים.
+    </p>
+
+    <h3>שכבה 1: זיכוי מס (35%) על הפקדה עצמאית לפנסיה</h3>
+    <p>
+      אם אתה מפקיד <strong>מכיסך</strong> (לא רק מתלוש) לפנסיה — אתה זכאי לזיכוי מס של
+      35% על הסכום, עד תקרה שנתית. זה אומר: הפקדת 3,000 ₪ עצמאית, קיבלת בחזרה 1,050 ₪
+      מהמס. כסף ממשי שחוזר.
+    </p>
+
+    <h3>שכבה 2: ניכוי מס על הפקדה עצמאית נוספת</h3>
+    <p>
+      מעבר לתקרת הזיכוי, יש אפשרות לנכות את ההפקדה כניכוי מהכנסה חייבת — מה שמוריד
+      את הכנסתך החייבת ומפחית את חשבון המס הכולל. שיעור החיסכון תלוי במדרגת המס השולית שלך.
+    </p>
+
+    <h3>שכבה 3: פטור מס רווחי הון ב<a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a></h3>
+    <p>
+      קרן השתלמות היא <strong>הנכס הפיסקלי הכי אטרקטיבי בישראל</strong>. הרווחים שנצברים
+      בה פטורים ממס רווחי הון (25%) — לנצח, בלי תאריך תפוגה. לשכיר שמפקיד 2.5% ומעסיקו
+      מוסיף 7.5%, הפטור הזה שווה אלפי שקלים בשנה לבד.
+    </p>
+
+    <div class="callout">
+      <strong>דוגמה מספרית — שכיר ב-20,000 ₪ ברוטו:</strong> הפקדת 6% לפנסיה (1,200 ₪/חודש)
+      מהווה ניכוי שחוסך כ-2,520 ₪ במס שנתי (לפי מדרגת 35%). הפקדת 2.5% להשתלמות (500 ₪/חודש)
+      פטורה ממס רווחי הון בעתיד. בסה"כ: <strong>יותר מ-3,500 ₪ חיסכון מס שנתי — בלי
+      להפקיד שקל נוסף.</strong>
+    </div>
+
+    <!-- ─── עצמאי ─── -->
+    <h2 id="calc-atzmai-section">החישוב לעצמאי — הגמישות שאין לשכיר</h2>
+    <p>
+      עצמאי נמצא בפוזיציה ייחודית: אין לו מעסיק שמחויב להפקיד בשבילו, אבל יש לו
+      <strong>גמישות מלאה</strong> להחליט כמה להפקיד — ולמצות טבות מס שלשכיר לא קיימות.
+    </p>
+
+    <h3>הניכוי הגדול — 11% כהוצאה מוכרת</h3>
+    <p>
+      עצמאי יכול לנכות עד <strong>11% מהכנסתו המבוטחת</strong> (עד שכר ממוצע × 1.5, כלומר
+      עד כ-16,890 ₪ לחודש לצרכי ניכוי) כהוצאה מוכרת עסקית. זה מוריד את הכנסתך החייבת
+      ישירות — חיסכון מס שמחושב לפי שיעור המס השולי שלך.
+    </p>
+
+    <h3>הזיכוי הנוסף — 5% במסגרת הזיכוי</h3>
+    <p>
+      על הפקדה של עד 5% מההכנסה (עד תקרה), עצמאי מקבל גם <strong>זיכוי מס של 35%</strong>
+      — כלומר 35 אגורות חוזרות לכיס על כל שקל שהופקד. זיכוי + ניכוי יחד = חיסכון מס
+      משמעותי מאוד.
+    </p>
+
+    <h3><a href="/savings/keren-hishtalmut/">קרן השתלמות לעצמאי</a> — הכלי הכי שווה</h3>
+    <p>
+      עצמאי יכול להפקיד עד כ-<strong>20,520 ₪ לשנה (1,710 ₪/חודש)</strong> לקרן השתלמות
+      כהוצאה מוכרת. זהו אחד מהנכסים הנדירים שמשלב שלושה יתרונות: הוצאה מוכרת מלאה,
+      השקעה גדולה בשוק ההון, ופטור מס רווחי הון בפדיון.
+    </p>
+
+    <div class="callout">
+      <strong>דוגמה — עצמאי עם הכנסה של 240,000 ₪ בשנה:</strong> הפקדה מלאה לפנסיה
+      ולקרן השתלמות יכולה לחסוך <strong>יותר מ-25,000–35,000 ₪ במס שנתי</strong>,
+      תלוי במדרגת המס השולית. שמים את הכסף בצד לפרישה — ומשלמים הרבה פחות כבר היום.
+    </div>
+
+    <!-- ─── תקרות ─── -->
+    <h2 id="limits-section">תקרות ומגבלות — מה מותר וכמה (2025)</h2>
+    <p>
+      לכל מוצר יש תקרה. מי שלא מכיר אותה — לא מנצל את המוטב, ומי שעובר אותה — עשוי
+      לשלם מס מיותר. הנה הטבלה המלאה לשנת 2025:
+    </p>
+
+    <table class="limits-table">
+      <thead>
+        <tr>
+          <th>מוצר</th>
+          <th>סוג הטבה</th>
+          <th>תקרה שנתית (₪)</th>
+          <th>שיעור חיסכון</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="head-row">
+          <td colspan="4">שכיר</td>
+        </tr>
+        <tr>
+          <td>פנסיה — זיכוי מס (עובד)</td>
+          <td>זיכוי 35%</td>
+          <td>~7,488 ₪</td>
+          <td>35% × הפקדה</td>
+        </tr>
+        <tr>
+          <td>פנסיה — ניכוי (הפקדה עצמאית)</td>
+          <td>ניכוי</td>
+          <td>~14,616 ₪</td>
+          <td>שיעור מס שולי</td>
+        </tr>
+        <tr>
+          <td>קרן השתלמות (עובד)</td>
+          <td>פטור מס רווח הון</td>
+          <td>2.5% מהשכר / עד 15,712 ₪</td>
+          <td>פטור מ-25% מס</td>
+        </tr>
+        <tr class="head-row">
+          <td colspan="4">עצמאי</td>
+        </tr>
+        <tr>
+          <td>פנסיה — ניכוי (11%)</td>
+          <td>ניכוי</td>
+          <td>עד ~22,248 ₪ (לפי שכר ממוצע × 1.5)</td>
+          <td>שיעור מס שולי</td>
+        </tr>
+        <tr>
+          <td>פנסיה — זיכוי (5%)</td>
+          <td>זיכוי 35%</td>
+          <td>עד ~10,116 ₪</td>
+          <td>35% × הפקדה</td>
+        </tr>
+        <tr>
+          <td>קרן השתלמות עצמאי</td>
+          <td>ניכוי</td>
+          <td>4.5% מהכנסה / עד 20,520 ₪</td>
+          <td>שיעור מס שולי</td>
+        </tr>
+        <tr>
+          <td>קרן השתלמות — פטור רווח</td>
+          <td>פטור מס רווח הון</td>
+          <td>על כל הצבירה המוכרת</td>
+          <td>פטור מ-25% מס</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-warn">
+      <strong>שים לב:</strong> תקרות המס מתעדכנות מדי שנה עם שינוי שכר הממוצע במשק.
+      הנתונים לעיל הם לשנת 2025 — בדוק עדכניות לפני כל פעולה.
+    </div>
+
+    <!-- ─── מה לעשות ─── -->
+    <h2 id="what-to-do">התוצאה — מה לעשות איתה</h2>
+    <p>
+      המחשבון נתן לך כיוון. עכשיו מה?
+    </p>
+
+    <h3>אם הגלגל לא מלא — יש מה לעשות מחר</h3>
+    <p>
+      אם החישוב הראה שאתה לא מנצל את מלוא תקרות המס — זה לרוב אומר אחד משניים:
+      הפקדה חודשית נמוכה מדי, או מוצר לא מתאים. שכיר יכול להגדיל הפקדה בקלות דרך
+      מחלקת שכר. עצמאי — דרך הוראת קבע חודשית לקרן.
+    </p>
+
+    <h3>אם כבר מנצל את המוטב — בדוק את "איכות" ההפקדה</h3>
+    <p>
+      אתה מפקיד, אבל האם אתה מפקיד <strong>נכון</strong>? דמי ניהול גבוהים ומסלול השקעה
+      לא מתאים לגיל יכולים לבטל את כל יתרון הטבת המס. הצעד הבא — בדיקה אובייקטיבית של
+      מה שיש לך.
+    </p>
+
+    <h3>ייעוץ פנסיוני — לא רק לגיל 60</h3>
+    <p>
+      הדבר היחיד שיאפשר לך לראות את <strong>כל התמונה</strong> — פנסיה + השתלמות + גמל +
+      ביטוחים + משכנתא + מס — הוא ייעוץ אובייקטיבי מיועץ פנסיוני בעל רישיון. לא מהסוכן
+      שלוקח עמלה, לא מהבנק שמייעץ על מה שהוא מוכר — אלא ממי שמחויב בחוק לאינטרס שלך
+      בלבד.
+    </p>
+
+    <p>
+      <a href="/about/">קרא עוד על הגישה שלי</a> ועל הרישיון שמחייב אובייקטיביות —
+      לא רק מצהיר עליה.
+    </p>
+
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-list">
+      <h2>שאלות נפוצות</h2>
+
+      <details class="faq-item" open>
+        <summary>מה זה הטבת מס על <a href="/pension/contribution-employee/">הפקדה לפנסיה</a>?</summary>
+        <div class="faq-body">
+          המדינה מעניקה שתי הטבות: <strong>זיכוי מס</strong> (35% מהפקדה עד תקרה מסוימת —
+          כסף שחוזר ישירות מהמס שלך) ו<strong>ניכוי מס</strong> (הפחתת ההכנסה החייבת,
+          שמאפשרת לשלם מס בשיעור שולי נמוך יותר על חלק מהסכום).
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מה ההבדל בין זיכוי מס לניכוי מס?</summary>
+        <div class="faq-body">
+          <strong>זיכוי מס</strong> = כסף שיורד ישירות מחשבון המס שלך (שקל תמורת שקל עד 35%).
+          <strong>ניכוי מס</strong> = הוצאה שמופחתת מההכנסה החייבת, כך שאתה ממוסה על פחות
+          הכנסה. הזיכוי "שווה" יותר שקל-לשקל, אבל גם לניכוי יש ערך — במיוחד בשיעורי מס
+          גבוהים.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם עצמאי יכול לנכות הפקדות לפנסיה כהוצאה מוכרת?</summary>
+        <div class="faq-body">
+          כן. עצמאי יכול לנכות עד <strong>11% מהכנסתו המבוטחת</strong> (עד תקרת שכר ממוצע × 1.5)
+          כהוצאה מוכרת לצרכי מס, ובנוסף לקבל זיכוי מס של 35% על הפקדה של עד 5% מהכנסה
+          עד תקרה. שני המנגנונים יחד הופכים את ההפקדה לפנסיה לאחת ההשקעות הפיסקליות
+          הכי אטרקטיביות לעצמאי.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מה תקרת הפקדה לקרן השתלמות לעצמאי?</summary>
+        <div class="faq-body">
+          בשנת 2025, עצמאי יכול להפקיד עד <strong>4.5% מהכנסתו</strong> (עד שכר ממוצע × 4.5)
+          לקרן השתלמות כהוצאה מוכרת. הסכום המקסימלי המוכר לניכוי הוא כ-<strong>20,520 ₪
+          לשנה</strong> (1,710 ₪ לחודש). מעל תקרה זו — ההפקדה עדיין מותרת אבל לא כהוצאה
+          מוכרת.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם שכיר בכיר שמרוויח מעל שכר ממוצע × 3 יכול לנצל הטבות נוספות?</summary>
+        <div class="faq-body">
+          כן. על השכר שמעל תקרת ביטוח לאומי (כ-50,695 ₪/חודש ב-2025), שכיר יכול לשקול
+          הפקדה עצמאית לקרן פנסיה "משלימה" ולמצות הטבות ניכוי וזיכוי נוספות. לשכיר בכיר
+          עם מניות/אופציות, יש שיקולים נוספים שדורשים ייעוץ מס ספציפי.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם המחשבון מדויק לחשבון המס האישי שלי?</summary>
+        <div class="faq-body">
+          המחשבון נועד לאמוד את <strong>הכיוון</strong> — כמה פוטנציאל יש לך לחיסכון
+          מס. חישוב מדויק מחייב בחינת כלל ההכנסות, ניכויים, נקודות זיכוי, ריבית על
+          הלוואות, וגורמים נוספים. לחישוב מלא — פנה לרואה חשבון. לתכנון המוצרים
+          הפנסיוניים — לייעוץ פנסיוני אובייקטיבי.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     RELATED
+     ═══════════════════════════════════════════ -->
+<section class="related-section">
+  <div class="container">
+    <div class="related-grid">
+      <a href="/pension/" class="related-card">
+        <div class="micro">מוצרי פנסיה</div>
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/tools/">כל המחשבונים</a>
+      <a class="related-link-card" href="/savings/keren-hishtalmut/">קרן השתלמות — הטבות מס</a>
+      <a class="related-link-card" href="/audiences/self-employed/">פנסיה לעצמאים</a>
+      <a class="related-link-card" href="/pension/contribution-employee/">כמה להפקיד לפנסיה?</a>
+    </div>
+  </div>
+</section>

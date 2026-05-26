@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כדאי לדעת — מרכז ידע פיננסי | איתן אחיטוב יועץ פנסיוני</title>
+<meta name="description" content="מרכז הידע הפיננסי של איתן אחיטוב — מאמרים על פנסיה, ביטוחים, חיסכון ומשכנתאות. הסברים פשוטים ואובייקטיביים בלי שפה שיווקית. מילון מונחים פנסיוני מלא.">
+
+<meta property="og:title" content="כדאי לדעת — מרכז ידע פיננסי | איתן אחיטוב">
+<meta property="og:description" content="מאמרים פיננסיים אובייקטיביים: פנסיה, ביטוחים, חיסכון, משכנתאות. בעברית פשוטה, מיועץ פנסיוני בעל רישיון משרד האוצר.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": "כדאי לדעת — מרכז ידע פיננסי",
+      "description": "מאמרים פיננסיים אובייקטיביים על פנסיה, ביטוחים, חיסכון ומשכנתאות מאת איתן אחיטוב, יועץ פנסיוני בעל רישיון משרד האוצר.",
+      "url": "https://pensya.info/knowledge",
+      "author": {
+        "@type": "Person",
+        "name": "איתן אחיטוב",
+        "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר",
+        "url": "https://pensya.info/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "אחיטוב | תכנון פיננסי"
+      },
+      "inLanguage": "he-IL"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
+        { "@type": "ListItem", "position": 2, "name": "כדאי לדעת", "item": "https://pensya.info/knowledge" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+  --s-3xl: 96px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+h1 { font-size: 40px; font-weight: 700; }
+h2 { font-size: 28px; font-weight: 700; }
+h3 { font-size: 21px; font-weight: 600; }
+h4 { font-size: 17px; font-weight: 700; }
+
+/* ---- HEADER ---- */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  height: 72px; gap: var(--s-md);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 20px;
+  color: var(--primary); text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a {
+  color: var(--text-1); font-weight: 600; font-size: 15px;
+  padding: 8px 4px; transition: color .15s;
+}
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* ---- BREADCRUMB ---- */
+.breadcrumb {
+  background: var(--bg-cream); padding: 14px 0;
+  font-size: 14px; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* ---- PAGE HERO ---- */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0 var(--s-xl);
+}
+.page-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--s-2xl);
+  align-items: center;
+}
+.page-hero .eyebrow {
+  display: inline-block;
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  margin-bottom: var(--s-sm); border: 1px solid #cfdcea;
+}
+.page-hero h1 { margin-bottom: var(--s-sm); }
+.page-hero h1 .accent { color: var(--primary); }
+.page-hero .lede {
+  font-size: 18px; color: var(--text-2);
+  max-width: 580px; line-height: 1.7;
+  margin-bottom: var(--s-lg);
+}
+.hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-sm);
+}
+.hero-stat {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-md); text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.hero-stat .num { font-size: 28px; font-weight: 700; color: var(--primary); line-height: 1; }
+.hero-stat .lbl { font-size: 12px; color: var(--text-2); margin-top: 4px; line-height: 1.4; }
+.search-box {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  box-shadow: 0 8px 24px rgba(31,78,121,0.1);
+}
+.search-box h3 { font-size: 18px; margin-bottom: var(--s-sm); color: var(--primary); }
+.search-input-wrap { position: relative; }
+.search-input-wrap input {
+  width: 100%; padding: 14px 48px 14px 16px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 16px; color: var(--text-1);
+  background: var(--bg-cream); outline: none; transition: all .15s;
+}
+.search-input-wrap input:focus {
+  border-color: var(--primary); background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+}
+.search-input-wrap input::placeholder { color: var(--text-meta); }
+.search-icon {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-meta); pointer-events: none;
+}
+.search-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+}
+.search-tag {
+  display: inline-block;
+  background: var(--primary-soft); color: var(--primary);
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .15s;
+  border: none; font-family: inherit;
+}
+.search-tag:hover { background: var(--primary); color: #fff; }
+@media (max-width: 900px) {
+  .page-hero-inner { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .page-hero h1 { font-size: 30px; }
+}
+
+/* ---- SECTION HEADERS ---- */
+.section-header { margin-bottom: var(--s-lg); }
+.section-eyebrow {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.section-header h2 { margin-bottom: 8px; }
+.section-header p { color: var(--text-2); font-size: 17px; max-width: 680px; }
+.section-header-row {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-md); margin-bottom: var(--s-lg);
+  flex-wrap: wrap;
+}
+.see-all {
+  font-weight: 700; font-size: 15px;
+  color: var(--primary); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+/* ---- FEATURED / MONTH PICKS ---- */
+.featured-section { padding: var(--s-2xl) 0; background: var(--bg-white); }
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--s-md);
+}
+.featured-main {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  color: #fff; border-radius: var(--radius-card);
+  padding: var(--s-xl); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 320px;
+}
+.featured-main::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.featured-main .fm-tag {
+  display: inline-block; background: var(--cta); color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 5px 12px;
+  border-radius: 999px; margin-bottom: var(--s-md);
+  position: relative; z-index: 1;
+  align-self: flex-start;
+}
+.featured-main h3 {
+  color: #fff; font-size: 26px; margin-bottom: 12px;
+  position: relative; z-index: 1; line-height: 1.3;
+}
+.featured-main p {
+  color: rgba(255,255,255,0.85); font-size: 16px;
+  margin-bottom: var(--s-md); line-height: 1.6;
+  position: relative; z-index: 1;
+}
+.featured-main .fm-meta {
+  display: flex; align-items: center; gap: var(--s-sm);
+  font-size: 13px; color: rgba(255,255,255,0.7);
+  position: relative; z-index: 1; margin-bottom: var(--s-md);
+}
+.featured-main .fm-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15); color: #fff;
+  padding: 10px 20px; border-radius: var(--radius-btn);
+  font-weight: 700; font-size: 15px;
+  transition: background .15s;
+  text-decoration: none !important;
+  position: relative; z-index: 1; align-self: flex-start;
+}
+.featured-main .fm-link:hover { background: rgba(255,255,255,0.25); }
+.featured-side {
+  display: flex; flex-direction: column; gap: var(--s-sm);
+}
+.featured-side-card {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-md);
+  display: flex; flex-direction: column; flex: 1;
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none !important;
+}
+.featured-side-card:hover {
+  transform: translateY(-2px); box-shadow: var(--shadow-hover);
+  text-decoration: none;
+}
+.featured-side-card .fsc-tag {
+  font-size: 11px; font-weight: 700; color: var(--cta);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+}
+.featured-side-card h4 { color: var(--primary); margin-bottom: 6px; font-size: 16px; }
+.featured-side-card p { color: var(--text-2); font-size: 14px; flex: 1; line-height: 1.55; }
+.featured-side-card .fsc-meta {
+  font-size: 12px; color: var(--text-meta);
+  margin-top: 10px; display: flex; gap: var(--s-sm);
+}
+@media (max-width: 900px) {
+  .featured-grid { grid-template-columns: 1fr; }
+  .featured-main { min-height: 260px; }
+}
+
+/* ---- CATEGORY TABS ---- */
+.tabs-nav {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: var(--s-lg);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+  padding: 10px 20px; border: none; background: none;
+  font-family: inherit; font-size: 15px; font-weight: 600;
+  color: var(--text-2); cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px; transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.tab-btn:hover { color: var(--primary); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--cta); }
+.tab-btn .tab-count {
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 11px; padding: 2px 7px;
+  border-radius: 999px; font-weight: 700;
+}
+.tab-btn.active .tab-count { background: var(--cta); color: #fff; }
+
+/* ---- ARTICLES GRID ---- */
+.articles-section { padding: var(--s-2xl) 0; background: var(--bg-cream); }
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md);
+}
+.article-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  display: flex; flex-direction: column;
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none !important;
+  overflow: hidden;
+}
+.article-card:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-hover);
+}
+.article-card-thumb {
+  height: 8px; background: var(--primary);
+}
+.article-card-thumb.pension { background: var(--primary); }
+.article-card-thumb.insurance { background: #7B5EA7; }
+.article-card-thumb.savings { background: var(--positive); }
+.article-card-thumb.mortgage { background: var(--warning); }
+.article-card-body { padding: var(--s-md); flex: 1; display: flex; flex-direction: column; }
+.article-card-body .ac-category {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.pension .ac-category, .ac-category.pension { color: var(--primary); }
+.ac-category.insurance { color: #7B5EA7; }
+.ac-category.savings { color: var(--positive); }
+.ac-category.mortgage { color: #B58E2A; }
+.article-card-body h4 { font-size: 17px; color: var(--text-1); margin-bottom: 8px; line-height: 1.35; }
+.article-card-body p { font-size: 14px; color: var(--text-2); flex: 1; line-height: 1.6; margin-bottom: var(--s-sm); }
+.article-card-body .ac-meta {
+  font-size: 12px; color: var(--text-meta);
+  display: flex; gap: var(--s-sm); align-items: center;
+  border-top: 1px solid var(--border); padding-top: 10px;
+  margin-top: auto;
+}
+.ac-badge {
+  display: inline-block; padding: 2px 8px;
+  border-radius: 999px; font-size: 11px; font-weight: 700;
+}
+.ac-badge.new { background: var(--positive-soft); color: var(--positive); }
+.ac-badge.popular { background: var(--warning-soft); color: #B58E2A; }
+
+@media (max-width: 900px) { .articles-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .articles-grid { grid-template-columns: 1fr; } }
+
+/* ---- ARTICLE CATEGORY SECTION ---- */
+.category-section { padding: var(--s-2xl) 0; }
+.category-section.alt { background: var(--bg-cream); }
+.cat-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md);
+}
+.cat-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg); transition: transform .15s, box-shadow .15s;
+  display: block; text-decoration: none !important;
+  border-right: 4px solid var(--primary);
+}
+.cat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.cat-card.insurance { border-right-color: #7B5EA7; }
+.cat-card.savings { border-right-color: var(--positive); }
+.cat-card.mortgage { border-right-color: var(--warning); }
+.cat-card .cc-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 8px;
+  color: var(--primary);
+}
+.cat-card.insurance .cc-tag { color: #7B5EA7; }
+.cat-card.savings .cc-tag { color: var(--positive); }
+.cat-card.mortgage .cc-tag { color: #B58E2A; }
+.cat-card h4 { font-size: 18px; color: var(--text-1); margin-bottom: 8px; }
+.cat-card p { font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: 12px; }
+.cat-card .cc-meta { font-size: 12px; color: var(--text-meta); }
+@media (max-width: 700px) { .cat-grid-2 { grid-template-columns: 1fr; } }
+
+/* ---- GLOSSARY ---- */
+.glossary-section { padding: var(--s-2xl) 0; background: var(--bg-white); }
+.glossary-alpha {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: var(--s-lg);
+}
+.alpha-btn {
+  width: 38px; height: 38px;
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 14px; font-weight: 700;
+  color: var(--text-2); cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.alpha-btn:hover, .alpha-btn.active {
+  background: var(--primary); color: #fff; border-color: var(--primary);
+}
+.glossary-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-md);
+}
+.glossary-group h3 {
+  font-size: 22px; color: var(--primary);
+  border-bottom: 2px solid var(--primary-soft);
+  padding-bottom: 8px; margin-bottom: var(--s-md);
+}
+.glossary-term {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-btn); padding: var(--s-md);
+  margin-bottom: var(--s-sm);
+  transition: box-shadow .15s;
+}
+.glossary-term:hover { box-shadow: var(--shadow-hover); }
+.glossary-term h4 { font-size: 15px; color: var(--primary); margin-bottom: 4px; }
+.glossary-term p { font-size: 13px; color: var(--text-2); line-height: 1.5; margin: 0; }
+.glossary-term .gterm-meta {
+  font-size: 11px; color: var(--text-meta);
+  margin-top: 6px; font-style: italic;
+}
+@media (max-width: 900px) { .glossary-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .glossary-grid { grid-template-columns: 1fr; } }
+
+/* ---- NEWSLETTER ---- */
+.newsletter-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  padding: var(--s-2xl) 0; color: #fff;
+}
+.newsletter-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-2xl); align-items: center;
+}
+.newsletter-inner h2 { color: #fff; margin-bottom: var(--s-sm); }
+.newsletter-inner p { color: rgba(255,255,255,0.85); font-size: 17px; line-height: 1.65; }
+.newsletter-form { display: flex; flex-direction: column; gap: var(--s-sm); }
+.newsletter-form input {
+  padding: 14px 18px;
+  border: none; border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 16px;
+  background: rgba(255,255,255,0.15); color: #fff;
+  outline: none; transition: background .15s;
+}
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.6); }
+.newsletter-form input:focus { background: rgba(255,255,255,0.22); }
+.newsletter-form button {
+  padding: 14px 28px; background: var(--cta);
+  color: #fff; border: none; border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 17px; font-weight: 700;
+  cursor: pointer; transition: background .15s, transform .15s;
+}
+.newsletter-form button:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.newsletter-note { font-size: 12px; color: rgba(255,255,255,0.55); }
+@media (max-width: 900px) { .newsletter-inner { grid-template-columns: 1fr; } }
+
+/* ---- CONTACT CTA ---- */
+.contact-section {
+  background: var(--bg-cream); padding: var(--s-3xl) 0; text-align: center;
+}
+.contact-section h2 { margin-bottom: var(--s-sm); }
+.contact-section p {
+  font-size: 18px; color: var(--text-2);
+  margin: 0 auto var(--s-lg); max-width: 600px;
+}
+.contact-actions { display: flex; gap: var(--s-sm); justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 14px 28px; border-radius: var(--radius-btn);
+  font-size: 17px; font-weight: 600; border: none;
+  cursor: pointer; transition: background .15s, transform .15s;
+  text-decoration: none !important; font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+
+/* ---- FOOTER ---- */
+.footer {
+  background: #1A1A1A; color: #C9CDD3;
+  padding: var(--s-2xl) 0 var(--s-md); font-size: 15px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--s-xl); margin-bottom: var(--s-xl);
+}
+.footer h4 {
+  color: #fff; font-size: 15px; font-weight: 700;
+  margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px;
+}
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p {
+  color: #9097A0; font-size: 14px; line-height: 1.6;
+  margin-top: var(--s-sm); max-width: 320px;
+}
+.footer-bottom {
+  border-top: 1px solid #2A2D33; padding-top: var(--s-md);
+  display: flex; justify-content: space-between;
+  align-items: center; font-size: 13px; color: #6E747D;
+  flex-wrap: wrap; gap: var(--s-sm);
+}
+.license-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #2A2D33; padding: 6px 12px;
+  border-radius: 6px; color: #C9CDD3;
+}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+/* ---- FAB ---- */
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+  z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+/* ---- UTILITY ---- */
+.callout {
+  background: var(--primary-soft); border-right: 4px solid var(--primary);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: var(--s-md) 0; font-size: 16px; color: var(--text-1);
+}
+.callout strong { color: var(--primary); }
+.sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; }
+
+/* ---- ARTICLE PANEL (all articles) ---- */
+.all-articles-panel {
+  display: none; padding: var(--s-lg) 0 0;
+}
+.all-articles-panel.active { display: block; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+        <path d="M5 30 L 35 30" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools">מחשבונים</a>
+      <a href="#" class="active">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <span class="current">כדאי לדעת — מרכז ידע פיננסי</span>
+  </div>
+</nav>
+
+<!-- =========================================================
+     PAGE HERO
+     ========================================================= -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div>
+        <span class="eyebrow">מאמרים פיננסיים · מידע אובייקטיבי</span>
+        <h1><span class="accent">כדאי לדעת</span> —<br>מרכז ידע פיננסי</h1>
+        <p class="lede">
+          כל מה שרציתם לדעת על הפנסיה, הביטוחים, החיסכון והמשכנתא — בלי שפה שיווקית,
+          בלי <a href="/about/advisor-vs-agent/">ניגוד אינטרסים</a>, ובלי ז'רגון. מאמרי פנסיה, מדריכים מעמיקים, ומילון מונחים מלא.
+          כי מי שמבין — לא מפסיד.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">30+</div>
+            <div class="lbl">מאמרים ומדריכים</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">4</div>
+            <div class="lbl">תחומים מרכזיים</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">60+</div>
+            <div class="lbl">מונחים במילון</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">100%</div>
+            <div class="lbl">אובייקטיבי לפי חוק</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <h3>חפש מאמר, מונח, או נושא</h3>
+        <div class="search-input-wrap">
+          <input type="search" id="knowledge-search" placeholder="לדוגמה: דמי ניהול, IRA, קרן פנסיה..." autocomplete="off" aria-label="חיפוש מאמרים ומונחים">
+          <span class="search-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
+        </div>
+        <div class="search-tags">
+          <button class="search-tag" onclick="searchFilter('דמי ניהול')">דמי ניהול</button>
+          <button class="search-tag" onclick="searchFilter('IRA')">IRA</button>
+          <button class="search-tag" onclick="searchFilter('קרן פנסיה')">קרן פנסיה</button>
+          <button class="search-tag" onclick="searchFilter('ריבית')"><a href="/savings/start-saving-early/">ריבית דריבית</a></button>
+          <button class="search-tag" onclick="searchFilter('אכ\"ע')">אכ"ע</button>
+          <button class="search-tag" onclick="searchFilter('מקדם')">מקדם קצבה</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     המאמרים המומלצים החודש
+     ========================================================= -->
+<section class="featured-section" id="featured">
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-header" style="margin-bottom:0;">
+        <span class="section-eyebrow">המאמרים המומלצים החודש</span>
+        <h2>קריאת חובה לכל חוסך</h2>
+      </div>
+    </div>
+
+    <div class="featured-grid">
+      <a href="/pension/" class="featured-main" style="text-decoration:none!important;">
+        <span class="fm-tag">מאמר מרכזי</span>
+        <div class="fm-meta">
+          <span>איתן אחיטוב</span>
+          <span>·</span>
+          <span>13 דק' קריאה</span>
+          <span>·</span>
+          <span>מאמרי פנסיה</span>
+        </div>
+        <h3>מוצרי פנסיה: המדריך המלא לניהול הנכס הכי גדול בחיים שלך</h3>
+        <p>
+          קרן פנסיה, ביטוח מנהלים, קופת גמל, קרן השתלמות — 4 מוצרים, הבדלים עצומים.
+          טעות בבחירה יכולה לעלות מיליון שקל. המדריך שהיית צריך לפני שהתחלת לעבוד.
+        </p>
+        <span class="fm-link">קרא את המדריך ←</span>
+      </a>
+
+      <div class="featured-side">
+        <a href="/investment/ira-explained/" class="featured-side-card">
+          <div class="fsc-tag">מאמרי פנסיה · IRA</div>
+          <h4>IRA: למה להעדיף השתלמות, ולמה לא לגעת בפנסיה</h4>
+          <p>ניהול אישי של הכסף הפנסיוני שלך — מתי זה מצוין ומתי זה טעות יקרה.</p>
+          <div class="fsc-meta"><span>10 דק'</span><span>·</span><span>מומלץ מאוד</span></div>
+        </a>
+        <a href="/about/advisor-vs-planner-vs-agent/" class="featured-side-card">
+          <div class="fsc-tag">מאמרי ביטוחים · אובייקטיביות</div>
+          <h4>יועץ, מתכנן או סוכן? המדריך לחשיפת "מסך העשן"</h4>
+          <p>כולם נשמעים סמכותיים. רק אחד מהם עובד אצלך. איך לזהות מי.</p>
+          <div class="fsc-meta"><span>8 דק'</span><span>·</span><span>קריאת חובה</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CATEGORY TABS + ARTICLES
+     ========================================================= -->
+<section class="articles-section" id="articles">
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-header" style="margin-bottom:0;">
+        <span class="section-eyebrow">כל המאמרים</span>
+        <h2>מאמרים פיננסיים לפי נושא</h2>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <nav class="tabs-nav" role="tablist" aria-label="קטגוריות מאמרים">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="all" onclick="switchTab('all', this)">
+        הכל <span class="tab-count">30+</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="pension" onclick="switchTab('pension', this)">
+        מאמרי פנסיה <span class="tab-count">12</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="insurance" onclick="switchTab('insurance', this)">
+        מאמרי ביטוחים <span class="tab-count">7</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="savings" onclick="switchTab('savings', this)">
+        מאמרי חיסכון <span class="tab-count">6</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="mortgage" onclick="switchTab('mortgage', this)">
+        מאמרי משכנתאות <span class="tab-count">5</span>
+      </button>
+    </nav>
+
+    <!-- ALL ARTICLES GRID -->
+    <div id="tab-all" class="articles-grid">
+
+      <!-- פנסיה -->
+      <a href="/pension/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>מוצרי פנסיה: המדריך המלא</h4>
+          <p>קרן פנסיה, ביטוח מנהלים, קופת גמל וקרן השתלמות — מה ההבדל, מה עדיף, ולמה זה שווה מיליונים.</p>
+          <div class="ac-meta">
+            <span>13 דק'</span>
+            <span>·</span>
+            <span class="ac-badge popular">פופולרי</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="/investment/ira-explained/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>IRA בישראל: מתי כן ומתי לא</h4>
+          <p>ניהול אישי של קרן פנסיה/השתלמות — למה בהשתלמות זה זוהר ולמה בפנסיה זה רעיון רע.</p>
+          <div class="ac-meta"><span>10 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+
+      <a href="/investment/ira/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>IRA — שאלון התאמה ובחירת ברוקר</h4>
+          <p>כלי אינטראקטיבי: בדוק אם IRA מתאים לך, ואיזה ברוקר מתאים לתמהיל ולסכום שלך.</p>
+          <div class="ac-meta"><span>כלי אינטראקטיבי</span></div>
+        </div>
+      </a>
+
+      <a href="/investment/ira-fees/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>עמלות ברוקרים IRA — השוואה מלאה</h4>
+          <p>טבלת השוואה מפורטת של 6 הברוקרים: פסגות, IBI, מזרחי, לאומי, הבינלאומי, הפועלים.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge new">חדש</span></div>
+        </div>
+      </a>
+
+      <a href="/investment/ira-investment-rules/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>כללי ההשקעה ב-IRA — מה מותר ומה אסור</h4>
+          <p>מגבלות ריכוז, ניירות ערך מותרים, מגבלת כסף פנסיוני — הכל לפי תקנות 2009.</p>
+          <div class="ac-meta"><span>7 דק'</span></div>
+        </div>
+      </a>
+
+      <a href="/savings/hisachon-layeled/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>חיסכון לכל ילד: המדריך המלא לבחירה נכונה</h4>
+          <p>58 ₪ בחודש מביטוח לאומי — בנק או קופת גמל? ההבדל בין 12,500 ₪ ל-30,000 ₪.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+
+      <a href="/savings/keren-kaspit/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>קרן כספית: תשואה, מס, וקנייה צעד-צעד</h4>
+          <p>הכלי הנכון לכסף נזיל — למה היא עדיפה לרוב על פיקדון, ואיך קונים בעצמכם.</p>
+          <div class="ac-meta"><span>9 דק'</span></div>
+        </div>
+      </a>
+
+      <a href="/about/advisor-vs-planner-vs-agent/" class="article-card">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים</div>
+          <h4>יועץ, מתכנן או סוכן? חשיפת "מסך העשן"</h4>
+          <p>כולם נשמעים סמכותיים, אבל רק אחד עובד אצלך. מדריך להבחנה ולאיתור המי.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+
+      <a href="/about/license/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · רגולציה</div>
+          <h4>רישיון יועץ פנסיוני: הנכס הכי חשוב שלך</h4>
+          <p>מה זה רישיון, מה הרגולציה דורשת, ולמה 4 חובות חוקיות מגנות עליך על מאות אלפי שקלים.</p>
+          <div class="ac-meta"><span>8 דק'</span></div>
+        </div>
+      </a>
+
+      <a href="/about/recommended-advisor/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>יועץ פנסיוני מומלץ: איך לבחור נכון</h4>
+          <p>5 קריטריונים, 5 סימני אזהרה, והשאלה שחובה לשאול בטלפון לפני כל פגישה.</p>
+          <div class="ac-meta"><span>9 דק'</span></div>
+        </div>
+      </a>
+
+      <a href="/about/pricing/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>כמה עולה ייעוץ פנסיוני? מחירון שקוף</h4>
+          <p>המחיר של אובייקטיביות — ו-ROI שמסביר למה ייעוץ בתשלום זול פי 10 מה"חינם".</p>
+          <div class="ac-meta"><span>7 דק'</span><span>·</span><span class="ac-badge new">חדש</span></div>
+        </div>
+      </a>
+
+      <a href="/about/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · אודות</div>
+          <h4>מי הוא יועץ פנסיוני ולמה הוא פרש מהבנק</h4>
+          <p>הסיפור של איתן אחיטוב — מעמדת שמירה עם ספרי כלכלה ועד רישיון נדיר ממשרד האוצר.</p>
+          <div class="ac-meta"><span>8 דק'</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- PENSION ONLY -->
+    <div id="tab-pension" class="articles-grid" style="display:none;">
+      <a href="/pension/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>מוצרי פנסיה: המדריך המלא</h4>
+          <p>קרן פנסיה, ביטוח מנהלים, קופת גמל וקרן השתלמות — מה ההבדל, מה עדיף, ולמה זה שווה מיליונים.</p>
+          <div class="ac-meta"><span>13 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+      <a href="/investment/ira-explained/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>IRA בישראל: מתי כן ומתי לא</h4>
+          <p>ניהול אישי של קרן פנסיה/השתלמות — למה בהשתלמות זה זוהר ולמה בפנסיה זה רעיון רע.</p>
+          <div class="ac-meta"><span>10 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+      <a href="/investment/ira/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>IRA — שאלון התאמה ובחירת ברוקר</h4>
+          <p>כלי אינטראקטיבי לבדיקת התאמה לניהול אישי של קופת גמל וקרן השתלמות.</p>
+          <div class="ac-meta"><span>כלי אינטראקטיבי</span></div>
+        </div>
+      </a>
+      <a href="/investment/ira-fees/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>עמלות ברוקרים IRA — השוואה מלאה</h4>
+          <p>השוואה של 6 ברוקרים בכל סוגי ניירות הערך — ישראל וחו"ל. נכון למאי 2026.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge new">חדש</span></div>
+        </div>
+      </a>
+      <a href="/investment/ira-investment-rules/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · IRA</div>
+          <h4>כללי ההשקעה ב-IRA — מה מותר ומה אסור</h4>
+          <p>מגבלות ריכוז, ניירות ערך מותרים, מגבלת כסף פנסיוני — כל הרגולציה בשפה פשוטה.</p>
+          <div class="ac-meta"><span>7 דק'</span></div>
+        </div>
+      </a>
+      <a href="/about/license/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה · רגולציה</div>
+          <h4>רישיון יועץ פנסיוני: הנכס הכי חשוב שלך</h4>
+          <p>4 חובות חוקיות שמגנות עליך, ולמה הרישיון שווה מאות אלפי שקלים.</p>
+          <div class="ac-meta"><span>8 דק'</span></div>
+        </div>
+      </a>
+      <a href="/about/recommended-advisor/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>יועץ פנסיוני מומלץ: איך לבחור נכון</h4>
+          <p>5 קריטריונים, 5 סימני אזהרה, והשאלה שחובה לשאול לפני כל פגישה.</p>
+          <div class="ac-meta"><span>9 דק'</span></div>
+        </div>
+      </a>
+      <a href="/about/pricing/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>כמה עולה ייעוץ פנסיוני? מחירון שקוף</h4>
+          <p>המחיר האמיתי של ייעוץ "בחינם" לעומת ייעוץ אובייקטיבי — ה-ROI מדבר בעד עצמו.</p>
+          <div class="ac-meta"><span>7 דק'</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- INSURANCE ONLY -->
+    <div id="tab-insurance" class="articles-grid" style="display:none;">
+      <a href="/about/advisor-vs-planner-vs-agent/" class="article-card">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים</div>
+          <h4>יועץ, מתכנן או סוכן? חשיפת "מסך העשן"</h4>
+          <p>כולם נשמעים סמכותיים, אבל רק אחד עובד אצלך. המדריך המלא להבחנה.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+      <a href="#bituach-chaim" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח חיים: כמה אתה באמת צריך?</h4>
+          <p>מחשבון הצורך בביטוח חיים — לפי גיל, משכנתא, ילדים, והכנסה. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#akev" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח אובדן כושר עבודה — המדריך המלא</h4>
+          <p>כיסוי, תקופת המתנה, "מקצועי" לעומת "כל עיסוק" — מה חשוב לדעת לפני שקונים. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#bituach-briut" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח בריאות: מה כולל, מה כדאי, ומה מיותר</h4>
+          <p>קופת חולים לעומת ביטוח פרטי — מה מכסה מה, ואיפה נשחק כסף לשווא. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- SAVINGS ONLY -->
+    <div id="tab-savings" class="articles-grid" style="display:none;">
+      <a href="/savings/hisachon-layeled/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>חיסכון לכל ילד: המדריך לבחירה נכונה</h4>
+          <p>58 ₪ בחודש — בנק או קופת גמל? ההבדל בין 12,500 ₪ ל-30,000 ₪ בגיל 18.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+      <a href="/savings/keren-kaspit/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>קרן כספית: תשואה, מס, וקנייה צעד-צעד</h4>
+          <p>הכלי הנכון לכסף נזיל — יתרונות מס לעומת פיקדון, ואיך קונים בבנק בחינם.</p>
+          <div class="ac-meta"><span>9 דק'</span></div>
+        </div>
+      </a>
+      <a href="/investment/ira-explained/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון · IRA</div>
+          <h4>קרן השתלמות בניהול אישי — פטור ממס</h4>
+          <p>הנכס הנסתר: אפיק החיסכון היחיד שפטור ממס רווחי הון — ואיך לנצל אותו.</p>
+          <div class="ac-meta"><span>10 דק'</span></div>
+        </div>
+      </a>
+      <a href="#gemel-hashkaa" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון · בקרוב</div>
+          <h4>קופת גמל להשקעה: הכלי הגמיש ביותר</h4>
+          <p>מה זה, מי צריך, ולמה יש להרחיק מהלוואות דרך קופת גמל. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- MORTGAGE ONLY -->
+    <div id="tab-mortgage" class="articles-grid" style="display:none;">
+      <a href="#mashkanta-maslul" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>מסלולי משכנתא — מה ההבדל ומה עדיף?</h4>
+          <p>ריבית קבועה לעומת משתנה, מסלולי צמוד לעומת לא-צמוד — המדריך המקיף. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#mashkanta-mixum" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>מיחזור משכנתא — מתי כדאי ומתי לא?</h4>
+          <p>חישוב עלות-תועלת של מיחזור, מתי הריבית הנוכחית מצדיקה את העמלה. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#mashkanta-pension" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>משכנתא ופנסיה — הקשר שרובנו מתעלמים ממנו</h4>
+          <p>איך גובה ההחזר החודשי משפיע על יכולת ההפקדה לפנסיה — ואיך לאזן נכון. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     מאמרי פנסיה — סקציה מורחבת
+     ========================================================= -->
+<section class="category-section" id="pension-section">
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-header" style="margin-bottom:0;">
+        <span class="section-eyebrow">מאמרי פנסיה</span>
+        <h2>קרן פנסיה, ביטוח מנהלים, גמל, השתלמות</h2>
+        <p>הנכס הכי גדול בחיים שלך — לנהל אותו נכון מגיל 30 שווה מיליון שקל בגיל 67.</p>
+      </div>
+      <a href="/pension/" class="see-all">לכל מאמרי הפנסיה ←</a>
+    </div>
+
+    <div class="cat-grid-2">
+      <a href="/pension/" class="cat-card">
+        <div class="cc-tag">מאמרי פנסיה · פילר</div>
+        <h4>מוצרי פנסיה: המדריך המלא</h4>
+        <p>4 מוצרים, 4 הגיונות שונים. קרן פנסיה מקיפה, ביטוח מנהלים (ישן וחדש), קופת גמל, וקרן השתלמות. מה עדיף לך ולמה.</p>
+        <div class="cc-meta">13 דק' קריאה · מדריך פילר</div>
+      </a>
+      <a href="/investment/ira-explained/" class="cat-card">
+        <div class="cc-tag">מאמרי פנסיה · IRA</div>
+        <h4>IRA: למה השתלמות כן ופנסיה לא</h4>
+        <p>ניהול אישי של קרן פנסיה/השתלמות — 5 סיבות שלא לגעת בפנסיה, ויתרון מיוחד לאזרחי ארה"ב בנושא PFIC.</p>
+        <div class="cc-meta">10 דק' קריאה · מאמר עומק</div>
+      </a>
+      <a href="/about/license/" class="cat-card">
+        <div class="cc-tag">מאמרי פנסיה · רגולציה</div>
+        <h4>רישיון יועץ פנסיוני: הנכס הכי חשוב שלך</h4>
+        <p>מה ההבדל בין רישיון יועץ לרישיון סוכן, מה הרגולציה אוסרת, ולמה זה מגן עליך על מאות אלפי שקלים.</p>
+        <div class="cc-meta">8 דק' קריאה</div>
+      </a>
+      <a href="/about/recommended-advisor/" class="cat-card">
+        <div class="cc-tag">מאמרי פנסיה · בחירת יועץ</div>
+        <h4>יועץ פנסיוני מומלץ: 5 קריטריונים ו-5 אזהרות</h4>
+        <p>כיצד לבדוק אם היועץ שלך אובייקטיבי באמת, השאלה שחובה לשאול בטלפון, ואיך לבדוק רישיון.</p>
+        <div class="cc-meta">9 דק' קריאה</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     מאמרי ביטוחים
+     ========================================================= -->
+<section class="category-section alt" id="insurance-section">
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-header" style="margin-bottom:0;">
+        <span class="section-eyebrow">מאמרי ביטוחים</span>
+        <h2>ביטוח חיים, אכ"ע, בריאות, ונכות</h
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/articles/real-estate-vs-stocks/">נדל"ן מול שוק ההון</a>
+      <a class="related-link-card" href="/articles/why-pay/">למה לשלם על ייעוץ פנסיוני?</a>
+      <a class="related-link-card" href="/articles/true-cost-free/">המחיר האמיתי של ייעוץ חינם</a>
+      <a class="related-link-card" href="/tools/">מחשבונים פיננסיים</a>
+      <a class="related-link-card" href="/ai/">רובייקטיבי — בדיקת דוח פנסיה חינם</a>
+    </div>
+  </div>
+</section>

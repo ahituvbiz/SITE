@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבונים פיננסיים אינטראקטיביים | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="מחשבונים פיננסיים אינטראקטיביים חינמיים: מחשבון פנסיה לעצמאים, מחשבון חיסכון במס, נדל&quot;ן vs שוק ההון, דמי ניהול, ROI ייעוץ. מיועץ פנסיוני בעל רישיון משרד האוצר.">
+
+<meta property="og:title" content="מחשבונים פיננסיים אינטראקטיביים | איתן אחיטוב">
+<meta property="og:description" content="6 מחשבונים פיננסיים חינמיים שיראו לך כמה כסף אתה מפסיד — ואיך לתקן. מיועץ פנסיוני בעל רישיון משרד האוצר.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
+        { "@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/calculators" }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "name": "מחשבונים פיננסיים אינטראקטיביים",
+      "description": "מחשבונים פיננסיים חינמיים לניתוח פנסיה, חיסכון במס, נדל\"ן מול שוק ההון ועוד.",
+      "author": {
+        "@type": "Person",
+        "name": "איתן אחיטוב",
+        "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר",
+        "url": "https://pensya.info/about"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+  --s-3xl: 96px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+h1 { font-size: 44px; font-weight: 700; }
+h2 { font-size: 30px; font-weight: 700; }
+h3 { font-size: 22px; font-weight: 600; }
+h4 { font-size: 18px; font-weight: 700; }
+section { padding: var(--s-3xl) 0; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 14px 28px; border-radius: var(--radius-btn);
+  font-size: 17px; font-weight: 600; border: none; cursor: pointer;
+  transition: background .15s, transform .15s;
+  text-decoration: none !important; font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+.btn-sm { padding: 10px 20px; font-size: 15px; }
+
+/* Header */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; gap: var(--s-md);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 20px; color: var(--primary);
+  text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* Breadcrumb */
+.breadcrumb {
+  background: var(--bg-cream); padding: 14px 0;
+  font-size: 14px; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* Page Hero */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 14px; font-weight: 600;
+  padding: 6px 14px; border-radius: 999px;
+  margin-bottom: var(--s-sm); border: 1px solid #cfdcea;
+}
+.page-hero h1 { font-size: 44px; margin-bottom: var(--s-sm); }
+.page-hero h1 .accent { color: var(--primary); }
+.page-hero p.lead {
+  font-size: 20px; color: var(--text-2);
+  max-width: 680px; margin-bottom: var(--s-lg);
+}
+.hero-trust {
+  display: flex; gap: var(--s-md); flex-wrap: wrap;
+  font-size: 14px; color: var(--text-2); align-items: center;
+}
+.hero-trust-item { display: inline-flex; align-items: center; gap: 6px; }
+.hero-trust-item svg { width: 16px; height: 16px; color: var(--positive); }
+@media (max-width: 700px) {
+  .page-hero h1 { font-size: 30px; }
+  .page-hero p.lead { font-size: 17px; }
+}
+
+/* Section header */
+.section-header { text-align: center; max-width: 760px; margin: 0 auto var(--s-xl); }
+.section-eyebrow {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-header h2 { margin-bottom: var(--s-sm); }
+.section-header p { color: var(--text-2); font-size: 18px; }
+
+/* Calc nav pills */
+.calc-nav {
+  background: #fff; border-bottom: 1px solid var(--border);
+  position: sticky; top: 72px; z-index: 90;
+  overflow-x: auto;
+}
+.calc-nav-inner {
+  display: flex; gap: 4px; padding: 12px var(--s-md);
+  max-width: var(--max-width); margin: 0 auto;
+  white-space: nowrap;
+}
+.calc-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-2); transition: all .15s;
+  text-decoration: none !important; border: 1px solid transparent;
+}
+.calc-nav a:hover { background: var(--primary-soft); color: var(--primary); }
+.calc-nav a.active { background: var(--primary); color: #fff; }
+
+/* Calculator wrapper */
+.calc-section { padding: var(--s-2xl) 0; border-bottom: 1px solid var(--border); }
+.calc-section:last-of-type { border-bottom: none; }
+.calc-section:nth-child(even) { background: var(--bg-cream); }
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-xl);
+  align-items: start;
+}
+.calc-intro .calc-tag {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px;
+  margin-bottom: 12px;
+}
+.calc-intro .calc-tag.tag-pension { background: var(--primary-soft); color: var(--primary); }
+.calc-intro .calc-tag.tag-tax { background: var(--positive-soft); color: var(--positive); }
+.calc-intro .calc-tag.tag-invest { background: var(--warning-soft); color: #B58E2A; }
+.calc-intro .calc-tag.tag-fees { background: var(--negative-soft); color: var(--negative); }
+.calc-intro .calc-tag.tag-roi { background: #E8F4E8; color: var(--positive); }
+.calc-intro .calc-tag.tag-bot { background: #1F4E79; color: #fff; }
+
+.calc-intro h2 { font-size: 28px; margin: 0 0 var(--s-sm); }
+.calc-intro p { color: var(--text-2); font-size: 16px; margin: 0 0 var(--s-md); line-height: 1.7; }
+.calc-intro .insight-box {
+  background: var(--primary-soft);
+  border-right: 4px solid var(--primary);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  font-size: 15px; color: var(--text-1); margin-top: var(--s-md);
+}
+.calc-intro .insight-box strong { color: var(--primary); }
+
+/* The actual calculator card */
+.calc-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+}
+.calc-card h3 {
+  font-size: 18px; margin: 0 0 var(--s-md);
+  padding-bottom: var(--s-sm); border-bottom: 1px solid var(--border);
+  color: var(--primary);
+}
+
+/* Form elements */
+.form-group { margin-bottom: var(--s-md); }
+.form-group label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px; font-weight: 600; color: var(--text-2);
+  margin-bottom: 6px;
+}
+.form-group label .val-display {
+  font-size: 18px; font-weight: 700; color: var(--primary);
+}
+.form-group input[type="range"] {
+  width: 100%; accent-color: var(--primary); cursor: pointer;
+  height: 6px;
+}
+.form-group input[type="number"],
+.form-group select {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 16px;
+  color: var(--text-1); background: var(--bg-cream);
+  outline: none; transition: border-color .15s;
+}
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+  border-color: var(--primary); background: #fff;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-sm); }
+
+/* Results */
+.calc-results {
+  background: var(--bg-cream); border-radius: var(--radius-btn);
+  padding: var(--s-md); margin-top: var(--s-md);
+}
+.calc-results .res-title {
+  font-size: 13px; font-weight: 700; color: var(--text-meta);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: var(--s-sm);
+}
+.res-big {
+  font-size: 40px; font-weight: 700; color: var(--primary);
+  line-height: 1; letter-spacing: -1px;
+}
+.res-big.good { color: var(--positive); }
+.res-big.bad { color: var(--negative); }
+.res-sub { font-size: 14px; color: var(--text-2); margin-top: 4px; }
+.res-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-sm);
+  margin-top: var(--s-md);
+}
+.res-item {
+  background: #fff; padding: 12px;
+  border-radius: var(--radius-btn); border: 1px solid var(--border);
+  text-align: center;
+}
+.res-item .ri-val { font-size: 22px; font-weight: 700; color: var(--primary); }
+.res-item .ri-label { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+.res-note {
+  font-size: 12px; color: var(--text-meta);
+  margin-top: var(--s-sm); line-height: 1.5;
+}
+
+/* Bot section */
+.bot-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  border-radius: var(--radius-card);
+  padding: var(--s-xl);
+  color: #fff;
+  position: relative; overflow: hidden;
+}
+.bot-card::before {
+  content: '🤖';
+  position: absolute; top: -10px; left: -10px;
+  font-size: 120px; opacity: 0.06;
+  pointer-events: none;
+}
+.bot-card .bot-eyebrow {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: #FFB098; margin-bottom: 8px;
+}
+.bot-card h2 { color: #fff; font-size: 28px; margin-bottom: var(--s-sm); }
+.bot-card p { color: rgba(255,255,255,0.85); font-size: 17px; margin-bottom: var(--s-lg); }
+.bot-features {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-sm); margin-bottom: var(--s-lg);
+}
+.bot-feature {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-btn);
+  padding: 12px var(--s-md);
+  font-size: 15px; color: rgba(255,255,255,0.9);
+  display: flex; align-items: center; gap: 8px;
+}
+.bot-feature .bf-icon { font-size: 20px; }
+.bot-actions { display: flex; gap: var(--s-sm); flex-wrap: wrap; }
+.btn-light { background: #fff; color: var(--primary); }
+.btn-light:hover { background: var(--bg-cream); }
+.btn-outline-light {
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.btn-outline-light:hover { background: rgba(255,255,255,0.08); }
+
+/* CTA section */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  color: #fff; padding: var(--s-3xl) 0; text-align: center;
+}
+.contact-section h2 { color: #fff; font-size: 32px; margin: 0 0 var(--s-sm); }
+.contact-section p {
+  font-size: 18px; color: rgba(255,255,255,0.85);
+  margin: 0 auto var(--s-lg); max-width: 600px;
+}
+.contact-actions { display: flex; gap: var(--s-sm); justify-content: center; flex-wrap: wrap; }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom {
+  border-top: 1px solid #2A2D33; padding-top: var(--s-md);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm);
+}
+.license-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3;
+}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+/* FAB */
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4); z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .calc-intro { order: 1; }
+  .calc-card { order: 2; }
+  .bot-features { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: 1fr; }
+}
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="#" class="active">מחשבונים</a>
+      <a href="/investment/ira-explained/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <span class="current">מחשבונים פיננסיים</span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 14a6 6 0 110-12 6 6 0 010 12zm.75-9.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM10 8.5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 8.5z"/></svg>
+      6 כלים · חינם · ללא הרשמה
+    </span>
+    <h1><span class="accent">מחשבונים פיננסיים</span> אינטראקטיביים</h1>
+    <p class="lead">
+      כמה תקבל בפנסיה? כמה אתה חוסך (או מפסיד) על מס? האם נדל"ן עדיף על שוק ההון? כמה עולים לך דמי ניהול לאורך הקריירה? הנה הכלים שיראו לך את המספרים האמיתיים.
+    </p>
+    <div class="hero-trust">
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+        ללא הרשמה
+      </span>
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+        ללא פרסומות
+      </span>
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4zm-1 14l-4-4 1.4-1.4L9 11.2l5.6-5.6L16 7l-7 7z"/></svg>
+        מ<a href="/about/license/">יועץ פנסיוני בעל רישיון</a>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="calc-nav" aria-label="ניווט מחשבונים">
+  <div class="calc-nav-inner">
+    <a href="#calc-freelance" class="active">💼 פנסיה לעצמאים</a>
+    <a href="#calc-tax">💰 חיסכון במס</a>
+    <a href="#calc-realestate">🏠 נדל"ן vs שוק ההון</a>
+    <a href="#calc-fees">📉 דמי ניהול</a>
+    <a href="#calc-roi">📈 ROI ייעוץ</a>
+    <a href="#calc-bot">🤖 רובייקטיבי</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     מחשבון 1 — פנסיה לעצמאים
+     ============================================================ -->
+<section class="calc-section" id="calc-freelance">
+  <div class="container">
+    <div class="calc-grid">
+      <div class="calc-intro">
+        <span class="calc-tag tag-pension">מחשבון <a href="/audiences/self-employed/">פנסיה לעצמאים</a></span>
+        <h2>כמה פנסיה תצבור כעצמאי?</h2>
+        <p>
+          שכיר מקבל את הפקדות הפנסיה אוטומטית מהמעסיק. עצמאי — צריך להחליט בעצמו כמה, מתי ולאיפה. השאלה היא לא "האם להפקיד" אלא "כמה כדאי" — כי לכל שקל שמפקידים יש טיפול מס שחוסך כסף ממש עכשיו.
+        </p>
+        <p>
+          המחשבון מציג שני נתונים: הצבירה הצפויה ביום הפרישה, וכמה הטבת המס שמגיעה לך בשנה הנוכחית — לפי ההפקדה שבחרת.
+        </p>
+        <div class="insight-box">
+          <strong>הגבול שרוב העצמאים לא מכירים:</strong> עצמאי יכול להפקיד עד 16.5% מהכנסתו לקרן פנסיה ולקבל הטבת מס מלאה — זיכוי של 35% על חלק מהסכום וניכוי על השאר. מי שמפקיד פחות — פשוט מוותר על כסף.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>🧮 <a href="/tools/pension-calc-self-employed/">מחשבון פנסיה לעצמאים</a></h3>
+
+        <div class="form-group">
+          <label>
+            הכנסה חודשית ממוצעת (₪)
+            <span class="val-display" id="fl-income-out">15,000</span>
+          </label>
+          <input type="range" id="fl-income" min="5000" max="80000" step="500" value="15000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            שיעור <a href="/pension/contribution-employee/">הפקדה לפנסיה</a>
+            <span class="val-display" id="fl-rate-out">12%</span>
+          </label>
+          <input type="range" id="fl-rate" min="4" max="16.5" step="0.5" value="12">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>גיל נוכחי</label>
+            <input type="number" id="fl-age" value="35" min="20" max="60">
+          </div>
+          <div class="form-group">
+            <label>תשואה שנתית צפויה (%)</label>
+            <input type="number" id="fl-return" value="7" min="1" max="12" step="0.5">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            מסלול השקעה
+          </label>
+          <select id="fl-track">
+            <option value="7">מנייתי / מחקה מדד (~7%)</option>
+            <option value="5" selected>כללי (~5%)</option>
+            <option value="3.5">סולידי (~3.5%)</option>
+          </select>
+        </div>
+
+        <div class="calc-results" id="fl-results">
+          <div class="res-title">תוצאות</div>
+          <div class="res-big" id="fl-accumulation">—</div>
+          <div class="res-sub">צבירה צפויה בגיל 67 (ריאלי, לפי 2.5% אינפלציה)</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="fl-monthly-deposit">—</div>
+              <div class="ri-label">הפקדה חודשית (₪)</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="fl-tax-saving">—</div>
+              <div class="ri-label">חיסכון מס שנתי (₪)</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="fl-monthly-pension">—</div>
+              <div class="ri-label">קצבה חודשית צפויה (₪)</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="fl-years">—</div>
+              <div class="ri-label">שנות חיסכון</div>
+            </div>
+          </div>
+          <p class="res-note">* חישוב בריבית-דריבית, מסלול נבחר. קצבה לפי מקדם המרה של 180. אינו מהווה ייעוץ פנסיוני אישי.</p>
+        </div>
+
+        <div style="margin-top: var(--s-md);">
+          <a href="/#contact" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">בוא נבנה תוכנית ספציפית לך ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     מחשבון 2 — חיסכון במס
+     ============================================================ -->
+<section class="calc-section" id="calc-tax">
+  <div class="container">
+    <div class="calc-grid">
+      <div class="calc-intro">
+        <span class="calc-tag tag-tax">מחשבון <a href="/tools/tax-savings/">חיסכון במס</a></span>
+        <h2>כמה מס אתה חוסך מהפקדות לפנסיה ולהשתלמות?</h2>
+        <p>
+          הפקדות לפנסיה ול<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> מקנות הטבות מס מידיות — לא רק "יום אחד בפרישה". בכל שנה שבה אתה מפקיד בצורה אופטימלית, אתה מוריד את חשבון המס שלך כבר השנה.
+        </p>
+        <p>
+          המחשבון מראה את החיסכון הכולל בין שכיר לעצמאי, ובין מי שמממש הטבות לבין מי שלא.
+        </p>
+        <div class="insight-box">
+          <strong>הטריק שרוב האנשים לא מנצלים:</strong> <a href="/savings/keren-hishtalmut/">קרן השתלמות לעצמאי</a> מאפשרת ניכוי של עד 4.5% מההכנסה + פטור מלא ממס רווחי הון אחרי 6 שנים. זה הכלי הכי חזק במשק הישראלי.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>💰 מחשבון חיסכון במס</h3>
+
+        <div class="form-group">
+          <label>
+            הכנסה שנתית ברוטו (₪)
+            <span class="val-display" id="tx-income-out">240,000</span>
+          </label>
+          <input type="range" id="tx-income" min="60000" max="900000" step="12000" value="240000">
+        </div>
+
+        <div class="form-group">
+          <label>סטטוס תעסוקתי</label>
+          <select id="tx-status">
+            <option value="employee">שכיר</option>
+            <option value="freelance">עצמאי</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>
+            הפקדה חודשית לפנסיה (₪)
+            <span class="val-display" id="tx-pension-out">2,000</span>
+          </label>
+          <input type="range" id="tx-pension" min="0" max="8000" step="100" value="2000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            הפקדה חודשית לקרן השתלמות (₪)
+            <span class="val-display" id="tx-keren-out">1,500</span>
+          </label>
+          <input type="range" id="tx-keren" min="0" max="5000" step="100" value="1500">
+        </div>
+
+        <div class="calc-results" id="tx-results">
+          <div class="res-title">חיסכון מס שנתי</div>
+          <div class="res-big good" id="tx-total-saving">—</div>
+          <div class="res-sub">סה"כ הטבת מס שנתית (₪)</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="tx-pension-saving">—</div>
+              <div class="ri-label">חיסכון מס — פנסיה</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="tx-keren-saving">—</div>
+              <div class="ri-label">חיסכון מס — השתלמות</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="tx-marginal">—</div>
+              <div class="ri-label">מדרגת מס שולית</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="tx-potential-extra">—</div>
+              <div class="ri-label">פוטנציאל לא מנוצל</div>
+            </div>
+          </div>
+          <p class="res-note">* חישוב כללי לפי מדרגות מס 2026. אינו כולל ביטוח לאומי, זיכויים אישיים, ועדיין מחייב בדיקה עם יועץ מס.</p>
+        </div>
+
+        <div style="margin-top: var(--s-md);">
+          <a href="/#contact" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">בוא נמצא עוד חיסכון מס ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     מחשבון 3 — נדל"ן vs שוק ההון
+     ============================================================ -->
+<section class="calc-section" id="calc-realestate">
+  <div class="container">
+    <div class="calc-grid">
+      <div class="calc-intro">
+        <span class="calc-tag tag-invest">נדל"ן vs שוק ההון</span>
+        <h2>מה השקעה טובה יותר — דירה להשקעה או תיק מנייתי?</h2>
+        <p>
+          זו אולי השאלה הכלכלית הכי שנויה במחלוקת בישראל. הנה הגישה האובייקטיבית: אין תשובה אחת נכונה — תלוי בהון ראשוני, בתשואת שכירות, בעלויות עסקה, ובמינוף המשכנתא. המחשבון מחשב תשואה ריאלית בשני המסלולים.
+        </p>
+        <p>
+          הנחות המחשבון: תשואת שוק ההון היסטורית ארוכת-טווח. עלויות עסקה ריאליות (מס רכישה, עו"ד, שיפוצים). שכירות נטו לאחר תחזוקה ותקופות ריקות.
+        </p>
+        <div class="insight-box">
+          <strong>מה המחשבון לא מחשב:</strong> סיכון סגולי (שוכר רע, רגולציה), נזילות (מניה נמכרת תוך שניות, דירה — חודשים), ועלויות זמן ניהול. בסיס: הון ראשוני זהה בשני המסלולים.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>🏠 נדל"ן vs 📈 שוק ההון</h3>
+
+        <div class="form-group">
+          <label>
+            הון ראשוני להשקעה (₪)
+            <span class="val-display" id="re-capital-out">600,000</span>
+          </label>
+          <input type="range" id="re-capital" min="100000" max="3000000" step="50000" value="600000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            שווי נכס (₪) — כולל מינוף
+            <span class="val-display" id="re-property-out">2,000,000</span>
+          </label>
+          <input type="range" id="re-property" min="500000" max="6000000" step="100000" value="2000000">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              תשואת שכירות שנתית (%)
+              <span class="val-display" id="re-rent-out">3.5%</span>
+            </label>
+            <input type="range" id="re-rent" min="1" max="7" step="0.1" value="3.5">
+          </div>
+          <div class="form-group">
+            <label>
+              עליית ערך שנתית (%)
+              <span class="val-display" id="re-appreciation-out">3%</span>
+            </label>
+            <input type="range" id="re-appreciation" min="0" max="8" step="0.5" value="3">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              תשואת שוק ההון (%)
+              <span class="val-display" id="re-market-out">8%</span>
+            </label>
+            <input type="range" id="re-market" min="3" max="15" step="0.5" value="8">
+          </div>
+          <div class="form-group">
+            <label>אופק השקעה (שנים)</label>
+            <input type="number" id="re-years" value="20" min="5" max="40">
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="res-title">ריבית-דריבית לאחר <span id="re-years-label">20</span> שנים</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="re-realestate-val" style="color: var(--warning);">—</div>
+              <div class="ri-label">🏠 נדל"ן (נטו)</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="re-market-val" style="color: var(--positive);">—</div>
+              <div class="ri-label">📈 שוק ההון (נטו)</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="re-realestate-cagr">—</div>
+              <div class="ri-label">תשואה שנתית — נדל"ן</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="re-market-cagr">—</div>
+              <div class="ri-label">תשואה שנתית — שוק</div>
+            </div>
+          </div>
+          <p class="res-note">* נדל"ן: מחושב על ההון העצמי (מינוף). שוק ההון: ללא מינוף. מס רכישה 8%, עמלות 2%, תחזוקה 1%/שנה, מס שבח 25% ביציאה. אינו ייעוץ השקעות.</p>
+        </div>
+
+        <div style="margin-top: var(--s-md);">
+          <a href="/#contact" class="btn btn-ghost btn-sm" style="width:100%; justify-content:center;">לשוחח על ההשקעה הנכונה לך ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     מחשבון 4 — דמי ניהול
+     ============================================================ -->
+<section class="calc-section" id="calc-fees">
+  <div class="container">
+    <div class="calc-grid">
+      <div class="calc-intro">
+        <span class="calc-tag tag-fees">מחשבון דמי ניהול</span>
+        <h2>כמה דמי ניהול עולים לך לאורך הקריירה?</h2>
+        <p>
+          ה"עמלה הקטנה" הזו של 0.1% הנוספים שנה אחרי שנה, על צבירה שגדלה — הופכת לסכום שיכול לממן רכב יוקרה שלם, ולפעמים הרבה יותר מזה.
+        </p>
+        <p>
+          המחשבון מחשב את ההפרש בין שני מסלולי דמי ניהול — ומראה כמה כסף נשאר לך בגיל פרישה אם תוריד את דמי הניהול כבר היום.
+        </p>
+        <div class="insight-box">
+          <strong>אמת מדהימה:</strong> ירידה של 0.3% בדמי ניהול על תיק של 500,000 ₪ עם 25 שנות צבירה לפניך — שווה בערך 180,000-250,000 ₪ נטו. זה לא פנטזיה. זו מתמטיקה.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>📉 מחשבון עלות דמי ניהול</h3>
+
+        <div class="form-group">
+          <label>
+            צבירה נוכחית (₪)
+            <span class="val-display" id="fee-balance-out">300,000</span>
+          </label>
+          <input type="range" id="fee-balance" min="0" max="3000000" step="25000" value="300000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            הפקדה חודשית (₪)
+            <span class="val-display" id="fee-monthly-out">3,000</span>
+          </label>
+          <input type="range" id="fee-monthly" min="500" max="15000" step="200" value="3000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            שנות צבירה נותרות
+            <span class="val-display" id="fee-years-out">25</span>
+          </label>
+          <input type="range" id="fee-years" min="5" max="40" step="1" value="25">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              דמי ניהול נוכחיים (%)
+              <span class="val-display" id="fee-current-out">0.50%</span>
+            </label>
+            <input type="range" id="fee-current" min="0.05" max="1.5" step="0.05" value="0.50">
+          </div>
+          <div class="form-group">
+            <label>
+              דמי ניהול לאחר שיפור (%)
+              <span class="val-display" id="fee-new-out">0.20%</span>
+            </label>
+            <input type="range" id="fee-new" min="0.05" max="1.5" step="0.05" value="0.20">
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="res-title">ההפרש בגיל פרישה</div>
+          <div class="res-big good" id="fee-diff">—</div>
+          <div class="res-sub">כסף שנשאר בכיסך — מהורדת דמי הניהול בלבד</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="fee-current-balance">—</div>
+              <div class="ri-label">סיום עם דמי ניהול נוכחיים</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val" id="fee-new-balance">—</div>
+              <div class="ri-label">סיום עם דמי ניהול מוזלים</div>
+            </div>
+          </div>
+          <p class="res-note">* תשואה ברוטו 7% שנתי, מחושב על ריבית-דריבית. דמי ניהול מהצבירה בלבד.</p>
+        </div>
+
+        <div style="margin-top: var(--s-md);">
+          <a href="/#contact" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">בוא נוריד את דמי הניהול שלך ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     מחשבון 5 — ROI ייעוץ
+     ============================================================ -->
+<section class="calc-section" id="calc-roi">
+  <div class="container">
+    <div class="calc-grid">
+      <div class="calc-intro">
+        <span class="calc-tag tag-roi">מחשבון ROI ייעוץ</span>
+        <h2>כמה ייעוץ פנסיוני משתלם לך?</h2>
+        <p>
+          ייעוץ פנסיוני בתשלום עולה. הוא גם מחזיר את עצמו — לרוב תוך שנה ראשונה, ושוב ושוב לאורך עשורים. המחשבון מחשב את ה-ROI (החזר על ההשקעה) של ייעוץ פנסיוני בהתאם לפרמטרים שלך.
+        </p>
+        <p>
+          הגישה: ירידת דמי ניהול + שיפור תשואה מסלול + ביטול ביטוחים כפולים + מיצוי הטבות מס — לעומת <a href="/about/pricing/">עלות הייעוץ</a>.
+        </p>
+        <div class="insight-box">
+          <strong>הנתון שתמיד מפתיע:</strong> לקוח עם צבירה של 600,000 ₪ ו-25 שנות קריירה לפניו — שיפור שמרני של 0.4% שנתי (תשואה + דמי ניהול) שווה בממוצע פי 50-80 על עלות הייעוץ. ובשנה הראשונה — כבר בפלוס.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>📈 מחשבון ROI ייעוץ פנסיוני</h3>
+
+        <div class="form-group">
+          <label>
+            סך צבירה פנסיונית (₪)
+            <span class="val-display" id="roi-balance-out">500,000</span>
+          </label>
+          <input type="range" id="roi-balance" min="50000" max="3000000" step="25000" value="500000">
+        </div>
+
+        <div class="form-group">
+          <label>
+            שנות עבודה נותרות
+            <span class="val-display" id="roi-years-out">25</span>
+          </label>
+          <input type="range" id="roi-years" min="5" max="40" step="1" value="25">
+        </div>
+
+        <div class="form-group">
+          <label>
+            הורדת דמי ניהול צפויה (נקודות %)
+            <span class="val-display" id="roi-fees-out">0.30%</span>
+          </label>
+          <input type="range" id="roi-fees" min="0" max="1" step="0.05" value="0.30">
+        </div>
+
+        <div class="form-group">
+          <label>
+            שיפור תשואה (שינוי מסלול, נקודות %)
+            <span class="val-display" id="roi-track-out">1.0%</span>
+          </label>
+          <input type="range" id="roi-track" min="0" max="3" step="0.1" value="1.0">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>ביטוח כפול חודשי (₪)</label>
+            <input type="number" id="roi-insurance" value="150" min="0" max="2000">
+          </div>
+          <div class="form-group">
+            <label>עלות ייעוץ (₪)</label>
+            <input type="number" id="roi-cost" value="6000" min="1000" max="20000">
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="res-title">החזר על ההשקעה (ROI)</div>
+          <div class="res-big good" id="roi-result">—</div>
+          <div class="res-sub">סך חיסכון לאורך הקריירה (₪)</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="roi-year1">—</div>
+              <div class="ri-label">חיסכון בשנה הראשונה</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val good" id="roi-multiple">—</div>
+              <div class="ri-label">כפולות ROI על עלות הייעוץ</div>
+            </div>
+          </div>
+          <p class="res-note">* חישוב שמרני. כולל ריבית-דריבית על שיפורי דמי ניהול ומסלול. ביטוח כפול מחושב על 12 חודשים × שנות קריירה.</p>
+        </div>
+
+        <div style="margin-top: var(--s-md);">
+          <a href="/about/pricing/" class="btn btn-ghost btn-sm" style="width:100%; justify-content:center;">ראה את המחירון המלא ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     בוט רובייקטיבי
+     ============================================================ -->
+<section class="calc-section" id="calc-bot" style="background: #f0f4f8;">
+  <div class="container">
+    <div class="bot-card">
+      <div class="bot-eyebrow">בינה מלאכותית · 60 שניות</div>
+      <h2>🤖 <a href="/ai/">רובייקטיבי</a> — בוט ניתוח הדוח הפנסיוני שלך</h2>
+      <p>
+        המחשבונים למעלה עובדים עם מספרים שאתה מכניס. רובייקטיבי עובד עם <strong>הדוח האמיתי שלך</strong>. העלה את הדוח הפנסיוני השנתי (ה"דוח הקצר"), ותוך 60 שניות תקבל ניתוח של 4 פרמטרים קריטיים.
+      </p>
+      <div class="bot-features">
+        <div class="bot-feature">
+          <span class="bf-icon">✅</span>
+          <span>הפקדות תקינות מהמעסיק</span>
+        </div>
+        <div class="bot-feature">
+          <span class="bf-icon">🛡️</span>
+          <span>כיסויים ביטוחיים מתאימים</span>
+        </div>
+        <div class="bot-feature">
+          <span class="bf-icon">💰</span>
+          <span>דמי ניהול מול ממוצע השוק</span>
+        </div>
+        <div class="bot-feature">
+          <span class="bf-icon">📊</span>
+          <span>מסלול השקעה מותאם גיל</span>
+        </div>
+      </div>
+      <div class="bot-actions">
+        <a href="/#tools" class="btn btn-light">🤖 התחל ניתוח עכשיו — חינם ←</a>
+        <a href="/about/" class="btn btn-outline-light">קרא על מי עומד מאחורי הבוט</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/tools/pension-calc-self-employed/">מחשבון פנסיה לעצמאים</a>
+      <a class="related-link-card" href="/tools/real-estate-vs-market/">מחשבון נדל"ן מול שוק ההון</a>
+      <a class="related-link-card" href="/tools/tax-savings/">מחשבון חיסכון במס</a>
+      <a class="related-link-card" href="/ai/">רובייקטיבי — בדיקת דוח פנסיה חינם</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>ראית את המספרים. עכשיו הגיע הרגע לפעול.</h2>
+    <p>
+      המחשבונים נותנים תמונה. ייעוץ אישי נותן תכנית. שיחה של 20 דקות, ללא עלות, תבדוק איפה יש לך מה לשפר ב<strong>הכסף הכי גדול בחיים שלך</strong>.
+    </p>
+    <div class="contact-actions">
+      <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר ←</a>
+      <a href="https://wa.me/972527700599" class="btn btn-outline-light">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" style="margin-left:6px;"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
+        שלח הודעה בוואטסאפ
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | <a href="/about/">תכנון פיננסי</a></strong>
+        </div>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. <a href="/about/">תכנון פיננסי הוליסטי</a> לשכירים ולעצמאים בני 27-47.</p>
+      </div>
+      <div>
+        <h4>שירותים</h4>
+        <ul>
+          <li><a href="/">תכנון פיננסי</a></li>
+          <li><a href="/">ייעוץ פנסיוני</a></li>
+          <li><a href="/">ייעוץ ביטוחי</a></li>
+          <li><a href="/">ייעוץ משכנתאות</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
+          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צור קשר</h4>
+        <ul>
+          <li><a href="/#contact">קבע שיחה לשמוע יותר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
+          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> #1013 · משרד האוצר
+      </span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/>
+  </svg>
+</a>
+
+<script>
+// ============================================================
+// Helpers
+// ============================================================
+function fmt(n) {
+  if (isNaN(n) || !isFinite(n)) return '—';
+  if (Math.abs(n) >= 1000000) return (n / 1000000).toFixed(1) + 'M ₪';
+  if (Math.abs(n) >= 1000) return Math.round(n).toLocaleString('he-IL') + ' ₪';
+  return Math.round(n).toLocaleString('he-IL') + ' ₪';
+}
+function fmtPct(n) { return n.toFixed(1) + '%'; }
+function fmtX(n) { return 'פי ' + Math.round(n); }
+
+// compound accumulation with monthly deposits
+function compound(present, monthly, years, annualRate) {
+  const r = annualRate / 12;
+  const n = years * 12;
+  // FV of PV
+  const fvPV = present * Math.pow(1 + r, n);
+  // FV of annuity
+  const fvAnn = r > 0 ? monthly * (Math.pow(1 + r, n) - 1) / r : monthly * n;
+  return fvPV + fvAnn;
+}
+
+// ============================================================
+// Calc 1 — Freelance Pension
+// ============================================================
+function updateFreelance() {
+  const income = parseFloat(document.getElementById('fl-income').value);
+  const rateRaw = parseFloat(document.getElementById('fl-rate').value);
+  const age = parseFloat(document.getElementById('fl-age').value);
+  const trackEl = document.getElementById('fl-track');
+  const annualReturn = parseFloat(trackEl.value) / 100;
+  const inflation = 0.025;
+  const retirementAge = 67;
+  const years = Math.max(0, retirementAge - age);
+
+  document.getElementById('fl-income-out').textContent = income.toLocaleString('he-IL') + ' ₪';
+  document.getElementById('fl-rate-out').textContent = rateRaw + '%';
+
+  const rate = rateRaw / 100;
+  const monthlyDeposit = income * rate;
+  const annualDeposit = monthlyDeposit * 12;
+
+  // Tax saving — simplified: zikui 35% up to ~5400/year, nikoui on rest
+  const maxZikui = Math.min(annualDeposit * 0.07, income * 12 * 0.07); // ~7% for zikui
+  const taxSaving = Math.round(maxZikui * 0.35 + Math.min(annualDeposit * 0.165, income * 12 * 0.165 - maxZikui) * 0.25);
+
+  const nominalReturn = annualReturn;
+  const realReturn = nominalReturn - inflation;
+  const accumulation = compound(0, monthlyDeposit, years, nominalReturn);
+  const realAccumulation = compound(0, monthlyDeposit, years, realReturn);
+  const monthlyPension = realAccumulation / 180;
+
+  document.getElementById('fl-years').textContent = years;
+  document.getElementById('fl-monthly-deposit').textContent = Math.round(monthlyDeposit).toLocaleString('he-IL') + ' ₪';
+  document.getElementById('fl-tax-saving').textContent = Math.max(0, taxSaving).toLocaleString('he-IL') + ' ₪';
+  document.getElementById('fl-accumulation').textContent = fmt(realAccumulation);
+  document.getElementById('fl-monthly-pension').textContent = fmt(monthlyPension);
+}
+
+['fl-income', 'fl-rate', 'fl-age', 'fl-return', 'fl-track'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateFreelance);
+});
+updateFreelance();
+
+// ============================================================
+// Calc 2 — Tax Saving
+// ============================================================
+function getMarginalRate(annualIncome) {
+  if (annualIncome <= 84120) return 0.10;
+  if (annualIncome <= 120720) return 0.14;
+  if (annualIncome <= 193800) return 0.20;
+  if (annualIncome <= 269280) return 0.31;
+  if (annualIncome <= 558240) return 0.35;
+  if (annualIncome <= 698280) return 0.47;
+  return 0.50;
+}
+
+function updateTax() {
+  const income = parseFloat(document.getElementById('tx-income').value);
+  const status = document.getElementById('tx-status').value;
+  const pensionMonthly = parseFloat(document.getElementById('tx-pension').value);
+  const kerenMonthly = parseFloat(document.getElementById('tx-keren').value);
+
+  document.getElementById('tx-income-out').textContent = income.toLocaleString('he-IL') + ' ₪';
+  document.getElementById('tx-pension-out').textContent = pensionMonthly.toLocaleString('he-IL') + ' ₪';
+  document.getElementById('tx-keren-out').textContent = kerenMonthly.toLocaleString('he-IL') + ' ₪';
+
+  const marginal = getMarginalRate(income);
+  const pensionAnnual = pensionMonthly * 12;

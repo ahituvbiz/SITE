@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון <a href="/articles/real-estate-vs-stocks/">נדל"ן מול שוק ההון</a> — השוואה אובייקטיבית | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="מחשבון נדלן vs שוק ההון: השוואה אובייקטיבית שמביאה בחשבון מינוף, מס, תשואה, ועלויות. גלה איזו השקעה מתאימה לפרופיל האישי שלך.">
+
+<meta property="og:title" content="מחשבון נדל&quot;ן מול שוק ההון — מי מנצח?">
+<meta property="og:description" content="המחשבון שמשווה נדל&quot;ן להשקעה מול תיק מניות לפי הנתונים האישיים שלך: הון עצמי, מינוף, מס, עלויות עסקה ותשואות ריאליות.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "מחשבון נדל\"ן מול שוק ההון",
+      "description": "כלי השוואה אינטראקטיבי בין השקעה בנדל\"ן להשקעה בשוק ההון, לפי נתונים אישיים.",
+      "applicationCategory": "FinanceApplication",
+      "url": "https://pensya.info/tools/nadlan-vs-shuk",
+      "author": { "@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר" },
+      "inLanguage": "he-IL"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
+        { "@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "נדל\"ן מול שוק ההון", "item": "https://pensya.info/tools/nadlan-vs-shuk" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --nadlan: #1F4E79;
+  --nadlan-soft: #E7F0F7;
+  --shuk: #5C8D5A;
+  --shuk-soft: #D5E8D4;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+  --s-3xl: 96px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+  --article-width: 900px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+.wide-container { max-width: var(--article-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+h1 { font-size: 40px; font-weight: 700; }
+h2 { font-size: 28px; font-weight: 700; margin: var(--s-2xl) 0 var(--s-md); }
+h3 { font-size: 21px; font-weight: 600; margin: var(--s-lg) 0 var(--s-sm); }
+h4 { font-size: 18px; font-weight: 700; margin: var(--s-md) 0 var(--s-xs); }
+section { padding: var(--s-2xl) 0; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 14px 28px; border-radius: var(--radius-btn);
+  font-size: 17px; font-weight: 600; border: none; cursor: pointer;
+  transition: background .15s, transform .15s;
+  text-decoration: none !important; font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+
+/* ---------- Header ---------- */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; gap: var(--s-md);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 20px; color: var(--primary);
+  text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  background: var(--bg-cream); padding: 14px 0;
+  font-size: 14px; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* ---------- Hero ---------- */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 13px; font-weight: 700;
+  padding: 6px 14px; border-radius: 999px;
+  margin-bottom: var(--s-sm); border: 1px solid #cfdcea;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.page-hero h1 { font-size: 38px; margin-bottom: var(--s-sm); }
+.page-hero h1 .accent { color: var(--primary); }
+.page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; max-width: 700px; }
+
+/* ---------- Section header ---------- */
+.section-header { text-align: center; max-width: 720px; margin: 0 auto var(--s-xl); }
+.section-eyebrow {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-header h2 { margin: 0 0 var(--s-sm); }
+.section-header p { color: var(--text-2); font-size: 17px; }
+
+/* ---------- Disclaimer ---------- */
+.disclaimer-banner {
+  background: var(--warning-soft); border-right: 4px solid var(--warning);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: 0 0 var(--s-lg); font-size: 15px; color: var(--text-1);
+}
+.disclaimer-banner strong { color: #B58E2A; }
+
+/* ---------- Calculator Shell ---------- */
+.calc-section { background: var(--bg-cream); }
+.calc-outer {
+  max-width: var(--article-width);
+  margin: 0 auto;
+}
+
+/* Tab switcher */
+.scenario-tabs {
+  display: flex; gap: 0;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  overflow: hidden; margin-bottom: 0;
+}
+.scenario-tab {
+  flex: 1; padding: 14px var(--s-md);
+  background: var(--bg-cream); border: none;
+  font-family: inherit; font-size: 15px; font-weight: 600;
+  color: var(--text-2); cursor: pointer;
+  transition: all .15s; border-bottom: 3px solid transparent;
+}
+.scenario-tab:hover { background: var(--primary-soft); color: var(--primary); }
+.scenario-tab.active { background: #fff; color: var(--primary); border-bottom-color: var(--cta); }
+
+/* Main calc card */
+.calc-main {
+  background: #fff; border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  padding: var(--s-xl);
+  box-shadow: var(--shadow-card);
+}
+
+/* Input grid */
+.inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-lg) var(--s-xl);
+  padding-bottom: var(--s-lg);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--s-lg);
+}
+.input-col-header {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: var(--s-md);
+  padding-bottom: var(--s-sm);
+  border-bottom: 2px solid var(--border);
+}
+.input-col-header .col-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+}
+.col-nadlan .col-dot { background: var(--nadlan); }
+.col-shuk .col-dot { background: var(--shuk); }
+.col-nadlan .input-col-header { color: var(--nadlan); border-color: var(--nadlan-soft); }
+.col-shuk .input-col-header { color: var(--shuk); border-color: var(--shuk-soft); }
+
+.input-group { margin-bottom: var(--s-md); }
+.input-group label {
+  display: block; font-size: 14px; font-weight: 600;
+  margin-bottom: 6px; color: var(--text-2);
+}
+.input-group .hint { font-size: 12px; color: var(--text-meta); margin-top: 4px; }
+.input-row { display: flex; align-items: center; gap: var(--s-xs); }
+.input-row input[type="range"] {
+  flex: 1; accent-color: var(--primary); cursor: pointer; height: 4px;
+}
+.col-nadlan .input-row input[type="range"] { accent-color: var(--nadlan); }
+.col-shuk .input-row input[type="range"] { accent-color: var(--shuk); }
+.input-val {
+  min-width: 72px; text-align: left;
+  font-size: 15px; font-weight: 700; color: var(--primary);
+}
+.col-nadlan .input-val { color: var(--nadlan); }
+.col-shuk .input-val { color: var(--shuk); }
+
+/* Shared inputs row */
+.shared-inputs {
+  background: var(--bg-cream); border-radius: var(--radius-btn);
+  padding: var(--s-md);
+  margin-bottom: var(--s-lg);
+  border: 1px solid var(--border);
+}
+.shared-inputs h4 { color: var(--primary); font-size: 15px; margin-bottom: var(--s-md); display: flex; align-items: center; gap: 8px; }
+.shared-inputs h4 svg { width: 18px; height: 18px; }
+.shared-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md);
+}
+
+/* Advanced toggle */
+.advanced-toggle {
+  display: flex; align-items: center; gap: 10px;
+  padding: var(--s-sm) 0;
+  cursor: pointer; user-select: none;
+  font-size: 15px; font-weight: 600; color: var(--primary);
+  border: none; background: none; font-family: inherit;
+  margin-bottom: var(--s-sm);
+}
+.advanced-toggle .arrow {
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  transition: transform .2s;
+}
+.advanced-toggle.open .arrow { transform: rotate(180deg); }
+
+.advanced-section { display: none; }
+.advanced-section.open { display: block; }
+.advanced-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-md) var(--s-xl);
+  padding: var(--s-md);
+  background: var(--bg-cream);
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border);
+  margin-bottom: var(--s-lg);
+}
+
+/* CTA row */
+.calc-cta-row {
+  display: flex; gap: var(--s-sm); align-items: center;
+  flex-wrap: wrap;
+}
+.btn-calc {
+  padding: 14px 32px;
+  background: var(--cta); color: #fff;
+  border: none; border-radius: var(--radius-btn);
+  font-size: 17px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, transform .15s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-calc:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-reset {
+  padding: 14px 20px;
+  background: transparent; color: var(--text-2);
+  border: 1.5px solid var(--border); border-radius: var(--radius-btn);
+  font-size: 15px; font-family: inherit;
+  cursor: pointer; transition: all .15s;
+}
+.btn-reset:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ---------- Results ---------- */
+.results-section { display: none; }
+.results-section.show { display: block; }
+
+.results-wrap {
+  max-width: var(--article-width); margin: 0 auto;
+}
+
+/* Winner banner */
+.winner-banner {
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: var(--s-md); align-items: center;
+  margin-bottom: var(--s-lg);
+}
+.winner-banner.nadlan-wins { background: var(--nadlan-soft); border: 2px solid var(--nadlan); }
+.winner-banner.shuk-wins { background: var(--shuk-soft); border: 2px solid var(--shuk); }
+.winner-banner.tie { background: var(--warning-soft); border: 2px solid var(--warning); }
+.winner-icon { font-size: 48px; line-height: 1; }
+.winner-text h3 { margin: 0 0 4px; font-size: 22px; }
+.winner-text p { margin: 0; font-size: 15px; color: var(--text-2); }
+.winner-delta { text-align: center; }
+.winner-delta .delta-val { font-size: 28px; font-weight: 700; }
+.nadlan-wins .delta-val { color: var(--nadlan); }
+.shuk-wins .delta-val { color: var(--shuk); }
+.winner-delta .delta-label { font-size: 12px; color: var(--text-meta); }
+
+/* Results comparison columns */
+.results-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-md); margin-bottom: var(--s-lg);
+}
+.result-col {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+}
+.result-col.nadlan-col { border-top: 4px solid var(--nadlan); }
+.result-col.shuk-col { border-top: 4px solid var(--shuk); }
+.result-col-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 17px; font-weight: 700; margin-bottom: var(--s-md);
+}
+.result-col-title .dot { width: 12px; height: 12px; border-radius: 50%; }
+.nadlan-col .dot { background: var(--nadlan); }
+.shuk-col .dot { background: var(--shuk); }
+.result-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 15px;
+}
+.result-row:last-child { border-bottom: none; }
+.result-row .rr-label { color: var(--text-2); }
+.result-row .rr-val { font-weight: 700; color: var(--text-1); }
+.result-row .rr-val.highlight { color: var(--positive); font-size: 18px; }
+.result-row .rr-val.negative { color: var(--negative); }
+.result-row.total-row { padding-top: var(--s-sm); margin-top: 4px; border-top: 2px solid var(--border); border-bottom: none; }
+.result-row.total-row .rr-label { font-weight: 700; font-size: 16px; }
+
+/* Chart bars */
+.chart-section {
+  background: var(--bg-cream); border-radius: var(--radius-card);
+  padding: var(--s-lg); margin-bottom: var(--s-lg);
+}
+.chart-title { font-size: 17px; font-weight: 700; margin-bottom: var(--s-md); color: var(--primary); }
+.chart-bars { display: flex; flex-direction: column; gap: var(--s-sm); }
+.chart-year-label { font-size: 13px; color: var(--text-meta); font-weight: 700; margin-bottom: 4px; }
+.chart-bar-row { display: grid; grid-template-columns: 40px 1fr 100px; gap: 8px; align-items: center; }
+.chart-bar-outer {
+  background: var(--border); border-radius: 4px;
+  height: 28px; overflow: hidden; position: relative;
+}
+.chart-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.6s ease; display: flex; align-items: center;
+  padding: 0 8px; font-size: 12px; font-weight: 700; color: #fff;
+  white-space: nowrap; overflow: hidden;
+}
+.chart-bar-fill.nadlan-bar { background: var(--nadlan); }
+.chart-bar-fill.shuk-bar { background: var(--shuk); }
+.chart-bar-label { font-size: 12px; color: var(--text-2); }
+
+/* Scenarios */
+.scenarios-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md); margin-bottom: var(--s-lg);
+}
+.scenario-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-md);
+  box-shadow: var(--shadow-card);
+}
+.scenario-card.pessimist { border-top: 4px solid var(--negative); }
+.scenario-card.base { border-top: 4px solid var(--warning); }
+.scenario-card.optimist { border-top: 4px solid var(--positive); }
+.scenario-badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 999px;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+}
+.pessimist .scenario-badge { background: var(--negative-soft); color: var(--negative); }
+.base .scenario-badge { background: var(--warning-soft); color: #B58E2A; }
+.optimist .scenario-badge { background: var(--positive-soft); color: var(--positive); }
+.scenario-card h4 { font-size: 15px; margin: 0 0 6px; }
+.scenario-winner {
+  font-size: 17px; font-weight: 700; margin: var(--s-sm) 0 4px;
+}
+.scenario-card.pessimist .scenario-winner { color: var(--negative); }
+.scenario-card.base .scenario-winner { color: var(--warning); }
+.scenario-card.optimist .scenario-winner { color: var(--positive); }
+.scenario-desc { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* Profile recommendations */
+.profiles-section { background: #fff; }
+.profiles-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-md); }
+.profile-card {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+}
+.profile-icon { font-size: 36px; margin-bottom: 12px; }
+.profile-card h4 { color: var(--primary); font-size: 17px; margin-bottom: 8px; }
+.profile-card p { font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: var(--s-sm); }
+.profile-verdict {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  padding: 4px 12px; border-radius: 999px; letter-spacing: 0.5px;
+}
+.verdict-nadlan { background: var(--nadlan-soft); color: var(--nadlan); }
+.verdict-shuk { background: var(--shuk-soft); color: var(--shuk); }
+.verdict-both { background: var(--warning-soft); color: #B58E2A; }
+
+/* Interpretation */
+.interpret-section { background: var(--bg-cream); }
+.interpret-cards { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+.interpret-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+}
+.interpret-card h4 { color: var(--primary); margin-bottom: var(--s-sm); }
+.interpret-card ul { list-style: none; padding: 0; }
+.interpret-card ul li {
+  padding: 6px 0 6px 24px; position: relative;
+  font-size: 15px; color: var(--text-2); border-bottom: 1px solid var(--border);
+}
+.interpret-card ul li:last-child { border-bottom: none; }
+.interpret-card ul li::before {
+  content: '→';
+  position: absolute; right: 0; top: 6px;
+  color: var(--primary); font-size: 13px;
+}
+.interpret-card ul li::before {
+  content: '';
+  position: absolute; right: 0; top: 12px;
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.nadlan-list li::before { background: var(--nadlan); }
+.shuk-list li::before { background: var(--shuk); }
+
+/* Contact CTA */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  color: #fff; padding: var(--s-3xl) 0; text-align: center;
+}
+.contact-section h2 { color: #fff; font-size: 32px; margin: 0 0 var(--s-sm); }
+.contact-section p { font-size: 18px; color: rgba(255,255,255,0.85); margin: 0 auto var(--s-lg); max-width: 600px; }
+.contact-actions { display: flex; gap: var(--s-sm); justify-content: center; flex-wrap: wrap; }
+.btn-light { background: #fff; color: var(--primary); }
+.btn-light:hover { background: var(--bg-cream); }
+.btn-outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); }
+.btn-outline-light:hover { background: rgba(255,255,255,0.08); }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom { border-top: 1px solid #2A2D33; padding-top: var(--s-md); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm); }
+.license-badge { display: inline-flex; align-items: center; gap: 6px; background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+/* WhatsApp FAB */
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4); z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+  .page-hero h1 { font-size: 26px; }
+  .inputs-grid { grid-template-columns: 1fr; }
+  .results-cols { grid-template-columns: 1fr; }
+  .scenarios-grid { grid-template-columns: 1fr; }
+  .profiles-grid { grid-template-columns: 1fr; }
+  .interpret-cards { grid-template-columns: 1fr; }
+  .shared-row { grid-template-columns: 1fr 1fr; }
+  .advanced-grid { grid-template-columns: 1fr; }
+  .winner-banner { grid-template-columns: auto 1fr; }
+  .winner-delta { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .shared-row { grid-template-columns: 1fr; }
+  .calc-main { padding: var(--s-md); }
+  .calc-cta-row { flex-direction: column; align-items: stretch; }
+  .btn-calc, .btn-reset { width: 100%; justify-content: center; }
+}
+
+/* Callout */
+.callout {
+  background: var(--primary-soft); border-right: 4px solid var(--primary);
+  padding: var(--s-md); border-radius: var(--radius-btn); margin: var(--s-md) 0;
+  font-size: 16px; color: var(--text-1);
+}
+.callout strong { color: var(--primary); }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools" class="active">מחשבונים</a>
+      <a href="/#knowledge">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="#">מחשבונים</a>
+    <span class="sep">›</span>
+    <span class="current">נדל"ן מול שוק ההון</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">🧮 מחשבון · כלי חינמי</span>
+    <h1>מחשבון <span class="accent">נדל"ן מול שוק ההון</span></h1>
+    <p class="lede">
+      הוויכוח הישראלי הנצחי: לקנות דירה להשקעה — או להשקיע את אותו הון בשוק ההון?
+      הזן את הנתונים שלך, קבל השוואה אמיתית שמביאה בחשבון מינוף, מס, עלויות עסקה, ותשואה ריאלית.
+    </p>
+  </div>
+</section>
+
+<!-- CALCULATOR SECTION -->
+<section class="calc-section" id="calculator">
+  <div class="container">
+    <div class="calc-outer">
+
+      <div class="disclaimer-banner">
+        <strong>הערה:</strong> המחשבון הוא כלי חינוכי בלבד ואינו מהווה ייעוץ השקעות. התוצאות מבוססות על הנחות שמוזנות ידנית — שוק ההון אינו ודאי. לייעוץ ספציפי לגבי נדל"ן כנכס — פנה לעורך דין ויועץ מס. <a href="/about/">הרישיון שלי</a> הוא ייעוץ פנסיוני.
+      </div>
+
+      <!-- Scenario Tabs -->
+      <div class="scenario-tabs" role="tablist">
+        <button class="scenario-tab active" data-scenario="base" onclick="setScenario('base', this)">תרחיש בסיס</button>
+        <button class="scenario-tab" data-scenario="pessimist" onclick="setScenario('pessimist', this)">פסימי</button>
+        <button class="scenario-tab" data-scenario="optimist" onclick="setScenario('optimist', this)">אופטימי</button>
+        <button class="scenario-tab" data-scenario="custom" onclick="setScenario('custom', this)">מותאם אישית</button>
+      </div>
+
+      <div class="calc-main">
+
+        <!-- SHARED: הון עצמי + אופק + מס -->
+        <div class="shared-inputs">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            פרמטרים בסיסיים — משותפים לשתי ההשקעות
+          </h4>
+          <div class="shared-row">
+            <div class="input-group">
+              <label for="s-equity">הון עצמי להשקעה</label>
+              <div class="input-row">
+                <input type="range" id="s-equity" min="100000" max="2000000" step="50000" value="600000">
+                <span class="input-val" id="s-equity-out">600,000 ₪</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="s-years">אופק השקעה (שנים)</label>
+              <div class="input-row">
+                <input type="range" id="s-years" min="5" max="30" step="1" value="15">
+                <span class="input-val" id="s-years-out">15 שנים</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="s-inflation">אינפלציה שנתית משוערת</label>
+              <div class="input-row">
+                <input type="range" id="s-inflation" min="0" max="6" step="0.1" value="2.5">
+                <span class="input-val" id="s-inflation-out">2.5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMNS: נדל"ן | שוק ההון -->
+        <div class="inputs-grid">
+
+          <!-- LEFT: נדל"ן -->
+          <div class="col-nadlan">
+            <div class="input-col-header">
+              <span class="col-dot"></span>
+              🏠 פרמטרי נדל"ן
+            </div>
+
+            <div class="input-group">
+              <label for="n-price">מחיר הדירה</label>
+              <div class="input-row">
+                <input type="range" id="n-price" min="500000" max="5000000" step="100000" value="2000000">
+                <span class="input-val" id="n-price-out">2,000,000 ₪</span>
+              </div>
+              <div class="hint">ההון העצמי יממן חלק מהדירה — השאר במשכנתא</div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-return">עליית ערך שנתית משוערת</label>
+              <div class="input-row">
+                <input type="range" id="n-return" min="0" max="12" step="0.5" value="4">
+                <span class="input-val" id="n-return-out">4.0%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-rent">תשואת שכירות שנתית ברוטו</label>
+              <div class="input-row">
+                <input type="range" id="n-rent" min="0" max="8" step="0.25" value="3">
+                <span class="input-val" id="n-rent-out">3.0%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-mortgage-rate">ריבית משכנתא שנתית</label>
+              <div class="input-row">
+                <input type="range" id="n-mortgage-rate" min="2" max="8" step="0.1" value="4.5">
+                <span class="input-val" id="n-mortgage-rate-out">4.5%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-vacancy">חודשי ריקנות ממוצעים לשנה</label>
+              <div class="input-row">
+                <input type="range" id="n-vacancy" min="0" max="3" step="0.25" value="0.5">
+                <span class="input-val" id="n-vacancy-out">0.5 חודשים</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-maintenance">הוצאות תחזוקה שנתיות (% מערך)</label>
+              <div class="input-row">
+                <input type="range" id="n-maintenance" min="0.2" max="2" step="0.1" value="0.5">
+                <span class="input-val" id="n-maintenance-out">0.5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: שוק ההון -->
+          <div class="col-shuk">
+            <div class="input-col-header">
+              <span class="col-dot"></span>
+              📈 פרמטרי שוק ההון
+            </div>
+
+            <div class="input-group">
+              <label for="m-return">תשואה שנתית ברוטו משוערת</label>
+              <div class="input-row">
+                <input type="range" id="m-return" min="2" max="15" step="0.5" value="8">
+                <span class="input-val" id="m-return-out">8.0%</span>
+              </div>
+              <div class="hint">S&P 500 ממוצע היסטורי: ~10% נומינלי (כ-7% ריאלי)</div>
+            </div>
+
+            <div class="input-group">
+              <label for="m-mgmt">דמי ניהול שנתיים</label>
+              <div class="input-row">
+                <input type="range" id="m-mgmt" min="0" max="2" step="0.05" value="0.1">
+                <span class="input-val" id="m-mgmt-out">0.1%</span>
+              </div>
+              <div class="hint">ETF מחקה מדד: 0.03%-0.2% | קרן מנוהלת: 0.5%-1.5%</div>
+            </div>
+
+            <div class="input-group">
+              <label for="m-monthly">הפקדה חודשית נוספת (₪)</label>
+              <div class="input-row">
+                <input type="range" id="m-monthly" min="0" max="10000" step="500" value="2000">
+                <span class="input-val" id="m-monthly-out">2,000 ₪</span>
+              </div>
+              <div class="hint">שווה ל"שכירות נטו" שהיית מקבל מהדירה</div>
+            </div>
+
+            <div class="input-group">
+              <label for="m-tax">מס רווחי הון בעת מימוש</label>
+              <div class="input-row">
+                <input type="range" id="m-tax" min="0" max="30" step="1" value="25">
+                <span class="input-val" id="m-tax-out">25%</span>
+              </div>
+              <div class="hint">ישראל: 25% על רווח נומינלי (ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>: 0%)</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ADVANCED SECTION -->
+        <button class="advanced-toggle" id="advanced-btn" onclick="toggleAdvanced()">
+          <span class="arrow" id="advanced-arrow">▼</span>
+          פרמטרים מתקדמים — עלויות עסקה, מס שבח, ומינוף
+        </button>
+
+        <div class="advanced-section" id="advanced-section">
+          <div class="advanced-grid">
+            <div class="input-group">
+              <label for="n-purchase-tax">מס רכישה על הדירה (% ממחיר)</label>
+              <div class="input-row">
+                <input type="range" id="n-purchase-tax" min="0" max="10" step="0.1" value="5">
+                <span class="input-val" id="n-purchase-tax-out">5.0%</span>
+              </div>
+              <div class="hint">דירה ראשונה: 0%-3.5% | דירה שנייה: 5%-10%</div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-sale-tax">מס שבח ורווח הון נדל"ן (% מהרווח)</label>
+              <div class="input-row">
+                <input type="range" id="n-sale-tax" min="0" max="30" step="1" value="25">
+                <span class="input-val" id="n-sale-tax-out">25%</span>
+              </div>
+              <div class="hint">דירה יחידה: פטור | אחרת: ~25% (תלוי בתקופת בעלות)</div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-agent-fee">עמלת מתווך ועורך דין (% ממחיר)</label>
+              <div class="input-row">
+                <input type="range" id="n-agent-fee" min="0" max="4" step="0.1" value="2">
+                <span class="input-val" id="n-agent-fee-out">2.0%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="n-rent-tax">מס על הכנסות שכירות</label>
+              <div class="input-row">
+                <input type="range" id="n-rent-tax" min="0" max="30" step="1" value="10">
+                <span class="input-val" id="n-rent-tax-out">10%</span>
+              </div>
+              <div class="hint">מסלול 10% על סכום מעל 5,100 ₪/חודש, פטור עד אז</div>
+            </div>
+
+            <div class="input-group">
+              <label for="m-entry-cost">עלויות כניסה לשוק ההון (% מהסכום)</label>
+              <div class="input-row">
+                <input type="range" id="m-entry-cost" min="0" max="2" step="0.05" value="0.1">
+                <span class="input-val" id="m-entry-cost-out">0.1%</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="m-exit-cost">עלויות יציאה משוק ההון (% מהסכום)</label>
+              <div class="input-row">
+                <input type="range" id="m-exit-cost" min="0" max="2" step="0.05" value="0.05">
+                <span class="input-val" id="m-exit-cost-out">0.05%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="calc-cta-row">
+          <button class="btn-calc" onclick="calculate()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            חשב השוואה
+          </button>
+          <button class="btn-reset" onclick="resetCalc()">איפוס לערכי ברירת מחדל</button>
+          <span style="font-size:13px; color: var(--text-meta); margin-right: auto;">* כל הסכומים בשקלים נטו אחרי מס</span>
+        </div>
+
+      </div><!-- end calc-main -->
+    </div><!-- end calc-outer -->
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="results-section" id="results-section">
+  <div class="container">
+    <div class="results-wrap">
+
+      <h2 style="text-align:center; margin-bottom: var(--s-lg);">תוצאות ההשוואה</h2>
+
+      <!-- Winner Banner -->
+      <div class="winner-banner" id="winner-banner">
+        <div class="winner-icon" id="winner-icon">🏆</div>
+        <div class="winner-text">
+          <h3 id="winner-title">—</h3>
+          <p id="winner-desc">—</p>
+        </div>
+        <div class="winner-delta">
+          <div class="delta-val" id="winner-delta">—</div>
+          <div class="delta-label">הפרש סופי נטו</div>
+        </div>
+      </div>
+
+      <!-- Results Columns -->
+      <div class="results-cols">
+
+        <div class="result-col nadlan-col">
+          <div class="result-col-title">
+            <span class="dot"></span>
+            🏠 נדל"ן להשקעה
+          </div>
+          <div class="result-row"><span class="rr-label">שווי הנכס בסוף התקופה</span><span class="rr-val" id="n-final-value">—</span></div>
+          <div class="result-row"><span class="rr-label">יתרת משכנתא</span><span class="rr-val negative" id="n-mortgage-balance">—</span></div>
+          <div class="result-row"><span class="rr-label">רווח הון ברוטו מעליית ערך</span><span class="rr-val" id="n-capital-gain">—</span></div>
+          <div class="result-row"><span class="rr-label">הכנסות שכירות נטו (מצטבר)</span><span class="rr-val" id="n-rent-net">—</span></div>
+          <div class="result-row"><span class="rr-label">הוצאות תחזוקה (מצטבר)</span><span class="rr-val negative" id="n-maintenance-total">—</span></div>
+          <div class="result-row"><span class="rr-label">מס שבח ועלויות מכירה</span><span class="rr-val negative" id="n-exit-costs">—</span></div>
+          <div class="result-row"><span class="rr-label">עלויות כניסה (מס רכישה + עמלות)</span><span class="rr-val negative" id="n-entry-costs">—</span></div>
+          <div class="result-row total-row">
+            <span class="rr-label">💰 סה"כ עושר נטו</span>
+            <span class="rr-val highlight" id="n-total-net">—</span>
+          </div>
+          <div class="result-row">
+            <span class="rr-label">תשואה שנתית נטו על ההון העצמי</span>
+            <span class="rr-val" id="n-irr">—</span>
+          </div>
+        </div>
+
+        <div class="result-col shuk-col">
+          <div class="result-col-title">
+            <span class="dot"></span>
+            📈 שוק ההון
+          </div>
+          <div class="result-row"><span class="rr-label">ערך תיק ברוטו בסוף התקופה</span><span class="rr-val" id="m-final-value">—</span></div>
+          <div class="result-row"><span class="rr-label">רווח השקעה ברוטו</span><span class="rr-val" id="m-capital-gain">—</span></div>
+          <div class="result-row"><span class="rr-label">הפקדות חודשיות (מצטבר)</span><span class="rr-val" id="m-monthly-total">—</span></div>
+          <div class="result-row"><span class="rr-label">מס רווחי הון בעת מימוש</span><span class="rr-val negative" id="m-tax-total">—</span></div>
+          <div class="result-row"><span class="rr-label">דמי ניהול + עלויות (מצטבר)</span><span class="rr-val negative" id="m-fees-total">—</span></div>
+          <div class="result-row"><span class="rr-label" style="color:transparent">—</span><span class="rr-val" style="color:transparent">—</span></div>
+          <div class="result-row"><span class="rr-label" style="color:transparent">—</span><span class="rr-val" style="color:transparent">—</span></div>
+          <div class="result-row total-row">
+            <span class="rr-label">💰 סה"כ עושר נטו</span>
+            <span class="rr-val highlight" id="m-total-net">—</span>
+          </div>
+          <div class="result-row">
+            <span class="rr-label">תשואה שנתית נטו על ההון העצמי</span>
+            <span class="rr-val" id="m-irr">—</span>
+          </div>
+        </div>
+      </div><!-- end results-cols -->
+
+      <!-- Chart: ביצועים לאורך זמן -->
+      <div class="chart-section">
+        <div class="chart-title">📊 ביצועי עושר לאורך זמן — השוואה שנתית</div>
+        <div class="chart-bars" id="chart-bars">
+          <!-- dynamically filled -->
+        </div>
+        <div style="display:flex; gap: var(--s-lg); margin-top: var(--s-md); font-size:14px;">
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:14px; height:14px; background:var(--nadlan); border-radius:3px; display:inline-block;"></span> נדל"ן</span>
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:14px; height:14px; background:var(--shuk); border-radius:3px; display:inline-block;"></span> שוק ההון</span>
+        </div>
+      </div>
+
+      <!-- Scenarios -->
+      <h2 id="scenarios-heading" style="text-align:center;">תרחישים פסימיים מול אופטימיים</h2>
+      <p style="text-align:center; color:var(--text-2); font-size:16px; margin-bottom:var(--s-lg); margin-top: calc(-1 * var(--s-md));">
+        מה קורה לתוצאה אם הנחות השוק מתגשמות בצורה שונה מהבסיס
+      </p>
+      <div class="scenarios-grid" id="scenarios-grid">
+        <!-- dynamically filled -->
+      </div>
+
+    </div><!-- end results-wrap -->
+  </div>
+</section>
+
+<!-- INTERPRETATION SECTION -->
+<section class="interpret-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">פירוש התוצאות</span>
+      <h2>מה המספרים לא אומרים לך — ומה כן</h2>
+      <p>
+        השוואה כמותית היא רק חצי מהתמונה. הנה הגורמים שהמחשבון לא יכול לכמת אבל חשובים מאוד.
+      </p>
+    </div>
+    <div class="interpret-cards">
+      <div class="interpret-card">
+        <h4 style="color: var(--nadlan);">🏠 היתרונות הנסתרים של נדל"ן</h4>
+        <ul class="nadlan-list">
+          <li>מינוף — השקעה של 600K בנכס של 2M מגדילה את הרווח הנומינלי בהרבה</li>
+          <li>ביטחון פסיכולוגי — נכס פיזי, קשה למשוך בפאניקה</li>
+          <li>הגנה מסוימת מפני אינפלציה בנכסים ריאליים</li>
+          <li>אפשרות למגורים עצמיים בעתיד אם הצרכים ישתנו</li>
+          <li>אפשרות לשיפור הנכס ולהעלאת הערך בצורה אקטיבית</li>
+        </ul>
+      </div>
+      <div class="interpret-card">
+        <h4 style="color: var(--shuk);">📈 היתרונות הנסתרים של שוק ההון</h4>
+        <ul class="shuk-list">
+          <li>נזילות מיידית — אפשר למכור ביום שבו צריך כסף</li>
+          <li>פיזור בין אלפי חברות — לא תלוי בשוק נדל"ן אחד</li>
+          <li>כניסה בכל סכום — גם ב-1,000 ₪ ניתן להתחיל</li>
+          <li>אין ניהול, אין שוכרים, אין תחזוקה, אין טרדות</li>
+          <li>קרן השתלמות = 0% מס רווחי הון עד התקרה המוטבת</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: var(--s-lg);">
+      <strong>הנחה חשובה שהמחשבון מפשט:</strong> המחשבון מניח שהשכירות מהנדל"ן מושקעת חזרה בשוק ההון בעמודה של "שוק ההון". בפועל, הפרש זמנים, מס, ועלויות תיקונים דחופים משנים את התמונה. לכן — תמיד כדאי לעשות ניתוח ספציפי לנכס ולאזור, לא רק חישוב מופשט.
+    </div>
+  </div>
+</section>
+
+<!-- PROFILES SECTION -->
+<section class="profiles-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">מסקנות לפי פרופיל אישי</span>
+      <h2>מי צריך מה — לפי המצב שלך</h2>
+      <p>לא קיימת תשובה אחת לכולם. הנה כמה פרופילים נפוצים והמשמעות הפיננסית עבורם.</p>
+    </div>
+    <div class="profiles-grid">
+      <div class="profile-card">
+        <div class="profile-icon">👨‍💼</div>
+        <h4>שכיר בכיר עם הון ראשוני</h4>
+        <p>יש לך 600K+, הכנסה יציבה, ואתה לא רוצה לנהל נכסים. אופק 20+ שנה.</p>
+        <p><strong>בדרך כלל:</strong> שוק ההון מנצח — פחות טרחה, יותר גמישות, ופחות ריכוז בנכס אחד.</p>
+        <span class="profile-verdict verdict-shuk">שוק ההון — עדיף</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-icon">🏗️</div>
+        <h4>מי שמבין נדל"ן ויכול לנהל</h4>
+        <p>אתה מכיר את שוק הנדל"ן, בוחר נכסים חכם, ויש לך זמן לטפל בשוכרים.</p>
+        <p><strong>בדרך כלל:</strong> נדל"ן יכול להכות את השוק — המינוף + הידע = יתרון ממשי.</p>
+        <span class="profile-verdict verdict-nadlan">נדל"ן — יתרון</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-icon">👶</div>
+        <h4>צעיר עם הון קטן ואופק ארוך</h4>
+        <p>20-35K, מתחיל לחסוך. אין לך הון לדירה ולא תהיה לך בקרוב.</p>
+        <p><strong>בדרך כלל:</strong> שוק ההון בהחלט — כולל קרן פנסיה ב-IRA. <a href="/savings/start-saving-early/">ריבית דריבית</a> עושה נסים ל-30 שנה.</p>
+        <span class="profile-verdict verdict-shuk">שוק ההון — ברור</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-icon">👩‍👧‍👦</div>
+        <h4>זוג לפני פנסיה (50+)</h4>
+        <p>10-15 שנה עד פרישה, רוצים הכנסה פסיבית יציבה.</p>
+        <p><strong>בדרך כלל:</strong> נדל"ן מייצר הכנסת שכירות קבועה — שווה לשקול. מינוף — כבר פחות.</p>
+        <span class="profile-verdict verdict-both">תלוי בנסיבות</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-icon">🌍</div>
+        <h4>אזרח ארה"ב בישראל</h4>
+        <p>יש לך בעיית PFIC עם קרנות ישראליות. מיסוי אמריקאי מורכב.</p>
+        <p><strong>בדרך כלל:</strong> IRA עם ני"ע אמריקאיים (לא PFIC) + נדל"ן יכולים להיות פתרון. לשאול רו"ח.</p>
+        <span class="profile-verdict verdict-both">ייעוץ מקצועי — חובה</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-icon">💼</div>
+        <h4>עצמאי עם תנודתיות הכנסה</h4>
+        <p>שנים שמנות ורזות. קשה לשלם משכנתא קבועה בשנים רזות.</p>
+        <p><strong>בדרך כלל:</strong> שוק ההון גמיש יותר — אפשר לעצור הפקדות. משכנתא היא התחייבות קשיחה.</p>
+        <span class="profile-verdict verdict-shuk">שוק ההון — עדיף</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/articles/real-estate-vs-stocks/">נדל"ן מול שוק ההון — מאמר</a>
+      <a class="related-link-card" href="/tools/">כל המחשבונים</a>
+      <a class="related-link-card" href="/pension/">מוצרי פנסיה — מרכז</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>המספרים נתנו לך כיוון. עכשיו צריך תמונה מלאה.</h2>
+    <p>
+      המחשבון משווה ברמה מופשטת. ייעוץ פנסיוני אובייקטיבי יבדוק את ה<em>תמונה הכוללת</em>:
+      איך ההחלטה הזו משפיעה על <a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a>, הפנסיה, המשכנתא, ואסטרטגיית המס שלך.
+    </p>
+    <div class="contact-actions">
+      <a href="/#contact" class="btn btn-light">קבע שיחת ייעוץ — 20 דקות, ללא עלות ←</a>
+      <a href="https://wa.me/972527700599" class="btn btn-outline-light">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" style="margin-left:6px;"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
+        שלח הודעה בוואטסאפ
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | <a href="/about/">תכנון פיננסי</a></strong>
+        </div>
+        <p>איתן אחיטוב — <a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר. <a href="/about/">תכנון פיננסי הוליסטי</a> לשכירים ולעצמאים בני 27-47.</p>
+      </div>
+      <div>
+        <h4>מחשבונים</h4>
+        <ul>
+          <li><a href="#">נדל"ן מול שוק ההון</a></li>
+          <li><a href="/investment/ira/">IRA — בדיקת ברוקר</a></li>
+          <li><a href="#">מחשבון פנסיה</a></li>
+          <li><a href="#">מחשבון משכנתא</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
+          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צור קשר</h4>
+        <ul>
+          <li><a href="/#contact">קבע שיחה לשמוע יותר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
+          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> #1013 · משרד האוצר
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עמלות ברוקרים IRA — השוואה מלאה | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="טבלת השוואה מלאה של עמלות הקנייה והמכירה של 6 הברוקרים: פסגות, IBI, מזרחי, הבינלאומי, לאומי, הפועלים (פלטינום). כולל עמלות ישראל, ארה''ב, אירופה, ואג''ח.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --negative: #C53030;
+  --s-xs: 8px; --s-sm: 16px; --s-md: 24px; --s-lg: 32px; --s-xl: 48px; --s-2xl: 64px; --s-3xl: 96px;
+  --radius-btn: 8px; --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: var(--bg-white);
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1 { font-size: 38px; line-height: 1.25; margin-bottom: var(--s-sm); }
+h2 { font-size: 26px; line-height: 1.3; margin: var(--s-2xl) 0 var(--s-md); }
+h3 { font-size: 19px; line-height: 1.3; margin: var(--s-lg) 0 var(--s-sm); }
+section { padding: var(--s-2xl) 0; }
+section.tight { padding: var(--s-xl) 0; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 12px 24px; border-radius: var(--radius-btn);
+  font-size: 16px; font-weight: 600;
+  text-decoration: none !important; font-family: inherit;
+  transition: background .15s, transform .15s;
+}
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+
+/* Header (shared with site) */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: var(--s-md); }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--primary); }
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+.breadcrumb { background: var(--bg-cream); padding: 14px 0; font-size: 14px; color: var(--text-2); border-bottom: 1px solid var(--border); }
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* Hero */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .container { max-width: 900px; }
+.page-hero .eyebrow {
+  display: inline-block;
+  background: var(--primary-soft); color: var(--primary);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  margin-bottom: var(--s-sm); border: 1px solid #cfdcea;
+}
+.page-hero p.lede { font-size: 18px; color: var(--text-2); margin-top: var(--s-sm); max-width: 760px; }
+
+/* Section header */
+.section-header { text-align: center; max-width: 760px; margin: 0 auto var(--s-lg); }
+.section-eyebrow {
+  display: inline-block;
+  font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-header h2 { margin: 0 0 var(--s-sm); }
+.section-header p { color: var(--text-2); font-size: 17px; }
+
+/* Broker quick cards */
+.brokers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-md);
+  margin-bottom: var(--s-xl);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 700px) { .brokers-grid { grid-template-columns: 1fr; } }
+.broker-quick {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-md);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.broker-quick h3 { font-size: 18px; color: var(--primary); margin: 0 0 8px; }
+.broker-quick .mins {
+  font-size: 13px; color: var(--text-2);
+  line-height: 1.6;
+}
+.broker-quick .mins strong { color: var(--text-1); }
+
+/* Fees table */
+.fees-table-wrap {
+  overflow-x: auto;
+  margin: var(--s-md) 0 var(--s-lg);
+  background: #fff;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.fees-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.fees-table thead th {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+.fees-table thead th:first-child {
+  text-align: right;
+  background: var(--primary);
+}
+.fees-table tbody td {
+  padding: 11px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+}
+.fees-table tbody td:first-child {
+  text-align: right;
+  font-weight: 600;
+  background: var(--bg-cream);
+}
+.fees-table tbody tr:nth-child(even) td { background: rgba(31,78,121,0.02); }
+.fees-table tbody tr:nth-child(even) td:first-child { background: var(--bg-cream); }
+.fees-table tbody tr:hover td { background: var(--primary-soft); }
+.fees-table tbody tr:hover td:first-child { background: var(--primary-soft); }
+.fees-table .category-row td {
+  background: var(--bg-cream) !important;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: right !important;
+  font-size: 15px;
+  padding: 14px 10px;
+}
+
+/* Tier table for Globalnet */
+.tier-table {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--s-md) auto;
+  background: #fff;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.tier-table th, .tier-table td {
+  padding: 12px 16px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+.tier-table thead th { background: var(--primary); color: #fff; }
+.tier-table td:last-child { font-weight: 700; color: var(--primary); }
+
+/* Callout box */
+.callout {
+  background: var(--primary-soft);
+  border-right: 4px solid var(--primary);
+  padding: var(--s-md);
+  border-radius: var(--radius-btn);
+  margin: var(--s-md) 0;
+  font-size: 16px;
+}
+.callout strong { color: var(--primary); }
+
+.notes-box {
+  background: var(--bg-cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  margin: var(--s-md) 0;
+}
+.notes-box h4 { margin: 0 0 var(--s-sm); font-size: 17px; }
+.notes-box ol { padding-right: var(--s-md); margin: 0; }
+.notes-box li { margin: 6px 0; font-size: 15px; color: var(--text-2); }
+
+/* Related links */
+.related-section { background: var(--bg-cream); padding: var(--s-2xl) 0; }
+.related-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+}
+.related-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--s-lg);
+  text-decoration: none !important;
+  transition: transform .15s, box-shadow .15s;
+}
+.related-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+.related-card .micro {
+  font-size: 12px; color: var(--cta);
+  font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.related-card h4 { font-size: 18px; color: var(--primary); margin: 6px 0 8px; }
+.related-card p { font-size: 14px; color: var(--text-2); margin: 0; }
+@media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom { border-top: 1px solid #2A2D33; padding-top: var(--s-md); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s-sm); font-size: 13px; color: #6E747D; }
+.license-badge { display: inline-flex; align-items: center; gap: 6px; background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+  z-index: 99;
+  transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/#tools">מחשבונים</a>
+      <a href="/investment/ira-explained/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/investment/ira/">IRA</a>
+    <span class="sep">›</span>
+    <span class="current">עמלות הברוקרים — השוואה מלאה</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">נתוני 6 ברוקרים · מקור: גלובלנט</span>
+    <h1>עמלות הברוקרים IRA — השוואה מלאה</h1>
+    <p class="lede">
+      מעבר לתועלת המרכזית של IRA — גמישות ושקיפות בבחירת ההשקעות, העלויות ב-IRA צפויות להיות זולות מהעלויות בקופה "רגילה", בייחוד בחשבונות עם צבירה מעל 250,000 ₪. העלויות ב-IRA מורכבות מתשלום לגלובלנט שנותנת את המעטפת שהופכת את החשבון לקופת גמל/<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, ומעמלות הקנייה והמכירה שהבנק/ברוקר גובה. הנתונים נכונים לחודש מאי 2026 ומתבססים על תעריפי גלובלנט.
+    </p>
+  </div>
+</section>
+
+<!-- Broker quick cards -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">תנאי כניסה</span>
+      <h2>סכומי מינימום ותנאים — מבט מהיר</h2>
+      <p>לפני שמסתכלים על העמלות, חשוב לדעת איזה גוף רלוונטי עבורך.</p>
+    </div>
+
+    <div class="brokers-grid">
+      <div class="broker-quick">
+        <h3>פסגות</h3>
+        <div class="mins">
+          <strong>75,000 ₪ פר ת.ז.</strong><br>
+          (30K פר מוצר)<br>
+          ללא דמי ניהול חשבון
+        </div>
+      </div>
+      <div class="broker-quick">
+        <h3>IBI</h3>
+        <div class="mins">
+          <strong>75,000 ₪ פר ת.ז.</strong><br>
+          (30K פר מוצר)<br>
+          ₪15/חודש אם אין פעילות
+        </div>
+      </div>
+      <div class="broker-quick">
+        <h3>מזרחי טפחות</h3>
+        <div class="mins">
+          <strong>300,000 ₪ פר ת.ז.</strong><br>
+          (50K פר מוצר)<br>
+          לקוחות בנק בלבד · פתיחת החשבון בסניף
+        </div>
+      </div>
+      <div class="broker-quick">
+        <h3>הבינלאומי</h3>
+        <div class="mins">
+          <strong>300,000 ₪ פר מוצר</strong><br>
+          מסלול "הכל כלול" — 0.22%/שנה<br>
+          מותאם למסחר פעיל
+        </div>
+      </div>
+      <div class="broker-quick">
+        <h3>לאומי</h3>
+        <div class="mins">
+          <strong>300,000 ₪ פר מוצר</strong><br>
+          לקוחות בנק לאומי בלבד
+        </div>
+      </div>
+      <div class="broker-quick">
+        <h3>הפועלים</h3>
+        <div class="mins">
+          <strong>פלטינום בלבד</strong><br>
+          לקוחות פלטינום של בנק הפועלים
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Service fee -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <h2>השירות שלי — צירוף לקופה</h2>
+      <p>זה התשלום היחיד שאני מקבל. תשלום חד-פעמי בעת ההצטרפות.</p>
+    </div>
+
+    <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:var(--radius-card); border:1px solid var(--border); padding:var(--s-xl); text-align:center; box-shadow: var(--shadow-card);">
+      <div style="font-size:48px; font-weight:700; color:var(--primary); line-height:1;">₪890</div>
+      <div style="color:var(--text-2); margin-top:8px;">חד-פעמי</div>
+      <hr style="margin: var(--s-md) 0; border:none; border-top:1px solid var(--border);">
+      <p style="font-size:15px; color:var(--text-2); margin:0;">
+        כולל: מסלקה פנסיונית (מיפוי הקופות הקיימות), בחירת הברוקר המתאים, החתמה על מסמכי
+        ההצטרפות, וצירוף לגלובלנט ולברוקר. אסור לי לקבל עמלה מאף אחת מהחברות —
+        הכנסתי היחידה היא העמלה החד-פעמי.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Globalnet tier -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>דמי ניהול גלובלנט (חברת הגמל)</h2>
+      <p>
+        גלובלנט גובה דמי ניהול שנתיים כאחוז מהצבירה. הם נגבים אוטומטית
+        מתוך הקופה, מדי חודש, לפי המדרג הבא כשמצטרפים דרכי.
+      </p>
+    </div>
+
+    <table class="tier-table">
+      <thead>
+        <tr>
+          <th>גובה הצבירה</th>
+          <th>דמי ניהול שנתיים</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>75,000 — 250,000 ₪</td><td>0.38%</td></tr>
+        <tr><td>250,000 — 1,000,000 ₪</td><td>0.25%</td></tr>
+        <tr><td>1,000,000 ₪ ומעלה</td><td>0.23%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top: var(--s-lg);">
+      <strong>מה זה אומר במספרים:</strong>
+      <ul style="margin: 8px 0 0; padding-right: 20px;">
+        <li>תיק 100K → ₪380/שנה בדמי ניהול גלובלנט</li>
+        <li>תיק 500K → ₪1,250/שנה</li>
+        <li>תיק 1.5M → ₪3,450/שנה</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Main fees table - Israel -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">עמלות פעולות בישראל</span>
+      <h2>קנייה / מכירה בבורסה הישראלית</h2>
+      <p>אחוז מערך הפעולה. העמלות של מזרחי הן הנמוכות ביותר — פסגות במקום השני.</p>
+    </div>
+
+    <div class="fees-table-wrap">
+      <table class="fees-table">
+        <thead>
+          <tr>
+            <th>סוג נייר</th>
+            <th>לאומי</th>
+            <th>מזרחי</th>
+            <th>הבינלאומי*</th>
+            <th>IBI**</th>
+            <th>פסגות</th>
+            <th>הפועלים</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>אג"ח קונצרני / המרה</td><td>0.08%</td><td>0.03%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.06%</td><td>0.085%</td></tr>
+          <tr><td>אג"ח ממשלתי</td><td>0.07%</td><td>0.02%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.06%</td><td>0.085%</td></tr>
+          <tr><td>מק"מ</td><td>0.07%</td><td>0.01%</td><td>0.07%</td><td>0.06% (מינ' ₪2.35)</td><td>0.05%</td><td>0.025%</td></tr>
+          <tr><td>מניות</td><td>0.08%</td><td>0.055%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.07%</td><td>0.065%</td></tr>
+          <tr><td>קרנות נאמנות</td><td>0.08%</td><td>0.055%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.07%</td><td>פטור</td></tr>
+          <tr><td>קרנות סל מנייתי</td><td>0.08%</td><td>0.04%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.07%</td><td>0.065%</td></tr>
+          <tr><td>קרנות סל אג"ח</td><td>0.08%</td><td>0.02%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.07%</td><td>0.065%</td></tr>
+          <tr><td>קרן חוץ נסחרת</td><td>0.08%</td><td>0.055%</td><td>0.07%</td><td>0.08% (מינ' ₪2.35)</td><td>0.07%</td><td>0.065%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 13px; color: var(--text-meta); margin-top: 8px; padding: 0 4px;">* הבינלאומי: עמלות אלו חלות בחשבונות עם צבירה של מיליון ₪ ומעלה.<br>** IBI: יש עמלת מינימום 2.35 ₪ לפעולה, וכן דמי ניהול חודשיים בסך 15 ₪ מהם מקוזזות עמלות על פעולות באותו חודש.</p>
+  </div>
+</section>
+
+<!-- Foreign fees -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">עמלות פעולות בחו"ל</span>
+      <h2>קנייה / מכירה בארה"ב ובאירופה</h2>
+      <p>פה הפער בין הברוקרים גדול יותר — בעיקר במינימום העמלה לפעולה.</p>
+    </div>
+
+    <div class="fees-table-wrap">
+      <table class="fees-table">
+        <thead>
+          <tr>
+            <th>סוג נייר</th>
+            <th>לאומי</th>
+            <th>מזרחי</th>
+            <th>הבינלאומי</th>
+            <th>IBI</th>
+            <th>פסגות</th>
+            <th>הפועלים</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>מניות בארה"ב</td><td>0.15%</td><td>2 סנט/מניה (מינ' $10)</td><td>0.07% (מינ' $7.5)</td><td>1 סנט/מניה (מינ' $7.5)</td><td>1 סנט/מניה (מינ' $6.5)</td><td>0.09% (מינ' $10)</td></tr>
+          <tr><td>מניות באירופה</td><td>0.15%</td><td>0.08% (מינ' $7.5)</td><td>0.07% (מינ' $7.5)</td><td>0.3% (מינ' 30 יח')</td><td>0.15% (מינ' 15 יח')</td><td>0.09% (מינ' $25)</td></tr>
+          <tr><td>ETF בארה"ב</td><td>0.15%</td><td>2 סנט/מניה (מינ' $10)</td><td>0.07% (מינ' $7.5)</td><td>1 סנט/מניה (מינ' $7.5)</td><td>1 סנט/מניה (מינ' $6.5)</td><td>0.09% (מינ' $10)</td></tr>
+          <tr><td>ETF באירופה</td><td>0.15%</td><td>0.08% (מינ' $7.5)</td><td>0.07% (מינ' $7.5)</td><td>0.3% (מינ' 30 יח')</td><td>0.15% (מינ' 15 יח')</td><td>0.09% (מינ' $25)</td></tr>
+          <tr><td>קרנות נאמנות ארה"ב</td><td>0.15%</td><td>0.06% (מינ' $7.5)</td><td>0.07% (מינ' $7.5)</td><td>0.275% (מינ' $7.5)</td><td>1 סנט/מניה (מינ' $6.5)</td><td>0.09%</td></tr>
+          <tr><td>קרנות נאמנות אירופה</td><td>0.15%</td><td>0.06% (מינ' $7.5)</td><td>0.07% (מינ' $7.5)</td><td>0.275% (מינ' $7.5)</td><td>0.15%<sup>†</sup></td><td>0.09%</td></tr>
+          <tr><td>אג"ח Corporate ארה"ב/אירופה</td><td>0.15%</td><td>0.035% (מינ' $8.5)</td><td>0.07% (מינ' $7.5)</td><td>0.2% (מינ' 30 יח')</td><td>0.25% (מינ' 50 יח')</td><td>0.09% (מינ' $25)</td></tr>
+          <tr><td>אג"ח ממשלתי חו"ל</td><td>0.15%</td><td>0.035% (מינ' $8.5)</td><td>0.07% (מינ' $7.5)</td><td>0.2% (מינ' 30 יח')</td><td>0.15% (מינ' 15 יח')</td><td>0.09%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-meta); margin-top: 8px; padding: 0 4px;">† פסגות: מינימום 15 יחידות במטבע העסקה לקרנות נאמנות אירופה.</p>
+
+    <div class="callout">
+      <strong>שים לב:</strong> מינימום העמלה הוא הקובע לרוב הפעולות הקטנות. אם תקנה ETF בארה"ב
+      ב-$1,000, עמלה של 1 סנט/מניה לא תשנה כלום — תשלם את המינימום ($6.5-$10). זו הסיבה שמזרחי
+      (מינ' $10) יקר יותר מפסגות (מינ' $6.5) למסחר פעיל בחו"ל.
+    </div>
+  </div>
+</section>
+
+<!-- Forex -->
+<section style="background: var(--bg-cream);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">המרת מט"ח</span>
+      <h2>עמלות המרה ופערי שערים</h2>
+      <p>כשמשקיעים בחו"ל, יש גם עלות של המרת מטבע.</p>
+    </div>
+
+    <div class="fees-table-wrap">
+      <table class="fees-table">
+        <thead>
+          <tr>
+            <th>ברוקר</th>
+            <th>עמלת המרה</th>
+            <th>הערות</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>לאומי</td>
+            <td>פטור</td>
+            <td>7 פרומיל הטבת שער</td>
+          </tr>
+          <tr>
+            <td>מזרחי</td>
+            <td>הנחה עד 90% מהתעריף הנקוב</td>
+            <td>תיק עד 200K — ללא הטבת שער<br>200K-500K — 5 פרומיל הטבה<br>500K+ — 7 פרומיל הטבה</td>
+          </tr>
+          <tr>
+            <td>הבינלאומי</td>
+            <td>0.0195</td>
+            <td>7 פרומיל הטבה</td>
+          </tr>
+          <tr>
+            <td>IBI</td>
+            <td>פטור (עד $15K)</td>
+            <td>5 פרומיל הטבה עד $15K, מעל — 15 פרומיל</td>
+          </tr>
+          <tr>
+            <td>פסגות</td>
+            <td>פטור</td>
+            <td>7 פרומיל הטבת שער</td>
+          </tr>
+          <tr>
+            <td>הפועלים</td>
+            <td>פטור</td>
+            <td>לפי תעריפון הבנק; ללקוחות פלטינום ההטבות נפרדות</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Important notes -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">הערות חשובות</span>
+      <h2>מה כדאי לדעת לפני בחירה</h2>
+    </div>
+
+    <div class="notes-box" style="max-width: 900px; margin: 0 auto;">
+      <h4>1. הברוקר הזול ביותר תלוי בתמהיל שלך</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        מזרחי הכי זול לפעולות בישראל — אבל יקר יותר לפעולות קטנות בחו"ל (מינ' $10). פסגות הכי
+        זול לפעולות קטנות בחו"ל. הפועלים (פלטינום) תחרותי בעיקר בארץ, ופטור מלא בקרנות נאמנות
+        ישראליות — אבל מינ' $10/$25 בחו"ל. הבינלאומי במסלול "הכל כלול" משתלם רק לתיקים גדולים
+        עם מסחר פעיל. <a href="/investment/ira/#wizard">השאלון בדף השירות</a> עושה את ההשוואה הזו עבורך.
+      </p>
+
+      <h4>2. דמי ניהול גלובלנט תמיד באים בנוסף</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        בלי קשר לברוקר שבחרת — תשלם תמיד את דמי הניהול של גלובלנט (0.23%-0.38%). הם השכבה
+        ה"קבועה" של ה-IRA.
+      </p>
+
+      <h4>3. ניירות הערך רשומים על שמך</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        ניירות הערך והמזומנים רשומים על שמך — בחבר הבורסה (הניירות) ובחשבון נאמנות בבנק
+        (המזומנים). אם גלובלנט תגיע לחדלות פירעון, ניירות הערך נשארים רשומים על שמך והכסף נשאר שלך בחשבון הנאמנות בבנק.
+      </p>
+
+      <h4>4. עמלות הקנייה משולמות בנפרד</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        בקופה "רגילה" העמלות נגרעות ישירות מהתשואה ואינך מודע לכך ששילמת אותן. ב-IRA העלות הזו שקופה ותלויה בתדירות ואופי הפעולות שלך. תדירות גבוהה של פעולות תייקר עבורך את העמלות. מחקרים מראים שמיעוט פעולות מניב סטטיסטית תשואה גבוהה יותר בטווח הארוך.
+      </p>
+
+      <h4>5. האם יש עלויות נוספות?</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        במידה ותבחר להשקיע בקרנות נאמנות או בתעודות סל, ייתכן והן תגבינה דמי ניהול, דמי נאמנות ושיעור הוספה — בנוסף לעמלות הקנייה והמכירה המפורטות בעמוד זה. עלויות אלו גלומות בשווי הקרן ואינן נגבות ישירות ממך.
+      </p>
+
+      <h4>6. הנתונים בעמוד מתעדכנים</h4>
+      <p style="color: var(--text-2); font-size: 15px;">
+        העמלות והתנאים יכולים להשתנות. הנתונים בעמוד נכונים לחודש מאי 2026, מקור: מסמכי
+        גלובלנט. העמלות המחייבות הן אלו עליהן תחתום במסמכי ההצטרפות של גלובלנט והברוקר בו תבחר.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Related -->
+<section class="related-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">המשך</span>
+      <h2>תוכל גם ל...</h2>
+    </div>
+    <div class="related-grid">
+      <a href="/investment/ira/" class="related-card">
+        <div class="micro">דף שירות</div>
+        <h4>השאלון — קבל המלצה אישית</h4>
+        <p>השאלון מחשב לפי הנתונים שלך — סכום, תמהיל, פעילות — איזה ברוקר הזול ביותר עבורך.</p>
+      </a>
+      <a href="/investment/ira-investment-rules/" class="related-card">
+        <div class="micro">מדריך</div>
+        <h4>כללי השקעה ב-IRA</h4>
+        <p>מה מותר ומה אסור לקנות ב-IRA — לפי תקנות הפיקוח על שירותים פיננסיים תש"ע-2009.</p>
+      </a>
+      <a href="/investment/ira-explained/" class="related-card">
+        <div class="micro">מדריך עומק</div>
+        <h4>מתי IRA כן ומתי לא</h4>
+        <p>מדריך עומק — בקרן השתלמות זה זוהר, בגמל בזהירות, ובקרן פנסיה לא לגעת.</p>
+      </a>
+      <a href="/#contact" class="related-card">
+        <div class="micro">שיחה</div>
+        <h4>קבע שיחה לשמוע יותר</h4>
+        <p>אם החלטת שזה הכיוון — אני עוזר לך לעבור את כל התהליך. שיחה של 20 דקות.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | <a href="/about/">תכנון פיננסי</a></strong>
+        </div>
+        <p>איתן אחיטוב — <a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/investment/ira/">IRA — ניהול אישי</a></li>
+          <li><a href="/">קרן השתלמות</a></li>
+          <li><a href="/">קופת גמל</a></li>
+          <li><a href="/">גמל להשקעה</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
+          <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>שירותים</h4>
+        <ul>
+          <li><a href="/">תכנון פיננסי</a></li>
+        
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/investment/ira/">IRA — שאלון התאמה לברוקר</a>
+      <a class="related-link-card" href="/investment/ira-explained/">IRA — מתי כן ומתי לא</a>
+      <a class="related-link-card" href="/investment/ira-investment-rules/">כללי ההשקעה ב-IRA</a>
+      <a class="related-link-card" href="/savings/keren-hishtalmut/">קרן השתלמות — המדריך</a>
+    </div>
+  </div>
+</section>

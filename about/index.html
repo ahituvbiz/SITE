@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר | אודות</title>
+<title>איתן אחיטוב — <a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר | אודות</title>
 <meta name="description" content="איתן אחיטוב, יועץ פנסיוני בעל רישיון נדיר ממשרד האוצר (אחד מכ-100 בישראל). פרשתי מהבנק כדי לתת ייעוץ אובייקטיבי באמת — בלי עמלות, בלי קונפליקטים. הסיפור, הרישיון, והדרך שלי.">
 
 <!-- Open Graph -->
@@ -495,6 +495,58 @@ section { padding: var(--s-2xl) 0; }
 }
 .fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
 .fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #1F4E79;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F4E79;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #1F4E79;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
+  border-color: #1F4E79;
+  color: #1F4E79;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
 </style>
 </head>
 <body>
@@ -517,7 +569,7 @@ section { padding: var(--s-2xl) 0; }
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
       <a href="/#tools">🤖 רובייקטיבי</a>
-      <a href="/ira/">IRA</a>
+      <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
       <a href="/#tools">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
@@ -550,9 +602,9 @@ section { padding: var(--s-2xl) 0; }
       <span class="accent">איתן אחיטוב</span> — יועץ פנסיוני שפרש מהבנק כדי לעבוד אצלך
     </h1>
     <p class="lede">
-      רישיון יועץ פנסיוני נדיר מטעם משרד האוצר (אחד מכ-100 בישראל). תכנון פיננסי הוליסטי
+      <a href="/about/license/">רישיון יועץ פנסיוני</a> נדיר מטעם משרד האוצר (אחד מכ-100 בישראל). תכנון פיננסי הוליסטי
       שמשלב פנסיה, ביטוחים, חיסכון ומשכנתא בהסתכלות אחת. בלי עמלות מחברות הביטוח. בלי
-      ניגוד אינטרסים. אתה משלם — אני עובד אצלך.
+      <a href="/about/advisor-vs-agent/">ניגוד אינטרסים</a>. אתה משלם — אני עובד אצלך.
     </p>
   </div>
 </section>
@@ -566,7 +618,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="avatar">א</div>
       <div class="bio-text">
         <h3 style="margin-bottom: 4px;">איתן אחיטוב</h3>
-        <p style="margin: 0; color: var(--text-2); font-size: 15px;">יועץ פנסיוני בעל רישיון משרד האוצר · מתכנן פיננסי הוליסטי</p>
+        <p style="margin: 0; color: var(--text-2); font-size: 15px;">יועץ פנסיוני בעל רישיון משרד האוצר · <a href="/about/advisor-vs-planner-vs-agent/">מתכנן פיננסי</a> הוליסטי</p>
         <div class="credentials">
           <span>רישיון יועץ פנסיוני #1013</span>
           <span>תואר במנהל עסקים</span>
@@ -597,7 +649,7 @@ section { padding: var(--s-2xl) 0; }
     <p>
       הסיפור שלי עם הכספים לא התחיל במשרד ממוזג. הוא התחיל דווקא בעמדת שמירה צבאית.
       בעוד שחברים שלי ביחידה קראו עיתוני ספורט או ספרות מתח, אני עליתי לשמירות עם
-      ספרי כלכלה. הכוח של <strong>ריבית דריבית</strong> — היכולת של כסף לייצר עוד כסף לאורך
+      ספרי כלכלה. הכוח של <strong><a href="/savings/start-saving-early/">ריבית דריבית</a></strong> — היכולת של כסף לייצר עוד כסף לאורך
       זמן — פשוט הקסים אותי.
     </p>
     <p>
@@ -645,7 +697,7 @@ section { padding: var(--s-2xl) 0; }
     </p>
     <p>
       ב-2014, בעקבות דרישת לקוחות שרצו שאנהל גם את הצד השני של המאזן שלהם, החלטתי
-      להרחיב את השירות. עברתי את כל המסלול הנדרש כדי לקבל את <a href="/ira/explained/">רישיון
+      להרחיב את השירות. עברתי את כל המסלול הנדרש כדי לקבל את <a href="/investment/ira-explained/">רישיון
       היועץ הפנסיוני</a> מטעם רשות שוק ההון במשרד האוצר. רישיון אישי, פרטי. רישיון
       כזה קיים בידי כ-100 אנשי מקצוע פרטיים בלבד בישראל.
     </p>
@@ -684,7 +736,7 @@ section { padding: var(--s-2xl) 0; }
     </ul>
     <p>
       את ההבדל בין יועץ פנסיוני בעל רישיון לבין "<a href="/#audiences">מתכנן
-      פיננסי</a>" ללא רישיון, או סוכן ביטוח שמקבל עמלות — אני מפרט בעמוד נפרד. הוא
+      פיננסי</a>" ללא רישיון, או <a href="/about/advisor-vs-agent/">סוכן ביטוח</a> שמקבל עמלות — אני מפרט בעמוד נפרד. הוא
       עקרוני, ושווה לקרוא לפני שאתה מתחייב לעבוד עם מישהו.
     </p>
 
@@ -699,11 +751,11 @@ section { padding: var(--s-2xl) 0; }
       <div class="value-card">
         <span class="num">1</span>
         <h4>הסתכלות הוליסטית 360°</h4>
-        <p>הפנסיה לא חיה בוואקום. ביטוחים פרטיים, קרן ההשתלמות, המשכנתא, וכרית הנזילות — כולם משפיעים זה על זה. אני בודק את כל התמונה יחד, לא חלקים נפרדים.</p>
+        <p>הפנסיה לא חיה בוואקום. ביטוחים פרטיים, <a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a>, המשכנתא, וכרית הנזילות — כולם משפיעים זה על זה. אני בודק את כל התמונה יחד, לא חלקים נפרדים.</p>
       </div>
       <div class="value-card">
         <span class="num">2</span>
-        <h4>שילוב משכנתא ופנסיה</h4>
+        <h4>שילוב <a href="/mortgage/mortgage-and-pension/">משכנתא ופנסיה</a></h4>
         <p>בגלל שהתחלתי כיועץ משכנתאות, אני מבין איך החלטה לגבי משכנתא משפיעה על הפנסיה — ולהפך. צמד הנושאים האלה הוא הכי כסף שאדם רואה בחיים, ושייעוץ נפרד עליהם הוא טעות.</p>
       </div>
       <div class="value-card">
@@ -721,7 +773,7 @@ section { padding: var(--s-2xl) 0; }
     <!-- AUDIENCE -->
     <h2 id="audience">הקהל שאני עובד איתו</h2>
     <p>
-      אני עובד עם <strong>שכירים מעל הממוצע, עצמאים ופרילנסרים, וזוגות צעירים עם
+      אני עובד עם <strong>שכירים מעל הממוצע, <a href="/audiences/self-employed/">עצמאים ופרילנסרים</a>, וזוגות צעירים עם
       ילדים ו/או משכנתא, בגילאי 27 עד 47.</strong>
     </p>
     <p>
@@ -858,7 +910,7 @@ section { padding: var(--s-2xl) 0; }
 <section class="related-section">
   <div class="container">
     <div class="related-grid">
-      <a href="/ira/explained/" class="related-card">
+      <a href="/investment/ira-explained/" class="related-card">
         <div class="micro">מאמר חינוכי</div>
         <h4>IRA — מתי כן ומתי לא</h4>
         <p>המדריך החינוכי המלא: למה IRA טוב בעיקר בקרן השתלמות, ולמה אסור לגעת בקרן הפנסיה. חמש סיבות מפורטות.</p>
@@ -873,6 +925,21 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- CONTACT CTA -->
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/about/license/">רישיון יועץ פנסיוני — מה זה אומר לך</a>
+      <a class="related-link-card" href="/about/advisor-vs-agent/">יועץ פנסיוני מול מתכנן מול סוכן</a>
+      <a class="related-link-card" href="/about/testimonials/">המלצות מלקוחות</a>
+      <a class="related-link-card" href="/about/pricing/">כמה עולה ייעוץ פנסיוני?</a>
+      <a class="related-link-card" href="/ai/">רובייקטיבי — בדיקת דוח פנסיה חינם</a>
+    </div>
+  </div>
+</section>
+
 <section class="contact-section" id="contact">
   <div class="container">
     <h2>הגיע הרגע לשמוע יותר</h2>
@@ -921,12 +988,12 @@ section { padding: var(--s-2xl) 0; }
       <div>
         <h4>כדאי לדעת</h4>
         <ul>
-          <li><a href="/ira/explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
           <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
           <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
           <li><a href="/about/">אודות איתן</a></li>
           <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
-          <li><a href="/about/advisor-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ vs מתכנן vs סוכן</a></li>
           <li><a href="/about/recommended-advisor/">יועץ פנסיוני מומלץ</a></li>
           <li><a href="/about/pricing/">כמה עולה ייעוץ פנסיוני</a></li>
         </ul>
