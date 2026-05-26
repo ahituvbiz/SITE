@@ -207,7 +207,7 @@ section { padding: var(--s-2xl) 0; }
 .nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
 .nav a:hover { color: var(--primary); text-decoration: none; }
 .nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
-@media (max-width: 900px) { .nav { display: none; } }
+@media (max-width: 900px) { .nav {  } }
 
 /* Breadcrumb */
 .breadcrumb {
@@ -512,6 +512,62 @@ section { padding: var(--s-2xl) 0; }
   opacity: 0.6;
 }
 
+
+/* ── Mobile hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--primary, #1F4E79);
+  border-radius: 2px;
+  transition: all .25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0; right: 0;
+    width: min(280px, 85vw);
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    padding: 5rem 1.5rem 2rem;
+    gap: 0;
+    box-shadow: -4px 0 20px rgba(0,0,0,.15);
+    z-index: 150;
+    overflow-y: auto;
+  }
+  .nav.open { display: flex; }
+  .nav a {
+    padding: 1rem 0;
+    border-bottom: 1px solid #E7F0F7;
+    font-size: 1.05rem;
+  }
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: 140;
+  }
+  .nav-overlay.open { display: block; }
+}
+
 </style>
 </head>
 <body>
@@ -533,6 +589,10 @@ section { padding: var(--s-2xl) 0; }
       <a href="/about/">אודות</a>
       <a href="#contact">קבע שיחה</a>
     </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
   </div>
 </header>
 
@@ -1215,6 +1275,25 @@ function toggleFaq(btn) {
     el.style.display = 'block';
     setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
   }
+})();
+</script>
+<script>
+// Mobile nav
+(function(){
+  const btn = document.getElementById('hamburger');
+  const nav = document.querySelector('.nav');
+  const overlay = document.getElementById('nav-overlay');
+  if (!btn || !nav) return;
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
+  overlay.addEventListener('click', () => toggle(false));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
 })();
 </script>
 </body>
