@@ -660,234 +660,583 @@ section { padding: var(--s-2xl) 0; }
 
 <!-- CALCULATOR SECTION -->
 <section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-outer">
 
-      <div class="disclaimer-banner">
-        <strong>הערה:</strong> המחשבון הוא כלי חינוכי בלבד ואינו מהווה ייעוץ השקעות. התוצאות מבוססות על הנחות שמוזנות ידנית — שוק ההון אינו ודאי. לייעוץ ספציפי לגבי נדל"ן כנכס — פנה לעורך דין ויועץ מס. <a href="/about/">הרישיון שלי</a> הוא ייעוץ פנסיוני.
-      </div>
+<!-- ═══════════════════════════════════════════════
+     CALCULATOR WIDGET — embedded from legacy code
+     ═══════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
+/* ── Site design overrides for calculator ── */
+.calc-widget-wrap {
+  background: #fff;
+  border: 1px solid #D6E4F0;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  font-family: 'Heebo', sans-serif;
+  direction: rtl;
+}
+.calc-widget-wrap h2, .calc-widget-wrap h3 {
+  color: #1F4E79;
+  font-family: 'Heebo', sans-serif;
+}
+.calc-widget-wrap input[type=number],
+.calc-widget-wrap input[type=text],
+.calc-widget-wrap select {
+  font-family: 'Heebo', sans-serif;
+  border: 1px solid #D6E4F0;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  color: #1A1A1A;
+}
+.calc-widget-wrap input:focus, .calc-widget-wrap select:focus {
+  outline: 2px solid #1F4E79;
+  border-color: #1F4E79;
+}
+.calc-widget-wrap button {
+  background: #1F4E79;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.8rem;
+  font-size: 1rem;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.calc-widget-wrap button:hover { background: #163a5e; }
+/* ── Legacy calculator CSS (color-adapted) ── */
+:root {
+            --primary: #1F4E79;
+            --secondary: #1F4E79;
+            --danger: #D74E3C;
+            --warning: #f97316;
+            --bg: #ffffff;
+            --border: #e2e8f0;
+            --text: #334155;
+            --result-bg: #f8fafc;
+        }
 
-      <!-- Scenario Tabs -->
-      <div class="scenario-tabs" role="tablist">
-        <button class="scenario-tab active" data-scenario="base" onclick="setScenario('base', this)">תרחיש בסיס</button>
-        <button class="scenario-tab" data-scenario="pessimist" onclick="setScenario('pessimist', this)">פסימי</button>
-        <button class="scenario-tab" data-scenario="optimist" onclick="setScenario('optimist', this)">אופטימי</button>
-        <button class="scenario-tab" data-scenario="custom" onclick="setScenario('custom', this)">מותאם אישית</button>
-      </div>
+        html, body { margin: 0; padding: 0; background-color: transparent; font-family: 'Heebo', sans-serif; overflow-x: hidden; }
+        .calculator-container { padding: 15px; width: 100%; box-sizing: border-box; }
+        .layout { display: flex; gap: 20px; }
+        .column-inputs, .column-results { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        .column-results { background: var(--result-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .section-title { font-size: 0.85rem; font-weight: 800; color: var(--primary); margin: 10px 0 5px 0; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+        .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+        label { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+        input, select { width: 105px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.9rem; direction: ltr; }
+        select { direction: rtl; width: 123px; }
+        .result-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #cbd5e1; }
+        .res-label { font-size: 0.8rem; font-weight: 600; color: #475569; }
+        .res-val { font-size: 1rem; font-weight: 800; color: var(--primary); }
+        .comparison-box { margin-top: 10px; padding-top: 5px; border-top: 3px solid var(--primary); }
+        .chart-wrapper { margin-top: 15px; background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border); height: 350px; }
+        .highlight-green { color: var(--secondary); }
+        .negative { color: var(--danger); }
+        .error-msg { color: var(--danger); font-size: 0.75rem; font-weight: bold; margin-top: 5px; text-align: center; }
 
-      <div class="calc-main">
+        @media (max-width: 650px) {
+            .layout { flex-direction: column; gap: 15px; }
+            .column-results { width: 100%; box-sizing: border-box; }
+            input, select { width: 110px; }
+        }
+</style>
 
-        <!-- SHARED: הון עצמי + אופק + מס -->
-        <div class="shared-inputs">
-          <h4>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            פרמטרים בסיסיים — משותפים לשתי ההשקעות
-          </h4>
-          <div class="shared-row">
-            <div class="input-group">
-              <label for="s-equity">הון עצמי להשקעה</label>
-              <div class="input-row">
-                <input type="range" id="s-equity" min="100000" max="2000000" step="50000" value="600000">
-                <span class="input-val" id="s-equity-out">600,000 ₪</span>
-              </div>
+<div class="calc-widget-wrap">
+  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה לצרכי לימוד בלבד. תוצאות תלויות בהנחות שהוזנו ואינן מהוות ייעוץ השקעות.</p>
+  <div class="calculator-container">
+    <div class="layout">
+        <div class="column-inputs">
+            <div class="section-title">פרטי נכס ורכישה</div>
+            <div class="row">
+                <label>סטטוס דירה</label>
+                <select id="C1">
+                    <option value="single">דירה יחידה</option>
+                    <option value="second" selected>דירה שנייה</option>
+                    <option value="third">שלישית ומעלה</option>
+                </select>
             </div>
-            <div class="input-group">
-              <label for="s-years">אופק השקעה (שנים)</label>
-              <div class="input-row">
-                <input type="range" id="s-years" min="5" max="30" step="1" value="15">
-                <span class="input-val" id="s-years-out">15 שנים</span>
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="s-inflation">אינפלציה שנתית משוערת</label>
-              <div class="input-row">
-                <input type="range" id="s-inflation" min="0" max="6" step="0.1" value="2.5">
-                <span class="input-val" id="s-inflation-out">2.5%</span>
-              </div>
-            </div>
-          </div>
+            <div class="row"><label>מחיר נכס</label><input type="text" id="C2" value="1,400,000"></div>
+            <div class="row"><label>עלויות נלוות</label><input type="text" id="C3" value="42,000"></div>
+            <div class="row"><label>מס רכישה</label><input type="text" id="C4" value="112,000"></div>
+            <div class="row"><label>הון עצמי פנוי</label><input type="text" id="C5" value="400,000"></div>
+            
+            <div class="section-title">שכירות והוצאות</div>
+            <div class="row"><label>שכירות חודשית</label><input type="text" id="C6" value="3,500"></div>
+            <div class="row"><label>חודשי השכרה בשנה</label><input type="text" id="C7" value="11.5"></div>
+            <div class="row"><label>עלות תיקונים שנתית</label><input type="text" id="C8" value="3,000"></div>
+
+            <div class="section-title">מימון וריביות</div>
+            <div class="row"><label>ריבית משכנתא (%)</label><input type="text" id="C9" value="4.5"></div>
+            <div class="row"><label>פריסת משכנתא (שנים)</label><input type="text" id="C10" value="30"></div>
+            <div class="row"><label>ריבית הלוואה משלימה (%)</label><input type="text" id="C11" value="6.5"></div>
+            <div class="row"><label>פריסת הלוואה (שנים)</label><input type="text" id="C12" value="5"></div>
+
+            <div class="section-title">הנחות שוק (השוואה)</div>
+            <div class="row"><label>עליית ערך נכס (%)</label><input type="text" id="E14" value="3.0"></div>
+            <div class="row"><label>תשואת בורסה (%)</label><input type="text" id="E15" value="8.0"></div>
+            <div class="row"><label>אינפלציה שנתית (%)</label><input type="text" id="E16" value="2.0"></div>
         </div>
 
-        <!-- TWO COLUMNS: נדל"ן | שוק ההון -->
-        <div class="inputs-grid">
+        <div class="column-results">
+            <div class="section-title">סיכום נדל"ן שוטף</div>
+            <div id="error-display" class="error-msg" style="display:none;"></div>
+            <div class="result-row"><span class="res-label">משכנתא</span><span class="res-val" id="G2">0</span></div>
+            <div class="result-row"><span class="res-label">הלוואה משלימה</span><span class="res-val" id="G5">0</span></div>
+            <div class="result-row"><span class="res-label">סך החזרים חודשי</span><span class="res-val" id="G7">0</span></div>
+            <div class="result-row"><span class="res-label">תזרים חודשי נטו</span><span class="res-val" id="G10">0</span></div>
 
-          <!-- LEFT: נדל"ן -->
-          <div class="col-nadlan">
-            <div class="input-col-header">
-              <span class="col-dot"></span>
-              🏠 פרמטרי נדל"ן
+            <div class="comparison-box">
+                <div class="section-title">הון נטו בסוף <span id="yearsLabel">30</span> שנה</div>
+                <div class="result-row"><span class="res-label">הון נטו בדירה</span><span class="res-val highlight-green" id="C18">0</span></div>
+                <div class="result-row"><span class="res-label">הון נטו בבורסה</span><span class="res-val" id="G18">0</span></div>
+                <div id="winnerBox" style="background:white; padding:8px; border-radius:5px; margin-top:10px; text-align:center; font-weight:bold; border:1px solid var(--primary);">
+                    יתרון ל<span id="winner">---</span>: <span id="gap">0</span>
+                </div>
             </div>
 
-            <div class="input-group">
-              <label for="n-price">מחיר הדירה</label>
-              <div class="input-row">
-                <input type="range" id="n-price" min="500000" max="5000000" step="100000" value="2000000">
-                <span class="input-val" id="n-price-out">2,000,000 ₪</span>
-              </div>
-              <div class="hint">ההון העצמי יממן חלק מהדירה — השאר במשכנתא</div>
-            </div>
-
-            <div class="input-group">
-              <label for="n-return">עליית ערך שנתית משוערת</label>
-              <div class="input-row">
-                <input type="range" id="n-return" min="0" max="12" step="0.5" value="4">
-                <span class="input-val" id="n-return-out">4.0%</span>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="n-rent">תשואת שכירות שנתית ברוטו</label>
-              <div class="input-row">
-                <input type="range" id="n-rent" min="0" max="8" step="0.25" value="3">
-                <span class="input-val" id="n-rent-out">3.0%</span>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="n-mortgage-rate">ריבית משכנתא שנתית</label>
-              <div class="input-row">
-                <input type="range" id="n-mortgage-rate" min="2" max="8" step="0.1" value="4.5">
-                <span class="input-val" id="n-mortgage-rate-out">4.5%</span>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="n-vacancy">חודשי ריקנות ממוצעים לשנה</label>
-              <div class="input-row">
-                <input type="range" id="n-vacancy" min="0" max="3" step="0.25" value="0.5">
-                <span class="input-val" id="n-vacancy-out">0.5 חודשים</span>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="n-maintenance">הוצאות תחזוקה שנתיות (% מערך)</label>
-              <div class="input-row">
-                <input type="range" id="n-maintenance" min="0.2" max="2" step="0.1" value="0.5">
-                <span class="input-val" id="n-maintenance-out">0.5%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: שוק ההון -->
-          <div class="col-shuk">
-            <div class="input-col-header">
-              <span class="col-dot"></span>
-              📈 פרמטרי שוק ההון
-            </div>
-
-            <div class="input-group">
-              <label for="m-return">תשואה שנתית ברוטו משוערת</label>
-              <div class="input-row">
-                <input type="range" id="m-return" min="2" max="15" step="0.5" value="8">
-                <span class="input-val" id="m-return-out">8.0%</span>
-              </div>
-              <div class="hint">S&P 500 ממוצע היסטורי: ~10% נומינלי (כ-7% ריאלי)</div>
-            </div>
-
-            <div class="input-group">
-              <label for="m-mgmt">דמי ניהול שנתיים</label>
-              <div class="input-row">
-                <input type="range" id="m-mgmt" min="0" max="2" step="0.05" value="0.1">
-                <span class="input-val" id="m-mgmt-out">0.1%</span>
-              </div>
-              <div class="hint">ETF מחקה מדד: 0.03%-0.2% | קרן מנוהלת: 0.5%-1.5%</div>
-            </div>
-
-            <div class="input-group">
-              <label for="m-monthly">הפקדה חודשית נוספת (₪)</label>
-              <div class="input-row">
-                <input type="range" id="m-monthly" min="0" max="10000" step="500" value="2000">
-                <span class="input-val" id="m-monthly-out">2,000 ₪</span>
-              </div>
-              <div class="hint">שווה ל"שכירות נטו" שהיית מקבל מהדירה</div>
-            </div>
-
-            <div class="input-group">
-              <label for="m-tax">מס רווחי הון בעת מימוש</label>
-              <div class="input-row">
-                <input type="range" id="m-tax" min="0" max="30" step="1" value="25">
-                <span class="input-val" id="m-tax-out">25%</span>
-              </div>
-              <div class="hint">ישראל: 25% על רווח נומינלי (ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>: 0%)</div>
-            </div>
-
-          </div>
+            <div class="section-title">ניתוח השוואתי ומבנה הון</div>
+            <div class="chart-wrapper"><canvas id="equityChart"></canvas></div>
         </div>
+    </div>
+</div>
 
-        <!-- ADVANCED SECTION -->
-        <button class="advanced-toggle" id="advanced-btn" onclick="toggleAdvanced()">
-          <span class="arrow" id="advanced-arrow">▼</span>
-          פרמטרים מתקדמים — עלויות עסקה, מס שבח, ומינוף
-        </button>
+<script>
+    let equityChart = null;
 
-        <div class="advanced-section" id="advanced-section">
-          <div class="advanced-grid">
-            <div class="input-group">
-              <label for="n-purchase-tax">מס רכישה על הדירה (% ממחיר)</label>
-              <div class="input-row">
-                <input type="range" id="n-purchase-tax" min="0" max="10" step="0.1" value="5">
-                <span class="input-val" id="n-purchase-tax-out">5.0%</span>
-              </div>
-              <div class="hint">דירה ראשונה: 0%-3.5% | דירה שנייה: 5%-10%</div>
-            </div>
+    function formatNum(n) { return Math.round(n || 0).toLocaleString('he-IL'); }
+    function parseNum(v) { 
+        if (typeof v !== 'string') return v || 0;
+        return parseFloat(v.replace(/,/g, '')) || 0; 
+    }
 
-            <div class="input-group">
-              <label for="n-sale-tax">מס שבח ורווח הון נדל"ן (% מהרווח)</label>
-              <div class="input-row">
-                <input type="range" id="n-sale-tax" min="0" max="30" step="1" value="25">
-                <span class="input-val" id="n-sale-tax-out">25%</span>
-              </div>
-              <div class="hint">דירה יחידה: פטור | אחרת: ~25% (תלוי בתקופת בעלות)</div>
-            </div>
+    function calculatePurchaseTax(price, status) {
+        if (status !== 'single') return price * 0.08;
+        
+        let tax = 0;
+        const brackets = [
+            { limit: 1978745, rate: 0 },
+            { limit: 2347040, rate: 0.035 },
+            { limit: 6055070, rate: 0.05 },
+            { limit: 20183565, rate: 0.08 },
+            { limit: Infinity, rate: 0.10 }
+        ];
 
-            <div class="input-group">
-              <label for="n-agent-fee">עמלת מתווך ועורך דין (% ממחיר)</label>
-              <div class="input-row">
-                <input type="range" id="n-agent-fee" min="0" max="4" step="0.1" value="2">
-                <span class="input-val" id="n-agent-fee-out">2.0%</span>
-              </div>
-            </div>
+        let prevLimit = 0;
+        for (const bracket of brackets) {
+            if (price > prevLimit) {
+                const taxableAmount = Math.min(price, bracket.limit) - prevLimit;
+                tax += taxableAmount * bracket.rate;
+                prevLimit = bracket.limit;
+            } else break;
+        }
+        return tax;
+    }
 
-            <div class="input-group">
-              <label for="n-rent-tax">מס על הכנסות שכירות</label>
-              <div class="input-row">
-                <input type="range" id="n-rent-tax" min="0" max="30" step="1" value="10">
-                <span class="input-val" id="n-rent-tax-out">10%</span>
-              </div>
-              <div class="hint">מסלול 10% על סכום מעל 5,100 ₪/חודש, פטור עד אז</div>
-            </div>
+    function PMT(r, n, pv) {
+        if (n <= 0) return 0;
+        if (r === 0) return pv / n;
+        return (r * pv) / (1 - Math.pow(1 + r, -n));
+    }
+    
+    function FV(r, n, pmt, pv) {
+        if (r === 0) return pv + (pmt * n);
+        return pv * Math.pow(1 + r, n) + pmt * (Math.pow(1 + r, n) - 1) / r;
+    }
 
-            <div class="input-group">
-              <label for="m-entry-cost">עלויות כניסה לשוק ההון (% מהסכום)</label>
-              <div class="input-row">
-                <input type="range" id="m-entry-cost" min="0" max="2" step="0.05" value="0.1">
-                <span class="input-val" id="m-entry-cost-out">0.1%</span>
-              </div>
-            </div>
+    function getRemainingBalance(principal, rate, totalMonths, elapsedMonths) {
+        if (elapsedMonths >= totalMonths) return 0;
+        if (totalMonths <= 0) return 0;
+        if (rate === 0) return principal * (1 - elapsedMonths / totalMonths);
+        const factorTotal = Math.pow(1 + rate, totalMonths);
+        const factorElapsed = Math.pow(1 + rate, elapsedMonths);
+        return principal * (factorTotal - factorElapsed) / (factorTotal - 1);
+    }
 
-            <div class="input-group">
-              <label for="m-exit-cost">עלויות יציאה משוק ההון (% מהסכום)</label>
-              <div class="input-row">
-                <input type="range" id="m-exit-cost" min="0" max="2" step="0.05" value="0.05">
-                <span class="input-val" id="m-exit-cost-out">0.05%</span>
-              </div>
-            </div>
-          </div>
-        </div>
+    function calculate() {
+        const status = document.getElementById('C1').value;
+        const C2 = parseNum(document.getElementById('C2').value);
+        const C3 = parseNum(document.getElementById('C3').value);
+        const C4 = parseNum(document.getElementById('C4').value);
+        const C5 = parseNum(document.getElementById('C5').value);
+        const C6 = parseNum(document.getElementById('C6').value);
+        const C7 = parseNum(document.getElementById('C7').value);
+        const C8 = parseNum(document.getElementById('C8').value);
+        const C9 = parseNum(document.getElementById('C9').value) / 100;
+        const C10 = parseNum(document.getElementById('C10').value);
+        const C11 = parseNum(document.getElementById('C11').value) / 100;
+        const C12 = parseNum(document.getElementById('C12').value);
+        const E14 = parseNum(document.getElementById('E14').value) / 100;
+        const E15 = parseNum(document.getElementById('E15').value) / 100;
+        const E16 = parseNum(document.getElementById('E16').value) / 100;
 
-        <!-- CTA -->
-        <div class="calc-cta-row">
-          <button class="btn-calc" onclick="calculate()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            חשב השוואה
-          </button>
-          <button class="btn-reset" onclick="resetCalc()">איפוס לערכי ברירת מחדל</button>
-          <span style="font-size:13px; color: var(--text-meta); margin-right: auto;">* כל הסכומים בשקלים נטו אחרי מס</span>
-        </div>
+        const totalProjectCost = C2 + C3 + C4;
+        
+        // לוגיקת מימון: יחידה 75%, שנייה 70%, שלישית 50%
+        let maxLTV = (status === 'single') ? 0.75 : (status === 'second' ? 0.70 : 0.50);
+        
+        const G2 = Math.max(0, Math.min(C2 * maxLTV, totalProjectCost - C5));
+        const G5 = Math.max(0, totalProjectCost - C5 - G2);
 
-      </div><!-- end calc-main -->
-    </div><!-- end calc-outer -->
-  </div>
+        const errorEl = document.getElementById('error-display');
+        if ((G2 > 0 && C10 <= 0) || (G5 > 0 && C12 <= 0)) {
+            errorEl.innerText = "לא ניתן לפרוס הלוואה ל-0 שנים";
+            errorEl.style.display = "block";
+        } else {
+            errorEl.style.display = "none";
+        }
+
+        const G3 = PMT(C9 / 12, C10 * 12, G2);
+        const G6 = PMT(C11 / 12, C12 * 12, G5);
+        const G7 = G3 + G6;
+        const G10 = ((C6 * C7) - C8) / 12 - G7;
+
+        const labels = [];
+        const propValueData = []; 
+        const mortgageBalData = []; 
+        const loanBalData = []; 
+        const reEquityData = []; 
+        const stockNetData = []; 
+
+        function getStockNetAtYear(t) {
+            const rM = Math.pow(1 + E15, 1 / 12) - 1;
+            const rInfM = Math.pow(1 + E16, 1 / 12) - 1;
+            const eqGr = C5 * Math.pow(1 + E15, t);
+            const inv1 = -G10; const inv2 = -(G10 + G6);
+            let f1, f2;
+            if (t <= C12) { f1 = FV(rM, t * 12, inv1, 0); f2 = 0; }
+            else { f1 = FV(rM, C12 * 12, inv1, 0) * Math.pow(1 + E15, t - C12); f2 = FV(rM, (t - C12) * 12, inv2, 0); }
+            const gross = eqGr + f1 + f2;
+            const eqNom = C5 * Math.pow(1 + E16, t);
+            let b1, b2;
+            if (t <= C12) { b1 = FV(rInfM, t * 12, inv1, 0); b2 = 0; }
+            else { b1 = FV(rInfM, C12 * 12, inv1, 0) * Math.pow(1 + E16, t - C12); b2 = FV(rInfM, (t - C12) * 12, inv2, 0); }
+            const base = eqNom + b1 + b2;
+            return gross - (Math.max(0, gross - base) * 0.25);
+        }
+
+        const yearsToGraph = Math.max(C10, 1);
+        for (let i = 0; i <= yearsToGraph; i++) {
+            labels.push('שנה ' + i);
+            const currentVal = C2 * Math.pow(1 + E14, i);
+            const mBal = getRemainingBalance(G2, C9 / 12, C10 * 12, i * 12);
+            const lBal = getRemainingBalance(G5, C11 / 12, C12 * 12, i * 12);
+            
+            propValueData.push(currentVal);
+            mortgageBalData.push(-mBal);
+            loanBalData.push(-lBal);
+            reEquityData.push(currentVal - mBal - lBal);
+            stockNetData.push(getStockNetAtYear(i));
+        }
+
+        document.getElementById('G2').innerText = '₪' + formatNum(G2);
+        document.getElementById('G5').innerText = '₪' + formatNum(G5);
+        document.getElementById('G7').innerText = '₪' + formatNum(G7);
+        const g10El = document.getElementById('G10');
+        g10El.innerText = '₪' + formatNum(G10);
+        g10El.className = G10 < 0 ? 'res-val negative' : 'res-val highlight-green';
+        
+        const finalRE = reEquityData[reEquityData.length - 1];
+        const finalStock = stockNetData[stockNetData.length - 1];
+        document.getElementById('C18').innerText = '₪' + formatNum(finalRE);
+        document.getElementById('G18').innerText = '₪' + formatNum(finalStock);
+        document.getElementById('yearsLabel').innerText = C10;
+        document.getElementById('gap').innerText = '₪' + formatNum(Math.abs(finalRE - finalStock));
+        document.getElementById('winner').innerText = finalRE > finalStock ? "נדל\"ן" : "בורסה";
+
+        if (equityChart) {
+            equityChart.data.labels = labels;
+            equityChart.data.datasets[0].data = propValueData;
+            equityChart.data.datasets[1].data = mortgageBalData;
+            equityChart.data.datasets[2].data = loanBalData;
+            equityChart.data.datasets[3].data = reEquityData;
+            equityChart.data.datasets[4].data = stockNetData;
+            equityChart.update();
+        } else {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            equityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'שווי נכס (+)', data: propValueData, backgroundColor: 'rgba(5, 150, 105, 0.6)', stack: 'S0', order: 2 },
+                        { label: 'משכנתא (-)', data: mortgageBalData, backgroundColor: 'rgba(249, 115, 22, 0.7)', stack: 'S0', order: 2 },
+                        { label: 'הלוואה משלימה (-)', data: loanBalData, backgroundColor: 'rgba(220, 38, 38, 0.7)', stack: 'S0', order: 2 },
+                        { label: 'הון נקי בדירה', data: reEquityData, type: 'line', borderColor: '#000', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, order: 1 },
+                        { label: 'הון נטו בבורסה', data: stockNetData, type: 'line', borderColor: '#1e40af', borderWidth: 3, pointRadius: 0, order: 0 }
+                    ]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    scales: {
+                        x: { stacked: true },
+                        y: { stacked: false, ticks: { callback: v => '₪' + (v / 1000000).toFixed(1) + 'M' } }
+                    },
+                    plugins: { 
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
+                        tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': ' + formatNum(ctx.raw) } }
+                    }
+                }
+            });
+        }
+    }
+
+    function setupInput(id, isDecimal = false) {
+        document.getElementById(id).addEventListener('input', (e) => {
+            let val = e.target.value.replace(/,/g, '');
+            if (val === "" || val === ".") return calculate();
+            let num = parseFloat(val);
+            if (!isNaN(num)) {
+                let parts = val.split('.');
+                parts[0] = parseInt(parts[0]).toLocaleString('he-IL');
+                e.target.value = (isDecimal && val.includes('.')) ? parts[0] + '.' + (parts[1] || '') : parts[0];
+            }
+
+            if (id === 'C2') {
+                const price = parseNum(e.target.value);
+                const status = document.getElementById('C1').value;
+                document.getElementById('C4').value = calculatePurchaseTax(price, status).toLocaleString('he-IL');
+                document.getElementById('C3').value = (price * 0.03).toLocaleString('he-IL');
+                document.getElementById('C6').value = (price * 0.0025).toLocaleString('he-IL');
+            }
+            calculate();
+        });
+    }
+
+    ['C2','C3','C4','C5','C6','C8','C10','C12'].forEach(id => setupInput(id));
+    ['C7','C9','C11','E14','E15','E16'].forEach(id => setupInput(id, true));
+
+    document.getElementById('C1').addEventListener('change', () => {
+        const price = parseNum(document.getElementById('C2').value);
+        const status = document.getElementById('C1').value;
+        document.getElementById('C4').value = calculatePurchaseTax(price, status).toLocaleString('he-IL');
+        calculate();
+    });
+
+    window.onload = calculate;
+</script>
+</div>
+
+<script>
+let equityChart = null;
+
+    function formatNum(n) { return Math.round(n || 0).toLocaleString('he-IL'); }
+    function parseNum(v) { 
+        if (typeof v !== 'string') return v || 0;
+        return parseFloat(v.replace(/,/g, '')) || 0; 
+    }
+
+    function calculatePurchaseTax(price, status) {
+        if (status !== 'single') return price * 0.08;
+        
+        let tax = 0;
+        const brackets = [
+            { limit: 1978745, rate: 0 },
+            { limit: 2347040, rate: 0.035 },
+            { limit: 6055070, rate: 0.05 },
+            { limit: 20183565, rate: 0.08 },
+            { limit: Infinity, rate: 0.10 }
+        ];
+
+        let prevLimit = 0;
+        for (const bracket of brackets) {
+            if (price > prevLimit) {
+                const taxableAmount = Math.min(price, bracket.limit) - prevLimit;
+                tax += taxableAmount * bracket.rate;
+                prevLimit = bracket.limit;
+            } else break;
+        }
+        return tax;
+    }
+
+    function PMT(r, n, pv) {
+        if (n <= 0) return 0;
+        if (r === 0) return pv / n;
+        return (r * pv) / (1 - Math.pow(1 + r, -n));
+    }
+    
+    function FV(r, n, pmt, pv) {
+        if (r === 0) return pv + (pmt * n);
+        return pv * Math.pow(1 + r, n) + pmt * (Math.pow(1 + r, n) - 1) / r;
+    }
+
+    function getRemainingBalance(principal, rate, totalMonths, elapsedMonths) {
+        if (elapsedMonths >= totalMonths) return 0;
+        if (totalMonths <= 0) return 0;
+        if (rate === 0) return principal * (1 - elapsedMonths / totalMonths);
+        const factorTotal = Math.pow(1 + rate, totalMonths);
+        const factorElapsed = Math.pow(1 + rate, elapsedMonths);
+        return principal * (factorTotal - factorElapsed) / (factorTotal - 1);
+    }
+
+    function calculate() {
+        const status = document.getElementById('C1').value;
+        const C2 = parseNum(document.getElementById('C2').value);
+        const C3 = parseNum(document.getElementById('C3').value);
+        const C4 = parseNum(document.getElementById('C4').value);
+        const C5 = parseNum(document.getElementById('C5').value);
+        const C6 = parseNum(document.getElementById('C6').value);
+        const C7 = parseNum(document.getElementById('C7').value);
+        const C8 = parseNum(document.getElementById('C8').value);
+        const C9 = parseNum(document.getElementById('C9').value) / 100;
+        const C10 = parseNum(document.getElementById('C10').value);
+        const C11 = parseNum(document.getElementById('C11').value) / 100;
+        const C12 = parseNum(document.getElementById('C12').value);
+        const E14 = parseNum(document.getElementById('E14').value) / 100;
+        const E15 = parseNum(document.getElementById('E15').value) / 100;
+        const E16 = parseNum(document.getElementById('E16').value) / 100;
+
+        const totalProjectCost = C2 + C3 + C4;
+        
+        // לוגיקת מימון: יחידה 75%, שנייה 70%, שלישית 50%
+        let maxLTV = (status === 'single') ? 0.75 : (status === 'second' ? 0.70 : 0.50);
+        
+        const G2 = Math.max(0, Math.min(C2 * maxLTV, totalProjectCost - C5));
+        const G5 = Math.max(0, totalProjectCost - C5 - G2);
+
+        const errorEl = document.getElementById('error-display');
+        if ((G2 > 0 && C10 <= 0) || (G5 > 0 && C12 <= 0)) {
+            errorEl.innerText = "לא ניתן לפרוס הלוואה ל-0 שנים";
+            errorEl.style.display = "block";
+        } else {
+            errorEl.style.display = "none";
+        }
+
+        const G3 = PMT(C9 / 12, C10 * 12, G2);
+        const G6 = PMT(C11 / 12, C12 * 12, G5);
+        const G7 = G3 + G6;
+        const G10 = ((C6 * C7) - C8) / 12 - G7;
+
+        const labels = [];
+        const propValueData = []; 
+        const mortgageBalData = []; 
+        const loanBalData = []; 
+        const reEquityData = []; 
+        const stockNetData = []; 
+
+        function getStockNetAtYear(t) {
+            const rM = Math.pow(1 + E15, 1 / 12) - 1;
+            const rInfM = Math.pow(1 + E16, 1 / 12) - 1;
+            const eqGr = C5 * Math.pow(1 + E15, t);
+            const inv1 = -G10; const inv2 = -(G10 + G6);
+            let f1, f2;
+            if (t <= C12) { f1 = FV(rM, t * 12, inv1, 0); f2 = 0; }
+            else { f1 = FV(rM, C12 * 12, inv1, 0) * Math.pow(1 + E15, t - C12); f2 = FV(rM, (t - C12) * 12, inv2, 0); }
+            const gross = eqGr + f1 + f2;
+            const eqNom = C5 * Math.pow(1 + E16, t);
+            let b1, b2;
+            if (t <= C12) { b1 = FV(rInfM, t * 12, inv1, 0); b2 = 0; }
+            else { b1 = FV(rInfM, C12 * 12, inv1, 0) * Math.pow(1 + E16, t - C12); b2 = FV(rInfM, (t - C12) * 12, inv2, 0); }
+            const base = eqNom + b1 + b2;
+            return gross - (Math.max(0, gross - base) * 0.25);
+        }
+
+        const yearsToGraph = Math.max(C10, 1);
+        for (let i = 0; i <= yearsToGraph; i++) {
+            labels.push('שנה ' + i);
+            const currentVal = C2 * Math.pow(1 + E14, i);
+            const mBal = getRemainingBalance(G2, C9 / 12, C10 * 12, i * 12);
+            const lBal = getRemainingBalance(G5, C11 / 12, C12 * 12, i * 12);
+            
+            propValueData.push(currentVal);
+            mortgageBalData.push(-mBal);
+            loanBalData.push(-lBal);
+            reEquityData.push(currentVal - mBal - lBal);
+            stockNetData.push(getStockNetAtYear(i));
+        }
+
+        document.getElementById('G2').innerText = '₪' + formatNum(G2);
+        document.getElementById('G5').innerText = '₪' + formatNum(G5);
+        document.getElementById('G7').innerText = '₪' + formatNum(G7);
+        const g10El = document.getElementById('G10');
+        g10El.innerText = '₪' + formatNum(G10);
+        g10El.className = G10 < 0 ? 'res-val negative' : 'res-val highlight-green';
+        
+        const finalRE = reEquityData[reEquityData.length - 1];
+        const finalStock = stockNetData[stockNetData.length - 1];
+        document.getElementById('C18').innerText = '₪' + formatNum(finalRE);
+        document.getElementById('G18').innerText = '₪' + formatNum(finalStock);
+        document.getElementById('yearsLabel').innerText = C10;
+        document.getElementById('gap').innerText = '₪' + formatNum(Math.abs(finalRE - finalStock));
+        document.getElementById('winner').innerText = finalRE > finalStock ? "נדל\"ן" : "בורסה";
+
+        if (equityChart) {
+            equityChart.data.labels = labels;
+            equityChart.data.datasets[0].data = propValueData;
+            equityChart.data.datasets[1].data = mortgageBalData;
+            equityChart.data.datasets[2].data = loanBalData;
+            equityChart.data.datasets[3].data = reEquityData;
+            equityChart.data.datasets[4].data = stockNetData;
+            equityChart.update();
+        } else {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            equityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'שווי נכס (+)', data: propValueData, backgroundColor: 'rgba(5, 150, 105, 0.6)', stack: 'S0', order: 2 },
+                        { label: 'משכנתא (-)', data: mortgageBalData, backgroundColor: 'rgba(249, 115, 22, 0.7)', stack: 'S0', order: 2 },
+                        { label: 'הלוואה משלימה (-)', data: loanBalData, backgroundColor: 'rgba(220, 38, 38, 0.7)', stack: 'S0', order: 2 },
+                        { label: 'הון נקי בדירה', data: reEquityData, type: 'line', borderColor: '#000', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, order: 1 },
+                        { label: 'הון נטו בבורסה', data: stockNetData, type: 'line', borderColor: '#1e40af', borderWidth: 3, pointRadius: 0, order: 0 }
+                    ]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    scales: {
+                        x: { stacked: true },
+                        y: { stacked: false, ticks: { callback: v => '₪' + (v / 1000000).toFixed(1) + 'M' } }
+                    },
+                    plugins: { 
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
+                        tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': ' + formatNum(ctx.raw) } }
+                    }
+                }
+            });
+        }
+    }
+
+    function setupInput(id, isDecimal = false) {
+        document.getElementById(id).addEventListener('input', (e) => {
+            let val = e.target.value.replace(/,/g, '');
+            if (val === "" || val === ".") return calculate();
+            let num = parseFloat(val);
+            if (!isNaN(num)) {
+                let parts = val.split('.');
+                parts[0] = parseInt(parts[0]).toLocaleString('he-IL');
+                e.target.value = (isDecimal && val.includes('.')) ? parts[0] + '.' + (parts[1] || '') : parts[0];
+            }
+
+            if (id === 'C2') {
+                const price = parseNum(e.target.value);
+                const status = document.getElementById('C1').value;
+                document.getElementById('C4').value = calculatePurchaseTax(price, status).toLocaleString('he-IL');
+                document.getElementById('C3').value = (price * 0.03).toLocaleString('he-IL');
+                document.getElementById('C6').value = (price * 0.0025).toLocaleString('he-IL');
+            }
+            calculate();
+        });
+    }
+
+    ['C2','C3','C4','C5','C6','C8','C10','C12'].forEach(id => setupInput(id));
+    ['C7','C9','C11','E14','E15','E16'].forEach(id => setupInput(id, true));
+
+    document.getElementById('C1').addEventListener('change', () => {
+        const price = parseNum(document.getElementById('C2').value);
+        const status = document.getElementById('C1').value;
+        document.getElementById('C4').value = calculatePurchaseTax(price, status).toLocaleString('he-IL');
+        calculate();
+    });
+
+    window.onload = calculate;
+</script>
+
 </section>
 
 <!-- RESULTS SECTION -->

@@ -923,88 +923,288 @@ section { padding: var(--s-2xl) 0; }
 
 <!-- ══ CALCULATOR ═══════════════════════════════════════ -->
 <section class="calc-section" id="calculator">
-  <div class="calc-wrap">
-    <span class="calc-eyebrow">מחשבון השוואה</span>
-    <h2 class="calc-title">קרן כספית מול פיקדון — מה ישאיר לך יותר?</h2>
-    <p class="calc-lede">
-      הזינו את הנתונים שלכם וראו בדיוק כמה תרוויחו נטו מכל מסלול — אחרי מס ואינפלציה.
-    </p>
 
-    <div class="calc-card">
-      <div class="calc-controls">
-        <div class="calc-control">
-          <div class="label-row">
-            <span>סכום ההשקעה</span>
-            <span class="value"><span id="amount-out">100,000</span> ₪</span>
-          </div>
-          <input type="range" id="amount" min="10000" max="1000000" step="10000" value="100000"
-                 oninput="updateCalc()">
-        </div>
-        <div class="calc-control">
-          <div class="label-row">
-            <span>תקופת החיסכון</span>
-            <span class="value"><span id="period-out">1</span> שנה</span>
-          </div>
-          <input type="range" id="period" min="0.25" max="5" step="0.25" value="1"
-                 oninput="updateCalc()">
-        </div>
-        <div class="calc-control">
-          <div class="label-row">
-            <span>תשואה שנתית גולמית</span>
-            <span class="value"><span id="yield-out">4.5</span>%</span>
-          </div>
-          <input type="range" id="yield-rate" min="0.5" max="8" step="0.1" value="4.5"
-                 oninput="updateCalc()">
-        </div>
-        <div class="calc-control">
-          <div class="label-row">
-            <span>אינפלציה שנתית צפויה</span>
-            <span class="value"><span id="inflation-out">2.5</span>%</span>
-          </div>
-          <input type="range" id="inflation" min="0" max="6" step="0.1" value="2.5"
-                 oninput="updateCalc()">
-        </div>
-      </div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
+.calc-widget-wrap{background:#fff;border:1px solid #D6E4F0;border-radius:12px;padding:2rem;margin:1.5rem 0;font-family:'Heebo',sans-serif;direction:rtl;}
+.calc-widget-wrap h2,.calc-widget-wrap h3{color:#1F4E79;font-family:'Heebo',sans-serif;}
+.calc-widget-wrap input,.calc-widget-wrap select{font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
+.calc-widget-wrap input:focus,.calc-widget-wrap select:focus{outline:2px solid #1F4E79;border-color:#1F4E79;}
+.calc-widget-wrap button{background:#1F4E79;color:#fff;border:none;border-radius:8px;padding:.7rem 1.8rem;font-size:1rem;font-family:'Heebo',sans-serif;cursor:pointer;}
+.calc-widget-wrap button:hover{background:#163a5e;}
+:root {
+            --primary-color: #1F4E79;
+            --accent-color: #5C8D5A;
+            --bg-color: #F8F6F2;
+            --card-bg: #ffffff;
+            --border-color: #dcdde1;
+        }
 
-      <div class="calc-results">
-        <div class="calc-result" id="result-money-fund">
-          <div class="age-label">קרן כספית</div>
-          <div class="net-value" id="mf-net">—</div>
-          <div class="real-value">רווח נטו: <span id="mf-profit">—</span></div>
-          <div class="tax-line">מס שולם: <span id="mf-tax">—</span></div>
-        </div>
-        <div class="calc-result" id="result-deposit">
-          <div class="age-label">פיקדון בנקאי</div>
-          <div class="net-value" id="dep-net">—</div>
-          <div class="real-value">רווח נטו: <span id="dep-profit">—</span></div>
-          <div class="tax-line">מס שולם: <span id="dep-tax">—</span></div>
-        </div>
-        <div class="calc-result" id="result-checking">
-          <div class="age-label">עו"ש (ללא פעולה)</div>
-          <div class="net-value" id="chk-net">—</div>
-          <div class="real-value">ערך ריאלי: <span id="chk-real">—</span></div>
-          <div class="tax-line">הפסד ריאלי: <span id="chk-loss">—</span></div>
-        </div>
-      </div>
+        body {
+            background-color: #eee;
+            font-family: 'Heebo', sans-serif;
+        }
 
-      <div class="calc-breakdown">
-        <div class="row"><span class="label">יתרון קרן כספית מול פיקדון</span>
-          <span class="val winner-row" id="advantage">—</span></div>
-        <div class="row"><span class="label">יתרון קרן כספית מול עו"ש</span>
-          <span class="val" id="advantage-vs-check">—</span></div>
-        <div class="row"><span class="label">שיעור מס אפקטיבי — קרן כספית</span>
-          <span class="val" id="mf-effective-tax">—</span></div>
-        <div class="row"><span class="label">שיעור מס אפקטיבי — פיקדון</span>
-          <span class="val" id="dep-effective-tax">—</span></div>
-      </div>
+        .calc-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
 
-      <p style="font-size:13px; color: var(--text-meta); margin-top: var(--s-md);">
-        * הפיקדון מניח ריבית זהה לקרן הכספית — כדי להשוות בהגינות. בפועל, הבנקים מציעים לעיתים ריבית נמוכה יותר.
-        ** מס על קרן כספית: 25% מהרווח הריאלי (מעל האינפלציה). מס על פיקדון: 15% מהרווח הנומינלי.
-        *** מחשבון זה הוא כלי חינוכי בלבד ואינו מהווה ייעוץ השקעות.
-      </p>
+        .calc-header {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 15px;
+        }
+
+        /* מבנה שתי העמודות */
+        .calc-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap; /* תמיכה במובייל */
+        }
+
+        /* צד ימין - קלטים */
+        .inputs-side {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* צד שמאל - תוצאות */
+        .results-side {
+            flex: 1.2;
+            min-width: 300px;
+            padding: 20px;
+            background-color: #fafbfc;
+            border-radius: 10px;
+            border: 1px dashed #dcdde1;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1F4E79;
+            box-shadow: 0 0 5px rgba(52,152,219,0.2);
+        }
+
+        .result-card {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-card.winner {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            transform: scale(1.02);
+        }
+
+        .result-label { font-weight: bold; }
+        .result-value { font-size: 1.2em; font-weight: bold; }
+
+        .recommendation {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e8f4fd;
+            border-right: 5px solid #1F4E79;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .tax-note {
+            font-size: 0.85em;
+            color: #e67e22;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff3e0;
+            border-radius: 6px;
+        }
+
+        /* התאמה למובייל */
+        @media (max-width: 650px) {
+            .calc-content {
+                flex-direction: column;
+            }
+            .results-side {
+                order: 2; /* התוצאות יופיעו מתחת לקלט במובייל */
+            }
+        }
+</style>
+<div class="calc-widget-wrap"><div class="calc-container">
+    <div class="calc-header">
+        
     </div>
-  </div>
+
+    <div class="calc-content">
+        <div class="inputs-side">
+            <div class="input-group">
+                <label>תשואה ברוטו קרן כספית (%)</label>
+                <input type="number" id="mmfGross" value="3.75" step="0.1" oninput="calculate()">
+            </div>
+
+            <div class="input-group">
+                <label>תשואה ברוטו פקדון בנקאי (%)</label>
+                <input type="number" id="bankGross" value="3.75" step="0.1" oninput="calculate()">
+            </div>
+
+            <div class="input-group">
+                <label>צפי אינפלציה שנתי (%)</label>
+                <input type="number" id="inflation" value="2.0" step="0.1" oninput="calculate()">
+            </div>
+        </div>
+
+        <div class="results-side">
+            <div class="result-card" id="mmfResultCard">
+                <span class="result-label">נטו קרן כספית:</span>
+                <span class="result-value" id="mmfNet">0.00%</span>
+            </div>
+            
+            <div class="result-card" id="bankResultCard">
+                <span class="result-label">נטו פקדון בנקאי:</span>
+                <span class="result-value" id="bankNet">0.00%</span>
+            </div>
+
+            <div id="recommendationText" class="recommendation"></div>
+            <div id="taxNote" class="tax-note" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const mmfGross = parseFloat(document.getElementById('mmfGross').value) || 0;
+        const bankGross = parseFloat(document.getElementById('bankGross').value) || 0;
+        const inflation = parseFloat(document.getElementById('inflation').value) || 0;
+
+        // חישוב פקדון בנקאי (15% מס נומינלי)
+        const bankNet = bankGross * (1 - 0.15);
+
+        // חישוב קרן כספית (25% מס ריאלי)
+        let mmfNet;
+        let showTaxNote = false;
+
+        if (mmfGross > inflation) {
+            const realProfit = mmfGross - inflation;
+            const tax = realProfit * 0.25;
+            mmfNet = mmfGross - tax;
+        } else {
+            mmfNet = mmfGross;
+            showTaxNote = true;
+        }
+
+        // עדכון תצוגה
+        document.getElementById('mmfNet').innerText = mmfNet.toFixed(2) + '%';
+        document.getElementById('bankNet').innerText = bankNet.toFixed(2) + '%';
+
+        const recElement = document.getElementById('recommendationText');
+        const taxNoteElement = document.getElementById('taxNote');
+        const mmfCard = document.getElementById('mmfResultCard');
+        const bankCard = document.getElementById('bankResultCard');
+
+        // לוגיקת המלצה ותצוגה ויזואלית
+        if (mmfNet >= bankNet) {
+            recElement.innerHTML = "<strong>המלצה: קרן כספית.</strong> התשואה נטו גבוהה יותר, והנכס נזיל לחלוטין בכל יום מסחר.";
+            mmfCard.classList.add('winner');
+            bankCard.classList.remove('winner');
+        } else {
+            recElement.innerHTML = "<strong>שים לב:</strong> הפקדון הבנקאי רווחי יותר בנטו, אך הקרן הכספית מציעה נזילות גבוהה יותר למשיכה מיידית.";
+            bankCard.classList.add('winner');
+            mmfCard.classList.remove('winner');
+        }
+
+        if (showTaxNote) {
+            taxNoteElement.style.display = 'block';
+            taxNoteElement.innerHTML = "<strong>💡 הערה:</strong> האינפלציה גבוהה מהתשואה. לא ישולם מס על הקרן הכספית, וייתכן שתוכל לקזז את ההפסד הריאלי מול רווחי הון ממניות!";
+        } else {
+            taxNoteElement.style.display = 'none';
+        }
+    }
+
+    calculate();
+</script></div>
+<script>function calculate() {
+        const mmfGross = parseFloat(document.getElementById('mmfGross').value) || 0;
+        const bankGross = parseFloat(document.getElementById('bankGross').value) || 0;
+        const inflation = parseFloat(document.getElementById('inflation').value) || 0;
+
+        // חישוב פקדון בנקאי (15% מס נומינלי)
+        const bankNet = bankGross * (1 - 0.15);
+
+        // חישוב קרן כספית (25% מס ריאלי)
+        let mmfNet;
+        let showTaxNote = false;
+
+        if (mmfGross > inflation) {
+            const realProfit = mmfGross - inflation;
+            const tax = realProfit * 0.25;
+            mmfNet = mmfGross - tax;
+        } else {
+            mmfNet = mmfGross;
+            showTaxNote = true;
+        }
+
+        // עדכון תצוגה
+        document.getElementById('mmfNet').innerText = mmfNet.toFixed(2) + '%';
+        document.getElementById('bankNet').innerText = bankNet.toFixed(2) + '%';
+
+        const recElement = document.getElementById('recommendationText');
+        const taxNoteElement = document.getElementById('taxNote');
+        const mmfCard = document.getElementById('mmfResultCard');
+        const bankCard = document.getElementById('bankResultCard');
+
+        // לוגיקת המלצה ותצוגה ויזואלית
+        if (mmfNet >= bankNet) {
+            recElement.innerHTML = "<strong>המלצה: קרן כספית.</strong> התשואה נטו גבוהה יותר, והנכס נזיל לחלוטין בכל יום מסחר.";
+            mmfCard.classList.add('winner');
+            bankCard.classList.remove('winner');
+        } else {
+            recElement.innerHTML = "<strong>שים לב:</strong> הפקדון הבנקאי רווחי יותר בנטו, אך הקרן הכספית מציעה נזילות גבוהה יותר למשיכה מיידית.";
+            bankCard.classList.add('winner');
+            mmfCard.classList.remove('winner');
+        }
+
+        if (showTaxNote) {
+            taxNoteElement.style.display = 'block';
+            taxNoteElement.innerHTML = "<strong>💡 הערה:</strong> האינפלציה גבוהה מהתשואה. לא ישולם מס על הקרן הכספית, וייתכן שתוכל לקזז את ההפסד הריאלי מול רווחי הון ממניות!";
+        } else {
+            taxNoteElement.style.display = 'none';
+        }
+    }
+
+    calculate();</script>
 </section>
 
 <!-- ══ BODY (המשך) ══════════════════════════════════════ -->

@@ -661,158 +661,396 @@ section { padding: var(--s-2xl) 0; }
 
 <!-- CALCULATOR -->
 <section class="calc-section" id="calculator">
-  <div class="container calc-wrap">
-    <span class="calc-section-eyebrow">מחשבון אינטראקטיבי</span>
-    <h2 class="calc-section-title">הזן את הנתונים שלך</h2>
-    <p class="calc-section-lede">
-      הזז את המחוונים וראה כיצד הצבירה משתנה בזמן אמת. כל הנתונים נשארים אצלך — אין הרשמה, אין שמירת מידע.
-    </p>
 
-    <div class="calc-card">
-      <div class="inputs-grid">
+<!-- ═══════════════════════════════════════════════
+     CALCULATOR WIDGET — embedded from legacy code
+     ═══════════════════════════════════════════════ -->
 
-        <!-- שכר חודשי -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
+/* ── Site design overrides for calculator ── */
+.calc-widget-wrap {
+  background: #fff;
+  border: 1px solid #D6E4F0;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  font-family: 'Heebo', sans-serif;
+  direction: rtl;
+}
+.calc-widget-wrap h2, .calc-widget-wrap h3 {
+  color: #1F4E79;
+  font-family: 'Heebo', sans-serif;
+}
+.calc-widget-wrap input[type=number],
+.calc-widget-wrap input[type=text],
+.calc-widget-wrap select {
+  font-family: 'Heebo', sans-serif;
+  border: 1px solid #D6E4F0;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  color: #1A1A1A;
+}
+.calc-widget-wrap input:focus, .calc-widget-wrap select:focus {
+  outline: 2px solid #1F4E79;
+  border-color: #1F4E79;
+}
+.calc-widget-wrap button {
+  background: #1F4E79;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.8rem;
+  font-size: 1rem;
+  font-family: 'Heebo', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.calc-widget-wrap button:hover { background: #163a5e; }
+/* ── Legacy calculator CSS (color-adapted) ── */
+:root {
+            --yield4: #5C8D5A;
+            --yield5: #5C8D5A;
+            --yield6: #cddc39;
+            --yield7: #ffeb3b;
+            --spouse: #1F4E79;
+            --children: #03a9f4;
+            --disability: #9c27b0;
+            --text-color: #1F4E79;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #F8F6F2;
+            padding: 20px;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: #1a252f;
+        }
+
+        /* שורת קלט */
+        .input-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            background: #f1f3f5;
+            padding: 30px;
+            border-radius: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        input, select {
+            padding: 12px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+            background: white;
+        }
+
+        /* גריד 3 טורים */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+            align-items: flex-end;
+        }
+
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .col-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #1a252f;
+            text-align: center;
+            min-height: 50px;
+        }
+
+        .bar-area {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: center;
+            width: 100%;
+            height: 450px; /* גובה קבוע לאזור הגרף למניעת קריסה */
+        }
+
+        .labels-container {
+            display: flex;
+            flex-direction: column-reverse; /* מלמטה למעלה */
+            height: 100%;
+            width: 100px;
+            margin-left: 10px;
+        }
+
+        .label-item {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: #444;
+            white-space: nowrap;
+        }
+
+        .bar-container {
+            width: 180px; /* עמודות רחבות מאוד */
+            height: 100%;
+            display: flex;
+            flex-direction: column-reverse; /* נערמות מלמטה למעלה */
+            background-color: transparent; /* ללא רקע אפור */
+        }
+
+        .segment {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: height 0.3s ease;
+            color: #000;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* צבעים */
+        .s-4 { background-color: var(--yield4); }
+        .s-5 { background-color: var(--yield5); }
+        .s-6 { background-color: var(--yield6); }
+        .s-7 { background-color: var(--yield7); }
+        .s-spouse { background-color: var(--spouse); color: white; }
+        .s-children { background-color: var(--children); color: white; }
+        .s-disability { background-color: var(--disability); color: white; border-radius: 8px 8px 0 0; border-bottom: none; }
+
+        @media (max-width: 900px) {
+            .results-grid { grid-template-columns: 1fr; gap: 80px; }
+            .bar-area { height: 350px; }
+            .bar-container { width: 220px; }
+        }
+</style>
+
+<div class="calc-widget-wrap">
+  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. אינה מהווה ייעוץ פנסיוני.</p>
+  <div class="container">
+    <h1>מחשבון פנסיה לעצמאי</h1>
+
+    <div class="input-row">
         <div class="input-group">
-          <div class="label-row">
-            <span>הכנסה חודשית ממוצעת (₪)</span>
-            <span class="current-val" id="income-out">15,000</span>
-          </div>
-          <input type="range" id="income" min="5000" max="80000" step="500" value="15000" oninput="updateCalc()">
+            <label>בחר גיל</label>
+            <select id="age"></select>
         </div>
-
-        <!-- גיל נוכחי -->
         <div class="input-group">
-          <div class="label-row">
-            <span>גיל נוכחי</span>
-            <span class="current-val" id="age-out">35</span>
-          </div>
-          <input type="range" id="age" min="20" max="64" step="1" value="35" oninput="updateCalc()">
+            <label>הפקדה חודשית (₪)</label>
+            <input type="number" id="deposit" value="2000">
         </div>
-
-        <!-- אחוז הפקדה -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>אחוז <a href="/pension/contribution-employee/">הפקדה לפנסיה</a></span>
-            <span class="current-val" id="rate-out">16%</span>
-          </div>
-          <input type="range" id="rate" min="4" max="25" step="0.5" value="16" oninput="updateCalc()">
-        </div>
-
-        <!-- צבירה קיימת -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>צבירה קיימת (₪)</span>
-            <span class="current-val" id="existing-out">0</span>
-          </div>
-          <input type="range" id="existing" min="0" max="2000000" step="10000" value="0" oninput="updateCalc()">
-        </div>
-
-        <!-- תשואה שנתית -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>תשואה שנתית צפויה</span>
-            <span class="current-val" id="return-out">7%</span>
-          </div>
-          <input type="range" id="return-rate" min="2" max="12" step="0.5" value="7" oninput="updateCalc()">
-        </div>
-
-        <!-- גיל פרישה -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>גיל פרישה</span>
-            <span class="current-val" id="retire-out">67</span>
-          </div>
-          <input type="range" id="retire" min="60" max="75" step="1" value="67" oninput="updateCalc()">
-        </div>
-
-        <!-- דמי ניהול -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>דמי ניהול שנתיים</span>
-            <span class="current-val" id="mgmt-out">0.5%</span>
-          </div>
-          <input type="range" id="mgmt-fee" min="0.1" max="2" step="0.05" value="0.5" oninput="updateCalc()">
-        </div>
-
-        <!-- הכנסה רצויה בפרישה -->
-        <div class="input-group">
-          <div class="label-row">
-            <span>קצבה חודשית רצויה בפרישה (₪)</span>
-            <span class="current-val" id="target-out">12,000</span>
-          </div>
-          <input type="range" id="target-income" min="3000" max="30000" step="500" value="12000" oninput="updateCalc()">
-        </div>
-
-        <!-- הכפל הפקדה -->
-        <label class="toggle-row">
-          <input type="checkbox" id="double-deposit" onchange="updateCalc()">
-          <div class="toggle-label">
-            <strong>הכפל הפקדה (שמות מעסיק / שותף עסקי)</strong>
-            <div class="toggle-note">רלוונטי לעצמאים שיש להם חלק שכיר בהכנסה</div>
-          </div>
-        </label>
-
-      </div>
-
-      <!-- RESULTS -->
-      <div class="result-main">
-        <div class="result-box primary-box">
-          <div class="rb-label">צבירה צפויה בפרישה</div>
-          <div class="rb-value" id="res-accumulation">—</div>
-          <div class="rb-sub">ב-<span id="res-years">—</span> שנות חיסכון</div>
-        </div>
-        <div class="result-box secondary-box">
-          <div class="rb-label">הפקדה חודשית</div>
-          <div class="rb-value" id="res-monthly">—</div>
-          <div class="rb-sub">ממנה: <span id="res-net-monthly">—</span> נטו</div>
-        </div>
-        <div class="result-box tax-box">
-          <div class="rb-label">הטבת מס שנתית</div>
-          <div class="rb-value" id="res-tax-benefit">—</div>
-          <div class="rb-sub">ניכוי + זיכוי משולב</div>
-        </div>
-      </div>
-
-      <div class="breakdown-grid">
-        <div class="breakdown-card">
-          <h5>פירוק הצבירה</h5>
-          <div class="breakdown-row"><span class="bl">סה"כ הפקדות</span><span class="bv" id="res-total-deposits">—</span></div>
-          <div class="breakdown-row"><span class="bl">תשואה מצטברת</span><span class="bv green" id="res-total-return">—</span></div>
-          <div class="breakdown-row"><span class="bl">פחות דמי ניהול</span><span class="bv red" id="res-total-fees">—</span></div>
-          <div class="breakdown-row"><span class="bl">צבירה קיימת + תשואה</span><span class="bv" id="res-existing-grown">—</span></div>
-        </div>
-        <div class="breakdown-card">
-          <h5>הטבות מס שנתיות</h5>
-          <div class="breakdown-row"><span class="bl">ניכוי מס (עד 11%)</span><span class="bv green" id="res-deduction">—</span></div>
-          <div class="breakdown-row"><span class="bl">זיכוי מס (35%)</span><span class="bv green" id="res-credit">—</span></div>
-          <div class="breakdown-row"><span class="bl">סה"כ הטבת מס שנתית</span><span class="bv green" id="res-total-tax">—</span></div>
-          <div class="breakdown-row"><span class="bl">הפקדה חודשית נטו</span><span class="bv" id="res-net2">—</span></div>
-        </div>
-      </div>
-
-      <!-- Gap indicator -->
-      <div class="gap-indicator">
-        <h5>עד כמה אתה מכסה את יעד הפרישה?</h5>
-        <div class="gap-bar-wrap">
-          <div class="gap-bar-fill" id="gap-bar" style="width: 0%"></div>
-        </div>
-        <div class="gap-labels">
-          <span>0%</span>
-          <span>50%</span>
-          <span>100%+</span>
-        </div>
-        <div class="gap-message" id="gap-message">ממתין לחישוב...</div>
-      </div>
-
     </div>
 
-    <!-- Disclaimer -->
-    <div class="disclaimer-box">
-      <strong>הערה:</strong> הסימולטור מבוסס על <a href="/savings/start-saving-early/">ריבית דריבית</a> חודשית, אינפלציה של 2% (שמוכלת בתשואה הנקובה),
-      ומקדם המרה לקצבה של 200 (כ-240 תשלומים בממוצע). נתוני הטבות המס מבוססים על תקנות 2026 —
-      גבול ההכנסה הקובעת: 9,480 ₪/חודש. הסימולטור הוא לצורכי אוריינטציה בלבד ואינו מחליף ייעוץ פנסיוני אישי.
+    <div class="results-grid">
+        <div class="chart-wrapper">
+            <div class="col-title">פנסיה חזויה בגיל 67</div>
+            <div class="bar-area">
+                <div class="labels-container">
+                    <div class="label-item" id="l4">תשואה 4%</div>
+                    <div class="label-item" id="l5">תשואה 5%</div>
+                    <div class="label-item" id="l6">תשואה 6%</div>
+                    <div class="label-item" id="l7">תשואה 7%</div>
+                </div>
+                <div class="bar-container">
+                    <div class="segment s-4" id="seg4"></div>
+                    <div class="segment s-5" id="seg5"></div>
+                    <div class="segment s-6" id="seg6"></div>
+                    <div class="segment s-7" id="seg7"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <div class="col-title">קצבת שארים</div>
+            <div class="bar-area">
+                <div class="labels-container">
+                    <div class="label-item" id="lSpouse">בת זוג</div>
+                    <div class="label-item" id="lChild">ילד/ים</div>
+                </div>
+                <div class="bar-container">
+                    <div class="segment s-spouse" id="segSpouse"></div>
+                    <div class="segment s-children" id="segChildren"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <div class="col-title">קצבת נכות</div>
+            <div class="bar-area">
+                <div class="bar-container">
+                    <div class="segment s-disability" id="segDisability"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
+<script>
+    const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv": 6.25}, "26": {"y4": 5.306, "y5": 6.881, "y6": 8.986, "y7": 11.804, "surv": 6.25}, "27": {"y4": 4.998, "y5": 6.436, "y6": 8.341, "y7": 10.872, "surv": 6.25}, "28": {"y4": 4.703, "y5": 6.014, "y6": 7.736, "y7": 10.006, "surv": 6.25}, "29": {"y4": 4.422, "y5": 5.615, "y6": 7.169, "y7": 9.202, "surv": 6.25}, "30": {"y4": 4.155, "y5": 5.238, "y6": 6.639, "y7": 8.456, "surv": 6.25}, "31": {"y4": 3.9, "y5": 4.882, "y6": 6.143, "y7": 7.765, "surv": 6.25}, "32": {"y4": 3.658, "y5": 4.546, "y6": 5.679, "y7": 7.125, "surv": 6.25}, "33": {"y4": 3.428, "y5": 4.23, "y6": 5.246, "y7": 6.532, "surv": 6.25}, "34": {"y4": 3.209, "y5": 3.932, "y6": 4.841, "y7": 5.983, "surv": 6.25}, "35": {"y4": 3.001, "y5": 3.651, "y6": 4.462, "y7": 5.475, "surv": 6.25}, "36": {"y4": 2.804, "y5": 3.387, "y6": 4.11, "y7": 5.005, "surv": 6.25}, "37": {"y4": 2.617, "y5": 3.139, "y6": 3.781, "y7": 4.571, "surv": 6.25}, "38": {"y4": 2.44, "y5": 2.907, "y6": 3.476, "y7": 4.171, "surv": 6.25}, "39": {"y4": 2.272, "y5": 2.688, "y6": 3.191, "y7": 3.801, "surv": 6.25}, "40": {"y4": 2.114, "y5": 2.483, "y6": 2.927, "y7": 3.461, "surv": 6.25}, "41": {"y4": 1.972, "y5": 2.3, "y6": 2.691, "y7": 3.158, "surv": 5.938}, "42": {"y4": 1.838, "y5": 2.128, "y6": 2.472, "y7": 2.88, "surv": 5.625}, "43": {"y4": 1.711, "y5": 1.968, "y6": 2.27, "y7": 2.624, "surv": 5.3125}, "44": {"y4": 1.592, "y5": 1.818, "y6": 2.082, "y7": 2.389, "surv": 5.0}, "45": {"y4": 1.485, "y5": 1.685, "y6": 1.916, "y7": 2.183, "surv": 4.6875}, "46": {"y4": 1.384, "y5": 1.56, "y6": 1.761, "y7": 1.992, "surv": 4.375}, "47": {"y4": 1.288, "y5": 1.442, "y6": 1.616, "y7": 1.816, "surv": 4.0625}, "48": {"y4": 1.197, "y5": 1.331, "y6": 1.482, "y7": 1.653, "surv": 3.75}, "49": {"y4": 1.11, "y5": 1.226, "y6": 1.356, "y7": 1.502, "surv": 3.4375}, "50": {"y4": 1.028, "y5": 1.128, "y6": 1.24, "y7": 1.364, "surv": 3.125}, "51": {"y4": 0.948, "y5": 1.034, "y6": 1.129, "y7": 1.234, "surv": 2.813}, "52": {"y4": 0.869, "y5": 0.942, "y6": 1.022, "y7": 1.109, "surv": 2.656}, "53": {"y4": 0.791, "y5": 0.852, "y6": 0.919, "y7": 0.991, "surv": 2.656}, "54": {"y4": 0.717, "y5": 0.768, "y6": 0.823, "y7": 0.882, "surv": 2.656}, "55": {"y4": 0.647, "y5": 0.689, "y6": 0.734, "y7": 0.782, "surv": 2.656}};
+
+    const ageSelect = document.getElementById('age');
+    const depositInput = document.getElementById('deposit');
+
+    // מילוי גילאים
+    for (let i = 25; i <= 55; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = i;
+        if (i === 25) opt.selected = true;
+        ageSelect.appendChild(opt);
+    }
+
+    function update() {
+        const age = ageSelect.value;
+        const dep = parseFloat(depositInput.value) || 0;
+        const row = data[age];
+
+        const vals = {
+            p4: row.y4 * dep,
+            p5: row.y5 * dep,
+            p6: row.y6 * dep,
+            p7: row.y7 * dep,
+            sTotal: row.surv * dep,
+            disability: 4.6875 * dep
+        };
+
+        // קביעת קנה מידה מקסימלי
+        const maxVal = Math.max(vals.p7, vals.sTotal, vals.disability) * 1.1;
+
+        const setSeg = (id, val, displayTotal, labelId) => {
+            const el = document.getElementById(id);
+            const lbl = document.getElementById(labelId);
+            const heightPerc = (val / maxVal) * 100;
+            
+            el.style.height = heightPerc + '%';
+            if (lbl) lbl.style.height = heightPerc + '%';
+            
+            el.innerHTML = `<span>₪${Math.round(displayTotal).toLocaleString()}</span>`;
+        };
+
+        // פנסיה - שכבות מלמטה למעלה (4, 5, 6, 7)
+        setSeg('seg4', vals.p4, vals.p4, 'l4');
+        setSeg('seg5', vals.p5 - vals.p4, vals.p5, 'l5');
+        setSeg('seg6', vals.p6 - vals.p5, vals.p6, 'l6');
+        setSeg('seg7', vals.p7 - vals.p6, vals.p7, 'l7');
+
+        // שארים - מלמטה למעלה (בת זוג, ילדים)
+        setSeg('segSpouse', vals.sTotal * 0.6, vals.sTotal * 0.6, 'lSpouse');
+        setSeg('segChildren', vals.sTotal * 0.4, vals.sTotal * 0.4, 'lChild');
+
+        // נכות - שכבה אחת
+        const segDis = document.getElementById('segDisability');
+        segDis.style.height = (vals.disability / maxVal) * 100 + '%';
+        segDis.innerHTML = `<span>₪${Math.round(vals.disability).toLocaleString()}</span>`;
+    }
+
+    ageSelect.addEventListener('change', update);
+    depositInput.addEventListener('input', update);
+    update(); // הפעלה ראשונית
+</script>
+</div>
+
+<script>
+const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv": 6.25}, "26": {"y4": 5.306, "y5": 6.881, "y6": 8.986, "y7": 11.804, "surv": 6.25}, "27": {"y4": 4.998, "y5": 6.436, "y6": 8.341, "y7": 10.872, "surv": 6.25}, "28": {"y4": 4.703, "y5": 6.014, "y6": 7.736, "y7": 10.006, "surv": 6.25}, "29": {"y4": 4.422, "y5": 5.615, "y6": 7.169, "y7": 9.202, "surv": 6.25}, "30": {"y4": 4.155, "y5": 5.238, "y6": 6.639, "y7": 8.456, "surv": 6.25}, "31": {"y4": 3.9, "y5": 4.882, "y6": 6.143, "y7": 7.765, "surv": 6.25}, "32": {"y4": 3.658, "y5": 4.546, "y6": 5.679, "y7": 7.125, "surv": 6.25}, "33": {"y4": 3.428, "y5": 4.23, "y6": 5.246, "y7": 6.532, "surv": 6.25}, "34": {"y4": 3.209, "y5": 3.932, "y6": 4.841, "y7": 5.983, "surv": 6.25}, "35": {"y4": 3.001, "y5": 3.651, "y6": 4.462, "y7": 5.475, "surv": 6.25}, "36": {"y4": 2.804, "y5": 3.387, "y6": 4.11, "y7": 5.005, "surv": 6.25}, "37": {"y4": 2.617, "y5": 3.139, "y6": 3.781, "y7": 4.571, "surv": 6.25}, "38": {"y4": 2.44, "y5": 2.907, "y6": 3.476, "y7": 4.171, "surv": 6.25}, "39": {"y4": 2.272, "y5": 2.688, "y6": 3.191, "y7": 3.801, "surv": 6.25}, "40": {"y4": 2.114, "y5": 2.483, "y6": 2.927, "y7": 3.461, "surv": 6.25}, "41": {"y4": 1.972, "y5": 2.3, "y6": 2.691, "y7": 3.158, "surv": 5.938}, "42": {"y4": 1.838, "y5": 2.128, "y6": 2.472, "y7": 2.88, "surv": 5.625}, "43": {"y4": 1.711, "y5": 1.968, "y6": 2.27, "y7": 2.624, "surv": 5.3125}, "44": {"y4": 1.592, "y5": 1.818, "y6": 2.082, "y7": 2.389, "surv": 5.0}, "45": {"y4": 1.485, "y5": 1.685, "y6": 1.916, "y7": 2.183, "surv": 4.6875}, "46": {"y4": 1.384, "y5": 1.56, "y6": 1.761, "y7": 1.992, "surv": 4.375}, "47": {"y4": 1.288, "y5": 1.442, "y6": 1.616, "y7": 1.816, "surv": 4.0625}, "48": {"y4": 1.197, "y5": 1.331, "y6": 1.482, "y7": 1.653, "surv": 3.75}, "49": {"y4": 1.11, "y5": 1.226, "y6": 1.356, "y7": 1.502, "surv": 3.4375}, "50": {"y4": 1.028, "y5": 1.128, "y6": 1.24, "y7": 1.364, "surv": 3.125}, "51": {"y4": 0.948, "y5": 1.034, "y6": 1.129, "y7": 1.234, "surv": 2.813}, "52": {"y4": 0.869, "y5": 0.942, "y6": 1.022, "y7": 1.109, "surv": 2.656}, "53": {"y4": 0.791, "y5": 0.852, "y6": 0.919, "y7": 0.991, "surv": 2.656}, "54": {"y4": 0.717, "y5": 0.768, "y6": 0.823, "y7": 0.882, "surv": 2.656}, "55": {"y4": 0.647, "y5": 0.689, "y6": 0.734, "y7": 0.782, "surv": 2.656}};
+
+    const ageSelect = document.getElementById('age');
+    const depositInput = document.getElementById('deposit');
+
+    // מילוי גילאים
+    for (let i = 25; i <= 55; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = i;
+        if (i === 25) opt.selected = true;
+        ageSelect.appendChild(opt);
+    }
+
+    function update() {
+        const age = ageSelect.value;
+        const dep = parseFloat(depositInput.value) || 0;
+        const row = data[age];
+
+        const vals = {
+            p4: row.y4 * dep,
+            p5: row.y5 * dep,
+            p6: row.y6 * dep,
+            p7: row.y7 * dep,
+            sTotal: row.surv * dep,
+            disability: 4.6875 * dep
+        };
+
+        // קביעת קנה מידה מקסימלי
+        const maxVal = Math.max(vals.p7, vals.sTotal, vals.disability) * 1.1;
+
+        const setSeg = (id, val, displayTotal, labelId) => {
+            const el = document.getElementById(id);
+            const lbl = document.getElementById(labelId);
+            const heightPerc = (val / maxVal) * 100;
+            
+            el.style.height = heightPerc + '%';
+            if (lbl) lbl.style.height = heightPerc + '%';
+            
+            el.innerHTML = `<span>₪${Math.round(displayTotal).toLocaleString()}</span>`;
+        };
+
+        // פנסיה - שכבות מלמטה למעלה (4, 5, 6, 7)
+        setSeg('seg4', vals.p4, vals.p4, 'l4');
+        setSeg('seg5', vals.p5 - vals.p4, vals.p5, 'l5');
+        setSeg('seg6', vals.p6 - vals.p5, vals.p6, 'l6');
+        setSeg('seg7', vals.p7 - vals.p6, vals.p7, 'l7');
+
+        // שארים - מלמטה למעלה (בת זוג, ילדים)
+        setSeg('segSpouse', vals.sTotal * 0.6, vals.sTotal * 0.6, 'lSpouse');
+        setSeg('segChildren', vals.sTotal * 0.4, vals.sTotal * 0.4, 'lChild');
+
+        // נכות - שכבה אחת
+        const segDis = document.getElementById('segDisability');
+        segDis.style.height = (vals.disability / maxVal) * 100 + '%';
+        segDis.innerHTML = `<span>₪${Math.round(vals.disability).toLocaleString()}</span>`;
+    }
+
+    ageSelect.addEventListener('change', update);
+    depositInput.addEventListener('input', update);
+    update(); // הפעלה ראשונית
+</script>
+
 </section>
 
 <!-- SCENARIOS -->
