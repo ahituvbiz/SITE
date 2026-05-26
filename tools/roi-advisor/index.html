@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון ROI ייעוץ פנסיוני — האם הייעוץ משתלם? | יועץ פנסיוני איתן אחיטוב</title>
+<meta name="description" content="מחשבון ROI ייעוץ פנסיוני: חשב כמה פעמים ייעוץ פנסיוני מחזיר את עצמו — בחיסכון בדמי ניהול, שיפור תשואה, ביטול ביטוחים כפולים ומיצוי הטבות מס.">
+<meta property="og:title" content="מחשבון ROI ייעוץ פנסיוני | איתן אחיטוב">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"מחשבון ROI ייעוץ פנסיוני","description":"מחשב את החזר ההשקעה על ייעוץ פנסיוני — מסכום ירידת דמי ניהול, שיפור תשואה, ביטול ביטוחים כפולים ומיצוי מס.","url":"https://pensya.info/tools/roi-advisor/","applicationCategory":"FinanceApplication","operatingSystem":"Web","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"בית","item":"https://pensya.info/"},{"@type":"ListItem","position":2,"name":"מחשבונים","item":"https://pensya.info/tools/"},{"@type":"ListItem","position":3,"name":"מחשבון ROI ייעוץ","item":"https://pensya.info/tools/roi-advisor/"}]}]}
+</script>
+<style>
+:root{--primary:#1F4E79;--primary-soft:#E7F0F7;--cta:#D74E3C;--cta-hover:#B83E2E;--text-1:#1A1A1A;--text-2:#555;--text-meta:#999;--bg:#fff;--bg-cream:#F8F6F2;--border:#E2E0DC;--positive:#5C8D5A;--warning:#C9A227;--negative:#C53030;--s-sm:12px;--s-md:20px;--s-lg:32px;--s-xl:48px;--s-2xl:64px;--radius:14px;--container:1120px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;color:var(--text-1);background:var(--bg);line-height:1.65;font-size:17px}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+.header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:200;height:64px}
+.header-inner{display:flex;align-items:center;gap:20px;height:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;flex-shrink:0}
+.logo-sub{font-weight:400;font-size:12px;color:var(--text-2)}
+.nav{display:flex;gap:4px;margin-right:auto}
+.nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--primary-soft);color:var(--primary);text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px}
+.hamburger span{display:block;height:2px;background:var(--text-1);border-radius:2px;transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){.nav{display:none}.hamburger{display:flex}}
+.header-search{position:relative;display:flex;align-items:center}
+.header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(31,78,121,0.1);width:260px}
+.header-search input::placeholder{color:var(--text-meta)}
+.header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
+.header-search-icon svg{width:18px;height:18px}
+.search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.12);max-height:320px;overflow-y:auto;z-index:10;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;text-decoration:none}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--bg-cream)}
+.search-results .no-results{padding:16px;color:var(--text-meta);font-size:14px;text-align:center}
+@media(max-width:900px){.header-search input{width:160px}.header-search input:focus{width:200px}}
+@media(max-width:600px){.header-search input{width:130px}}
+.breadcrumb{background:var(--bg-cream);border-bottom:1px solid var(--border);padding:10px 0;font-size:13px;color:var(--text-meta)}
+.breadcrumb .container{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb .sep{color:var(--border)}
+.breadcrumb .current{color:var(--text-2)}
+.page-hero{background:linear-gradient(135deg,#fafbfd 0%,var(--primary-soft) 100%);padding:var(--s-2xl) 0 var(--s-xl)}
+.page-hero h1{font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px}
+.page-hero h1 .accent{color:var(--primary)}
+.page-hero .lead{font-size:18px;color:var(--text-2);max-width:640px;line-height:1.7}
+.stats-strip{display:flex;gap:32px;flex-wrap:wrap;margin-top:var(--s-lg);padding-top:var(--s-lg);border-top:1px solid var(--border)}
+.stat-item .stat-val{font-size:32px;font-weight:700;color:var(--primary)}
+.stat-item .stat-label{font-size:13px;color:var(--text-2);margin-top:4px}
+.calc-wrap{padding:var(--s-2xl) 0}
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:768px){.calc-layout{grid-template-columns:1fr}}
+.calc-intro h2{font-size:26px;font-weight:700;margin-bottom:16px}
+.calc-intro p{color:var(--text-2);line-height:1.7;margin-bottom:16px}
+.insight-box{background:var(--primary-soft);border-right:4px solid var(--primary);border-radius:10px;padding:16px 20px;font-size:15px;margin-top:16px}
+.calc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
+.calc-card h3{font-size:18px;font-weight:700;margin-bottom:20px}
+.form-group{margin-bottom:20px}
+.form-group label{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-2)}
+.val-display{font-weight:700;color:var(--primary)}
+.form-group input[type=range]{width:100%;accent-color:var(--primary)}
+.form-group input[type=number]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;outline:none}
+.form-group input[type=number]:focus{border-color:var(--primary)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc-results{background:var(--bg-cream);border-radius:10px;padding:20px;margin-top:20px}
+.res-title{font-size:13px;font-weight:600;color:var(--text-meta);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.res-big{font-size:36px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.res-big.good{color:var(--positive)}
+.res-sub{font-size:13px;color:var(--text-2);margin-bottom:16px}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.res-item{background:#fff;border-radius:8px;padding:12px}
+.ri-val{font-size:18px;font-weight:700;color:var(--primary)}
+.ri-val.good{color:var(--positive)}
+.ri-label{font-size:12px;color:var(--text-meta);margin-top:2px}
+.res-note{font-size:12px;color:var(--text-meta);margin-top:12px;line-height:1.5}
+.cta-section{background:var(--primary);color:#fff;padding:var(--s-2xl) 0;text-align:center}
+.cta-section h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.cta-section p{font-size:16px;opacity:.85;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s}
+.btn-primary{background:var(--cta);color:#fff}.btn-primary:hover{background:var(--cta-hover);text-decoration:none}
+.btn-light{background:#fff;color:var(--primary)}.btn-light:hover{background:var(--primary-soft);text-decoration:none}
+.related-section{padding:var(--s-xl) 0;background:var(--bg-cream);border-top:1px solid var(--border)}
+.related-section h3{font-size:18px;font-weight:700;margin-bottom:16px}
+.related-links{display:flex;gap:12px;flex-wrap:wrap}
+.related-link-card{padding:10px 18px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--primary);text-decoration:none}
+.related-link-card:hover{border-color:var(--primary);text-decoration:none}
+footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 0}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}
+.footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+.footer-tagline{font-size:13px;line-height:1.6;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:8px;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:20px;font-size:12px;opacity:.6;text-align:center}
+.fab-whatsapp{position:fixed;bottom:24px;left:24px;z-index:300;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:.2s}
+.fab-whatsapp:hover{transform:scale(1.08)}
+.fab-whatsapp svg{width:28px;height:28px;fill:#fff}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/#tools">🤖 רובייקטיבי</a>
+      <a href="/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/tools/" class="active">מחשבונים</a>
+      <a href="/savings/keren-kaspit/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a><span class="sep">›</span>
+    <a href="/tools/">מחשבונים</a><span class="sep">›</span>
+    <span class="current">מחשבון ROI ייעוץ פנסיוני</span>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>האם ייעוץ פנסיוני <span class="accent">משתלם לך?</span></h1>
+    <p class="lead">
+      ייעוץ פנסיוני עולה כסף. אבל האם הוא מחזיר את עצמו? הכנס את הנתונים שלך — המחשבון יחשב את ה-ROI המדויק: כמה פעמים הייעוץ מחזיר את עצמו לאורך הקריירה.
+    </p>
+    <div class="stats-strip">
+      <div class="stat-item">
+        <div class="stat-val">פי 50–80</div>
+        <div class="stat-label">ROI ממוצע לצבירה של 600K ₪ לאורך 25 שנה</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">שנה 1</div>
+        <div class="stat-label">כבר בשנה הראשונה — הייעוץ בדרך כלל בפלוס</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">4 נדבכים</div>
+        <div class="stat-label">דמי ניהול + תשואה + ביטוחים + הטבות מס</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="calc-wrap">
+  <div class="container">
+    <div class="calc-layout">
+      <div class="calc-intro">
+        <h2>מאיפה הכסף מגיע?</h2>
+        <p>
+          ייעוץ פנסיוני טוב לא "עולה כסף" — הוא <em>חוסך</em> כסף ממספר מקומות במקביל. המחשבון לוקח את כל הנדבכים ומחשב את ה-ROI הכולל.
+        </p>
+        <p><strong>נדבך 1 — דמי ניהול:</strong> הורדה של 0.3% על צבירה קיימת ועתידית, בריבית-דריבית.</p>
+        <p><strong>נדבך 2 — שינוי מסלול:</strong> מסלול לא מותאם גיל יכול "לעלות" 1-2% תשואה בשנה.</p>
+        <p><strong>נדבך 3 — ביטוחים כפולים:</strong> ממוצע ישראלי — 150-200 ₪/חודש ביטוח כפול.</p>
+        <p><strong>נדבך 4 — מיצוי מס:</strong> לא מחושב כאן — בדרך כלל מאות עד אלפי שקלים בשנה נוספים.</p>
+        <div class="insight-box">
+          <strong>הנתון שמפתיע:</strong> לקוח עם 600,000 ₪ ו-25 שנות עבודה — שיפור שמרני של 0.4% בדמי ניהול ותשואה שווה פי 50-80 על עלות הייעוץ. בשנה הראשונה — כבר בפלוס.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h3>📈 מחשבון ROI ייעוץ פנסיוני</h3>
+
+        <div class="form-group">
+          <label>סך צבירה פנסיונית (₪) <span class="val-display" id="roi-balance-out">500,000 ₪</span></label>
+          <input type="range" id="roi-balance" min="50000" max="3000000" step="25000" value="500000">
+        </div>
+        <div class="form-group">
+          <label>שנות עבודה נותרות <span class="val-display" id="roi-years-out">25</span></label>
+          <input type="range" id="roi-years" min="5" max="40" step="1" value="25">
+        </div>
+        <div class="form-group">
+          <label>הורדת דמי ניהול (נקודות %) <span class="val-display" id="roi-fees-out">0.30%</span></label>
+          <input type="range" id="roi-fees" min="0" max="1" step="0.05" value="0.30">
+        </div>
+        <div class="form-group">
+          <label>שיפור תשואה מסלול (נקודות %) <span class="val-display" id="roi-track-out">1.0%</span></label>
+          <input type="range" id="roi-track" min="0" max="3" step="0.1" value="1.0">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>ביטוח כפול בחודש (₪)</label>
+            <input type="number" id="roi-insurance" value="150" min="0" max="2000">
+          </div>
+          <div class="form-group">
+            <label>עלות הייעוץ (₪)</label>
+            <input type="number" id="roi-cost" value="6000" min="1000" max="20000">
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="res-title">החזר על ההשקעה (ROI)</div>
+          <div class="res-big good" id="roi-result">—</div>
+          <div class="res-sub">סך חיסכון לאורך הקריירה (₪)</div>
+          <div class="res-grid">
+            <div class="res-item">
+              <div class="ri-val" id="roi-year1">—</div>
+              <div class="ri-label">חיסכון בשנה הראשונה</div>
+            </div>
+            <div class="res-item">
+              <div class="ri-val good" id="roi-multiple">—</div>
+              <div class="ri-label">כפולות ROI על עלות הייעוץ</div>
+            </div>
+          </div>
+          <p class="res-note">* חישוב שמרני. כולל ריבית-דריבית על שיפורי דמי ניהול ומסלול (7% ברוטו). ביטוח כפול × 12 × שנים. אינו כולל הטבות מס.</p>
+        </div>
+
+        <div style="margin-top:20px">
+          <a href="/about/pricing/" class="btn btn-primary" style="width:100%;justify-content:center">ראה את המחירון המלא ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>הכסף כבר שם — הייעוץ רק מוציא אותו</h2>
+    <p>שיחה של 20 דקות כדי להבין מאיפה אצלך יש הכי הרבה לשפר.</p>
+    <a href="/#contact" class="btn btn-light">קבע שיחה כדי לשמוע יותר ←</a>
+  </div>
+</section>
+
+<section class="related-section">
+  <div class="container">
+    <h3>עוד מחשבונים</h3>
+    <div class="related-links">
+      <a class="related-link-card" href="/tools/management-fees/">מחשבון דמי ניהול</a>
+      <a class="related-link-card" href="/tools/pension-calc-self-employed/">מחשבון פנסיה לעצמאים</a>
+      <a class="related-link-card" href="/tools/tax-savings/">מחשבון חיסכון במס</a>
+      <a class="related-link-card" href="/tools/real-estate-vs-market/">נדל"ן מול שוק ההון</a>
+      <a class="related-link-card" href="/tools/">כל המחשבונים</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-logo">אחיטוב תכנון פיננסי</div>
+      <p class="footer-tagline">יועץ פנסיוני בעל רישיון משרד האוצר. אובייקטיבי לפי חוק — אסור לי לקבל עמלות.</p>
+    </div>
+    <div class="footer-col">
+      <h4>שירותים</h4>
+      <a href="/ira/">IRA — ניהול אישי</a>
+      <a href="/#audiences">תכנון פיננסי</a>
+      <a href="/about/pricing/">מחירון</a>
+    </div>
+    <div class="footer-col">
+      <h4>כלים</h4>
+      <a href="/tools/">כל המחשבונים</a>
+      <a href="/tools/pension-calc-self-employed/">פנסיה לעצמאים</a>
+      <a href="/tools/management-fees/">דמי ניהול</a>
+    </div>
+    <div class="footer-col">
+      <h4>כדאי לדעת</h4>
+      <a href="/ira/explained/">מדריך IRA</a>
+      <a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a>
+      <a href="/savings/keren-kaspit/">קרן כספית</a>
+      <a href="/about/license/">רישיון יועץ פנסיוני</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    © 2026 איתן אחיטוב | יועץ פנסיוני בעל רישיון | המידע באתר אינו מהווה ייעוץ פנסיוני אישי
+  </div>
+</footer>
+
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/></svg>
+</a>
+
+<script>
+function fmt(n){if(isNaN(n)||!isFinite(n))return'—';if(Math.abs(n)>=1000000)return(n/1000000).toFixed(1)+'M ₪';return Math.round(n).toLocaleString('he-IL')+' ₪';}
+function compound(pv,monthly,years,rate){const r=rate/12,n=years*12;return pv*Math.pow(1+r,n)+(r>0?monthly*(Math.pow(1+r,n)-1)/r:monthly*n);}
+
+function updateROI(){
+  const balance=parseFloat(document.getElementById('roi-balance').value);
+  const years=parseFloat(document.getElementById('roi-years').value);
+  const feeImprove=parseFloat(document.getElementById('roi-fees').value)/100;
+  const trackImprove=parseFloat(document.getElementById('roi-track').value)/100;
+  const insuranceMonthly=parseFloat(document.getElementById('roi-insurance').value)||0;
+  const cost=parseFloat(document.getElementById('roi-cost').value)||6000;
+  const baseReturn=0.07;
+
+  document.getElementById('roi-balance-out').textContent=balance.toLocaleString('he-IL')+' ₪';
+  document.getElementById('roi-years-out').textContent=years;
+  document.getElementById('roi-fees-out').textContent=(feeImprove*100).toFixed(2)+'%';
+  document.getElementById('roi-track-out').textContent=(trackImprove*100).toFixed(1)+'%';
+
+  const improvement=feeImprove+trackImprove;
+  const withoutAdvice=compound(balance,0,years,baseReturn);
+  const withAdvice=compound(balance,0,years,baseReturn+improvement);
+  const investmentGain=withAdvice-withoutAdvice;
+  const insuranceSavings=insuranceMonthly*12*years;
+  const totalSaving=investmentGain+insuranceSavings;
+
+  const year1=balance*improvement+insuranceMonthly*12;
+  const multiple=cost>0?totalSaving/cost:0;
+
+  document.getElementById('roi-result').textContent=fmt(totalSaving);
+  document.getElementById('roi-year1').textContent=fmt(year1);
+  document.getElementById('roi-multiple').textContent='פי '+Math.round(multiple);
+}
+
+['roi-balance','roi-years','roi-fees','roi-track','roi-insurance','roi-cost'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('input',updateROI);
+});
+updateROI();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('hamburger');
+  var nav=document.querySelector('.nav');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!nav)return;
+  function toggle(open){btn.classList.toggle('open',open);nav.classList.toggle('open',open);if(overlay)overlay.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));}
+  btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
+  if(overlay)overlay.addEventListener('click',function(){toggle(false);});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script src="/search.js"></script>
+</body>
+</html>
