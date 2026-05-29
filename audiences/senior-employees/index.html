@@ -653,7 +653,75 @@ section { padding: var(--s-2xl) 0; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/audiences/senior-employees/" />
+  <title>תכנון פיננסי לשכירים בכירים | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
 
@@ -677,7 +745,7 @@ section { padding: var(--s-2xl) 0; }
       <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences" class="active">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -685,6 +753,16 @@ section { padding: var(--s-2xl) 0; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </header>
 
@@ -797,9 +875,9 @@ section { padding: var(--s-2xl) 0; }
       </div>
       <div class="opportunity-card">
         <div class="opp-icon">🎯</div>
-        <h4>ביטוח מנהלים ישן — שמור!</h4>
-        <p>אם נפתח לפני 2013 עם מקדם קצבה מובטח — זה נכס שיכול להיות שווה מאות אלפים בפרישה.</p>
-        <span class="opp-value">לעולם לא לסגור בלי ייעוץ</span>
+        <h4>ביטוח מנהלים — לא לגעת בלי ייעוץ</h4>
+        <p><a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> ישן (לפני 2013) הוא אחד הנושאים המורכבים ביותר בתכנון פנסיוני. יש מקרים שבהם להישאר שווה מאות אלפים בפרישה — ויש מקרים שבהם דווקא ההישארות היא הטעות. ההחלטה דורשת בדיקת שורה של פרמטרים שלא רואים על פני השטח.</p>
+        <span class="opp-value">חובה — ייעוץ לפני כל שינוי</span>
       </div>
     </div>
 
@@ -824,7 +902,7 @@ section { padding: var(--s-2xl) 0; }
       רווחי הון בעת משיכה. ובניגוד לפנסיה — ניתן למשוך את הכסף כהון (לא כקצבה) אחרי 6 שנים.
     </p>
     <p>
-      שכר קובע לקרן השתלמות מוגבל ל-<strong>15,712 ₪ לחודש</strong> (2026) לצורך הטבת המס.
+      שכר קובע ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> מוגבל ל-<strong>15,712 ₪ לחודש</strong> (2026) לצורך הטבת המס.
       הפקדה של 7.5% על שכר זה = 1,178 ₪ לחודש מהמעסיק. <strong>גם על שכר גבוה מהתקרה ניתן
       להפקיד</strong> — אך הסכום מעל התקרה יחויב במס בעת משיכה (עדיין יש יתרון של <a href="/investment/ira-tax-deferral/">דחיית מס</a>).
     </p>
@@ -839,7 +917,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="callout">
       <strong>חישוב מהיר:</strong> שכר 40,000 ₪ לחודש. הפקדה אישית של 7% = 2,800 ₪.
       חיסכון מס שנתי: 2,800 × 12 × 47% = כ-<strong>15,792 ₪ בשנה</strong> רק מהפקדה
-      אישית לפנסיה. ועוד ניתן להוסיף <a href="/pension/contribution-employee/">הפקדה לפנסיה</a> משלימה, לגמל להשקעה, ולאפיקים נוספים.
+      אישית לפנסיה. ועוד ניתן להוסיף <a href="/pension/contribution-employee/">הפקדה לפנסיה</a> משלימה, ל<a href="/savings/gamal-lehashkaa/">גמל להשקעה</a>, ולאפיקים נוספים.
     </div>
 
     <!-- EMPLOYER COMPARISON -->
@@ -945,7 +1023,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>שכבה 2: הפנסיה — ממשיכה לעבוד עבורך</h3>
     <p>
-      בזמן שהגשר מממן אותך, הפנסיה ממשיכה לצבור ריבית דריבית. כל שנה נוספת שלא נוגעים
+      בזמן שהגשר מממן אותך, הפנסיה ממשיכה לצבור <a href="/articles/compound-interest/">ריבית דריבית</a>. כל שנה נוספת שלא נוגעים
       בפנסיה מוסיפה <strong>6–8% לצבירה</strong> (תלוי במסלול). שכיר בכיר שצבר מיליון שקלים
       בגיל 55 ולא נגע בפנסיה עד גיל 67 יגיע לפרישה עם צבירה של 2.5–3.5 מיליון שקלים
       — בלי הפקדה נוספת של שקל.
@@ -1053,11 +1131,13 @@ section { padding: var(--s-2xl) 0; }
       <div class="mistake-card">
         <div class="m-num">1</div>
         <div>
-          <h4>ביטוח מנהלים ישן — סגור בלי לבדוק</h4>
+          <h4>ביטוח מנהלים — שינוי בלי לבדוק לעומק</h4>
           <p>
             מאות לקוחות שמגיעים אליי עם ביטוח מנהלים שנפתח לפני 2013 — ומישהו "שכנע" אותם
-            לסגור אותו. לפעמים היה שם מקדם קצבה מובטח של 150 שהיה שווה עשרות אלפי שקלים
-            נוספים בשנה בפרישה. לאחר שנסגר — אי אפשר לשחזר.
+            לסגור אותו. לפעמים היה שם מקדם קצבה מובטח שהיה שווה עשרות אלפי שקלים נוספים בשנה
+            בפרישה. אחרי שנסגר — אי אפשר לשחזר. אבל הטעות ההפוכה קיימת גם היא: ישנם ביטוחי מנהלים
+            שעדיף לנייד ודווקא ההישארות בהם עולה כסף. לכן ביטוח מנהלים הוא הנושא היחיד בתכנון
+            פנסיוני שלעולם לא אני ממליץ לגעת בו בלי ניתוח ייעודי — בכיוון אחד ובכיוון שני.
           </p>
         </div>
       </div>
@@ -1099,7 +1179,7 @@ section { padding: var(--s-2xl) 0; }
         <div>
           <h4>כפל ביטוחי בין הפנסיה לביטוח הפרטי</h4>
           <p>
-            שכיר בכיר שמשלם על ביטוח אובדן כושר עבודה גם דרך קרן הפנסיה וגם בפוליסה פרטית —
+            שכיר בכיר שמשלם על ביטוח <a href="/insurance/okd/">אובדן כושר עבודה</a> גם דרך קרן הפנסיה וגם בפוליסה פרטית —
             משלם פעמיים, לפעמים עם כיסוי חופף. ביטול הכפילות יכול לחסוך 500–1,500 ₪ בחודש.
           </p>
         </div>
@@ -1157,3 +1237,4 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+<script src="/search.js"></script>

@@ -297,7 +297,74 @@ section { padding: var(--s-2xl) 0; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/pension/" />
 </head>
 <body>
 
@@ -320,7 +387,7 @@ section { padding: var(--s-2xl) 0; }
       <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences" class="active">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -328,6 +395,16 @@ section { padding: var(--s-2xl) 0; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </header>
 
@@ -436,8 +513,7 @@ section { padding: var(--s-2xl) 0; }
           (עד 4% מההפקדה ו-1.1% מהצבירה) ללא ערך מוסף מול קרן פנסיה.
         </p>
         <p style="font-size:13px; color: var(--text-2);">
-          <em>אם יש לך ביטוח מנהלים <strong>ישן</strong> (לפני 2013) — אל תפעל
-          בלי ייעוץ. ייתכן שיש לך מקדם מובטח ששווה זהב.</em>
+          <em>אם יש לך <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> <strong>ישן</strong> (לפני 2013) — אל תפעל בלי ייעוץ. יש מקרים שבהם להישאר זו טעות יקרה, ויש מקרים שבהם לעבור זו טעות יקרה לא פחות. השיקולים מורכבים ותלויים בפרמטרים שרק בדיקה ייעודית יכולה לחשוף.</em>
         </p>
       </div>
 
@@ -493,9 +569,9 @@ section { padding: var(--s-2xl) 0; }
     </table>
 
     <p>
-      <strong>שורה תחתונה:</strong> לרוב האנשים בני 27-47, <strong>קרן פנסיה מקיפה</strong>
+      <strong>שורה תחתונה:</strong> לרוב האנשים בני 27-47, <strong><a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a></strong>
       היא הבחירה הנכונה. ביטוח מנהלים אחרי 2013 לא מצדיק את העלות. ביטוח מנהלים ישן —
-      בדיקה ייעודית. <a href="/about/recommended-advisor/">קרא איך לבחור מי שיבדוק</a>.
+      חובה לבדוק לפני כל החלטה, בכיוון אחד ובכיוון שני: יש מספיק מקרים שבהם המעבר לקרן פנסיה הוא טעות, ויש מספיק מקרים שבהם ההישארות היא טעות. <a href="/about/recommended-advisor/">קרא איך לבחור מי שיבדוק</a>.
     </p>
 
     <h2 id="three-axes">3 הצירים לבדיקה — דמי ניהול, מסלול, ביטוחים</h2>
@@ -558,7 +634,7 @@ section { padding: var(--s-2xl) 0; }
       <p>
         טעות נפוצה בשנים האחרונות: הצעות להעביר חיסכון פנסיוני ל-<a href="/investment/ira-explained/">חשבון IRA
         בניהול אישי</a>. אסור — מאבדים כיסוי שאירים, ביטוח נכות, אג"ח מיועדות, סבסוד
-        צולב, וקצבה לכל החיים. ב-IRA זה הגיוני בקרן השתלמות, לעיתים בגמל, ולא בפנסיה.
+        צולב, וקצבה לכל החיים. ב-<a href="/investment/ira/">IRA</a> זה הגיוני ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, לעיתים בגמל, ולא בפנסיה.
       </p>
     </div>
 
@@ -575,9 +651,9 @@ section { padding: var(--s-2xl) 0; }
     <h2 id="mistakes">5 טעויות נפוצות בבחירה</h2>
     <ol>
       <li><strong>אדישות.</strong> "אני נמצא במה שהמעסיק שם אותי" — בלי לבדוק. הטעות הכי יקרה.</li>
-      <li><strong>מסלול ברירת מחדל "כללי"</strong> בגיל צעיר — מפסיד מאות אלפי שקלים בריבית דריבית.</li>
+      <li><strong>מסלול ברירת מחדל "כללי"</strong> בגיל צעיר — מפסיד מאות אלפי שקלים ב<a href="/articles/compound-interest/">ריבית דריבית</a>.</li>
       <li><strong>השארת ביטוח מנהלים אחרי 2013</strong> מתוך הרגל — בדרך כלל מוצר יקר ומיותר.</li>
-      <li><strong>משיכת קרן השתלמות אחרי 6 שנים</strong> לקניית רכב — מבזבז את האפיק היחיד הפטור ממס בישראל.</li>
+      <li><strong>משיכת <a href="/savings/keren-hishtalmut/">קרן השתלמות אחרי 6 שנים</a></strong> לקניית רכב — מבזבז את האפיק היחיד הפטור ממס בישראל.</li>
       <li><strong>אמון בסוכן ההסדר של המעסיק</strong> — סוכן ההסדר עובד אצל המעסיק, לא אצלך. תמיד יש לך זכות לבחור יועץ עצמאי.</li>
     </ol>
 
@@ -605,9 +681,9 @@ section { padding: var(--s-2xl) 0; }
     <h2 id="who-fits">מי מתאים לכל מוצר</h2>
     <ul>
       <li><strong>קרן פנסיה מקיפה</strong> — מתאים לרוב השכירים והעצמאים. החלוקה המרכזית של החיסכון הפנסיוני.</li>
-      <li><strong>קרן פנסיה משלימה</strong> — מי שמרוויח מעל תקרת ההפקדה לקרן מקיפה.</li>
-      <li><strong>ביטוח מנהלים ישן (לפני 2013)</strong> — שמור אם יש מקדם קצבה מובטח שווה.</li>
-      <li><strong>ביטוח מנהלים אחרי 2013</strong> — לרוב לא מצדיק את העלות.</li>
+      <li><strong><a href="/pension/keren-pensya-mashlima/">קרן פנסיה משלימה</a></strong> — מי שמרוויח מעל תקרת ההפקדה לקרן מקיפה.</li>
+      <li><strong>ביטוח מנהלים ישן (לפני 2013)</strong> — לא לפעול בלי ייעוץ. להישאר יכול להיות נכון. לעבור יכול להיות נכון. השיקולים מורכבים.</li>
+      <li><strong>ביטוח מנהלים אחרי 2013</strong> — לרוב לא מצדיק את העלות לעומת קרן פנסיה.</li>
       <li><strong>קופת גמל</strong> — לשכר גבוה מעל התקרה, או לרצון בשליטה מלאה על הביטוחים בנפרד.</li>
       <li><strong>קרן השתלמות</strong> — לכל מי שעובד! ההטבה הכי גדולה במערכת המס הישראלית.</li>
     </ul>
@@ -794,7 +870,7 @@ section { padding: var(--s-2xl) 0; }
       <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
       <span class="license-badge">
         <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        <a href="/about/license/">רישיון יועץ פנסיוני</a> #1013 · משרד האוצר
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> #I-00133091 · משרד האוצר
       </span>
     </div>
   </div>
@@ -814,16 +890,3 @@ section { padding: var(--s-2xl) 0; }
   const overlay = document.getElementById('nav-overlay');
   if (!btn || !nav) return;
   function toggle(open) {
-    btn.classList.toggle('open', open);
-    nav.classList.toggle('open', open);
-    overlay.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-  btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
-  overlay.addEventListener('click', () => toggle(false));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
-})();
-</script>
-</body>
-</html>

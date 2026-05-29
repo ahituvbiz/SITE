@@ -597,7 +597,100 @@ section.tight { padding: var(--s-2xl) 0; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/ai/" />
+  <meta property="og:title" content="בדיקת קרן פנסיה ב-60 שניות — רובייקטיבי | איתן אחיטוב — יועץ פנסיוני" />
+  <meta property="og:description" content="העלה דוח קרן פנסיה וקבל ניתוח מיידי: הפקדות, כיסויים ביטוחיים, דמי ניהול ומסלול השקעה. כלי חינמי של pensya.info." />
+  <meta property="og:url" content="https://pensya.info/ai/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://pensya.info/assets/og-default.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="pensya.info" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="בדיקת קרן פנסיה ב-60 שניות — רובייקטיבי | איתן אחיטוב — יועץ פנסיוני" />
+  <meta name="twitter:description" content="העלה דוח קרן פנסיה וקבל ניתוח מיידי: הפקדות, כיסויים ביטוחיים, דמי ניהול ומסלול השקעה. כלי חינמי של pensya.info." />
+  <meta name="twitter:image" content="https://pensya.info/assets/og-default.jpg" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "רובייקטיבי — ניתוח דוח פנסיה",
+  "url": "https://pensya.info/ai/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "description": "כלי AI לבדיקת קרן פנסיה מקיפה — ניתוח אוטומטי של הפקדות, כיסויים, דמי ניהול ומסלול השקעה",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ILS" },
+  "provider": { "@type": "Person", "name": "איתן אחיטוב", "url": "https://pensya.info/about/" }
+}
+  </script>
 </head>
 <body>
 
@@ -624,7 +717,7 @@ section.tight { padding: var(--s-2xl) 0; }
       <a href="#" class="active">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/articles/">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -633,6 +726,16 @@ section.tight { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="header-search"><!-- updated -->
       <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -982,7 +1085,7 @@ section.tight { padding: var(--s-2xl) 0; }
 <div class="legal-disclaimer">
   <div class="container">
     הניתוח מבוצע באמצעות בינה מלאכותית על בסיס הנתונים בדוח שהועלה. אינו מהווה ייעוץ פנסיוני אישי. אינו מהווה תחליף לייעוץ של <a href="/about/license/">יועץ פנסיוני בעל רישיון</a>.
-    המידע אינו נשמר ואינו עובר לצדדים שלישיים. רישיון יועץ פנסיוני · משרד האוצר.
+    המידע אינו נשמר ואינו עובר לצדדים שלישיים. <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר.
   </div>
 </div>
 
@@ -1370,5 +1473,6 @@ document.querySelectorAll('.results-tab').forEach(t => {
   nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
 })();
 </script>
+<script src="/search.js"></script>
 </body>
 </html>

@@ -603,7 +603,74 @@ section { padding: var(--s-2xl) 0; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/articles/why-pay/" />
 </head>
 <body>
 
@@ -627,7 +694,7 @@ section { padding: var(--s-2xl) 0; }
       <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
       <a href="/about/" class="active">אודות</a>
     </nav>
@@ -635,6 +702,16 @@ section { padding: var(--s-2xl) 0; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </header>
 
@@ -682,7 +759,7 @@ section { padding: var(--s-2xl) 0; }
     </div>
     <div>
       <div class="stat-num">~0%</div>
-      <div class="stat-label">עמלות שיועץ פנסיוני מורשה מקבל מחברות הביטוח — לפי חוק</div>
+      <div class="stat-label">עמלות ש<a href="/about/license/">יועץ פנסיוני מורשה</a> מקבל מחברות הביטוח — לפי חוק</div>
     </div>
     <div>
       <div class="stat-num">12 מיליארד ₪</div>
@@ -726,7 +803,7 @@ section { padding: var(--s-2xl) 0; }
     <ul>
       <li><strong>מסלקה פנסיונית מלאה</strong> — כלי רגולטורי שחושף את <em>כל</em> המוצרים שלך, כולל קרנות מעבודות ישנות ש"נעלמו".</li>
       <li><strong>ניתוח דמי ניהול מול בנצ'מארק השוק</strong> — לא "הם סבירים", אלא מספרים על הנייר, השוואה ספציפית.</li>
-      <li><strong>בדיקת כפילויות ביטוחיות</strong> — כמה ביטוחי אובדן כושר עבודה יש לך? האם אתה משלם פעמיים על אותו כיסוי?</li>
+      <li><strong>בדיקת כפילויות ביטוחיות</strong> — כמה ביטוחי <a href="/insurance/okd/">אובדן כושר עבודה</a> יש לך? האם אתה משלם פעמיים על אותו כיסוי?</li>
       <li><strong>בדיקת התאמת מסלול השקעה לגיל</strong> — 75% מהישראלים לא בחרו מסלול. זה עולה לרוב האדם מאות אלפי שקלים לאורך הקריירה.</li>
       <li><strong>המלצה בכתב עם נימוקים</strong> — לא "זה מה שאני ממליץ", אלא מסמך עם לוגיקה שאפשר לאמת ולבדוק.</li>
       <li><strong>אין אינטרס בבחירת יצרן ספציפי</strong> — לי לא אכפת אם תקנה ממגדל, הפניקס, מיטב, או כל אחד אחר. בוחרים לפי מה שטוב לך.</li>
@@ -880,12 +957,12 @@ section { padding: var(--s-2xl) 0; }
       <div class="when-not-card green-card">
         <h4>הזמן הכי טוב לייעוץ</h4>
         <p>
-          <strong>גיל 28-45 עם צבירה מעל 150,000 ₪</strong> — ריבית דריבית עוד עובדת לטובתך
+          <strong>גיל 28-45 עם צבירה מעל 150,000 ₪</strong> — <a href="/articles/compound-interest/">ריבית דריבית</a> עוד עובדת לטובתך
           בכוח מלא. כל שיפור כאן שווה פי כמה.
           <br><br>
           <strong>אחרי מעבר עבודה</strong> — קרנות ישנות לא מנוהלות, ייתכן שאובדן כיסויים.
           <br><br>
-          <strong>לפני חתימה על ביטוח חיים / ביטוח מנהלים</strong> — הרגע הנכון למנוע
+          <strong>לפני חתימה על <a href="/insurance/bituach-chaim/">ביטוח חיים</a> / <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a></strong> — הרגע הנכון למנוע
           טעות יקרה, לא לתקן אותה אחר כך.
         </p>
       </div>
@@ -949,7 +1026,7 @@ section { padding: var(--s-2xl) 0; }
         </div>
         <div class="case-num">
           <div class="num-val">~290,000 ₪</div>
-          <div class="num-label">ערך עתידי של קרן השתלמות ב-20 שנה</div>
+          <div class="num-label">ערך עתידי של <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> ב-20 שנה</div>
         </div>
       </div>
       <p>
@@ -1120,7 +1197,7 @@ section { padding: var(--s-2xl) 0; }
         <summary>האם יש הבדל בין ייעוץ לשכיר ולעצמאי?</summary>
         <div class="faq-body">
           כן, משמעותי. לעצמאי יש אפשרויות שונות לחלוטין: תקרות הפקדה גדולות יותר,
-          הטבות מס שונות, קרן השתלמות לעצמאי עם כללים ייחודיים, ותכנון תזרים שונה.
+          הטבות מס שונות, <a href="/savings/keren-hishtalmut-atzmai/">קרן השתלמות לעצמאי</a> עם כללים ייחודיים, ותכנון תזרים שונה.
           עבור שניהם — הלוגיקה זהה: אובייקטיביות שווה יותר מ"חינם" מסוכן שמרוויח
           על גב הבחירות שלך.
         </div>
@@ -1196,3 +1273,4 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+<script src="/search.js"></script>

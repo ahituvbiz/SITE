@@ -660,7 +660,74 @@ section { padding: var(--s-2xl) 0; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/audiences/self-employed/" />
 </head>
 <body>
 
@@ -684,7 +751,7 @@ section { padding: var(--s-2xl) 0; }
       <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences" class="active">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/#knowledge">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -692,6 +759,16 @@ section { padding: var(--s-2xl) 0; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </header>
 
@@ -1023,7 +1100,7 @@ section { padding: var(--s-2xl) 0; }
       הכסף שלו נכון לכזה שלא — זו <a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a>.
     </p>
     <p>
-      קרן השתלמות לעצמאים שונה משכיר בנקודה קריטית אחת: <strong>אתה מממן את הכל עצמך</strong>.
+      <a href="/savings/keren-hishtalmut-atzmai/"><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> לעצמאי</a>ם שונה משכיר בנקודה קריטית אחת: <strong>אתה מממן את הכל עצמך</strong>.
       אבל התנאי המיסויי הוא אחד הטובים בישראל:
     </p>
 
@@ -1078,7 +1155,7 @@ section { padding: var(--s-2xl) 0; }
     </div>
 
     <p>
-      לקריאה מעמיקה יותר על <a href="/investment/ira/">קרן השתלמות בניהול אישי</a> ו-IRA:
+      לקריאה מעמיקה יותר על <a href="/investment/ira/">קרן השתלמות בניהול אישי</a> ו-<a href="/investment/ira/">IRA</a>:
       <a href="/investment/ira-explained/">מדריך IRA — מתי כן ומתי לא</a>.
     </p>
 
@@ -1180,7 +1257,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h4>3. אין ביטוח מקצועי מהמעסיק</h4>
     <p>
-      שכיר נהנה מביטוח אובדן כושר עבודה דרך קרן הפנסיה. עצמאי — קרן הפנסיה שלו
+      שכיר נהנה מביטוח <a href="/insurance/okd/">אובדן כושר עבודה</a> דרך קרן הפנסיה. עצמאי — קרן הפנסיה שלו
       כוללת גם ביטוח נכות, אבל הכיסוי בדרך כלל נמוך מהנדרש. חייבים
 <section class="related-links-section" id="related">
   <div class="container">
@@ -1217,3 +1294,4 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+<script src="/search.js"></script>

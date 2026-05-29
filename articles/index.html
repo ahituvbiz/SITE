@@ -691,7 +691,74 @@ h4 { font-size: 17px; font-weight: 700; }
   .nav-overlay.open { display: block; }
 }
 
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  outline: none;
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
 </style>
+  <link rel="canonical" href="https://pensya.info/articles/" />
 </head>
 <body>
 
@@ -719,7 +786,7 @@ h4 { font-size: 17px; font-weight: 700; }
       <a href="/#tools">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/#audiences">שירותים</a>
-      <a href="/#tools">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="#" class="active">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -727,6 +794,16 @@ h4 { font-size: 17px; font-weight: 700; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
   </div>
 </header>
 
@@ -783,7 +860,7 @@ h4 { font-size: 17px; font-weight: 700; }
         </div>
         <div class="search-tags">
           <button class="search-tag" onclick="searchFilter('דמי ניהול')">דמי ניהול</button>
-          <button class="search-tag" onclick="searchFilter('IRA')">IRA</button>
+          <button class="search-tag" onclick="searchFilter('IRA')"><a href="/investment/ira/">IRA</a></button>
           <button class="search-tag" onclick="searchFilter('קרן פנסיה')">קרן פנסיה</button>
           <button class="search-tag" onclick="searchFilter('ריבית')"><a href="/savings/start-saving-early/">ריבית דריבית</a></button>
           <button class="search-tag" onclick="searchFilter('אכ\"ע')">אכ"ע</button>
@@ -1243,52 +1320,6 @@ h4 { font-size: 17px; font-weight: 700; }
       <div class="section-header" style="margin-bottom:0;">
         <span class="section-eyebrow">מאמרי ביטוחים</span>
         <h2>ביטוח חיים, אכ"ע, בריאות, ונכות</h
-
-<!-- =========================================================
-     הרצאות מומלצות
-     ========================================================= -->
-<section class="category-section" id="lectures-section" style="background:var(--bg-white);">
-  <div class="container">
-    <div class="section-header-row">
-      <div class="section-header" style="margin-bottom:0;">
-        <span class="section-eyebrow">הרצאות מומלצות</span>
-        <h2>סיכומי הרצאות מומחים בתחום הפיננסים</h2>
-        <p>הרצאות שאני מוצא מעניינות וחשוב להכיר — מסוכמות ומפורשות עם עיניים של יועץ פנסיוני.</p>
-      </div>
-      <a href="/articles/lectures/" style="display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:var(--primary);white-space:nowrap;">כל ההרצאות →</a>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-top:var(--s-lg);">
-      <a href="/articles/lectures/israel-housing-2026/" style="display:block;background:var(--bg-cream);border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);text-decoration:none;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
-        <div style="display:flex;gap:8px;margin-bottom:var(--s-sm);">
-          <span style="background:#E7F0F7;color:var(--primary);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">🏠 נדל&quot;ן</span>
-          <span style="background:#f0fdf4;color:#5C8D5A;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">📺 כולל וידאו</span>
-        </div>
-        <h3 style="font-size:18px;color:var(--text-1);margin-bottom:8px;">שוק הדיור בישראל 2026 — מחירי הדירות, ההטבות והסיכונים</h3>
-        <p style="font-size:14px;color:var(--text-2);margin-bottom:var(--s-sm);line-height:1.5;">ביקוש, היצע, מבצעי מימון קבלנים, מדד הנגישות לדיור וסיכוני יזמים — ניתוח מקיף של מתן שטרית, כלכלן ראשי קבוצת הפניקס.</p>
-        <div style="font-size:13px;color:var(--text-meta);font-weight:600;">מתן שטרית · קבוצת הפניקס · 49:54 ד'</div>
-      </a>
-      <a href="/articles/lectures/index-investing-deep-dive/" style="display:block;background:var(--bg-cream);border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);text-decoration:none;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
-        <div style="display:flex;gap:8px;margin-bottom:var(--s-sm);">
-          <span style="background:#E7F0F7;color:var(--primary);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">📈 השקעות</span>
-          <span style="background:#fff1f2;color:#e11d48;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">ביקורתי</span>
-        </div>
-        <h3 style="font-size:18px;color:var(--text-1);margin-bottom:8px;">השקעה במדדים: כל אחד יכול, אך האם כל אחד מסוגל?</h3>
-        <p style="font-size:14px;color:var(--text-2);margin-bottom:var(--s-sm);line-height:1.5;">ניתוח ביקורתי מלא של השקעה פסיבית: ריכוזיות S&amp;P 500, מדדים גלובליים שלא עלו, וחמישה מבחנים פסיכולוגיים שרוב המשקיעים נכשלים בהם.</p>
-        <div style="font-size:13px;color:var(--text-meta);font-weight:600;">אסף נתן · מנהל קרנות השקעה · קהילת סטוקו</div>
-      </a>
-      <a href="/articles/lectures/die-with-zero/" style="display:block;background:var(--bg-cream);border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);text-decoration:none;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='var(--shadow-hover)'" onmouseout="this.style.boxShadow='none'">
-        <div style="display:flex;gap:8px;margin-bottom:var(--s-sm);">
-          <span style="background:#fff1f2;color:#e11d48;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">💰 כסף וזמן</span>
-          <span style="background:#fef9c3;color:#a16207;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;">ספר</span>
-        </div>
-        <h3 style="font-size:18px;color:var(--text-1);margin-bottom:8px;">למות בלי שקל — לבזבז את הכסף בזמן הנכון</h3>
-        <p style="font-size:14px;color:var(--text-2);margin-bottom:var(--s-sm);line-height:1.5;">על ה"שנים הזהובות" האמיתיות, דיבידנדי זיכרון, ומתי ולמה כדאי לתת לילדים בחיים — עם התאמה למציאות המיסוי הישראלית.</p>
-        <div style="font-size:13px;color:var(--text-meta);font-weight:600;">תמיר מנדובסקי · השקעות לעצלנים · פרק #45</div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <section class="related-links-section" id="related">
   <div class="container">
     <div class="eyebrow">קריאה נוספת</div>
@@ -1324,3 +1355,4 @@ h4 { font-size: 17px; font-weight: 700; }
   });
 })();
 </script>
+<script src="/search.js"></script>
