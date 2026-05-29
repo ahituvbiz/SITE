@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- נוצר אוטומטית 2026-05-29 — pensya.info -->
+
+  <url>
+    <loc>https://pensya.info/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <!-- יועץ פנסיוני אובייקטיבי -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/ai/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <!-- בדיקת קרן פנסיה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <!-- איתן אחיטוב יועץ פנסיוני -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/license/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- רישיון יועץ פנסיוני -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/recommended-advisor/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- יועץ פנסיוני מומלץ -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/pricing/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- כמה עולה ייעוץ פנסיוני -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/advisor-vs-planner-vs-agent/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- יועץ פנסיוני מול מתכנן פיננסי -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/case-studies/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- סיפורי לקוחות ייעוץ פנסיוני -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/about/testimonials/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- המלצה על יועץ פנסיוני -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/pension/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- מוצרי פנסיה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/pension/keren-pensya-mekifa/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- קרן פנסיה מקיפה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/pension/mekifa-vs-mashlima/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מה עדיף קרן פנסיה מקיפה או משלימה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/pension/contribution-employee/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- כמה להפקיד לפנסיה כשכיר -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/keren-hishtalmut/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- קרן השתלמות -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/keren-kaspit/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- קרן כספית -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/gamal-lehashkaa/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- גמל להשקעה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/hisachon-layeled/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- חיסכון לכל ילד -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/how-to-buy-keren-kaspit/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- איך קונים קרן כספית -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/start-saving-early/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- להתחיל לחסוך לפנסיה מוקדם -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/insurance/cancel-siudi/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- ביטול ביטוח סיעודי -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/mortgage/mortgage-and-pension/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- משכנתא ופנסיה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/audiences/self-employed/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- פנסיה לעצמאים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/audiences/senior-employees/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- תכנון פיננסי לשכירים בכירים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/investment/ira/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- IRA קופת גמל בניהול אישי -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/investment/ira-explained/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- IRA בישראל -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/investment/ira-fees/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- עמלות ברוקרים IRA -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/investment/ira-investment-rules/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- כללי ההשקעה ב-IRA -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/investment/ira-tax-deferral/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- דחיית מס ב-IRA -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <!-- מאמרים פיננסיים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/why-pay/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- ייעוץ פנסיוני בתשלום -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/true-cost-free/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- ייעוץ פנסיוני חינם -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/real-estate-vs-stocks/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- נדל"ן או שוק ההון -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/lectures/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <!-- הרצאות מומלצות -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/lectures/israel-housing-2026/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- שוק הדיור בישראל 2026 -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/lectures/index-investing-deep-dive/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- השקעה במדדים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/articles/lectures/die-with-zero/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- Die with Zero -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- מחשבונים פיננסיים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/pension-calc-self-employed/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- מחשבון פנסיה לעצמאים -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/management-fees/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון דמי ניהול -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/mechir-lamishtaken/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחיר למשתכן -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/real-estate-vs-market/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון נדל"ן מול שוק ההון -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/roi-advisor/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון ROI ייעוץ -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/tools/tax-savings/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון חיסכון במס -->
+  </url>
+
+</urlset>

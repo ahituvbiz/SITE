@@ -31,43 +31,43 @@ const KEYWORD_MAP = {
   // ── פילר 1: מוצרי פנסיה ──
   'מה עדיף קרן פנסיה מקיפה או משלימה': '/pension/mekifa-vs-mashlima/',
   'קרן פנסיה מקיפה מול משלימה':        '/pension/mekifa-vs-mashlima/',
-  'מסלולי השקעה פנסיוניים':             '/pension/investment-tracks/',
-  'מסלול השקעה בפנסיה':                '/pension/investment-tracks/',
-  'מסלול השקעה לפי גיל':               '/pension/investment-by-age/',
-  'ניוד קרן פנסיה':                     '/pension/niud/',
-  'השוואת קרנות פנסיה':                '/pension/hashvaot-kranot/',
-  'דמי ניהול בפנסיה':                   '/pension/dmei-nihul/',
-  'ביטוח מנהלים':                       '/pension/bituach-menahalim/',
-  'גמל פנסיוני':                         '/pension/gamal-pensyoni/',
+  // 'מסלולי השקעה פנסיוניים': דף טרם נבנה — /pension/investment-tracks/
+  // 'מסלול השקעה בפנסיה': דף טרם נבנה
+  // 'מסלול השקעה לפי גיל': דף טרם נבנה — /pension/investment-by-age/
+  // 'ניוד קרן פנסיה': דף טרם נבנה — /pension/niud/
+  // 'השוואת קרנות פנסיה': דף טרם נבנה — /pension/hashvaot-kranot/
+  // 'דמי ניהול בפנסיה': דף טרם נבנה — /pension/dmei-nihul/
+  // 'ביטוח מנהלים': דף טרם נבנה — /pension/bituach-menahalim/
+  // 'גמל פנסיוני': דף טרם נבנה — /pension/gamal-pensyoni/
   'קרן פנסיה מקיפה':                    '/pension/keren-pensya-mekifa/',
-  'קרן פנסיה משלימה':                   '/pension/keren-pensya-mashlima/',
+  // 'קרן פנסיה משלימה': דף טרם נבנה — /pension/keren-pensya-mashlima/
   'מוצרי פנסיה':                         '/pension/',
   'כמה להפקיד לפנסיה':                  '/pension/contribution-employee/',
 
   // ── פילר 2: חיסכון ──
-  'קרן השתלמות לשכיר':                  '/savings/keren-hishtalmut-sakhir/',
-  'קרן השתלמות לעצמאי':                 '/savings/keren-hishtalmut-atzmai/',
+  // 'קרן השתלמות לשכיר': דף טרם נבנה — /savings/keren-hishtalmut-sakhir/
+  // 'קרן השתלמות לעצמאי': דף טרם נבנה — /savings/keren-hishtalmut-atzmai/
   'קרן השתלמות אחרי 6 שנים':            '/savings/keren-hishtalmut/',
   'קרן השתלמות':                         '/savings/keren-hishtalmut/',
   'איך קונים קרן כספית':                '/savings/how-to-buy-keren-kaspit/',
   'חיסכון לכל ילד':                      '/savings/hisachon-layeled/',
   'להתחיל לחסוך לפנסיה מוקדם':          '/savings/start-saving-early/',
   'גמל להשקעה':                          '/savings/gamal-lehashkaa/',
-  'פוליסת חיסכון':                       '/savings/polisa-hisachon/',
+  // 'פוליסת חיסכון': דף טרם נבנה — /savings/polisa-hisachon/
   'קרן כספית':                           '/savings/keren-kaspit/',
 
   // ── פילר 3: ביטוחים ──
   'ביטול ביטוח סיעודי':                 '/insurance/cancel-siudi/',
-  'ביטוח סיעוד':                         '/insurance/siud/',
-  'ביטוח בריאות פרטי':                  '/insurance/bituach-briut/',
-  'אובדן כושר עבודה':                    '/insurance/okd/',
-  'ביטוח חיים':                          '/insurance/bituach-chaim/',
-  'כפילויות בביטוחים':                   '/insurance/kfiliuyot/',
-  'בדיקת ביטוחים':                       '/insurance/',
+  // 'ביטוח סיעוד': דף טרם נבנה — /insurance/siud/
+  // 'ביטוח בריאות פרטי': דף טרם נבנה — /insurance/bituach-briut/
+  // 'אובדן כושר עבודה': דף טרם נבנה — /insurance/okd/
+  // 'ביטוח חיים': דף טרם נבנה — /insurance/bituach-chaim/
+  // 'כפילויות בביטוחים': דף טרם נבנה — /insurance/kfiliuyot/
+  // 'בדיקת ביטוחים': דף טרם נבנה — /insurance/
 
   // ── פילר 4: משכנתא ──
   'משכנתא ופנסיה':                       '/mortgage/mortgage-and-pension/',
-  'ייעוץ משכנתאות':                      '/mortgage/',
+  // 'ייעוץ משכנתאות': דף טרם נבנה — /mortgage/
   'מחיר למשתכן':                         '/tools/mechir-lamishtaken/',
   'נדל"ן או שוק ההון':                   '/articles/real-estate-vs-stocks/',
   'נדלן מול שוק ההון':                   '/articles/real-estate-vs-stocks/',
@@ -76,16 +76,16 @@ const KEYWORD_MAP = {
   'פנסיה לעצמאים':                       '/audiences/self-employed/',
   'תכנון פיננסי לעצמאים':               '/audiences/self-employed/',
   'תכנון פיננסי לשכירים בכירים':        '/audiences/senior-employees/',
-  'תכנון פיננסי לזוגות צעירים':         '/audiences/young-couples/',
-  'תכנון פיננסי משפחתי':                '/audiences/family/',
-  'יועץ פנסיוני לעובדי מדינה':          '/audiences/gov-employees/',
+  // 'תכנון פיננסי לזוגות צעירים': דף טרם נבנה — /audiences/young-couples/
+  // 'תכנון פיננסי משפחתי': דף טרם נבנה — /audiences/family/
+  // 'יועץ פנסיוני לעובדי מדינה': דף טרם נבנה — /audiences/gov-employees/
 
   // ── פילר 6: מאמרים ──
-  'הורדת דוח פנסיה שנתי':               '/articles/how-to-get-pension-report/',
-  'איך קוראים דוח פנסיה':               '/articles/how-to-read-pension-report/',
-  'הטבות מס בחיסכון פנסיוני':           '/articles/tax-benefits/',
-  'ריבית דריבית':                        '/articles/compound-interest/',
-  'מילון מונחים פנסיוני':               '/articles/glossary/',
+  // 'הורדת דוח פנסיה שנתי': דף טרם נבנה — /articles/how-to-get-pension-report/
+  // 'איך קוראים דוח פנסיה': דף טרם נבנה — /articles/how-to-read-pension-report/
+  // 'הטבות מס בחיסכון פנסיוני': דף טרם נבנה — /articles/tax-benefits/
+  // 'ריבית דריבית': דף טרם נבנה — /articles/compound-interest/
+  // 'מילון מונחים פנסיוני': דף טרם נבנה — /articles/glossary/
   'ייעוץ פנסיוני בתשלום':               '/articles/why-pay/',
   'למה לשלם על ייעוץ פנסיוני':          '/articles/why-pay/',
   'ייעוץ פנסיוני חינם':                  '/articles/true-cost-free/',
@@ -108,7 +108,7 @@ const KEYWORD_MAP = {
   'יועץ פנסיוני מול מתכנן פיננסי':      '/about/advisor-vs-planner-vs-agent/',
   'סיפורי לקוחות':                       '/about/case-studies/',
   'המלצות לקוחות':                       '/about/testimonials/',
-  'פגישה עם יועץ פנסיוני':              '/about/meeting/',
+  // 'פגישה עם יועץ פנסיוני': דף טרם נבנה — /about/meeting/
 
   // ── פילר 9: מוצרי השקעה (IRA) ──
   'כללי ההשקעה ב-IRA':                   '/investment/ira-investment-rules/',
@@ -245,5 +245,4 @@ for (const filePath of htmlFiles) {
   }
 }
 
-console.log(`\n✨ סיום — עודכנו ${totalLinks} דפים`);
-console.log(`💡 כל הקישורים הפנימיים עכשיו מנוהלים על ידי KEYWORD_MAP בסקריפט זה.\n`);
+console.log(`\n
