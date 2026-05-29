@@ -245,4 +245,6 @@ for (const filePath of htmlFiles) {
   }
 }
 
-console.log(`\n
+console.log(`\n✨ סיום — עודכנו ${totalLinks} דפים`);
+console.log(`כל הקישורים הפנימיים מנוהלים על ידי KEYWORD_MAP.
+`);
