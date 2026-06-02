@@ -2401,7 +2401,7 @@ textarea:focus-visible,
         </tr>
         <tr>
           <td>מתאים ללא ידע בשוק ההון</td>
-          <td class="col-ira">לא — דורש לימוד או ייעוץ צמוד</td>
+          <td class="col-ira">לצורך השקעה פאסיבית נדרש ידע מינימלי. לצורך השקעה אקטיבית יש צורך בהבנה מעמיקה</td>
           <td class="col-std">כן</td>
         </tr>
       </tbody>
@@ -3051,7 +3051,4 @@ function restartWizard() {
   k.addEventListener('input', updateTotal);
   // Clear leading 0 on focus
   [g, k, document.getElementById('monthly-deposit')].forEach(function(el) {
-    el.addEventListener('focus', function() {
-      if (el.value === '0' || el.value === 0) el.value = '';
-    });
-    
+    el.addEventListener('focu
