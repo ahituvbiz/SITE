@@ -2471,6 +2471,15 @@ textarea:focus-visible,
           לאופציות PUT בלבד, ועד 5% מהתיק. כל הברוקרים אוכפים את המגבלות אוטומטית במערכת.
         </div>
       </details>
+      <details class="faq-item">
+        <summary>האם ניתן לפתוח קופת גמל להשקעה ב-IRA?</summary>
+        <div class="faq-body">
+          לא. בהתאם לתקנות משרד האוצר ניתן לפתוח רק קרנות השתלמות וקופות גמל פנסיוניות.
+          יחד עם זאת, עצמאי שיש לו קרן השתלמות ב-IRA יכול להפקיד אליה גם כספים מעל לתקרה שמקנה פטור ממס רווחי הון —
+          והכספים האלו יתנהלו למעשה כמו כספים של גמל להשקעה מבחינה מיסויית.
+          יחד עם זאת, אם קרן ההשתלמות לא נזילה, בשונה מגמל להשקעה, הכספים ייהפכו ללא נזילים עד שהקרן תהפוך לנזילה בתום 6 שנים לפתיחתה.
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -3031,24 +3040,4 @@ function restartWizard() {
   document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
   document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
   document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
-  document.getElementById('result-card').classList.remove('show');
-  document.getElementById('wizard-steps').style.display = 'block';
-  clearError();
-  updateUI();
-}
-
-// ============================================================
-// EVENT LISTENERS — runs immediately since script is at end of body
-// ============================================================
-(function init() {
-  const g = document.getElementById('amount-gemel');
-  const k = document.getElementById('amount-keren');
-  function updateTotal() {
-    const tot = (parseFloat(g.value)||0) + (parseFloat(k.value)||0);
-    document.getElementById('total-display').textContent = 'סה"כ: ' + formatIls(tot);
-  }
-  g.addEventListener('input', updateTotal);
-  k.addEventListener('input', updateTotal);
-  // Clear leading 0 on focus
-  [g, k, document.getElementById('monthly-deposit')].forEach(function(el) {
-    el.addEventListener('focu
+  docum
