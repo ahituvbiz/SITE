@@ -720,7 +720,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -768,14 +768,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/mortgage/mortgage-and-pension/" />
   <title>משכנתא ופנסיה — למה לתכנן יחד | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -803,7 +844,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -827,7 +868,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -936,7 +977,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>2. ביטוחים שנלקחים עם המשכנתא</h3>
     <p>
-      עם כל משכנתא מגיעים שני ביטוחים: <a href="/insurance/bituach-chaim/">ביטוח חיים</a> ריסק (למקרה פטירה) וביטוח מבנה.
+      עם כל משכנתא מגיעים שני ביטוחים: ביטוח חיים ריסק (למקרה פטירה) וביטוח מבנה.
       בלי בדיקה הוליסטית, אנשים נוטים לקחת את הביטוחים "הדיפולטיים" שהבנק ממליץ עליהם —
       לעיתים גבוהים משמעותית מהנדרש, ולעיתים כפולים עם ביטוחים שכבר קיימים בפנסיה.
     </p>
@@ -950,7 +991,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>4. <a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a> כ"רזרבה למשכנתא"</h3>
     <p>
-      <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> היא הכלי הפיננסי היקר ביותר בישראל — היחיד שפטור ממס רווחי הון. ואולם,
+      קרן השתלמות היא הכלי הפיננסי היקר ביותר בישראל — היחיד שפטור ממס רווחי הון. ואולם,
       לא מעט משפחות "שוברות" אותה כדי לפרוע חלק מהמשכנתא. זו בדרך כלל <strong>טעות יקרה
       מאוד</strong>. אמנם מורידים ריבית, אבל מאבדים את אפיק ההשקעה הכי משתלם שנשאר להם.
     </p>
@@ -980,7 +1021,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>2. ביטוחי החיים שבפנסיה — כבר כיסוי קיים</h3>
     <p>
-      <a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> כוללת ביטוח שאירים ו<a href="/insurance/okd/">אובדן כושר עבודה</a>. ביטוח הריסק שהבנק ידרוש עם
+      <a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> כוללת ביטוח שאירים ואובדן כושר עבודה. ביטוח הריסק שהבנק ידרוש עם
       המשכנתא מכסה, בחלקו, את אותו סיכון. <strong>ללא בדיקה הוליסטית, קונים ביטוח שכבר
       יש להם</strong> — ומשלמים פעמיים.
     </p>
@@ -1007,7 +1048,7 @@ section { padding: var(--s-2xl) 0; }
         <h4>זוג עם יועצים נפרדים</h4>
         <div class="sc-num" style="color: var(--negative);">−240,000 ₪</div>
         <p>
-          לקחו משכנתא ל-27 שנה, שברו <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> לאחר 6 שנים לפירעון חלקי,
+          לקחו משכנתא ל-27 שנה, שברו קרן השתלמות לאחר 6 שנים לפירעון חלקי,
           שילמו ביטוח ריסק מיותר. בגיל פרישה — 240,000 ₪ פחות.
         </p>
       </div>
@@ -1037,7 +1078,7 @@ section { padding: var(--s-2xl) 0; }
         <span class="s-num">3</span>
         <h4>אל תשבור קרן השתלמות לפירעון מוקדם</h4>
         <p>
-          השתמש ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> כ"נכס שמור" לטווח ארוך. ריבית ה"ריאלית" בשוק ההון,
+          השתמש בקרן השתלמות כ"נכס שמור" לטווח ארוך. ריבית ה"ריאלית" בשוק ההון,
           בשילוב עם פטור ממס רווחי הון, עולה ברוב המקרים על עלות הריבית שחוסכים בפירעון.
         </p>
       </div>
@@ -1046,7 +1087,7 @@ section { padding: var(--s-2xl) 0; }
         <h4>הגדל הפקדות לפנסיה כשמסיים משכנתא</h4>
         <p>
           ביום שמסיים לשלם משכנתא, יש לך פתאום "חופש כסף" של 7,000-10,000 ₪ בחודש. חצי
-          מהם לפנסיה ול<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> — ייצרו אלפי שקלים נוספים בצבירה לטווח ארוך.
+          מהם לפנסיה ולקרן השתלמות — ייצרו אלפי שקלים נוספים בצבירה לטווח ארוך.
         </p>
       </div>
       <div class="strategy-card">
@@ -1158,7 +1199,7 @@ section { padding: var(--s-2xl) 0; }
 
         <p style="font-size:13px; color:var(--text-meta); margin-top: var(--s-md);">
           <strong>הערה:</strong> המחשבון מחשב את הצבירה הנוספת הנוצרת מהפניית חלק מתשלום המשכנתא
-          שמשתחרר לחיסכון פנסיוני — לאחר סיום תשלומי המשכנתא. ההנחה: <a href="/articles/compound-interest/">ריבית דריבית</a> שנתית לאורך השנים
+          שמשתחרר לחיסכון פנסיוני — לאחר סיום תשלומי המשכנתא. ההנחה: ריבית דריבית שנתית לאורך השנים
           שנותרות עד הפרישה. אינו מחשב את הצבירה הפנסיונית הקיימת — רק את ה"תוספת" משחרור המשכנתא.
         </p>
       </div>
@@ -1183,7 +1224,7 @@ section { padding: var(--s-2xl) 0; }
       </p>
       <p>
         בניתוח שביצענו גילינו: שתי קרנות השתלמות שנשברו היו שוות 380,000 ₪
-        בגיל שבירה (34). בגיל פרישה 67 — עם <a href="/articles/compound-interest/">ריבית דריבית</a> ופטור ממס —
+        בגיל שבירה (34). בגיל פרישה 67 — עם ריבית דריבית ופטור ממס —
         היו שוות <strong>1,480,000 ₪ נטו</strong>. הם חסכו ריבית משכנתא של
         כ-320,000 ₪. <strong>הפסד נטו: כ-1,160,000 ₪.</strong>
       </p>
@@ -1251,7 +1292,7 @@ section { padding: var(--s-2xl) 0; }
         <div>
           <h4>ביטוח ריסק כפול (פנסיה + משכנתא)</h4>
           <p>
-            <a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> כוללת ביטוח שאירים. הבנק ידרוש ביטוח ריסק נוסף. בלי בדיקה —
+            קרן פנסיה מקיפה כוללת ביטוח שאירים. הבנק ידרוש ביטוח ריסק נוסף. בלי בדיקה —
             משלמים פעמיים על אותו כיסוי. הפרש של 300-600 ₪ בחודש × 25 שנה = 90,000-180,000 ₪.
           </p>
         </div>
@@ -1307,4 +1348,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

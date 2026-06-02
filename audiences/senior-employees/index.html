@@ -671,7 +671,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -719,14 +719,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/audiences/senior-employees/" />
   <title>תכנון פיננסי לשכירים בכירים | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -754,7 +795,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -778,7 +819,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -876,7 +917,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="opportunity-card">
         <div class="opp-icon">🎯</div>
         <h4>ביטוח מנהלים — לא לגעת בלי ייעוץ</h4>
-        <p><a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> ישן (לפני 2013) הוא אחד הנושאים המורכבים ביותר בתכנון פנסיוני. יש מקרים שבהם להישאר שווה מאות אלפים בפרישה — ויש מקרים שבהם דווקא ההישארות היא הטעות. ההחלטה דורשת בדיקת שורה של פרמטרים שלא רואים על פני השטח.</p>
+        <p>ביטוח מנהלים ישן (לפני 2013) הוא אחד הנושאים המורכבים ביותר בתכנון פנסיוני. יש מקרים שבהם להישאר שווה מאות אלפים בפרישה — ויש מקרים שבהם דווקא ההישארות היא הטעות. ההחלטה דורשת בדיקת שורה של פרמטרים שלא רואים על פני השטח.</p>
         <span class="opp-value">חובה — ייעוץ לפני כל שינוי</span>
       </div>
     </div>
@@ -902,7 +943,7 @@ section { padding: var(--s-2xl) 0; }
       רווחי הון בעת משיכה. ובניגוד לפנסיה — ניתן למשוך את הכסף כהון (לא כקצבה) אחרי 6 שנים.
     </p>
     <p>
-      שכר קובע ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> מוגבל ל-<strong>15,712 ₪ לחודש</strong> (2026) לצורך הטבת המס.
+      שכר קובע לקרן השתלמות מוגבל ל-<strong>15,712 ₪ לחודש</strong> (2026) לצורך הטבת המס.
       הפקדה של 7.5% על שכר זה = 1,178 ₪ לחודש מהמעסיק. <strong>גם על שכר גבוה מהתקרה ניתן
       להפקיד</strong> — אך הסכום מעל התקרה יחויב במס בעת משיכה (עדיין יש יתרון של <a href="/investment/ira-tax-deferral/">דחיית מס</a>).
     </p>
@@ -917,7 +958,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="callout">
       <strong>חישוב מהיר:</strong> שכר 40,000 ₪ לחודש. הפקדה אישית של 7% = 2,800 ₪.
       חיסכון מס שנתי: 2,800 × 12 × 47% = כ-<strong>15,792 ₪ בשנה</strong> רק מהפקדה
-      אישית לפנסיה. ועוד ניתן להוסיף <a href="/pension/contribution-employee/">הפקדה לפנסיה</a> משלימה, ל<a href="/savings/gamal-lehashkaa/">גמל להשקעה</a>, ולאפיקים נוספים.
+      אישית לפנסיה. ועוד ניתן להוסיף <a href="/pension/contribution-employee/">הפקדה לפנסיה</a> משלימה, לגמל להשקעה, ולאפיקים נוספים.
     </div>
 
     <!-- EMPLOYER COMPARISON -->
@@ -975,8 +1016,8 @@ section { padding: var(--s-2xl) 0; }
     <!-- ADVANCED TAX -->
     <h2 id="advanced-tax">תכנון מס מתקדם</h2>
     <p>
-      שכיר בכיר מתמודד לעיתים עם מבנה שכר מורכב: משכורת בסיס, בונוסים, RSU, <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a>
-      ממעסיק, <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, ולעיתים גם הכנסות נוספות מנדל"ן או השקעות. כל אחד מהמרכיבים
+      שכיר בכיר מתמודד לעיתים עם מבנה שכר מורכב: משכורת בסיס, בונוסים, RSU, ביטוח מנהלים
+      ממעסיק, קרן השתלמות, ולעיתים גם הכנסות נוספות מנדל"ן או השקעות. כל אחד מהמרכיבים
       האלה מחייב תשומת לב נפרדת.
     </p>
 
@@ -1016,14 +1057,14 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>שכבה 1: "הגשר" — הנכסים הנזילים</h3>
     <p>
-      ניתן למשוך מקרן פנסיה בגיל 60 (עם קנסות) ו-67 (ללא קנסות), ומ<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> אחרי 6
+      ניתן למשוך מקרן פנסיה בגיל 60 (עם קנסות) ו-67 (ללא קנסות), ומקרן השתלמות אחרי 6
       שנים. אבל מה קורה בין גיל 55 ל-60? צריך <strong>"גשר" של נכסים נזילים</strong> שיממן
-      את השנים האלה: <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> ותיקה, תיק השקעות, נדל"ן מניב, חיסכון עצמאי.
+      את השנים האלה: קרן השתלמות ותיקה, תיק השקעות, נדל"ן מניב, חיסכון עצמאי.
     </p>
 
     <h3>שכבה 2: הפנסיה — ממשיכה לעבוד עבורך</h3>
     <p>
-      בזמן שהגשר מממן אותך, הפנסיה ממשיכה לצבור <a href="/articles/compound-interest/">ריבית דריבית</a>. כל שנה נוספת שלא נוגעים
+      בזמן שהגשר מממן אותך, הפנסיה ממשיכה לצבור ריבית דריבית. כל שנה נוספת שלא נוגעים
       בפנסיה מוסיפה <strong>6–8% לצבירה</strong> (תלוי במסלול). שכיר בכיר שצבר מיליון שקלים
       בגיל 55 ולא נגע בפנסיה עד גיל 67 יגיע לפרישה עם צבירה של 2.5–3.5 מיליון שקלים
       — בלי הפקדה נוספת של שקל.
@@ -1090,7 +1131,7 @@ section { padding: var(--s-2xl) 0; }
           <div class="calc-result">
             <div class="age-label">חיסכון מס ב-10 שנים</div>
             <div class="net-value" id="decade-tax-saving">₪—</div>
-            <div class="real-value">ללא <a href="/articles/compound-interest/">ריבית דריבית</a> על הסכום שנחסך</div>
+            <div class="real-value">ללא ריבית דריבית על הסכום שנחסך</div>
           </div>
         </div>
 
@@ -1179,7 +1220,7 @@ section { padding: var(--s-2xl) 0; }
         <div>
           <h4>כפל ביטוחי בין הפנסיה לביטוח הפרטי</h4>
           <p>
-            שכיר בכיר שמשלם על ביטוח <a href="/insurance/okd/">אובדן כושר עבודה</a> גם דרך קרן הפנסיה וגם בפוליסה פרטית —
+            שכיר בכיר שמשלם על ביטוח אובדן כושר עבודה גם דרך קרן הפנסיה וגם בפוליסה פרטית —
             משלם פעמיים, לפעמים עם כיסוי חופף. ביטול הכפילות יכול לחסוך 500–1,500 ₪ בחודש.
           </p>
         </div>
@@ -1237,4 +1278,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

@@ -548,7 +548,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -596,13 +596,54 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/about/license/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -630,7 +671,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -654,7 +695,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -911,7 +952,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="eyebrow">מקרה אמיתי, שם שונה לפרטיות</div>
       <h4>דוד, שכיר הייטק בן 42</h4>
       <p>
-        דוד הגיע אליי עם צבירה של <strong>1,200,000 ₪</strong> בקרן הפנסיה וב<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a>
+        דוד הגיע אליי עם צבירה של <strong>1,200,000 ₪</strong> בקרן הפנסיה ובביטוח מנהלים
         ישן. הוא היה בטוח שהכול בסדר כי "סוכן ההסדר מטעם העבודה מטפל בו".
       </p>
 
@@ -919,9 +960,9 @@ section { padding: var(--s-2xl) 0; }
         בבדיקה אובייקטיבית גילינו:
       </p>
       <ul>
-        <li>דמי ניהול מהצבירה: <strong>0.5%</strong> ב<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> (גבוה — אפשרי בשוק ~0.2%-0.3%).</li>
+        <li>דמי ניהול מהצבירה: <strong>0.5%</strong> בביטוח מנהלים (גבוה — אפשרי בשוק ~0.2%-0.3%).</li>
         <li>מסלול ההשקעה: <strong>"כללי"</strong>, לא מותאם לגיל (42 — מתאים מסלול מנייתי).</li>
-        <li>ביטוח <a href="/insurance/okd/">אובדן כושר עבודה</a> כפול — סוכן שכח לבטל אחד מהם בעת מעבר ביטוח.</li>
+        <li>ביטוח אובדן כושר עבודה כפול — סוכן שכח לבטל אחד מהם בעת מעבר ביטוח.</li>
       </ul>
 
       <p>אחרי תהליך ייעוץ — ניוד ל<a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> ומשלימה עם דמי ניהול של 0.2%, שינוי
@@ -1117,7 +1158,7 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1174,6 +1215,7 @@ section { padding: var(--s-2xl) 0; }
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

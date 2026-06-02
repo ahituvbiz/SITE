@@ -388,7 +388,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -436,6 +436,46 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/investment/ira-investment-rules/" />
   <meta property="og:title" content="כללי ההשקעה ב-IRA — הכל על הרגולציה | איתן אחיטוב — יועץ פנסיוני" />
@@ -464,9 +504,10 @@ section { padding: var(--s-2xl) 0; }
   </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- Header -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -494,7 +535,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -517,12 +558,12 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- Hero -->
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <span class="eyebrow">תקנות תש"ע-2009 · נוסח 2026</span>
     <h1>כללי ההשקעה ב-IRA — מה מותר ומה אסור</h1>
     <p class="lede">
-      בניגוד לקופת גמל רגילה — שבה מנהל ההשקעות מחליט הכל — ב-<a href="/investment/ira/">IRA</a> אתה בוחר.
+      בניגוד לקופת גמל רגילה — שבה מנהל ההשקעות מחליט הכל — ב-IRA אתה בוחר.
       אבל לא הכל. החוק הישראלי מטיל מגבלות מוגדרות על מה אפשר לקנות בקופה ב<a href="/investment/ira/">ניהול אישי</a>, מאיפה, ובאיזה ריכוז.
       המגבלות נועדו להגן עליך מטעויות יקרות, ומפוקחות על ידי גלובלנט (החברה המנהלת) באופן אוטומטי.
     </p>
@@ -536,7 +577,7 @@ section { padding: var(--s-2xl) 0; }
       <h2 id="universe">היקף ההשקעה — מה מותר לקנות</h2>
       <p>
         על פי <strong>תקנות הפיקוח על שירותים פיננסיים (קופות גמל) (<a href="/investment/ira/">קופת גמל בניהול אישי</a>) תש"ע-2009</strong>,
-        כספי החוסך ב-<a href="/investment/ira/">IRA</a> ניתנים להשקעה אך ורק בכלים הבאים:
+        כספי החוסך ב-IRA ניתנים להשקעה אך ורק בכלים הבאים:
       </p>
 
       <div class="rules-grid">
@@ -658,7 +699,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="body-container">
       <h2 id="pension-money">מגבלת כסף פנסיוני — חוסכים צעירים</h2>
       <p>
-        חוסכים ב<a href="/investment/ira/">קופת גמל בניהול אישי</a> שעדיין לא צברו סכום משמעותי, או שלא מקבלים קצבת זקנה,
+        חוסכים בקופת גמל בניהול אישי שעדיין לא צברו סכום משמעותי, או שלא מקבלים קצבת זקנה,
         <strong>מוגבלים להשקעה במוצרים פסיביים בלבד</strong> — כלומר רק מחקי מדד (S&P 500,
         נאסד"ק, ת"א 35 וכו'). אין אפשרות לרכוש מניות בודדות, אג"ח ספציפי, או קרנות אקטיביות.
       </p>
@@ -677,7 +718,7 @@ section { padding: var(--s-2xl) 0; }
 
       <p>
         אם אתה צובר באחד מהתנאים הראשונים — נפתח עבורך כל היקף ההשקעה (מניות, אג"ח קונצרני,
-        קרנות אקטיביות). אם לא — אתה מוגבל למחקי מדד בלבד, וזה בעצם הופך את ה-<a href="/investment/ira/">IRA</a> לפחות
+        קרנות אקטיביות). אם לא — אתה מוגבל למחקי מדד בלבד, וזה בעצם הופך את ה-IRA לפחות
         אטרקטיבי לחוסכים צעירים בקופות פנסיוניות (כי בקופה רגילה יש מסלולי מחקה מדד בעלות
         סבירה ובלי הכאב ראש של ניהול עצמי).
       </p>
@@ -685,7 +726,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="callout">
         <strong>נקודה חשובה:</strong> המגבלה הזו <strong>לא חלה על <a href="/savings/keren-hishtalmut/">קרן השתלמות</a></strong>, ולא
         על כסף שאינו פנסיוני בקופת גמל (כספי מוטב, פיצויים שעברו התחשבנות, קופות גמל הוניות
-        שנפתחו לפני 2008). לכן <a href="/investment/ira/">IRA</a> זוהר בעיקר ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> —
+        שנפתחו לפני 2008). לכן IRA זוהר בעיקר בקרן השתלמות —
         <a href="/investment/ira-explained/#keren-good">קרא יותר במדריך</a>.
       </div>
     </div>
@@ -707,7 +748,7 @@ section { padding: var(--s-2xl) 0; }
           <div class="rule-icon">✗</div>
           <div>
             <h4>אסור לקבל הלוואה</h4>
-            <p>אחד מהיתרונות הגדולים של <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> רגילה הוא הלוואה זולה בריבית פריים. ב-IRA — אסור.</p>
+            <p>אחד מהיתרונות הגדולים של קרן השתלמות רגילה הוא הלוואה זולה בריבית פריים. ב-IRA — אסור.</p>
           </div>
         </div>
         <div class="rule-card blocked">
@@ -728,7 +769,7 @@ section { padding: var(--s-2xl) 0; }
           <div class="rule-icon">✗</div>
           <div>
             <h4>אסור IRA בקרן פנסיה</h4>
-            <p>קרן פנסיה לא יכולה להיות בניהול אישי. רק קופת גמל ו<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>. <a href="/investment/ira-explained/#pension-no" style="color:var(--negative); font-weight:700;">למה זה רעיון רע לעבור</a>.</p>
+            <p>קרן פנסיה לא יכולה להיות בניהול אישי. רק קופת גמל וקרן השתלמות. <a href="/investment/ira-explained/#pension-no" style="color:var(--negative); font-weight:700;">למה זה רעיון רע לעבור</a>.</p>
           </div>
         </div>
         <div class="rule-card blocked">
@@ -765,10 +806,10 @@ section { padding: var(--s-2xl) 0; }
         <ul style="margin: 8px 0 0; padding-right: 20px;">
           <li>אסור ניהול אישי בקופת גמל למי שאינו מקבל קצבה של 10,400 ₪ ומעלה לחודש.</li>
           <li>אסור ניהול אישי לחוסכים עם פחות מ-2.8 מיליון ₪ צבירה.</li>
-          <li>איסור על העברת כספים הוניים ל<a href="/investment/ira/">קופת גמל בניהול אישי</a>.</li>
+          <li>איסור על העברת כספים הוניים לקופת גמל בניהול אישי.</li>
         </ul>
         <p style="margin-top: 12px;">
-          <strong>חשוב:</strong> התקנות <strong>לא חלות על <a href="/savings/keren-hishtalmut/">קרן השתלמות</a></strong>, ולא חלות על
+          <strong>חשוב:</strong> התקנות <strong>לא חלות על קרן השתלמות</strong>, ולא חלות על
           חוסכים שכבר מנהלים כיום קופת גמל IRA. אם הטיוטה תיכנס לתוקף כפי שהוצעה — קרן השתלמות
           תהפוך למסלול היחיד הנגיש לרוב הציבור ב-IRA.
         </p>
@@ -844,7 +885,7 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -901,6 +942,7 @@ section { padding: var(--s-2xl) 0; }
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

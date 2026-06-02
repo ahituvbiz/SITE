@@ -678,7 +678,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -726,14 +726,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/tools/real-estate-vs-market/" />
   <title>מחשבון נדל"ן מול שוק ההון | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -761,7 +802,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -785,7 +826,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <span class="eyebrow">🧮 מחשבון · כלי חינמי</span>
     <h1>מחשבון <span class="accent">נדל"ן מול שוק ההון</span></h1>
@@ -1498,7 +1539,7 @@ let equityChart = null;
           <li>פיזור בין אלפי חברות — לא תלוי בשוק נדל"ן אחד</li>
           <li>כניסה בכל סכום — גם ב-1,000 ₪ ניתן להתחיל</li>
           <li>אין ניהול, אין שוכרים, אין תחזוקה, אין טרדות</li>
-          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> = 0% מס רווחי הון עד התקרה המוטבת</li>
+          <li>קרן השתלמות = 0% מס רווחי הון עד התקרה המוטבת</li>
         </ul>
       </div>
     </div>
@@ -1536,7 +1577,7 @@ let equityChart = null;
         <div class="profile-icon">👶</div>
         <h4>צעיר עם הון קטן ואופק ארוך</h4>
         <p>20-35K, מתחיל לחסוך. אין לך הון לדירה ולא תהיה לך בקרוב.</p>
-        <p><strong>בדרך כלל:</strong> שוק ההון בהחלט — כולל קרן פנסיה ב-<a href="/investment/ira/">IRA</a>. <a href="/savings/start-saving-early/">ריבית דריבית</a> עושה נסים ל-30 שנה.</p>
+        <p><strong>בדרך כלל:</strong> שוק ההון בהחלט — כולל קרן פנסיה ב-IRA. <a href="/savings/start-saving-early/">ריבית דריבית</a> עושה נסים ל-30 שנה.</p>
         <span class="profile-verdict verdict-shuk">שוק ההון — ברור</span>
       </div>
       <div class="profile-card">
@@ -1550,7 +1591,7 @@ let equityChart = null;
         <div class="profile-icon">🌍</div>
         <h4>אזרח ארה"ב בישראל</h4>
         <p>יש לך בעיית PFIC עם קרנות ישראליות. מיסוי אמריקאי מורכב.</p>
-        <p><strong>בדרך כלל:</strong> <a href="/investment/ira/">IRA</a> עם ני"ע אמריקאיים (לא PFIC) + נדל"ן יכולים להיות פתרון. לשאול רו"ח.</p>
+        <p><strong>בדרך כלל:</strong> IRA עם ני"ע אמריקאיים (לא PFIC) + נדל"ן יכולים להיות פתרון. לשאול רו"ח.</p>
         <span class="profile-verdict verdict-both">ייעוץ מקצועי — חובה</span>
       </div>
       <div class="profile-card">
@@ -1596,7 +1637,7 @@ let equityChart = null;
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1653,6 +1694,7 @@ let equityChart = null;
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <!-- WhatsApp FAB -->

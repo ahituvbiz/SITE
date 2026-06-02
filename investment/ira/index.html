@@ -186,7 +186,7 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -1516,7 +1516,7 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -1564,6 +1564,46 @@ section.tight { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/investment/ira/" />
   <meta property="og:title" content="IRA — קופת גמל והשתלמות בניהול אישי | איתן אחיטוב — יועץ פנסיוני" />
@@ -1593,11 +1633,12 @@ section.tight { padding: var(--s-2xl) 0; }
   </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- =========================================================
      HEADER
      ========================================================= -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1630,7 +1671,7 @@ section.tight { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -1666,7 +1707,7 @@ section.tight { padding: var(--s-2xl) 0; }
 <!-- =========================================================
      HERO
      ========================================================= -->
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="container hero-grid">
     <div>
       <span class="hero-eyebrow">
@@ -1730,7 +1771,7 @@ section.tight { padding: var(--s-2xl) 0; }
         <p>
           IRA אינו תחליף לקרן פנסיה. למעשה, על פי החוק, <strong>קרן פנסיה לא יכולה להיות בניהול אישי</strong>.
           כל מי שמציע "להעביר את הפנסיה ל-IRA" מתכוון להמיר אותה לקופת גמל — מהלך בו מפסידים יתרונות
-          חשובים של קרן פנסיה: ביטוחים הדדיים זולים וקריטיים — <a href="/insurance/okd/">אובדן כושר עבודה</a> (נכות) וחיים (שארים),
+          חשובים של קרן פנסיה: ביטוחים הדדיים זולים וקריטיים — אובדן כושר עבודה (נכות) וחיים (שארים),
           הבטחת תשואה על 30% מהכסף ודמי ניהול זולים במיוחד.
         </p>
         <p>
@@ -1807,7 +1848,7 @@ section.tight { padding: var(--s-2xl) 0; }
           </svg>
         </div>
         <h3>יתרון דחיית מס</h3>
-        <p>הרווחים בתוך קופת ה-IRA לא ממוסים בשוטף — המס נדחה עד למשיכה. כך כל רווח ממשיך לעבוד ולצבור תשואה כאילו לא שולם עליו מס, ואפקט ה<a href="/articles/compound-interest/">ריבית דריבית</a> על הכסף שהיה אמור ללכת למס עובד לטובתך לאורך שנים.</p>
+        <p>הרווחים בתוך קופת ה-IRA לא ממוסים בשוטף — המס נדחה עד למשיכה. כך כל רווח ממשיך לעבוד ולצבור תשואה כאילו לא שולם עליו מס, ואפקט הריבית דריבית על הכסף שהיה אמור ללכת למס עובד לטובתך לאורך שנים.</p>
       </div>
       <div class="explainer-card">
         <div class="explainer-icon">
@@ -1994,7 +2035,7 @@ section.tight { padding: var(--s-2xl) 0; }
     <div class="threshold-rules">
       <h4>הכללים</h4>
       <ul>
-        <li><strong>סך הצבירה</strong> בקופת גמל וב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> יחד — לפחות <strong>75,000 ₪</strong>.</li>
+        <li><strong>סך הצבירה</strong> בקופת גמל ובקרן השתלמות יחד — לפחות <strong>75,000 ₪</strong>.</li>
         <li><strong>בכל מוצר שאתה מנייד</strong> בנפרד (גמל / השתלמות) — לפחות <strong>30,000 ₪</strong>.</li>
         <li>אם רק אחד מהמוצרים מנוייד — הוא לבדו חייב להגיע ל-75,000 ₪.</li>
       </ul>
@@ -2473,7 +2514,7 @@ section.tight { padding: var(--s-2xl) 0; }
 <!-- =========================================================
      FOOTER
      ========================================================= -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -2535,6 +2576,7 @@ section.tight { padding: var(--s-2xl) 0; }
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <!-- Floating WhatsApp -->

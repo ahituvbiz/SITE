@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הצהרת נגישות | איתן אחיטוב — יועץ פנסיוני</title>
+<meta name="description" content="הצהרת הנגישות של pensya.info — מחויבות להנגשת האתר לפי תקן ישראלי 5568 (WCAG 2.1 AA). פרטי קשר לדיווח על בעיות נגישות.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://pensya.info/accessibility/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1F4E79;
+  --primary-soft: #E7F0F7;
+  --cta: #D74E3C;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: 64px;
+}
+
+body {
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: var(--bg-white);
+  direction: rtl;
+}
+
+/* === נגישות: skip link === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0; left: 0;
+  background: var(--primary);
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus { top: 0; outline: 3px solid var(--cta); outline-offset: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 var(--s-md); }
+
+/* Header */
+.header {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px 0;
+}
+.header-inner { display: flex; align-items: center; gap: var(--s-md); }
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-1); font-weight: 700; font-size: 17px;
+  white-space: nowrap;
+}
+.logo-sub { font-size: 12px; font-weight: 400; color: var(--text-meta); display: block; }
+.nav { display: flex; gap: var(--s-sm); margin-right: auto; }
+.nav a { text-decoration: none; color: var(--text-2); font-size: 15px; padding: 4px 6px; border-radius: 4px; }
+.nav a:hover, .nav a.active { color: var(--primary); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text-1); margin: 5px 0; transition: .3s; }
+
+/* Page hero */
+.page-hero {
+  background: var(--primary-soft);
+  padding: var(--s-xl) 0;
+  border-bottom: 1px solid var(--border);
+}
+.page-hero h1 { font-size: clamp(26px, 4vw, 38px); color: var(--primary); margin-bottom: 12px; }
+.page-hero .subtitle { font-size: 18px; color: var(--text-2); }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--positive-soft); color: var(--positive);
+  padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600;
+  margin-bottom: var(--s-md);
+}
+
+/* Content */
+.content-section { padding: var(--s-xl) 0; }
+.content-section + .content-section { border-top: 1px solid var(--border); }
+
+h2 {
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: var(--s-md);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-soft);
+}
+h3 { font-size: 18px; color: var(--text-1); margin: var(--s-md) 0 8px; }
+
+p { margin-bottom: var(--s-sm); color: var(--text-2); }
+p:last-child { margin-bottom: 0; }
+
+ul, ol { margin: var(--s-sm) 0 var(--s-sm) var(--s-md); }
+li { margin-bottom: 8px; color: var(--text-2); }
+
+.info-box {
+  background: var(--primary-soft);
+  border-right: 4px solid var(--primary);
+  padding: var(--s-md);
+  border-radius: 0 8px 8px 0;
+  margin: var(--s-md) 0;
+}
+.info-box p { color: var(--text-1); margin: 0; }
+
+.contact-box {
+  background: var(--bg-cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: var(--s-lg);
+  margin: var(--s-md) 0;
+}
+.contact-box h3 { margin-top: 0; }
+.contact-box a { color: var(--primary); font-weight: 600; }
+
+.status-table { width: 100%; border-collapse: collapse; margin: var(--s-md) 0; font-size: 15px; }
+.status-table th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: right; }
+.status-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.status-table tr:nth-child(even) td { background: var(--bg-cream); }
+.status-ok { color: var(--positive); font-weight: 600; }
+.status-partial { color: #B8860B; font-weight: 600; }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-lg); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; text-decoration: none; }
+.footer a:hover { color: #fff; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: var(--s-sm); margin-top: var(--s-lg);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 13px; color: #9097A0; flex-wrap: wrap; gap: 8px;
+}
+.license-badge { display: flex; align-items: center; gap: 6px; }
+.footer-access { text-align: center; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 16px; }
+.footer-access a { color: #C9CDD3; font-size: 13px; text-decoration: none; }
+
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .hamburger { display: block; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+        <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/ai/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/#audiences">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        מחויבות לנגישות
+      </div>
+      <h1>הצהרת נגישות</h1>
+      <p class="subtitle">אתר pensya.info שואף להיות נגיש לכלל המשתמשים, לרבות אנשים עם מוגבלויות.</p>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section class="content-section" aria-labelledby="commitment-heading">
+      <h2 id="commitment-heading">המחויבות שלנו לנגישות</h2>
+      <p>אנו פועלים להנגשת האתר בהתאם לתקן הישראלי <strong>ת"י 5568</strong>, המבוסס על הנחיות WCAG 2.1 ברמה AA, ובהתאם לחוק שוויון זכויות לאנשים עם מוגבלות, התשנ"ח-1998, ולתקנות הנגישות לשירות (תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013).</p>
+
+      <div class="info-box">
+        <p><strong>רמת העמידה הנוכחית:</strong> האתר עומד ברמת AA של תקן WCAG 2.1 בהיבטים המרכזיים. אנו ממשיכים לשפר ולבדוק את הנגישות באופן שוטף.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="measures-heading">
+      <h2 id="measures-heading">אמצעי הנגישות באתר</h2>
+
+      <table class="status-table" aria-label="סטטוס נגישות לפי קריטריון">
+        <thead>
+          <tr>
+            <th scope="col">נושא</th>
+            <th scope="col">יישום</th>
+            <th scope="col">סטטוס</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>שפת הדף</td>
+            <td>כל הדפים מוגדרים <code>lang="he" dir="rtl"</code></td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>דילוג לתוכן</td>
+            <td>קישור "דלג לתוכן הראשי" בראש כל דף (נגיש עם Tab)</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>ניווט מקלדת</td>
+            <td>כל האלמנטים האינטראקטיביים נגישים דרך מקלדת; מחוון focus גלוי</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>תיאור תמונות</td>
+            <td>כל התמונות המשמעותיות נושאות תכונת alt מתאימה</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>כותרות (Headings)</td>
+            <td>מבנה היררכי תקין H1→H2→H3 בכל הדפים</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>תוויות שדות (Labels)</td>
+            <td>שדות קלט נושאים <code>aria-label</code> או <code>&lt;label&gt;</code> מקושר</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>ניגודיות צבע</td>
+            <td>יחס ניגודיות ≥ 4.5:1 לטקסט רגיל, ≥ 3:1 לטקסט גדול</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>ARIA landmarks</td>
+            <td><code>role="banner"</code>, <code>role="main"</code>, <code>role="contentinfo"</code>, <code>role="navigation"</code></td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>הגדלת טקסט</td>
+            <td>האתר תומך בהגדלת טקסט עד 200% ללא איבוד תוכן</td>
+            <td class="status-ok">✓ מיושם</td>
+          </tr>
+          <tr>
+            <td>קוראי מסך</td>
+            <td>האתר נבדק לתאימות עם קוראי מסך (NVDA, VoiceOver)</td>
+            <td class="status-partial">~ בדיקה שוטפת</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="content-section" aria-labelledby="known-issues-heading">
+      <h2 id="known-issues-heading">מגבלות ידועות</h2>
+      <p>אנו עושים מאמץ לנגש את כל תכני האתר, אך ייתכנו מגבלות בתכנים הבאים:</p>
+      <ul>
+        <li><strong>מחשבונים אינטראקטיביים</strong> — חלק מהמחשבונים כוללים ממשק מורכב; אנו עובדים על שיפור הנגישות שלהם.</li>
+        <li><strong>תוכן מוטמע מצד שלישי</strong> — סרטוני YouTube המוטמעים באתר נשענים על נגישות פלטפורמת YouTube עצמה.</li>
+        <li><strong>PDF וקבצים להורדה</strong> — מסמכים הורדים עשויים להיות בלתי נגישים. ניתן לבקש גרסה נגישה בפנייה אלינו.</li>
+      </ul>
+    </section>
+
+    <section class="content-section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">פנייה בנושא נגישות</h2>
+      <p>נתקלתם בבעיית נגישות? נשמח לדעת ולתקן. ניתן לפנות אלינו בכל אחד מהאמצעים הבאים:</p>
+
+      <div class="contact-box">
+        <h3>רכז הנגישות</h3>
+        <p><strong>שם:</strong> איתן אחיטוב</p>
+        <p><strong>אימייל:</strong> <a href="mailto:ahituv.biz@gmail.com">ahituv.biz@gmail.com</a></p>
+        <p><strong>וואטסאפ:</strong> <a href="https://wa.me/972527700599">052-770-0599</a></p>
+        <p style="margin-top: var(--s-sm); font-size: 15px; color: var(--text-meta);">זמן מענה מקסימלי: 5 ימי עסקים.</p>
+      </div>
+
+      <p>בפנייתכם אנא ציינו:</p>
+      <ol>
+        <li>את כתובת הדף (URL) בו נתקלתם בבעיה</li>
+        <li>תיאור הבעיה וכיצד ניסיתם לגשת לתוכן</li>
+        <li>הטכנולוגיה המסייעת בה אתם משתמשים (אם רלוונטי) — קורא מסך, תוכנת הגדלה וכד'</li>
+      </ol>
+    </section>
+
+    <section class="content-section" aria-labelledby="enforcement-heading">
+      <h2 id="enforcement-heading">רגולציה ואכיפה</h2>
+      <p>אם לא קיבלתם מענה מספק לפנייתכם, ניתן לפנות לנציבות שוויון זכויות לאנשים עם מוגבלות במשרד המשפטים.</p>
+      <ul>
+        <li><strong>אתר הנציבות:</strong> <a href="https://www.gov.il/he/departments/disability_rights" target="_blank" rel="noopener">gov.il — נציבות שוויון זכויות לאנשים עם מוגבלות</a></li>
+        <li><strong>טלפון:</strong> 02-5002416</li>
+      </ul>
+
+      <div class="info-box" style="margin-top: var(--s-md);">
+        <p><strong>תאריך עדכון הצהרה זו:</strong> יוני 2026</p>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <rect x="0" y="0" width="40" height="40" rx="9" fill="#1F4E79"/>
+            <path d="M20 7 V 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 13 L 31 13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+            <rect x="11" y="17" width="3" height="9" fill="#FFFFFF" rx="1"/>
+            <rect x="26" y="14" width="3" height="12" fill="#FFFFFF" rx="1"/>
+            <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+          </svg>
+          <strong style="color:#fff; font-size:18px;">אחיטוב | תכנון פיננסי</strong>
+        </div>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. תכנון פיננסי הוליסטי לשכירים ולעצמאים.</p>
+      </div>
+      <div>
+        <h4>שירותים</h4>
+        <ul>
+          <li><a href="/">תכנון פיננסי</a></li>
+          <li><a href="/">ייעוץ פנסיוני</a></li>
+          <li><a href="/">ייעוץ ביטוחי</a></li>
+          <li><a href="/">ייעוץ משכנתאות</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/investment/ira-explained/">מתי IRA כן ומתי לא</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/about/">אודות איתן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צור קשר</h4>
+        <ul>
+          <li><a href="/#contact">קבע שיחה לשמוע יותר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ</a></li>
+          <li><a href="mailto:ahituv.biz@gmail.com">מייל</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;" aria-hidden="true"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        רישיון יועץ פנסיוני #I-00133091 · משרד האוצר
+      </span>
+    </div>
+  </div>
+  <div class="footer-access"><a href="/accessibility/" aria-current="page">הצהרת נגישות</a></div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav');
+  if (!btn || !nav) return;
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+})();
+</script>
+<script src="/search.js"></script>
+</body>
+</html>

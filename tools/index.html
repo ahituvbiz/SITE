@@ -46,7 +46,7 @@ a:hover { text-decoration:underline; }
 
 /* ── Header search ── */
 .header-search { position:relative; display:flex; align-items:center; }
-.header-search input { width:220px; height:40px; padding:0 40px 0 16px; border:1px solid var(--border); border-radius:999px; font-family:inherit; font-size:14px; color:var(--text-1); background:var(--bg-cream); transition:all .15s; outline:none; }
+.header-search input { width:220px; height:40px; padding:0 40px 0 16px; border:1px solid var(--border); border-radius:999px; font-family:inherit; font-size:14px; color:var(--text-1); background:var(--bg-cream); transition:all .15s; /* outline handled by :focus-visible */ }
 .header-search input:focus { border-color:var(--primary); background:#fff; box-shadow:0 0 0 3px rgba(31,78,121,0.1); width:260px; }
 .header-search input::placeholder { color:var(--text-meta); }
 .header-search-icon { position:absolute; left:12px; pointer-events:none; color:var(--text-meta); display:flex; }
@@ -168,12 +168,53 @@ footer { background:var(--text-1); color:rgba(255,255,255,.75); padding:var(--s-
 .fab-whatsapp { position:fixed; bottom:24px; left:24px; z-index:300; width:52px; height:52px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(0,0,0,0.2); transition:.2s; }
 .fab-whatsapp:hover { transform:scale(1.08); }
 .fab-whatsapp svg { width:28px; height:28px; fill:#fff; }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/tools/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
@@ -201,7 +242,7 @@ footer { background:var(--text-1); color:rgba(255,255,255,.75); padding:var(--s-
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
@@ -220,7 +261,7 @@ footer { background:var(--text-1); color:rgba(255,255,255,.75); padding:var(--s-
   </div>
 </nav>
 
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <h1>כלים שמראים לך <span class="accent">את המספרים האמיתיים</span></h1>
     <p class="lead">
@@ -239,7 +280,7 @@ footer { background:var(--text-1); color:rgba(255,255,255,.75); padding:var(--s-
     <div class="robo-banner-text">
       <h2>🤖 רובייקטיבי — ניתוח הדוח הפנסיוני שלך ב-60 שניות</h2>
       <p>
-        המחשבונים עובדים עם מספרים שאתה מכניס. <a href="/ai/">רובייקטיבי</a> עובד עם <strong>הדוח האמיתי שלך</strong>.
+        המחשבונים עובדים עם מספרים שאתה מכניס. רובייקטיבי עובד עם <strong>הדוח האמיתי שלך</strong>.
         העלה את הדוח השנתי ותוך דקה תקבל ניתוח של 4 פרמטרים קריטיים — הפקדות, כיסוי ביטוחי, דמי ניהול ומסלול.
       </p>
     </div>
@@ -404,6 +445,7 @@ footer { background:var(--text-1); color:rgba(255,255,255,.75); padding:var(--s-
   <div class="container footer-bottom">
     © 2026 איתן אחיטוב | יועץ פנסיוני בעל רישיון | המידע באתר אינו מהווה ייעוץ פנסיוני אישי
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

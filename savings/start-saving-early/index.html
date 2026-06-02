@@ -683,7 +683,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -731,15 +731,56 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/savings/start-saving-early/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- ══════════════════════════════════════
      HEADER
 ═══════════════════════════════════════ -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -767,7 +808,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -795,7 +836,7 @@ section { padding: var(--s-2xl) 0; }
 <!-- ══════════════════════════════════════
      HERO
 ═══════════════════════════════════════ -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -813,7 +854,7 @@ section { padding: var(--s-2xl) 0; }
     </h1>
     <p class="lede">
       מי שמתחיל בגיל 25 במקום 35 מסיים עם <strong>60%–80% יותר כסף בפרישה</strong>
-      — בלי להפקיד שקל נוסף. זה לא קסם, זה <strong><a href="/articles/compound-interest/">ריבית דריבית</a></strong>. וכל שנה שמדחים
+      — בלי להפקיד שקל נוסף. זה לא קסם, זה <strong>ריבית דריבית</strong>. וכל שנה שמדחים
       את ההחלטה, שווה לחסידי ה"אחר כך" בערך 100,000 ₪ פחות בגיל פרישה.
     </p>
   </div>
@@ -859,7 +900,7 @@ section { padding: var(--s-2xl) 0; }
     <!-- ══ 1. COMPOUND INTEREST ══ -->
     <h2 id="compound">כוח הריבית דריבית — ההסבר הפשוט שמשנה הכל</h2>
     <p>
-      <strong><a href="/articles/compound-interest/">ריבית דריבית</a></strong> (Compound Interest) היא הרווח שמייצר עוד רווח. זה נשמע
+      <strong>ריבית דריבית</strong> (Compound Interest) היא הרווח שמייצר עוד רווח. זה נשמע
       פשוט — ובאמת, זה פשוט. אבל ההשלכות שלו על פנסיה הן מטורפות.
     </p>
     <p>
@@ -1062,7 +1103,7 @@ section { padding: var(--s-2xl) 0; }
         <div class="timeline-content">
           <h4><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> — הנשק הסודי</h4>
           <p>
-            אם יש לך <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> — זה החשוב ביותר לשמור ולמקסם. 7.5% מעסיק + 2.5% עובד
+            אם יש לך קרן השתלמות — זה החשוב ביותר לשמור ולמקסם. 7.5% מעסיק + 2.5% עובד
             (על שכר 15,000 ₪: כ-1,500 ₪/חודש). <strong>פטורה ממס רווחי הון</strong>.
             לעולם אל תמשוך אחרי 6 שנים לרכישת רכב.
           </p>
@@ -1110,7 +1151,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="mistake-card">
         <h4>טעות 2: ביטוח מנהלים שהמעסיק "הגדיר"</h4>
         <p>
-          הרבה שכירים צעירים נכנסים ל<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> עם דמי ניהול של 1%-1.1% מהצבירה —
+          הרבה שכירים צעירים נכנסים לביטוח מנהלים עם דמי ניהול של 1%-1.1% מהצבירה —
           גבוה פי 5-10 מ<a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a>. ב-30 שנה, ההפרש מגיע לעשרות ועד מאות
           אלפי שקלים. <strong>בדוק מה יש לך לפני שאתה מסמן "מאשר".</strong>
         </p>
@@ -1118,7 +1159,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="mistake-card">
         <h4>טעות 3: משיכת קרן השתלמות אחרי 6 שנים</h4>
         <p>
-          <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> היא כלי פנסיוני פטור ממס רווחי הון. משיכה לרכישת רכב או נסיעה
+          קרן השתלמות היא כלי פנסיוני פטור ממס רווחי הון. משיכה לרכישת רכב או נסיעה
           לחו"ל היא בזבוז של <strong>האפיק הטוב ביותר שקיים בישראל לחיסכון</strong>.
           הכסף שם — תן לו לצמוח. תלווה מהקרן במקום למשוך.
         </p>
@@ -1156,15 +1197,15 @@ section { padding: var(--s-2xl) 0; }
       <h4>יונתן, מפתח תוכנה בן 29 — תיקון של 10 דקות ששווה 400,000 ₪</h4>
       <p>
         יונתן הגיע אליי לייעוץ "כי חבר המליץ". הוא חשב שהכל בסדר — פנסיה דרך המעסיק,
-        <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, הכל אוטומטי. בבדיקה של עשר דקות גילינו:
+        קרן השתלמות, הכל אוטומטי. בבדיקה של עשר דקות גילינו:
       </p>
       <ul style="margin: var(--s-sm) 0; font-size: 15px; color: var(--text-2);">
         <li><strong>מסלול:</strong> "כללי" — במקום מנייתי. בגיל 29, זו טעות קלאסית.</li>
         <li><strong>דמי ניהול:</strong> 0.5% מהצבירה — אפשרי 0.15% עם מו"מ ראוי.</li>
-        <li><strong><a href="/savings/keren-hishtalmut/">קרן השתלמות</a>:</strong> נמצאת בסניף הבנק, לא בקופת גמל של בית השקעות.</li>
+        <li><strong>קרן השתלמות:</strong> נמצאת בסניף הבנק, לא בקופת גמל של בית השקעות.</li>
       </ul>
       <p>
-        שינוי מסלול למנייתי + הורדת דמי ניהול + העברת קרן השתלמות לחשבון <a href="/investment/ira/">IRA</a> עם
+        שינוי מסלול למנייתי + הורדת דמי ניהול + העברת קרן השתלמות לחשבון IRA עם
         מסלול מחקה מדד — <strong>בלי הוספת שקל אחד לתיק</strong>. הצבירה הצפויה גדלה
         בכ-400,000 ₪ עד גיל פרישה.
       </p>
@@ -1275,4 +1316,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

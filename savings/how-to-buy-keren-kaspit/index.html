@@ -1054,7 +1054,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -1102,14 +1102,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/savings/how-to-buy-keren-kaspit/" />
   <title>איך קונים קרן כספית | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -1137,7 +1178,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -1158,12 +1199,12 @@ section { padding: var(--s-2xl) 0; }
     <span class="sep">›</span>
     <a href="/savings/keren-kaspit/">קרן כספית</a>
     <span class="sep">›</span>
-    <span class="current">איך קונים <a href="/savings/keren-kaspit/">קרן כספית</a></span>
+    <span class="current">איך קונים קרן כספית</span>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -1179,7 +1220,7 @@ section { padding: var(--s-2xl) 0; }
       <span class="accent">איך קונים קרן כספית</span> בפועל
     </h1>
     <p class="lede">
-      ידעת מה זה <a href="/savings/keren-kaspit/">קרן כספית</a> ולמה היא מתאימה לך. עכשיו — תכל'ס. איפה מוצאים,
+      ידעת מה זה קרן כספית ולמה היא מתאימה לך. עכשיו — תכל'ס. איפה מוצאים,
       מה בודקים, ואיך מבצעים את הרכישה בחשבון הבנק שלך בפחות מ-5 דקות, בלי עמלות
       ובלי שאלות מיותרות.
     </p>
@@ -1199,7 +1240,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="quick-stats">
       <div>
         <div class="qs-num">0 ₪</div>
-        <div class="qs-label">עמלות בבנק על <a href="/savings/keren-kaspit/">קרן כספית</a> (לפי חוק)</div>
+        <div class="qs-label">עמלות בבנק על קרן כספית (לפי חוק)</div>
       </div>
       <div>
         <div class="qs-num">1 יום</div>
@@ -1253,7 +1294,7 @@ section { padding: var(--s-2xl) 0; }
         שולח "מצטברת" עד שעת הסגירה של הקרן, ומתבצעת לפי שער אותה שעה.
       </li>
       <li>
-        <strong>כל <a href="/savings/keren-kaspit/">קרן כספית</a> נסחרת בבורסת תל-אביב</strong> ויש לה מספר נייר ערך (מספר
+        <strong>כל קרן כספית נסחרת בבורסת תל-אביב</strong> ויש לה מספר נייר ערך (מספר
         בן 5-6 ספרות). זה המספר שאיתו מחפשים ומבצעים רכישה.
       </li>
       <li>
@@ -1665,4 +1706,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

@@ -408,7 +408,7 @@ section.tight { padding: var(--s-xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -456,6 +456,46 @@ section.tight { padding: var(--s-xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/investment/ira-fees/" />
   <meta property="og:title" content="עמלות ברוקרים IRA — השוואה מלאה | איתן אחיטוב — יועץ פנסיוני" />
@@ -484,9 +524,10 @@ section.tight { padding: var(--s-xl) 0; }
   </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- Header -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -514,7 +555,7 @@ section.tight { padding: var(--s-xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -537,12 +578,12 @@ section.tight { padding: var(--s-xl) 0; }
 </nav>
 
 <!-- Hero -->
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <span class="eyebrow">נתוני 6 ברוקרים · מקור: גלובלנט</span>
     <h1>עמלות הברוקרים IRA — השוואה מלאה</h1>
     <p class="lede">
-      מעבר לתועלת המרכזית של <a href="/investment/ira/">IRA</a> — גמישות ושקיפות בבחירת ההשקעות, העלויות ב-<a href="/investment/ira/">IRA</a> צפויות להיות זולות מהעלויות בקופה "רגילה", בייחוד בחשבונות עם צבירה מעל 250,000 ₪. העלויות ב-<a href="/investment/ira/">IRA</a> מורכבות מתשלום לגלובלנט שנותנת את המעטפת שהופכת את החשבון לקופת גמל/<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, ומעמלות הקנייה והמכירה שהבנק/ברוקר גובה. הנתונים נכונים לחודש מאי 2026 ומתבססים על תעריפי גלובלנט.
+      מעבר לתועלת המרכזית של IRA — גמישות ושקיפות בבחירת ההשקעות, העלויות ב-IRA צפויות להיות זולות מהעלויות בקופה "רגילה", בייחוד בחשבונות עם צבירה מעל 250,000 ₪. העלויות ב-IRA מורכבות מתשלום לגלובלנט שנותנת את המעטפת שהופכת את החשבון לקופת גמל/<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, ומעמלות הקנייה והמכירה שהבנק/ברוקר גובה. הנתונים נכונים לחודש מאי 2026 ומתבססים על תעריפי גלובלנט.
     </p>
   </div>
 </section>
@@ -822,7 +863,7 @@ section.tight { padding: var(--s-xl) 0; }
       <h4>2. דמי ניהול גלובלנט תמיד באים בנוסף</h4>
       <p style="color: var(--text-2); font-size: 15px;">
         בלי קשר לברוקר שבחרת — תשלם תמיד את דמי הניהול של גלובלנט (0.23%-0.38%). הם השכבה
-        ה"קבועה" של ה-<a href="/investment/ira/">IRA</a>.
+        ה"קבועה" של ה-IRA.
       </p>
 
       <h4>3. ניירות הערך רשומים על שמך</h4>
@@ -883,7 +924,7 @@ section.tight { padding: var(--s-xl) 0; }
 </section>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -954,4 +995,6 @@ section.tight { padding: var(--s-xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

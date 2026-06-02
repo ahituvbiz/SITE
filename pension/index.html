@@ -315,7 +315,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -363,12 +363,53 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/pension/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -396,7 +437,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -416,7 +457,7 @@ section { padding: var(--s-2xl) 0; }
   </div>
 </nav>
 
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -513,7 +554,7 @@ section { padding: var(--s-2xl) 0; }
           (עד 4% מההפקדה ו-1.1% מהצבירה) ללא ערך מוסף מול קרן פנסיה.
         </p>
         <p style="font-size:13px; color: var(--text-2);">
-          <em>אם יש לך <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> <strong>ישן</strong> (לפני 2013) — אל תפעל בלי ייעוץ. יש מקרים שבהם להישאר זו טעות יקרה, ויש מקרים שבהם לעבור זו טעות יקרה לא פחות. השיקולים מורכבים ותלויים בפרמטרים שרק בדיקה ייעודית יכולה לחשוף.</em>
+          <em>אם יש לך ביטוח מנהלים <strong>ישן</strong> (לפני 2013) — אל תפעל בלי ייעוץ. יש מקרים שבהם להישאר זו טעות יקרה, ויש מקרים שבהם לעבור זו טעות יקרה לא פחות. השיקולים מורכבים ותלויים בפרמטרים שרק בדיקה ייעודית יכולה לחשוף.</em>
         </p>
       </div>
 
@@ -555,7 +596,7 @@ section { padding: var(--s-2xl) 0; }
         <tr>
           <th>קריטריון</th>
           <th><a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a></th>
-          <th><a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> (אחרי 2013)</th>
+          <th>ביטוח מנהלים (אחרי 2013)</th>
         </tr>
       </thead>
       <tbody>
@@ -569,7 +610,7 @@ section { padding: var(--s-2xl) 0; }
     </table>
 
     <p>
-      <strong>שורה תחתונה:</strong> לרוב האנשים בני 27-47, <strong><a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a></strong>
+      <strong>שורה תחתונה:</strong> לרוב האנשים בני 27-47, <strong>קרן פנסיה מקיפה</strong>
       היא הבחירה הנכונה. ביטוח מנהלים אחרי 2013 לא מצדיק את העלות. ביטוח מנהלים ישן —
       חובה לבדוק לפני כל החלטה, בכיוון אחד ובכיוון שני: יש מספיק מקרים שבהם המעבר לקרן פנסיה הוא טעות, ויש מספיק מקרים שבהם ההישארות היא טעות. <a href="/about/recommended-advisor/">קרא איך לבחור מי שיבדוק</a>.
     </p>
@@ -634,7 +675,7 @@ section { padding: var(--s-2xl) 0; }
       <p>
         טעות נפוצה בשנים האחרונות: הצעות להעביר חיסכון פנסיוני ל-<a href="/investment/ira-explained/">חשבון IRA
         בניהול אישי</a>. אסור — מאבדים כיסוי שאירים, ביטוח נכות, אג"ח מיועדות, סבסוד
-        צולב, וקצבה לכל החיים. ב-<a href="/investment/ira/">IRA</a> זה הגיוני ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, לעיתים בגמל, ולא בפנסיה.
+        צולב, וקצבה לכל החיים. ב-IRA זה הגיוני בקרן השתלמות, לעיתים בגמל, ולא בפנסיה.
       </p>
     </div>
 
@@ -644,16 +685,16 @@ section { padding: var(--s-2xl) 0; }
     </p>
     <ul>
       <li><strong>קרן פנסיה / קופת גמל / ביטוח מנהלים:</strong> זיכוי מס בהפקדה (35%), צבירה ללא מס, וקצבה בפרישה ממוסה בשיעור מופחת (עד 67% פטור).</li>
-      <li><strong><a href="/savings/keren-hishtalmut/">קרן השתלמות</a>:</strong> <strong>פטור מלא ממס רווחי הון</strong> עד תקרת ההפקדה המוטבת — היתרון המרכזי שלה.</li>
+      <li><strong>קרן השתלמות:</strong> <strong>פטור מלא ממס רווחי הון</strong> עד תקרת ההפקדה המוטבת — היתרון המרכזי שלה.</li>
       <li><strong><a href="/savings/gamal-lehashkaa/">גמל להשקעה</a>:</strong> פטור ממס רווחי הון אם נמשך כקצבה בגיל פרישה.</li>
     </ul>
 
     <h2 id="mistakes">5 טעויות נפוצות בבחירה</h2>
     <ol>
       <li><strong>אדישות.</strong> "אני נמצא במה שהמעסיק שם אותי" — בלי לבדוק. הטעות הכי יקרה.</li>
-      <li><strong>מסלול ברירת מחדל "כללי"</strong> בגיל צעיר — מפסיד מאות אלפי שקלים ב<a href="/articles/compound-interest/">ריבית דריבית</a>.</li>
+      <li><strong>מסלול ברירת מחדל "כללי"</strong> בגיל צעיר — מפסיד מאות אלפי שקלים בריבית דריבית.</li>
       <li><strong>השארת ביטוח מנהלים אחרי 2013</strong> מתוך הרגל — בדרך כלל מוצר יקר ומיותר.</li>
-      <li><strong>משיכת <a href="/savings/keren-hishtalmut/">קרן השתלמות אחרי 6 שנים</a></strong> לקניית רכב — מבזבז את האפיק היחיד הפטור ממס בישראל.</li>
+      <li><strong>משיכת קרן השתלמות אחרי 6 שנים</strong> לקניית רכב — מבזבז את האפיק היחיד הפטור ממס בישראל.</li>
       <li><strong>אמון בסוכן ההסדר של המעסיק</strong> — סוכן ההסדר עובד אצל המעסיק, לא אצלך. תמיד יש לך זכות לבחור יועץ עצמאי.</li>
     </ol>
 
@@ -680,12 +721,12 @@ section { padding: var(--s-2xl) 0; }
 
     <h2 id="who-fits">מי מתאים לכל מוצר</h2>
     <ul>
-      <li><strong><a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a></strong> — מתאים לרוב השכירים והעצמאים. החלוקה המרכזית של החיסכון הפנסיוני.</li>
-      <li><strong><a href="/pension/keren-pensya-mashlima/">קרן פנסיה משלימה</a></strong> — מי שמרוויח מעל תקרת ההפקדה לקרן מקיפה.</li>
+      <li><strong>קרן פנסיה מקיפה</strong> — מתאים לרוב השכירים והעצמאים. החלוקה המרכזית של החיסכון הפנסיוני.</li>
+      <li><strong>קרן פנסיה משלימה</strong> — מי שמרוויח מעל תקרת ההפקדה לקרן מקיפה.</li>
       <li><strong>ביטוח מנהלים ישן (לפני 2013)</strong> — לא לפעול בלי ייעוץ. להישאר יכול להיות נכון. לעבור יכול להיות נכון. השיקולים מורכבים.</li>
       <li><strong>ביטוח מנהלים אחרי 2013</strong> — לרוב לא מצדיק את העלות לעומת קרן פנסיה.</li>
       <li><strong>קופת גמל</strong> — לשכר גבוה מעל התקרה, או לרצון בשליטה מלאה על הביטוחים בנפרד.</li>
-      <li><strong><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></strong> — לכל מי שעובד! ההטבה הכי גדולה במערכת המס הישראלית.</li>
+      <li><strong>קרן השתלמות</strong> — לכל מי שעובד! ההטבה הכי גדולה במערכת המס הישראלית.</li>
     </ul>
 
     <h2 id="summary">סיכום — אל תחכה לגיל 60</h2>
@@ -707,7 +748,7 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item">
         <summary>מהם 4 מוצרי הפנסיה העיקריים בישראל?</summary>
         <div class="faq-body">
-          קרן פנסיה (מקיפה או משלימה), ביטוח מנהלים, קופת גמל, ו<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>. קרן פנסיה
+          קרן פנסיה (מקיפה או משלימה), ביטוח מנהלים, קופת גמל, וקרן השתלמות. קרן פנסיה
           היא הנפוצה והמשתלמת ביותר לרוב האוכלוסייה — בזכות הבטחת התשואה על 30% מהנכסים
           והכיסויים הביטוחיים. קרן השתלמות היא יהלום בכתר — האפיק היחיד פטור ממס רווחי הון.
         </div>
@@ -716,7 +757,7 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item">
         <summary>מה ההבדל בין קרן פנסיה לביטוח מנהלים?</summary>
         <div class="faq-body">
-          <a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a> כוללת הבטחת תשואה על 30% מהנכסים ו"ערבות הדדית" בין עמיתים —
+          קרן פנסיה מקיפה כוללת הבטחת תשואה על 30% מהנכסים ו"ערבות הדדית" בין עמיתים —
           ועם דמי ניהול נמוכים יותר. ביטוח מנהלים אחרי 2013 איבד את היתרון העיקרי שלו
           (מקדם קצבה מובטח) ובדרך כלל גובה דמי ניהול גבוהים מאוד — מבלי לתת ערך מוסף.
         </div>
@@ -750,10 +791,10 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>האם אפשר להעביר קרן פנסיה ל-<a href="/investment/ira/">IRA</a>?</summary>
+        <summary>האם אפשר להעביר קרן פנסיה ל-IRA?</summary>
         <div class="faq-body">
           אסור. בקרן פנסיה יש כיסויי שאירים ונכות, אג"ח מיועדות (30%), סבסוד צולב, וקצבה
-          לכל החיים — כל אלה לא קיימים ב-<a href="/investment/ira/">IRA</a>. <a href="/investment/ira-explained/">קרא את
+          לכל החיים — כל אלה לא קיימים ב-IRA. <a href="/investment/ira-explained/">קרא את
           המאמר על IRA</a> ומתי כן ומתי לא להשתמש בכלי הזה.
         </div>
       </details>
@@ -820,7 +861,7 @@ section { padding: var(--s-2xl) 0; }
   </div>
 </section>
 
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -874,6 +915,7 @@ section { padding: var(--s-2xl) 0; }
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

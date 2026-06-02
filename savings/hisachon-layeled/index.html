@@ -1066,7 +1066,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -1114,13 +1114,54 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/savings/hisachon-layeled/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -1148,7 +1189,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -1172,7 +1213,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -1548,7 +1589,7 @@ section { padding: var(--s-2xl) 0; }
       <h3>אל תכפילו. חסכו את ה-58 ₪ על שמכם — שמרו את הבחירה בידיכם</h3>
       <p>
         ההמלצה שלי <strong>לא להכפיל</strong> את ההפקדה. במקום זה — חסכו את ה-58 ₪ באפיק על
-        <em>שמכם</em>: <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, קופת <a href="/savings/gamal-lehashkaa/">גמל להשקעה</a>, או גם <a href="/savings/keren-kaspit/">קרן כספית</a>. ככה הכסף ימשיך לעבוד עבור
+        <em>שמכם</em>: <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, קופת גמל להשקעה, או גם <a href="/savings/keren-kaspit/">קרן כספית</a>. ככה הכסף ימשיך לעבוד עבור
         הילד באותה ריבית-דריבית — אבל אתם תחליטו, כשיגיע הרגע, אם להפנות אותו לחתונה, לדירה, ללימודים,
         או להמתין עוד שנים. השליטה — קריטית. אל תוותרו עליה בלי תועלת אמיתית במקביל.
       </p>
@@ -1559,7 +1600,7 @@ section { padding: var(--s-2xl) 0; }
       אם אתם מכפילים, ודאו את שלושת אלה תחילה. אם משהו מהם לא מסומן, 58 ₪ הולכים רחוק יותר אצלכם:
     </p>
     <ul>
-      <li><strong>הביטוחים שלכם נבדקו ב-12 החודשים האחרונים</strong> — חיים, נכות (<a href="/insurance/okd/">אובדן כושר עבודה</a>),
+      <li><strong>הביטוחים שלכם נבדקו ב-12 החודשים האחרונים</strong> — חיים, נכות (אובדן כושר עבודה),
       בריאות.</li>
       <li><strong>קרן הפנסיה שלכם נבדקה</strong> — מסלול השקעה, דמי ניהול, סכום ההפקדה.</li>
       <li><strong><a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a> שלכם פעילה ומופקדת אליה הסכום המקסימלי</strong> שמזכה בהטבת מס.</li>
@@ -1626,7 +1667,7 @@ section { padding: var(--s-2xl) 0; }
       <span class="label">טיפ מתקדם</span>
       <h3>להמשיך כקופת גמל להשקעה — חיסכון משמעותי במס</h3>
       <p>
-        ילד שכספו מנוהל בקופת <a href="/savings/gamal-lehashkaa/">גמל להשקעה</a> יכול להחליט <strong>להמשיך לחסוך</strong> עד גיל פרישה.
+        ילד שכספו מנוהל בקופת גמל להשקעה יכול להחליט <strong>להמשיך לחסוך</strong> עד גיל פרישה.
         במקרה כזה, כשייקח אותו כקצבה — <strong>ייפטר ממס רווחי הון לחלוטין</strong>. זה משחק
         שמתרחש בעוד 40 שנה ובסכומים גדולים מאוד — אבל זה מוצר שמותקן מהילדות.
       </p>
@@ -1731,4 +1772,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

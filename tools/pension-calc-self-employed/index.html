@@ -656,7 +656,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -704,14 +704,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/tools/pension-calc-self-employed/" />
   <title>מחשבון פנסיה לעצמאים | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -740,7 +781,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -759,12 +800,12 @@ section { padding: var(--s-2xl) 0; }
     <span class="sep">›</span>
     <a href="/tools/">מחשבונים</a>
     <span class="sep">›</span>
-    <span class="current">מחשבון <a href="/audiences/self-employed/">פנסיה לעצמאים</a></span>
+    <span class="current">מחשבון פנסיה לעצמאים</span>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <div class="hero-meta">
       <span class="author">איתן אחיטוב</span>
@@ -1294,7 +1335,7 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
         </tr>
       </thead>
       <tbody>
-        <tr><td><a href="/articles/compound-interest/">ריבית דריבית</a></td><td>חודשית</td><td>הצבירה מחושבת חודש-חודש, לא שנתית</td></tr>
+        <tr><td>ריבית דריבית</td><td>חודשית</td><td>הצבירה מחושבת חודש-חודש, לא שנתית</td></tr>
         <tr><td>תשואה נקובה</td><td>7% שנתי</td><td>ממוצע היסטורי של קרנות פנסיה מנייתיות בישראל</td></tr>
         <tr><td>דמי ניהול</td><td>0.5% מהצבירה/שנה</td><td>ממוצע שוק — ניתן להורדה במשא ומתן</td></tr>
         <tr><td>מקדם קצבה</td><td>200</td><td>בערך 240 תשלומים — תוחלת חיים לאחר גיל 67</td></tr>
@@ -1394,13 +1435,13 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
       </details>
 
       <details class="faq-item">
-        <summary>האם כדאי לפתוח קרן פנסיה או <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a>?</summary>
+        <summary>האם כדאי לפתוח קרן פנסיה או ביטוח מנהלים?</summary>
         <div class="faq-body">
           לרוב העצמאים בישראל (ובמיוחד אלו שפותחים פנסיה היום) — <strong><a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a></strong>
           היא הבחירה הנכונה. הסיבות: הבטחת תשואה על 30% מהנכסים, דמי ניהול נמוכים משמעותית,
           וכיסוי ביטוחי (נכות ושאירים) שנבנה אוטומטית בתוך המוצר.
           <br><br>
-          <a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> שנפתח לאחר 2013 איבד את היתרון המרכזי שלו (מקדם קצבה מובטח) ובדרך כלל
+          ביטוח מנהלים שנפתח לאחר 2013 איבד את היתרון המרכזי שלו (מקדם קצבה מובטח) ובדרך כלל
           גובה דמי ניהול גבוהים ללא ערך מוסף. יוצא דופן: ביטוח מנהלים ישן (לפני 2013) עם
           מקדם קצבה מובטח — אל תגעו בו.
         </div>
@@ -1494,7 +1535,7 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1521,4 +1562,6 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

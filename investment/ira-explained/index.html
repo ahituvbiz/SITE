@@ -802,7 +802,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -850,13 +850,54 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/investment/ira-explained/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -884,7 +925,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -905,12 +946,12 @@ section { padding: var(--s-2xl) 0; }
     <span class="sep">›</span>
     <a href="/investment/ira/">IRA</a>
     <span class="sep">›</span>
-    <span class="current">מדריך <a href="/investment/ira/">IRA</a>: מתי כן, מתי לא</span>
+    <span class="current">מדריך IRA: מתי כן, מתי לא</span>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -927,9 +968,9 @@ section { padding: var(--s-2xl) 0; }
       ולמה לא לגעת בפנסיה
     </h1>
     <p class="lede">
-      <a href="/investment/ira/">IRA</a> הוא מוצר שמתחיל כסיפור יפה — שליטה, דמי ניהול נמוכים, גישה ל-ETF זרים. אבל לפני שאתה
+      IRA הוא מוצר שמתחיל כסיפור יפה — שליטה, דמי ניהול נמוכים, גישה ל-ETF זרים. אבל לפני שאתה
       מנייד את הקריירה הפנסיונית שלך לחשבון אישי, יש שתי דקות שכדאי לקרוא: למה דווקא ב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>
-      זה זוהר, למה בקופת גמל זה הימור, ולמה <strong>לעולם</strong> לא להעביר מקרן פנסיה ל-<a href="/investment/ira/">IRA</a>.
+      זה זוהר, למה בקופת גמל זה הימור, ולמה <strong>לעולם</strong> לא להעביר מקרן פנסיה ל-IRA.
     </p>
   </div>
 </section>
@@ -957,7 +998,7 @@ section { padding: var(--s-2xl) 0; }
 
     <!-- INTRO -->
     <p>
-      <a href="/investment/ira/">IRA</a> — Individual Retirement Account — הוא <a href="/investment/ira/">ניהול אישי</a> של קופת גמל ו<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>. במקום
+      IRA — Individual Retirement Account — הוא <a href="/investment/ira/">ניהול אישי</a> של קופת גמל וקרן השתלמות. במקום
       שמנהל ההשקעות של בית ההשקעות יחליט מה לעשות עם הכסף שלך, <strong>אתה</strong> בוחר.
       ETF זרים, מניות בודדות, אג"ח קונצרני אמריקאי — כל מה שלא מוצע במסלולי המדף.
     </p>
@@ -972,8 +1013,8 @@ section { padding: var(--s-2xl) 0; }
     <h2 id="what-is-ira">קצרצר: מה זה IRA</h2>
     <p>
       IRA הוא חשבון השקעות פנסיוני שבו <strong>אתה מנהל בעצמך</strong> את ההשקעות. הוא כפוף
-      לאותן הטבות מס של קופת גמל ו<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> "רגילות" — 15% מס רווח הון נומינלי, <a href="/investment/ira-tax-deferral/">דחיית מס</a> למשיכה,
-      וב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> (לאחר 6 שנים) פטור מלא ממס רווחי הון.
+      לאותן הטבות מס של קופת גמל וקרן השתלמות "רגילות" — 15% מס רווח הון נומינלי, <a href="/investment/ira-tax-deferral/">דחיית מס</a> למשיכה,
+      ובקרן השתלמות (לאחר 6 שנים) פטור מלא ממס רווחי הון.
     </p>
     <p>
       ההבדל מקופה רגילה הוא במנגנון: אתה רוכש בעצמך ETF, מניות ואג"ח דרך חבר בורסה (פסגות, IBI,
@@ -983,7 +1024,7 @@ section { padding: var(--s-2xl) 0; }
     </p>
 
     <div class="callout">
-      <strong>נקודה משפטית חשובה:</strong> רק <strong>קופת גמל ו<a href="/savings/keren-hishtalmut/">קרן השתלמות</a></strong> יכולות
+      <strong>נקודה משפטית חשובה:</strong> רק <strong>קופת גמל וקרן השתלמות</strong> יכולות
       להיות בניהול אישי. <strong>קרן פנסיה — לא יכולה.</strong> זו לא בחירה שלך; זה החוק. מי שאומר
       לך "אני אעביר לך את הפנסיה ל-IRA" מתכוון לכך שתמיר תחילה את קרן הפנסיה לקופת גמל IRA — מהלך
       שאני ממליץ נגדו. הסבר מפורט בסקציה ייעודית למטה.
@@ -1084,7 +1125,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>1. אין מה להפסיד — כי אין רכיב ביטוחי</h3>
     <p>
-      קרן השתלמות היא <strong>חיסכון טהור</strong> — אין בה <a href="/insurance/okd/">אובדן כושר עבודה</a>, אין שאירים, אין
+      קרן השתלמות היא <strong>חיסכון טהור</strong> — אין בה אובדן כושר עבודה, אין שאירים, אין
       איזון אקטוארי. לכן כשאתה מנייד אותה ל-IRA, אתה לא מוותר על שום הגנה. אתה רק מחליף מנהל
       השקעות עם דמי ניהול גבוהים — בעצמך, עם דמי ניהול נמוכים.
     </p>
@@ -1183,7 +1224,7 @@ section { padding: var(--s-2xl) 0; }
 
     <h3>1. אובדן כושר עבודה — נעלם</h3>
     <p>
-      קרן הפנסיה כוללת כיסוי ל<a href="/insurance/okd/">אובדן כושר עבודה</a>: אם נפגעת ולא יכול לעבוד, היא משלמת לך 75% מהשכר
+      קרן הפנסיה כוללת כיסוי לאובדן כושר עבודה: אם נפגעת ולא יכול לעבוד, היא משלמת לך 75% מהשכר
       עד גיל פרישה. הכיסוי הזה <strong>נכלל בעלות דמי הניהול</strong>, מבוסס על ביטוח קבוצתי
       (זול), והקבלה אליו רחבה (אין חיתום פרטי כמו בביטוח אישי).
     </p>
@@ -1251,7 +1292,7 @@ section { padding: var(--s-2xl) 0; }
     </ul>
 
     <p>
-      <strong>המלצה ברורה:</strong> ההפקדות החודשיות לפנסיה — תמיד ל<a href="/pension/keren-pensya-mekifa/">קרן פנסיה מקיפה</a>. IRA נשמור
+      <strong>המלצה ברורה:</strong> ההפקדות החודשיות לפנסיה — תמיד לקרן פנסיה מקיפה. IRA נשמור
       לקרן השתלמות (ולכספים ישנים בקופת גמל אם רלוונטי). אל תערבב את שני הרכיבים.
     </p>
 
@@ -1370,7 +1411,7 @@ section { padding: var(--s-2xl) 0; }
         <div class="num">3</div>
         <div class="text">
           <strong>האם יש לך כיסוי ביטוחי מספק חיצוני?</strong> אם הקרן שאתה מנייד היא קופת גמל
-          שהומרה מפנסיה — בדוק שיש לך אובדן כושר עבודה ו<a href="/insurance/bituach-chaim/">ביטוח חיים</a> נפרדים. אסור להמיר בלי לכסות
+          שהומרה מפנסיה — בדוק שיש לך אובדן כושר עבודה וביטוח חיים נפרדים. אסור להמיר בלי לכסות
           את הפער.
         </div>
       </div>
@@ -1402,7 +1443,7 @@ section { padding: var(--s-2xl) 0; }
       <details class="faq-item" open>
         <summary>למה אני לא יכול לעשות IRA על קרן פנסיה?</summary>
         <div class="faq-body">
-          על פי תקנות הפיקוח על שירותים פיננסיים (קופות גמל) (<a href="/investment/ira/">קופת גמל בניהול אישי</a>), תש"ע-2009 —
+          על פי תקנות הפיקוח על שירותים פיננסיים (קופות גמל) (קופת גמל בניהול אישי), תש"ע-2009 —
           המוצרים שמותרים לניהול אישי הם קופת גמל וקרן השתלמות בלבד. קרן פנסיה היא מוצר ביטוחי
           הדדי, שכולל מנגנוני סבסוד צולב ואיזון אקטוארי שלא יכולים להיות מנוהלים אישית. זו לא
           המלצה — זו חוקה.
@@ -1527,7 +1568,7 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1585,6 +1626,7 @@ section { padding: var(--s-2xl) 0; }
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

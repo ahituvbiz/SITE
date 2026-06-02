@@ -321,7 +321,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -369,12 +369,53 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/pension/keren-pensya-mekifa/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -402,7 +443,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -424,7 +465,7 @@ section { padding: var(--s-2xl) 0; }
   </div>
 </nav>
 
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -443,7 +484,7 @@ section { padding: var(--s-2xl) 0; }
     <p class="lede">
       <strong>קרן פנסיה מקיפה</strong> היא המוצר הפנסיוני הנפוץ והמשתלם ביותר עבור רוב הציבור
       בישראל. שלושה רכיבים במוצר אחד, הבטחת תשואה ייחודית על 30% מהנכסים, ודמי ניהול
-      נמוכים משמעותית מ<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a>. הנה למה — ומתי בכל זאת שווה לבדוק חלופות.
+      נמוכים משמעותית מביטוח מנהלים. הנה למה — ומתי בכל זאת שווה לבדוק חלופות.
     </p>
   </div>
 </section>
@@ -498,7 +539,7 @@ section { padding: var(--s-2xl) 0; }
     <div class="callout">
       <strong>חשוב להבין:</strong> "מקיפה" זה לא שם שיווקי — זה הגדרה משפטית. קרן פנסיה
       מקיפה כפופה לתקנות מיוחדות שכוללות, בין השאר, את הזכות לאג"ח מיועדות. קיים גם
-      מוצר נפרד שנקרא <strong><a href="/pension/keren-pensya-mashlima/">קרן פנסיה משלימה</a></strong>, שלא נהנה מההטבה הזו (נדבר על
+      מוצר נפרד שנקרא <strong>קרן פנסיה משלימה</strong>, שלא נהנה מההטבה הזו (נדבר על
       זה בהמשך).
     </p>
 
@@ -522,7 +563,7 @@ section { padding: var(--s-2xl) 0; }
       <div class="structure-card">
         <span class="icon">🩺</span>
         <h4>ביטוח נכות מקצועית</h4>
-        <p>אם תאבד את כושר העבודה (<a href="/insurance/okd/">אובדן כושר עבודה</a>) — תקבל קצבה חודשית של 75% מהשכר עד גיל הפרישה. גם זה ביטוח קבוצתי, ללא חיתום פרטי.</p>
+        <p>אם תאבד את כושר העבודה (אובדן כושר עבודה) — תקבל קצבה חודשית של 75% מהשכר עד גיל הפרישה. גם זה ביטוח קבוצתי, ללא חיתום פרטי.</p>
       </div>
     </div>
 
@@ -562,7 +603,7 @@ section { padding: var(--s-2xl) 0; }
       דמי הניהול בקרן פנסיה מקיפה הם בין הנמוכים בשוק:
     </p>
     <ul>
-      <li><strong>דמי ניהול מהצבירה:</strong> 0.1%-0.3% שנתי (לעומת עד 1.1% ב<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a>).</li>
+      <li><strong>דמי ניהול מהצבירה:</strong> 0.1%-0.3% שנתי (לעומת עד 1.1% בביטוח מנהלים).</li>
       <li><strong>דמי ניהול מההפקדה:</strong> עד 6% (לרוב נמוך משמעותית — 1.5%-3%).</li>
     </ul>
     <p>
@@ -615,7 +656,7 @@ section { padding: var(--s-2xl) 0; }
     <h3>3. תקרת הפקדה</h3>
     <p>
       יש תקרה חודשית להפקדה לקרן פנסיה מקיפה (ראה הסעיף הבא). מי שמרוויח שכר גבוה
-      ורוצה להפקיד יותר — חייב להשתמש ב<a href="/pension/keren-pensya-mashlima/">קרן פנסיה משלימה</a> או בקופת גמל.
+      ורוצה להפקיד יותר — חייב להשתמש בקרן פנסיה משלימה או בקופת גמל.
     </p>
 
     <h3>4. גמישות מוגבלת במוטבים</h3>
@@ -697,7 +738,7 @@ section { padding: var(--s-2xl) 0; }
         איחוד יכול להוריד דמי ניהול בקלות.
       </li>
       <li>
-        <strong>כפילות עם ביטוח <a href="/insurance/okd/">אובדן כושר עבודה</a> פרטי.</strong> אם יש לך ביטוח אכ"ע
+        <strong>כפילות עם ביטוח אובדן כושר עבודה פרטי.</strong> אם יש לך ביטוח אכ"ע
         פרטי שקנית מסוכן — ייתכן שאתה משלם פעמיים על אותו כיסוי. שווה לבדוק את הגבולות.
       </li>
       <li>
@@ -804,7 +845,7 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>מתי כדאי לפנות ליועץ פנסיוני ל<a href="/ai/">בדיקת קרן פנסיה</a>?</summary>
+        <summary>מתי כדאי לפנות ליועץ פנסיוני לבדיקת קרן פנסיה?</summary>
         <div class="faq-body">
           תמיד שווה לעשות בדיקה אחת לכמה שנים, ובמיוחד באירועי חיים: התחלת עבודה חדשה,
           מעבר לעצמאות, נישואין, לידה, גירושין, או צבירה משמעותית. בדיקה אחת אצל יועץ
@@ -813,10 +854,10 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>האם אפשר להעביר קרן פנסיה ל-<a href="/investment/ira/">IRA</a>?</summary>
+        <summary>האם אפשר להעביר קרן פנסיה ל-IRA?</summary>
         <div class="faq-body">
-          אסור. קרן פנסיה לא יכולה להיות ב<a href="/investment/ira/">ניהול אישי</a> (<a href="/investment/ira/">IRA</a>) על פי החוק. גם אם מישהו
-          מציע להמיר תחילה את הפנסיה לקופת גמל ואז להפוך אותה ל-<a href="/investment/ira/">IRA</a> — זו טעות, כי
+          אסור. קרן פנסיה לא יכולה להיות ב<a href="/investment/ira/">ניהול אישי</a> (IRA) על פי החוק. גם אם מישהו
+          מציע להמיר תחילה את הפנסיה לקופת גמל ואז להפוך אותה ל-IRA — זו טעות, כי
           מאבדים את כיסויי השאירים, ביטוח נכות, אג"ח מיועדות, וקצבה לכל החיים.
           <a href="/investment/ira-explained/">קרא את המדריך המלא על IRA</a> וההבדלים.
         </div>
@@ -898,4 +939,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

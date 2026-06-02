@@ -594,7 +594,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -642,14 +642,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/about/advisor-vs-planner-vs-agent/" />
   <title>יועץ פנסיוני מול מתכנן פיננסי וסוכן ביטוח | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -677,7 +718,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -701,7 +742,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -741,7 +782,7 @@ section { padding: var(--s-2xl) 0; }
       </div>
       <div>
         <div class="stat-num">0 ₪</div>
-        <div class="stat-label">עמלות ש<a href="/about/license/">יועץ פנסיוני מורשה</a> מקבל מהיצרנים — לפי חוק</div>
+        <div class="stat-label">עמלות שיועץ פנסיוני מורשה מקבל מהיצרנים — לפי חוק</div>
       </div>
     </div>
 
@@ -776,7 +817,7 @@ section { padding: var(--s-2xl) 0; }
     </p>
 
     <div class="callout">
-      <strong>נקודת פתיחה חשובה:</strong> "<a href="/about/recommended-advisor/">יועץ פנסיוני בלתי תלוי</a>" הוא לא שיווק — הוא הגדרה
+      <strong>נקודת פתיחה חשובה:</strong> "יועץ פנסיוני בלתי תלוי" הוא לא שיווק — הוא הגדרה
       חוקית. יועץ פנסיוני בעל רישיון ממשרד האוצר <strong>אסור לו בחוק</strong> להיות תלוי
       בעמלות. סוכן, לעומת זאת, תלוי בהן לחלוטין. "מתכנן פיננסי" ללא רישיון — יכול להיות
       כל אחד מהשניים.
@@ -785,7 +826,7 @@ section { padding: var(--s-2xl) 0; }
     <!-- LICENSE -->
     <h2 id="license"><a href="/about/license/">רישיון יועץ פנסיוני</a> — מה זה ומה הוא מחייב</h2>
     <p>
-      <strong><a href="/about/license/">רישיון יועץ פנסיוני</a></strong> הוא רישיון אישי, מטעם רשות שוק ההון, ביטוח
+      <strong>רישיון יועץ פנסיוני</strong> הוא רישיון אישי, מטעם רשות שוק ההון, ביטוח
       וחיסכון במשרד האוצר. הוא לא של חברה — הוא של האדם. הוא נרכש לאחר מבחנים
       מקצועיים מאתגרים, ומחייב שמירה על ארבע חובות מרכזיות:
     </p>
@@ -814,7 +855,7 @@ section { padding: var(--s-2xl) 0; }
     </p>
     <p>
       <strong>הפרדה נוספת שחשוב לדעת:</strong> על פי החוק, אדם לא יכול להחזיק בו זמנית
-      ב<a href="/about/license/">רישיון יועץ פנסיוני</a> ורישיון סוכן ביטוח. ההפרדה היא מבנית, לא הצהרתית.
+      ברישיון יועץ פנסיוני ורישיון סוכן ביטוח. ההפרדה היא מבנית, לא הצהרתית.
     </p>
 
     <!-- PLANNER -->
@@ -846,7 +887,7 @@ section { padding: var(--s-2xl) 0; }
     <p>
       CFP — Certified Financial Planner — היא הסמכה בינלאומית מכובדת. היא דורשת
       מבחנים, ניסיון, ועדכון שוטף. אבל היא <strong>אינה</strong> רישיון ממשלתי ישראלי,
-      ואינה אוסרת על המחזיק לקבל עמלות. CFP בלי <a href="/about/license/">רישיון יועץ פנסיוני</a> = אפשרות
+      ואינה אוסרת על המחזיק לקבל עמלות. CFP בלי רישיון יועץ פנסיוני = אפשרות
       להתפרנס מעמלות. CFP עם שקיפות מלאה ושכר טרחה ישיר = שילוב טוב. הדרך לדעת:
       לשאול.
     </p>
@@ -1112,7 +1153,7 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>מה זה CFP, ואיך הוא שונה מ<a href="/about/license/">רישיון יועץ פנסיוני</a>?</summary>
+        <summary>מה זה CFP, ואיך הוא שונה מרישיון יועץ פנסיוני?</summary>
         <div class="faq-body">
           CFP (Certified Financial Planner) היא הסמכה בינלאומית מכובדת שדורשת מבחנים
           וניסיון. אך היא אינה רישיון ממשלתי ישראלי ואינה אוסרת על המחזיק לקבל עמלות.
@@ -1122,7 +1163,7 @@ section { padding: var(--s-2xl) 0; }
       </details>
 
       <details class="faq-item">
-        <summary>איך בודקים שמישהו הוא באמת <a href="/about/license/">יועץ פנסיוני מורשה</a>?</summary>
+        <summary>איך בודקים שמישהו הוא באמת יועץ פנסיוני מורשה?</summary>
         <div class="faq-body">
           באתר רשות שוק ההון, ביטוח וחיסכון (משרד האוצר) קיים מאגר ציבורי של בעלי
           רישיון. חיפוש לפי שם או מספר רישיון — אם השם לא מופיע, אין רישיון יועץ
@@ -1227,7 +1268,7 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1277,4 +1318,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>

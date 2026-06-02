@@ -621,7 +621,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -669,14 +669,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/about/" />
   <title>איתן אחיטוב יועץ פנסיוני | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -704,7 +745,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -726,7 +767,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="article-hero">
+<section class="article-hero" id="main-content">
   <div class="container">
     <div class="article-meta">
       <span class="author">איתן אחיטוב</span>
@@ -758,7 +799,7 @@ section { padding: var(--s-2xl) 0; }
         <h3 style="margin-bottom: 4px;">איתן אחיטוב</h3>
         <p style="margin: 0; color: var(--text-2); font-size: 15px;">יועץ פנסיוני בעל רישיון משרד האוצר · <a href="/about/advisor-vs-planner-vs-agent/">מתכנן פיננסי</a> הוליסטי</p>
         <div class="credentials">
-          <span><a href="/about/license/">רישיון יועץ פנסיוני</a> #I-00133091</span>
+          <span>רישיון יועץ פנסיוני #I-00133091</span>
           <span>תואר במנהל עסקים</span>
           <span>15+ שנות ניסיון</span>
           <span>הרשות לני"ע — 6 בחינות</span>
@@ -854,11 +895,11 @@ section { padding: var(--s-2xl) 0; }
       <img src="/design-assets/license.jpg"
            alt="רישיון יועץ פנסיוני I-00133091 — איתן יעקב אחיטוב, רשות שוק ההון ביטוח וחיסכון"
            style="max-width: 420px; width: 100%; border: 1px solid #E5E7EB; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.10);" />
-      <p style="font-size: 14px; color: #888; margin-top: 10px;"><a href="/about/license/">רישיון יועץ פנסיוני</a> מס׳ I-00133091 — בתוקף עד 31/12/2026</p>
+      <p style="font-size: 14px; color: #888; margin-top: 10px;">רישיון יועץ פנסיוני מס׳ I-00133091 — בתוקף עד 31/12/2026</p>
     </div>
 
     <p>
-      <a href="/about/license/">רישיון יועץ פנסיוני</a> הוא לא תואר נחמד. הוא <strong>חוזה ציבורי</strong> מול הרגולטור.
+      רישיון יועץ פנסיוני הוא לא תואר נחמד. הוא <strong>חוזה ציבורי</strong> מול הרגולטור.
       ברגע שאני מחזיק ברישיון הזה, החוק מטיל עליי ארבע מחויבויות שהופכות את הייעוץ
       לאובייקטיבי לפי חוק — לא לפי הצהרה:
     </p>
@@ -926,7 +967,7 @@ section { padding: var(--s-2xl) 0; }
       זו לא הגדרה אקראית. בשלב הזה של החיים — קודם כל יש לך מספיק הכנסה דיספוזיבילית
       שמאפשרת לתכנן את העתיד, ולא רק לכבות שריפות. שנית, יש מספיק שנים קדימה כדי
       שכל החלטה תניב ערך משמעותי. החלטה לחסוך 500 ₪ נוספים בחודש בגיל 30 שווה
-      בערך פי 4 מאותה החלטה בגיל 55 — בזכות אותה <a href="/articles/compound-interest/">ריבית דריבית</a> שהתאהבתי בה בעמדת
+      בערך פי 4 מאותה החלטה בגיל 55 — בזכות אותה ריבית דריבית שהתאהבתי בה בעמדת
       השמירה.
     </p>
     <p>
@@ -1104,7 +1145,7 @@ section { padding: var(--s-2xl) 0; }
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1157,10 +1198,11 @@ section { padding: var(--s-2xl) 0; }
       <span>© 2026 איתן אחיטוב. כל הזכויות שמורות.</span>
       <span class="license-badge">
         <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        <a href="/about/license/">רישיון יועץ פנסיוני</a> #I-00133091 · משרד האוצר
+        רישיון יועץ פנסיוני #I-00133091 · משרד האוצר
       </span>
     </div>
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

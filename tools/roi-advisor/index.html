@@ -107,12 +107,53 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
 .fab-whatsapp{position:fixed;bottom:24px;left:24px;z-index:300;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:.2s}
 .fab-whatsapp:hover{transform:scale(1.08)}
 .fab-whatsapp svg{width:28px;height:28px;fill:#fff}
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/tools/roi-advisor/" />
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
@@ -140,7 +181,7 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
@@ -159,7 +200,7 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
   </div>
 </nav>
 
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <h1>האם ייעוץ פנסיוני <span class="accent">משתלם לך?</span></h1>
     <p class="lead">
@@ -304,6 +345,7 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
   <div class="container footer-bottom">
     © 2026 איתן אחיטוב | יועץ פנסיוני בעל רישיון | המידע באתר אינו מהווה ייעוץ פנסיוני אישי
   </div>
+  <div style="text-align:center; padding:12px 0; border-top:1px solid rgba(255,255,255,0.1); margin-top:16px;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px;">הצהרת נגישות</a></div>
 </footer>
 
 <a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">

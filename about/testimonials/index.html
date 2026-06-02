@@ -709,7 +709,7 @@ section { padding: var(--s-2xl) 0; }
   color: var(--text-1);
   background: var(--bg-cream);
   transition: all .15s;
-  outline: none;
+  /* outline handled by :focus-visible */
 }
 .header-search input:focus {
   border-color: var(--primary);
@@ -757,14 +757,55 @@ section { padding: var(--s-2xl) 0; }
   font-size: 14px;
   text-align: center;
 }
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #1F4E79;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #1F4E79 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
 </style>
   <link rel="canonical" href="https://pensya.info/about/testimonials/" />
   <title>המלצה על יועץ פנסיוני — לקוחות מספרים | איתן אחיטוב — יועץ פנסיוני</title>
 </head>
 <body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo">
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -792,7 +833,7 @@ section { padding: var(--s-2xl) 0; }
     </button>
     <div class="nav-overlay" id="nav-overlay"></div>
     <div class="header-search">
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." autocomplete="off">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
       <span class="header-search-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"/>
@@ -814,7 +855,7 @@ section { padding: var(--s-2xl) 0; }
 </nav>
 
 <!-- HERO -->
-<section class="page-hero">
+<section class="page-hero" id="main-content">
   <div class="container">
     <div class="wide-container">
       <span class="eyebrow">
@@ -826,7 +867,7 @@ section { padding: var(--s-2xl) 0; }
         לא הצהרות שיווק. אנשים אמיתיים.
       </h1>
       <p class="lede">
-        כשבחרתי להיות <a href="/about/recommended-advisor/">יועץ פנסיוני בלתי תלוי</a>, לקחתי על עצמי מחויבות אחת: שבסוף כל תהליך,
+        כשבחרתי להיות יועץ פנסיוני בלתי תלוי, לקחתי על עצמי מחויבות אחת: שבסוף כל תהליך,
         הלקוח ירגיש שהכסף שלו עובד עבורו — לא עבור חברת הביטוח. הנה מה שלקוחות אומרים
         אחרי שחווים את ההבדל.
       </p>
@@ -884,7 +925,7 @@ section { padding: var(--s-2xl) 0; }
           <br><br>
           כמובן שטעיתי. איתן מצא שלושה דברים בתוך פגישה אחת: דמי ניהול מהצבירה שהיו מעל 0.75% (כשאפשר לקבל 0.2%), מסלול כללי שמתאים לאדם בן 60 — לא לי, ועוד ביטוח אכ"ע שמשום מה המשיך לרוץ גם אחרי שקניתי ביטוח פרטי. שמש דמים לשני בוסות.
           <br><br>
-          מה שהכעיס אותי הכי הרבה? כשהתחלתי לחשב לאחור — 15 שנה של עמלות. כסף שיצא מהפנסיה שלי לכיסו של הסוכן. לא מהכיס שלי — מהחיסכון שלי, שאמור היה להצטבר עם <a href="/articles/compound-interest/">ריבית דריבית</a>.
+          מה שהכעיס אותי הכי הרבה? כשהתחלתי לחשב לאחור — 15 שנה של עמלות. כסף שיצא מהפנסיה שלי לכיסו של הסוכן. לא מהכיס שלי — מהחיסכון שלי, שאמור היה להצטבר עם ריבית דריבית.
           <br><br>
           שכר הטרחה של איתן היה שקל לעומת מה שנחסך. יותר מזה — הוא לא ניסה למכור לי שום דבר. הוא פשוט הסביר, הראה, ואמר: 'אתה מחליט'."
         </p>
@@ -936,7 +977,7 @@ section { padding: var(--s-2xl) 0; }
               <li>מסלול מנייתי מחקה מדד מותאם לגיל 44</li>
               <li>ביטול הביטוח הכפול — חיסכון של ~250 ₪ בחודש</li>
               <li>איחוד קרנות + מסלקה שחשפה קרן נוספת שלא ידע עליה</li>
-              <li>הפקדה מוגדלת ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> עד תקרת ההטבה</li>
+              <li>הפקדה מוגדלת לקרן השתלמות עד תקרת ההטבה</li>
             </ul>
           </div>
         </div>
@@ -1002,7 +1043,7 @@ section { padding: var(--s-2xl) 0; }
             <p class="testimonial-quote">
               יועץ תקשורת עצמאי. הייתה לי "קופת גמל ישנה" מהתקופה שעבדתי שכיר — שוחחה
               שם עשר שנים מבלי שנגעתי בה. איתן בדק ומצא שהמסלול היה הכי שמרני שיש,
-              שדמי הניהול גבוהים, ושהסכום יכול לעבור ל-<a href="/investment/ira/">IRA</a> — שם אנהל אותו בעצמי עם
+              שדמי הניהול גבוהים, ושהסכום יכול לעבור ל-IRA — שם אנהל אותו בעצמי עם
               דמי ניהול הרבה יחסית נמוכים יותר. ייעוץ אחד — שינוי לכל החיים.
             </p>
             <div class="testimonial-author">
@@ -1076,7 +1117,7 @@ section { padding: var(--s-2xl) 0; }
           <div class="testimonial">
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-quote">
-              מנהלת מוצר בחברת SAAS. הגעתי עם "<a href="/pension/bituach-menahalim/">ביטוח מנהלים</a> ישן" שקיבלתי ממעסיק קודם —
+              מנהלת מוצר בחברת SAAS. הגעתי עם "ביטוח מנהלים ישן" שקיבלתי ממעסיק קודם —
               לא ידעתי אם לשמור אותו או לנייד. השאלה הזו עולה כסף. איתן בדק את הפוליסה,
               הסביר שיש בה מקדם קצבה ישן שכדאי לשמור לפחות חלקו, ובנה תכנית שמשמרת את
               היתרון הזה בלי להפסיד מהגמישות. לא הייתי מחליטה נכון לבד.
@@ -1140,7 +1181,7 @@ section { padding: var(--s-2xl) 0; }
       <span class="section-eyebrow">המלצות מזוגות צעירים</span>
       <h2>זוגות צעירים — הרגע הכי חשוב לתכנן הוא עכשיו</h2>
       <p>
-        <a href="/articles/compound-interest/">ריבית דריבית</a> היא הנשק הכי חזק שיש — אבל רק אם מתחילים מוקדם. שנה שמחמיצים בגיל 28
+        ריבית דריבית היא הנשק הכי חזק שיש — אבל רק אם מתחילים מוקדם. שנה שמחמיצים בגיל 28
         שווה בגיל 65 פחות או יותר פי 8 ממה שהפקדתם.
       </p>
     </div>
@@ -1196,8 +1237,8 @@ section { padding: var(--s-2xl) 0; }
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-quote">
               שני הורים לילד בן שנה. הגענו עם שאלה: "מה לעשות עם <a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a>?" — 
-              יצאנו עם הבנה שלמה של כל מה שצריך לעשות: <a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a> בקופת גמל עם מסלול מנייתי,
-              ולא בבנק, הפקדה לקרן ההשתלמות עד תקרה, ו<a href="/insurance/">בדיקת ביטוחים</a>. ניצחנו.
+              יצאנו עם הבנה שלמה של כל מה שצריך לעשות: חיסכון לכל ילד בקופת גמל עם מסלול מנייתי,
+              ולא בבנק, הפקדה לקרן ההשתלמות עד תקרה, ובדיקת ביטוחים. ניצחנו.
             </p>
             <div class="testimonial-author">
               <div class="author-avatar">א</div>
@@ -1206,7 +1247,7 @@ section { padding: var(--s-2xl) 0; }
                 <div class="role">הורים לתינוק · ראשון לציון</div>
               </div>
             </div>
-            <span class="testimonial-saving"><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a> במסלול מנייתי: +₪18K פוטנציאל</span>
+            <span class="testimonial-saving">חיסכון לכל ילד במסלול מנייתי: +₪18K פוטנציאל</span>
           </div>
 
           <div class="testimonial">
@@ -1272,7 +1313,7 @@ section { padding: var(--s-2xl) 0; }
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-quote">
               אדריכל עצמאי עם משכנתא ממש לא טריוויאלית — הכנסה לא קבועה, שנים שמנות
-              ורזות. הכי קשה היה לאזן: כמה לשלם יותר על המשכנתא, <a href="/pension/contribution-employee/">כמה להפקיד לפנסיה</a>,
+              ורזות. הכי קשה היה לאזן: כמה לשלם יותר על המשכנתא, כמה להפקיד לפנסיה,
               וכמה לשמור נזיל. איתן בנה לי "מודל תרחישים" שמאפשר לי לקבל החלטה
               חדשה בכל שנה לפי ההכנסה. פשוט ואפקטיבי מאוד.
             </p>
@@ -1309,7 +1350,7 @@ section { padding: var(--s-2xl) 0; }
             <p class="testimonial-quote">
               זוג שמתכנן לקנות דירה בשנה הקרובה. הגענו לפני — לא אחרי. איתן עזר לנו
               להבין כמה הון עצמי באמת אנחנו צריכים, איזה חלק מהחיסכון "מותר" להשתמש
-              ואיזה לא לגעת (<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> — ממש לא), ומה גודל המשכנתא שנוכל לשרת
+              ואיזה לא לגעת (קרן השתלמות — ממש לא), ומה גודל המשכנתא שנוכל לשרת
               מבלי לפגוע ביעדי הפנסיה שלנו. תכנון מקיף שמנע טעות יקרה.
             </p>
             <div class="testimonial-author">
@@ -1357,7 +1398,7 @@ section { padding: var(--s-2xl) 0; }
             <h4>עצמאי / פרילנסר</h4>
             <div class="sc-range">₪15K–₪25K מס/שנה</div>
             <p>
-              חיסכון מס שנתי מיצוי הטבות מס לעצמאים: <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> עד תקרה, ניכוי פנסיה מקסימלי,
+              חיסכון מס שנתי מיצוי הטבות מס לעצמאים: קרן השתלמות עד תקרה, ניכוי פנסיה מקסימלי,
               ותכנון תקרות ההפקדה לפי הכנסה בפועל.
             </p>
           </div>
@@ -1366,7 +1407,7 @@ section { padding: var(--s-2xl) 0; }
             <h4>זוג עם ילד (30-40)</h4>
             <div class="sc-range">₪600K–₪1.4M</div>
             <p>
-              חיסכון מצטבר משני התיקים. כולל אופטימיזציה של שני מסלולי <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>,
+              חיסכון מצטבר משני התיקים. כולל אופטימיזציה של שני מסלולי קרן השתלמות,
               קיצור מיסוי בניוד, וניצול הטבות מס משותפות.
             </p>
           </div>
@@ -1385,7 +1426,7 @@ section { padding: var(--s-2xl) 0; }
             <div class="sc-range">₪1,500–₪4,000/חודש</div>
             <p>
               חיסכון חודשי ממוצע מביטול כיסויים ביטוחיים שרצים פעמיים: אכ"ע כפול,
-              <a href="/insurance/bituach-chaim/">ביטוח חיים</a> שמיותר, כיסוי בריאות שכבר מכוסה בביטוח קבוצתי.
+              ביטוח חיים שמיותר, כיסוי בריאות שכבר מכוסה בביטוח קבוצתי.
             </p>
           </div>
           <div class="saving-card">
@@ -1448,4 +1489,6 @@ section { padding: var(--s-2xl) 0; }
   });
 })();
 </script>
+
+<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
 <script src="/search.js"></script>
