@@ -1090,9 +1090,9 @@ textarea:focus-visible,
         </tr>
         <tr>
           <td>דמי ניהול מצבירה</td>
-          <td class="col-yes">זול</td>
-          <td class="col-yes">זול</td>
-          <td class="col-yes">הכי זול</td>
+          <td class="col-warn">זול</td>
+          <td class="col-warn">זול</td>
+          <td class="col-warn">הכי זול</td>
         </tr>
         <tr>
           <td><strong>המלצתי</strong></td>
@@ -1641,4 +1641,4 @@ textarea:focus-visible,
     document.body.style.overflow = open ? 'hidden' : '';
   }
   btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
-  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); 
