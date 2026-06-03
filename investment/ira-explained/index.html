@@ -1150,11 +1150,7 @@ textarea:focus-visible,
     </p>
     <p>
       ב-IRA יש לך פתרון: אתה יכול לבחור בעצמך <strong>ניירות ערך אמריקאיים שאינם PFIC</strong>
-      — מניות בודדות הרשומות בארה"ב, ETF אמריקאיים (לא איריים!) — וכך לשמור על דיווח המס
-      האמריקאי שלך פשוט ונקי. זה יתרון משמעותי שלא קיים בקופה רגילה, ובדרך כלל מצדיק כשלעצמו
-      את המעבר לאזרחי ארה"ב. שים לב — בחירת הניירות כפופה
-      ל<a href="/investment/ira-investment-rules/">כללי ההשקעה של IRA</a> (מגבלות ריכוז, מדינות
-      מאושרות וכו').
+      — מניות ואגרות חוב מכל המדינות המפותחות, ETF וקרנות אמריקאיות (לא איריות!) ועוד — וכך לשמור על דיווח המס האמריקאי שלך פשוט, נקי וללא מיסוי דרקוני. זה יתרון משמעותי שלא קיים בקופה רגילה, ובדרך כלל מצדיק כשלעצמו את המעבר ל-IRA עבור החייבים בדיווח לרשות המיסים של ארה"ב.
     </p>
     <div class="callout">
       <strong>חשוב להדגיש:</strong> לפי הרישיון שלי אני יועץ פנסיוני, לא יועץ מס. הפתרון של
@@ -1633,4 +1629,8 @@ textarea:focus-visible,
   btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
   if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
   nav.querySelectorAll('a').forEach(function(a){
-    a
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+<script s
