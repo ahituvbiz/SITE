@@ -1089,6 +1089,12 @@ textarea:focus-visible,
           <td class="col-yes">כן</td>
         </tr>
         <tr>
+          <td>דמי ניהול מצבירה</td>
+          <td class="col-yes">זול</td>
+          <td class="col-yes">זול</td>
+          <td class="col-yes">הכי זול</td>
+        </tr>
+        <tr>
           <td><strong>המלצתי</strong></td>
           <td class="col-yes">מומלץ</td>
           <td class="col-warn">תלוי</td>
@@ -1636,9 +1642,3 @@ textarea:focus-visible,
   }
   btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
   if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
-  nav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ toggle(false); });
-  });
-})();
-</script>
-<script src="/search.js"></script>                                         
