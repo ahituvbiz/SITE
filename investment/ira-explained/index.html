@@ -1078,15 +1078,15 @@ textarea:focus-visible,
         </tr>
         <tr>
           <td>הבטחת תשואה על כ-30% מהצבירה?</td>
-          <td class="col-yes">לא רלוונטי</td>
-          <td class="col-warn">לא רלוונטי</td>
-          <td class="col-no">מפסידים</td>
+          <td class="col-no">לא</td>
+          <td class="col-no">לא</td>
+          <td class="col-yes">כן</td>
         </tr>
         <tr>
           <td>סבסוד צולב / איזון אקטוארי?</td>
-          <td class="col-yes">לא רלוונטי</td>
-          <td class="col-warn">לא רלוונטי</td>
-          <td class="col-no">מפסידים</td>
+          <td class="col-no">לא</td>
+          <td class="col-no">לא</td>
+          <td class="col-yes">כן</td>
         </tr>
         <tr>
           <td>תקנות חוסמות צפויות 2025?</td>
@@ -1644,4 +1644,8 @@ textarea:focus-visible,
   btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
   if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
   nav.querySelectorAll('a').forEach(function(a){
-    a.addEventListen
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+<script src="/searc
