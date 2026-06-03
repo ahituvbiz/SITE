@@ -1133,11 +1133,7 @@ textarea:focus-visible,
     </p>
 
     <div class="callout">
-      <strong>מה זה אומר במספרים?</strong> תיק קרן השתלמות של 300,000 ₪ עם פער דמי ניהול של 0.2%
-      (0.30% ב-IRA לעומת 0.50% במסלול רגיל שאני משיג ללקוחותיי במו"מ) — מתורגם לכ-600 ₪ פחות
-      בשנה אחת, ויותר מ-7,000 ₪ בעשור (לפני התשואה הנוספת שצוברת ריבית-דריבית, ובהנחה שצברת לאורך
-      התקופה). הפער אמיתי, אבל לא דרמטי — וזו רק מחצית התמונה. השאלה הקריטית באמת היא איך אתה
-      מנהל את ההשקעות, לא כמה אתה משלם בדמי ניהול.
+      <strong>מה זה אומר במספרים?</strong> ניקח לדוגמה קרן השתלמות עם צבירה של 300,000 ₪, הפקדה חודשית של 1,500 ₪, דמי ניהול 0.5% וצפי תשואה של 7%. אם תנויד ל-IRA — דמי הניהול ירדו ל-0.25%, ואפשר יהיה לצפות לשיפור תשואה של כ-0.2% בזכות צמצום החזקת המזומן. בטווח של 15 שנה הפער בין הקרנות יעמוד על למעלה מ-73,000 ₪.
     </div>
 
     <h3>4. יתרון ייחודי לאזרחי ארה"ב — הימנעות מבעיית PFIC</h3>
@@ -1634,4 +1630,7 @@ textarea:focus-visible,
     btn.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
   }
-  btn.addEventListener('c
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a
