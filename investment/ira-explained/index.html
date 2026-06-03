@@ -1119,7 +1119,7 @@ textarea:focus-visible,
 
     <h3>1. אין מה להפסיד — כי אין רכיב ביטוחי</h3>
     <p>
-      קרן השתלמות היא <strong>מוצר חיסכון טהור</strong> — בכל מקרה אין בה ביטוח נכות (אובדן כושר עבודה) ושאירים חיים, ואין בה הבטחת תשואה. לכן כשאתה מנייד אותה ל-IRA, אתה לא מוותר על שום הגנה. אתה פשוט "מפטר" את מנהל ההשקעות שגובה ממך תשלום ומגביל את אפשרויות ההשקעה שלך — וכך חוסך דמי ניהול ומרוויח גמישות.
+      קרן השתלמות היא <strong>מוצר חיסכון טהור</strong> — בכל מקרה אין בה ביטוח נכות (אובדן כושר עבודה) ושאירים (חיים), ואין בה הבטחת תשואה. לכן כשאתה מנייד אותה ל-IRA, אתה לא מוותר על שום הגנה.
     </p>
 
     <h3>2. הכסף ממילא הופך להון בעת המשיכה</h3>
@@ -1638,4 +1638,7 @@ textarea:focus-visible,
     btn.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
   }
-  btn.addEventListener('click', function(){ toggle(!
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', functio
