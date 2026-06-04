@@ -204,8 +204,13 @@ section.tight { padding: var(--s-2xl) 0; }
 }
 .header-search-icon svg { width: 18px; height: 18px; }
 
-@media (max-width: 768px) {
-  .header-search input { width: 160px; }
+@media (max-width: 860px) {
+  .nav { gap: 8px; }
+  .nav a { font-size: 13px; }
+  .header-search input { width: 140px; }
+}
+@media (max-width: 600px) {
+  .header-search input { width: 130px; }
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -1465,7 +1470,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .hamburger { display: flex; }
   .nav {
     display: none;
@@ -3053,5 +3058,19 @@ function restartWizard() {
     el.addEventListener('focus', function() {
       if (el.value === '0' || el.value === 0) el.value = '';
     });
-    el.addEventListener('blur', fun
-<script src="/search.js"></script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    el.addEventListener('blur', function() {
+      if (el.value === '' || isNaN(parseFloat(el.value))) el.value = '0';
+    });
+  });
+  updateUI();
+})();
+</script>
+
+<!-- Hamburger menu -->
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav');
+  var overlay = document.getElementById('nav-overlay');
+  if (!btn || !nav) return;
+  function
