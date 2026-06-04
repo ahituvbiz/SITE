@@ -265,10 +265,11 @@ section.tight { padding: var(--s-2xl) 0; }
   text-align: center;
 }
 
-@media (max-width: 900px) {
-  .nav {  }
-  .header-search input { width: 160px; }
-  .header-search input:focus { width: 200px; }
+@media (max-width: 860px) {
+  .nav { gap: 8px; }
+  .nav a { font-size: 13px; }
+  .header-search input { width: 140px; }
+  .header-search input:focus { width: 180px; }
 }
 @media (max-width: 600px) {
   .header-search input { width: 130px; }
@@ -1064,7 +1065,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .hamburger { display: flex; }
   .nav {
     display: none;
@@ -1173,7 +1174,7 @@ textarea:focus-visible,
      ========================================================= -->
 <header class="header" role="banner">
   <div class="container header-inner">
-    <a href="#" class="logo" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי">
+    <a href="/" class="logo" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי">
       <div class="logo-name">אחיטוב</div>
       <div class="logo-divider"></div>
       <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
@@ -1831,4 +1832,4 @@ function showResult() {
     a.addEventListener('click', function(){ toggle(false); });
   });
 })();
-</script>
+</scr
