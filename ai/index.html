@@ -119,10 +119,11 @@ section.tight { padding: var(--s-2xl) 0; }
 .header-search input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(31,78,121,0.1); width: 260px; }
 .header-search-icon { position: absolute; left: 12px; pointer-events: none; color: var(--text-meta); display: flex; }
 .header-search-icon svg { width: 18px; height: 18px; }
-@media (max-width: 900px) {
-  .nav {  }
-  .header-search input { width: 160px; }
-  .header-search input:focus { width: 200px; }
+@media (max-width: 860px) {
+  .nav { gap: 8px; }
+  .nav a { font-size: 13px; }
+  .header-search input { width: 140px; }
+  .header-search input:focus { width: 180px; }
 }
 
 /* =========================================================
@@ -565,7 +566,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .hamburger { display: flex; }
   .nav {
     display: none;
@@ -776,14 +777,7 @@ textarea:focus-visible,
       </span>
       <div class="search-results" id="search-results"></div>
     </div>
-    <div class="header-search"><!-- updated -->
-      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
-      <span class="header-search-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-        </svg>
-      </span>
-    </div>
+    
   </div>
 </header>
 
