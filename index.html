@@ -1811,7 +1811,14 @@ function showResult() {
     text = 'כמו רוב הקהל. מספיק טוב כדי לא להיות "אבוד", אבל מספיק רחוק מהאופטימום כדי שהפער יעלה לך מאות אלפי שקלים לאורך הקריירה.';
   } else {
     title = 'אתה בנקודת ההתחלה — וזה דווקא חדשות טובות';
-    text = 'אתה לא לבד. רוב הציבור באותו מקום בדיוק. החדשות הטובות: ההשפעה של תיקון מוקדם היא הכי גדולה. ההפרש בין "להתחיל היום" ל"להתחיל בעוד 5 שנים" = מאות אלפי שקלים.'
+    text = 'אתה לא לבד. רוב הציבור באותו מקום בדיוק. החדשות הטובות: ההשפעה של תיקון מוקדם היא הכי גדולה. ההפרש בין "להתחיל היום" ל"להתחיל בעוד 5 שנים" = מאות אלפי שקלים.';
+  }
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-text').textContent = text;
+}
+
+renderQuestion();
+</script>
 
 <script>
 (function(){
@@ -1832,4 +1839,7 @@ function showResult() {
     a.addEventListener('click', function(){ toggle(false); });
   });
 })();
-</scr
+</script>
+<script src="/search.js"></script>
+</body>
+</html>
