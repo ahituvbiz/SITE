@@ -1843,7 +1843,7 @@ textarea:focus-visible,
           </svg>
         </div>
         <h3>יתרון דחיית מס</h3>
-        <p>הרווחים בתוך קופת ה-IRA לא ממוסים בשוטף — המס נדחה עד למשיכה. כך כל רווח ממשיך לעבוד ולצבור תשואה כאילו לא שולם עליו מס, ואפקט הריבית דריבית על הכסף שהיה אמור ללכת למס עובד לטובתך לאורך שנים.</p>
+        <p>כספים מעל תקרת הפטור ממס שמופקדים ל-IRA לא ממוסים באופן שוטף. דחיית המס מאפשרת להשקיע מחדש גם את החלק שהיה אמור להיות משולם כמס וכך מושגת תשואה נטו גבוהה יותר.</p>
       </div>
       <div class="explainer-card">
         <div class="explainer-icon">
@@ -3073,4 +3073,18 @@ function restartWizard() {
   var nav = document.querySelector('.nav');
   var overlay = document.getElementById('nav-overlay');
   if (!btn || !nav) return;
-  function
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    if (overlay) overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+<script src="/search.js"></script>                                                         
