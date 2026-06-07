@@ -72,7 +72,7 @@
           "name": "מה דמי הניהול ב-IRA?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "דמי הניהול של גלובלנט (החברה המנהלת) — כשמצטרפים דרך יועץ פנסיוני — הם 0.23%-0.38% שנתי, לעומת 0.5% בקופה רגילה (עם משא ומתן ראוי). על תיק של 500,000 ₪ הפער יכול להצטבר ל-10,000-15,000 ₪ בעשור — חיסכון אמיתי, אבל רק אם תנהל את ההשקעות נכון."
+            "text": "דמי הניהול של גלובלנט/אקטיון (החברה המנהלת) — כשמצטרפים דרך יועץ פנסיוני — הם 0.23%-0.38% שנתי, לעומת 0.5% בקופה רגילה (עם משא ומתן ראוי). על תיק של 500,000 ₪ הפער יכול להצטבר ל-10,000-15,000 ₪ בעשור — חיסכון אמיתי, אבל רק אם תנהל את ההשקעות נכון."
           }
         }
       ]
@@ -752,7 +752,7 @@ section { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .hamburger { display: flex; }
   .nav {
     display: none;
@@ -1442,7 +1442,7 @@ textarea:focus-visible,
       <details class="faq-item">
         <summary>איזה חברות מציעות IRA בישראל?</summary>
         <div class="faq-body">
-          החברות המנהלות העיקריות: מגדל, מיטב דש, הפניקס, גלובלנט (יורשת של הלמן אלדובי),
+          החברות המנהלות העיקריות: מגדל, מיטב דש, הפניקס, גלובלנט/אקטיון (יורשת של הלמן אלדובי),
           ואקטיון (החל מ-2024). חברי הבורסה (איתם אתה סוחר בפועל) הם פסגות, IBI, מזרחי טפחות,
           הבינלאומי הראשון, ולאומי (רק ללקוחות בנק לאומי). העלויות שונות בכל אחד — הכלי
           <a href="/investment/ira/#wizard">בשאלון בדף ה-IRA</a> משווה את כולם.
@@ -1628,4 +1628,8 @@ textarea:focus-visible,
   btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
   if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
   nav.querySelectorAll('a').forEach(function(a){
-    a.add
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+<script src="/search.js"></script>
