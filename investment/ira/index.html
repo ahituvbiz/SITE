@@ -1937,7 +1937,8 @@ textarea:focus-visible,
         </ul>
         <div class="layer-cost">
           <strong>דמי ניהול שנתיים</strong> (כשמצטרפים דרך יועץ פנסיוני):<br>
-          75K–250K → 0.38%<br>
+          75K–150K → 0.38%<br>
+          150K–250K → 0.3%<br>
           250K–1M → 0.25%<br>
           1M+ → 0.23%
         </div>
@@ -2779,7 +2780,8 @@ const wizardData = {
 // Globalnet annual management fee tier — Globalnet is the managing entity for the IRA fund
 // Charged annually as a % of portfolio value. Rates per Globalnet's tier schedule (when joining via advisor).
 function getGlobalnetAnnualFeePct(portfolioValueIls) {
-  if (portfolioValueIls < 250000)   return 0.0038;  // 75K–250K: 0.38%
+  if (portfolioValueIls < 150000)   return 0.0038;  // 75K–150K: 0.38%
+  if (portfolioValueIls < 250000)   return 0.003;   // 150K–250K: 0.3%
   if (portfolioValueIls < 1000000)  return 0.0025;  // 250K–1M: 0.25%
   return 0.0023;                                    // 1M+: 0.23%
 }

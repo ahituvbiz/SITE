@@ -1166,7 +1166,8 @@ function toggleFaq(btn) {
   function gFee(bal) {
     if (bal >= 1e6)    return 0.0023;
     if (bal >= 250000) return 0.0025;
-    return 0.0038; // 75K – 250K
+    if (bal >= 150000) return 0.003;  // 150K – 250K
+    return 0.0038; // 75K – 150K
   }
 
   /* Monthly retention factor from annual fee rate */
