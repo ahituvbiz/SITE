@@ -143,6 +143,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Heebo', system-ui, sans-serif;
   font-size: 18px;
+  overflow-x: hidden;
   line-height: 1.75;
   color: var(--text-1);
   background: var(--bg-white);
@@ -683,7 +684,7 @@ section { padding: var(--s-2xl) 0; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 14px;
   color: #6E747D;
   flex-wrap: wrap;
   gap: var(--s-sm);
@@ -1016,7 +1017,7 @@ section { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .hamburger { display: flex; }
   .nav {
     display: none;

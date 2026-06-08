@@ -130,6 +130,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Heebo', system-ui, sans-serif;
   font-size: 18px;
+  overflow-x: hidden;
   line-height: 1.75;
   color: var(--text-1);
   background: var(--bg-white);
@@ -532,7 +533,7 @@ section { padding: var(--s-2xl) 0; }
 .footer a { color: #C9CDD3; }
 .footer a:hover { color: #fff; text-decoration: none; }
 .footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); max-width: 320px; }
-.footer-bottom { border-top: 1px solid #2A2D33; padding-top: var(--s-md); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm); }
+.footer-bottom { border-top: 1px solid #2A2D33; padding-top: var(--s-md); display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm); }
 .license-badge { display: inline-flex; align-items: center; gap: 6px; background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3; }
 @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
 
@@ -621,7 +622,7 @@ section { padding: var(--s-2xl) 0; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .hamburger { display: flex; }
   .nav {
     display: none;
