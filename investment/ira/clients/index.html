@@ -847,7 +847,6 @@ document.getElementById('auth-form').addEventListener('submit', async function(e
 
     if (!res.ok) throw new Error('network_error');
 
-    const data = aw
     const data = await res.json();
 
     if (data.success) {
