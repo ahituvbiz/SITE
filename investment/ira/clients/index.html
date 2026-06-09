@@ -448,10 +448,137 @@ a:hover { text-decoration: underline; }
 
 .footer-simple a { color: rgba(255,255,255,.8); }
 
+/* ============================
+   FUND DETAIL BLOCKS
+   ============================ */
+.portfolios-grid {
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+}
+
+.fund-block {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.fund-block-header {
+  background: var(--bg-cream);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.fund-block-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+
+.fund-block-ticker {
+  font-size: 12px;
+  color: var(--text-meta);
+  font-family: 'Courier New', monospace;
+}
+
+.fund-block-pct {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fund-meta { padding: 4px 16px 12px; }
+
+.fund-meta-row {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid #f0ede8;
+  font-size: 13.5px;
+  align-items: flex-start;
+}
+
+.fund-meta-row:last-child { border-bottom: none; }
+
+.fund-meta-label {
+  color: var(--text-meta);
+  min-width: 130px;
+  flex-shrink: 0;
+  padding-top: 2px;
+  font-size: 12.5px;
+}
+
+.fund-meta-value {
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tag-green  { background: #dcfce7; color: #166534; }
+.tag-red    { background: #fee2e2; color: #991b1b; }
+.tag-blue   { background: #dbeafe; color: #1e40af; }
+.tag-yellow { background: #fef9c3; color: #854d0e; }
+
+.fund-link {
+  font-size: 13px;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.split-bar-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 7px;
+  margin-bottom: 7px;
+}
+
+.split-bar-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-meta);
+  margin-bottom: 14px;
+}
+
+.badge-israeli  { background: #dbeafe; color: #1e40af; }
+.badge-american { background: #fef3c7; color: #92400e; }
+
+.new-fund-note {
+  background: #fef9c3;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #92400e;
+  margin: 0 16px 12px;
+  line-height: 1.5;
+}
+
 /* responsive */
 @media (max-width: 480px) {
   .gate-card { padding: 32px 24px; }
   .portfolios-grid { grid-template-columns: 1fr; }
+  .fund-meta-label { min-width: 100px; }
 }
 </style>
 </head>
@@ -529,7 +656,7 @@ a:hover { text-decoration: underline; }
 
   <div class="content-hero">
     <div class="container">
-      <div class="eyebrow">אזור לקוחות · <a href="/investment/ira/">IRA</a> בניהול אישי</div>
+      <div class="eyebrow">אזור לקוחות · IRA בניהול אישי</div>
       <h1>הרכבי תיק מוצעים</h1>
       <p class="welcome-note">שלום, <span id="welcome-name" class="welcome-name"></span> — הנה ההמלצות שהכנתי בשבילך.</p>
       <span class="logout-link" id="logout-btn">יציאה מהחשבון</span>
@@ -552,317 +679,177 @@ a:hover { text-decoration: underline; }
 
     <div class="portfolios-grid">
 
-      <!-- ======= תיק 1: שמרני ======= -->
+      <!-- ======= תיק 1: ישראלי ======= -->
       <div class="portfolio-card">
         <div class="portfolio-card-header">
-          <span class="portfolio-badge badge-conservative">שמרני</span>
-          <div class="portfolio-name">תיק הכנסה</div>
-          <div class="portfolio-desc">אג"ח ממשלתי ותאגידי עם חשיפה מנייתית מועטה</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="portfolio-badge badge-israeli">🇮🇱 חוסך ישראלי</span>
+            <span style="font-size:11px; color:var(--text-meta);">2 קרנות מחקות</span>
+          </div>
+          <div class="portfolio-name">תיק מניות גלובלי — מחקה ישראלי</div>
+          <div class="portfolio-desc">קרנות נאמנות מחקות של אי.בי.אי. הנסחרות בבורסה בת"א. אפשר הוראת קבע חודשית.</div>
         </div>
-        <div class="portfolio-card-body">
-          <table class="allocation-table">
-            <thead>
-              <tr>
-                <th>נייר ערך</th>
-                <th style="text-align:left; direction:ltr">%</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
-              <tr>
-                <td>
-                  <div class="alloc-name">אג"ח ממשלת ישראל</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: 1150100 --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:50%"></div></div>
-                </td>
-                <td class="alloc-pct">50%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">אג"ח קונצרני מדורג</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: AGSH --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:30%"></div></div>
-                </td>
-                <td class="alloc-pct">30%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">מניות עולמי</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: IWDA --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:20%"></div></div>
-                </td>
-                <td class="alloc-pct">20%</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div style="padding: 14px 20px 0;">
+          <div class="split-bar-track">
+            <div style="background:#1F4E79;"></div>
+            <div style="background:#5C8D5A;"></div>
+          </div>
+          <div class="split-bar-labels">
+            <div>S&amp;P 500 Equal Weight — 50%</div>
+            <div style="text-align:left;">MSCI World ex-USA — 50%</div>
+          </div>
+        </div>
+
+        <div class="portfolio-card-body" style="padding-top:0;">
+
+          <!-- קרן 1: IBI S&P 500 EW -->
+          <div class="fund-block">
+            <div class="fund-block-header">
+              <div>
+                <div class="fund-block-name">אי.בי.אי. מחקה S&amp;P 500 Equal Weight</div>
+                <div class="fund-block-ticker">מס׳ קרן: 5140769 &nbsp;|&nbsp; קוד חשיפה: 4D</div>
+              </div>
+              <div class="fund-block-pct">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>S&amp;P 500 Equal Weight Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">ארה"ב בלבד — 503 החברות הגדולות הנסחרות בארה"ב</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>שווה</strong> — כל מניה מקבלת ~0.2%, ללא קשר לשווי השוק שלה. איזון מחדש <strong>כל רבעון</strong>.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">חשיפה ענפית מאוזנת יחסית — <strong>פחות ריכוז בטכנולוגיה</strong> לעומת S&amp;P 500 הרגיל (שם 7 מניות בלבד מהוות ~35%). כאן אף מניה לא יכולה לשלוט.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי ניהול</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0%</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי נאמנות</span>
+                <span class="fund-meta-value">0.023% לשנה</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-yellow">⚠ חשוף לדולר — 100%</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">תנודות בשקל/דולר משפיעות ישירות על הביצועים בשקלים</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">FUNDER</span>
+                <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5140769" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- קרן 2: IBI MSCI World ex-USA Hedged -->
+          <div class="fund-block">
+            <div class="fund-block-header" style="background:rgba(92,141,90,0.07);">
+              <div>
+                <div class="fund-block-name">אי.בי.אי. מחקה MSCI AC World EX USA מנוטרלת דולר</div>
+                <div class="fund-block-ticker">מס׳ קרן: 5142476 &nbsp;|&nbsp; קוד חשיפה: 4A</div>
+              </div>
+              <div class="fund-block-pct" style="color:var(--positive);">50%</div>
+            </div>
+            <div class="new-fund-note">⚠ קרן חדשה — הוקמה מאי 2026. אין עדיין היסטוריית ביצועים. המדד עצמו ותיק ומתועד.</div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>MSCI AC World ex USA Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">44 מדינות — כל העולם <strong>ללא ארה"ב</strong>. כ-2,300 חברות. שווקים מפותחים (יפן, בריטניה, קנדה, גרמניה, צרפת, אוסטרליה...) ושווקים מתפתחים (סין, הודו, טייוואן, קוריאה...).</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>לפי שווי שוק</strong>. כ-75% שווקים מפותחים, כ-25% שווקים מתפתחים.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">פיזור ענפי רחב — פיננסים, תעשייה, צריכה, אנרגיה, טכנולוגיה ועוד. הרכב שונה מהותית מהתיק הישראלי שמתמקד בארה"ב.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי ניהול</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0%</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי נאמנות</span>
+                <span class="fund-meta-value">0.023% לשנה</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-blue">✓ מנוטרלת — ~10% חשיפה מטבעית</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">הסיכון לאירו, יין, פאונד ושאר מטבעות המדד מגודר לשקל. הביצועים משקפים את תשואת המדד בשקלים.</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">FUNDER</span>
+                <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5142476" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
+              </div>
+            </div>
+          </div>
+
           <div class="portfolio-total">
             <span>סה"כ</span>
             <span>100%</span>
           </div>
-        </div>
-      </div>
 
-      <!-- ======= תיק 2: מאוזן ======= -->
+        </div>
+      </div><!-- /תיק ישראלי -->
+
+
+      <!-- ======= תיק 2: אמריקאי ======= -->
       <div class="portfolio-card">
         <div class="portfolio-card-header">
-          <span class="portfolio-badge badge-balanced">מאוזן</span>
-          <div class="portfolio-name">תיק צמיחה מאוזן</div>
-          <div class="portfolio-desc">חשיפה שווה לאג"ח ולמניות — לטווח בינוני</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="portfolio-badge badge-american">🇺🇸 אזרח ארה"ב</span>
+            <span style="font-size:11px; color:var(--text-meta);">2 ETFs אמריקאיים</span>
+          </div>
+          <div class="portfolio-name">תיק מניות גלובלי — אזרח ארה"ב</div>
+          <div class="portfolio-desc">ETF הנסחרים בבורסות ארה"ב. ללא גידור מטבעי. רכישה ידנית בלבד.</div>
         </div>
-        <div class="portfolio-card-body">
-          <table class="allocation-table">
-            <thead>
-              <tr>
-                <th>נייר ערך</th>
-                <th style="text-align:left; direction:ltr">%</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
-              <tr>
-                <td>
-                  <div class="alloc-name">S&amp;P 500</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: VOO / IVV --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:35%"></div></div>
-                </td>
-                <td class="alloc-pct">35%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">מניות עולמי (ללא ארה"ב)</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: VEA --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
-                </td>
-                <td class="alloc-pct">15%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">אג"ח ממשלתי</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: AGG / BND --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:35%"></div></div>
-                </td>
-                <td class="alloc-pct">35%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">מניות ישראל</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: ת"א 35 --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
-                </td>
-                <td class="alloc-pct">15%</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="portfolio-total">
-            <span>סה"כ</span>
-            <span>100%</span>
+
+        <div style="padding: 14px 20px 0;">
+          <div class="split-bar-track">
+            <div style="background:#1F4E79;"></div>
+            <div style="background:#D74E3C;"></div>
+          </div>
+          <div class="split-bar-labels">
+            <div>RSP (S&amp;P 500 EW) — 50%</div>
+            <div style="text-align:left;">VEU (World ex-US) — 50%</div>
           </div>
         </div>
-      </div>
 
-      <!-- ======= תיק 3: צמיחה ======= -->
-      <div class="portfolio-card">
-        <div class="portfolio-card-header">
-          <span class="portfolio-badge badge-growth">צמיחה</span>
-          <div class="portfolio-name">תיק צמיחה מנייתי</div>
-          <div class="portfolio-desc">חשיפה גבוהה למניות — לטווח ארוך</div>
-        </div>
-        <div class="portfolio-card-body">
-          <table class="allocation-table">
-            <thead>
-              <tr>
-                <th>נייר ערך</th>
-                <th style="text-align:left; direction:ltr">%</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
-              <tr>
-                <td>
-                  <div class="alloc-name">S&amp;P 500</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: VOO / IVV --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:60%"></div></div>
-                </td>
-                <td class="alloc-pct">60%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">נאסד"ק 100</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: QQQ / QQQM --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:25%"></div></div>
-                </td>
-                <td class="alloc-pct">25%</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="alloc-name">מניות שווקים מתפתחים</div>
-                  <div class="alloc-ticker"><!-- לדוגמה: VWO / EEM --></div>
-                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
-                </td>
-                <td class="alloc-pct">15%</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="portfolio-total">
-            <span>סה"כ</span>
-            <span>100%</span>
-          </div>
-        </div>
-      </div>
+        <div class="portfolio-card-body" style="padding-top:0;">
 
-    </div><!-- /portfolios-grid -->
-
-    <!-- ✏️ הערות — ערוך לפי רצונך -->
-    <div class="notes-section">
-      <h2>הערות ליישום</h2>
-      <ul>
-        <li>הרכבים אלו מבוססים על כלים פסיביים (מחקי מדד / קרנות סל) בלבד.</li>
-        <li>ניתן לרכוש את ניירות הערך ישירות דרך ממשק המסחר של הברוקר שלך.</li>
-        <li>ההרכב מתאים לכספי <strong><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> <a href="/investment/ira/">IRA</a></strong> וגם ל<strong>קופת גמל <a href="/investment/ira/">IRA</a></strong> (בכפוף למגבלת הסכום הפנסיוני).</li>
-        <li>מומלץ לאזן את התיק אחת לשנה, או כשחריגה עולה על 5% מהמשקל המקורי.</li>
-        <li>לפני ביצוע פעולות — <a href="https://wa.me/972527700599">עדכן אותי</a> כדי לוודא שאין שינוי בהמלצה.</li>
-      </ul>
-    </div>
-
-    <div class="disclaimer">
-      <strong>הבהרה:</strong> מסמך זה הוא חלק מהשירות האישי שקיבלת מאיתן אחיטוב, יועץ פנסיוני בעל רישיון (משרד האוצר). אין לראות בו ייעוץ השקעות כמשמעו בחוק הסדרת העיסוק בייעוץ השקעות. ההרכבים הותאמו אישית לך בלבד ואינם מיועדים לאחרים.
-    </div>
-
-  </div><!-- /container -->
-  </div>
-
-</section><!-- /content-section -->
-
-<!-- Footer -->
-<footer class="footer-simple" id="content-footer" style="display:none">
-  © 2026 איתן אחיטוב | <a href="/">pensya.info</a> | <a href="tel:+972527700599">052-770-0599</a>
-</footer>
-
-<script>
-// ============================================================
-//  ⚙️  הגדרות — עדכן את ה-URL אחרי פריסת Apps Script
-//
-//  שלבים:
-//  1. פתח https://script.google.com → New project
-//  2. הדבק את הקוד מ-design-assets/apps-script/ira-auth.gs
-//  3. Deploy → New deployment → Web app
-//     • Execute as: Me
-//     • Who has access: Anyone
-//  4. העתק את ה-Deployment URL והדבק למטה
-// ============================================================
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCUh36Y_mpHbElHdRROhOt0Ke2JxFwcTLEefp9YBYlWtU-l23OQa5jEvVbiaZiq_P1/exec';
-// ⚠️  חייב להיות זהה ל-SECRET_TOKEN ב-ira-auth.gs
-const AUTH_TOKEN      = 'pensya-ira-2024';
-
-// ============================================================
-//  נורמליזציה של טלפון (מסיר תווים שאינם ספרות,
-//  ממיר 972... ל-0...)
-// ============================================================
-function normalizePhone(raw) {
-  let digits = raw.replace(/\D/g, '');
-  if (digits.startsWith('972')) digits = '0' + digits.slice(3);
-  return digits;
-}
-
-// ============================================================
-//  UI helpers
-// ============================================================
-const gateSection   = document.getElementById('gate-section');
-const contentSection = document.getElementById('content-section');
-const contentFooter  = document.getElementById('content-footer');
-const submitBtn     = document.getElementById('submit-btn');
-const btnText       = document.getElementById('btn-text');
-const errorDiv      = document.getElementById('error-msg');
-const welcomeName   = document.getElementById('welcome-name');
-
-function showError(msg) {
-  errorDiv.textContent = msg;
-  errorDiv.style.display = 'block';
-}
-
-function clearError() {
-  errorDiv.style.display = 'none';
-}
-
-function setLoading(on) {
-  submitBtn.disabled = on;
-  btnText.innerHTML = on
-    ? '<span class="spinner"></span>'
-    : 'כניסה';
-}
-
-function showContent(name) {
-  gateSection.style.display = 'none';
-  contentSection.style.display = 'block';
-  contentFooter.style.display = 'block';
-  welcomeName.textContent = name || '';
-}
-
-// ============================================================
-//  בדיקת sessionStorage — זוכרים לאורך הסשן
-// ============================================================
-(function checkSession() {
-  const saved = sessionStorage.getItem('pensya_ira_auth');
-  if (saved) {
-    try {
-      const { name } = JSON.parse(saved);
-      showContent(name);
-    } catch(e) {
-      sessionStorage.removeItem('pensya_ira_auth');
-    }
-  }
-})();
-
-// ============================================================
-//  יציאה
-// ============================================================
-document.getElementById('logout-btn').addEventListener('click', function() {
-  sessionStorage.removeItem('pensya_ira_auth');
-  contentSection.style.display = 'none';
-  contentFooter.style.display = 'none';
-  gateSection.style.display = 'flex';
-  clearError();
-});
-
-// ============================================================
-//  שליחת טופס
-// ============================================================
-document.getElementById('auth-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  clearError();
-
-  const email = document.getElementById('email-input').value.trim().toLowerCase();
-  const phone = normalizePhone(document.getElementById('phone-input').value);
-
-  if (!email || !phone) {
-    showError('נא למלא מייל וטלפון.');
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const url = `${APPS_SCRIPT_URL}?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&token=${encodeURIComponent(AUTH_TOKEN)}`;
-    const res = await fetch(url, { redirect: 'follow' });
-
-    if (!res.ok) throw new Error('network_error');
-
-    const data = await res.json();
-
-    if (data.success) {
-      sessionStorage.setItem('pensya_ira_auth', JSON.stringify({ name: data.name }));
-      showContent(data.name);
-    } else {
-      showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
-    }
-
-  } catch (err) {
-    showError('שגיאת תקשורת — נסה שוב עוד רגע. אם הבעיה חוזרת, פנה לאיתן ישירות.');
-  } finally {
-    setLoading(false);
-  }
-});
-</script>
-
-</body>
-</html>
+          <!-- RSP -->
+          <div class="fund-block">
+            <div class="fund-block-header">
+              <div>
+                <div class="fund-block-name">Invesco S&amp;P 500 Equal Weight ETF</div>
+                <div class="fund-block-ticker">טיקר: RSP &nbsp;|&nbsp; NYSE Arca</div>
+              </div>
+              <div class="fund-block-pct">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>S&amp;P 500 Equal Weight Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">ארה"ב בלבד — 503 החברות הגדולות</span>
+          
