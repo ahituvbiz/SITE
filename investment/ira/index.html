@@ -2511,7 +2511,7 @@ textarea:focus-visible,
         <summary>אין לי ניסיון בהשקעות. האם IRA מתאים עבורי?</summary>
         <div class="faq-body">
           כחלק משירות פתיחת ה-IRA נוכל לתת לך דוגמאות להרכבים אפשריים של תיקי השקעות פאסיביים.
-          ב<a href="/investment/ira/clients/" style="color: var(--primary);">דף ייעודי ללקוחות</a> שנעזרו בנו בפתיחת חשבון IRA תוכל לצפות בהרכבים הללו.
+          בדף ייעודי ללקוחות שנעזרו בנו בפתיחת חשבון IRA תוכל לצפות בהרכבים הללו.
           נוכל גם להדריך אותך בשימוש במערכת המסחר במידה ותרצה.
         </div>
       </details>
@@ -3069,4 +3069,5 @@ function prevStep() {
 
 function restartWizard() {
   currentStep = 1;
-  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequ
+  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
+  document.getElementById('a
