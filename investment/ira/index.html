@@ -2340,6 +2340,29 @@ textarea:focus-visible,
         <div class="what">לצירוף לקופת IRA</div>
       </div>
     </div>
+
+    <div class="service-card" style="margin-top: var(--s-xl);">
+      <div class="body">
+        <div class="micro">כלול בשירות — ללא תשלום נוסף</div>
+        <h3>מעוניין בהסבר על בניית תיק IRA פאסיבי?</h3>
+        <p>
+          כחלק מהשירות של פתיחת חשבון ה-IRA, נפתח עבורך גישה לדף ייעודי ללקוחות שבו תוכל לראות
+          הרכבים של תיקי השקעות המאפשרים פיזור רחב יותר מכל מה שמציעות הקרנות הסטנדרטיות.
+        </p>
+        <p>
+          במידה ותרצה, נוכל גם להנחות אותך בשימוש במערכת המסחר דרכה מתבצעת ההשקעה.
+          ההסברים והגישה לאזור הייעודי — ללא תשלום נוסף.
+        </p>
+        <p>
+          <a href="/investment/ira/clients/" style="color: var(--primary); font-weight: 600; text-decoration: underline;">לדף הלקוחות הייעודי ←</a>
+          <span style="font-size: 13px; color: var(--text-meta);"> (גישה ניתנת ללקוחות בלבד 🔒)</span>
+        </p>
+      </div>
+      <div class="price-box" style="background: var(--primary-soft); color: var(--primary);">
+        <div class="price" style="font-size: 28px; color: var(--primary);">ללא<br>תוספת</div>
+        <div class="label" style="color: var(--primary); opacity: 0.8; margin-top: 8px;">כלול בשירות הצירוף</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3051,43 +3074,3 @@ function restartWizard() {
 
 // ============================================================
 // EVENT LISTENERS — runs immediately since script is at end of body
-// ============================================================
-(function init() {
-  const g = document.getElementById('amount-gemel');
-  const k = document.getElementById('amount-keren');
-  function updateTotal() {
-    const tot = (parseFloat(g.value)||0) + (parseFloat(k.value)||0);
-    document.getElementById('total-display').textContent = 'סה"כ: ' + formatIls(tot);
-  }
-  g.addEventListener('input', updateTotal);
-  k.addEventListener('input', updateTotal);
-  // Clear leading 0 on focus
-  [g, k, document.getElementById('monthly-deposit')].forEach(function(el) {
-    el.addEventListener('focus', function() {
-      if (el.value === '0' || el.value === 0) el.value = '';
-    });
-    el.addEventListener('blur', function() {
-      if (el.value === '' || isNaN(parseFloat(el.value))) el.value = '0';
-    });
-  });
-  updateUI();
-})();
-</script>
-
-<!-- Hamburger menu -->
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var nav = document.querySelector('.nav');
-  var overlay = document.getElementById('nav-overlay');
-  if (!btn || !nav) return;
-  function toggle(open) {
-    btn.classList.toggle('open', open);
-    nav.classList.toggle('open', open);
-    if (overlay) overlay.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
-  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
-  nav.querySelectorAll(
