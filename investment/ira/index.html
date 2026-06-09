@@ -2316,42 +2316,48 @@ textarea:focus-visible,
       <p>אם אחרי שעברת על הסימולטור והבנת שזה מתאים לך — אני יכול לבצע את כל הפרוצדורה עבורך.</p>
     </div>
 
-    <div class="service-card">
-      <div class="body">
-        <div class="micro">שירות צירוף ל-IRA</div>
-        <h3>אני מצרף אותך לקופת IRA</h3>
-        <p>
-          ההצטרפות ל-IRA כרוכה בביצוע מסלקה פנסיונית ובביורוקרטיה. הצטרפות דרך יועץ — ולא ישירות
-          לגלובלנט/אקטיון — מאפשרת להם להוזיל את דמי הניהול. ככל שטווח החיסכון ארוך והצבירה שלך גבוהה,
-          החיסכון המצטבר בעמלות יהפוך למשמעותי, כך שישתלם לך יותר להצטרף דרך יועץ.
-        </p>
-        <p>
-          לצורך צירוף שלך אני נדרש לקבל את נתוני התיק שלך מהמסלקה הפנסיונית ולוודא שאתה עומד בתנאים.
-          לאחר מכן אחתים אותך על סט של מסמכי הצטרפות, ואדאג שגלובלנט/אקטיון יפתחו עבורך את חשבון ה-IRA.
-        </p>
-        <p style="font-size:14px; color:var(--text-meta);">
-          התשלום הוא חד-פעמי, ישיר ושקוף — לא תלוי בסכום הניוד, לא תלוי בברוקר שבחרת.
-          אסור לי לקבל עמלה מהברוקר או מהחברה המנהלת, ולכן אני בצד שלך.
-        </p>
-
-        <hr style="border:none; border-top:1px solid var(--border); margin: var(--s-md) 0;">
-
-        <div class="micro">מעוניין בהסבר על בניית תיק IRA פאסיבי?</div>
-        <p>
-          כחלק מהשירות, נפתח עבורך גישה לדף ייעודי ללקוחות שבו תוכל לראות הרכבים של תיקי השקעות
-          המאפשרים פיזור רחב יותר מכל מה שמציעות הקרנות הסטנדרטיות.
-          במידה ותרצה, נוכל גם להנחות אותך בשימוש במערכת המסחר דרכה מתבצעת ההשקעה.
-        </p>
-        <p>
-          <a href="/investment/ira/clients/" style="color: var(--primary); font-weight: 600; text-decoration: underline;">לדף הלקוחות הייעודי ←</a>
-          <span style="font-size: 13px; color: var(--text-meta);"> (גישה ניתנת ללקוחות בלבד 🔒)</span>
-        </p>
-      </div>
-      <div style="display:flex; flex-direction:column; gap: var(--s-md); align-items:stretch;">
+    <div class="service-card" style="display:block; padding:0;">
+      <!-- שורה 1: צירוף -->
+      <div style="display:grid; grid-template-columns:1fr 200px; gap:var(--s-xl); align-items:center; padding:var(--s-xl);">
+        <div>
+          <div class="micro">שירות צירוף ל-IRA</div>
+          <h3>אני מצרף אותך לקופת IRA</h3>
+          <p>
+            ההצטרפות ל-IRA כרוכה בביצוע מסלקה פנסיונית ובביורוקרטיה. הצטרפות דרך יועץ — ולא ישירות
+            לגלובלנט/אקטיון — מאפשרת להם להוזיל את דמי הניהול. ככל שטווח החיסכון ארוך והצבירה שלך גבוהה,
+            החיסכון המצטבר בעמלות יהפוך למשמעותי, כך שישתלם לך יותר להצטרף דרך יועץ.
+          </p>
+          <p>
+            לצורך צירוף שלך אני נדרש לקבל את נתוני התיק שלך מהמסלקה הפנסיונית ולוודא שאתה עומד בתנאים.
+            לאחר מכן אחתים אותך על סט של מסמכי הצטרפות, ואדאג שגלובלנט/אקטיון יפתחו עבורך את חשבון ה-IRA.
+          </p>
+          <p style="font-size:14px; color:var(--text-meta); margin-bottom:0;">
+            התשלום הוא חד-פעמי, ישיר ושקוף — לא תלוי בסכום הניוד, לא תלוי בברוקר שבחרת.
+            אסור לי לקבל עמלה מהברוקר או מהחברה המנהלת, ולכן אני בצד שלך.
+          </p>
+        </div>
         <div class="price-box">
           <div class="price"><span class="currency">₪</span>690</div>
           <div class="label">תשלום חד-פעמי</div>
           <div class="what">לצירוף לקופת IRA</div>
+        </div>
+      </div>
+
+      <hr style="border:none; border-top:1px solid var(--border); margin:0;">
+
+      <!-- שורה 2: תיק פאסיבי -->
+      <div style="display:grid; grid-template-columns:1fr 200px; gap:var(--s-xl); align-items:center; padding:var(--s-xl);">
+        <div>
+          <div class="micro">מעוניין בהסבר על בניית תיק IRA פאסיבי?</div>
+          <p>
+            כחלק מהשירות, נפתח עבורך גישה לדף ייעודי ללקוחות שבו תוכל לראות הרכבים של תיקי השקעות
+            המאפשרים פיזור רחב יותר מכל מה שמציעות הקרנות הסטנדרטיות.
+            במידה ותרצה, נוכל גם להנחות אותך בשימוש במערכת המסחר דרכה מתבצעת ההשקעה.
+          </p>
+          <p style="margin-bottom:0;">
+            <a href="/investment/ira/clients/" style="color: var(--primary); font-weight: 600; text-decoration: underline;">לדף הלקוחות הייעודי ←</a>
+            <span style="font-size: 13px; color: var(--text-meta);"> (גישה ניתנת ללקוחות בלבד 🔒)</span>
+          </p>
         </div>
         <div class="price-box" style="background: var(--primary-soft); color: var(--primary);">
           <div class="price" style="font-size: 26px; color: var(--primary); line-height:1.2;">ללא<br>תשלום נוסף</div>
@@ -3063,15 +3069,4 @@ function restartWizard() {
   document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('wizard-steps').style.display = 'block';
-  clearError();
-  updateUI();
-}
-
-// ============================================================
-// EVENT LISTENERS — runs immediately since script is at end of body
-// ============================================================
-(function init() {
-  const g = document.getElementById('amount-gemel');
-  const k = document.getElementById('amount-keren');
-  function updateTotal() {
-    const tot
+  clearError()
