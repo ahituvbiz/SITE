@@ -848,3 +848,22 @@ document.getElementById('auth-form').addEventListener('submit', async function(e
     if (!res.ok) throw new Error('network_error');
 
     const data = aw
+    const data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem('pensya_ira_auth', JSON.stringify({ name: data.name }));
+      showContent(data.name);
+    } else {
+      showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
+    }
+
+  } catch (err) {
+    showError('שגיאת תקשורת — נסה שוב עוד רגע. אם הבעיה חוזרת, פנה לאיתן ישירות.');
+  } finally {
+    setLoading(false);
+  }
+});
+</script>
+
+</body>
+</html>
