@@ -569,7 +569,8 @@ textarea:focus-visible, [tabindex]:focus-visible {
 }
 
     .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
-  </style>
+  .sc-warn { font-size: 12px; color: var(--text-meta); margin-top: 8px; line-height: 1.5; }
+</style>
   <link rel="canonical" href="https://pensya.info/investment/ira-tax-deferral/" />
 </head>
 <body>
@@ -887,48 +888,53 @@ textarea:focus-visible, [tabindex]:focus-visible {
 <!-- Calculator -->
 <section class="calc-section" id="calculator">
   <div class="article-container">
-    <h2 style="margin-top:0">מחשבון השוואה: קרן השתלמות מול תיק ניירות ערך</h2>
-    <p style="font-size:17px; color:var(--text-2); margin-bottom:var(--s-md)">הזן את הפרמטרים שלך — המחשבון יחשב את היתרה נטו לאחר מס בשני המסלולים.</p>
+    <h2 style="margin-top:0;">מחשבון דחיית מס — כמה שווה לך ה-IRA?</h2>
+    <p>הזן את הנתונים שלך ותראה בדיוק כמה כסף נוסף תצבור. המחשבון מריץ סימולציה חודשית ומשווה שלושה תרחישים: המצב הנוכחי, העברת הכל ל-IRA, והעברת <a href="/savings/keren-hishtalmut/">קרן ההשתלמות</a> בלבד.</p>
 
     <div class="calc-form">
       <div class="calc-inputs">
         <div class="calc-field">
-          <label for="c-monthly">הפקדה חודשית מעל התקרה (₪)</label>
-          <input type="number" id="c-monthly" value="2000" min="100" max="50000" step="100">
-          <div class="hint">הסכום שאתה (או המעסיק) מפקידים מעל תקרת הפטור</div>
+          <label for="inp-sf-bal">יתרת <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> (₪)</label>
+          <input type="number" id="inp-sf-bal" value="100000" min="0" step="1000">
+          <div class="hint">כמה כסף יש לך היום בקרן השתלמות</div>
         </div>
         <div class="calc-field">
-          <label for="c-years">תקופת צבירה (שנים)</label>
-          <input type="number" id="c-years" value="10" min="1" max="40">
-          <div class="hint">כמה שנים הכסף ישהה בקרן/בתיק</div>
+          <label for="inp-sf-fee">דמי ניהול קרן השתלמות הנוכחית (% לשנה)</label>
+          <input type="number" id="inp-sf-fee" value="0.6" min="0" max="2" step="0.05">
+          <div class="hint">לרוב 0.5%–1.2%. בדוק בדו"ח הרבעוני שלך</div>
         </div>
         <div class="calc-field">
-          <label for="c-return">תשואה שנתית צפויה (%)</label>
-          <input type="number" id="c-return" value="7" min="1" max="20" step="0.5">
-          <div class="hint">ממוצע שנתי; ברמת סיכון בינונית-גבוהה</div>
+          <label for="inp-pf-val">שווי תיק ניירות ערך (₪)</label>
+          <input type="number" id="inp-pf-val" value="250000" min="0" step="5000">
+          <div class="hint">תיק השקעות חיצוני בבנק / ברוקר. 0 אם אין.</div>
         </div>
         <div class="calc-field">
-          <label for="c-fee">דמי ניהול שנתיים בקרן (%)</label>
-          <input type="number" id="c-fee" value="0.25" min="0" max="2" step="0.01">
-          <div class="hint">IRA גלובלנט: 0.23%–0.38%; קרן רגילה: 0.5%–0.8%; תיק פרטי: 0</div>
+          <label for="inp-return">תשואה שנתית צפויה (%)</label>
+          <input type="number" id="inp-return" value="9" min="1" max="25" step="0.5">
+          <div class="hint">ברוטו לפני מס. ממוצע S&amp;P 500 היסטורי: ~10%</div>
         </div>
         <div class="calc-field">
-          <label for="c-rebal">תדירות שינוי מסלול בתיק</label>
-          <select id="c-rebal">
-            <option value="0">פאסיבי — לעולם לא מוכר</option>
-            <option value="1" selected>פעם בשנה</option>
-            <option value="4">פעם ברבעון</option>
-            <option value="12">פעם בחודש</option>
-          </select>
-          <div class="hint">בקרן ההשתלמות: שינוי מסלול ללא מס; בתיק: כל מכירה = 25% CGT</div>
+          <label for="inp-rollover">גלגולי תיק חיצוני בשנה (פעמים)</label>
+          <input type="number" id="inp-rollover" value="2" min="1" max="12" step="1">
+          <div class="hint">כמה פעמים בשנה מוכרים ניירות ערך בתיק החיצוני</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-years">אופק זמן (שנים)</label>
+          <input type="number" id="inp-years" value="20" min="5" max="40" step="1">
+          <div class="hint">לכמה שנים מתכננים לחסוך לפני משיכה</div>
+        </div>
+        <div class="calc-field">
+          <label for="inp-monthly">הפקדה חודשית (₪)</label>
+          <input type="number" id="inp-monthly" value="2500" min="0" step="100">
+          <div class="hint">עד 1,713 ₪ לקרן השתלמות (פטור ממס). מעל — לתיק.</div>
         </div>
       </div>
       <div class="calc-btn-row">
-        <button class="btn btn-primary" onclick="runAboveCeilingCalc()">חשב</button>
+        <button class="btn btn-primary" onclick="runCalc()" style="font-size:18px;padding:16px 44px;">חשב את ההפרש ←</button>
       </div>
     </div>
 
-    <div class="calc-results" id="calc-results" style="display:none"></div>
+    <div class="calc-results" id="calc-results" style="display:none;"></div>
   </div>
 </section>
 
@@ -1092,153 +1098,198 @@ function toggleFaq(btn) {
 </script>
 
 <script>
-/* ===== Above-Ceiling Calculator ===== */
+/* ===== IRA Tax Deferral Calculator ===== */
 (function () {
   'use strict';
 
-  var CGT = 0.25;
+  var CGT       = 0.25;
+  var TF_LIMIT  = 1713; // ₪/month study-fund deposit threshold
 
+  /* Globalnot annual management fee (flat bracket) */
+  function gFee(bal) {
+    if (bal >= 1e6)    return 0.0023;
+    if (bal >= 250000) return 0.0025;
+    if (bal >= 150000) return 0.003;  // 150K – 250K
+    return 0.0038; // 75K – 150K
+  }
+
+  /* Monthly retention factor from annual fee rate */
+  function mFactor(a) { return Math.pow(1 - a, 1 / 12); }
+
+  /* Format integer with locale thousands */
   function fmtILS(n) { return Math.round(n).toLocaleString('he-IL'); }
+
+  /* Format for Y-axis: "250K" or "1.2M" */
   function fmtK(n) {
     if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(1) + 'M';
     return Math.round(n / 1000) + 'K';
   }
 
-  window.runAboveCeilingCalc = function () {
-    var C     = parseFloat(document.getElementById('c-monthly').value)  || 2000;
-    var yrs   = parseInt(document.getElementById('c-years').value)       || 10;
-    var retA  = (parseFloat(document.getElementById('c-return').value)   || 7) / 100;
-    var fee   = (parseFloat(document.getElementById('c-fee').value)      || 0.25) / 100;
-    var rebal = parseInt(document.getElementById('c-rebal').value);
+  /* ─── Public entry point ─── */
+  window.runCalc = function () {
+    var sf0   = parseFloat(document.getElementById('inp-sf-bal').value)   || 0;
+    var sfFee = (parseFloat(document.getElementById('inp-sf-fee').value)  || 0) / 100;
+    var pf0   = parseFloat(document.getElementById('inp-pf-val').value)   || 0;
+    var retA  = (parseFloat(document.getElementById('inp-return').value)  || 9) / 100;
+    var rolN  = parseInt(document.getElementById('inp-rollover').value)   || 2;
+    var yrs   = parseInt(document.getElementById('inp-years').value)      || 20;
+    var dep   = parseFloat(document.getElementById('inp-monthly').value)  || 0;
 
-    var months     = yrs * 12;
-    var mRet       = Math.pow(1 + retA, 1/12) - 1;
-    var mFee       = 1 - Math.pow(1 - fee, 1/12);
-    var totalContr = C * months;
+    var months  = yrs * 12;
+    var mRet    = Math.pow(1 + retA, 1 / 12) - 1;
+    var rolInt  = Math.max(1, Math.round(12 / rolN)); // rollover every N months
 
-    /* ── Scenario 1: קרן השתלמות (דחיית מס + דמי ניהול) ── */
-    var sf = 0;
-    var sfSnaps = [];
+    /* IRA eligibility checks */
+    var canFullIRA = (sf0 + pf0 >= 75000) &&
+                     (sf0 < 1 || sf0 >= 30000) &&
+                     (pf0 < 1 || pf0 >= 30000);
+    var canSFIRA   = sf0 >= 75000;
+
+    /* Yearly net-balance snapshots (indices 0/1/2 = S1/S2/S3) */
+    var snaps = [[], [], []];
+
+    /* ── Scenario 1: Baseline (no IRA) ── */
+    var sf1 = sf0, pf1 = pf0, pfB1 = pf0, tax1 = 0;
     for (var m = 1; m <= months; m++) {
-      sf = sf * (1 + mRet) * (1 - mFee) + C;
-      if (m % 12 === 0) sfSnaps.push(sf - Math.max(0, sf - totalContr * (m / months)) * CGT);
-    }
-    var sfGains   = Math.max(0, sf - totalContr);
-    var sfTax     = sfGains * CGT;
-    var sfNet     = sf - sfTax;
-    // Simple net-snaps for chart
-    sfSnaps = [];
-    var sf2 = 0, contr2 = 0;
-    for (var m = 1; m <= months; m++) {
-      sf2 = sf2 * (1 + mRet) * (1 - mFee) + C;
-      contr2 += C;
-      if (m % 12 === 0) {
-        var g = Math.max(0, sf2 - contr2);
-        sfSnaps.push(sf2 - g * CGT);
+      /* growth then SF management fee */
+      sf1 *= (1 + mRet) * mFactor(sfFee);
+      pf1 *= (1 + mRet);
+
+      /* portfolio rollover: realise gains, pay CGT */
+      if (pf0 > 0 && m % rolInt === 0) {
+        var g1 = Math.max(0, pf1 - pfB1);
+        var t1 = g1 * CGT;
+        pf1 -= t1; tax1 += t1; pfB1 = pf1;
       }
-    }
 
-    /* ── Scenario 2: תיק ניירות ערך (ללא דמי ניהול) ── */
-    var pf = 0, pfBasis = 0, pfTaxPaid = 0;
-    var pfSnaps = [];
-    var rebalPeriod = rebal > 0 ? Math.round(12 / rebal) : 99999; // months between rebalances
-
-    for (var m = 1; m <= months; m++) {
-      pf      = pf * (1 + mRet) + C;
-      pfBasis += C;
-
-      // Rebalancing event: realize all gains, pay CGT, reset basis
-      if (rebal > 0 && m % rebalPeriod === 0) {
-        var g = Math.max(0, pf - pfBasis);
-        var t = g * CGT;
-        pf -= t;
-        pfTaxPaid += t;
-        pfBasis = pf; // reset basis after paying CGT
-      }
+      /* deposits */
+      var dTF1 = Math.min(dep, TF_LIMIT);
+      var dTX1 = Math.max(0, dep - TF_LIMIT);
+      sf1 += dTF1; pf1 += dTX1; pfB1 += dTX1;
 
       if (m % 12 === 0) {
-        // net for chart: if no rebalance, still owe CGT at end; for active, already paid
-        var gSnap = Math.max(0, pf - pfBasis);
-        pfSnaps.push(pf - gSnap * CGT);
+        var g1s = Math.max(0, pf1 - pfB1);
+        snaps[0].push(sf1 + pf1 - g1s * CGT);
       }
     }
-    // Final CGT for passive
-    var pfFinalGains = Math.max(0, pf - pfBasis);
-    var pfFinalTax   = pfFinalGains * CGT;
-    var pfNet        = pf - pfFinalTax;
-    var pfTotalTax   = pfTaxPaid + pfFinalTax;
+    var exitTax1 = Math.max(0, pf1 - pfB1) * CGT;
+    tax1 += exitTax1;
+    var net1 = sf1 + pf1 - exitTax1;
+
+    /* ── Scenario 2: Full IRA (SF + portfolio) ── */
+    var tf2 = sf0, tx2 = pf0, txB2 = pf0, tax2 = 0;
+    for (var m = 1; m <= months; m++) {
+      var tot2 = tf2 + tx2;
+      var feeM2 = 1 - mFactor(gFee(tot2));
+      tf2 *= (1 + mRet) * (1 - feeM2);
+      tx2 *= (1 + mRet) * (1 - feeM2);
+
+      var dTF2 = Math.min(dep, TF_LIMIT);
+      var dTX2 = Math.max(0, dep - TF_LIMIT);
+      tf2 += dTF2; tx2 += dTX2; txB2 += dTX2;
+
+      if (m % 12 === 0) {
+        var g2s = Math.max(0, tx2 - txB2);
+        snaps[1].push(tf2 + tx2 - g2s * CGT);
+      }
+    }
+    tax2 = Math.max(0, tx2 - txB2) * CGT;
+    var net2 = tf2 + tx2 - tax2;
+
+    /* ── Scenario 3: SF in IRA only (if sf0 ≥ 75K) ── */
+    var s3 = null;
+    if (canSFIRA) {
+      var tf3 = sf0, pf3 = pf0, pfB3 = pf0, tax3 = 0;
+      for (var m = 1; m <= months; m++) {
+        /* Globalnot fee based on IRA balance only */
+        tf3 *= (1 + mRet) * mFactor(gFee(tf3));
+        pf3 *= (1 + mRet);
+
+        if (pf0 > 0 && m % rolInt === 0) {
+          var g3 = Math.max(0, pf3 - pfB3);
+          var t3 = g3 * CGT;
+          pf3 -= t3; tax3 += t3; pfB3 = pf3;
+        }
+
+        var dTF3 = Math.min(dep, TF_LIMIT);
+        var dTX3 = Math.max(0, dep - TF_LIMIT);
+        tf3 += dTF3; pf3 += dTX3; pfB3 += dTX3;
+
+        if (m % 12 === 0) {
+          var g3s = Math.max(0, pf3 - pfB3);
+          snaps[2].push(tf3 + pf3 - g3s * CGT);
+        }
+      }
+      var exitTax3 = Math.max(0, pf3 - pfB3) * CGT;
+      tax3 += exitTax3;
+      s3 = { net: tf3 + pf3 - exitTax3, tax: tax3 };
+    }
 
     renderResults({
-      sf: { net: sfNet, tax: sfTax, balance: sf },
-      pf: { net: pfNet, tax: pfTotalTax, balance: pf },
-      sfSnaps: sfSnaps,
-      pfSnaps: pfSnaps,
+      s1: { net: net1, tax: tax1 },
+      s2: { net: net2, tax: tax2 },
+      s3: s3,
+      snaps: snaps,
       yrs: yrs,
-      C: C,
-      totalContr: totalContr,
-      rebal: rebal
+      canFullIRA: canFullIRA,
+      canSFIRA: canSFIRA
     });
   };
 
+  /* ─── Render results ─── */
   function renderResults(d) {
-    var sf = d.sf, pf = d.pf;
-    var best = Math.max(sf.net, pf.net);
+    var s1 = d.s1, s2 = d.s2, s3 = d.s3, snaps = d.snaps, yrs = d.yrs;
+    var best = Math.max(s1.net, s2.net, s3 ? s3.net : 0);
 
-    function savingHtml(net, baseline) {
-      var diff = Math.round(net - baseline);
-      if (diff === 0) return '<div class="sc-saving neutral">קו הבסיס</div>';
+    function savingHtml(net) {
+      var diff = Math.round(net - s1.net);
+      if (diff === 0) return '<div class="sc-saving neutral">קו הבסיס להשוואה</div>';
       var cls = diff < 0 ? ' negative' : '';
       var sign = diff > 0 ? '+' : '';
-      return '<div class="sc-saving' + cls + '">' + sign + fmtILS(diff) + ' ₪ לעומת תיק ניירות ערך</div>';
+      return '<div class="sc-saving' + cls + '">' + sign + fmtILS(diff) + ' ₪ לעומת מצב נוכחי</div>';
     }
 
-    function card(title, data, isBest, baseline, note) {
+    function card(title, data, isBest, warn) {
       return '<div class="scenario-card' + (isBest ? ' best' : '') + '">' +
-        (isBest ? '<div class="best-badge">✓ עדיף</div>' : '') +
+        (isBest ? '<div class="best-badge">✓ הכי משתלם</div>' : '') +
         '<div class="sc-title">' + title + '</div>' +
         '<div class="sc-net">' + fmtILS(data.net) + ' ₪</div>' +
-        '<div class="sc-label">שווי נטו לאחר מס בעוד ' + d.yrs + ' שנה</div>' +
-        savingHtml(data.net, baseline) +
-        '<div class="sc-row"><span>סה״כ מס ששולם/נדחה</span>' +
+        '<div class="sc-label">שווי נטו לאחר מס בעוד ' + yrs + ' שנה</div>' +
+        savingHtml(data.net) +
+        '<div class="sc-row"><span>סה״כ מס ששולם</span>' +
         '<span style="color:var(--negative)">−' + fmtILS(data.tax) + ' ₪</span></div>' +
-        (note ? '<div class="sc-warn">' + note + '</div>' : '') +
+        (warn ? '<div class="sc-warn">' + warn + '</div>' : '') +
         '</div>';
     }
 
-    var rebalLabel = d.rebal === 0 ? 'פאסיבי (לא מוכר)' :
-                     d.rebal === 1 ? 'שינוי פעם בשנה' :
-                     d.rebal === 4 ? 'שינוי פעם ברבעון' : 'שינוי פעם בחודש';
-
-    var c1 = card(
-      'קרן השתלמות (מעל התקרה)',
-      sf, sf.net === best, pf.net,
-      'דחיית מס — 25% CGT נדחה לפדיון'
-    );
+    var c1 = card('תרחיש א׳ — מצב נוכחי (ללא IRA)', s1, s1.net === best, '');
     var c2 = card(
-      'תיק ניירות ערך (' + rebalLabel + ')',
-      pf, pf.net === best, pf.net,
-      d.rebal === 0 ? 'פאסיבי: ללא דמי ניהול, CGT רק בפדיון' :
-      'כל שינוי מסלול = אירוע מס 25%'
+      'תרחיש ב׳ — IRA מלא (קרן השתלמות + תיק)',
+      s2, s2.net === best,
+      d.canFullIRA ? '' : '⚠️ מצריך: סה״כ ≥ 75,000 ₪ וכל מוצר ≥ 30,000 ₪ בנפרד'
     );
+    var c3 = s3 ? card('תרחיש ג׳ — קרן השתלמות ב-IRA בלבד', s3, s3.net === best, '') : '';
 
-    /* SVG chart */
-    var allV = d.sfSnaps.concat(d.pfSnaps);
+    /* ─── SVG Line Chart ─── */
+    var allV = snaps[0].concat(snaps[1]).concat(s3 ? snaps[2] : []);
     var minV = Math.min.apply(null, allV) * 0.96;
     var maxV = Math.max.apply(null, allV) * 1.04;
-    var n = d.sfSnaps.length;
+    var n = snaps[0].length;
     var W = 660, H = 210, pL = 58, pR = 12, pT = 12, pB = 30;
     var gW = W - pL - pR, gH = H - pT - pB;
     var rng = maxV - minV || 1;
 
     function xp(i) { return pL + (i / Math.max(1, n - 1)) * gW; }
     function yp(v) { return pT + gH - ((v - minV) / rng) * gH; }
+
     function makePath(arr, color) {
-      var dd = arr.map(function (v, i) {
+      var d = arr.map(function (v, i) {
         return (i === 0 ? 'M' : 'L') + xp(i).toFixed(1) + ',' + yp(v).toFixed(1);
       }).join(' ');
-      return '<path d="' + dd + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+      return '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
     }
 
+    /* Y-axis ticks (5 levels) */
     var yTicks = '';
     for (var yi = 0; yi <= 4; yi++) {
       var tv = minV + (yi / 4) * (maxV - minV);
@@ -1247,31 +1298,39 @@ function toggleFaq(btn) {
       yTicks += '<text x="' + (pL - 5) + '" y="' + (parseFloat(ty) + 4).toFixed(1) + '" font-size="10" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">' + fmtK(tv) + '</text>';
     }
 
-    var step = Math.max(1, Math.ceil(d.yrs / 5));
+    /* X-axis ticks (every ~5 years) */
+    var step = Math.max(1, Math.ceil(yrs / 5));
     var xTicks = '';
-    for (var yr = step; yr <= d.yrs; yr += step) {
+    for (var yr = step; yr <= yrs; yr += step) {
       var xi = xp(yr - 1).toFixed(1);
       xTicks += '<text x="' + xi + '" y="' + (H - 6) + '" font-size="10" fill="#999" text-anchor="middle" font-family="Heebo,sans-serif">שנה ' + yr + '</text>';
     }
 
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;direction:ltr">' +
       yTicks +
-      makePath(d.sfSnaps, '#1F4E79') +
-      makePath(d.pfSnaps, '#5C8D5A') +
-      xTicks + '</svg>';
+      makePath(snaps[0], '#9CA3AF') +
+      makePath(snaps[1], '#5C8D5A') +
+      (s3 ? makePath(snaps[2], '#1F4E79') : '') +
+      xTicks +
+      '</svg>';
+
+    var legendS3 = s3 ? '<span class="legend-item"><span class="legend-dot" style="background:#1F4E79"></span>קרן השתלמות ב-IRA בלבד</span>' : '';
 
     var html =
-      '<div class="scenarios-grid">' + c1 + c2 + '</div>' +
+      '<div class="scenarios-grid">' + c1 + c2 + c3 + '</div>' +
       '<div class="calc-chart">' +
-        '<h4>שווי נטו לאורך הזמן</h4>' +
+        '<h4>צמיחת ההון נטו לאורך הזמן</h4>' +
         '<div class="chart-legend">' +
-          '<span class="legend-item"><span class="legend-dot" style="background:#1F4E79"></span>קרן השתלמות</span>' +
-          '<span class="legend-item"><span class="legend-dot" style="background:#5C8D5A"></span>תיק ניירות ערך</span>' +
-        '</div>' + svg +
+          '<span class="legend-item"><span class="legend-dot" style="background:#9CA3AF"></span>מצב נוכחי</span>' +
+          '<span class="legend-item"><span class="legend-dot" style="background:#5C8D5A"></span>IRA מלא</span>' +
+          legendS3 +
+        '</div>' +
+        svg +
       '</div>' +
       '<div class="calc-disclaimer">' +
-        '<strong>⚠️ הערה:</strong> המחשבון הוא להמחשה בלבד. הוא מניח תשואה קבועה ואינפלציה אפסית. לתיק הניירות: כל אירוע שינוי מסלול מחשב 25% CGT על מלוא הרווח הצבור באותה נקודה. אין לראות בחישובים אלה ייעוץ פנסיוני. ' +
-        '<a href="#contact">פנו אלי לניתוח מותאם אישית.</a>' +
+        '<strong>⚠️ הערה:</strong> המחשבון הוא להמחשה בלבד. הוא מניח תשואה קבועה, אינפלציה אפסית, מיסוי נומינלי (לא שקלי), ואינו כולל עמלות מסחר, שינויים רגולטוריים, או נסיבות אישיות. ' +
+        'הנחות: עלות מנהל גלובלנט/אקטיון 0.38%–0.23% לפי שכבות יתרה; ספי IRA: סה״כ ≥ 75,000 ₪ וכל מוצר ≥ 30,000 ₪; הפקדה חודשית עד 1,713 ₪ פטורה ממס בקרן השתלמות. ' +
+        'אין לראות בחישובים אלה ייעוץ פנסיוני. <a href="#contact">פנו אלי לניתוח מותאם אישית.</a>' +
       '</div>';
 
     var el = document.getElementById('calc-results');
