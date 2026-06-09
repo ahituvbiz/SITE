@@ -2506,6 +2506,15 @@ textarea:focus-visible,
           יחד עם זאת, אם קרן ההשתלמות לא נזילה, בשונה מגמל להשקעה, הכספים ייהפכו ללא נזילים עד שהקרן תהפוך לנזילה בתום 6 שנים לפתיחתה.
         </div>
       </details>
+
+      <details class="faq-item">
+        <summary>אין לי ניסיון בהשקעות. האם IRA מתאים עבורי?</summary>
+        <div class="faq-body">
+          כחלק משירות פתיחת ה-IRA נוכל לתת לך דוגמאות להרכבים אפשריים של תיקי השקעות פאסיביים.
+          ב<a href="/investment/ira/clients/" style="color: var(--primary);">דף ייעודי ללקוחות</a> שנעזרו בנו בפתיחת חשבון IRA תוכל לצפות בהרכבים הללו.
+          נוכל גם להדריך אותך בשימוש במערכת המסחר במידה ותרצה.
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -3060,12 +3069,4 @@ function prevStep() {
 
 function restartWizard() {
   currentStep = 1;
-  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
-  document.getElementById('amount-gemel').value = 0;
-  document.getElementById('amount-keren').value = '';
-  document.getElementById('monthly-deposit').value = '';
-  document.getElementById('total-display').textContent = 'סה"כ: ₪0';
-  document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
-  document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
-  document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
-  document.getElementById('result-car
+  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequ
