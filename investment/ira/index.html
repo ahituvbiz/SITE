@@ -1919,7 +1919,7 @@ textarea:focus-visible,
           <li><a href="/investment/ira/clients/">דוגמאות לתיקי IRA עם פיזור סיכונים</a> <span style="font-size:12px; color:#6B6B8A;">(ללקוחות בלבד 🔒)</span></li>
         </ul>
         <div class="layer-cost">
-          <strong>תשלום:</strong> 590 ₪ — חד-פעמי, ישיר, שקוף. אסור לי לקבל עמלה מגלובלנט/אקטיון או
+          <strong>תשלום:</strong> 690 ₪ — חד-פעמי, ישיר, שקוף. אסור לי לקבל עמלה מגלובלנט/אקטיון או
           מהברוקר. ההכנסה היחידה היא ישירה ממך.
         </div>
       </div>
@@ -2333,34 +2333,29 @@ textarea:focus-visible,
           התשלום הוא חד-פעמי, ישיר ושקוף — לא תלוי בסכום הניוד, לא תלוי בברוקר שבחרת.
           אסור לי לקבל עמלה מהברוקר או מהחברה המנהלת, ולכן אני בצד שלך.
         </p>
-      </div>
-      <div class="price-box">
-        <div class="price"><span class="currency">₪</span>590</div>
-        <div class="label">תשלום חד-פעמי</div>
-        <div class="what">לצירוף לקופת IRA</div>
-      </div>
-    </div>
 
-    <div class="service-card" style="margin-top: var(--s-xl);">
-      <div class="body">
-        <div class="micro">כלול בשירות — ללא תשלום נוסף</div>
-        <h3>מעוניין בהסבר על בניית תיק IRA פאסיבי?</h3>
+        <hr style="border:none; border-top:1px solid var(--border); margin: var(--s-md) 0;">
+
+        <div class="micro">מעוניין בהסבר על בניית תיק IRA פאסיבי?</div>
         <p>
-          כחלק מהשירות של פתיחת חשבון ה-IRA, נפתח עבורך גישה לדף ייעודי ללקוחות שבו תוכל לראות
-          הרכבים של תיקי השקעות המאפשרים פיזור רחב יותר מכל מה שמציעות הקרנות הסטנדרטיות.
-        </p>
-        <p>
+          כחלק מהשירות, נפתח עבורך גישה לדף ייעודי ללקוחות שבו תוכל לראות הרכבים של תיקי השקעות
+          המאפשרים פיזור רחב יותר מכל מה שמציעות הקרנות הסטנדרטיות.
           במידה ותרצה, נוכל גם להנחות אותך בשימוש במערכת המסחר דרכה מתבצעת ההשקעה.
-          ההסברים והגישה לאזור הייעודי — ללא תשלום נוסף.
         </p>
         <p>
           <a href="/investment/ira/clients/" style="color: var(--primary); font-weight: 600; text-decoration: underline;">לדף הלקוחות הייעודי ←</a>
           <span style="font-size: 13px; color: var(--text-meta);"> (גישה ניתנת ללקוחות בלבד 🔒)</span>
         </p>
       </div>
-      <div class="price-box" style="background: var(--primary-soft); color: var(--primary);">
-        <div class="price" style="font-size: 28px; color: var(--primary);">ללא<br>תוספת</div>
-        <div class="label" style="color: var(--primary); opacity: 0.8; margin-top: 8px;">כלול בשירות הצירוף</div>
+      <div style="display:flex; flex-direction:column; gap: var(--s-md); align-items:stretch;">
+        <div class="price-box">
+          <div class="price"><span class="currency">₪</span>690</div>
+          <div class="label">תשלום חד-פעמי</div>
+          <div class="what">לצירוף לקופת IRA</div>
+        </div>
+        <div class="price-box" style="background: var(--primary-soft); color: var(--primary);">
+          <div class="price" style="font-size: 26px; color: var(--primary); line-height:1.2;">ללא<br>תשלום נוסף</div>
+        </div>
       </div>
     </div>
   </div>
@@ -3074,4 +3069,9 @@ function restartWizard() {
 
 // ============================================================
 // EVENT LISTENERS — runs immediately since script is at end of body
-// ===
+// ============================================================
+(function init() {
+  const g = document.getElementById('amount-gemel');
+  const k = document.getElementById('amount-keren');
+  function updateTotal() {
+    const tot
