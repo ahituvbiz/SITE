@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הרכבי תיק IRA | איתן אחיטוב — יועץ פנסיוני</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="אזור לקוחות — הרכבי תיק IRA מוצעים. גישה ללקוחות בלבד.">
+  <link rel="icon" href="/assets/favicon.ico">
+
+<style>
+/* ============================
+   DESIGN TOKENS (מתאים לאתר)
+   ============================ */
+:root {
+  --primary:        #1F4E79;
+  --primary-hover:  #163a5e;
+  --accent:         #D74E3C;
+  --text:           #1A1A2E;
+  --text-secondary: #4A4A6A;
+  --text-meta:      #6B6B8A;
+  --bg-cream:       #F8F6F3;
+  --bg-white:       #ffffff;
+  --border:         #E4E1DC;
+  --positive:       #1a7f44;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,.13);
+  --radius:         12px;
+  --radius-sm:      8px;
+  --transition:     0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg-cream);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ============================
+   HEADER
+   ============================ */
+.header {
+  background: var(--primary);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff !important;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.logo-sub { font-weight: 400; font-size: 13px; opacity: .75; }
+
+.badge-clients {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* ============================
+   GATE (login form)
+   ============================ */
+#gate-section {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.gate-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+
+.gate-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.gate-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.gate-subtitle {
+  font-size: 14px;
+  color: var(--text-meta);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg-cream);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  direction: ltr;
+  text-align: right;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(31,78,121,.12);
+  background: #fff;
+}
+
+.form-group input::placeholder { color: #bbb; }
+
+.btn-enter {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background var(--transition), transform var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-enter:hover { background: var(--primary-hover); }
+.btn-enter:active { transform: scale(.98); }
+.btn-enter:disabled { background: #9db8cf; cursor: not-allowed; }
+
+.error-msg {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-top: 16px;
+  display: none;
+  text-align: right;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================
+   CONTENT (after auth)
+   ============================ */
+#content-section { display: none; }
+
+.content-hero {
+  background: var(--primary);
+  color: #fff;
+  padding: 48px 0 40px;
+}
+
+.content-hero .eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .65;
+  margin-bottom: 8px;
+}
+
+.content-hero h1 {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.content-hero .welcome-note {
+  font-size: 15px;
+  opacity: .8;
+  margin-bottom: 0;
+}
+
+.content-hero .welcome-name {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.logout-link {
+  font-size: 13px;
+  color: rgba(255,255,255,.6);
+  cursor: pointer;
+  margin-top: 16px;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+/* intro note */
+.intro-note {
+  background: #fff;
+  border-right: 4px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 16px 20px;
+  margin: 32px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* portfolio cards */
+.portfolios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.portfolio-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.portfolio-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.portfolio-card-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.badge-conservative { background: #dbeafe; color: #1e40af; }
+.badge-balanced     { background: #fef3c7; color: #92400e; }
+.badge-growth       { background: #dcfce7; color: #166534; }
+
+.portfolio-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.portfolio-desc {
+  font-size: 13px;
+  color: var(--text-meta);
+}
+
+.portfolio-card-body { padding: 16px 20px 20px; }
+
+.allocation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.allocation-table th {
+  text-align: right;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--text-meta);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.allocation-table td {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0ede8;
+  vertical-align: middle;
+}
+
+.allocation-table tr:last-child td { border-bottom: none; }
+
+.alloc-name { color: var(--text); font-weight: 500; }
+.alloc-ticker {
+  color: var(--text-meta);
+  font-size: 12px;
+  font-family: monospace;
+  margin-top: 2px;
+}
+
+.alloc-pct {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary);
+  text-align: left;
+  direction: ltr;
+}
+
+.alloc-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: #f0ede8;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.alloc-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--primary);
+  opacity: .5;
+}
+
+.portfolio-total {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* notes section */
+.notes-section {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 28px;
+  margin: 32px 0;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+}
+
+.notes-section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.notes-section ul {
+  padding-right: 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.notes-section li { margin-bottom: 6px; }
+
+/* disclaimer */
+.disclaimer {
+  background: #fafaf9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--text-meta);
+  line-height: 1.7;
+  margin: 32px 0 48px;
+}
+
+/* footer */
+.footer-simple {
+  background: var(--primary);
+  color: rgba(255,255,255,.6);
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+}
+
+.footer-simple a { color: rgba(255,255,255,.8); }
+
+/* responsive */
+@media (max-width: 480px) {
+  .gate-card { padding: 32px 24px; }
+  .portfolios-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="rgba(255,255,255,0.15)"/>
+        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+    </a>
+    <span class="badge-clients">🔒 אזור לקוחות</span>
+  </div>
+</header>
+
+<!-- ========================
+     GATE SECTION
+     ======================== -->
+<section id="gate-section">
+  <div class="gate-card">
+    <div class="gate-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h1 class="gate-title">כניסה לאזור לקוחות</h1>
+    <p class="gate-subtitle">הזן את כתובת המייל ומספר הטלפון<br>שמסרת בעת פתיחת החשבון</p>
+
+    <form id="auth-form" novalidate>
+      <div class="form-group">
+        <label for="email-input">כתובת מייל</label>
+        <input
+          type="email"
+          id="email-input"
+          placeholder="your@email.com"
+          autocomplete="email"
+          inputmode="email"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="phone-input">טלפון נייד</label>
+        <input
+          type="tel"
+          id="phone-input"
+          placeholder="052-000-0000"
+          autocomplete="tel"
+          inputmode="tel"
+          required
+        >
+      </div>
+      <button type="submit" id="submit-btn" class="btn-enter">
+        <span id="btn-text">כניסה</span>
+      </button>
+    </form>
+
+    <div class="error-msg" id="error-msg"></div>
+  </div>
+</section>
+
+<!-- ========================
+     CONTENT SECTION
+     ======================== -->
+<section id="content-section">
+
+  <div class="content-hero">
+    <div class="container">
+      <div class="eyebrow">אזור לקוחות · IRA בניהול אישי</div>
+      <h1>הרכבי תיק מוצעים</h1>
+      <p class="welcome-note">שלום, <span id="welcome-name" class="welcome-name"></span> — הנה ההמלצות שהכנתי בשבילך.</p>
+      <span class="logout-link" id="logout-btn">יציאה מהחשבון</span>
+    </div>
+  </div>
+
+  <div style="background: var(--bg-cream); padding: 40px 0 0;">
+  <div class="container">
+
+    <div class="intro-note">
+      <!--
+        ✏️ הערת עריכה:
+        כאן תוכל לכתוב הקדמה לתיקים — למשל: "להלן שלושה הרכבים שבנאמי עבורך
+        בהתאם לפרופיל הסיכון שסיכמנו. התיקים מעודכנים ל-[תאריך]."
+      -->
+      להלן הרכבי התיק שהכנתי עבורך בהתאמה לפרופיל הסיכון שלך ולמטרות שהגדרנו יחד.
+      ניתן ליישם את ההרכבים ישירות דרך ממשק גלובלנט/אקטיון.
+      לשאלות — <a href="https://wa.me/972527700599" style="color:var(--primary); font-weight:600;">וואטסאפ</a> או <a href="tel:+972527700599" style="color:var(--primary); font-weight:600;">052-770-0599</a>.
+    </div>
+
+    <div class="portfolios-grid">
+
+      <!-- ======= תיק 1: שמרני ======= -->
+      <div class="portfolio-card">
+        <div class="portfolio-card-header">
+          <span class="portfolio-badge badge-conservative">שמרני</span>
+          <div class="portfolio-name">תיק הכנסה</div>
+          <div class="portfolio-desc">אג"ח ממשלתי ותאגידי עם חשיפה מנייתית מועטה</div>
+        </div>
+        <div class="portfolio-card-body">
+          <table class="allocation-table">
+            <thead>
+              <tr>
+                <th>נייר ערך</th>
+                <th style="text-align:left; direction:ltr">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
+              <tr>
+                <td>
+                  <div class="alloc-name">אג"ח ממשלת ישראל</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: 1150100 --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:50%"></div></div>
+                </td>
+                <td class="alloc-pct">50%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">אג"ח קונצרני מדורג</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: AGSH --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:30%"></div></div>
+                </td>
+                <td class="alloc-pct">30%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">מניות עולמי</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: IWDA --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:20%"></div></div>
+                </td>
+                <td class="alloc-pct">20%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="portfolio-total">
+            <span>סה"כ</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= תיק 2: מאוזן ======= -->
+      <div class="portfolio-card">
+        <div class="portfolio-card-header">
+          <span class="portfolio-badge badge-balanced">מאוזן</span>
+          <div class="portfolio-name">תיק צמיחה מאוזן</div>
+          <div class="portfolio-desc">חשיפה שווה לאג"ח ולמניות — לטווח בינוני</div>
+        </div>
+        <div class="portfolio-card-body">
+          <table class="allocation-table">
+            <thead>
+              <tr>
+                <th>נייר ערך</th>
+                <th style="text-align:left; direction:ltr">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
+              <tr>
+                <td>
+                  <div class="alloc-name">S&amp;P 500</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: VOO / IVV --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:35%"></div></div>
+                </td>
+                <td class="alloc-pct">35%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">מניות עולמי (ללא ארה"ב)</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: VEA --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
+                </td>
+                <td class="alloc-pct">15%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">אג"ח ממשלתי</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: AGG / BND --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:35%"></div></div>
+                </td>
+                <td class="alloc-pct">35%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">מניות ישראל</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: ת"א 35 --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
+                </td>
+                <td class="alloc-pct">15%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="portfolio-total">
+            <span>סה"כ</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= תיק 3: צמיחה ======= -->
+      <div class="portfolio-card">
+        <div class="portfolio-card-header">
+          <span class="portfolio-badge badge-growth">צמיחה</span>
+          <div class="portfolio-name">תיק צמיחה מנייתי</div>
+          <div class="portfolio-desc">חשיפה גבוהה למניות — לטווח ארוך</div>
+        </div>
+        <div class="portfolio-card-body">
+          <table class="allocation-table">
+            <thead>
+              <tr>
+                <th>נייר ערך</th>
+                <th style="text-align:left; direction:ltr">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ✏️ ערוך את הרכב התיק לפי המלצתך -->
+              <tr>
+                <td>
+                  <div class="alloc-name">S&amp;P 500</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: VOO / IVV --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:60%"></div></div>
+                </td>
+                <td class="alloc-pct">60%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">נאסד"ק 100</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: QQQ / QQQM --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:25%"></div></div>
+                </td>
+                <td class="alloc-pct">25%</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="alloc-name">מניות שווקים מתפתחים</div>
+                  <div class="alloc-ticker"><!-- לדוגמה: VWO / EEM --></div>
+                  <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:15%"></div></div>
+                </td>
+                <td class="alloc-pct">15%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="portfolio-total">
+            <span>סה"כ</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /portfolios-grid -->
+
+    <!-- ✏️ הערות — ערוך לפי רצונך -->
+    <div class="notes-section">
+      <h2>הערות ליישום</h2>
+      <ul>
+        <li>הרכבים אלו מבוססים על כלים פסיביים (מחקי מדד / קרנות סל) בלבד.</li>
+        <li>ניתן לרכוש את ניירות הערך ישירות דרך ממשק המסחר של הברוקר שלך.</li>
+        <li>ההרכב מתאים לכספי <strong>קרן השתלמות IRA</strong> וגם ל<strong>קופת גמל IRA</strong> (בכפוף למגבלת הסכום הפנסיוני).</li>
+        <li>מומלץ לאזן את התיק אחת לשנה, או כשחריגה עולה על 5% מהמשקל המקורי.</li>
+        <li>לפני ביצוע פעולות — <a href="https://wa.me/972527700599">עדכן אותי</a> כדי לוודא שאין שינוי בהמלצה.</li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      <strong>הבהרה:</strong> מסמך זה הוא חלק מהשירות האישי שקיבלת מאיתן אחיטוב, יועץ פנסיוני בעל רישיון (משרד האוצר). אין לראות בו ייעוץ השקעות כמשמעו בחוק הסדרת העיסוק בייעוץ השקעות. ההרכבים הותאמו אישית לך בלבד ואינם מיועדים לאחרים.
+    </div>
+
+  </div><!-- /container -->
+  </div>
+
+</section><!-- /content-section -->
+
+<!-- Footer -->
+<footer class="footer-simple" id="content-footer" style="display:none">
+  © 2026 איתן אחיטוב | <a href="/">pensya.info</a> | <a href="tel:+972527700599">052-770-0599</a>
+</footer>
+
+<script>
+// ============================================================
+//  ⚙️  הגדרות — עדכן את ה-URL אחרי פריסת Apps Script
+// ============================================================
+const APPS_SCRIPT_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL';
+
+// ============================================================
+//  נורמליזציה של טלפון (מסיר תווים שאינם ספרות,
+//  ממיר 972... ל-0...)
+// ============================================================
+function normalizePhone(raw) {
+  let digits = raw.replace(/\D/g, '');
+  if (digits.startsWith('972')) digits = '0' + digits.slice(3);
+  return digits;
+}
+
+// ============================================================
+//  UI helpers
+// ============================================================
+const gateSection   = document.getElementById('gate-section');
+const contentSection = document.getElementById('content-section');
+const contentFooter  = document.getElementById('content-footer');
+const submitBtn     = document.getElementById('submit-btn');
+const btnText       = document.getElementById('btn-text');
+const errorDiv      = document.getElementById('error-msg');
+const welcomeName   = document.getElementById('welcome-name');
+
+function showError(msg) {
+  errorDiv.textContent = msg;
+  errorDiv.style.display = 'block';
+}
+
+function clearError() {
+  errorDiv.style.display = 'none';
+}
+
+function setLoading(on) {
+  submitBtn.disabled = on;
+  btnText.innerHTML = on
+    ? '<span class="spinner"></span>'
+    : 'כניסה';
+}
+
+function showContent(name) {
+  gateSection.style.display = 'none';
+  contentSection.style.display = 'block';
+  contentFooter.style.display = 'block';
+  welcomeName.textContent = name || '';
+}
+
+// ============================================================
+//  בדיקת sessionStorage — זוכרים לאורך הסשן
+// ============================================================
+(function checkSession() {
+  const saved = sessionStorage.getItem('pensya_ira_auth');
+  if (saved) {
+    try {
+      const { name } = JSON.parse(saved);
+      showContent(name);
+    } catch(e) {
+      sessionStorage.removeItem('pensya_ira_auth');
+    }
+  }
+})();
+
+// ============================================================
+//  יציאה
+// ============================================================
+document.getElementById('logout-btn').addEventListener('click', function() {
+  sessionStorage.removeItem('pensya_ira_auth');
+  contentSection.style.display = 'none';
+  contentFooter.style.display = 'none';
+  gateSection.style.display = 'flex';
+  clearError();
+});
+
+// ============================================================
+//  שליחת טופס
+// ============================================================
+document.getElementById('auth-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  clearError();
+
+  const email = document.getElementById('email-input').value.trim().toLowerCase();
+  const phone = normalizePhone(document.getElementById('phone-input').value);
+
+  if (!email || !phone) {
+    showError('נא למלא מייל וטלפון.');
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const url = `${APPS_SCRIPT_URL}?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+    const res = await fetch(url, { redirect: 'follow' });
+
+    if (!res.ok) throw new Error('network_error');
+
+    const data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem('pensya_ira_auth', JSON.stringify({ name: data.name }));
+      showContent(data.name);
+    } else {
+      showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
+    }
+
+  } catch (err) {
+    showError('שגיאת תקשורת — נסה שוב עוד רגע. אם הבעיה חוזרת, פנה לאיתן ישירות.');
+  } finally {
+    setLoading(false);
+  }
+});
+</script>
+
+</body>
+</html>
