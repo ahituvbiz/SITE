@@ -452,7 +452,7 @@ a:hover { text-decoration: underline; }
    FUND DETAIL BLOCKS
    ============================ */
 .portfolios-grid {
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .fund-block {
@@ -584,6 +584,19 @@ a:hover { text-decoration: underline; }
 .chart-pct { min-width: 38px; text-align: left; color: var(--text-meta); font-size: 11px; font-weight: 600; }
 .chart-footnote { font-size: 10.5px; color: var(--text-meta); margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0ede8; text-align: center; }
 .pfic-note { background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 10px 14px; margin: 12px 16px 6px; font-size: 12.5px; color: #166534; line-height: 1.55; }
+/* PIE CHARTS */
+.pie-section { padding: 16px 16px 8px; border-top: 1px dashed #e5e2dc; margin-top: 4px; }
+.pie-note { font-size: 10.5px; color: var(--text-meta); text-align: center; margin-bottom: 14px; }
+.pie-charts-row { display: flex; gap: 24px; }
+.pie-chart-block { flex: 1; min-width: 0; }
+.pie-subtitle { font-size: 10px; font-weight: 700; color: var(--text-meta); text-transform: uppercase; letter-spacing: 0.5px; text-align: center; margin-bottom: 10px; }
+.pie-donut { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 12px; position: relative; }
+.pie-donut::after { content: ''; position: absolute; inset: 30px; border-radius: 50%; background: white; }
+.pie-legend { display: flex; flex-direction: column; gap: 3px; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+.leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.leg-label { flex: 1; color: var(--text); }
+.leg-pct { color: var(--text-meta); font-weight: 600; font-size: 10.5px; white-space: nowrap; }
 /* responsive */
 @media (max-width: 480px) {
   .gate-card { padding: 32px 24px; }
@@ -828,33 +841,45 @@ a:hover { text-decoration: underline; }
           </div>
 
           <!-- גרפים: תיק ישראלי -->
-          <div class="chart-section">
-            <div class="chart-block-title">פילוח ענפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
-            <div class="chart-row"><span class="chart-label">פיננסים</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#1e40af;"></div></div><span class="chart-pct">20.2%</span></div>
-            <div class="chart-row"><span class="chart-label">תעשייה</span><div class="chart-track"><div class="chart-fill" style="width:76%;background:#2563eb;"></div></div><span class="chart-pct">16.2%</span></div>
-            <div class="chart-row"><span class="chart-label">טכנולוגיה</span><div class="chart-track"><div class="chart-fill" style="width:74%;background:#7c3aed;"></div></div><span class="chart-pct">15.7%</span></div>
-            <div class="chart-row"><span class="chart-label">בריאות</span><div class="chart-track"><div class="chart-fill" style="width:47%;background:#166534;"></div></div><span class="chart-pct">10.0%</span></div>
-            <div class="chart-row"><span class="chart-label">צריכה מחזורית</span><div class="chart-track"><div class="chart-fill" style="width:42%;background:#b45309;"></div></div><span class="chart-pct">9.0%</span></div>
-            <div class="chart-row"><span class="chart-label">צריכה בסיסית</span><div class="chart-track"><div class="chart-fill" style="width:30%;background:#15803d;"></div></div><span class="chart-pct">6.3%</span></div>
-            <div class="chart-row"><span class="chart-label">חומרים</span><div class="chart-track"><div class="chart-fill" style="width:27%;background:#854d0e;"></div></div><span class="chart-pct">5.7%</span></div>
-            <div class="chart-row"><span class="chart-label">אנרגיה</span><div class="chart-track"><div class="chart-fill" style="width:22%;background:#c2410c;"></div></div><span class="chart-pct">4.7%</span></div>
-            <div class="chart-row"><span class="chart-label">תשתיות</span><div class="chart-track"><div class="chart-fill" style="width:22%;background:#0e7490;"></div></div><span class="chart-pct">4.6%</span></div>
-            <div class="chart-row"><span class="chart-label">תקשורת</span><div class="chart-track"><div class="chart-fill" style="width:18%;background:#0f766e;"></div></div><span class="chart-pct">3.9%</span></div>
-            <div class="chart-row"><span class="chart-label">נדל"ן</span><div class="chart-track"><div class="chart-fill" style="width:18%;background:#9f1239;"></div></div><span class="chart-pct">3.8%</span></div>
-
-            <div class="chart-block-title" style="margin-top:14px;">פילוח גיאוגרפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
-            <div class="chart-row"><span class="chart-label">🇺🇸 ארה"ב</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#1F4E79;"></div></div><span class="chart-pct">50.0%</span></div>
-            <div class="chart-row"><span class="chart-label">🇯🇵 יפן</span><div class="chart-track"><div class="chart-fill" style="width:15%;background:#475569;"></div></div><span class="chart-pct">7.7%</span></div>
-            <div class="chart-row"><span class="chart-label">🇬🇧 בריטניה</span><div class="chart-track"><div class="chart-fill" style="width:9%;background:#64748b;"></div></div><span class="chart-pct">4.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇳 סין</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.1%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇦 קנדה</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.0%</span></div>
-            <div class="chart-row"><span class="chart-label">🇹🇼 טייוואן</span><div class="chart-track"><div class="chart-fill" style="width:7%;background:#94a3b8;"></div></div><span class="chart-pct">3.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇫🇷 צרפת</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇭 שוויץ</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
-            <div class="chart-row"><span class="chart-label">🇩🇪 גרמניה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.6%</span></div>
-            <div class="chart-row"><span class="chart-label">🇰🇷 קוריאה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇦🇺 אוסטרליה</span><div class="chart-track"><div class="chart-fill" style="width:4%;background:#cbd5e1;"></div></div><span class="chart-pct">2.2%</span></div>
-            <div class="chart-row"><span class="chart-label">🌍 אחרות (~34)</span><div class="chart-track"><div class="chart-fill" style="width:25%;background:#e2e8f0;"></div></div><span class="chart-pct">13.4%</span></div>
+          <div class="pie-section">
+            <div class="pie-note">שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="pie-charts-row">
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח ענפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1e40af 0% 20.2%,#2563eb 20.2% 36.4%,#7c3aed 36.4% 52.1%,#166534 52.1% 62.1%,#b45309 62.1% 71.1%,#15803d 71.1% 77.4%,#854d0e 77.4% 83.1%,#c2410c 83.1% 87.8%,#0e7490 87.8% 92.4%,#0f766e 92.4% 96.3%,#9f1239 96.3% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1e40af"></span><span class="leg-label">פיננסים</span><span class="leg-pct">20.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#2563eb"></span><span class="leg-label">תעשייה</span><span class="leg-pct">16.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#7c3aed"></span><span class="leg-label">טכנולוגיה</span><span class="leg-pct">15.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#166534"></span><span class="leg-label">בריאות</span><span class="leg-pct">10.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b45309"></span><span class="leg-label">צריכה מחזורית</span><span class="leg-pct">9.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#15803d"></span><span class="leg-label">צריכה בסיסית</span><span class="leg-pct">6.3%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#854d0e"></span><span class="leg-label">חומרים</span><span class="leg-pct">5.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#c2410c"></span><span class="leg-label">אנרגיה</span><span class="leg-pct">4.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0e7490"></span><span class="leg-label">תשתיות</span><span class="leg-pct">4.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f766e"></span><span class="leg-label">תקשורת</span><span class="leg-pct">3.9%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#9f1239"></span><span class="leg-label">נדל"ן</span><span class="leg-pct">3.8%</span></div>
+                </div>
+              </div>
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח גיאוגרפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1F4E79 0% 50%,#dc2626 50% 57.7%,#1d4ed8 57.7% 62.2%,#ef4444 62.2% 66.3%,#b91c1c 66.3% 70.3%,#0891b2 70.3% 73.8%,#4f46e5 73.8% 76.6%,#be123c 76.6% 79.4%,#92400e 79.4% 82%,#0f172a 82% 84.5%,#16a34a 84.5% 86.7%,#94a3b8 86.7% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1F4E79"></span><span class="leg-label">🇺🇸 ארה"ב</span><span class="leg-pct">50.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#dc2626"></span><span class="leg-label">🇯🇵 יפן</span><span class="leg-pct">7.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1d4ed8"></span><span class="leg-label">🇬🇧 בריטניה</span><span class="leg-pct">4.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#ef4444"></span><span class="leg-label">🇨🇳 סין</span><span class="leg-pct">4.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b91c1c"></span><span class="leg-label">🇨🇦 קנדה</span><span class="leg-pct">4.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0891b2"></span><span class="leg-label">🇹🇼 טייוואן</span><span class="leg-pct">3.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#4f46e5"></span><span class="leg-label">🇫🇷 צרפת</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#be123c"></span><span class="leg-label">🇨🇭 שוויץ</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#92400e"></span><span class="leg-label">🇩🇪 גרמניה</span><span class="leg-pct">2.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f172a"></span><span class="leg-label">🇰🇷 קוריאה</span><span class="leg-pct">2.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#16a34a"></span><span class="leg-label">🇦🇺 אוסטרליה</span><span class="leg-pct">2.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#94a3b8"></span><span class="leg-label">🌍 אחרות (~34)</span><span class="leg-pct">13.4%</span></div>
+                </div>
+              </div>
+            </div>
             <div class="chart-footnote">מקורות: S&amp;P DJI · MSCI · נכון ליוני 2026 · הנתונים עשויים להשתנות</div>
           </div>
 
@@ -995,33 +1020,46 @@ a:hover { text-decoration: underline; }
             לאזרחי ארה"ב, השקעה בקרנות זרות (כולל קרנות ישראליות) כפופה לכללי PFIC של ה-IRS — מנגנון ענישתי שהופך את ניהול ההשקעה למסורבל ויקר מאוד. RSP ו-VEU הם ETFs הרשומים בארה"ב, ולכן פטורים ממיסוי זה לחלוטין. זהו יתרון מהותי של התיק האמריקאי.
           </div>
 
-          <div class="chart-section">
-            <div class="chart-block-title">פילוח ענפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
-            <div class="chart-row"><span class="chart-label">טכנולוגיה</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#7c3aed;"></div></div><span class="chart-pct">19.7%</span></div>
-            <div class="chart-row"><span class="chart-label">פיננסים</span><div class="chart-track"><div class="chart-fill" style="width:90%;background:#1e40af;"></div></div><span class="chart-pct">18.6%</span></div>
-            <div class="chart-row"><span class="chart-label">תעשייה</span><div class="chart-track"><div class="chart-fill" style="width:72%;background:#2563eb;"></div></div><span class="chart-pct">14.9%</span></div>
-            <div class="chart-row"><span class="chart-label">צריכה מחזורית</span><div class="chart-track"><div class="chart-fill" style="width:44%;background:#b45309;"></div></div><span class="chart-pct">9.1%</span></div>
-            <div class="chart-row"><span class="chart-label">בריאות</span><div class="chart-track"><div class="chart-fill" style="width:44%;background:#166534;"></div></div><span class="chart-pct">9.1%</span></div>
-            <div class="chart-row"><span class="chart-label">צריכה בסיסית</span><div class="chart-track"><div class="chart-fill" style="width:28%;background:#15803d;"></div></div><span class="chart-pct">5.7%</span></div>
-            <div class="chart-row"><span class="chart-label">חומרים</span><div class="chart-track"><div class="chart-fill" style="width:27%;background:#854d0e;"></div></div><span class="chart-pct">5.5%</span></div>
-            <div class="chart-row"><span class="chart-label">אנרגיה</span><div class="chart-track"><div class="chart-fill" style="width:22%;background:#c2410c;"></div></div><span class="chart-pct">4.6%</span></div>
-            <div class="chart-row"><span class="chart-label">תשתיות</span><div class="chart-track"><div class="chart-fill" style="width:21%;background:#0e7490;"></div></div><span class="chart-pct">4.4%</span></div>
-            <div class="chart-row"><span class="chart-label">תקשורת</span><div class="chart-track"><div class="chart-fill" style="width:20%;background:#0f766e;"></div></div><span class="chart-pct">4.2%</span></div>
-            <div class="chart-row"><span class="chart-label">נדל"ן</span><div class="chart-track"><div class="chart-fill" style="width:20%;background:#9f1239;"></div></div><span class="chart-pct">4.1%</span></div>
-
-            <div class="chart-block-title" style="margin-top:14px;">פילוח גיאוגרפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
-            <div class="chart-row"><span class="chart-label">🇺🇸 ארה"ב</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#1F4E79;"></div></div><span class="chart-pct">50.0%</span></div>
-            <div class="chart-row"><span class="chart-label">🇯🇵 יפן</span><div class="chart-track"><div class="chart-fill" style="width:15%;background:#475569;"></div></div><span class="chart-pct">7.7%</span></div>
-            <div class="chart-row"><span class="chart-label">🇬🇧 בריטניה</span><div class="chart-track"><div class="chart-fill" style="width:9%;background:#64748b;"></div></div><span class="chart-pct">4.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇳 סין</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.1%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇦 קנדה</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.0%</span></div>
-            <div class="chart-row"><span class="chart-label">🇹🇼 טייוואן</span><div class="chart-track"><div class="chart-fill" style="width:7%;background:#94a3b8;"></div></div><span class="chart-pct">3.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇫🇷 צרפת</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
-            <div class="chart-row"><span class="chart-label">🇨🇭 שוויץ</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
-            <div class="chart-row"><span class="chart-label">🇩🇪 גרמניה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.6%</span></div>
-            <div class="chart-row"><span class="chart-label">🇰🇷 קוריאה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.5%</span></div>
-            <div class="chart-row"><span class="chart-label">🇦🇺 אוסטרליה</span><div class="chart-track"><div class="chart-fill" style="width:4%;background:#cbd5e1;"></div></div><span class="chart-pct">2.2%</span></div>
-            <div class="chart-row"><span class="chart-label">🌍 אחרות (~37)</span><div class="chart-track"><div class="chart-fill" style="width:25%;background:#e2e8f0;"></div></div><span class="chart-pct">13.3%</span></div>
+          <!-- גרפים: תיק אמריקאי -->
+          <div class="pie-section">
+            <div class="pie-note">שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="pie-charts-row">
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח ענפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#7c3aed 0% 19.7%,#1e40af 19.7% 38.3%,#2563eb 38.3% 53.2%,#b45309 53.2% 62.3%,#166534 62.3% 71.4%,#15803d 71.4% 77.1%,#854d0e 77.1% 82.6%,#c2410c 82.6% 87.2%,#0e7490 87.2% 91.6%,#0f766e 91.6% 95.8%,#9f1239 95.8% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#7c3aed"></span><span class="leg-label">טכנולוגיה</span><span class="leg-pct">19.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1e40af"></span><span class="leg-label">פיננסים</span><span class="leg-pct">18.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#2563eb"></span><span class="leg-label">תעשייה</span><span class="leg-pct">14.9%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b45309"></span><span class="leg-label">צריכה מחזורית</span><span class="leg-pct">9.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#166534"></span><span class="leg-label">בריאות</span><span class="leg-pct">9.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#15803d"></span><span class="leg-label">צריכה בסיסית</span><span class="leg-pct">5.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#854d0e"></span><span class="leg-label">חומרים</span><span class="leg-pct">5.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#c2410c"></span><span class="leg-label">אנרגיה</span><span class="leg-pct">4.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0e7490"></span><span class="leg-label">תשתיות</span><span class="leg-pct">4.4%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f766e"></span><span class="leg-label">תקשורת</span><span class="leg-pct">4.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#9f1239"></span><span class="leg-label">נדל"ן</span><span class="leg-pct">4.1%</span></div>
+                </div>
+              </div>
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח גיאוגרפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1F4E79 0% 50%,#dc2626 50% 57.7%,#1d4ed8 57.7% 62.2%,#ef4444 62.2% 66.3%,#b91c1c 66.3% 70.3%,#0891b2 70.3% 73.8%,#4f46e5 73.8% 76.6%,#be123c 76.6% 79.4%,#92400e 79.4% 82%,#0f172a 82% 84.5%,#16a34a 84.5% 86.7%,#94a3b8 86.7% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1F4E79"></span><span class="leg-label">🇺🇸 ארה"ב</span><span class="leg-pct">50.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#dc2626"></span><span class="leg-label">🇯🇵 יפן</span><span class="leg-pct">7.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1d4ed8"></span><span class="leg-label">🇬🇧 בריטניה</span><span class="leg-pct">4.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#ef4444"></span><span class="leg-label">🇨🇳 סין</span><span class="leg-pct">4.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b91c1c"></span><span class="leg-label">🇨🇦 קנדה</span><span class="leg-pct">4.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0891b2"></span><span class="leg-label">🇹🇼 טייוואן</span><span class="leg-pct">3.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#4f46e5"></span><span class="leg-label">🇫🇷 צרפת</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#be123c"></span><span class="leg-label">🇨🇭 שוויץ</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#92400e"></span><span class="leg-label">🇩🇪 גרמניה</span><span class="leg-pct">2.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f172a"></span><span class="leg-label">🇰🇷 קוריאה</span><span class="leg-pct">2.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#16a34a"></span><span class="leg-label">🇦🇺 אוסטרליה</span><span class="leg-pct">2.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#94a3b8"></span><span class="leg-label">🌍 אחרות (~37)</span><span class="leg-pct">13.3%</span></div>
+                </div>
+              </div>
+            </div>
             <div class="chart-footnote">מקורות: Yahoo Finance · FTSE Russell · נכון ליוני 2026 · הנתונים עשויים להשתנות</div>
           </div>
 
@@ -1117,4 +1155,4 @@ document.getElementById('auth-form').addEventListener('submit', async function(e
 
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
