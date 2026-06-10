@@ -1,6 +1,6 @@
 // gate.js — v2 | tag-based content injection
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCUh36Y_mpHbElHdRROhOt0Ke2JxFwcTLEefp9YBYlWtU-l23OQa5jEvVbiaZiq_P1/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwn0wsZPFvuYjaDjmqky9Ks3aSC19_CmShphrflheSeaMwEcOJesEmQ4KocYeZjW3pZ/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
 
 function normalizePhone(raw) {
