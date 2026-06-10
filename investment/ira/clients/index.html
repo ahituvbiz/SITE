@@ -208,6 +208,7 @@ a:hover { text-decoration: underline; }
   text-align: right;
 }
 
+
 .spinner {
   width: 18px;
   height: 18px;
@@ -723,48 +724,3 @@ a:hover { text-decoration: underline; }
 
 </body>
 </html>
-==========================
-//  יציאה
-// ============================================================
-document.getElementById('logout-btn').addEventListener('click', function() {
-  sessionStorage.removeItem('pensya_ira_auth');
-  contentSection.style.display = 'none';
-  contentFooter.style.display = 'none';
-  gateSection.style.display = 'flex';
-  clearError();
-});
-
-// ============================================================
-//  שליחת טופס
-// ============================================================
-document.getElementById('auth-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  clearError();
-
-  const email = document.getElementById('email-input').value.trim().toLowerCase();
-  const phone = normalizePhone(document.getElementById('phone-input').value);
-
-  if (!email || !phone) {
-    showError('נא למלא מייל וטלפון.');
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const url = `${APPS_SCRIPT_URL}?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&token=${encodeURIComponent(AUTH_TOKEN)}`;
-    const res = await fetch(url, { redirect: 'follow' });
-
-    if (!res.ok) throw new Error('network_error');
-
-    const data = await res.json();
-
-    if (data.success) {
-      sessionStorage.setItem('pensya_ira_auth', JSON.stringify({ name: data.name }));
-      showContent(data.name);
-    } else {
-      showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
-    }
-
-  } catch (err) {
-    showError('שגיאת תקשו�
