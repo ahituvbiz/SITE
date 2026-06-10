@@ -574,6 +574,16 @@ a:hover { text-decoration: underline; }
   line-height: 1.5;
 }
 
+/* CHART SECTIONS */
+.chart-section { padding: 14px 16px 8px; border-top: 1px dashed #e5e2dc; margin-top: 4px; }
+.chart-block-title { font-size: 10.5px; font-weight: 700; color: var(--text-meta); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
+.chart-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.chart-label { text-align: right; color: var(--text); flex-shrink: 0; font-size: 11.5px; min-width: 118px; }
+.chart-track { flex: 1; background: #eee9e4; border-radius: 3px; height: 10px; overflow: hidden; }
+.chart-fill { height: 100%; border-radius: 3px; }
+.chart-pct { min-width: 38px; text-align: left; color: var(--text-meta); font-size: 11px; font-weight: 600; }
+.chart-footnote { font-size: 10.5px; color: var(--text-meta); margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0ede8; text-align: center; }
+.pfic-note { background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 10px 14px; margin: 12px 16px 6px; font-size: 12.5px; color: #166534; line-height: 1.55; }
 /* responsive */
 @media (max-width: 480px) {
   .gate-card { padding: 32px 24px; }
@@ -746,6 +756,10 @@ a:hover { text-decoration: underline; }
                 <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
               </div>
               <div class="fund-meta-row">
+                <span class="fund-meta-label">דף המדד</span>
+                <span class="fund-meta-value"><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/" target="_blank" rel="noopener" class="fund-link">S&amp;P 500 EW Index ← spglobal.com</a></span>
+              </div>
+              <div class="fund-meta-row">
                 <span class="fund-meta-label">FUNDER</span>
                 <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5140769" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
               </div>
@@ -795,10 +809,45 @@ a:hover { text-decoration: underline; }
                 <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
               </div>
               <div class="fund-meta-row">
+                <span class="fund-meta-label">דף המדד</span>
+                <span class="fund-meta-value"><a href="https://www.msci.com/indexes/index/899901" target="_blank" rel="noopener" class="fund-link">MSCI ACWI ex USA ← msci.com</a></span>
+              </div>
+              <div class="fund-meta-row">
                 <span class="fund-meta-label">FUNDER</span>
                 <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5142476" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
               </div>
             </div>
+          </div>
+
+          <!-- גרפים: תיק ישראלי -->
+          <div class="chart-section">
+            <div class="chart-block-title">פילוח ענפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="chart-row"><span class="chart-label">פיננסים</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#1e40af;"></div></div><span class="chart-pct">20.2%</span></div>
+            <div class="chart-row"><span class="chart-label">תעשייה</span><div class="chart-track"><div class="chart-fill" style="width:76%;background:#2563eb;"></div></div><span class="chart-pct">16.2%</span></div>
+            <div class="chart-row"><span class="chart-label">טכנולוגיה</span><div class="chart-track"><div class="chart-fill" style="width:74%;background:#7c3aed;"></div></div><span class="chart-pct">15.7%</span></div>
+            <div class="chart-row"><span class="chart-label">בריאות</span><div class="chart-track"><div class="chart-fill" style="width:47%;background:#166534;"></div></div><span class="chart-pct">10.0%</span></div>
+            <div class="chart-row"><span class="chart-label">צריכה מחזורית</span><div class="chart-track"><div class="chart-fill" style="width:42%;background:#b45309;"></div></div><span class="chart-pct">9.0%</span></div>
+            <div class="chart-row"><span class="chart-label">צריכה בסיסית</span><div class="chart-track"><div class="chart-fill" style="width:30%;background:#15803d;"></div></div><span class="chart-pct">6.3%</span></div>
+            <div class="chart-row"><span class="chart-label">חומרים</span><div class="chart-track"><div class="chart-fill" style="width:27%;background:#854d0e;"></div></div><span class="chart-pct">5.7%</span></div>
+            <div class="chart-row"><span class="chart-label">אנרגיה</span><div class="chart-track"><div class="chart-fill" style="width:22%;background:#c2410c;"></div></div><span class="chart-pct">4.7%</span></div>
+            <div class="chart-row"><span class="chart-label">תשתיות</span><div class="chart-track"><div class="chart-fill" style="width:22%;background:#0e7490;"></div></div><span class="chart-pct">4.6%</span></div>
+            <div class="chart-row"><span class="chart-label">תקשורת</span><div class="chart-track"><div class="chart-fill" style="width:18%;background:#0f766e;"></div></div><span class="chart-pct">3.9%</span></div>
+            <div class="chart-row"><span class="chart-label">נדל"ן</span><div class="chart-track"><div class="chart-fill" style="width:18%;background:#9f1239;"></div></div><span class="chart-pct">3.8%</span></div>
+
+            <div class="chart-block-title" style="margin-top:14px;">פילוח גיאוגרפי — שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="chart-row"><span class="chart-label">🇺🇸 ארה"ב</span><div class="chart-track"><div class="chart-fill" style="width:95%;background:#1F4E79;"></div></div><span class="chart-pct">50.0%</span></div>
+            <div class="chart-row"><span class="chart-label">🇯🇵 יפן</span><div class="chart-track"><div class="chart-fill" style="width:15%;background:#475569;"></div></div><span class="chart-pct">7.7%</span></div>
+            <div class="chart-row"><span class="chart-label">🇬🇧 בריטניה</span><div class="chart-track"><div class="chart-fill" style="width:9%;background:#64748b;"></div></div><span class="chart-pct">4.5%</span></div>
+            <div class="chart-row"><span class="chart-label">🇨🇳 סין</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.1%</span></div>
+            <div class="chart-row"><span class="chart-label">🇨🇦 קנדה</span><div class="chart-track"><div class="chart-fill" style="width:8%;background:#64748b;"></div></div><span class="chart-pct">4.0%</span></div>
+            <div class="chart-row"><span class="chart-label">🇹🇼 טייוואן</span><div class="chart-track"><div class="chart-fill" style="width:7%;background:#94a3b8;"></div></div><span class="chart-pct">3.5%</span></div>
+            <div class="chart-row"><span class="chart-label">🇫🇷 צרפת</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
+            <div class="chart-row"><span class="chart-label">🇨🇭 שוויץ</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#94a3b8;"></div></div><span class="chart-pct">2.8%</span></div>
+            <div class="chart-row"><span class="chart-label">🇩🇪 גרמניה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.6%</span></div>
+            <div class="chart-row"><span class="chart-label">🇰🇷 קוריאה</span><div class="chart-track"><div class="chart-fill" style="width:5%;background:#cbd5e1;"></div></div><span class="chart-pct">2.5%</span></div>
+            <div class="chart-row"><span class="chart-label">🇦🇺 אוסטרליה</span><div class="chart-track"><div class="chart-fill" style="width:4%;background:#cbd5e1;"></div></div><span class="chart-pct">2.2%</span></div>
+            <div class="chart-row"><span class="chart-label">🌍 אחרות (~34)</span><div class="chart-track"><div class="chart-fill" style="width:25%;background:#e2e8f0;"></div></div><span class="chart-pct">13.4%</span></div>
+            <div class="chart-footnote">מקורות: S&amp;P DJI · MSCI · נכון ליוני 2026 · הנתונים עשויים להשתנות</div>
           </div>
 
           <div class="portfolio-total">
@@ -872,6 +921,10 @@ a:hover { text-decoration: underline; }
                 <span class="fund-meta-label">הוראת קבע</span>
                 <span class="fund-meta-value"><span class="tag tag-red">✗ לא אוטומטי — רכישה ידנית בלבד</span></span>
               </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דפי המדד / הקרן</span>
+                <span class="fund-meta-value"><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/" target="_blank" rel="noopener" class="fund-link">S&amp;P 500 EW ← spglobal.com</a><br><a href="https://www.invesco.com/us/financial-products/etfs/product-detail?audienceType=Investor&productId=RSP" target="_blank" rel="noopener" class="fund-link" style="font-size:12px;">RSP ETF ← invesco.com</a></span>
+              </div>
             </div>
           </div>
 
@@ -895,187 +948,4 @@ a:hover { text-decoration: underline; }
               </div>
               <div class="fund-meta-row">
                 <span class="fund-meta-label">שיטת שקלול</span>
-                <span class="fund-meta-value"><strong>לפי שווי שוק</strong>. הנסחר הגדול ביותר בסקטורו — משקלו הגדול ביותר.</span>
-              </div>
-              <div class="fund-meta-row">
-                <span class="fund-meta-label">ענפי</span>
-                <span class="fund-meta-value">פיזור ענפי רחב על פני כל הסקטורים הגלובליים — פיננסים, תעשייה, צריכה, טכנולוגיה ועוד</span>
-              </div>
-              <div class="fund-meta-row">
-                <span class="fund-meta-label">Expense Ratio</span>
-                <span class="fund-meta-value"><span class="tag tag-green">0.07% לשנה</span></span>
-              </div>
-              <div class="fund-meta-row">
-                <span class="fund-meta-label">חשיפה למט"ח</span>
-                <span class="fund-meta-value"><span class="tag tag-yellow">חשוף לאירו, יין, פאונד וכו׳ — ללא גידור</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">עבור אזרח ארה"ב — החשיפה לדולר היא הטבעית. זה יתרון, לא חיסרון.</span></span>
-              </div>
-              <div class="fund-meta-row">
-                <span class="fund-meta-label">הוראת קבע</span>
-                <span class="fund-meta-value"><span class="tag tag-red">✗ לא אוטומטי — רכישה ידנית בלבד</span></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="portfolio-total">
-            <span>סה"כ</span>
-            <span>100%</span>
-          </div>
-
-        </div>
-      </div><!-- /תיק אמריקאי -->
-
-    </div><!-- /portfolios-grid -->
-
-    <div class="notes-section">
-      <h2>הערות ליישום</h2>
-      <ul>
-<li><strong>מה זה "מנוטרלת דולר":</strong> הקרן מגדרת את החשיפה לאירו, יין, פאונד ושאר מטבעות חזרה לשקל, כך שהביצועים משקפים את תשואת המדד עצמו — ללא "רעש" מטבעי.</li>
-        <li><strong>הוראת קבע (תיק ישראלי):</strong> ניתן להגדיר קניה חודשית אוטומטית בפסגות לשתי הקרנות. מומלץ ללקוחות שמפקידים באופן שוטף.</li>
-        <li><strong>תיק אמריקאי:</strong> RSP ו-VEU נרכשים ישירות מהבורסה האמריקאית דרך ממשק המסחר של IBI — כל פעולה מחייבת הוראה ידנית.</li>
-        <li><strong>איזון שנתי:</strong> מומלץ לבדוק ולאזן כשהחריגה מ-50/50 עולה על 5%.</li>
-        <li>לפני ביצוע פעולות — <a href="https://wa.me/972527700599">עדכן אותי בוואטסאפ</a> כדי לוודא שאין שינוי בהמלצה.</li>
-      </ul>
-    </div>
-
-    <div class="disclaimer">
-      <strong>הבהרה:</strong> מסמך זה הוא חלק מהשירות האישי שקיבלת מאיתן אחיטוב, יועץ פנסיוני בעל רישיון (משרד האוצר). אין לראות בו ייעוץ השקעות כמשמעו בחוק הסדרת העיסוק בייעוץ השקעות. ההרכבים הותאמו אישית לך בלבד ואינם מיועדים לאחרים.
-    </div>
-
-  </div><!-- /container -->
-  </div>
-
-</section><!-- /content-section -->
-
-<!-- Footer -->
-<footer class="footer-simple" id="content-footer" style="display:none">
-  © 2026 איתן אחיטוב | <a href="/">pensya.info</a> | <a href="tel:+972527700599">052-770-0599</a>
-</footer>
-
-<script>
-// ============================================================
-//  ⚙️  הגדרות — עדכן את ה-URL אחרי פריסת Apps Script
-//
-//  שלבים:
-//  1. פתח https://script.google.com → New project
-//  2. הדבק את הקוד מ-design-assets/apps-script/ira-auth.gs
-//  3. Deploy → New deployment → Web app
-//     • Execute as: Me
-//     • Who has access: Anyone
-//  4. העתק את ה-Deployment URL והדבק למטה
-// ============================================================
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCUh36Y_mpHbElHdRROhOt0Ke2JxFwcTLEefp9YBYlWtU-l23OQa5jEvVbiaZiq_P1/exec';
-// ⚠️  חייב להיות זהה ל-SECRET_TOKEN ב-ira-auth.gs
-const AUTH_TOKEN      = 'pensya-ira-2024';
-
-// ============================================================
-//  נורמליזציה של טלפון (מסיר תווים שאינם ספרות,
-//  ממיר 972... ל-0...)
-// ============================================================
-function normalizePhone(raw) {
-  let digits = raw.replace(/\D/g, '');
-  if (digits.startsWith('972')) digits = '0' + digits.slice(3);
-  return digits;
-}
-
-// ============================================================
-//  UI helpers
-// ============================================================
-const gateSection   = document.getElementById('gate-section');
-const contentSection = document.getElementById('content-section');
-const contentFooter  = document.getElementById('content-footer');
-const submitBtn     = document.getElementById('submit-btn');
-const btnText       = document.getElementById('btn-text');
-const errorDiv      = document.getElementById('error-msg');
-const welcomeName   = document.getElementById('welcome-name');
-
-function showError(msg) {
-  errorDiv.textContent = msg;
-  errorDiv.style.display = 'block';
-}
-
-function clearError() {
-  errorDiv.style.display = 'none';
-}
-
-function setLoading(on) {
-  submitBtn.disabled = on;
-  btnText.innerHTML = on
-    ? '<span class="spinner"></span>'
-    : 'כניסה';
-}
-
-function showContent(name) {
-  gateSection.style.display = 'none';
-  contentSection.style.display = 'block';
-  contentFooter.style.display = 'block';
-  welcomeName.textContent = name || '';
-}
-
-// ============================================================
-//  בדיקת sessionStorage — זוכרים לאורך הסשן
-// ============================================================
-(function checkSession() {
-  const saved = sessionStorage.getItem('pensya_ira_auth');
-  if (saved) {
-    try {
-      const { name } = JSON.parse(saved);
-      showContent(name);
-    } catch(e) {
-      sessionStorage.removeItem('pensya_ira_auth');
-    }
-  }
-})();
-
-// ============================================================
-//  יציאה
-// ============================================================
-document.getElementById('logout-btn').addEventListener('click', function() {
-  sessionStorage.removeItem('pensya_ira_auth');
-  contentSection.style.display = 'none';
-  contentFooter.style.display = 'none';
-  gateSection.style.display = 'flex';
-  clearError();
-});
-
-// ============================================================
-//  שליחת טופס
-// ============================================================
-document.getElementById('auth-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  clearError();
-
-  const email = document.getElementById('email-input').value.trim().toLowerCase();
-  const phone = normalizePhone(document.getElementById('phone-input').value);
-
-  if (!email || !phone) {
-    showError('נא למלא מייל וטלפון.');
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const url = `${APPS_SCRIPT_URL}?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&token=${encodeURIComponent(AUTH_TOKEN)}`;
-    const res = await fetch(url, { redirect: 'follow' });
-
-    if (!res.ok) throw new Error('network_error');
-
-    const data = await res.json();
-
-    if (data.success) {
-      sessionStorage.setItem('pensya_ira_auth', JSON.stringify({ name: data.name }));
-      showContent(data.name);
-    } else {
-      showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
-    }
-
-  } catch (err) {
-    showError('שגיאת תקשורת — נסה שוב עוד רגע. אם הבעיה חוזרת, פנה לאיתן ישירות.');
-  } finally {
-    setLoading(false);
-  }
-});
-</script>
-
-</body>
-</html>
+                <span class="fund-meta-value"><strong>לפי שווי שוק</strong>. הנס�
