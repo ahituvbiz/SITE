@@ -119,6 +119,8 @@ const KEYWORD_MAP = {
   'קופת גמל בניהול אישי':               '/investment/ira/',
   'קרן השתלמות בניהול אישי':            '/investment/ira/',
   'IRA':                                 '/investment/ira/',
+  'מסלול מחקה S&P 500':                  '/investment/sp500-not-diversified/',
+  'מדד S&P 500':                         '/investment/sp500-not-diversified/',
 
   // ── AI / רובייקטיבי ──
   'בדיקת קרן פנסיה':                    '/ai/',
