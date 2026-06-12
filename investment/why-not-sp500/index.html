@@ -600,16 +600,20 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <!-- H2: למה כולם -->
     <h2 id="why-everyone">איך S&P 500 הפך לדיפולט של החוסך הישראלי</h2>
     <p>כדי להבין למה כמעט כל שיחה על חיסכון מתכנסת היום לשלוש אותיות וחמש ספרות, צריך להבין מה נמכר כאן. ה-S&P 500 הציע לחוסך שילוב מנצח: <strong>תשואות עבר חריגות</strong> — מאז 2009 המדד האמריקאי היכה כמעט כל אלטרנטיבה, שנה אחרי שנה; <strong>סיפור פשוט</strong> — "500 החברות הגדולות באמריקה", משפט אחד שכל אחד מבין; <strong>דמי ניהול נמוכים</strong> ומסלול מחקה זמין בכל קרן פנסיה והשתלמות; ו<strong>הוכחה חברתית</strong> — הפורומים, הקבוצות וההמלצות של חברים שכבר עברו. כשמוסיפים לזה את ענקיות הטכנולוגיה וגל הבינה המלאכותית שמושכים את הכותרות — נוצר דיפולט תרבותי.</p>
-    <p>התוצאה בישראל דרמטית: שיעור נכסי קרנות הפנסיה שצמודים למדד זינק <strong>מ-0.2% בסוף 2020 לשיא של 11% בסוף 2024</strong>. בסך הכל, כ-170 מיליארד שקל — כעשירית מהחיסכון ארוך הטווח של הציבור הישראלי — צמודים היום למדד אחד (מקור: <a href="https://www.calcalist.co.il/market/article/rkeckxedke" rel="noopener" target="_blank">כלכליסט, ינואר 2025</a>).</p>
+    <p>התוצאה בישראל דרמטית: שיעור נכסי קרנות הפנסיה שצמודים למדד זינק <strong>מ-0.2% בסוף 2020 לשיא של 12.4% בדצמבר 2025</strong>, ועומד על כ-11% נכון לאפריל 2026. בסך הכל, כ-170 מיליארד שקל — כעשירית מהחיסכון ארוך הטווח של הציבור הישראלי — צמודים היום למדד אחד (מקור: <a href="https://www.calcalist.co.il/market/article/rkeckxedke" rel="noopener" target="_blank">כלכליסט, ינואר 2025</a>).</p>
 
     <div class="chart-card">
       <h4>סך הנכסים במסלולי פנסיה עוקבי S&P 500 (מיליארד ₪)</h4>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;">
-        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">שיא (דצמבר 2025)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">129.3 מיליארד ₪</div></div>
-        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">נכון לאפריל 2026</div><div style="font-size:20px;font-weight:700;margin-top:2px;">123.5 מיליארד ₪</div></div>
-        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">מס׳ מסלולים</div><div style="font-size:20px;font-weight:700;margin-top:2px;">18</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px;">
+        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">סך נכסים (אפריל 2026)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">123.5 מיליארד ₪</div></div>
+        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">נתח מכלל המסלולים (אפריל 2026)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">11.0%</div></div>
+        <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">נתח מהמסלולים שאינם ברירת מחדל (מקיפה)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">41.6%</div></div>
       </div>
-      <svg viewBox="0 0 820 380" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Heebo, Segoe UI, Arial, sans-serif" role="img" aria-label="גרף קו: סך נכסים במסלולי פנסיה עוקבי S&P 500 — עלייה מכמעט אפס בדצמבר 2020 לשיא של 129.3 מיליארד ₪ בדצמבר 2025, ירידה קלה ל-123.5 מיליארד באפריל 2026" style="direction:ltr">
+      <div class="chart-legend">
+        <span><span style="display:inline-block;width:16px;height:0;border-top:3px solid #1F4E79;margin-left:5px;vertical-align:middle;"></span>סך נכסים (מיליארד ₪) — ציר שמאל</span>
+        <span><span style="display:inline-block;width:16px;height:0;border-top:3px dashed #E0791E;margin-left:5px;vertical-align:middle;"></span>נתח מסך כל המסלולים (%) — ציר ימין</span>
+      </div>
+      <svg viewBox="0 0 820 380" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Heebo, Segoe UI, Arial, sans-serif" role="img" aria-label="גרף דו-צירי: סך נכסים במסלולי פנסיה עוקבי S&P 500 עלה מכמעט אפס בדצמבר 2020 לשיא של 129.3 מיליארד ₪ בדצמבר 2025 וירד ל-123.5 מיליארד באפריל 2026; נתח המסלולים מסך כל המסלולים עלה מ-0% ל-12.4% בדצמבר 2025 וירד ל-11.0% באפריל 2026" style="direction:ltr">
         <line x1="55" y1="325.0" x2="765" y2="325.0" stroke="#e5e3dc" stroke-width="1"/>
         <text x="47" y="329.0" font-size="12" fill="#888" text-anchor="end">0</text>
         <line x1="55" y1="285.0" x2="765" y2="285.0" stroke="#e5e3dc" stroke-width="1"/>
@@ -626,6 +630,11 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <text x="47" y="89.0" font-size="12" fill="#888" text-anchor="end">120</text>
         <line x1="55" y1="45.0" x2="765" y2="45.0" stroke="#e5e3dc" stroke-width="1"/>
         <text x="47" y="49.0" font-size="12" fill="#888" text-anchor="end">140</text>
+        <!-- ציר ימני: אחוזים -->
+        <text x="775" y="329.0" font-size="12" fill="#E0791E" text-anchor="start">0%</text>
+        <text x="775" y="235.7" font-size="12" fill="#E0791E" text-anchor="start">5%</text>
+        <text x="775" y="142.3" font-size="12" fill="#E0791E" text-anchor="start">10%</text>
+        <text x="775" y="49.0" font-size="12" fill="#E0791E" text-anchor="start">15%</text>
         <path d="M 55.0,325.0 L 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9 L 765.0,325.0 Z" fill="rgba(31,78,121,0.10)"/>
         <path d="M 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9" fill="none" stroke="#1F4E79" stroke-width="2.5"/>
         <circle cx="55.0" cy="325.0" r="4.5" fill="#1F4E79"/>
@@ -643,13 +652,31 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <circle cx="765.0" cy="77.9" r="4.5" fill="#1F4E79"/>
         <text x="765.0" y="345.0" font-size="12" fill="#555" text-anchor="middle">אפר׳ 2026</text>
         <text x="114.2" y="306.2" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+27,526%</text>
-        <text x="232.5" y="296.3" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+109%</text>
-        <text x="350.8" y="264.5" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+268%</text>
-        <text x="469.2" y="175.6" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+170%</text>
+        <text x="232.0" y="290.0" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+109%</text>
+        <text x="345.0" y="240.0" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+268%</text>
+        <text x="460.0" y="145.0" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="end">+170%</text>
         <text x="587.5" y="82.8" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+31%</text>
         <text x="705.8" y="58.1" font-size="13" font-weight="600" fill="#D74E3C" text-anchor="middle">-4.5%</text>
+        <!-- קו אחוזים: נתח מסך כל המסלולים -->
+        <path d="M 55.0,324.9 L 173.3,308.3 L 291.7,291.6 L 410.0,223.4 L 528.3,107.2 L 646.7,94.1 L 765.0,119.3" fill="none" stroke="#E0791E" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <circle cx="55.0" cy="324.9" r="4" fill="#E0791E"/>
+        <circle cx="173.3" cy="308.3" r="4" fill="#E0791E"/>
+        <circle cx="291.7" cy="291.6" r="4" fill="#E0791E"/>
+        <circle cx="410.0" cy="223.4" r="4" fill="#E0791E"/>
+        <circle cx="528.3" cy="107.2" r="4" fill="#E0791E"/>
+        <circle cx="646.7" cy="94.1" r="4" fill="#E0791E"/>
+        <circle cx="765.0" cy="119.3" r="4" fill="#E0791E"/>
+        <text x="62.0" y="316.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="start">0.0%</text>
+        <text x="167.0" y="299.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="end">0.9%</text>
+        <text x="286.0" y="283.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="end">1.8%</text>
+        <text x="404.0" y="214.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="end">5.4%</text>
+        <text x="522.0" y="98.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="end">11.7%</text>
+        <text x="647.0" y="110.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="middle">12.4%</text>
+        <text x="758.0" y="134.0" font-size="12" font-weight="600" fill="#C2680F" text-anchor="end">11.0%</text>
         <text x="14" y="185" font-size="12" fill="#888" transform="rotate(-90 14 185)" text-anchor="middle">מיליארד ₪</text>
+        <text x="810" y="185" font-size="12" fill="#E0791E" transform="rotate(90 810 185)" text-anchor="middle">% מסך כל המסלולים</text>
       </svg>
+      <p style="margin:12px 0 0;font-size:12px;color:#6b6b6b;line-height:1.6;">מקור הנתונים: <a href="https://pensyanet.cma.gov.il/Parameters/Index" rel="noopener" target="_blank">פנסיה נט</a> (רשות שוק ההון, ביטוח וחיסכון) · עיבוד: אחיטוב תכנון פיננסי. חישוב הנתח הוא מתוך סך נכסי כל מסלולי קרנות הפנסיה (מקיפה ומשלימה) ואינו כולל מסלולי פנסיונרים.</p>
     </div>
 
     <p>זה לא קרה במקרה, אבל זה גם לא קרה מתוך שיטה. בתעשייה קוראים לזה Recency Bias — הטיית האחרונות: אנחנו מניחים שמה שעבד אתמול ימשיך לעבוד מחר. ומבחן פשוט חושף את זה: אם בחרת S&P 500 בגלל תשואות העבר — <strong>למה בעצם לא בחרת מסלול מחקה נאסד"ק, שהניב יותר?</strong> למי שאין תשובה טובה לשאלה הזו, כנראה שגם הבחירה ב-S&P 500 לא נבעה משיקול — אלא מאופנה.</p>
