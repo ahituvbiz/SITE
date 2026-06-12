@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETF מדינות מול S&P 500 - תשואה כוללת בדולר 2000–2015</title>
+<style>
+:root { --blue:#1F4E78; --green:#2e7d32; --gray:#b9bdc2; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#f7f9fb; color:#222; padding:32px 16px; }
+.card { max-width:880px; margin:0 auto; background:#fff; border-radius:14px; box-shadow:0 2px 14px rgba(0,0,0,.08); padding:32px 36px; }
+h1 { color:var(--blue); font-size:1.45rem; margin-bottom:6px; }
+.sub { color:#667; font-size:.92rem; margin-bottom:26px; }
+.row { display:flex; align-items:center; margin-bottom:7px; }
+.spyrow { background:#eef3f8; border-radius:8px; padding:4px 0; margin:10px 0; }
+.label { flex:0 0 215px; display:flex; align-items:center; gap:8px; font-size:.95rem; }
+.flag { font-size:1.35rem; }
+.tick { font-weight:700; color:var(--blue); font-family:Consolas,monospace; min-width:42px; }
+.cname { color:#333; }
+.spyrow .cname { font-weight:700; color:var(--blue); }
+.star { color:#c77; }
+.barwrap { flex:1; position:relative; }
+.bar { height:24px; border-radius:0 5px 5px 0; display:flex; align-items:center; position:relative;
+  transition:transform .15s; min-width:8px; }
+.bar:hover { transform:scaleY(1.18); }
+.bar.win { background:linear-gradient(90deg,#3a9447,#2e7d32); }
+.bar.lose { background:var(--gray); }
+.bar.spy { background:linear-gradient(90deg,#2a5f8f,#1F4E78); }
+.bar.neg { background:#d98a8a; }
+.val { position:absolute; inset-inline-end:-8px; transform:translateX(-100%); }
+[dir="rtl"] .val { transform:none; inset-inline-end:auto; inset-inline-start:calc(100% + 8px); }
+.val { font-weight:700; font-size:.88rem; white-space:nowrap; }
+.bar.win .val { color:var(--green); }
+.bar.lose .val,.bar.neg .val { color:#777; }
+.bar.spy .val { color:var(--blue); }
+.notes { margin-top:26px; color:#667; font-size:.84rem; line-height:1.6; border-top:1px solid #e8ecf0; padding-top:14px; }
+.legend { display:flex; gap:18px; margin:4px 0 20px; font-size:.85rem; color:#445; }
+.dot { display:inline-block; width:12px; height:12px; border-radius:3px; margin-inline-end:5px; vertical-align:-1px; }
+@media print { body { background:#fff; padding:0 } .card { box-shadow:none } }
+</style>
+</head>
+<body>
+<div class="card">
+<h1>‏ETF מדינה מול S&P 500‏ (SPY) - תשואה כוללת בדולר, 2000–2015</h1>
+<div class="sub">קרנות iShares MSCI הנסחרות בארה"ב, כולן בדולר, דיבידנדים מושקעים מחדש (Adjusted Close) - השוואה מדויקת ללא עיוותי מטבע מסחר ודיבידנדים</div>
+<div class="legend">
+<span><span class="dot" style="background:#2e7d32"></span>עקף את ה-S&P 500</span>
+<span><span class="dot" style="background:#1F4E78"></span>SPY</span>
+<span><span class="dot" style="background:#b9bdc2"></span>מתחת ל-SPY</span>
+</div>
+<div class="row">
+<div class="label"><span class="flag">🇲🇽</span><span class="tick">EWW</span><span class="cname">מקסיקו</span></div>
+<div class="barwrap"><div class="bar win" style="width:100.0%"><span class="val">+276%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇦🇺</span><span class="tick">EWA</span><span class="cname">אוסטרליה</span></div>
+<div class="barwrap"><div class="bar win" style="width:86.23188405797102%"><span class="val">+238%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇰🇷</span><span class="tick">EWY</span><span class="cname">דרום קוריאה <span class="star">*</span></span></div>
+<div class="barwrap"><div class="bar win" style="width:69.20289855072464%"><span class="val">+191%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇦🇹</span><span class="tick">EWO</span><span class="cname">אוסטריה</span></div>
+<div class="barwrap"><div class="bar win" style="width:57.608695652173914%"><span class="val">+159%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇨🇭</span><span class="tick">EWL</span><span class="cname">שווייץ</span></div>
+<div class="barwrap"><div class="bar win" style="width:52.53623188405797%"><span class="val">+145%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇲🇾</span><span class="tick">EWM</span><span class="cname">מלזיה</span></div>
+<div class="barwrap"><div class="bar win" style="width:47.46376811594203%"><span class="val">+131%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇨🇦</span><span class="tick">EWC</span><span class="cname">קנדה</span></div>
+<div class="barwrap"><div class="bar win" style="width:43.47826086956522%"><span class="val">+120%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇭🇰</span><span class="tick">EWH</span><span class="cname">הונג קונג</span></div>
+<div class="barwrap"><div class="bar win" style="width:41.30434782608695%"><span class="val">+114%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇸🇬</span><span class="tick">EWS</span><span class="cname">סינגפור</span></div>
+<div class="barwrap"><div class="bar win" style="width:34.05797101449276%"><span class="val">+94%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇧🇪</span><span class="tick">EWK</span><span class="cname">בלגיה</span></div>
+<div class="barwrap"><div class="bar win" style="width:33.33333333333333%"><span class="val">+92%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇸🇪</span><span class="tick">EWD</span><span class="cname">שוודיה</span></div>
+<div class="barwrap"><div class="bar lose" style="width:31.521739130434785%"><span class="val">+87%</span></div></div>
+</div><div class="row spyrow">
+<div class="label"><span class="flag">🇺🇸</span><span class="tick">SPY</span><span class="cname">ארה"ב - S&P 500</span></div>
+<div class="barwrap"><div class="bar spy" style="width:31.521739130434785%"><span class="val">+87%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇪🇸</span><span class="tick">EWP</span><span class="cname">ספרד</span></div>
+<div class="barwrap"><div class="bar lose" style="width:29.347826086956523%"><span class="val">+81%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇧🇷</span><span class="tick">EWZ</span><span class="cname">ברזיל <span class="star">*</span></span></div>
+<div class="barwrap"><div class="bar lose" style="width:26.44927536231884%"><span class="val">+73%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇩🇪</span><span class="tick">EWG</span><span class="cname">גרמניה</span></div>
+<div class="barwrap"><div class="bar lose" style="width:16.666666666666664%"><span class="val">+46%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇫🇷</span><span class="tick">EWQ</span><span class="cname">צרפת</span></div>
+<div class="barwrap"><div class="bar lose" style="width:14.492753623188406%"><span class="val">+40%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇳🇱</span><span class="tick">EWN</span><span class="cname">הולנד</span></div>
+<div class="barwrap"><div class="bar lose" style="width:14.130434782608695%"><span class="val">+39%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇬🇧</span><span class="tick">EWU</span><span class="cname">בריטניה</span></div>
+<div class="barwrap"><div class="bar lose" style="width:12.681159420289855%"><span class="val">+35%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇮🇹</span><span class="tick">EWI</span><span class="cname">איטליה</span></div>
+<div class="barwrap"><div class="bar lose" style="width:2.1739130434782608%"><span class="val">+6%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇹🇼</span><span class="tick">EWT</span><span class="cname">טייוואן <span class="star">*</span></span></div>
+<div class="barwrap"><div class="bar lose neg" style="width:1.8115942028985508%"><span class="val">−5%</span></div></div>
+</div><div class="row">
+<div class="label"><span class="flag">🇯🇵</span><span class="tick">EWJ</span><span class="cname">יפן</span></div>
+<div class="barwrap"><div class="bar lose neg" style="width:2.536231884057971%"><span class="val">−7%</span></div></div>
+</div>
+<div class="notes">
+<b>10 מדינות היכו את ה-S&P 500 לאורך 16 שנים</b> - מקסיקו ואוסטרליה ביותר מפי 2.5. ‏* EWY/EWZ/EWT החלו להיסחר במאי–יולי 2000 (התשואה מההנפקה).
+תקופת המדידה: 31/12/1999 – 31/12/2015. מקור: Yahoo Finance (נשלף 12/06/2026). הנתון מציג תשואה למשקיע דולרי וכולל את שינוי מטבע המדינה מול הדולר בתוך ה-ETF. אין לראות באמור ייעוץ השקעות.
+</div>
+</div>
+</body>
+</html>
