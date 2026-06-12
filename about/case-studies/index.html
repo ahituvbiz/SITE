@@ -805,6 +805,21 @@ textarea:focus-visible,
 
 </style>
   <link rel="canonical" href="https://pensya.info/about/case-studies/" />
+<style id="site-footer-css">
+.site-footer{background:#111827;color:rgba(255,255,255,0.7);padding:48px 0 24px;margin-top:48px;direction:rtl;text-align:right;font-family:inherit;}
+.site-footer .sf-inner{max-width:1160px;margin:0 auto;padding:0 24px;}
+.site-footer .sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;margin-bottom:40px;}
+.site-footer .sf-col h5{color:#fff;font-size:14px;font-weight:700;margin:0 0 12px;letter-spacing:.5px;}
+.site-footer .sf-col a{display:block;color:rgba(255,255,255,0.6);font-size:14px;margin:6px 0;text-decoration:none;transition:color .15s;}
+.site-footer .sf-col a:hover{color:#fff;text-decoration:none;}
+.site-footer .sf-col h5 a{display:inline;margin:0;color:#fff;}
+.site-footer .sf-col p{font-size:13px;line-height:1.7;margin:0;color:rgba(255,255,255,0.6);}
+.site-footer .sf-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.site-footer .sf-bottom span{color:rgba(255,255,255,0.6);}
+.site-footer .sf-access{text-align:center;padding:12px 0 0;border-top:1px solid rgba(255,255,255,0.08);margin-top:16px;}
+.site-footer .sf-access a{color:#C9CDD3;font-size:14px;text-decoration:none;}
+@media (max-width:640px){.site-footer .sf-grid{grid-template-columns:1fr 1fr;gap:24px;}}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
@@ -1441,5 +1456,42 @@ textarea:focus-visible,
 })();
 </script>
 
-<div style="background:#1A1A1A; text-align:center; padding:12px 0;"><a href="/accessibility/" style="color:#C9CDD3; font-size:13px; text-decoration:none;">הצהרת נגישות</a></div>
+
 <script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-col">
+        <h5>מוצרי השקעה</h5>
+        <a href="/investment/ira/">דף שירות IRA</a>
+        <a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a>
+        <a href="/savings/keren-kaspit/">קרן כספית</a>
+        <a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a>
+      </div>
+      <div class="sf-col">
+        <h5>כדאי לדעת</h5>
+        <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>
+        <a href="/articles/lectures/">הרצאות מומלצות</a>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a>
+        <a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a>
+      </div>
+      <div class="sf-col">
+        <h5>אודות</h5>
+        <a href="/about/">אודות איתן אחיטוב</a>
+        <a href="/#contact">יצירת קשר</a>
+        <a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a>
+        <a href="/investment/ira/clients/">אזור הלקוחות 🔒</a>
+      </div>
+      <div class="sf-col">
+        <h5>אחיטוב | <a href="/about/">תכנון פיננסי</a></h5>
+        <p>יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות — ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <span>המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</span>
+    </div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
