@@ -121,6 +121,7 @@ const KEYWORD_MAP = {
   'IRA':                                 '/investment/ira/',
   'מסלול מחקה S&P 500':                  '/investment/why-not-sp500/',
   'מדד S&P 500':                         '/investment/why-not-sp500/',
+  'מסלול מחקה מדד':                      '/investment/why-not-sp500/',
 
   // ── AI / רובייקטיבי ──
   'בדיקת קרן פנסיה':                    '/ai/',
