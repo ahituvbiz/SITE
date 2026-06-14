@@ -1,10 +1,9 @@
-// gate.js — v3 | hybrid content: Drive (sections) / Server (tags) / Server fallback
+// gate.js — v4 | tag-based personalized content
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
-const CONTENT_BASE    = '/clients/content/tag-';  // Cloudflare מגיש ללא סיומת .html
+const CONTENT_BASE    = '/clients/content/tag-';
 
-// כל התגיות הידועות (לפי מזהה) — fallback כשה-API לא מחזיר תוכן
 const KNOWN_TAGS = [
   { id: 8,  name: 'IRA' },
   { id: 10, name: 'תיק השקעות' }
@@ -90,7 +89,6 @@ function wireLogout() {
   });
 }
 
-// טוען HTML של תגית מהשרת; מחזיר null אם לא קיים
 function fetchTagHtml(tagId) {
   return fetch(CONTENT_BASE + tagId)
     .then(function(res) { return res.ok ? res.text() : null; })
@@ -98,45 +96,68 @@ function fetchTagHtml(tagId) {
 }
 
 // טאב שיווקי — מוצג לכל מי שאין לו תגית תיק השקעות (10) או IRA (8)
-var PROMO_SECTION = {
-  tagName: 'פתיחת תיק השקעות',
-  html: '<div class="content-hero"><div class="container">' +
-    '<div class="eyebrow">אזור לקוחות · הזדמנות</div>' +
-    '<h1>רצית לפתוח תיק השקעות?</h1>' +
-    '</div></div>' +
-    '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
-    '<div class="container"><div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;">' +
-    '<p style="font-size:17px;line-height:1.8;margin-bottom:24px;">' +
-    'רצית לפתוח תיק השקעות וחששת לעשות את זה לבד?<br>' +
-    '<strong>פנה אלינו — ונסייע לך לעשות את זה נכון.</strong>' +
-    '</p>' +
-    '<p style="font-size:14px;color:var(--text-meta);margin-bottom:32px;">השירות כרוך בתשלום</p>' +
-    '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +
-    'padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
-    '💬 דברו איתנו בוואטסאפ' +
-    '</a>' +
-    '</div></div></div>'
-};
+var PROMO_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · הזדמנות</div>' +
+  '<h1>רצית לפתוח תיק השקעות?</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
+  '<div class="container">' +
+  '<div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;">' +
+  '<p style="font-size:17px;line-height:1.8;margin-bottom:24px;">' +
+  'רצית לפתוח תיק השקעות וחששת לעשות את זה לבד?<br>' +
+  '<strong>פנה אלינו — ונסייע לך לעשות את זה נכון.</strong>' +
+  '</p>' +
+  '<p style="font-size:14px;color:var(--text-meta);margin-bottom:32px;">השירות כרוך בתשלום</p>' +
+  '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +
+  'padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
+  '💬 דברו איתנו בוואטסאפ' +
+  '</a>' +
+  '</div></div></div>';
 
-// בונה sections לפי עדיפות:
-//   1. sections עם HTML מוטמע מה-API (Drive — מוגן, מועדף)
-//   2. tags עם fetch מהשרת (API מחזיר מזהים בלבד)
-//   3. fallback — טוען את כל התגיות הידועות מהשרת
+var PROMO_SECTION = { tagName: 'פתיחת תיק השקעות', html: PROMO_HTML };
+
 function buildSections(data) {
-  // עדיפות 1: sections עם HTML מלא
   if (data.sections && data.sections.length > 0) {
     return Promise.resolve(data.sections);
   }
 
-  // עדיפות 2: API מחזיר מזהי תגיות (פורמט חדש)
   var tagList = data.tags && data.tags.length > 0 ? data.tags : null;
-
-  // עדיפות 3: fallback — כל התגיות הידועות
   if (!tagList) tagList = KNOWN_TAGS;
 
-  // בדוק אם הלקוח כבר מנהל תיק (תגית 8 = IRA, תגית 10 = תיק השקעות)
   var hasPortfolio = tagList.some(function(t) { return t.id === 8 || t.id === 10; });
 
   return Promise.all(tagList.map(function(tag) {
     return fetchTagHtml(tag.id).then(function(html) {
-      return html ? { html: html, tagName: tag.name } : nul
+      return html ? { html: html, tagName: tag.name } : null;
+    });
+  })).then(function(results) {
+    var sections = results.filter(function(s) { return s !== null; });
+    if (!hasPortfolio) {
+      sections.push(PROMO_SECTION);
+    }
+    return sections;
+  });
+}
+
+(function checkSession() {
+  var saved = sessionStorage.getItem('pensya_client_auth');
+  if (!saved) return;
+  try {
+    var parsed = JSON.parse(saved);
+    if (parsed.sections && parsed.sections.length > 0) {
+      buildUI(parsed.sections, parsed.name);
+    } else {
+      sessionStorage.removeItem('pensya_client_auth');
+    }
+  } catch(e) {
+    sessionStorage.removeItem('pensya_client_auth');
+  }
+})();
+
+document.getElementById('auth-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  clearError();
+
+  var email = document.getElementById('email-input').value.trim().toLowerCase();
+  var phone = n
