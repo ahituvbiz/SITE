@@ -124,7 +124,13 @@ function buildSections(data) {
   var tagList = data.tags && data.tags.length > 0 ? data.tags : null;
   if (!tagList) tagList = KNOWN_TAGS;
 
-  var hasPortfolio = tagList.some(function(t) { return t.id === 8 || t.id === 10; });
+  // מי שיש לו תגית 10 רואה גם את תוכן תגית 8
+  var hasTag10 = tagList.some(function(t) { return t.id === 10; });
+  var hasTag8  = tagList.some(function(t) { return t.id === 8; });
+  if (hasTag10 && !hasTag8) {
+    tagList = tagList.concat([{ id: 8, name: 'IRA' }]);
+  }
+  var hasPortfolio = hasTag8 || hasTag10;
 
   return Promise.all(tagList.map(function(tag) {
     return fetchTagHtml(tag.id).then(function(html) {
