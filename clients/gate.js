@@ -1,6 +1,6 @@
 // gate.js — v3 | hybrid content: Drive (sections) / Server (tags) / Server fallback
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsQE5zW89MO6PWKmq0AVzvM8gpoLXbO2Iz2VYRIXX4q1_uuHu2T_bH_mbsJXpWgicQ/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
 const CONTENT_BASE    = '/clients/content/tag-';  // Cloudflare מגיש ללא סיומת .html
 
@@ -127,7 +127,11 @@ function buildSections(data) {
   if (!saved) return;
   try {
     var parsed = JSON.parse(saved);
-    buildUI(parsed.sections, parsed.name);
+    if (parsed.sections && parsed.sections.length > 0) {
+      buildUI(parsed.sections, parsed.name);
+    } else {
+      sessionStorage.removeItem('pensya_client_auth');
+    }
   } catch(e) {
     sessionStorage.removeItem('pensya_client_auth');
   }
@@ -156,5 +160,4 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
         return;
       }
-      return buildSections(data).then(function(sections) {
-        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections
+      return buildSections(data
