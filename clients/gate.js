@@ -89,7 +89,11 @@ function wireLogout() {
   });
 }
 
+// מזהי תגיות שיש להם דף תוכן בפועל
+const CONTENT_TAG_IDS = [8, 10, 11];
+
 function fetchTagHtml(tagId) {
+  if (CONTENT_TAG_IDS.indexOf(tagId) === -1) return Promise.resolve(null);
   return fetch(CONTENT_BASE + tagId)
     .then(function(res) { return res.ok ? res.text() : null; })
     .catch(function() { return null; });
