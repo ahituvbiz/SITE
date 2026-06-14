@@ -2,7 +2,7 @@
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsQE5zW89MO6PWKmq0AVzvM8gpoLXbO2Iz2VYRIXX4q1_uuHu2T_bH_mbsJXpWgicQ/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
-const CONTENT_BASE    = '/clients/content/';
+const CONTENT_BASE    = '/clients/content/tag-';  // Cloudflare מגיש ללא סיומת .html
 
 // כל התגיות הידועות (לפי מזהה) — fallback כשה-API לא מחזיר תוכן
 const KNOWN_TAGS = [
@@ -92,7 +92,7 @@ function wireLogout() {
 
 // טוען HTML של תגית מהשרת; מחזיר null אם לא קיים
 function fetchTagHtml(tagId) {
-  return fetch(CONTENT_BASE + 'tag-' + tagId + '.html')
+  return fetch(CONTENT_BASE + tagId)
     .then(function(res) { return res.ok ? res.text() : null; })
     .catch(function() { return null; });
 }
@@ -157,5 +157,4 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         return;
       }
       return buildSections(data).then(function(sections) {
-        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections }));
-        buildUI(sections, d
+        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections
