@@ -97,6 +97,27 @@ function fetchTagHtml(tagId) {
     .catch(function() { return null; });
 }
 
+// טאב שיווקי — מוצג לכל מי שאין לו תגית תיק השקעות (10) או IRA (8)
+var PROMO_SECTION = {
+  tagName: 'פתיחת תיק השקעות',
+  html: '<div class="content-hero"><div class="container">' +
+    '<div class="eyebrow">אזור לקוחות · הזדמנות</div>' +
+    '<h1>רצית לפתוח תיק השקעות?</h1>' +
+    '</div></div>' +
+    '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
+    '<div class="container"><div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;">' +
+    '<p style="font-size:17px;line-height:1.8;margin-bottom:24px;">' +
+    'רצית לפתוח תיק השקעות וחששת לעשות את זה לבד?<br>' +
+    '<strong>פנה אלינו — ונסייע לך לעשות את זה נכון.</strong>' +
+    '</p>' +
+    '<p style="font-size:14px;color:var(--text-meta);margin-bottom:32px;">השירות כרוך בתשלום</p>' +
+    '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +
+    'padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
+    '💬 דברו איתנו בוואטסאפ' +
+    '</a>' +
+    '</div></div></div>'
+};
+
 // בונה sections לפי עדיפות:
 //   1. sections עם HTML מוטמע מה-API (Drive — מוגן, מועדף)
 //   2. tags עם fetch מהשרת (API מחזיר מזהים בלבד)
@@ -113,51 +134,9 @@ function buildSections(data) {
   // עדיפות 3: fallback — כל התגיות הידועות
   if (!tagList) tagList = KNOWN_TAGS;
 
+  // בדוק אם הלקוח כבר מנהל תיק (תגית 8 = IRA, תגית 10 = תיק השקעות)
+  var hasPortfolio = tagList.some(function(t) { return t.id === 8 || t.id === 10; });
+
   return Promise.all(tagList.map(function(tag) {
     return fetchTagHtml(tag.id).then(function(html) {
-      return html ? { html: html, tagName: tag.name } : null;
-    });
-  })).then(function(results) {
-    return results.filter(function(s) { return s !== null; });
-  });
-}
-
-(function checkSession() {
-  var saved = sessionStorage.getItem('pensya_client_auth');
-  if (!saved) return;
-  try {
-    var parsed = JSON.parse(saved);
-    if (parsed.sections && parsed.sections.length > 0) {
-      buildUI(parsed.sections, parsed.name);
-    } else {
-      sessionStorage.removeItem('pensya_client_auth');
-    }
-  } catch(e) {
-    sessionStorage.removeItem('pensya_client_auth');
-  }
-})();
-
-document.getElementById('auth-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  clearError();
-
-  var email = document.getElementById('email-input').value.trim().toLowerCase();
-  var phone = normalizePhone(document.getElementById('phone-input').value);
-
-  if (!email || !phone) { showError('נא למלא מייל וטלפון.'); return; }
-
-  setLoading(true);
-
-  var url = APPS_SCRIPT_URL + '?email=' + encodeURIComponent(email) + '&phone=' + encodeURIComponent(phone) + '&token=' + encodeURIComponent(AUTH_TOKEN);
-
-  fetch(url, { redirect: 'follow' })
-    .then(function(res) {
-      if (!res.ok) throw new Error('network_error');
-      return res.json();
-    })
-    .then(function(data) {
-      if (!data.success) {
-        showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
-        return;
-      }
-      return buildSections(data
+      return html ? { html: html, tagName: tag.name } : nul
