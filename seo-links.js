@@ -122,6 +122,11 @@ const KEYWORD_MAP = {
   'מסלול מחקה S&P 500':                  '/investment/why-not-sp500/',
   'מדד S&P 500':                         '/investment/why-not-sp500/',
   'מסלול מחקה מדד':                      '/investment/why-not-sp500/',
+  'כלכלת הלולאה':                        '/investment/ai-loop-economy/',
+  'לולאת ה-AI':                          '/investment/ai-loop-economy/',
+  'ריכוזיות AI':                         '/investment/ai-loop-economy/',
+  'ריכוזיות שבירה':                      '/investment/ai-loop-economy/',
+  'תלות עסקית במדד':                     '/investment/ai-loop-economy/',
 
   // ── AI / רובייקטיבי ──
   'בדיקת קרן פנסיה':                    '/ai/',
@@ -241,13 +246,4 @@ for (const filePath of htmlFiles) {
   if (updated !== original) {
     fs.writeFileSync(filePath, updated, 'utf8');
     // ספור כמה קישורים נוספו
-    const added = (updated.match(/<a href="\/[^"]+">(?!.*<\/a>)/g) || []).length -
-                  (original.match(/<a href="\/[^"]+">(?!.*<\/a>)/g) || []).length;
-    console.log(`  ✅ ${currentUrl} — נוספו קישורים`);
-    totalLinks++;
-  }
-}
-
-console.log(`\n✨ סיום — עודכנו ${totalLinks} דפים`);
-console.log(`כל הקישורים הפנימיים מנוהלים על ידי KEYWORD_MAP.
-`);
+    const a
