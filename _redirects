@@ -1,4 +1,4 @@
 # Cloudflare Pages redirects
+/ai/                                 /bedikat-pensya/              301
+/ai                                  /bedikat-pensya/              301
 /investment/sp500-not-diversified/   /investment/why-not-sp500/   301
-/investment/ira/clients/             /clients/                     301
-/investment/ira/clients              /clients/                     301
