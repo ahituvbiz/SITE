@@ -254,6 +254,8 @@ section.tight { padding: var(--s-2xl) 0; }
 @media (max-width: 600px) {
   .step-label { display: none; }
   .step-divider { width: 24px; }
+  .bot-card { border: none; box-shadow: none; padding: var(--s-md); }
+  .upload-zone { border-width: 1.5px; }
 }
 
 /* Step pages */
@@ -963,9 +965,8 @@ textarea:focus-visible,
           </a>
         </div>
 
-        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+        <div style="margin-top:24px;">
           <button class="btn btn-ghost" onclick="goToStep(1)">← חזרה</button>
-          <button class="btn btn-primary" id="demo-btn" onclick="simulateAnalysis()">🎬 הצג דוגמה (דמו)</button>
         </div>
       </div>
 
@@ -1538,4 +1539,5 @@ document.querySelectorAll('.results-tab').forEach(t => {
         <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
       </span>
     </div>
-    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינ�
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+ 
