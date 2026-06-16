@@ -300,6 +300,7 @@ section.tight { padding: var(--s-2xl) 0; }
 
 /* Upload zone (Step 2) */
 .upload-zone {
+  display: block;
   border: 2px dashed var(--border);
   border-radius: var(--radius-card);
   padding: var(--s-2xl) var(--s-lg);
@@ -1495,9 +1496,14 @@ document.querySelectorAll('.results-tab').forEach(t => {
 // על מובייל — כפתור "התחל ניתוח" גולל לסקשן הוואטסאפ במקום ל-#bot שמוסתר
 (function() {
   var cta = document.getElementById('hero-cta-start');
-  if (cta && window.innerWidth <= 768) {
-    cta.setAttribute('href', '#mobile-bot');
-  }
+  if (!cta) return;
+  cta.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      var target = document.getElementById('mobile-bot');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
 })();
 </script>
 <script src="/search.js"></script>
@@ -1540,9 +1546,4 @@ document.querySelectorAll('.results-tab').forEach(t => {
           <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
           <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
         </ul>
-      </div>
-    </div>
-    <div class="sf-bottom">
-      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
-      <span class="license-badge">
-        <svg viewBox="0
+  
