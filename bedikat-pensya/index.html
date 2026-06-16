@@ -444,28 +444,6 @@ section.tight { padding: var(--s-2xl) 0; }
 .post-cta .post-cta-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 12px; }
 
 /* "What the bot doesn't do" - Bottom section per CONTEXT §7 rule */
-
-.compare-wrap { overflow-x: auto; margin-top: var(--s-lg); }
-.compare-tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
-.compare-tbl thead th { padding: 12px 14px; font-weight: 700; font-size: 15px; text-align: center; border-bottom: 2px solid var(--border); }
-.compare-tbl .c-label { width: 20%; text-align: right; padding-right: 14px; color: var(--text-2); font-weight: 600; background: var(--bg-cream); }
-.compare-tbl .c-bot { width: 40%; background: #EBF5FB; color: var(--primary); border-right: 3px solid var(--primary); }
-.compare-tbl .c-adv { width: 40%; background: #EAF7EE; color: #1B7A35; }
-.compare-tbl tbody tr { border-bottom: 1px solid var(--border); }
-.compare-tbl tbody tr:last-child { border-bottom: none; }
-.compare-tbl tbody tr:hover { background: #fafafa; }
-.compare-tbl tbody td { padding: 13px 14px; vertical-align: top; line-height: 1.65; color: var(--text-2); }
-.compare-tbl tbody .c-label { font-weight: 700; color: var(--text-1); font-size: 14px; border-left: 1px solid var(--border); }
-.compare-tbl tbody .c-bot { background: #FAFEFF; border-right: 3px solid var(--primary); text-align: center; }
-.compare-tbl tbody .c-adv { text-align: center; }
-.badge-free { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #D4EDDA; color: #155724; }
-.badge-paid { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #F8D7DA; color: #721C24; }
-.advisor-cta { background: #EAF7EE; border: 2px solid #2BA84A; border-radius: var(--radius-card); padding: var(--s-xl); text-align: center; margin-top: var(--s-xl); }
-.advisor-cta p { font-size: 16px; color: #2C5F34; font-weight: 500; margin-bottom: var(--s-md); }
-.btn-advisor { display: inline-block; background: #2BA84A; color: #fff; text-decoration: none; font-size: 16px; font-weight: 700; padding: 14px 36px; border-radius: 50px; transition: background .2s; }
-.btn-advisor:hover { background: #239B3F; }
-@media (max-width: 600px) { .compare-tbl { font-size: 13px; } .compare-tbl .c-label { width: 25%; } .compare-tbl .c-bot, .compare-tbl .c-adv { width: 37.5%; } }
-
 .limits-section { background: #fff; padding: var(--s-2xl) 0; }
 .limits-section .container { max-width: 880px; }
 .limits-section .section-eyebrow {
@@ -1008,6 +986,9 @@ textarea:focus-visible,
         <h2>הניתוח שלך</h2>
         <p class="step-sub">לחץ על כל אחד מהפרמטרים כדי לראות את הניתוח המלא.</p>
 
+        <!-- הסבר pension_at_67 — מוצג אם הבקאנד מחזיר ערך -->
+        <div id="pension-at-67-note" style="display:none; margin-bottom:16px;"></div>
+
         <div class="results-tabs" id="results-tabs">
           <button class="results-tab active" data-tab="deposits">💰 הפקדות</button>
           <button class="results-tab" data-tab="insurance">🛡️ ביטוחים</button>
@@ -1150,78 +1131,27 @@ textarea:focus-visible,
       </div>
     </div>
 
-    <h2 style="margin-top: var(--s-2xl);">מה הבוט עושה - ומה הוא לא עושה</h2>
-    <p class="lead">רובייקטיבי מנתח את קרן הפנסיה המקיפה שלך ומספק תמונה ראשונית ואובייקטיבית. אבל פנסיה היא עולם רחב יותר - והנה מה שרק יועץ פנסיוני מורשה יכול לעשות עבורך:</p>
+    <h2 style="margin-top: var(--s-2xl);">מה הבוט לא יכול לעשות</h2>
+    <p class="lead">לכן הוא כלי שיווקי, לא תחליף לייעוץ הוליסטי.</p>
 
-    <div class="compare-wrap">
-      <table class="compare-tbl">
-        <thead>
-          <tr>
-            <th class="c-label"></th>
-            <th class="c-bot">🤖 רובייקטיבי (בוט)</th>
-            <th class="c-adv">👤 ייעוץ פנסיוני מלא</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="c-label">היקף הבדיקה</td>
-            <td class="c-bot">קרן פנסיה מקיפה בלבד</td>
-            <td class="c-adv">כל המוצרים: ביטוח מנהלים, קופות גמל, קרן פנסיה משלימה, קרנות השתלמות, גמל להשקעה</td>
-          </tr>
-          <tr>
-            <td class="c-label">גילוי קרנות נוספות</td>
-            <td class="c-bot">הבוט לא בודק את המסלקה הפנסיונית ולא יכול לגלות קרנות פנסיה מקיפות נוספות שיש לך</td>
-            <td class="c-adv">בדיקת המסלקה הפנסיונית - גילוי כל החסכונות הפנסיוניים שברשותך</td>
-          </tr>
-          <tr>
-            <td class="c-label">המלצת קרן</td>
-            <td class="c-bot">לא ממליץ על קרן פנסיה ספציפית</td>
-            <td class="c-adv">השוואת קרנות והמלצה מנומקת בהתאם לצרכים שלך</td>
-          </tr>
-          <tr>
-            <td class="c-label">הקצאת השקעות</td>
-            <td class="c-bot">מצביע על כיוון כללי בלבד, לא ממליץ על אחוזי הקצאה ספציפיים בין מסלולים</td>
-            <td class="c-adv">המלצה מדויקת על הרכב ההשקעות בהתאם לגיל, טווח השקעה וסיבולת סיכון</td>
-          </tr>
-          <tr>
-            <td class="c-label">הוזלת דמי ניהול</td>
-            <td class="c-bot">מציג מה אתה משלם ומה ניתן להשיג - אבל לא פונה בעצמו לקרן</td>
-            <td class="c-adv">מנהל את המשא ומתן מול הקרן ישירות ומשיג את ההוזלה בפועל</td>
-          </tr>
-          <tr>
-            <td class="c-label">ביטוחים חיצוניים</td>
-            <td class="c-bot">לא מתייחס לביטוחי חיים, בריאות, סיעוד וכיו"ב שאינם חלק מהקרן</td>
-            <td class="c-adv">בחינה מקיפה של כל מערך הביטוחים וזיהוי כפלים או פערים</td>
-          </tr>
-          <tr>
-            <td class="c-label">תמונה כלכלית מלאה</td>
-            <td class="c-bot">לא מכיר את המצב הכלכלי הכולל שלך - ולכן לא יכול להמליץ, למשל, על צמצום ביטוח בקרן כשזה כדאי</td>
-            <td class="c-adv">בחינה של התמונה המלאה: הכנסות, הוצאות, נכסים והתחייבויות</td>
-          </tr>
-          <tr>
-            <td class="c-label">הפקדות וחיסכון</td>
-            <td class="c-bot">לא ממליץ כמה להפקיד - לא לעצמאים ולא לשכירים המעוניינים להפקיד מעבר לחובה</td>
-            <td class="c-adv">גזירת סכום ההפקדה המיטבי בהתחשב בהכנסה, בהטבות המס ובמטרות החיסכון</td>
-          </tr>
-          <tr>
-            <td class="c-label">מעקב ועדכון</td>
-            <td class="c-bot">ניתוח חד-פעמי. לא מתריע על שינויים נדרשים ולא עוקב אם ההמלצות בוצעו</td>
-            <td class="c-adv">ליווי שוטף, התראות על שינויים נדרשים ובדיקה שהפעולות בוצעו בפועל</td>
-          </tr>
-          <tr>
-            <td class="c-label">מחיר</td>
-            <td class="c-bot"><span class="badge-free">חינם</span></td>
-            <td class="c-adv"><span class="badge-paid">בתשלום</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="limits-grid">
+      <div class="limits-card">
+        <h4>סקירת כל המוצרים</h4>
+        <p>הבוט בודק רק קרן פנסיה. בייעוץ אני סוקר גם <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, גמל, ביטוחים פרטיים, ומשכנתא.</p>
+      </div>
+      <div class="limits-card">
+        <h4>מסלקה פנסיונית</h4>
+        <p>בייעוץ אני מבצע מסלקה מול רשות שוק ההון - לפעמים מתגלות קרנות שלא ידעת שיש לך.</p>
+      </div>
+      <div class="limits-card">
+        <h4>המלצה על קרן ספציפית</h4>
+        <p>הבוט נותן השוואה כללית. בחירת הקרן הספציפית דורשת אנליזה אישית - מסלולי השקעה, מגבלות העברה, היסטוריה.</p>
+      </div>
+      <div class="limits-card">
+        <h4>תמונה כלכלית מלאה</h4>
+        <p>הבוט רואה רק מה שיש בדוח הפנסיה. הייעוץ ההוליסטי כולל הכנסה, הוצאות, חיסכון, חובות ויעדים.</p>
+      </div>
     </div>
-
-    <div class="advisor-cta">
-      <p>רובייקטיבי נותן לך את נקודת הפתיחה - יועץ אנושי יקדם אותך אל היעדים הפיננסיים שלך.</p>
-      <a href="https://api.whatsapp.com/send/?phone=972527700599&text=%D7%90%D7%97%D7%99%D7%98%D7%95%D7%91+%D7%A9%D7%9C%D7%95%D7%9D.+%D7%90%D7%A9%D7%9E%D7%97+%D7%9C%D7%A7%D7%91%D7%9C+%D7%A4%D7%A8%D7%98%D7%99%D7%9D+%D7%A2%D7%9C+%D7%99%D7%99%D7%A2%D7%95%D7%A5+%D7%A4%D7%A0%D7%A1%D7%99%D7%95%D7%A0%D7%99+%D7%9E%D7%A7%D7%99%D7%A3+%D7%95%D7%90%D7%95%D7%91%D7%99%D7%99%D7%A7%D7%98%D7%99%D7%91%D7%99" class="btn-advisor" style="display:inline-flex;align-items:center;gap:8px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="#fff" style="vertical-align:middle;margin-left:6px;flex-shrink:0"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/></svg>צור קשר לייעוץ פנסיוני</a>
-    </div>
-
   </div>
 </section>
 
@@ -1377,6 +1307,20 @@ function simulateAnalysis() {
    Render real backend results
    ========================================================= */
 function renderResults(data) {
+  // pension_at_67 — הסבר שהמספר בדוח אינו הפנסיה הצפויה
+  if (data.summary && data.summary.pension_at_67 > 0) {
+    const note = document.getElementById('pension-at-67-note');
+    if (note) {
+      const v = formatNum(data.summary.pension_at_67);
+      note.innerHTML = '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
+        + '💡 <strong>לפני שנסתכל על התוצאות:</strong> הסכום <strong>' + v + ' ₪</strong> שמופיע בדוח שלך '
+        + '<strong>אינו</strong> הפנסיה שצפויה לך לגיל 67. '
+        + 'הוא מחושב בהנחה שלא תעבוד יותר מהיום ושהתשואה תהיה קבועה כ-4% — תרחיש לא מציאותי. '
+        + 'המספר הזה חסר משמעות מעשית. ניתן להתעלם ממנו לחלוטין.</div>';
+      note.style.display = 'block';
+    }
+  }
+
   // Deposits
   if (data.sections && data.sections.deposits) {
     const d = data.sections.deposits;
@@ -1402,6 +1346,16 @@ function renderResults(data) {
           html += `<div class="${cls}" style="height: ${h}%;">${valueLabel}<span class="bar-label">${b.month_name}</span></div>`;
         });
         html += '</div>';
+        // הסבר: החודש האחרון של דוח רבעוני לא בהכרח מופיע — זה נורמלי
+        if (d.chart.last_month_normal && d.chart.bars.length > 0) {
+          const lastBar = d.chart.bars[d.chart.bars.length - 1];
+          if (lastBar.value === 0) {
+            html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
+              + '💡 <strong>החודש ' + escapeHtml(lastBar.month_name) + ' לא מופיע בדוח</strong> — זה לגמרי נורמלי. '
+              + 'הפקדות שנעשות בסוף חודש עלולות להופיע רק בדוח הרבעוני הבא, בגלל עיכוב בעיבוד אצל הקרן.'
+              + '</div>';
+          }
+        }
       }
       panel.innerHTML = html;
     }
@@ -1452,6 +1406,42 @@ function renderResults(data) {
       panel.innerHTML = html;
     }
   }
+
+  // CTAs — gov_note, compensation, advisor booking
+  const cta = data.cta || {};
+  const postCta = document.querySelector('[data-page="4"] .post-cta');
+  if (postCta) {
+    let ctaHtml = '';
+
+    // הערת ממשלה / מעסיק ממשלתי
+    if (cta.gov_note) {
+      ctaHtml += '<div class="result-callout positive" style="margin-bottom:16px; background:#EFF6FF; border-color:#3B82F6;">'
+        + '💡 ' + escapeHtml(cta.gov_note) + '</div>';
+    }
+
+    // CTA פיצוי — רק אם הבקאנד החזיר show_compensation=true
+    if (cta.show_compensation && cta.compensation_form_url) {
+      ctaHtml += '<div class="result-callout warning" style="margin-bottom:16px; text-align:center;">'
+        + '<strong>⚠️ נמצאה פגיעה פוטנציאלית בזכויות</strong><br>'
+        + 'ייתכן שמגיע לך פיצוי על הפקדות חסרות. בדיקה ראשונית ללא עלות.'
+        + '<br><br><a href="' + escapeHtml(cta.compensation_form_url) + '" class="btn" target="_blank" rel="noopener"'
+        + ' style="background:var(--cta);color:#fff;">בדוק זכאות לפיצוי ←</a></div>';
+    }
+
+    ctaHtml += '<h3>הניתוח חשף נקודות לטיפול?</h3>'
+      + '<p>הבוט סקר את 4 הפרמטרים הבסיסיים של קרן הפנסיה. הייעוץ ההוליסטי מסתכל גם על קרנות אחרות שלך, ביטוחים פרטיים, משכנתא ותמונה כלכלית מלאה.</p>';
+
+    const bookingUrl = cta.advisor_booking_url || '/about/recommended-advisor/';
+    ctaHtml += '<a href="' + escapeHtml(bookingUrl) + '" class="btn" target="_blank" rel="noopener">קבע שיחה כדי לשמוע יותר ←</a>';
+    ctaHtml += '<p class="post-cta-sub">שיחת 20 דקות · ללא התחייבות · להבין אם זה מתאים</p>';
+
+    if (cta.subsidy_url) {
+      ctaHtml += '<p class="post-cta-sub"><a href="' + escapeHtml(cta.subsidy_url)
+        + '" style="color:rgba(255,255,255,0.8);" target="_blank" rel="noopener">מידע על הטבות ממשלתיות ←</a></p>';
+    }
+
+    postCta.innerHTML = ctaHtml;
+  }
 }
 
 /* Render a block of plain text from the backend.
@@ -1460,10 +1450,22 @@ function renderTextBlock(text) {
   if (!text) return '';
   const paragraphs = text.split(/\n\n+/);
   return paragraphs.map(p => {
-    // *bold* → <strong>
     const formatted = escapeHtml(p).replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
-    // Single newlines → <br>
-    return `<div class="result-callout positive" style="background:#F8F6F2; border-color:#1F4E79;">${formatted.replace(/\n/g, '<br>')}</div>`;
+    let cls, style = '';
+    if (p.includes('\u2705')) {          // ✅ — תקין/חיובי
+      cls = 'positive';
+    } else if (p.includes('\u26a0')) {   // ⚠️ — אזהרה
+      cls = 'warning';
+    } else if (p.includes('\u274c')) {   // ❌ — שלילי/דורש טיפול
+      cls = 'negative';
+    } else if (p.includes('💡') || p.includes('ℹ')) { // 💡 ℹ️ — מידע
+      cls = 'positive';
+      style = 'background:#EFF6FF; border-color:#3B82F6;';
+    } else {
+      cls = 'positive';
+      style = 'background:#F8F6F2; border-color:#1F4E79;';
+    }
+    return `<div class="result-callout ${cls}" style="${style}">${formatted.replace(/\n/g, '<br>')}</div>`;
   }).join('');
 }
 
