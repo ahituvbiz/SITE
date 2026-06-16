@@ -7,7 +7,7 @@
 <meta name="description" content="איתן אחיטוב, יועץ פנסיוני בעל רישיון נדיר ממשרד האוצר (אחד מכ-100 בישראל). פרשתי מהבנק כדי לתת ייעוץ אובייקטיבי באמת - בלי עמלות, בלי קונפליקטים. הסיפור, הרישיון, והדרך שלי.">
 
 <!-- Open Graph -->
-<meta property="og:title" content="איתן אחיטוב - יועץ פנסיוני שפרש מהבנק כדי לעבוד אצלך">
+<meta property="og:title" content="איתן אחיטוב — יועץ פיננסי שבחר להיות 'בצד' של הלקוחות">
 <meta property="og:description" content="רישיון יועץ פנסיוני (מס' I-00133091) - אחד מכ-100 בישראל. ייעוץ הוליסטי שמשלב פנסיה, ביטוחים, חיסכון ומשכנתא. בלי עמלות, בלי ניגוד אינטרסים.">
 <meta property="og:type" content="profile">
 <meta property="og:locale" content="he_IL">
@@ -267,17 +267,21 @@ section { padding: var(--s-2xl) 0; }
   padding: var(--s-lg);
   margin: var(--s-lg) 0;
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 150px 1fr;
   gap: var(--s-md);
   box-shadow: var(--shadow-card);
   align-items: center;
 }
 .bio-card .avatar {
-  width: 120px; height: 120px;
+  width: 150px; height: 150px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 48px; font-weight: 700;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.bio-card .avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 .bio-card .bio-text h3 { margin-top: 0; }
 .bio-card .credentials {
@@ -820,7 +824,7 @@ textarea:focus-visible,
 
     <!-- BIO CARD -->
     <div class="bio-card">
-      <div class="avatar">א</div>
+      <div class="avatar"><img src="/design-assets/eitan-portrait.jpg" alt="איתן אחיטוב — יועץ פנסיוני" /></div>
       <div class="bio-text">
         <h3 style="margin-bottom: 4px;">איתן אחיטוב</h3>
         <p style="margin: 0; color: var(--text-2); font-size: 15px;">יועץ פנסיוני בעל רישיון משרד האוצר · <a href="/about/advisor-vs-planner-vs-agent/">מתכנן פיננסי</a> הוליסטי</p>
@@ -1252,4 +1256,4 @@ textarea:focus-visible,
 </footer>
 </body>
 </html>
-                                                                                                                                                         
+                                                                                          
