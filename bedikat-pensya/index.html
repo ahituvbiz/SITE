@@ -209,6 +209,7 @@ section.tight { padding: var(--s-2xl) 0; }
   padding: var(--s-xl);
   max-width: 760px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 /* Progress steps */
@@ -834,7 +835,7 @@ textarea:focus-visible,
         העלה את הדוח השנתי המקוצר או את הדוח הרבעוני של קרן הפנסיה - והבוט יחזיר ניתוח של 4 פרמטרים מרכזיים: <strong>הפקדות, ביטוחים, דמי ניהול, מסלול השקעה.</strong>
       </p>
       <div class="hero-actions">
-        <a href="#bot" class="btn btn-primary">התחל ניתוח עכשיו ↓</a>
+        <a href="#bot" class="btn btn-primary" id="hero-cta-start">התחל ניתוח עכשיו ↓</a>
         <a href="https://wa.me/972559289298?text=שלום" class="btn btn-whatsapp">
           <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
           או בוואטסאפ
@@ -876,7 +877,7 @@ textarea:focus-visible,
 <!-- =========================================================
      MOBILE-ONLY: WhatsApp redirect (≤768px)
      ========================================================= -->
-<section class="mobile-cta">
+<section class="mobile-cta" id="mobile-bot">
   <div class="container">
     <div class="wa-icon">
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -1490,6 +1491,15 @@ document.querySelectorAll('.results-tab').forEach(t => {
   nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
 })();
 </script>
+<script>
+// על מובייל — כפתור "התחל ניתוח" גולל לסקשן הוואטסאפ במקום ל-#bot שמוסתר
+(function() {
+  var cta = document.getElementById('hero-cta-start');
+  if (cta && window.innerWidth <= 768) {
+    cta.setAttribute('href', '#mobile-bot');
+  }
+})();
+</script>
 <script src="/search.js"></script>
 <!-- Unified site footer -->
 <footer class="site-footer" role="contentinfo">
@@ -1535,9 +1545,4 @@ document.querySelectorAll('.results-tab').forEach(t => {
     <div class="sf-bottom">
       <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
       <span class="license-badge">
-        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
-      </span>
-    </div>
-    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
- 
+        <svg viewBox="0
