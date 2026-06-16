@@ -1399,6 +1399,9 @@ function renderResults(data) {
       (inv.messages || []).forEach(m => {
         if (m.type === 'text') {
           html += renderTextBlock(m.text);
+          if (m.text && m.text.includes('S&P')) {
+            html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6; margin-top:8px;">💡 <a href="https://pensya.info/investment/why-not-sp500/" target="_blank" rel="noopener" style="color:#1D4ED8; font-weight:600;">למה לא רק S&amp;P 500? קרא את ההסבר המלא ←</a></div>';
+          }
         } else if (m.type === 'image' && m.url) {
           html += `<img src="${escapeHtml(m.url)}" alt="" style="max-width:100%; border-radius:12px; margin:12px 0;">`;
         }
@@ -1616,12 +1619,4 @@ document.querySelectorAll('.results-tab').forEach(t => {
       <div>
         <h4>אודות</h4>
         <ul>
-          <li><a href="/about/">אודות איתן אחיטוב</a></li>
-          <li><a href="/#contact">יצירת קשר</a></li>
-          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
-          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="sf-bottom">
-      <span>© 2026 אחיטוב תכ
+   
