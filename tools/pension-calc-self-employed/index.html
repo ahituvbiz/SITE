@@ -884,6 +884,7 @@ textarea:focus-visible,
   padding: 0.4rem 0.6rem;
   font-size: 1rem;
   color: #1A1A1A;
+  background: #fff;
 }
 .calc-widget-wrap input:focus, .calc-widget-wrap select:focus {
   outline: 2px solid #1F4E79;
@@ -1056,7 +1057,6 @@ textarea:focus-visible,
 </style>
 
 <div class="calc-widget-wrap">
-  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. אינה מהווה ייעוץ פנסיוני.</p>
   <div class="container">
     <h2>מחשבון פנסיה לעצמאי</h2>
 
@@ -1066,8 +1066,8 @@ textarea:focus-visible,
             <select id="age"></select>
         </div>
         <div class="input-group">
-            <label>הפקדה חודשית (₪)</label>
-            <input type="number" id="deposit" value="2000">
+            <label>הפקדה חודשית</label>
+            <input type="text" id="deposit" value="₪ 2,000" inputmode="numeric">
         </div>
     </div>
 
@@ -1132,7 +1132,7 @@ textarea:focus-visible,
 
     function update() {
         const age = ageSelect.value;
-        const dep = parseFloat(depositInput.value) || 0;
+        const dep = parseFloat(depositInput.value.replace(/[^\d.]/g, '')) || 0;
         const row = data[age];
 
         const vals = {
@@ -1197,7 +1197,7 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
 
     function update() {
         const age = ageSelect.value;
-        const dep = parseFloat(depositInput.value) || 0;
+        const dep = parseFloat(depositInput.value.replace(/[^\d.]/g, '')) || 0;
         const row = data[age];
 
         const vals = {
@@ -1240,11 +1240,30 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
     }
 
     ageSelect.addEventListener('change', update);
-    depositInput.addEventListener('input', update);
+    depositInput.addEventListener('input', function() {
+        const raw = this.value.replace(/[^\d]/g, '');
+        if (raw === '') { this.value = ''; update(); return; }
+        const num = parseInt(raw, 10);
+        this.value = '₪ ' + num.toLocaleString('he-IL');
+        update();
+    });
+    depositInput.addEventListener('focus', function() {
+        const raw = this.value.replace(/[^\d]/g, '');
+        this.value = raw;
+    });
+    depositInput.addEventListener('blur', function() {
+        const raw = this.value.replace(/[^\d]/g, '');
+        if (raw === '') { this.value = '₪ 0'; return; }
+        this.value = '₪ ' + parseInt(raw, 10).toLocaleString('he-IL');
+    });
     update(); // הפעלה ראשונית
 </script>
 
 </section>
+
+<div style="max-width:800px;margin:1rem auto 0;padding:0 1rem;">
+  <p style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. אינה מהווה ייעוץ פנסיוני.</p>
+</div>
 
 <!-- SCENARIOS -->
 <section class="scenarios-section" id="scenarios">
@@ -1619,10 +1638,4 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
       <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
       <span class="license-badge">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
-        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
-      </span>
-    </div>
-    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
-    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
-  </div>
-</footer>                                                                                                                                                                                                                                                                                                                                                                                                           
+        <a href="/ab
