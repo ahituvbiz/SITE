@@ -986,7 +986,7 @@ textarea:focus-visible,
         <h2>הניתוח שלך</h2>
         <p class="step-sub">לחץ על כל אחד מהפרמטרים כדי לראות את הניתוח המלא.</p>
 
-        <!-- הסבר pension_at_67 — מוצג אם הבקאנד מחזיר ערך -->
+        <!-- הסבר pension_at_67 - מוצג אם הבקאנד מחזיר ערך -->
         <div id="pension-at-67-note" style="display:none; margin-bottom:16px;"></div>
 
         <div class="results-tabs" id="results-tabs">
@@ -1307,7 +1307,7 @@ function simulateAnalysis() {
    Render real backend results
    ========================================================= */
 function renderResults(data) {
-  // pension_at_67 — הסבר שהמספר בדוח אינו הפנסיה הצפויה
+  // pension_at_67 - הסבר שהמספר בדוח אינו הפנסיה הצפויה
   if (data.summary && data.summary.pension_at_67 > 0) {
     const note = document.getElementById('pension-at-67-note');
     if (note) {
@@ -1315,7 +1315,7 @@ function renderResults(data) {
       note.innerHTML = '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
         + '💡 <strong>לפני שנסתכל על התוצאות:</strong> הסכום <strong>' + v + ' ₪</strong> שמופיע בדוח שלך '
         + '<strong>אינו</strong> הפנסיה שצפויה לך לגיל 67. '
-        + 'הוא מחושב בהנחה שלא תעבוד יותר מהיום ושהתשואה תהיה קבועה כ-4% — תרחיש לא מציאותי. '
+        + 'הוא מחושב בהנחה שלא תעבוד יותר מהיום ושהתשואה תהיה קבועה כ-4% - תרחיש לא מציאותי. '
         + 'המספר הזה חסר משמעות מעשית. ניתן להתעלם ממנו לחלוטין.</div>';
       note.style.display = 'block';
     }
@@ -1346,12 +1346,12 @@ function renderResults(data) {
           html += `<div class="${cls}" style="height: ${h}%;">${valueLabel}<span class="bar-label">${b.month_name}</span></div>`;
         });
         html += '</div>';
-        // הסבר: החודש האחרון של דוח רבעוני לא בהכרח מופיע — זה נורמלי
+        // הסבר: החודש האחרון של דוח רבעוני לא בהכרח מופיע - זה נורמלי
         if (d.chart.last_month_normal && d.chart.bars.length > 0) {
           const lastBar = d.chart.bars[d.chart.bars.length - 1];
           if (lastBar.value === 0) {
             html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
-              + '💡 <strong>החודש ' + escapeHtml(lastBar.month_name) + ' לא מופיע בדוח</strong> — זה לגמרי נורמלי. '
+              + '💡 <strong>החודש ' + escapeHtml(lastBar.month_name) + ' לא מופיע בדוח</strong> - זה לגמרי נורמלי. '
               + 'הפקדות שנעשות בסוף חודש עלולות להופיע רק בדוח הרבעוני הבא, בגלל עיכוב בעיבוד אצל הקרן.'
               + '</div>';
           }
@@ -1410,7 +1410,7 @@ function renderResults(data) {
     }
   }
 
-  // CTAs — gov_note, compensation, advisor booking
+  // CTAs - gov_note, compensation, advisor booking
   const cta = data.cta || {};
   const postCta = document.querySelector('[data-page="4"] .post-cta');
   if (postCta) {
@@ -1422,7 +1422,7 @@ function renderResults(data) {
         + '💡 ' + escapeHtml(cta.gov_note) + '</div>';
     }
 
-    // CTA פיצוי — רק אם הבקאנד החזיר show_compensation=true
+    // CTA פיצוי - רק אם הבקאנד החזיר show_compensation=true
     if (cta.show_compensation && cta.compensation_form_url) {
       ctaHtml += '<div class="result-callout warning" style="margin-bottom:16px; text-align:center;">'
         + '<strong>⚠️ נמצאה פגיעה פוטנציאלית בזכויות</strong><br>'
@@ -1455,13 +1455,13 @@ function renderTextBlock(text) {
   return paragraphs.map(p => {
     const formatted = escapeHtml(p).replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
     let cls, style = '';
-    if (p.includes('\u2705')) {          // ✅ — תקין/חיובי
+    if (p.includes('\u2705')) {          // ✅ - תקין/חיובי
       cls = 'positive';
-    } else if (p.includes('\u26a0')) {   // ⚠️ — אזהרה
+    } else if (p.includes('\u26a0')) {   // ⚠️ - אזהרה
       cls = 'warning';
-    } else if (p.includes('\u274c')) {   // ❌ — שלילי/דורש טיפול
+    } else if (p.includes('\u274c')) {   // ❌ - שלילי/דורש טיפול
       cls = 'negative';
-    } else if (p.includes('💡') || p.includes('ℹ')) { // 💡 ℹ️ — מידע
+    } else if (p.includes('💡') || p.includes('ℹ')) { // 💡 ℹ️ - מידע
       cls = 'positive';
       style = 'background:#EFF6FF; border-color:#3B82F6;';
     } else {
@@ -1571,7 +1571,7 @@ document.querySelectorAll('.results-tab').forEach(t => {
 })();
 </script>
 <script>
-// על מובייל — כפתור "התחל ניתוח" גולל לסקשן הוואטסאפ במקום ל-#bot שמוסתר
+// על מובייל - כפתור "התחל ניתוח" גולל לסקשן הוואטסאפ במקום ל-#bot שמוסתר
 (function() {
   var cta = document.getElementById('hero-cta-start');
   if (!cta) return;
@@ -1590,13 +1590,13 @@ document.querySelectorAll('.results-tab').forEach(t => {
   <div class="sf-inner">
     <div class="sf-grid">
       <div class="sf-brand">
-        <a href="/" class="logo-footer" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
           <div class="logo-name">אחיטוב</div>
           <div class="logo-divider"></div>
           <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
           <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
         </a>
-        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות — ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>
       <div>
         <h4>מוצרי השקעה</h4>
