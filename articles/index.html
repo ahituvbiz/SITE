@@ -1425,6 +1425,20 @@ textarea:focus-visible,
 })();
 </script>
 
+<script>
+function switchTab(name, btn){
+  ['all','pension','insurance','savings','mortgage'].forEach(function(t){
+    var panel = document.getElementById('tab-' + t);
+    if (panel) panel.style.display = (t === name) ? '' : 'none';
+  });
+  document.querySelectorAll('.tabs-nav .tab-btn').forEach(function(b){
+    var on = (b === btn);
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', String(on));
+  });
+}
+</script>
+
 
 <script src="/search.js"></script>
 <!-- Unified site footer -->
