@@ -1009,40 +1009,37 @@ textarea:focus-visible,
     <!-- TABS -->
     <nav class="tabs-nav" role="tablist" aria-label="קטגוריות מאמרים">
       <button class="tab-btn active" role="tab" aria-selected="true" data-tab="all" onclick="switchTab('all', this)">
-        הכל <span class="tab-count">30+</span>
+        הכל <span class="tab-count">18</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" data-tab="pension" onclick="switchTab('pension', this)">
-        מאמרי פנסיה <span class="tab-count">12</span>
+        מאמרי פנסיה <span class="tab-count">8</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" data-tab="insurance" onclick="switchTab('insurance', this)">
-        מאמרי ביטוחים <span class="tab-count">7</span>
+        מאמרי ביטוחים <span class="tab-count">4</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" data-tab="savings" onclick="switchTab('savings', this)">
-        מאמרי חיסכון <span class="tab-count">6</span>
+        מאמרי חיסכון <span class="tab-count">4</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" data-tab="mortgage" onclick="switchTab('mortgage', this)">
-        מאמרי משכנתאות <span class="tab-count">5</span>
+        מאמרי משכנתאות <span class="tab-count">3</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="lectures" onclick="switchTab('lectures', this)">
+        הרצאות <span class="tab-count">3</span>
       </button>
     </nav>
 
     <!-- ALL ARTICLES GRID -->
     <div id="tab-all" class="articles-grid">
 
-      <!-- פנסיה -->
       <a href="/pension/" class="article-card">
         <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
           <div class="ac-category pension">מאמרי פנסיה</div>
           <h4>מוצרי פנסיה: המדריך המלא</h4>
           <p>קרן פנסיה, ביטוח מנהלים, קופת גמל וקרן השתלמות — מה ההבדל, מה עדיף, ולמה זה שווה מיליונים.</p>
-          <div class="ac-meta">
-            <span>13 דק'</span>
-            <span>·</span>
-            <span class="ac-badge popular">פופולרי</span>
-          </div>
+          <div class="ac-meta"><span>13 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
         </div>
       </a>
-
       <a href="/investment/ira-explained/" class="article-card">
         <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
@@ -1052,54 +1049,58 @@ textarea:focus-visible,
           <div class="ac-meta"><span>10 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
         </div>
       </a>
-
       <a href="/investment/ira/" class="article-card">
         <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
           <div class="ac-category pension">מאמרי פנסיה · IRA</div>
           <h4>IRA — שאלון התאמה ובחירת ברוקר</h4>
-          <p>כלי אינטראקטיבי: בדוק אם IRA מתאים לך, ואיזה ברוקר מתאים לתמהיל ולסכום שלך.</p>
+          <p>כלי אינטראקטיבי לבדיקת התאמה לניהול אישי של קופת גמל וקרן השתלמות.</p>
           <div class="ac-meta"><span>כלי אינטראקטיבי</span></div>
         </div>
       </a>
-
       <a href="/investment/ira-fees/" class="article-card">
         <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
           <div class="ac-category pension">מאמרי פנסיה · IRA</div>
           <h4>עמלות ברוקרים IRA — השוואה מלאה</h4>
-          <p>טבלת השוואה מפורטת של 6 הברוקרים: פסגות, IBI, מזרחי, לאומי, הבינלאומי, הפועלים.</p>
+          <p>השוואה של 6 ברוקרים בכל סוגי ניירות הערך — ישראל וחו"ל. נכון למאי 2026.</p>
           <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge new">חדש</span></div>
         </div>
       </a>
-
       <a href="/investment/ira-investment-rules/" class="article-card">
         <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
           <div class="ac-category pension">מאמרי פנסיה · IRA</div>
           <h4>כללי ההשקעה ב-IRA — מה מותר ומה אסור</h4>
-          <p>מגבלות ריכוז, ניירות ערך מותרים, מגבלת כסף פנסיוני — הכל לפי תקנות 2009.</p>
+          <p>מגבלות ריכוז, ניירות ערך מותרים, מגבלת כסף פנסיוני — כל הרגולציה בשפה פשוטה.</p>
           <div class="ac-meta"><span>7 דק'</span></div>
         </div>
       </a>
-
-      <a href="/savings/hisachon-layeled/" class="article-card">
-        <div class="article-card-thumb savings"></div>
+      <a href="/about/license/" class="article-card">
+        <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
-          <div class="ac-category savings">מאמרי חיסכון</div>
-          <h4>חיסכון לכל ילד: המדריך המלא לבחירה נכונה</h4>
-          <p>58 ₪ בחודש מביטוח לאומי — בנק או קופת גמל? ההבדל בין 12,500 ₪ ל-30,000 ₪.</p>
-          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+          <div class="ac-category pension">מאמרי פנסיה · רגולציה</div>
+          <h4>רישיון יועץ פנסיוני: הנכס הכי חשוב שלך</h4>
+          <p>4 חובות חוקיות שמגנות עליך, ולמה הרישיון שווה מאות אלפי שקלים.</p>
+          <div class="ac-meta"><span>8 דק'</span></div>
         </div>
       </a>
-
-      <a href="/savings/keren-kaspit/" class="article-card">
-        <div class="article-card-thumb savings"></div>
+      <a href="/about/recommended-advisor/" class="article-card">
+        <div class="article-card-thumb pension"></div>
         <div class="article-card-body">
-          <div class="ac-category savings">מאמרי חיסכון</div>
-          <h4>קרן כספית: תשואה, מס, וקנייה צעד-צעד</h4>
-          <p>הכלי הנכון לכסף נזיל — למה היא עדיפה לרוב על פיקדון, ואיך קונים בעצמכם.</p>
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>יועץ פנסיוני מומלץ: איך לבחור נכון</h4>
+          <p>5 קריטריונים, 5 סימני אזהרה, והשאלה שחובה לשאול לפני כל פגישה.</p>
           <div class="ac-meta"><span>9 דק'</span></div>
+        </div>
+      </a>
+      <a href="/about/pricing/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">מאמרי פנסיה</div>
+          <h4>כמה עולה ייעוץ פנסיוני? מחירון שקוף</h4>
+          <p>המחיר האמיתי של ייעוץ "בחינם" לעומת ייעוץ אובייקטיבי — ה-ROI מדבר בעד עצמו.</p>
+          <div class="ac-meta"><span>7 דק'</span></div>
         </div>
       </a>
 
@@ -1108,48 +1109,91 @@ textarea:focus-visible,
         <div class="article-card-body">
           <div class="ac-category insurance">מאמרי ביטוחים</div>
           <h4>יועץ, מתכנן או סוכן? חשיפת "מסך העשן"</h4>
-          <p>כולם נשמעים סמכותיים, אבל רק אחד עובד אצלך. מדריך להבחנה ולאיתור המי.</p>
+          <p>כולם נשמעים סמכותיים, אבל רק אחד עובד אצלך. המדריך המלא להבחנה.</p>
           <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
         </div>
       </a>
-
-      <a href="/about/license/" class="article-card">
-        <div class="article-card-thumb pension"></div>
+      <a href="#bituach-chaim" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
         <div class="article-card-body">
-          <div class="ac-category pension">מאמרי פנסיה · רגולציה</div>
-          <h4>רישיון יועץ פנסיוני: הנכס הכי חשוב שלך</h4>
-          <p>מה זה רישיון, מה הרגולציה דורשת, ולמה 4 חובות חוקיות מגנות עליך על מאות אלפי שקלים.</p>
-          <div class="ac-meta"><span>8 דק'</span></div>
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח חיים: כמה אתה באמת צריך?</h4>
+          <p>מחשבון הצורך בביטוח חיים — לפי גיל, משכנתא, ילדים, והכנסה. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#akev" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח אובדן כושר עבודה — המדריך המלא</h4>
+          <p>כיסוי, תקופת המתנה, "מקצועי" לעומת "כל עיסוק" — מה חשוב לדעת לפני שקונים. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#bituach-briut" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb insurance"></div>
+        <div class="article-card-body">
+          <div class="ac-category insurance">מאמרי ביטוחים · בקרוב</div>
+          <h4>ביטוח בריאות: מה כולל, מה כדאי, ומה מיותר</h4>
+          <p>קופת חולים לעומת ביטוח פרטי — מה מכסה מה, ואיפה נשחק כסף לשווא. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
         </div>
       </a>
 
-      <a href="/about/recommended-advisor/" class="article-card">
-        <div class="article-card-thumb pension"></div>
+      <a href="/savings/hisachon-layeled/" class="article-card">
+        <div class="article-card-thumb savings"></div>
         <div class="article-card-body">
-          <div class="ac-category pension">מאמרי פנסיה</div>
-          <h4>יועץ פנסיוני מומלץ: איך לבחור נכון</h4>
-          <p>5 קריטריונים, 5 סימני אזהרה, והשאלה שחובה לשאול בטלפון לפני כל פגישה.</p>
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>חיסכון לכל ילד: המדריך לבחירה נכונה</h4>
+          <p>58 ₪ בחודש — בנק או קופת גמל? ההבדל בין 12,500 ₪ ל-30,000 ₪ בגיל 18.</p>
+          <div class="ac-meta"><span>8 דק'</span><span>·</span><span class="ac-badge popular">פופולרי</span></div>
+        </div>
+      </a>
+      <a href="/savings/keren-kaspit/" class="article-card">
+        <div class="article-card-thumb savings"></div>
+        <div class="article-card-body">
+          <div class="ac-category savings">מאמרי חיסכון</div>
+          <h4>קרן כספית: תשואה, מס, וקנייה צעד-צעד</h4>
+          <p>הכלי הנכון לכסף נזיל — יתרונות מס לעומת פיקדון, ואיך קונים בבנק בחינם.</p>
           <div class="ac-meta"><span>9 דק'</span></div>
         </div>
       </a>
-
-      <a href="/about/pricing/" class="article-card">
-        <div class="article-card-thumb pension"></div>
+      <a href="#gemel-hashkaa" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb savings"></div>
         <div class="article-card-body">
-          <div class="ac-category pension">מאמרי פנסיה</div>
-          <h4>כמה עולה ייעוץ פנסיוני? מחירון שקוף</h4>
-          <p>המחיר של אובייקטיביות — ו-ROI שמסביר למה ייעוץ בתשלום זול פי 10 מה"חינם".</p>
-          <div class="ac-meta"><span>7 דק'</span><span>·</span><span class="ac-badge new">חדש</span></div>
+          <div class="ac-category savings">מאמרי חיסכון · בקרוב</div>
+          <h4>קופת גמל להשקעה: הכלי הגמיש ביותר</h4>
+          <p>מה זה, מי צריך, ולמה יש להרחיק מהלוואות דרך קופת גמל. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
         </div>
       </a>
 
-      <a href="/about/" class="article-card">
-        <div class="article-card-thumb pension"></div>
+      <a href="#mashkanta-maslul" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
         <div class="article-card-body">
-          <div class="ac-category pension">מאמרי פנסיה · אודות</div>
-          <h4>מי הוא יועץ פנסיוני ולמה הוא פרש מהבנק</h4>
-          <p>הסיפור של איתן אחיטוב — מעמדת שמירה עם ספרי כלכלה ועד רישיון נדיר ממשרד האוצר.</p>
-          <div class="ac-meta"><span>8 דק'</span></div>
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>מסלולי משכנתא — מה ההבדל ומה עדיף?</h4>
+          <p>ריבית קבועה לעומת משתנה, מסלולי צמוד לעומת לא-צמוד — המדריך המקיף. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#mashkanta-mixum" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>מיחזור משכנתא — מתי כדאי ומתי לא?</h4>
+          <p>חישוב עלות-תועלת של מיחזור, מתי הריבית הנוכחית מצדיקה את העמלה. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
+        </div>
+      </a>
+      <a href="#mashkanta-pension" class="article-card" style="cursor:default; opacity:.7;">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">מאמרי משכנתאות · בקרוב</div>
+          <h4>משכנתא ופנסיה — הקשר שרובנו מתעלמים ממנו</h4>
+          <p>איך גובה ההחזר החודשי משפיע על יכולת ההפקדה לפנסיה — ואיך לאזן נכון. בקרוב.</p>
+          <div class="ac-meta"><span>בקרוב</span></div>
         </div>
       </a>
     </div>
@@ -1340,6 +1384,37 @@ textarea:focus-visible,
         </div>
       </a>
     </div>
+
+    <!-- LECTURES ONLY -->
+    <div id="tab-lectures" class="articles-grid" style="display:none;">
+      <a href="/articles/lectures/die-with-zero/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">הרצאה · פנסיה והשקעות</div>
+          <h4>למות בלי שקל (Die with Zero)</h4>
+          <p>על הספר של ביל פרקינס: כסף שלא מוציאים הוא שעות חיים שהשחתם. מתי ה"שנים הזהובות" האמיתיות?</p>
+          <div class="ac-meta"><span>כ-20 דק'</span><span>·</span><span class="ac-badge popular">כולל וידאו</span></div>
+        </div>
+      </a>
+      <a href="/articles/lectures/index-investing-deep-dive/" class="article-card">
+        <div class="article-card-thumb pension"></div>
+        <div class="article-card-body">
+          <div class="ac-category pension">הרצאה · השקעות</div>
+          <h4>המדריך הביקורתי להשקעה במדדים</h4>
+          <p>למה 90% מהמשקיעים לא נהנים מתשואת המדד? ריכוזיות, ניתוח סטטיסטי, ומבחנים פסיכולוגיים.</p>
+          <div class="ac-meta"><span>כ-25 דק'</span></div>
+        </div>
+      </a>
+      <a href="/articles/lectures/israel-housing-2026/" class="article-card">
+        <div class="article-card-thumb mortgage"></div>
+        <div class="article-card-body">
+          <div class="ac-category mortgage">הרצאה · נדל"ן</div>
+          <h4>שוק הדיור בישראל 2026</h4>
+          <p>ניתוח מקרו של שוק הנדל"ן: ירידת ביקושים, מלאי קבלנים בשיא, מבצעי 10/90, ועיוות מדד הלמ"ס.</p>
+          <div class="ac-meta"><span>כ-20 דק'</span><span>·</span><span class="ac-badge popular">כולל וידאו</span></div>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1394,7 +1469,78 @@ textarea:focus-visible,
     <div class="section-header-row">
       <div class="section-header" style="margin-bottom:0;">
         <span class="section-eyebrow">מאמרי ביטוחים</span>
-        <h2>ביטוח חיים, אכ"ע, בריאות, ונכות</h
+        <h2>ביטוח חיים, אכ"ע, בריאות, ונכות</h2>
+        <p>הביטוחים שמגנים על ההכנסה ועל המשפחה — כמה באמת צריך, ואיפה משלמים על כיסוי מיותר.</p>
+      </div>
+      <a href="/insurance/" class="see-all">לכל מאמרי הביטוחים ←</a>
+    </div>
+
+    <div class="cat-grid-2">
+      <a href="/about/advisor-vs-planner-vs-agent/" class="cat-card">
+        <div class="cc-tag">מאמרי ביטוחים · אובייקטיביות</div>
+        <h4>יועץ, מתכנן או סוכן? חשיפת "מסך העשן"</h4>
+        <p>כולם נשמעים סמכותיים, אבל רק אחד עובד אצלך — ולא מהעמלות. המדריך המלא להבחנה.</p>
+        <div class="cc-meta">8 דק' קריאה · פופולרי</div>
+      </a>
+      <a href="#bituach-chaim" class="cat-card" style="opacity:.7;">
+        <div class="cc-tag">מאמרי ביטוחים · בקרוב</div>
+        <h4>ביטוח חיים: כמה אתה באמת צריך?</h4>
+        <p>מחשבון הצורך בביטוח חיים — לפי גיל, משכנתא, ילדים והכנסה. בקרוב.</p>
+        <div class="cc-meta">בקרוב</div>
+      </a>
+      <a href="#akev" class="cat-card" style="opacity:.7;">
+        <div class="cc-tag">מאמרי ביטוחים · בקרוב</div>
+        <h4>ביטוח אובדן כושר עבודה — המדריך המלא</h4>
+        <p>כיסוי, תקופת המתנה, "מקצועי" לעומת "כל עיסוק" — מה חשוב לדעת לפני שקונים. בקרוב.</p>
+        <div class="cc-meta">בקרוב</div>
+      </a>
+      <a href="#bituach-briut" class="cat-card" style="opacity:.7;">
+        <div class="cc-tag">מאמרי ביטוחים · בקרוב</div>
+        <h4>ביטוח בריאות: מה כולל, מה כדאי, ומה מיותר</h4>
+        <p>קופת חולים לעומת ביטוח פרטי — מה מכסה מה, ואיפה נשחק כסף לשווא. בקרוב.</p>
+        <div class="cc-meta">בקרוב</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     הרצאות מומלצות — סקציה
+     ========================================================= -->
+<section class="category-section" id="lectures-section">
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-header" style="margin-bottom:0;">
+        <span class="section-eyebrow">הרצאות מומלצות</span>
+        <h2>סיכומים של ההרצאות הכי שוות בעולם הכסף</h2>
+        <p>צפייה בהרצאה שלמה לוקחת שעה. הסיכומים כאן נותנים לך את העיקר בקריאה של 20 דקות — כולל וידאו.</p>
+      </div>
+      <a href="/articles/lectures/" class="see-all">לכל ההרצאות ←</a>
+    </div>
+
+    <div class="cat-grid-2">
+      <a href="/articles/lectures/die-with-zero/" class="cat-card">
+        <div class="cc-tag">הרצאה · פנסיה והשקעות</div>
+        <h4>למות בלי שקל (Die with Zero)</h4>
+        <p>על הספר של ביל פרקינס: כסף שלא מוציאים הוא שעות חיים שהשחתם. מתי ה"שנים הזהובות", וירושה חכמה.</p>
+        <div class="cc-meta">כ-20 דק' קריאה · כולל וידאו</div>
+      </a>
+      <a href="/articles/lectures/index-investing-deep-dive/" class="cat-card">
+        <div class="cc-tag">הרצאה · השקעות</div>
+        <h4>המדריך הביקורתי להשקעה במדדים</h4>
+        <p>למה 90% מהמשקיעים לא נהנים מתשואת המדד? ריכוזיות S&amp;P 500, ניתוח 1,722 עשורים, ומבחנים פסיכולוגיים.</p>
+        <div class="cc-meta">כ-25 דק' קריאה · אסף נתן</div>
+      </a>
+      <a href="/articles/lectures/israel-housing-2026/" class="cat-card">
+        <div class="cc-tag">הרצאה · נדל"ן</div>
+        <h4>שוק הדיור בישראל 2026</h4>
+        <p>ניתוח מקרו של שוק הנדל"ן: ירידת ביקושים, מלאי קבלנים בשיא, מבצעי 10/90, ועיוות מדד הלמ"ס.</p>
+        <div class="cc-meta">כ-20 דק' קריאה · מתן שטרית</div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="related-links-section" id="related">
   <div class="container">
     <div class="eyebrow">קריאה נוספת</div>
@@ -1433,7 +1579,7 @@ textarea:focus-visible,
 
 <script>
 function switchTab(name, btn){
-  ['all','pension','insurance','savings','mortgage'].forEach(function(t){
+  ['all','pension','insurance','savings','mortgage','lectures'].forEach(function(t){
     var panel = document.getElementById('tab-' + t);
     if (panel) panel.style.display = (t === name) ? '' : 'none';
   });
