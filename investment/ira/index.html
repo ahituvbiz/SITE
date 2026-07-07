@@ -1692,7 +1692,7 @@ textarea:focus-visible,
       <a href="/">בית</a>
       <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
       <a href="#" class="active">IRA</a>
-      <a href="/services/">שירותים</a>
+      <a href="/#audiences">שירותים</a>
       <a href="/tools/">מחשבונים</a>
       <a href="/articles/">כדאי לדעת</a>
       <a href="/about/">אודות</a>
@@ -2059,7 +2059,7 @@ textarea:focus-visible,
     <div class="threshold-rules">
       <h4>הכללים</h4>
       <ul>
-        <li><strong>סך הצבירה</strong> בקופת גמל וב<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> יחד - לפחות <strong>75,000 ₪</strong>.</li>
+        <li><strong>סך הצבירה</strong> בקופת גמל ובקרן השתלמות יחד - לפחות <strong>75,000 ₪</strong>.</li>
         <li><strong>בכל מוצר שאתה מנייד</strong> בנפרד (גמל / השתלמות) - לפחות <strong>30,000 ₪</strong>.</li>
         <li>אם רק אחד מהמוצרים מנוייד - הוא לבדו חייב להגיע ל-75,000 ₪.</li>
       </ul>
@@ -2524,12 +2524,12 @@ textarea:focus-visible,
         </div>
       </details>
       <details class="faq-item">
-        <summary>האם ניתן לפתוח קופת <a href="/savings/gamal-lehashkaa/">גמל להשקעה</a> ב-IRA?</summary>
+        <summary>האם ניתן לפתוח קופת גמל להשקעה ב-IRA?</summary>
         <div class="faq-body">
           לא. בהתאם לתקנות משרד האוצר ניתן לפתוח רק קרנות השתלמות וקופות גמל פנסיוניות.
-          יחד עם זאת, עצמאי שיש לו <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> ב-IRA יכול להפקיד אליה גם כספים מעל לתקרה שמקנה פטור ממס רווחי הון -
-          והכספים האלו יתנהלו למעשה כמו כספים של <a href="/savings/gamal-lehashkaa/">גמל להשקעה</a> מבחינה מיסויית.
-          יחד עם זאת, אם קרן ההשתלמות לא נזילה, בשונה מ<a href="/savings/gamal-lehashkaa/">גמל להשקעה</a>, הכספים ייהפכו ללא נזילים עד שהקרן תהפוך לנזילה בתום 6 שנים לפתיחתה.
+          יחד עם זאת, עצמאי שיש לו קרן השתלמות ב-IRA יכול להפקיד אליה גם כספים מעל לתקרה שמקנה פטור ממס רווחי הון -
+          והכספים האלו יתנהלו למעשה כמו כספים של גמל להשקעה מבחינה מיסויית.
+          יחד עם זאת, אם קרן ההשתלמות לא נזילה, בשונה מגמל להשקעה, הכספים ייהפכו ללא נזילים עד שהקרן תהפוך לנזילה בתום 6 שנים לפתיחתה.
         </div>
       </details>
 
@@ -3032,20 +3032,78 @@ function prevStep() {
 function restartWizard() {
   currentStep = 1;
   Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
-  document.getElementById('a
+  document.getElementById('amount-gemel').value = 0;
+  document.getElementById('amount-keren').value = '';
+  document.getElementById('monthly-deposit').value = '';
+  document.getElementById('total-display').textContent = 'סה"כ: ₪0';
+  document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
+  document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
+  document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
+  document.getElementById('result-card').classList.remove('show');
+  document.getElementById('wizard-steps').style.display = 'block';
+  clearError();
+  updateUI();
+}
+
+// ============================================================
+// EVENT LISTENERS - runs immediately since script is at end of body
+// ============================================================
+(function init() {
+  const g = document.getElementById('amount-gemel');
+  const k = document.getElementById('amount-keren');
+  function updateTotal() {
+    const tot = (parseFloat(g.value)||0) + (parseFloat(k.value)||0);
+    document.getElementById('total-display').textContent = 'סה"כ: ' + formatIls(tot);
+  }
+  g.addEventListener('input', updateTotal);
+  k.addEventListener('input', updateTotal);
+  // Clear leading 0 on focus
+  [g, k, document.getElementById('monthly-deposit')].forEach(function(el) {
+    el.addEventListener('focus', function() {
+      if (el.value === '0' || el.value === 0) el.value = '';
+    });
+    el.addEventListener('blur', function() {
+      if (el.value === '' || isNaN(parseFloat(el.value))) el.value = '0';
+    });
+  });
+  updateUI();
+})();
+</script>
+
+<!-- Hamburger menu -->
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav');
+  var overlay = document.getElementById('nav-overlay');
+  if (!btn || !nav) return;
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    if (overlay) overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
 <script src="/search.js"></script>
 <!-- Unified site footer -->
 <footer class="site-footer" role="contentinfo">
   <div class="sf-inner">
     <div class="sf-grid">
       <div class="sf-brand">
-        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+        <a href="/" class="logo-footer" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי">
           <div class="logo-name">אחיטוב</div>
           <div class="logo-divider"></div>
           <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
           <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
         </a>
-        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+        <p>איתן אחיטוב — יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות — ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>
       <div>
         <h4>מוצרי השקעה</h4>
