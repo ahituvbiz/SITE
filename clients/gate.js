@@ -1,4 +1,4 @@
-// gate.js — v5 | tag-based personalized content + insurance tab
+// gate.js — v6 | tag-based personalized content + insurance tab
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -206,14 +206,21 @@ var INSURANCE_HTML_DEFAULT =
   '</div></div>' +
   '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
   '<div class="container">' +
-  '<div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;font-size:17px;line-height:1.9;">' +
-  'ייעוץ על ביטוחים מקבלים רק ממי ש<strong>לא מרוויח שקל ממכירת פוליסה ולא מפסיד שקל אם תבטל אותה</strong> — יועץ נטול כל פנייה.<br><br>' +
-  'מוזמן לפנות אלינו לייעוץ.' +
+  '<div class="intro-note" style="max-width:640px;margin:0 auto;font-size:17px;line-height:1.9;">' +
+  '<p style="font-size:23px;font-weight:800;color:var(--primary);margin-bottom:18px;text-align:center;">"בדיקת ביטוחים בחינם"</p>' +
+  '<p style="margin-bottom:16px;">בטח נתקלת בפרסום של שירות כזה עשרות פעמים לפחות.</p>' +
+  '<p style="margin-bottom:16px;">תחשוב שאתה דג, ואתה רואה על שפת הנחל שני אנשים.<br>' +
+  'האחד מחזיק ברישיון \'אופה\', והוא מוכר לדגים את הלחם. השני מחלק לדגים לחם <strong>בחינם</strong>. ' +
+  'המודל העסקי שלו הוא לקבל כסף ממסעדות דגים... בכיס יש לו רישיון סוכן — אבל אתה מבין למי הוא מוכר.</p>' +
+  '<p style="margin-bottom:16px;">וכבר הבנת שעל ביטוח אסור להתייעץ עם מי שירוויח יותר אם תקנה יותר ביטוחים. ' +
+  'גם החוק מבין את זה — ואוסר עליו לייעץ. הוא איש מכירות.</p>' +
+  '<p style="margin-bottom:0;">ואם אתה לא רוצה שימכרו אותך למסעדת דגים — בוא לייעוץ. ' +
+  'שלם על הלחם, ותהיה רגוע שלא מכרו אותך.</p>' +
   '</div>' +
   '<div style="text-align:center;margin:32px auto 0;">' +
-  '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +
-  'padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
-  '💬 דברו איתנו בוואטסאפ' +
+  '<a href="https://wa.me/972527700599" style="display:inline-block;background:#25D366;color:#fff;' +
+  'padding:14px 34px;border-radius:8px;font-weight:700;font-size:16px;text-decoration:none;">' +
+  '💬 פנה אלינו בוואטסאפ' +
   '</a>' +
   '</div>' +
   '</div></div>';
