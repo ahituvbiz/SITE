@@ -381,8 +381,43 @@ section.tight { padding: var(--s-2xl) 0; }
 }
 .results-tab:hover { color: var(--primary); }
 .results-tab.active { color: var(--primary); border-bottom-color: var(--cta); }
-.results-panel { display: none; }
+/* Stacked panels (no tabs) - each parameter shown one below the other */
+.results-panel { display: block; margin-bottom: var(--s-lg); }
 .results-panel.active { display: block; }
+.panel-heading {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+.panel-heading:first-of-type { margin-top: 8px; }
+
+/* Advisor-vs-bot comparison table (bottom of analysis) */
+.advisor-compare-wrap { margin: 40px 0 8px; }
+.advisor-compare-wrap h3 { font-size: 20px; margin: 0 0 6px; color: var(--text-1); }
+.advisor-compare-wrap p.compare-sub { color: var(--text-2); font-size: 15px; margin: 0 0 16px; line-height: 1.6; }
+.advisor-compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--border); }
+.advisor-compare { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; background: #fff; }
+.advisor-compare th, .advisor-compare td {
+  padding: 12px 14px;
+  text-align: right;
+  vertical-align: top;
+  line-height: 1.55;
+  border-bottom: 1px solid var(--border);
+}
+.advisor-compare thead th {
+  font-size: 15px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg-cream);
+}
+.advisor-compare thead th.col-advisor { background: #E8F1E8; }
+.advisor-compare th.row-label { font-weight: 700; color: var(--text-1); white-space: nowrap; }
+.advisor-compare td.col-bot { color: var(--text-2); }
+.advisor-compare td.col-advisor { color: var(--text-1); background: #F3F8F3; font-weight: 500; }
+.advisor-compare tbody tr:last-child td { border-bottom: none; }
 
 /* Result blocks */
 .result-summary {
@@ -950,19 +985,13 @@ textarea:focus-visible,
       <!-- Step 4: Results -->
       <div class="step-page" data-page="4">
         <h2>הניתוח שלך</h2>
-        <p class="step-sub">לחץ על כל אחד מהפרמטרים כדי לראות את הניתוח המלא.</p>
+        <p class="step-sub">הניתוח המלא של ארבעת הפרמטרים בקרן הפנסיה שלך:</p>
 
         <!-- הסבר pension_at_67 - מוצג אם הבקאנד מחזיר ערך -->
         <div id="pension-at-67-note" style="display:none; margin-bottom:16px;"></div>
 
-        <div class="results-tabs" id="results-tabs">
-          <button class="results-tab active" data-tab="deposits">💰 הפקדות</button>
-          <button class="results-tab" data-tab="insurance">🛡️ ביטוחים</button>
-          <button class="results-tab" data-tab="fees">📊 דמי ניהול</button>
-          <button class="results-tab" data-tab="investment">📈 מסלול השקעה</button>
-        </div>
-
         <!-- Deposits -->
+        <h3 class="panel-heading">💰 הפקדות</h3>
         <div class="results-panel active" data-panel="deposits">
           <div class="result-summary">
             <div class="result-summary-row"><span class="label">תקופת דוח</span><span class="value">2024 (כל השנה)</span></div>
@@ -990,6 +1019,7 @@ textarea:focus-visible,
         </div>
 
         <!-- Insurance -->
+        <h3 class="panel-heading">🛡️ ביטוחים</h3>
         <div class="results-panel" data-panel="insurance">
           <div class="result-summary">
             <div class="result-summary-row"><span class="label">קצבת שארים חודשית</span><span class="value">8,700 ₪</span></div>
@@ -1005,6 +1035,7 @@ textarea:focus-visible,
         </div>
 
         <!-- Fees -->
+        <h3 class="panel-heading">📊 דמי ניהול</h3>
         <div class="results-panel" data-panel="fees">
           <div class="result-summary">
             <div class="result-summary-row"><span class="label">דמי ניהול מהפקדה</span><span class="value">3.5%</span></div>
@@ -1039,6 +1070,7 @@ textarea:focus-visible,
         </div>
 
         <!-- Investment -->
+        <h3 class="panel-heading">📈 מסלול השקעה</h3>
         <div class="results-panel" data-panel="investment">
           <div class="result-summary">
             <div class="result-summary-row"><span class="label">מסלול נוכחי</span><span class="value">ברירת מחדל - מודל גיל</span></div>
@@ -1050,6 +1082,75 @@ textarea:focus-visible,
           </div>
           <div class="result-callout positive">
             <strong>הקרן שלך מאפשרת בחירת מסלול.</strong> ניתן לבצע ההחלפה דרך האזור האישי בקרן או דרך יועץ פנסיוני.
+          </div>
+        </div>
+
+        <!-- Advisor-vs-bot comparison (shown only after analysis) -->
+        <div class="advisor-compare-wrap">
+          <h3>מה הבוט נתן לך — ומה עוד אפשר לקבל</h3>
+          <p class="compare-sub">רובייקטיבי ניתח את קרן הפנסיה המקיפה שלך ונתן תמונה ראשונית ואובייקטיבית. אבל פנסיה היא עולם רחב יותר — הנה מה שרק יועץ פנסיוני מורשה יכול לעשות עבורך:</p>
+          <div class="advisor-compare-scroll">
+            <table class="advisor-compare">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="col-bot">🤖 רובייקטיבי (הבוט)</th>
+                  <th class="col-advisor">👤 ייעוץ פנסיוני מלא</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="row-label">היקף הבדיקה</th>
+                  <td class="col-bot">קרן פנסיה מקיפה בלבד</td>
+                  <td class="col-advisor">כל המוצרים: ביטוח מנהלים, קופות גמל, קרן פנסיה משלימה, קרנות השתלמות וגמל להשקעה</td>
+                </tr>
+                <tr>
+                  <th class="row-label">גילוי קרנות נוספות</th>
+                  <td class="col-bot">לא בודק את המסלקה הפנסיונית ולא יכול לגלות קרנות פנסיה נוספות שיש לך</td>
+                  <td class="col-advisor">בדיקת המסלקה הפנסיונית — גילוי כל החסכונות הפנסיוניים שברשותך</td>
+                </tr>
+                <tr>
+                  <th class="row-label">המלצת קרן</th>
+                  <td class="col-bot">לא ממליץ על קרן פנסיה ספציפית</td>
+                  <td class="col-advisor">השוואת קרנות והמלצה מנומקת בהתאם לצרכים שלך</td>
+                </tr>
+                <tr>
+                  <th class="row-label">הקצאת השקעות</th>
+                  <td class="col-bot">מצביע על כיוון כללי בלבד, לא ממליץ על אחוזי הקצאה בין מסלולים</td>
+                  <td class="col-advisor">המלצה מדויקת על הרכב ההשקעות בהתאם לגיל, טווח השקעה וסיבולת סיכון</td>
+                </tr>
+                <tr>
+                  <th class="row-label">הוזלת דמי ניהול</th>
+                  <td class="col-bot">מציג מה אתה משלם ומה ניתן להשיג — אבל לא פונה בעצמו לקרן</td>
+                  <td class="col-advisor">מנהל את המשא ומתן מול הקרן ומשיג את ההוזלה בפועל</td>
+                </tr>
+                <tr>
+                  <th class="row-label">ביטוחים חיצוניים</th>
+                  <td class="col-bot">לא מתייחס לביטוחי חיים, בריאות וסיעוד שאינם חלק מהקרן</td>
+                  <td class="col-advisor">בחינה מקיפה של כל מערך הביטוחים וזיהוי כפילויות או פערים</td>
+                </tr>
+                <tr>
+                  <th class="row-label">תמונה כלכלית מלאה</th>
+                  <td class="col-bot">לא מכיר את המצב הכלכלי הכולל שלך</td>
+                  <td class="col-advisor">בחינה של התמונה המלאה: הכנסות, הוצאות, נכסים והתחייבויות</td>
+                </tr>
+                <tr>
+                  <th class="row-label">הפקדות וחיסכון</th>
+                  <td class="col-bot">לא ממליץ כמה להפקיד — לא לעצמאים ולא לשכירים המעוניינים להפקיד מעבר לחובה</td>
+                  <td class="col-advisor">גזירת סכום ההפקדה המיטבי בהתחשב בהכנסה, בהטבות המס ובמטרות החיסכון</td>
+                </tr>
+                <tr>
+                  <th class="row-label">מעקב ועדכון</th>
+                  <td class="col-bot">ניתוח חד-פעמי. לא מתריע על שינויים ולא עוקב אם ההמלצות בוצעו</td>
+                  <td class="col-advisor">ליווי שוטף, התראות על שינויים נדרשים ובדיקה שהפעולות בוצעו בפועל</td>
+                </tr>
+                <tr>
+                  <th class="row-label">מחיר</th>
+                  <td class="col-bot">חינם</td>
+                  <td class="col-advisor">בתשלום</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
