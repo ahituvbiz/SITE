@@ -120,9 +120,49 @@ var PROMO_HTML =
 
 var PROMO_SECTION = { tagName: 'פתיחת תיק השקעות', html: PROMO_HTML };
 
+// טאב זיכוי על תרומות — מוצג לכל הלקוחות
+var DONATIONS_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · זכויות מס</div>' +
+  '<h1>זיכוי במס על תרומות</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream);padding:40px 0 60px;">' +
+  '<div class="container">' +
+  '<div class="intro-note" style="max-width:680px;margin:0 auto;">' +
+  'אם אתה שכיר שמשלם מס הכנסה ותורם לעמותות בעלות אישור לפי <strong>סעיף 46</strong>, ' +
+  'מגיע לך זיכוי במס על התרומה. במקום להגיש בקשה להחזר מס בסוף השנה, אפשר להגדיר באזור האישי ' +
+  'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך.' +
+  '</div>' +
+  '<div class="intro-note" style="max-width:680px;margin:20px auto 0;">' +
+  'הקובץ המצורף מסביר שלב אחר שלב איך לעשות את זה.' +
+  '</div>' +
+  '<div style="text-align:center;margin:32px auto 0;">' +
+  '<a href="/clients/files/zikui-trumot.pdf" target="_blank" rel="noopener" ' +
+  'style="display:inline-block;background:var(--primary);color:#fff;padding:14px 32px;' +
+  'border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
+  '📄 פתיחת המדריך (PDF)' +
+  '</a>' +
+  '</div>' +
+  '<div style="max-width:680px;margin:32px auto 0;">' +
+  '<object data="/clients/files/zikui-trumot.pdf" type="application/pdf" ' +
+  'style="width:100%;height:560px;border:1px solid #e0dccf;border-radius:8px;">' +
+  '<p style="text-align:center;padding:20px;color:var(--text-meta);">' +
+  'לא ניתן להציג את הקובץ כאן — ' +
+  '<a href="/clients/files/zikui-trumot.pdf" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">לחץ לפתיחת המדריך</a>.' +
+  '</p></object>' +
+  '</div>' +
+  '<div class="intro-note" style="max-width:680px;margin:28px auto 0;">' +
+  'למידע נוסף באתר רשות המיסים: ' +
+  '<a href="https://www.gov.il/he/pages/tax-credit-for-donations-to-individuals" target="_blank" rel="noopener" ' +
+  'style="color:var(--primary);font-weight:600;">זיכוי ממס בגין תרומות</a>.' +
+  '</div>' +
+  '</div></div>';
+
+var DONATIONS_SECTION = { tagName: 'זיכוי על תרומות', html: DONATIONS_HTML };
+
 function buildSections(data) {
   if (data.sections && data.sections.length > 0) {
-    return Promise.resolve(data.sections);
+    return Promise.resolve(data.sections.concat([DONATIONS_SECTION]));
   }
 
   var tagList = data.tags && data.tags.length > 0 ? data.tags : null;
@@ -145,6 +185,7 @@ function buildSections(data) {
     if (!hasPortfolio) {
       sections.push(PROMO_SECTION);
     }
+    sections.push(DONATIONS_SECTION);
     return sections;
   });
 }
