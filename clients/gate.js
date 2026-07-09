@@ -141,7 +141,7 @@ var DONATIONS_HTML =
   '<div class="intro-note" style="max-width:720px;margin:0 auto;font-size:19px;line-height:1.9;">' +
   'אם אתה שכיר שמשלם מס הכנסה ותורם לעמותות בעלות אישור לפי <strong>סעיף 46</strong>, ' +
   'מגיע לך זיכוי במס על התרומה. במקום להגיש בקשה להחזר מס בסוף השנה, אפשר להגדיר באזור האישי ' +
-  'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך. ' +
+  'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך.<br><br>' +
   'למידע נוסף באתר רשות המיסים: ' +
   '<a href="https://www.gov.il/he/pages/tax-credit-for-donations-to-individuals" target="_blank" rel="noopener" ' +
   'style="color:var(--primary);font-weight:600;">זיכוי ממס בגין תרומות</a>.' +
