@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>פותח וואטסאפ…</title>
+<style>
+  html,body{height:100%;margin:0}
+  body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:#f6f7f9;color:#111;
+       display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .card{max-width:420px;width:100%}
+  .dot{font-size:44px;margin-bottom:8px}
+  h1{font-size:20px;margin:0 0 6px}
+  p{font-size:15px;color:#555;margin:0 0 20px}
+  a.btn{display:inline-block;background:#25D366;color:#fff;text-decoration:none;
+        font-size:17px;font-weight:600;padding:13px 26px;border-radius:10px}
+  a.small{display:block;margin-top:16px;color:#888;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="dot">💬</div>
+    <h1>פותח וואטסאפ…</h1>
+    <p>אם השיחה לא נפתחה תוך שנייה, לחץ על הכפתור.</p>
+    <a id="go" class="btn" href="#">פתח את השיחה</a>
+    <a id="web" class="small" href="#">לא עבד? נסה דרך הדפדפן</a>
+  </div>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var phone = (q.get('phone') || '').replace(/[^0-9]/g, '');
+  var text  = q.get('text') || '';
+  var enc   = text ? '&text=' + encodeURIComponent(text) : '';
+  var appUrl = 'whatsapp://send?phone=' + phone + enc;
+  var webUrl = 'https://wa.me/' + phone + (text ? '?text=' + encodeURIComponent(text) : '');
+  var go  = document.getElementById('go');
+  var web = document.getElementById('web');
+  go.href  = appUrl;
+  web.href = webUrl;
+  if (!phone) { go.textContent = 'חסר מספר טלפון'; return; }
+  try { window.location.href = appUrl; } catch (e) {}
+})();
+</script>
+</body>
+</html>
