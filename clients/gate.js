@@ -1,4 +1,4 @@
-// gate.js — v4 | tag-based personalized content
+// gate.js — v5 | tag-based personalized content + insurance tab
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -169,9 +169,65 @@ var DONATIONS_HTML =
 
 var DONATIONS_SECTION = { tagName: 'זיכוי על תרומות', html: DONATIONS_HTML };
 
+// טאב ביטוחים — מוצג לכל הלקוחות. תוכן מפורט למי שיש תגית "תכנון פיננסי" (#11), אחרת הודעה כללית.
+var INSURANCE_HTML_PLANNING =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · המלצות אישיות</div>' +
+  '<h1>ביטוחים</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream);padding:40px 0 60px;">' +
+  '<div class="container">' +
+  '<div style="display:flex;flex-direction:column;gap:24px;max-width:680px;margin:0 auto;">' +
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">ביטוח תרופות</div>' +
+    '<p style="margin:0;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'ההמלצה שלי היא לעשות <strong>אך ורק ביטוח תרופות שלא בסל</strong>, ולעשות את הביטוח הזה ב-<strong>AIG</strong> — ' +
+    'מכיוון שהיא הכי זולה (אין הבדל בפוליסה; כל החברות מוכרות בדיוק את אותם הכיסויים), ולפי דירוג משרד האוצר היא בעלת השירות הטוב ביותר.' +
+    '</p></div>' +
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">ביטוח סיעודי</div>' +
+    '<p style="margin:0;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'אני עדיין מעריך שהביטוח הסיעודי של קופות החולים יתבטל במוקדם או במאוחר, ויחליף אותו מודל אחר. ' +
+    'לדעתי, עבור אנשים בריאים וצעירים זה עשוי להתברר כבזבוז.' +
+    '</p></div>' +
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">ביטוח חיים</div>' +
+    '<p style="margin:0;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'אם עשיתם ביטוח חיים לפני יותר משנתיים-שלוש — מומלץ להחליף את הפוליסה בפוליסה חדשה או לחדש הנחות. ' +
+    'זה צפוי לחסוך <strong>עשרות אחוזים</strong> מהתשלום!<br><br>' +
+    'אם לא אמרתי לכם אחרת — אין לכם צורך בביטוח חיים מעבר למה שנדרש עבור המשכנתא.' +
+    '</p></div>' +
+  '</div></div></div>';
+
+var INSURANCE_HTML_DEFAULT =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · ביטוחים</div>' +
+  '<h1>ביטוחים</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
+  '<div class="container">' +
+  '<div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;font-size:17px;line-height:1.9;">' +
+  'ייעוץ על ביטוחים מקבלים רק ממי ש<strong>לא מרוויח שקל ממכירת פוליסה ולא מפסיד שקל אם תבטל אותה</strong> — יועץ נטול כל פנייה.<br><br>' +
+  'מוזמן לפנות אלינו לייעוץ.' +
+  '</div>' +
+  '<div style="text-align:center;margin:32px auto 0;">' +
+  '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +
+  'padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
+  '💬 דברו איתנו בוואטסאפ' +
+  '</a>' +
+  '</div>' +
+  '</div></div>';
+
+function buildInsuranceSection(hasTag11) {
+  return { tagName: 'ביטוחים', html: hasTag11 ? INSURANCE_HTML_PLANNING : INSURANCE_HTML_DEFAULT };
+}
+
 function buildSections(data) {
+  var hasTag11 = !!(data.tags && data.tags.some(function(t) { return t.id === 11; }));
+  var INSURANCE_SECTION = buildInsuranceSection(hasTag11);
+
   if (data.sections && data.sections.length > 0) {
-    return Promise.resolve(data.sections.concat([DONATIONS_SECTION]));
+    return Promise.resolve(data.sections.concat([INSURANCE_SECTION, DONATIONS_SECTION]));
   }
 
   var tagList = data.tags && data.tags.length > 0 ? data.tags : null;
@@ -194,6 +250,7 @@ function buildSections(data) {
     if (!hasPortfolio) {
       sections.push(PROMO_SECTION);
     }
+    sections.push(INSURANCE_SECTION);
     sections.push(DONATIONS_SECTION);
     return sections;
   });
