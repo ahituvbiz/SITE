@@ -46,7 +46,12 @@ function buildUI(sections, name) {
 
   if (sections.length === 1) {
     headerBar.innerHTML = buildWelcomeBar(name);
-    panelsDiv.innerHTML = '<div class="tab-panel tab-panel-active">' + sections[0].html + '</div>';
+    panelsDiv.innerHTML = '';
+    var only = document.createElement('div');
+    only.className = 'tab-panel tab-panel-active';
+    only.setAttribute('data-idx', 0);
+    only.innerHTML = sections[0].html;
+    panelsDiv.appendChild(only);
     wireLogout();
     return;
   }
@@ -58,9 +63,14 @@ function buildUI(sections, name) {
   headerBar.innerHTML = buildWelcomeBar(name) +
     '<nav class="tab-bar"><div class="container tab-bar-inner">' + tabBtns + '</div></nav>';
 
-  panelsDiv.innerHTML = sections.map(function(s, i) {
-    return '<div class="tab-panel' + (i === 0 ? ' tab-panel-active' : '') + '" data-idx="' + i + '">' + s.html + '</div>';
-  }).join('');
+  panelsDiv.innerHTML = '';
+  sections.forEach(function(s, i) {
+    var panel = document.createElement('div');
+    panel.className = 'tab-panel' + (i === 0 ? ' tab-panel-active' : '');
+    panel.setAttribute('data-idx', i);
+    panel.innerHTML = s.html;   // innerHTML מבודד לכל פאנל — תגית לא סגורה בפאנל אחד לא "בולעת" את הבא
+    panelsDiv.appendChild(panel);
+  });
 
   headerBar.querySelectorAll('.tab-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
