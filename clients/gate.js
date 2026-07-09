@@ -229,20 +229,52 @@ function buildInsuranceSection(hasTag11) {
   return { tagName: 'ביטוחים', html: hasTag11 ? INSURANCE_HTML_PLANNING : INSURANCE_HTML_DEFAULT };
 }
 
+// ====== עדכון המלצה: מניות ישראליות ======
+// באנר שמוצמד לראש לשונית ההשקעה/פנסיה הרלוונטית למי שקיבל בעבר המלצה על מניות ישראליות (#8 / #10 / #11)
+var ISRAELI_NOTICE_BANNER =
+  '<div style="background:#FBEEEA;border-bottom:3px solid var(--accent,#D74E3C);padding:22px 0;">' +
+  '<div class="container"><div style="max-width:900px;margin:0 auto;">' +
+  '<div style="font-size:17px;font-weight:800;color:#B23A28;margin-bottom:10px;">⚠ עדכון המלצה — מניות ישראליות</div>' +
+  '<p style="margin:0 0 10px;font-size:15px;line-height:1.8;color:#333;">בעבר המלצתי על השקעה במניות ישראליות. <strong>היום ההמלצה השתנתה</strong> — אני ממליץ <strong>שלא להשקיע</strong> בקרנות ובמסלולים שמשקיעים במניות ישראליות:</p>' +
+  '<ol style="margin:0;padding-inline-start:20px;font-size:15px;line-height:1.8;color:#333;">' +
+  '<li>מכפיל הרווח שלהן גבוה מדי — פגיעה בפוטנציאל התשואה העתידי וכן גורם סיכון.</li>' +
+  '<li>מצב הנדל"ן בארץ בעייתי מאוד, ומשבר בענף הזה יקרין גם על ענפים אחרים.</li>' +
+  '<li>התחזקות הדולר תפגע בחברות יצואניות.</li>' +
+  '</ol></div></div></div>';
+
+// לשונית "תיק השקעות" עצמאית למי שהתייעץ על ני"ע בלבד (#2) — ההודעה בלבד, ללא תיק מומלץ
+var ISRAELI_NOTICE_TAB =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · תיק השקעות</div>' +
+  '<h1>תיק השקעות</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream,#F8F6F3);padding:40px 0 60px;"><div class="container">' +
+  '<div class="portfolio-card" style="padding:28px 32px;border-right:4px solid var(--accent,#D74E3C);max-width:720px;margin:0 auto;">' +
+  '<div style="font-size:18px;font-weight:800;color:#B23A28;margin-bottom:14px;">עדכון המלצה — מניות ישראליות</div>' +
+  '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;">בעבר, כשהתייעצת איתי, המלצתי על השקעה במניות ישראליות. <strong>היום ההמלצה השתנתה</strong> — אני ממליץ שלא להשקיע בקרנות ובמסלולים שמשקיעים במניות ישראליות:</p>' +
+  '<ol style="margin:0;padding-inline-start:20px;font-size:15px;line-height:1.8;">' +
+  '<li>מכפיל הרווח שלהן גבוה מדי — פגיעה בפוטנציאל התשואה העתידי וכן גורם סיכון.</li>' +
+  '<li>מצב הנדל"ן בארץ בעייתי מאוד, ומשבר בענף הזה יקרין גם על ענפים אחרים.</li>' +
+  '<li>התחזקות הדולר תפגע בחברות יצואניות.</li>' +
+  '</ol></div></div></div>';
+
 function buildSections(data) {
-  var hasTag11 = !!(data.tags && data.tags.some(function(t) { return t.id === 11; }));
+  var origTags = (data.tags && data.tags.length > 0) ? data.tags : KNOWN_TAGS;
+  var hasTag = function(id) { return origTags.some(function(t) { return t.id === id; }); };
+  var hasTag2  = hasTag(2);
+  var hasTag8  = hasTag(8);
+  var hasTag10 = hasTag(10);
+  var hasTag11 = hasTag(11);
+
   var INSURANCE_SECTION = buildInsuranceSection(hasTag11);
 
   if (data.sections && data.sections.length > 0) {
     return Promise.resolve(data.sections.concat([INSURANCE_SECTION, DONATIONS_SECTION]));
   }
 
-  var tagList = data.tags && data.tags.length > 0 ? data.tags : null;
-  if (!tagList) tagList = KNOWN_TAGS;
+  var tagList = origTags.slice();
 
-  // מי שיש לו תגית 10 רואה גם את תוכן תגית 8
-  var hasTag10 = tagList.some(function(t) { return t.id === 10; });
-  var hasTag8  = tagList.some(function(t) { return t.id === 8; });
+  // מי שיש לו תגית 10 רואה גם את תוכן תגית 8 (לשונית IRA כהתייחסות)
   if (hasTag10 && !hasTag8) {
     tagList = tagList.concat([{ id: 8, name: 'IRA' }]);
   }
@@ -250,11 +282,29 @@ function buildSections(data) {
 
   return Promise.all(tagList.map(function(tag) {
     return fetchTagHtml(tag.id).then(function(html) {
-      return html ? { html: html, tagName: tag.name } : null;
+      return html ? { html: html, tagName: tag.name, tagId: tag.id } : null;
     });
   })).then(function(results) {
     var sections = results.filter(function(s) { return s !== null; });
-    if (!hasPortfolio) {
+
+    // הזרקת באנר "עדכון המלצה — מניות ישראליות" לראש הלשונית הרלוונטית
+    sections.forEach(function(s) {
+      if (s.tagId === 10) {
+        s.html = ISRAELI_NOTICE_BANNER + s.html;
+      } else if (s.tagId === 8 && !hasTag10) {
+        s.html = ISRAELI_NOTICE_BANNER + s.html;
+      } else if (s.tagId === 11) {
+        s.html = ISRAELI_NOTICE_BANNER + s.html;
+      }
+    });
+
+    // מי שהתייעץ על ני"ע בלבד (#2) וללא תיק/IRA — לשונית "תיק השקעות" עם ההודעה בלבד
+    var addTwoTab = hasTag2 && !hasTag10 && !hasTag8;
+    if (addTwoTab) {
+      sections.unshift({ tagName: 'תיק השקעות', html: ISRAELI_NOTICE_TAB, tagId: 2 });
+    }
+
+    if (!hasPortfolio && !addTwoTab) {
       sections.push(PROMO_SECTION);
     }
     sections.push(INSURANCE_SECTION);
