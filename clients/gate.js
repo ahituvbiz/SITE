@@ -118,8 +118,9 @@ var PROMO_HTML =
   '<div class="container">' +
   '<div class="intro-note" style="max-width:620px;margin:0 auto;text-align:center;">' +
   '<p style="font-size:17px;line-height:1.8;margin-bottom:24px;">' +
-  'רצית לפתוח תיק השקעות וחששת לעשות את זה לבד?<br>' +
-  '<strong>פנה אלינו — ונסייע לך לעשות את זה נכון.</strong>' +
+  'תיק השקעות המושקע במפוזר במניות הוא דרך מצוינת להצמיח את הכסף.<br>' +
+  'אם אתה חושש לפתוח תיק השקעות לבד ומעוניין ביד מנחה שתוביל אותך לבנות תיק מנייתי מפוזר — ' +
+  '<strong>אתה מוזמן לפנות אלינו.</strong>' +
   '</p>' +
   '<p style="font-size:14px;color:var(--text-meta);margin-bottom:32px;">השירות כרוך בתשלום</p>' +
   '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary);color:#fff;' +

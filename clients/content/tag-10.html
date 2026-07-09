@@ -1,14 +1,426 @@
 <div class="content-hero">
   <div class="container">
-    <div class="eyebrow">אזור לקוחות · תיק השקעות</div>
-    <h1>הרכב תיק השקעות</h1>
+    <div class="eyebrow">אזור לקוחות · IRA בניהול אישי</div>
+    <h1>הרכבי תיק מוצעים</h1>
   </div>
 </div>
-
-<div style="background: var(--bg-cream); padding: 40px 0 48px;">
+  <div style="background: var(--bg-cream); padding: 40px 0 0;">
   <div class="container">
+
     <div class="intro-note">
-      תוכן זה נמצא בהכנה ויפורסם בקרוב. לשאלות - <a href="https://wa.me/972527700599" style="color:var(--primary);font-weight:600;">וואטסאפ</a> או <a href="tel:+972527700599" style="color:var(--primary);font-weight:600;">052-770-0599</a>.
+      <!--
+        ✏️ הערת עריכה:
+        כאן תוכל לכתוב הקדמה לתיקים - למשל: "להלן שלושה הרכבים שבנאמי עבורך
+        בהתאם לפרופיל הסיכון שסיכמנו. התיקים מעודכנים ל-[תאריך]."
+      -->
+      להלן הרכבי התיק שהכנתי עבורך בהתאמה לפרופיל הסיכון שלך ולמטרות שהגדרנו יחד.
+      ניתן ליישם את ההרכבים ישירות דרך ממשק גלובלנט/אקטיון.
+      לשאלות - <a href="https://wa.me/972527700599" style="color:var(--primary); font-weight:600;">וואטסאפ</a> או <a href="tel:+972527700599" style="color:var(--primary); font-weight:600;">052-770-0599</a>.
     </div>
+
+    <!-- ======= אינדקס תיקים ======= -->
+    <nav class="portfolio-index" aria-label="רשימת התיקים" style="background:#fff; border:1px solid var(--border,#e2e2e2); border-radius:12px; padding:16px 20px; margin-bottom:24px;">
+      <div style="font-size:13px; font-weight:700; color:var(--text-meta,#6b7280); margin-bottom:12px;">התיקים בעמוד</div>
+      <ol style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;">
+        <li>
+          <a href="#portfolio-israeli" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--primary,#1F4E79); font-weight:600; padding:8px 12px; border-radius:8px; background:var(--bg-cream,#f7f5f0);">
+            <span>🇮🇱</span><span>תיק פיזור גלובלי - אזרח ישראל</span>
+          </a>
+        </li>
+        <li>
+          <a href="#portfolio-american" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--primary,#1F4E79); font-weight:600; padding:8px 12px; border-radius:8px; background:var(--bg-cream,#f7f5f0);">
+            <span>🇺🇸</span><span>תיק פיזור גלובלי - אזרח ארה"ב</span>
+          </a>
+        </li>
+      </ol>
+    </nav>
+
+    <div class="portfolios-grid">
+
+      <!-- ======= תיק 1: ישראלי ======= -->
+      <div class="portfolio-card" id="portfolio-israeli" style="scroll-margin-top:90px;">
+        <div class="portfolio-card-header">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="portfolio-badge badge-israeli">🇮🇱 אזרח ישראל</span>
+            <span style="font-size:11px; color:var(--text-meta);">2 קרנות מחקות</span>
+          </div>
+          <div class="portfolio-name">תיק פיזור גלובלי - אזרח ישראל</div>
+          <div class="portfolio-desc">קרנות נאמנות מחקות של אי.בי.אי. הנסחרות בבורסה בת"א. אפשר הוראת קבע חודשית.</div>
+        </div>
+
+        <div style="padding: 14px 20px 0;">
+          <div class="split-bar-track">
+            <div style="background:#1F4E79;"></div>
+            <div style="background:#5C8D5A;"></div>
+          </div>
+          <div class="split-bar-labels">
+            <div>S&amp;P 500 Equal Weight - 50%</div>
+            <div style="text-align:left;">MSCI World ex-USA - 50%</div>
+          </div>
+        </div>
+
+        <div class="portfolio-card-body" style="padding-top:0;">
+
+          <!-- קרן 1: IBI S&P 500 EW -->
+          <div class="fund-block">
+            <div class="fund-block-header">
+              <div>
+                <div class="fund-block-name">אי.בי.אי. מחקה S&amp;P 500 Equal Weight</div>
+                <div class="fund-block-ticker">מס׳ קרן: 5140769 &nbsp;|&nbsp; קוד חשיפה: 4D</div>
+              </div>
+              <div class="fund-block-pct">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>S&amp;P 500 Equal Weight Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">ארה"ב בלבד - 503 החברות הגדולות הנסחרות בארה"ב</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>שווה</strong> - כל מניה מקבלת ~0.2%, ללא קשר לשווי השוק שלה. איזון מחדש <strong>כל רבעון</strong>.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">חשיפה ענפית מאוזנת יחסית - <strong>פחות ריכוז בטכנולוגיה</strong> לעומת S&amp;P 500 הרגיל (שם 7 מניות בלבד מהוות ~35%). כאן אף מניה לא יכולה לשלוט.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי ניהול</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0%</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי נאמנות</span>
+                <span class="fund-meta-value">0.023% לשנה</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מכפיל רווח (P/E)</span>
+                <span class="fund-meta-value">~23.0x <span style="font-size:12px; color:var(--text-meta);">· לפי RSP · Yahoo Finance · עודכן: יולי 2026</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-yellow">⚠ חשוף לדולר - 100%</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">תנודות בשקל/דולר משפיעות ישירות על הביצועים בשקלים</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דף המדד</span>
+                <span class="fund-meta-value"><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/" target="_blank" rel="noopener" class="fund-link">S&amp;P 500 EW Index ← spglobal.com</a></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">FUNDER</span>
+                <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5140769" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- קרן 2: IBI MSCI World ex-USA Hedged -->
+          <div class="fund-block">
+            <div class="fund-block-header" style="background:rgba(92,141,90,0.07);">
+              <div>
+                <div class="fund-block-name">אי.בי.אי. מחקה MSCI AC World EX USA מנוטרלת דולר</div>
+                <div class="fund-block-ticker">מס׳ קרן: 5142476 &nbsp;|&nbsp; קוד חשיפה: 4A</div>
+              </div>
+              <div class="fund-block-pct" style="color:var(--positive);">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>MSCI AC World ex USA Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">44 מדינות - כל העולם <strong>ללא ארה"ב</strong>. כ-2,300 חברות. שווקים מפותחים (יפן, בריטניה, קנדה, גרמניה, צרפת, אוסטרליה...) ושווקים מתפתחים (סין, הודו, טייוואן, קוריאה...).</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>לפי שווי שוק</strong>. כ-75% שווקים מפותחים, כ-25% שווקים מתפתחים.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">פיזור ענפי רחב - פיננסים, תעשייה, צריכה, אנרגיה, טכנולוגיה ועוד. הרכב שונה מהותית מהתיק הישראלי שמתמקד בארה"ב.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי ניהול</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0%</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דמי נאמנות</span>
+                <span class="fund-meta-value">0.023% לשנה</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מכפיל רווח (P/E)</span>
+                <span class="fund-meta-value">~18.4x <span style="font-size:12px; color:var(--text-meta);">· לפי ACWX · Yahoo Finance · עודכן: יולי 2026</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-blue">✓ מנוטרלת - ~10% חשיפה מטבעית</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">הסיכון לאירו, יין, פאונד ושאר מטבעות המדד מגודר לשקל. הביצועים משקפים את תשואת המדד בשקלים.</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-green">✓ אפשרי דרך פסגות</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דף המדד</span>
+                <span class="fund-meta-value"><a href="https://www.msci.com/indexes/index/899901" target="_blank" rel="noopener" class="fund-link">MSCI ACWI ex USA ← msci.com</a></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">FUNDER</span>
+                <span class="fund-meta-value"><a href="https://www.funder.co.il/fund/5142476" target="_blank" rel="noopener" class="fund-link">לנתונים עדכניים ← funder.co.il</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- גרפים: תיק ישראלי -->
+          <div class="pie-section">
+            <div class="pie-note">שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="pie-charts-row">
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח ענפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1e40af 0% 20.2%,#2563eb 20.2% 36.4%,#7c3aed 36.4% 52.1%,#166534 52.1% 62.1%,#b45309 62.1% 71.1%,#15803d 71.1% 77.4%,#854d0e 77.4% 83.1%,#c2410c 83.1% 87.8%,#0e7490 87.8% 92.4%,#0f766e 92.4% 96.3%,#9f1239 96.3% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1e40af"></span><span class="leg-label">פיננסים</span><span class="leg-pct">20.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#2563eb"></span><span class="leg-label">תעשייה</span><span class="leg-pct">16.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#7c3aed"></span><span class="leg-label">טכנולוגיה</span><span class="leg-pct">15.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#166534"></span><span class="leg-label">בריאות</span><span class="leg-pct">10.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b45309"></span><span class="leg-label">צריכה מחזורית</span><span class="leg-pct">9.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#15803d"></span><span class="leg-label">צריכה בסיסית</span><span class="leg-pct">6.3%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#854d0e"></span><span class="leg-label">חומרים</span><span class="leg-pct">5.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#c2410c"></span><span class="leg-label">אנרגיה</span><span class="leg-pct">4.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0e7490"></span><span class="leg-label">תשתיות</span><span class="leg-pct">4.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f766e"></span><span class="leg-label">תקשורת</span><span class="leg-pct">3.9%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#9f1239"></span><span class="leg-label">נדל"ן</span><span class="leg-pct">3.8%</span></div>
+                </div>
+              </div>
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח גיאוגרפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1F4E79 0% 50%,#dc2626 50% 57.7%,#1d4ed8 57.7% 62.2%,#ef4444 62.2% 66.3%,#b91c1c 66.3% 70.3%,#0891b2 70.3% 73.8%,#4f46e5 73.8% 76.6%,#be123c 76.6% 79.4%,#92400e 79.4% 82%,#0f172a 82% 84.5%,#16a34a 84.5% 86.7%,#94a3b8 86.7% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1F4E79"></span><span class="leg-label">🇺🇸 ארה"ב</span><span class="leg-pct">50.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#dc2626"></span><span class="leg-label">🇯🇵 יפן</span><span class="leg-pct">7.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1d4ed8"></span><span class="leg-label">🇬🇧 בריטניה</span><span class="leg-pct">4.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#ef4444"></span><span class="leg-label">🇨🇳 סין</span><span class="leg-pct">4.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b91c1c"></span><span class="leg-label">🇨🇦 קנדה</span><span class="leg-pct">4.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0891b2"></span><span class="leg-label">🇹🇼 טייוואן</span><span class="leg-pct">3.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#4f46e5"></span><span class="leg-label">🇫🇷 צרפת</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#be123c"></span><span class="leg-label">🇨🇭 שוויץ</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#92400e"></span><span class="leg-label">🇩🇪 גרמניה</span><span class="leg-pct">2.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f172a"></span><span class="leg-label">🇰🇷 קוריאה</span><span class="leg-pct">2.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#16a34a"></span><span class="leg-label">🇦🇺 אוסטרליה</span><span class="leg-pct">2.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#94a3b8"></span><span class="leg-label">🌍 אחרות (~34)</span><span class="leg-pct">13.4%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="chart-footnote">מקורות: S&amp;P DJI · MSCI · נכון ליוני 2026 · הנתונים עשויים להשתנות</div>
+          </div>
+
+          <div class="portfolio-total">
+            <span>סה"כ</span>
+            <span>100%</span>
+          </div>
+
+        </div>
+      </div><!-- /תיק ישראלי -->
+
+
+      <!-- ======= תיק 2: אמריקאי ======= -->
+      <div class="portfolio-card" id="portfolio-american" style="scroll-margin-top:90px;">
+        <div class="portfolio-card-header">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="portfolio-badge badge-american">🇺🇸 אזרח ארה"ב</span>
+            <span style="font-size:11px; color:var(--text-meta);">2 ETFs אמריקאיים</span>
+          </div>
+          <div class="portfolio-name">תיק פיזור גלובלי - אזרח ארה"ב</div>
+          <div class="portfolio-desc">ETFs הרשומים בארה"ב - ללא חשיפה לכללי PFIC. ללא גידור מטבעי. רכישה ידנית בלבד.</div>
+        </div>
+
+        <div style="padding: 14px 20px 0;">
+          <div class="split-bar-track">
+            <div style="background:#1F4E79;"></div>
+            <div style="background:#D74E3C;"></div>
+          </div>
+          <div class="split-bar-labels">
+            <div>RSP (S&amp;P 500 EW) - 50%</div>
+            <div style="text-align:left;">VEU (World ex-US) - 50%</div>
+          </div>
+        </div>
+
+        <div class="portfolio-card-body" style="padding-top:0;">
+
+          <!-- RSP -->
+          <div class="fund-block">
+            <div class="fund-block-header">
+              <div>
+                <div class="fund-block-name">Invesco S&amp;P 500 Equal Weight ETF</div>
+                <div class="fund-block-ticker">טיקר: RSP &nbsp;|&nbsp; NYSE Arca</div>
+              </div>
+              <div class="fund-block-pct">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>S&amp;P 500 Equal Weight Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">ארה"ב בלבד - 503 החברות הגדולות</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>שווה</strong> - ~0.2% לכל מניה, ללא קשר לשווי השוק. איזון מחדש כל רבעון. זהה מבחינת מדד ל-IBI לעיל.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">חשיפה ענפית מאוזנת - פחות ריכוז בטכנולוגיה לעומת S&amp;P 500 הרגיל</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">Expense Ratio</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0.20% לשנה</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מכפיל רווח (P/E)</span>
+                <span class="fund-meta-value">~23.0x <span style="font-size:12px; color:var(--text-meta);">· Yahoo Finance · עודכן: יולי 2026</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-yellow">דולרי - ללא גידור</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-red">✗ לא אוטומטי - רכישה ידנית בלבד</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דפי המדד / הקרן</span>
+                <span class="fund-meta-value"><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500-equal-weight-index/" target="_blank" rel="noopener" class="fund-link">S&amp;P 500 EW ← spglobal.com</a><br><a href="https://www.invesco.com/us/financial-products/etfs/product-detail?audienceType=Investor&productId=RSP" target="_blank" rel="noopener" class="fund-link" style="font-size:12px;">RSP ETF ← invesco.com</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VEU -->
+          <div class="fund-block">
+            <div class="fund-block-header" style="background:rgba(215,78,60,0.06);">
+              <div>
+                <div class="fund-block-name">Vanguard FTSE All-World ex-US ETF</div>
+                <div class="fund-block-ticker">טיקר: VEU &nbsp;|&nbsp; NYSE Arca</div>
+              </div>
+              <div class="fund-block-pct" style="color:var(--accent);">50%</div>
+            </div>
+            <div class="fund-meta">
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מדד מעוקב</span>
+                <span class="fund-meta-value"><strong>FTSE All-World ex-US Index</strong></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">גיאוגרפי</span>
+                <span class="fund-meta-value">47 מדינות - כל העולם <strong>ללא ארה"ב</strong>. כ-3,700 חברות. שווקים מפותחים ומתפתחים.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">שיטת שקלול</span>
+                <span class="fund-meta-value"><strong>לפי שווי שוק</strong>. הנסחר הגדול ביותר בסקטורו - משקלו הגדול ביותר.</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">ענפי</span>
+                <span class="fund-meta-value">פיזור ענפי רחב על פני כל הסקטורים הגלובליים - פיננסים, תעשייה, צריכה, טכנולוגיה ועוד</span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">Expense Ratio</span>
+                <span class="fund-meta-value"><span class="tag tag-green">0.04% לשנה</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">מכפיל רווח (P/E)</span>
+                <span class="fund-meta-value">~18.1x <span style="font-size:12px; color:var(--text-meta);">· Yahoo Finance · עודכן: יולי 2026</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">חשיפה למט"ח</span>
+                <span class="fund-meta-value"><span class="tag tag-yellow">חשוף לאירו, יין, פאונד וכו׳ - ללא גידור</span><br><span style="font-size:12px; color:var(--text-meta); display:block; margin-top:4px;">עבור אזרח ארה"ב - החשיפה לדולר היא הטבעית. זה יתרון, לא חיסרון.</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">הוראת קבע</span>
+                <span class="fund-meta-value"><span class="tag tag-red">✗ לא אוטומטי - רכישה ידנית בלבד</span></span>
+              </div>
+              <div class="fund-meta-row">
+                <span class="fund-meta-label">דפי המדד / הקרן</span>
+                <span class="fund-meta-value"><a href="https://research.ftserussell.com/Analytics/FactSheets/Home/DownloadSingleIssue?issueName=AWXUSAS&isManual=False" target="_blank" rel="noopener" class="fund-link">FTSE All-World ex-US ← ftserussell.com</a><br><a href="https://investor.vanguard.com/investment-products/etfs/profile/veu" target="_blank" rel="noopener" class="fund-link" style="font-size:12px;">VEU ETF ← vanguard.com</a></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pfic-note">
+            <strong>✓ ETFs אמריקאיים - פטורים ממיסוי PFIC</strong><br>
+            לאזרחי ארה"ב, השקעה בקרנות זרות (כולל קרנות ישראליות) כפופה לכללי PFIC של ה-IRS - מנגנון ענישתי שהופך את ניהול ההשקעה למסורבל ויקר מאוד. RSP ו-VEU הם ETFs הרשומים בארה"ב, ולכן פטורים ממיסוי זה לחלוטין. זהו יתרון מהותי של התיק האמריקאי.
+          </div>
+
+          <!-- גרפים: תיק אמריקאי -->
+          <div class="pie-section">
+            <div class="pie-note">שקלול 50/50 · נכון ליוני 2026 · עשוי להשתנות</div>
+            <div class="pie-charts-row">
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח ענפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#7c3aed 0% 19.7%,#1e40af 19.7% 38.3%,#2563eb 38.3% 53.2%,#b45309 53.2% 62.3%,#166534 62.3% 71.4%,#15803d 71.4% 77.1%,#854d0e 77.1% 82.6%,#c2410c 82.6% 87.2%,#0e7490 87.2% 91.6%,#0f766e 91.6% 95.8%,#9f1239 95.8% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#7c3aed"></span><span class="leg-label">טכנולוגיה</span><span class="leg-pct">19.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1e40af"></span><span class="leg-label">פיננסים</span><span class="leg-pct">18.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#2563eb"></span><span class="leg-label">תעשייה</span><span class="leg-pct">14.9%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b45309"></span><span class="leg-label">צריכה מחזורית</span><span class="leg-pct">9.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#166534"></span><span class="leg-label">בריאות</span><span class="leg-pct">9.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#15803d"></span><span class="leg-label">צריכה בסיסית</span><span class="leg-pct">5.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#854d0e"></span><span class="leg-label">חומרים</span><span class="leg-pct">5.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#c2410c"></span><span class="leg-label">אנרגיה</span><span class="leg-pct">4.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0e7490"></span><span class="leg-label">תשתיות</span><span class="leg-pct">4.4%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f766e"></span><span class="leg-label">תקשורת</span><span class="leg-pct">4.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#9f1239"></span><span class="leg-label">נדל"ן</span><span class="leg-pct">4.1%</span></div>
+                </div>
+              </div>
+              <div class="pie-chart-block">
+                <div class="pie-subtitle">פילוח גיאוגרפי</div>
+                <div class="pie-donut" style="background:conic-gradient(#1F4E79 0% 50%,#dc2626 50% 57.7%,#1d4ed8 57.7% 62.2%,#ef4444 62.2% 66.3%,#b91c1c 66.3% 70.3%,#0891b2 70.3% 73.8%,#4f46e5 73.8% 76.6%,#be123c 76.6% 79.4%,#92400e 79.4% 82%,#0f172a 82% 84.5%,#16a34a 84.5% 86.7%,#94a3b8 86.7% 100%)"></div>
+                <div class="pie-legend">
+                  <div class="leg"><span class="leg-dot" style="background:#1F4E79"></span><span class="leg-label">🇺🇸 ארה"ב</span><span class="leg-pct">50.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#dc2626"></span><span class="leg-label">🇯🇵 יפן</span><span class="leg-pct">7.7%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#1d4ed8"></span><span class="leg-label">🇬🇧 בריטניה</span><span class="leg-pct">4.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#ef4444"></span><span class="leg-label">🇨🇳 סין</span><span class="leg-pct">4.1%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#b91c1c"></span><span class="leg-label">🇨🇦 קנדה</span><span class="leg-pct">4.0%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0891b2"></span><span class="leg-label">🇹🇼 טייוואן</span><span class="leg-pct">3.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#4f46e5"></span><span class="leg-label">🇫🇷 צרפת</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#be123c"></span><span class="leg-label">🇨🇭 שוויץ</span><span class="leg-pct">2.8%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#92400e"></span><span class="leg-label">🇩🇪 גרמניה</span><span class="leg-pct">2.6%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#0f172a"></span><span class="leg-label">🇰🇷 קוריאה</span><span class="leg-pct">2.5%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#16a34a"></span><span class="leg-label">🇦🇺 אוסטרליה</span><span class="leg-pct">2.2%</span></div>
+                  <div class="leg"><span class="leg-dot" style="background:#94a3b8"></span><span class="leg-label">🌍 אחרות (~37)</span><span class="leg-pct">13.3%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="chart-footnote">מקורות: Yahoo Finance · FTSE Russell · נכון ליולי 2026 · הנתונים עשויים להשתנות</div>
+          </div>
+
+          <div class="portfolio-total">
+            <span>סה"כ</span>
+            <span>100%</span>
+          </div>
+
+        </div>
+      </div><!-- /תיק אמריקאי -->
+
+    </div><!-- /portfolios-grid -->
+
+    <div class="notes-section">
+      <h2>הערות ליישום</h2>
+      <ul>
+        <li>שני ההרכבים מבוססים על כלים פסיביים (קרנות מחקות / קרנות סל) בלבד.</li>
+        <li>ניתן לרכוש ישירות דרך ממשק המסחר של הברוקר שלך (גלובלנט / אקטיון / IB וכד׳).</li>
+        <li>ההרכבים מתאימים לכספי <strong><a href="/investment/ira/">IRA</a></strong> וקופת גמל IRA.</li>
+        <li>מומלץ לאזן את התיק אחת לשנה, או כשחריגה עולה על 5% מהמשקל המקורי.</li>
+        <li>לפני ביצוע פעולות - <a href="https://wa.me/972527700599">עדכן אותי</a> כדי לוודא שאין שינוי בהמלצה.</li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      <strong>הבהרה:</strong> מסמך זה הוא חלק מהשירות האישי שקיבלת מאיתן אחיטוב, יועץ פנסיוני בעל רישיון (משרד האוצר). אין לראות בו ייעוץ השקעות כמשמעו בחוק הסדרת העיסוק בייעוץ השקעות. ההרכבים הותאמו אישית לך בלבד ואינם מיועדים לאחרים.
+    </div>
+
+  </div><!-- /container -->
   </div>
-</div>
