@@ -1,4 +1,4 @@
-// gate.js — v6 | tag-based personalized content + insurance tab
+// gate.js — v7 | tag-based personalized content + insurance tab
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -204,9 +204,42 @@ var INSURANCE_HTML_DEFAULT =
   '<div class="eyebrow">אזור לקוחות · ביטוחים</div>' +
   '<h1>ביטוחים</h1>' +
   '</div></div>' +
-  '<div style="background:var(--bg-cream);padding:48px 0 64px;">' +
+  '<div style="background:var(--bg-cream);padding:44px 0 64px;">' +
   '<div class="container">' +
-  '<div class="intro-note" style="max-width:640px;margin:0 auto;font-size:17px;line-height:1.9;">' +
+  '<style>' +
+  '.ins-collage{max-width:780px;margin:0 auto 8px;}' +
+  '.ins-collage-cap{text-align:center;font-size:14px;color:var(--text-meta);margin-bottom:16px;}' +
+  '.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}' +
+  '.ins-card{border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.12);padding:22px 20px;text-align:center;overflow:hidden;}' +
+  '.ins-scribble{font-weight:800;text-decoration:underline wavy #e23b2f;text-decoration-thickness:2px;text-underline-offset:3px;}' +
+  '@media(max-width:560px){.ins-grid{grid-template-columns:1fr;}}' +
+  '</style>' +
+  '<div class="ins-collage">' +
+  '<div class="ins-collage-cap">בטח כבר ראית פרסומות כאלה...</div>' +
+  '<div class="ins-grid">' +
+  '<div class="ins-card" style="background:#ffffff;border:1px solid #e4e1dc;">' +
+  '<div style="font-size:17px;font-weight:800;color:#1A1A2E;margin-bottom:10px;">מבולבלים מכל הביטוחים שיש לכם?</div>' +
+  '<div style="font-size:15px;color:#1A1A2E;margin-bottom:12px;">קבלו בדיקה של תיק הביטוח <span class="ins-scribble">בחינם!</span></div>' +
+  '<div style="font-size:21px;font-weight:800;color:#1A1A2E;">גם מכוסים וגם חוסכים!</div>' +
+  '</div>' +
+  '<div class="ins-card" style="background:#eef4fb;border:1px solid #dce6f2;">' +
+  '<div style="font-size:14px;font-weight:800;color:#2f6bb0;line-height:1.65;margin-bottom:14px;">לשירות ללא עלות של חיסכון משמעותי בביטוח ואיתור כפל ביטוחים – מלאו את הטופס</div>' +
+  '<div style="border-top:1px solid #cdd8e6;padding-top:12px;font-size:14px;color:#7089a3;">בדיקה מקיפה בחינם ללקוחות <span style="border-bottom:3px solid #46c02a;padding-bottom:1px;">כל חברות הביטוח</span></div>' +
+  '</div>' +
+  '<div class="ins-card" style="background:#eef3fb;border:1px solid #dce6f2;">' +
+  '<div style="font-size:16px;font-weight:800;color:#2f5fae;margin-bottom:8px;">הר הביטוח – הפקת דוח ובדיקה מקיפה</div>' +
+  '<div style="font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:10px;">באמצעות <span style="display:inline-block;background:#1A1A2E;border-radius:4px;width:58px;height:11px;vertical-align:middle;"></span> סוכנות ביטוח מורשית</div>' +
+  '<div style="font-size:12.5px;color:#5a6b82;line-height:1.65;">בתוך כמה רגעים תקבלו דוח מפורט על הביטוחים שלכם ותוכלו לבצע הוזלת מחירים, למנוע כפילויות ולעשות סדר ביטוחי. אז שנתחיל? <span class="ins-scribble">הבדיקה בחינם!</span></div>' +
+  '</div>' +
+  '<div class="ins-card" style="background:#241f47;">' +
+  '<div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:8px;">משלמים כפול על הביטוח?</div>' +
+  '<div style="font-size:15px;font-weight:800;color:#fff;border-bottom:2px solid rgba(255,255,255,.45);display:inline-block;padding-bottom:2px;margin-bottom:12px;">הגיע הזמן לעשות סדר בתיק ולגלות כפל ביטוחים!</div>' +
+  '<div style="font-size:12.5px;color:#c7c3dd;line-height:1.65;margin-bottom:14px;">זה לא סוד, רוב הישראלים משלמים אלפי שקלים בשנה על ביטוחים מיותרים או כפולים, בלי לדעת מה קורה בתיק הביטוחי ובלי לדעת מה מקבלים.</div>' +
+  '<span style="display:inline-block;background:#f4d35e;color:#241f47;font-weight:800;font-size:13px;padding:9px 22px;border-radius:24px;">לבדיקה בחינם השאירו פרטים »</span>' +
+  '</div>' +
+  '</div>' +
+  '</div>' +
+  '<div class="intro-note" style="max-width:640px;margin:36px auto 0;font-size:17px;line-height:1.9;">' +
   '<p style="font-size:23px;font-weight:800;color:var(--primary);margin-bottom:18px;text-align:center;">"בדיקת ביטוחים בחינם"</p>' +
   '<p style="margin-bottom:16px;">בטח נתקלת בפרסום של שירות כזה עשרות פעמים לפחות.</p>' +
   '<p style="margin-bottom:16px;">תחשוב שאתה דג, ואתה רואה על שפת הנחל שני אנשים.<br>' +
