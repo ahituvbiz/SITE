@@ -138,33 +138,31 @@ var DONATIONS_HTML =
   '</div></div>' +
   '<div style="background:var(--bg-cream);padding:40px 0 60px;">' +
   '<div class="container">' +
-  '<div class="intro-note" style="max-width:680px;margin:0 auto;">' +
+  '<div class="intro-note" style="max-width:720px;margin:0 auto;font-size:19px;line-height:1.9;">' +
   'אם אתה שכיר שמשלם מס הכנסה ותורם לעמותות בעלות אישור לפי <strong>סעיף 46</strong>, ' +
   'מגיע לך זיכוי במס על התרומה. במקום להגיש בקשה להחזר מס בסוף השנה, אפשר להגדיר באזור האישי ' +
-  'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך.' +
+  'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך. ' +
+  'למידע נוסף באתר רשות המיסים: ' +
+  '<a href="https://www.gov.il/he/pages/tax-credit-for-donations-to-individuals" target="_blank" rel="noopener" ' +
+  'style="color:var(--primary);font-weight:600;">זיכוי ממס בגין תרומות</a>.' +
   '</div>' +
-  '<div class="intro-note" style="max-width:680px;margin:20px auto 0;">' +
+  '<div class="intro-note" style="max-width:720px;margin:20px auto 0;font-size:19px;line-height:1.9;">' +
   'הקובץ המצורף מסביר שלב אחר שלב איך לעשות את זה.' +
   '</div>' +
-  '<div style="text-align:center;margin:32px auto 0;">' +
-  '<a href="/clients/files/zikui-trumot.pdf" target="_blank" rel="noopener" ' +
-  'style="display:inline-block;background:var(--primary);color:#fff;padding:14px 32px;' +
-  'border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
-  '📄 פתיחת המדריך (PDF)' +
-  '</a>' +
-  '</div>' +
-  '<div style="max-width:680px;margin:32px auto 0;">' +
-  '<object data="/clients/files/zikui-trumot.pdf" type="application/pdf" ' +
-  'style="width:100%;height:560px;border:1px solid #e0dccf;border-radius:8px;">' +
+  '<div style="max-width:900px;margin:32px auto 0;">' +
+  '<object data="/clients/files/zikui-trumot.pdf#navpanes=0&view=FitH" type="application/pdf" ' +
+  'style="width:100%;height:720px;border:1px solid #e0dccf;border-radius:8px;">' +
   '<p style="text-align:center;padding:20px;color:var(--text-meta);">' +
   'לא ניתן להציג את הקובץ כאן — ' +
   '<a href="/clients/files/zikui-trumot.pdf" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">לחץ לפתיחת המדריך</a>.' +
   '</p></object>' +
   '</div>' +
-  '<div class="intro-note" style="max-width:680px;margin:28px auto 0;">' +
-  'למידע נוסף באתר רשות המיסים: ' +
-  '<a href="https://www.gov.il/he/pages/tax-credit-for-donations-to-individuals" target="_blank" rel="noopener" ' +
-  'style="color:var(--primary);font-weight:600;">זיכוי ממס בגין תרומות</a>.' +
+  '<div style="text-align:center;margin:24px auto 0;">' +
+  '<a href="/clients/files/zikui-trumot.pdf" download ' +
+  'style="display:inline-block;background:var(--primary);color:#fff;padding:14px 32px;' +
+  'border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">' +
+  '⬇️ להורדה' +
+  '</a>' +
   '</div>' +
   '</div></div>';
 
