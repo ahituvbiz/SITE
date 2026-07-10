@@ -291,57 +291,116 @@ var ISRAELI_NOTICE_TAB =
   '<li>התחזקות הדולר תפגע בחברות יצואניות.</li>' +
   '</ol></div></div></div>';
 
+// ====== לשונית "פנסיה והשתלמות" — הזמנה לתכנון פנסיוני (למי שאין #11) ======
+var PENSION_INVITE_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · פנסיה והשתלמות</div>' +
+  '<h1>פנסיה והשתלמות</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream,#F8F6F3);padding:48px 0 64px;"><div class="container">' +
+  '<div class="portfolio-card" style="padding:30px 34px;max-width:680px;margin:0 auto;text-align:center;">' +
+  '<div style="font-size:20px;font-weight:800;color:var(--primary,#1F4E79);margin-bottom:14px;">רוצה לוודא שהחיסכון הפנסיוני שלך בנוי נכון?</div>' +
+  '<p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:var(--text-secondary,#4A4A6A);">בתכנון פנסיוני אישי נעבור יחד על קרן הפנסיה, קרן ההשתלמות וקופות הגמל שלך — נבדוק מסלולים, דמי ניהול ופיזור סיכונים, ונבנה תוכנית שמתאימה בדיוק לך ולמטרות שלך.</p>' +
+  '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary,#1F4E79);color:#fff;padding:14px 34px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">💬 לתיאום תכנון פנסיוני</a>' +
+  '</div></div></div>';
+
+// ====== לשונית IRA — טבלת השוואה + המלצת מעבר לניהול עצמאי (למי שאין #8) ======
+var IRA_COMPARISON_STYLE =
+  '<style>' +
+  '.comparison-table{width:100%;border-collapse:collapse;margin:8px 0 18px;font-size:15px;}' +
+  '.comparison-table th{background:var(--primary,#1F4E79);color:#fff;padding:12px 16px;text-align:right;font-weight:600;}' +
+  '.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border,#E4E1DC);vertical-align:top;}' +
+  '.comparison-table tr:nth-child(even) td{background:var(--bg-cream,#F8F6F3);}' +
+  '.comparison-table .highlight{font-weight:700;color:var(--primary,#1F4E79);}' +
+  '.comparison-table .check{color:var(--positive,#1a7f44);font-weight:700;}' +
+  '.comparison-table .cross{color:var(--accent,#D74E3C);font-weight:700;}' +
+  '</style>';
+
+var IRA_COMPARISON_TABLE =
+  '<div style="overflow-x:auto;"><table class="comparison-table"><thead><tr>' +
+  '<th></th>' +
+  '<th>מסלול מחקה S&amp;P 500</th>' +
+  '<th>מסלול מחקה מדד ACWI<br><span style="font-weight:400;font-size:12px;">(כולל שווקים מתעוררים)</span></th>' +
+  '<th>תיק IRA אופציונלי<br><span style="font-weight:400;font-size:12px;">(בניהול אישי)</span></th>' +
+  '</tr></thead><tbody>' +
+  '<tr><td class="highlight">חברות</td><td>כ-500</td><td>כ-2,500</td><td>כ-2,300</td></tr>' +
+  '<tr><td class="highlight">מדינות</td><td><span class="cross">1</span></td><td><span class="check">47</span></td><td><span class="check">כ-47</span></td></tr>' +
+  '<tr><td class="highlight">מטבעות</td><td><span class="cross">דולר בלבד</span></td><td><span class="check">סל מטבעות גלובלי</span></td><td><span class="check">כ-50% דולר, היתר מגודר לשקל</span></td></tr>' +
+  '<tr><td class="highlight">משקל 9 החברות הגדולות</td><td><span class="cross">כ-39%</span></td><td>כ-25%</td><td><span class="check">כ-8%</span></td></tr>' +
+  '<tr><td class="highlight">מכפיל רווח (P/E)</td><td><span class="cross">כ-28</span></td><td>כ-23</td><td><span class="check">כ-20</span></td></tr>' +
+  '<tr><td class="highlight">אם ארה"ב מדשדשת עשור</td><td><span class="cross">כל החיסכון מדשדש איתה</span></td><td><span class="check">המשקל מתעדכן אוטומטית לטובת מי שמוביל</span></td><td><span class="check">מתעדכן אוטומטית, ופחות תלות בקומץ ענקיות</span></td></tr>' +
+  '</tbody></table></div>' +
+  '<p style="font-size:12px;color:#999;margin:0 0 6px;">נתונים נכונים ליוני 2026. מקורות: Slickcharts, stockanalysis.com. מכפיל רווח (P/E): S&amp;P 500 לפי VOO (~28), ACWI (~23).</p>';
+
+function buildIraPromo(hasTag11) {
+  var discount = hasTag11
+    ? '<div style="margin-top:18px;padding:14px 18px;background:#eafaf0;border-right:4px solid var(--positive,#1a7f44);border-radius:8px;font-size:15px;font-weight:700;color:#0f5c30;">🎁 50% הנחה ללקוחות תכנון פיננסי על צירוף ל-IRA.</div>'
+    : '';
+  return '<div class="content-hero"><div class="container">' +
+    '<div class="eyebrow">אזור לקוחות · IRA</div>' +
+    '<h1>ניהול עצמאי (IRA)</h1>' +
+    '</div></div>' +
+    '<div style="background:var(--bg-cream,#F8F6F3);padding:40px 0 60px;"><div class="container">' +
+    IRA_COMPARISON_STYLE + IRA_COMPARISON_TABLE +
+    '<div class="portfolio-card" style="padding:26px 30px;max-width:760px;margin:22px auto 0;line-height:1.9;font-size:15px;">' +
+    '<p style="margin:0 0 12px;">אם יש לך צבירה של <strong>75,000 ש"ח ומעלה</strong> בקרן השתלמות (לא של עובדי הוראה) או בקופת גמל פנסיונית (לא גמל להשקעה) — אני ממליץ שתשקול להעביר אותה לקופה בניהול עצמאי.</p>' +
+    '<p style="margin:0 0 12px;">בדרך זו תוכל לפזר את הסיכונים בצורה <strong>הרבה יותר טובה</strong> ממה שניתן לפזר באמצעות המסלולים הסטנדרטיים, ולהערכתי להשיג גם תשואה גבוהה יותר בטווח הארוך.</p>' +
+    '<p style="margin:0 0 12px;">מעבר לכך, דמי הניהול שלך יהיו נמוכים יותר.</p>' +
+    '<p style="margin:0;">קרא עוד על IRA בדף <a href="/investment/ira/" style="color:var(--primary,#1F4E79);font-weight:600;">pensya.info/investment/ira</a>.</p>' +
+    discount +
+    '</div></div></div>';
+}
+
 function buildSections(data) {
   var origTags = (data.tags && data.tags.length > 0) ? data.tags : KNOWN_TAGS;
-  var hasTag = function(id) { return origTags.some(function(t) { return t.id === id; }); };
-  var hasTag2  = hasTag(2);
-  var hasTag8  = hasTag(8);
-  var hasTag10 = hasTag(10);
-  var hasTag11 = hasTag(11);
-
-  var INSURANCE_SECTION = buildInsuranceSection(hasTag11);
+  var has = function(id) { return origTags.some(function(t) { return t.id === id; }); };
+  var hasTag2  = has(2);
+  var hasTag8  = has(8);
+  var hasTag10 = has(10);
+  var hasTag11 = has(11);
 
   if (data.sections && data.sections.length > 0) {
-    return Promise.resolve(data.sections.concat([INSURANCE_SECTION, DONATIONS_SECTION]));
+    return Promise.resolve(data.sections.concat([buildInsuranceSection(hasTag11), DONATIONS_SECTION]));
   }
 
-  var tagList = origTags.slice();
+  // שולפים תוכן רק לתגיות שיש ללקוח דף תוכן אישי עבורן
+  return Promise.all([
+    hasTag11 ? fetchTagHtml(11) : Promise.resolve(null),
+    hasTag8  ? fetchTagHtml(8)  : Promise.resolve(null),
+    hasTag10 ? fetchTagHtml(10) : Promise.resolve(null)
+  ]).then(function(r) {
+    var html11 = r[0], html8 = r[1], html10 = r[2];
+    var sections = [];
 
-  // מי שיש לו תגית 10 רואה גם את תוכן תגית 8 (לשונית IRA כהתייחסות)
-  if (hasTag10 && !hasTag8) {
-    tagList = tagList.concat([{ id: 8, name: 'IRA' }]);
-  }
-  var hasPortfolio = hasTag8 || hasTag10;
-
-  return Promise.all(tagList.map(function(tag) {
-    return fetchTagHtml(tag.id).then(function(html) {
-      return html ? { html: html, tagName: tag.name, tagId: tag.id } : null;
-    });
-  })).then(function(results) {
-    var sections = results.filter(function(s) { return s !== null; });
-
-    // הזרקת באנר "עדכון המלצה — מניות ישראליות" לראש הלשונית הרלוונטית
-    sections.forEach(function(s) {
-      if (s.tagId === 10) {
-        s.html = ISRAELI_NOTICE_BANNER + s.html;
-      } else if (s.tagId === 8 && !hasTag10) {
-        s.html = ISRAELI_NOTICE_BANNER + s.html;
-      } else if (s.tagId === 11) {
-        s.html = ISRAELI_NOTICE_BANNER + s.html;
-      }
+    // 1. פנסיה והשתלמות — לכולם
+    sections.push({
+      tagName: 'פנסיה והשתלמות',
+      html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
 
-    // מי שהתייעץ על ני"ע בלבד (#2) וללא תיק/IRA — לשונית "תיק השקעות" עם ההודעה בלבד
-    var addTwoTab = hasTag2 && !hasTag10 && !hasTag8;
-    if (addTwoTab) {
-      sections.unshift({ tagName: 'תיק השקעות', html: ISRAELI_NOTICE_TAB, tagId: 2 });
-    }
+    // 2. IRA — לכולם
+    sections.push({
+      tagName: 'IRA',
+      html: (hasTag8 && html8) ? (ISRAELI_NOTICE_BANNER + html8) : buildIraPromo(hasTag11)
+    });
 
-    if (!hasPortfolio && !addTwoTab) {
-      sections.push(PROMO_SECTION);
+    // 3. ביטוחים — לכולם
+    sections.push(buildInsuranceSection(hasTag11));
+
+    // 4. תיק השקעות — לכולם
+    var portfolioHtml;
+    if (hasTag10 && html10) {
+      portfolioHtml = ISRAELI_NOTICE_BANNER + html10;         // בעל תיק ני"ע — התיק שלו + הודעת מניות ישראליות
+    } else if (hasTag2) {
+      portfolioHtml = ISRAELI_NOTICE_TAB;                     // התייעץ בלבד (#2) — הודעה בלבד
+    } else {
+      portfolioHtml = PROMO_HTML;                             // ברירת מחדל — הזמנה לפתוח תיק
     }
-    sections.push(INSURANCE_SECTION);
+    sections.push({ tagName: 'תיק השקעות', html: portfolioHtml });
+
+    // 5. זיכוי על תרומות — לכולם
     sections.push(DONATIONS_SECTION);
+
     return sections;
   });
 }
