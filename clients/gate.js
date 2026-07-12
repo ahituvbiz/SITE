@@ -140,7 +140,7 @@ var DONATIONS_HTML =
   '<div style="background:var(--bg-cream);padding:40px 0 60px;">' +
   '<div class="container">' +
   '<div class="intro-note" style="max-width:720px;margin:0 auto;font-size:19px;line-height:1.9;">' +
-  'אם אתה שכיר שמשלם מס הכנסה ותורם לעמותות בעלות אישור לפי <strong>סעיף 46</strong>, ' +
+  'אם אתה שכיר ותרמת לעמותות שיש להן אישור לפי <strong>סעיף 46</strong>, ' +
   'מגיע לך זיכוי במס על התרומה. במקום להגיש בקשה להחזר מס בסוף השנה, אפשר להגדיר באזור האישי ' +
   'באתר רשות המיסים מיהו המעסיק שלך — וכך הזיכוי על התרומה ייכנס <strong>אוטומטית לתלוש השכר</strong> שלך.<br><br>' +
   'למידע נוסף באתר רשות המיסים: ' +
@@ -458,3 +458,4 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
       setLoading(false);
     });
 });
+                        
