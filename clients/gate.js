@@ -453,4 +453,15 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
         return;
       }
-      return buildSections(data).then(function(s
+      return buildSections(data).then(function(sections) {
+        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections }));
+        buildUI(sections, data.name);
+      });
+    })
+    .catch(function() {
+      showError('שגיאת תקשורת — נסה שוב עוד רגע.');
+    })
+    .finally(function() {
+      setLoading(false);
+    });
+});
