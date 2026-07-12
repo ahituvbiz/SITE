@@ -8,7 +8,7 @@
 * { box-sizing:border-box; margin:0; padding:0; }
 html, body { overflow:hidden; background:transparent; }
 body { font-family:'Segoe UI',Arial,sans-serif; color:#222; padding:8px 6px; }
-h1 { color:#1F4E78; font-size:1.25rem; margin-bottom:4px; }
+h1 { color:#007DA8; font-size:1.25rem; margin-bottom:4px; }
 .sub { color:#667; font-size:.85rem; margin-bottom:10px; line-height:1.45; }
 .legend { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px; font-size:.8rem; color:#445; }
 .dot { display:inline-block; width:11px; height:11px; border-radius:3px; margin-inline-end:4px; vertical-align:-1px; }
@@ -16,21 +16,21 @@ h1 { color:#1F4E78; font-size:1.25rem; margin-bottom:4px; }
 .spyrow { background:#eef3f8; border-radius:7px; padding:2px 0; margin:4px 0; }
 .label { flex:0 0 200px; display:flex; align-items:center; gap:7px; font-size:.88rem; }
 .flag { border-radius:2px; box-shadow:0 0 0 1px rgba(0,0,0,.12); flex:none; }
-.tick { font-weight:700; color:#1F4E78; font-family:Consolas,monospace; min-width:38px; font-size:.85rem; }
+.tick { font-weight:700; color:#007DA8; font-family:Consolas,monospace; min-width:38px; font-size:.85rem; }
 .cname { color:#333; white-space:nowrap; }
-.spyrow .cname { font-weight:700; color:#1F4E78; }
+.spyrow .cname { font-weight:700; color:#007DA8; }
 .star { color:#c77; }
 .barwrap { flex:1; }
 .bar { height:17px; border-radius:0 4px 4px 0; position:relative; min-width:10px; }
 .bar.win { background:linear-gradient(90deg,#3a9447,#2e7d32); }
 .bar.lose { background:#c3c7cc; }
 .bar.neg { background:#d98a8a; }
-.bar.spy { background:linear-gradient(90deg,#2a5f8f,#1F4E78); }
+.bar.spy { background:linear-gradient(90deg,#2E93BC,#007DA8); }
 .val { position:absolute; inset-inline-start:calc(100% + 7px); top:50%; transform:translateY(-50%);
   font-weight:700; font-size:.82rem; white-space:nowrap; }
 .bar.win .val { color:#2e7d32; }
 .bar.lose .val,.bar.neg .val { color:#777; }
-.bar.spy .val { color:#1F4E78; }
+.bar.spy .val { color:#007DA8; }
 .notes { margin-top:12px; color:#667; font-size:.76rem; line-height:1.55; border-top:1px solid #e8ecf0; padding-top:8px; }
 @media (max-width:560px) { .label { flex-basis:150px; } .cname { font-size:.78rem; } }
 </style>
@@ -40,7 +40,7 @@ h1 { color:#1F4E78; font-size:1.25rem; margin-bottom:4px; }
 <div class="sub">תשואה כוללת בדולר 2000–2015, קרנות iShares MSCI הנסחרות בארה"ב מול SPY - כולן בדולר, דיבידנדים מושקעים מחדש (Adjusted Close)</div>
 <div class="legend">
 <span><span class="dot" style="background:#2e7d32"></span>עקף את ה-S&P 500</span>
-<span><span class="dot" style="background:#1F4E78"></span>SPY</span>
+<span><span class="dot" style="background:#007DA8"></span>SPY</span>
 <span><span class="dot" style="background:#c3c7cc"></span>מתחת ל-SPY</span>
 </div>
 <div class="row">

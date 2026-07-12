@@ -39,7 +39,7 @@
 <style>
 
 :root {
-  --primary:#1F4E79; --primary-soft:#E7F0F7; --cta:#D74E3C; --cta-hover:#B83E2E;
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C; --cta-hover:#B83E2E;
   --text-1:#1A1A1A; --text-2:#555555; --text-meta:#999999;
   --bg-white:#FFFFFF; --bg-cream:#F8F6F2; --border:#E5E7EB;
   --positive:#5C8D5A; --positive-soft:#D5E8D4;
@@ -108,7 +108,7 @@ h4{font-size:17px;font-weight:700;}
 .fab-whatsapp svg{width:28px;height:28px;fill:#fff;}
 .header-search{position:relative;margin-right:var(--s-sm);}
 #site-search{width:200px;padding:8px 36px 8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-btn);font-family:inherit;font-size:14px;background:var(--bg-cream);outline:none;transition:all .15s;}
-#site-search:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(31,78,121,0.1);}
+#site-search:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,0.1);}
 #search-results{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:var(--radius-btn);box-shadow:var(--shadow-hover);z-index:200;max-height:320px;overflow-y:auto;}
 #search-results a{display:block;padding:10px 14px;font-size:14px;color:var(--text-1);border-bottom:1px solid var(--border);}
 #search-results a:last-child{border-bottom:none;}
@@ -126,7 +126,7 @@ h4{font-size:17px;font-weight:700;}
 .lec-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
 .lec-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .lec-tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.5px;}
-.tag-invest{background:#E7F0F7;color:#1F4E79;}
+.tag-invest{background:#E1F3FB;color:#007DA8;}
 .tag-realestate{background:#FFF2CC;color:#856404;}
 .tag-pension{background:#D5E8D4;color:#2E6B2C;}
 .tag-video{background:#F4E4F8;color:#6B2D8B;}
@@ -146,7 +146,7 @@ h4{font-size:17px;font-weight:700;}
   position: absolute;
   top: -48px;
   right: 0; left: 0;
-  background: #1F4E79;
+  background: #007DA8;
   color: #fff !important;
   padding: 12px 20px;
   text-align: center;
@@ -158,10 +158,10 @@ h4{font-size:17px;font-weight:700;}
   border-radius: 0 0 8px 8px;
 }
 .skip-link:focus { top: 0; outline: 3px solid #D74E3C; outline-offset: 2px; }
-:focus-visible { outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; }
+:focus-visible { outline: 3px solid #007DA8 !important; outline-offset: 2px !important; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
 textarea:focus-visible, [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; border-radius: 2px;
+  outline: 3px solid #007DA8 !important; outline-offset: 2px !important; border-radius: 2px;
 }
 
     .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
@@ -173,16 +173,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -336,10 +327,8 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>

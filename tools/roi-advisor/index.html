@@ -16,7 +16,7 @@
 {"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"מחשבון ROI ייעוץ פנסיוני","description":"מחשב את החזר ההשקעה על ייעוץ פנסיוני - מסכום ירידת דמי ניהול, שיפור תשואה, ביטול ביטוחים כפולים ומיצוי מס.","url":"https://pensya.info/tools/roi-advisor/","applicationCategory":"FinanceApplication","operatingSystem":"Web","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"בית","item":"https://pensya.info/"},{"@type":"ListItem","position":2,"name":"מחשבונים","item":"https://pensya.info/tools/"},{"@type":"ListItem","position":3,"name":"מחשבון ROI ייעוץ","item":"https://pensya.info/tools/roi-advisor/"}]}]}
 </script>
 <style>
-:root{--primary:#1F4E79;--primary-soft:#E7F0F7;--cta:#D74E3C;--cta-hover:#B83E2E;--text-1:#1A1A1A;--text-2:#555555;--text-meta:#999999;--bg:#fff;--bg-cream:#F8F6F2;--border:#E5E7EB;--positive:#5C8D5A;--warning:#E8B450;--negative:#C53030;--s-sm:16px;--s-md:24px;--s-lg:32px;--s-xl:48px;--s-2xl:64px;--radius:14px;--container:1120px}
+:root{--primary:#007DA8;--primary-soft:#E1F3FB;--cta:#D74E3C;--cta-hover:#B83E2E;--text-1:#1A1A1A;--text-2:#555555;--text-meta:#999999;--bg:#fff;--bg-cream:#F8F6F2;--border:#E5E7EB;--positive:#5C8D5A;--warning:#E8B450;--negative:#C53030;--s-sm:16px;--s-md:24px;--s-lg:32px;--s-xl:48px;--s-2xl:64px;--radius:14px;--container:1120px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Heebo',sans-serif;overflow-x: hidden;
   color:var(--text-1);background:var(--bg);line-height:1.65;font-size:17px}
@@ -37,7 +37,7 @@ a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 @media(max-width:900px){.nav{display:none}.hamburger{display:flex}}
 .header-search{position:relative;display:flex;align-items:center}
 .header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
-.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(31,78,121,0.1);width:260px}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,0.1);width:260px}
 .header-search input::placeholder{color:var(--text-meta)}
 .header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
 .header-search-icon svg{width:18px;height:18px}
@@ -116,7 +116,7 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
   top: -48px;
   right: 0;
   left: 0;
-  background: #1F4E79;
+  background: #007DA8;
   color: #fff !important;
   padding: 12px 20px;
   text-align: center;
@@ -135,7 +135,7 @@ footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 
 
 /* === נגישות: focus-visible === */
 :focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
 }
 a:focus-visible,
@@ -144,7 +144,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
   border-radius: 2px;
 }
@@ -160,16 +160,7 @@ textarea:focus-visible,
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -387,10 +378,8 @@ updateROI();
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>

@@ -7,12 +7,9 @@
 .site-footer .sf-grid a{color:#C9CDD3;text-decoration:none;transition:color .15s;}
 .site-footer .sf-grid a:hover{color:#fff;text-decoration:none;}
 .site-footer .sf-brand p{color:#9097A0;font-size:14px;line-height:1.6;margin-top:14px;max-width:340px;}
-.site-footer .logo-footer{display:inline-flex;flex-direction:column;align-items:stretch;width:max-content;text-decoration:none!important;line-height:1;}
-.site-footer .logo-footer .logo-name{font-family:'Frank Ruhl Libre',Georgia,serif;font-size:44px;font-weight:700;color:#fff;line-height:1;text-align:right;}
-.site-footer .logo-footer .logo-divider{width:43%;align-self:flex-end;height:4px;background:#D74E3C;border-radius:1px;margin-top:2px;margin-bottom:6px;}
-.site-footer .logo-footer .logo-tag,.site-footer .logo-footer .logo-tag-obj{display:flex;justify-content:space-between;align-items:baseline;font-family:'Heebo',sans-serif;font-size:11.5px;font-weight:600;line-height:1.3;}
-.site-footer .logo-footer .logo-tag{color:#fff;}
-.site-footer .logo-footer .logo-tag-obj{color:#FF9F8C;margin-top:2px;}
+.site-footer .logo-footer{display:inline-flex;flex-direction:column;align-items:flex-start;width:max-content;text-decoration:none!important;line-height:1;}
+.site-footer .logo-footer img{height:48px;width:auto;display:block;}
+.site-footer .logo-footer .logo-obj{color:#00AEEF;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;margin-top:8px;align-self:flex-end;}
 .site-footer .sf-bottom{border-top:1px solid #2A2D33;padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#6E747D;flex-wrap:wrap;gap:12px;}
 .site-footer .license-badge{display:inline-flex;align-items:center;gap:6px;background:#2A2D33;padding:6px 12px;border-radius:6px;color:#C9CDD3;}
 .site-footer .license-badge svg{width:14px;height:14px;}
@@ -21,4 +18,8 @@
 .site-footer .sf-access{text-align:center;padding:14px 0 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:16px;}
 .site-footer .sf-access a{color:#C9CDD3;font-size:14px;text-decoration:none;}
 @media (max-width:900px){.site-footer .sf-grid{grid-template-columns:1fr 1fr;gap:24px;}}
-@media (max-width:560px){.site-footer .sf-grid{grid-template-columns:1fr;}.site-footer .logo-footer .logo-name{font-size:38px;}}
+@media (max-width:560px){.site-footer .sf-grid{grid-template-columns:1fr;}.site-footer .logo-footer img{height:40px;}}
+/* header logo (new brand wordmark) */
+.header .logo{gap:0;}
+.header .logo img,.logo .logo-img{height:44px;width:auto;display:block;}
+@media (max-width:560px){.header .logo img,.logo .logo-img{height:38px;}}

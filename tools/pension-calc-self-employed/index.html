@@ -81,8 +81,8 @@
 
 <style>
 :root {
-  --primary: #1F4E79;
-  --primary-soft: #E7F0F7;
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
   --cta: #D74E3C;
   --cta-hover: #B83E2E;
   --text-1: #1A1A1A;
@@ -146,7 +146,7 @@ section { padding: var(--s-2xl) 0; }
 .btn-primary { background: var(--cta); color: #fff; }
 .btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
 .btn-secondary { background: var(--primary); color: #fff; }
-.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
 
 /* Header */
 .header {
@@ -487,7 +487,7 @@ section { padding: var(--s-2xl) 0; }
 
 /* CTA */
 .contact-section {
-  background: linear-gradient(135deg, var(--primary) 0%, #163756 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, #006487 100%);
   color: #fff; padding: var(--s-3xl) 0; text-align: center;
 }
 .contact-section h2 { color: #fff; font-size: 32px; margin: 0 0 var(--s-sm); }
@@ -535,7 +535,7 @@ section { padding: var(--s-2xl) 0; }
 
 .related-links-section {
   background: #F8F6F2;
-  border-top: 3px solid #1F4E79;
+  border-top: 3px solid #007DA8;
   padding: 2.5rem 2rem;
   margin-top: 3rem;
   direction: rtl;
@@ -551,7 +551,7 @@ section { padding: var(--s-2xl) 0; }
 .related-links-section h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1F4E79;
+  color: #007DA8;
   margin: 0 0 1.25rem 0;
 }
 .related-links-grid {
@@ -565,7 +565,7 @@ section { padding: var(--s-2xl) 0; }
   border-radius: 8px;
   padding: 0.65rem 1rem;
   text-decoration: none;
-  color: #1F4E79;
+  color: #007DA8;
   font-size: 0.9rem;
   font-weight: 600;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -574,9 +574,9 @@ section { padding: var(--s-2xl) 0; }
   gap: 0.4rem;
 }
 .related-link-card:hover {
-  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
-  border-color: #1F4E79;
-  color: #1F4E79;
+  box-shadow: 0 2px 8px rgba(0,125,168,0.15);
+  border-color: #007DA8;
+  color: #007DA8;
 }
 .related-link-card::before {
   content: "←";
@@ -600,7 +600,7 @@ section { padding: var(--s-2xl) 0; }
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--primary, #1F4E79);
+  background: var(--primary, #007DA8);
   border-radius: 2px;
   transition: all .25s;
 }
@@ -627,7 +627,7 @@ section { padding: var(--s-2xl) 0; }
   .nav.open { display: flex; }
   .nav a {
     padding: 1rem 0;
-    border-bottom: 1px solid #E7F0F7;
+    border-bottom: 1px solid #E1F3FB;
     font-size: 1.05rem;
   }
   .nav-overlay {
@@ -663,7 +663,7 @@ section { padding: var(--s-2xl) 0; }
 .header-search input:focus {
   border-color: var(--primary);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  box-shadow: 0 0 0 3px rgba(0,125,168,0.1);
   width: 260px;
 }
 .header-search input::placeholder { color: var(--text-meta); }
@@ -713,7 +713,7 @@ section { padding: var(--s-2xl) 0; }
   top: -48px;
   right: 0;
   left: 0;
-  background: #1F4E79;
+  background: #007DA8;
   color: #fff !important;
   padding: 12px 20px;
   text-align: center;
@@ -732,7 +732,7 @@ section { padding: var(--s-2xl) 0; }
 
 /* === נגישות: focus-visible === */
 :focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
 }
 a:focus-visible,
@@ -741,7 +741,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
   border-radius: 2px;
 }
@@ -758,16 +758,7 @@ textarea:focus-visible,
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -861,7 +852,7 @@ textarea:focus-visible,
   direction: rtl;
 }
 .calc-widget-wrap h2, .calc-widget-wrap h3 {
-  color: #1F4E79;
+  color: #007DA8;
   font-family: 'Heebo', sans-serif;
 }
 .calc-widget-wrap input[type=number],
@@ -875,11 +866,11 @@ textarea:focus-visible,
   color: #1A1A1A;
 }
 .calc-widget-wrap input:focus, .calc-widget-wrap select:focus {
-  outline: 2px solid #1F4E79;
-  border-color: #1F4E79;
+  outline: 2px solid #007DA8;
+  border-color: #007DA8;
 }
 .calc-widget-wrap button {
-  background: #1F4E79;
+  background: #007DA8;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -889,17 +880,17 @@ textarea:focus-visible,
   cursor: pointer;
   transition: background 0.2s;
 }
-.calc-widget-wrap button:hover { background: #163a5e; }
+.calc-widget-wrap button:hover { background: #006487; }
 /* ── Legacy calculator CSS (color-adapted) ── */
 :root {
             --yield4: #5C8D5A;
             --yield5: #5C8D5A;
             --yield6: #cddc39;
             --yield7: #ffeb3b;
-            --spouse: #1F4E79;
+            --spouse: #007DA8;
             --children: #03a9f4;
             --disability: #9c27b0;
-            --text-color: #1F4E79;
+            --text-color: #007DA8;
         }
 
         body {
@@ -1569,10 +1560,8 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>

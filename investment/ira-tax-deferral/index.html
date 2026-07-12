@@ -126,8 +126,8 @@
 
 <style>
 :root {
-  --primary: #1F4E79;
-  --primary-soft: #E7F0F7;
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
   --cta: #D74E3C;
   --cta-hover: #B83E2E;
   --text-1: #1A1A1A;
@@ -194,7 +194,7 @@ section { padding: var(--s-2xl) 0; }
 .btn-primary { background: var(--cta); color: #fff; }
 .btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
 .btn-secondary { background: var(--primary); color: #fff; }
-.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
 .btn-ghost:hover { background: var(--primary-soft); }
 
@@ -471,7 +471,7 @@ section { padding: var(--s-2xl) 0; }
 
 .related-links-section {
   background: #F8F6F2;
-  border-top: 3px solid #1F4E79;
+  border-top: 3px solid #007DA8;
   padding: 2.5rem 2rem;
   margin-top: 3rem;
   direction: rtl;
@@ -481,17 +481,17 @@ section { padding: var(--s-2xl) 0; }
   color: #999; text-transform: uppercase; margin-bottom: 0.5rem;
 }
 .related-links-section h3 {
-  font-size: 1.25rem; font-weight: 700; color: #1F4E79; margin: 0 0 1.25rem 0;
+  font-size: 1.25rem; font-weight: 700; color: #007DA8; margin: 0 0 1.25rem 0;
 }
 .related-links-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .related-link-card {
   background: #fff; border: 1px solid #dde4ee; border-radius: 8px;
-  padding: 0.65rem 1rem; text-decoration: none; color: #1F4E79;
+  padding: 0.65rem 1rem; text-decoration: none; color: #007DA8;
   font-size: 0.9rem; font-weight: 600;
   transition: box-shadow 0.15s, border-color 0.15s;
   display: flex; align-items: center; gap: 0.4rem;
 }
-.related-link-card:hover { box-shadow: 0 2px 8px rgba(31,78,121,0.15); border-color: #1F4E79; color: #1F4E79; }
+.related-link-card:hover { box-shadow: 0 2px 8px rgba(0,125,168,0.15); border-color: #007DA8; color: #007DA8; }
 .related-link-card::before { content: "←"; font-size: 0.8rem; opacity: 0.6; }
 
 /* ── Mobile hamburger ── */
@@ -500,7 +500,7 @@ section { padding: var(--s-2xl) 0; }
   padding: 6px; background: none; border: none; z-index: 200;
 }
 .hamburger span {
-  display: block; width: 24px; height: 2px; background: var(--primary, #1F4E79);
+  display: block; width: 24px; height: 2px; background: var(--primary, #007DA8);
   border-radius: 2px; transition: all .25s;
 }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -516,7 +516,7 @@ section { padding: var(--s-2xl) 0; }
     box-shadow: -4px 0 20px rgba(0,0,0,.15); z-index: 150; overflow-y: auto;
   }
   .nav.open { display: flex; }
-  .nav a { padding: 1rem 0; border-bottom: 1px solid #E7F0F7; font-size: 1.05rem; }
+  .nav a { padding: 1rem 0; border-bottom: 1px solid #E1F3FB; font-size: 1.05rem; }
   .nav-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,.35); z-index: 140;
@@ -534,7 +534,7 @@ section { padding: var(--s-2xl) 0; }
 }
 .header-search input:focus {
   border-color: var(--primary); background: #fff;
-  box-shadow: 0 0 0 3px rgba(31,78,121,0.1); width: 260px;
+  box-shadow: 0 0 0 3px rgba(0,125,168,0.1); width: 260px;
 }
 .header-search input::placeholder { color: var(--text-meta); }
 .header-search-icon { position: absolute; left: 12px; pointer-events: none; color: var(--text-meta); display: flex; }
@@ -554,7 +554,7 @@ section { padding: var(--s-2xl) 0; }
 /* === נגישות: skip link === */
 .skip-link {
   position: absolute; top: -48px; right: 0; left: 0;
-  background: #1F4E79; color: #fff !important; padding: 12px 20px;
+  background: #007DA8; color: #fff !important; padding: 12px 20px;
   text-align: center; z-index: 99999; text-decoration: none;
   font-size: 16px; font-weight: 600; transition: top 0.2s ease;
   border-radius: 0 0 8px 8px;
@@ -562,10 +562,10 @@ section { padding: var(--s-2xl) 0; }
 .skip-link:focus { top: 0; outline: 3px solid #D74E3C; outline-offset: 2px; }
 
 /* === נגישות: focus-visible === */
-:focus-visible { outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; }
+:focus-visible { outline: 3px solid #007DA8 !important; outline-offset: 2px !important; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
 textarea:focus-visible, [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; border-radius: 2px;
+  outline: 3px solid #007DA8 !important; outline-offset: 2px !important; border-radius: 2px;
 }
 
     .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
@@ -581,16 +581,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -695,7 +686,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <div class="calc-chart">
       <h4>אותו סכום, אותה תשואה - והפרש של ~7,800 ₪ רק בגלל עיתוי המס</h4>
       <div class="chart-legend">
-        <span class="legend-item"><span class="legend-dot" style="background:#1F4E79"></span>דוחה את המס לסוף</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#007DA8"></span>דוחה את המס לסוף</span>
         <span class="legend-item"><span class="legend-dot" style="background:#C53030"></span>משלם מס בכל שנה</span>
       </div>
       <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="גרף אפקט דחיית מס: משקיע שדוחה את מס רווחי ההון לסוף התקופה מסיים עם נטו גבוה יותר ממשקיע שמשלם מס בכל שנה, על אותו סכום ואותה תשואה" style="width:100%;display:block;direction:ltr">
@@ -708,10 +699,10 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <text x="55" y="148" font-size="11" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">145K</text>
         <text x="55" y="33" font-size="11" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">195K</text>
         <polyline points="60.0,248.5 120.0,234.7 180.0,220.1 240.0,204.6 300.0,188.1 360.0,170.7 420.0,152.2 480.0,132.7 540.0,111.9 600.0,89.9 660.0,66.6" fill="none" stroke="#C53030" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-        <polyline points="60.0,248.5 120.0,234.7 180.0,219.8 240.0,203.7 300.0,186.3 360.0,167.5 420.0,147.3 480.0,125.4 540.0,101.7 600.0,76.2 660.0,48.6" fill="none" stroke="#1F4E79" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="60.0,248.5 120.0,234.7 180.0,219.8 240.0,203.7 300.0,186.3 360.0,167.5 420.0,147.3 480.0,125.4 540.0,101.7 600.0,76.2 660.0,48.6" fill="none" stroke="#007DA8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
         <line x1="672" y1="48.6" x2="672" y2="66.6" stroke="#5C8D5A" stroke-width="2"/>
         <text x="676" y="62" font-size="11" fill="#5C8D5A" font-weight="700" font-family="Heebo,sans-serif" style="direction:ltr">≈7,800₪</text>
-        <circle cx="660" cy="48.6" r="3.5" fill="#1F4E79"/>
+        <circle cx="660" cy="48.6" r="3.5" fill="#007DA8"/>
         <circle cx="660" cy="66.6" r="3.5" fill="#C53030"/>
         <text x="60" y="280" font-size="11" fill="#999" text-anchor="middle" font-family="Heebo,sans-serif">שנה 0</text>
         <text x="360" y="280" font-size="11" fill="#999" text-anchor="middle" font-family="Heebo,sans-serif">שנה 5</text>
@@ -1270,11 +1261,11 @@ function toggleFaq(btn) {
       yTicks +
       makePath(snaps[0], '#9CA3AF') +
       makePath(snaps[1], '#5C8D5A') +
-      (s3 ? makePath(snaps[2], '#1F4E79') : '') +
+      (s3 ? makePath(snaps[2], '#007DA8') : '') +
       xTicks +
       '</svg>';
 
-    var legendS3 = s3 ? '<span class="legend-item"><span class="legend-dot" style="background:#1F4E79"></span>קרן השתלמות ב-IRA בלבד</span>' : '';
+    var legendS3 = s3 ? '<span class="legend-item"><span class="legend-dot" style="background:#007DA8"></span>קרן השתלמות ב-IRA בלבד</span>' : '';
 
     var html =
       '<div class="scenarios-grid">' + c1 + c2 + c3 + '</div>' +
@@ -1327,10 +1318,8 @@ function toggleFaq(btn) {
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>

@@ -111,8 +111,8 @@
 
 <style>
 :root {
-  --primary: #1F4E79;
-  --primary-soft: #E7F0F7;
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
   --cta: #D74E3C;
   --cta-hover: #B83E2E;
   --text-1: #1A1A1A;
@@ -179,7 +179,7 @@ section { padding: var(--s-2xl) 0; }
 .btn-primary { background: var(--cta); color: #fff; }
 .btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
 .btn-secondary { background: var(--primary); color: #fff; }
-.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
 .btn-ghost:hover { background: var(--primary-soft); }
 
@@ -379,7 +379,7 @@ section { padding: var(--s-2xl) 0; }
 
 .related-links-section {
   background: #F8F6F2;
-  border-top: 3px solid #1F4E79;
+  border-top: 3px solid #007DA8;
   padding: 2.5rem 2rem;
   margin-top: 3rem;
   direction: rtl;
@@ -389,17 +389,17 @@ section { padding: var(--s-2xl) 0; }
   color: #999; text-transform: uppercase; margin-bottom: 0.5rem;
 }
 .related-links-section h3 {
-  font-size: 1.25rem; font-weight: 700; color: #1F4E79; margin: 0 0 1.25rem 0;
+  font-size: 1.25rem; font-weight: 700; color: #007DA8; margin: 0 0 1.25rem 0;
 }
 .related-links-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .related-link-card {
   background: #fff; border: 1px solid #dde4ee; border-radius: 8px;
-  padding: 0.65rem 1rem; text-decoration: none; color: #1F4E79;
+  padding: 0.65rem 1rem; text-decoration: none; color: #007DA8;
   font-size: 0.9rem; font-weight: 600;
   transition: box-shadow 0.15s, border-color 0.15s;
   display: flex; align-items: center; gap: 0.4rem;
 }
-.related-link-card:hover { box-shadow: 0 2px 8px rgba(31,78,121,0.15); border-color: #1F4E79; color: #1F4E79; }
+.related-link-card:hover { box-shadow: 0 2px 8px rgba(0,125,168,0.15); border-color: #007DA8; color: #007DA8; }
 .related-link-card::before { content: "←"; font-size: 0.8rem; opacity: 0.6; }
 
 /* ── Mobile hamburger ── */
@@ -408,7 +408,7 @@ section { padding: var(--s-2xl) 0; }
   padding: 6px; background: none; border: none; z-index: 200;
 }
 .hamburger span {
-  display: block; width: 24px; height: 2px; background: var(--primary, #1F4E79);
+  display: block; width: 24px; height: 2px; background: var(--primary, #007DA8);
   border-radius: 2px; transition: all .25s;
 }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -424,7 +424,7 @@ section { padding: var(--s-2xl) 0; }
     box-shadow: -4px 0 20px rgba(0,0,0,.15); z-index: 150; overflow-y: auto;
   }
   .nav.open { display: flex; }
-  .nav a { padding: 1rem 0; border-bottom: 1px solid #E7F0F7; font-size: 1.05rem; }
+  .nav a { padding: 1rem 0; border-bottom: 1px solid #E1F3FB; font-size: 1.05rem; }
   .nav-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,.35); z-index: 140;
@@ -442,7 +442,7 @@ section { padding: var(--s-2xl) 0; }
 }
 .header-search input:focus {
   border-color: var(--primary); background: #fff;
-  box-shadow: 0 0 0 3px rgba(31,78,121,0.1); width: 260px;
+  box-shadow: 0 0 0 3px rgba(0,125,168,0.1); width: 260px;
 }
 .header-search input::placeholder { color: var(--text-meta); }
 .header-search-icon { position: absolute; left: 12px; pointer-events: none; color: var(--text-meta); display: flex; }
@@ -462,7 +462,7 @@ section { padding: var(--s-2xl) 0; }
 /* === נגישות: skip link === */
 .skip-link {
   position: absolute; top: -48px; right: 0; left: 0;
-  background: #1F4E79; color: #fff !important; padding: 12px 20px;
+  background: #007DA8; color: #fff !important; padding: 12px 20px;
   text-align: center; z-index: 99999; text-decoration: none;
   font-size: 16px; font-weight: 600; transition: top 0.2s ease;
   border-radius: 0 0 8px 8px;
@@ -470,10 +470,10 @@ section { padding: var(--s-2xl) 0; }
 .skip-link:focus { top: 0; outline: 3px solid #D74E3C; outline-offset: 2px; }
 
 /* === נגישות: focus-visible === */
-:focus-visible { outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; }
+:focus-visible { outline: 3px solid #007DA8 !important; outline-offset: 2px !important; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
 textarea:focus-visible, [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important; outline-offset: 2px !important; border-radius: 2px;
+  outline: 3px solid #007DA8 !important; outline-offset: 2px !important; border-radius: 2px;
 }
 
 .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
@@ -488,16 +488,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -600,7 +591,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">נתח מהמסלולים שאינם ברירת מחדל (מקיפה)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">41.6%</div></div>
       </div>
       <div class="chart-legend">
-        <span><span style="display:inline-block;width:16px;height:0;border-top:3px solid #1F4E79;margin-left:5px;vertical-align:middle;"></span>סך נכסים (מיליארד ₪) - ציר שמאל</span>
+        <span><span style="display:inline-block;width:16px;height:0;border-top:3px solid #007DA8;margin-left:5px;vertical-align:middle;"></span>סך נכסים (מיליארד ₪) - ציר שמאל</span>
         <span><span style="display:inline-block;width:16px;height:0;border-top:3px dashed #E0791E;margin-left:5px;vertical-align:middle;"></span>נתח מסך כל המסלולים (%) - ציר ימין</span>
       </div>
       <svg viewBox="0 0 820 380" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Heebo, Segoe UI, Arial, sans-serif" role="img" aria-label="גרף דו-צירי: סך נכסים במסלולי פנסיה עוקבי S&P 500 עלה מכמעט אפס בדצמבר 2020 לשיא של 129.3 מיליארד ₪ בדצמבר 2025 וירד ל-123.5 מיליארד באפריל 2026; נתח המסלולים מסך כל המסלולים עלה מ-0% ל-12.4% בדצמבר 2025 וירד ל-11.0% באפריל 2026" style="direction:ltr">
@@ -625,21 +616,21 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <text x="775" y="235.7" font-size="12" fill="#E0791E" text-anchor="start">5%</text>
         <text x="775" y="142.3" font-size="12" fill="#E0791E" text-anchor="start">10%</text>
         <text x="775" y="49.0" font-size="12" fill="#E0791E" text-anchor="start">15%</text>
-        <path d="M 55.0,325.0 L 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9 L 765.0,325.0 Z" fill="rgba(31,78,121,0.10)"/>
-        <path d="M 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9" fill="none" stroke="#1F4E79" stroke-width="2.5"/>
-        <circle cx="55.0" cy="325.0" r="4.5" fill="#1F4E79"/>
+        <path d="M 55.0,325.0 L 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9 L 765.0,325.0 Z" fill="rgba(0,125,168,0.10)"/>
+        <path d="M 55.0,325.0 L 173.3,315.5 L 291.7,305.1 L 410.0,251.9 L 528.3,127.4 L 646.7,66.3 L 765.0,77.9" fill="none" stroke="#007DA8" stroke-width="2.5"/>
+        <circle cx="55.0" cy="325.0" r="4.5" fill="#007DA8"/>
         <text x="55.0" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2020</text>
-        <circle cx="173.3" cy="315.5" r="4.5" fill="#1F4E79"/>
+        <circle cx="173.3" cy="315.5" r="4.5" fill="#007DA8"/>
         <text x="173.3" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2021</text>
-        <circle cx="291.7" cy="305.1" r="4.5" fill="#1F4E79"/>
+        <circle cx="291.7" cy="305.1" r="4.5" fill="#007DA8"/>
         <text x="291.7" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2022</text>
-        <circle cx="410.0" cy="251.9" r="4.5" fill="#1F4E79"/>
+        <circle cx="410.0" cy="251.9" r="4.5" fill="#007DA8"/>
         <text x="410.0" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2023</text>
-        <circle cx="528.3" cy="127.4" r="4.5" fill="#1F4E79"/>
+        <circle cx="528.3" cy="127.4" r="4.5" fill="#007DA8"/>
         <text x="528.3" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2024</text>
-        <circle cx="646.7" cy="66.3" r="4.5" fill="#1F4E79"/>
+        <circle cx="646.7" cy="66.3" r="4.5" fill="#007DA8"/>
         <text x="646.7" y="345.0" font-size="12" fill="#555" text-anchor="middle">דצמ׳ 2025</text>
-        <circle cx="765.0" cy="77.9" r="4.5" fill="#1F4E79"/>
+        <circle cx="765.0" cy="77.9" r="4.5" fill="#007DA8"/>
         <text x="765.0" y="345.0" font-size="12" fill="#555" text-anchor="middle">אפר׳ 2026</text>
         <text x="114.2" y="306.2" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+27,526%</text>
         <text x="232.0" y="290.0" font-size="13" font-weight="600" fill="#0F6E56" text-anchor="middle">+109%</text>
@@ -679,16 +670,16 @@ textarea:focus-visible, [tabindex]:focus-visible {
 
     <div class="chart-card">
       <h4>לאן זרם הכסף ב-2025: עשרת ה-ETF המגייסים הגדולים בעולם (מיליארדי דולרים)</h4>
-      <div class="chart-legend"><span><span style="display:inline-block;width:10px;height:10px;background:#1F4E79;border-radius:2px;margin-left:5px;"></span>מחקה S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#6B93BD;border-radius:2px;margin-left:5px;"></span>חופף ברובו ל-S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#C2C7CF;border-radius:2px;margin-left:5px;"></span>אחר</span></div>
+      <div class="chart-legend"><span><span style="display:inline-block;width:10px;height:10px;background:#007DA8;border-radius:2px;margin-left:5px;"></span>מחקה S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#6B93BD;border-radius:2px;margin-left:5px;"></span>חופף ברובו ל-S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#C2C7CF;border-radius:2px;margin-left:5px;"></span>אחר</span></div>
       <svg viewBox="0 0 660 332" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="גרף עמודות אופקי: עשרת ה-ETF עם הגיוסים הגדולים בעולם ב-2025. VOO מובילה עם 137.7 מיליארד דולר, IVV עם 73 מיליארד - שתיהן מחקות S&P 500. שלוש קרנות מחקות S&P 500 נמצאות בעשירייה" style="width:100%;display:block;direction:ltr">
         <line x1="105" y1="8" x2="105" y2="324" stroke="#E5E7EB" stroke-width="1.5"/>
         <text x="97" y="30" font-size="12" font-weight="700" fill="#555" text-anchor="end" font-family="Heebo,sans-serif">VOO</text>
-        <rect x="105" y="16" width="440.6" height="20" fill="#1F4E79" rx="3"/>
-        <text x="553.6" y="30" font-size="12" font-weight="700" fill="#1F4E79" font-family="Heebo,sans-serif">137.7</text>
+        <rect x="105" y="16" width="440.6" height="20" fill="#007DA8" rx="3"/>
+        <text x="553.6" y="30" font-size="12" font-weight="700" fill="#007DA8" font-family="Heebo,sans-serif">137.7</text>
         <text x="590.6" y="30" font-size="11" fill="#999" font-family="Heebo,sans-serif">S&P 500</text>
         <text x="97" y="61" font-size="12" font-weight="700" fill="#555" text-anchor="end" font-family="Heebo,sans-serif">IVV</text>
-        <rect x="105" y="47" width="233.6" height="20" fill="#1F4E79" rx="3"/>
-        <text x="346.6" y="61" font-size="12" font-weight="700" fill="#1F4E79" font-family="Heebo,sans-serif">73</text>
+        <rect x="105" y="47" width="233.6" height="20" fill="#007DA8" rx="3"/>
+        <text x="346.6" y="61" font-size="12" font-weight="700" fill="#007DA8" font-family="Heebo,sans-serif">73</text>
         <text x="383.6" y="61" font-size="11" fill="#999" font-family="Heebo,sans-serif">S&P 500</text>
         <text x="97" y="92" font-size="12" font-weight="700" fill="#555" text-anchor="end" font-family="Heebo,sans-serif">SGOV</text>
         <rect x="105" y="78" width="124.5" height="20" fill="#C2C7CF" rx="3"/>
@@ -699,8 +690,8 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <text x="235.9" y="123" font-size="12" font-weight="700" fill="#777" font-family="Heebo,sans-serif">38.4</text>
         <text x="272.9" y="123" font-size="11" fill="#999" font-family="Heebo,sans-serif">כל שוק ארה"ב</text>
         <text x="97" y="154" font-size="12" font-weight="700" fill="#555" text-anchor="end" font-family="Heebo,sans-serif">SPYM</text>
-        <rect x="105" y="140" width="94.4" height="20" fill="#1F4E79" rx="3"/>
-        <text x="207.4" y="154" font-size="12" font-weight="700" fill="#1F4E79" font-family="Heebo,sans-serif">29.5</text>
+        <rect x="105" y="140" width="94.4" height="20" fill="#007DA8" rx="3"/>
+        <text x="207.4" y="154" font-size="12" font-weight="700" fill="#007DA8" font-family="Heebo,sans-serif">29.5</text>
         <text x="244.4" y="154" font-size="11" fill="#999" font-family="Heebo,sans-serif">S&P 500</text>
         <text x="97" y="185" font-size="12" font-weight="700" fill="#555" text-anchor="end" font-family="Heebo,sans-serif">IBIT</text>
         <rect x="105" y="171" width="79.7" height="20" fill="#C2C7CF" rx="3"/>
@@ -746,14 +737,14 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <text x="48" y="152" font-size="11" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">20%</text>
         <text x="48" y="100" font-size="11" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">30%</text>
         <text x="48" y="48" font-size="11" fill="#999" text-anchor="end" font-family="Heebo,sans-serif">40%</text>
-        <path d="M 110 158.4 L 290 111.6 L 450 96 L 590 64.8" fill="none" stroke="#1F4E79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="110" cy="158.4" r="5" fill="#1F4E79"/>
-        <circle cx="290" cy="111.6" r="5" fill="#1F4E79"/>
-        <circle cx="450" cy="96" r="5" fill="#1F4E79"/>
+        <path d="M 110 158.4 L 290 111.6 L 450 96 L 590 64.8" fill="none" stroke="#007DA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="110" cy="158.4" r="5" fill="#007DA8"/>
+        <circle cx="290" cy="111.6" r="5" fill="#007DA8"/>
+        <circle cx="450" cy="96" r="5" fill="#007DA8"/>
         <circle cx="590" cy="64.8" r="6" fill="#D74E3C"/>
-        <text x="110" y="142" font-size="13" fill="#1F4E79" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~18%</text>
-        <text x="290" y="95" font-size="13" fill="#1F4E79" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~27%</text>
-        <text x="450" y="80" font-size="13" fill="#1F4E79" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~30%</text>
+        <text x="110" y="142" font-size="13" fill="#007DA8" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~18%</text>
+        <text x="290" y="95" font-size="13" fill="#007DA8" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~27%</text>
+        <text x="450" y="80" font-size="13" fill="#007DA8" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~30%</text>
         <text x="590" y="47" font-size="14" fill="#D74E3C" text-anchor="middle" font-weight="700" font-family="Heebo,sans-serif">~39%</text>
         <text x="110" y="222" font-size="12" fill="#555" text-anchor="middle" font-family="Heebo,sans-serif">2015</text>
         <text x="290" y="222" font-size="12" fill="#555" text-anchor="middle" font-family="Heebo,sans-serif">2020</text>
@@ -1044,10 +1035,8 @@ function toggleFaq(btn) {
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>

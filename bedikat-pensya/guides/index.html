@@ -17,8 +17,8 @@
    ========================================================= */
 
 :root {
-  --primary: #1F4E79;
-  --primary-soft: #E7F0F7;
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
   --cta: #D74E3C;
   --cta-hover: #B83E2E;
   --text-1: #1A1A1A;
@@ -95,7 +95,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .btn-primary { background: var(--cta); color: #fff; }
 .btn-primary:hover:not(:disabled) { background: var(--cta-hover); transform: translateY(-1px); }
 .btn-secondary { background: var(--primary); color: #fff; }
-.btn-secondary:hover { background: #163756; transform: translateY(-1px); }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
 .btn-ghost:hover { background: var(--primary-soft); }
 .btn-whatsapp { background: #25D366; color: #fff; }
@@ -117,7 +117,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .nav a.active::after { content: ''; position: absolute; bottom: -2px; right: 0; width: 100%; height: 2px; background: var(--cta); border-radius: 2px; }
 .header-search { position: relative; display: flex; align-items: center; }
 .header-search input { width: 220px; height: 40px; padding: 0 40px 0 16px; border: 1px solid var(--border); border-radius: 999px; font-family: inherit; font-size: 14px; color: var(--text-1); background: var(--bg-cream); transition: all .15s; /* outline handled by :focus-visible */ }
-.header-search input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(31,78,121,0.1); width: 260px; }
+.header-search input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(0,125,168,0.1); width: 260px; }
 .header-search-icon { position: absolute; left: 12px; pointer-events: none; color: var(--text-meta); display: flex; }
 .header-search-icon svg { width: 18px; height: 18px; }
 @media (max-width: 900px) {
@@ -160,7 +160,7 @@ section.tight { padding: var(--s-2xl) 0; }
   background: #fff;
   border-radius: var(--radius-card);
   padding: var(--s-lg);
-  box-shadow: 0 20px 50px rgba(31,78,121,0.12);
+  box-shadow: 0 20px 50px rgba(0,125,168,0.12);
   border: 1px solid var(--border);
 }
 .hero-visual .preview-title { font-size: 13px; color: var(--text-meta); letter-spacing: 1px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
@@ -205,7 +205,7 @@ section.tight { padding: var(--s-2xl) 0; }
   background: #fff;
   border-radius: var(--radius-card);
   border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(31,78,121,0.06);
+  box-shadow: 0 8px 24px rgba(0,125,168,0.06);
   padding: var(--s-xl);
   max-width: 760px;
   margin: 0 auto;
@@ -497,7 +497,7 @@ section.tight { padding: var(--s-2xl) 0; }
 
 .related-links-section {
   background: #F8F6F2;
-  border-top: 3px solid #1F4E79;
+  border-top: 3px solid #007DA8;
   padding: 2.5rem 2rem;
   margin-top: 3rem;
   direction: rtl;
@@ -513,7 +513,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .related-links-section h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1F4E79;
+  color: #007DA8;
   margin: 0 0 1.25rem 0;
 }
 .related-links-grid {
@@ -527,7 +527,7 @@ section.tight { padding: var(--s-2xl) 0; }
   border-radius: 8px;
   padding: 0.65rem 1rem;
   text-decoration: none;
-  color: #1F4E79;
+  color: #007DA8;
   font-size: 0.9rem;
   font-weight: 600;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -536,9 +536,9 @@ section.tight { padding: var(--s-2xl) 0; }
   gap: 0.4rem;
 }
 .related-link-card:hover {
-  box-shadow: 0 2px 8px rgba(31,78,121,0.15);
-  border-color: #1F4E79;
-  color: #1F4E79;
+  box-shadow: 0 2px 8px rgba(0,125,168,0.15);
+  border-color: #007DA8;
+  color: #007DA8;
 }
 .related-link-card::before {
   content: "←";
@@ -562,7 +562,7 @@ section.tight { padding: var(--s-2xl) 0; }
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--primary, #1F4E79);
+  background: var(--primary, #007DA8);
   border-radius: 2px;
   transition: all .25s;
 }
@@ -589,7 +589,7 @@ section.tight { padding: var(--s-2xl) 0; }
   .nav.open { display: flex; }
   .nav a {
     padding: 1rem 0;
-    border-bottom: 1px solid #E7F0F7;
+    border-bottom: 1px solid #E1F3FB;
     font-size: 1.05rem;
   }
   .nav-overlay {
@@ -625,7 +625,7 @@ section.tight { padding: var(--s-2xl) 0; }
 .header-search input:focus {
   border-color: var(--primary);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(31,78,121,0.1);
+  box-shadow: 0 0 0 3px rgba(0,125,168,0.1);
   width: 260px;
 }
 .header-search input::placeholder { color: var(--text-meta); }
@@ -675,7 +675,7 @@ section.tight { padding: var(--s-2xl) 0; }
   top: -48px;
   right: 0;
   left: 0;
-  background: #1F4E79;
+  background: #007DA8;
   color: #fff !important;
   padding: 12px 20px;
   text-align: center;
@@ -694,7 +694,7 @@ section.tight { padding: var(--s-2xl) 0; }
 
 /* === נגישות: focus-visible === */
 :focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
 }
 a:focus-visible,
@@ -703,7 +703,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #1F4E79 !important;
+  outline: 3px solid #007DA8 !important;
   outline-offset: 2px !important;
   border-radius: 2px;
 }
@@ -790,16 +790,7 @@ textarea:focus-visible,
 <header class="header" role="banner">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="9" fill="#1F4E79"/>
-        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
-        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
-        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
-        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
-      </svg>
-      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
@@ -1113,10 +1104,8 @@ textarea:focus-visible,
     <div class="sf-grid">
       <div class="sf-brand">
         <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
-          <div class="logo-name">אחיטוב</div>
-          <div class="logo-divider"></div>
-          <div class="logo-tag"><span>ת</span><span>כ</span><span>נ</span><span>ו</span><span>ן</span><span>&nbsp;</span><span>פ</span><span>י</span><span>נ</span><span>נ</span><span>ס</span><span>י</span></div>
-          <div class="logo-tag-obj"><span>א</span><span>ו</span><span>ב</span><span>י</span><span>י</span><span>ק</span><span>ט</span><span>י</span><span>ב</span><span>י</span></div>
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
       </div>
