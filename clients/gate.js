@@ -9,6 +9,9 @@ const KNOWN_TAGS = [
   { id: 10, name: 'תיק השקעות' }
 ];
 
+// תאריך העדכון האחרון שמוצג מתחת לכל טאב. לעדכון פר-טאב אפשר להוסיף s.updated לסקשן הרלוונטי.
+var DEFAULT_TAB_UPDATED = '12.7.2026';
+
 function normalizePhone(raw) {
   let digits = raw.replace(/\D/g, '');
   if (digits.startsWith('972')) digits = '0' + digits.slice(3);
@@ -57,7 +60,11 @@ function buildUI(sections, name) {
   }
 
   var tabBtns = sections.map(function(s, i) {
-    return '<button class="tab-btn' + (i === 0 ? ' tab-active' : '') + '" data-idx="' + i + '">' + s.tagName + '</button>';
+    var upd = s.updated || DEFAULT_TAB_UPDATED;
+    return '<button class="tab-btn' + (i === 0 ? ' tab-active' : '') + '" data-idx="' + i + '">' +
+      '<span class="tab-btn-name">' + s.tagName + '</span>' +
+      '<span class="tab-btn-date">עודכן ' + upd + '</span>' +
+      '</button>';
   }).join('');
 
   headerBar.innerHTML = buildWelcomeBar(name) +
@@ -446,16 +453,4 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
         return;
       }
-      return buildSections(data).then(function(sections) {
-        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections }));
-        buildUI(sections, data.name);
-      });
-    })
-    .catch(function() {
-      showError('שגיאת תקשורת — נסה שוב עוד רגע.');
-    })
-    .finally(function() {
-      setLoading(false);
-    });
-});
-                        
+      return buildSections(data).then(function(s

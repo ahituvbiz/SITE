@@ -13,8 +13,8 @@
    DESIGN TOKENS (מתאים לאתר)
    ============================ */
 :root {
-  --primary:        #007DA8;
-  --primary-hover:  #006487;
+  --primary:        #1F4E79;
+  --primary-hover:  #163a5e;
   --accent:         #D74E3C;
   --text:           #1A1A2E;
   --text-secondary: #4A4A6A;
@@ -167,7 +167,7 @@ a:hover { text-decoration: underline; }
 .form-group input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0,125,168,.12);
+  box-shadow: 0 0 0 3px rgba(31,78,121,.12);
   background: #fff;
 }
 
@@ -607,27 +607,36 @@ a:hover { text-decoration: underline; }
 }
 .tab-bar-inner {
   display: flex;
-  gap: 4px;
-  padding: 0;
+  gap: 6px;
+  padding: 6px 0 0;
 }
 .tab-btn {
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255,255,255,.06);
   border: none;
-  color: rgba(255,255,255,.65);
-  font-size: 14px;
-  font-weight: 600;
+  color: rgba(255,255,255,.72);
   font-family: inherit;
-  padding: 12px 20px;
+  padding: 11px 22px;
   cursor: pointer;
+  border-radius: 10px 10px 0 0;
   border-bottom: 3px solid transparent;
-  transition: color .15s, border-color .15s;
+  transition: color .15s, background .15s, border-color .15s;
   white-space: nowrap;
 }
+.tab-btn-name { font-size: 17px; font-weight: 700; line-height: 1.2; }
+.tab-btn-date { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.55); }
+/* גוונים לסירוגין כדי שברור שאלו טאבים נפרדים */
+.tab-btn:nth-child(even) { background: rgba(255,255,255,.17); }
 .tab-btn:hover  { color: #fff; }
 .tab-btn.tab-active {
   color: #fff;
+  background: rgba(255,255,255,.26);
   border-bottom-color: #fff;
 }
+.tab-btn.tab-active .tab-btn-date { color: rgba(255,255,255,.82); }
 .tab-panel { display: none; }
 .tab-panel.tab-panel-active { display: block; }
 
@@ -636,7 +645,9 @@ a:hover { text-decoration: underline; }
   .gate-card { padding: 32px 24px; }
   .portfolios-grid { grid-template-columns: 1fr; }
   .fund-meta-label { min-width: 100px; }
-  .tab-btn { padding: 10px 14px; font-size: 13px; }
+  .tab-btn { padding: 9px 14px; }
+  .tab-btn-name { font-size: 15px; }
+  .tab-btn-date { font-size: 10px; }
 }
 </style>
 </head>
@@ -646,7 +657,16 @@ a:hover { text-decoration: underline; }
 <header class="header">
   <div class="container header-inner">
     <a href="/" class="logo">
-      <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" height="40" style="height:40px;width:auto;display:block">
+      <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="rgba(255,255,255,0.15)"/>
+        <path d="M20 7 V 28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 13 L 31 13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <rect x="6" y="20" width="3" height="6" fill="#D74E3C" rx="1"/>
+        <rect x="11" y="17" width="3" height="9" fill="#fff" rx="1"/>
+        <rect x="26" y="14" width="3" height="12" fill="#fff" rx="1"/>
+        <rect x="31" y="10" width="3" height="16" fill="#D74E3C" rx="1"/>
+      </svg>
+      <span>אחיטוב <span class="logo-sub">תכנון פיננסי | יועץ פנסיוני</span></span>
     </a>
     <span class="badge-clients">🔒 אזור לקוחות</span>
   </div>
@@ -694,24 +714,4 @@ a:hover { text-decoration: underline; }
       </button>
     </form>
 
-    <div class="error-msg" id="error-msg"></div>
-  </div>
-</section>
-
-<!-- ========================
-     CONTENT SECTION
-     ======================== -->
-<section id="content-section" style="display:none">
-  <div id="content-header-bar"></div>
-  <div id="tab-panels"></div>
-</section><!-- /content-section -->
-
-<!-- Footer -->
-<footer class="footer-simple" id="content-footer" style="display:none">
-  © 2026 איתן אחיטוב | <a href="/">pensya.info</a> | <a href="tel:+972527700599">052-770-0599</a>
-</footer>
-
-<script src="/clients/gate.js?v=12"></script>
-
-</body>
-</html>
+    <div clas
