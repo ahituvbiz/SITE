@@ -1,4 +1,4 @@
-// gate.js — v7 | tag-based personalized content + insurance tab
+// gate.js — v8 | tag-based personalized content + insurance / donations / child-savings tabs
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -16,7 +16,8 @@ var TAB_DATES = {
   'IRA':             '12.7.2026',
   'ביטוחים':         '12.7.2026',
   'תיק השקעות':      '12.7.2026',
-  'זיכוי על תרומות': '12.7.2026'
+  'זיכוי על תרומות': '12.7.2026',
+  'חיסכון לכל ילד':  '21.7.2026'
 };
 // ברירת מחדל ללשונית שלא מופיעה במפה למעלה
 var DEFAULT_TAB_UPDATED = '12.7.2026';
@@ -367,6 +368,60 @@ function buildIraPromo(hasTag11) {
     '</div></div></div>';
 }
 
+// טאב חיסכון לכל ילד — מוצג לכל הלקוחות
+var CHILD_SAVINGS_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · המלצות אישיות</div>' +
+  '<h1>חיסכון לכל ילד</h1>' +
+  '</div></div>' +
+  '<div style="background:var(--bg-cream,#F8F6F3);padding:40px 0 60px;">' +
+  '<div class="container">' +
+  '<div class="intro-note" style="max-width:720px;margin:0 auto 28px;font-size:19px;line-height:1.9;">' +
+  'ההמלצה העדכנית שלי היא <strong>מסלול הלכה של אינפיניטי</strong>.' +
+  '</div>' +
+  '<div style="display:flex;flex-direction:column;gap:24px;max-width:720px;margin:0 auto;">' +
+
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">בחירת קופה עבור תינוק חדש</div>' +
+    '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'ניתן לבצע עד גיל <strong>6 חודשים</strong>. כדי להצטרף לקופה יש להיכנס לאתר הביטוח הלאומי, ' +
+    'לבחור באפשרות <strong>\'קופת גמל\'</strong>, לאחר מכן <strong>\'אינפיניטי\'</strong>, ובמסלול לבחור <strong>\'הלכה\'</strong>.' +
+    '</p>' +
+    '<a href="https://b2b.btl.gov.il/BTL.ILG.Payments/tochnitchisachonyeledinfo.aspx" target="_blank" rel="noopener" ' +
+    'style="display:inline-block;background:var(--primary,#1F4E79);color:#fff;padding:12px 26px;border-radius:8px;' +
+    'font-weight:700;font-size:15px;text-decoration:none;">לבחירת קופה באתר הביטוח הלאומי</a>' +
+    '</div>' +
+
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">שינוי קופת גמל עבור ילד שנמצא בתכנית אחרת</div>' +
+    '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'מי שהצטרף לקופת גמל אחרת — באופן אקטיבי, או שפשוט לא בחר בשום קופה ושויך לאחת מברירות המחדל — ' +
+    'ומעוניין להעביר את הילד שלו ל<strong>אינפיניטי הלכה</strong>, יכול לעשות זאת דרך הקישור הבא.' +
+    '</p>' +
+    '<a href="https://app.tepez.co.il/c/6097ade9e3ee910d97204c3b/run/" target="_blank" rel="noopener" ' +
+    'style="display:inline-block;background:var(--primary,#1F4E79);color:#fff;padding:12px 26px;border-radius:8px;' +
+    'font-weight:700;font-size:15px;text-decoration:none;">למעבר לאינפיניטי הלכה</a>' +
+    '</div>' +
+
+    '<div class="portfolio-card" style="padding:28px 32px;">' +
+    '<div class="portfolio-name" style="font-size:18px;margin-bottom:12px;">לא יודעים היכן הכסף של הילד?</div>' +
+    '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:var(--text-secondary);">' +
+    'אם אינכם יודעים באיזו תכנית הכסף של הילד שלכם נמצא היום, תוכלו לבדוק זאת באתר הביטוח הלאומי.' +
+    '</p>' +
+    '<a href="https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledListForm.aspx?fromInfo=637974648200395114" ' +
+    'target="_blank" rel="noopener" ' +
+    'style="display:inline-block;background:var(--primary,#1F4E79);color:#fff;padding:12px 26px;border-radius:8px;' +
+    'font-weight:700;font-size:15px;text-decoration:none;">לבדיקת התכנית של הילד</a>' +
+    '</div>' +
+
+  '</div>' +
+  '<div class="intro-note" style="max-width:720px;margin:28px auto 0;font-size:15px;line-height:1.8;">' +
+  '<strong>הערה:</strong> אם החיסכון של הילד נמצא בבנק — לא ניתן לשנות זאת.' +
+  '</div>' +
+  '</div></div>';
+
+var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD_SAVINGS_HTML };
+
 function buildSections(data) {
   var origTags = (data.tags && data.tags.length > 0) ? data.tags : KNOWN_TAGS;
   var has = function(id) { return origTags.some(function(t) { return t.id === id; }); };
@@ -376,7 +431,7 @@ function buildSections(data) {
   var hasTag11 = has(11);
 
   if (data.sections && data.sections.length > 0) {
-    return Promise.resolve(data.sections.concat([buildInsuranceSection(hasTag11), DONATIONS_SECTION]));
+    return Promise.resolve(data.sections.concat([buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION]));
   }
 
   // שולפים תוכן רק לתגיות שיש ללקוח דף תוכן אישי עבורן
@@ -416,6 +471,9 @@ function buildSections(data) {
 
     // 5. זיכוי על תרומות — לכולם
     sections.push(DONATIONS_SECTION);
+
+    // 6. חיסכון לכל ילד — לכולם
+    sections.push(CHILD_SAVINGS_SECTION);
 
     return sections;
   });
