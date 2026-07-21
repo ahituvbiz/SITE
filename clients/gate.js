@@ -318,7 +318,7 @@ var PENSION_INVITE_HTML =
   '<div class="portfolio-card" style="padding:30px 34px;max-width:680px;margin:0 auto;text-align:center;">' +
   '<div style="font-size:20px;font-weight:800;color:var(--primary,#1F4E79);margin-bottom:14px;">רוצה לוודא שהחיסכון הפנסיוני שלך בנוי נכון?</div>' +
   '<p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:var(--text-secondary,#4A4A6A);">בתכנון פנסיוני אישי נעבור יחד על קרן הפנסיה, קרן ההשתלמות וקופות הגמל שלך — נבדוק מסלולים, דמי ניהול ופיזור סיכונים, ונבנה תוכנית שמתאימה בדיוק לך ולמטרות שלך.</p>' +
-  '<a href="https://wa.me/972527700599" style="display:inline-block;background:var(--primary,#1F4E79);color:#fff;padding:14px 34px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">💬 לתיאום תכנון פנסיוני</a>' +
+  '<a href="https://wa.me/972527700599" style="display:inline-block;background:#25D366;color:#fff;padding:14px 34px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">💬 לתיאום תכנון פנסיוני</a>' +
   '</div></div></div>';
 
 // ====== לשונית IRA — טבלת השוואה + המלצת מעבר לניהול עצמאי (למי שאין #8) ======
