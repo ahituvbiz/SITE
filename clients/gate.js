@@ -376,7 +376,8 @@ var CHILD_SAVINGS_HTML =
   '</div></div>' +
   '<div style="background:var(--bg-cream,#F8F6F3);padding:40px 0 60px;">' +
   '<div class="container">' +
-  '<div class="intro-note" style="max-width:720px;margin:0 auto 28px;font-size:19px;line-height:1.9;">' +
+  '<div style="max-width:720px;margin:0 auto 28px;background:#E8F5EC;border:1px solid #BFE3CC;' +
+  'border-right:6px solid #1a7f44;border-radius:10px;padding:22px 26px;font-size:19px;line-height:1.9;color:#14532d;">' +
   'ההמלצה העדכנית שלי היא <strong>מסלול הלכה של אינפיניטי</strong>.' +
   '</div>' +
   '<div style="display:flex;flex-direction:column;gap:24px;max-width:720px;margin:0 auto;">' +
