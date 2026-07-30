@@ -322,6 +322,14 @@
   </url>
 
   <url>
+    <loc>https://pensya.info/tools/pension-calculator/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- מחשבון פנסיה -->
+  </url>
+
+  <url>
     <loc>https://pensya.info/tools/pension-calc-self-employed/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
