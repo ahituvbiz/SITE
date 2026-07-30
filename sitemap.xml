@@ -337,7 +337,14 @@
     <!-- מחשבון דמי ניהול -->
   </url>
 
-  <url>
+    <url>
+    <loc>https://pensya.info/tools/mekadem-hamara/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון מקדם המרה -->
+  </url>
+<url>
     <loc>https://pensya.info/tools/mechir-lamishtaken/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
