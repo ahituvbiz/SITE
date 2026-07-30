@@ -17,8 +17,20 @@ def check(path):
     if inline+src!=close: iss.append("scriptUnbalanced(open=%d,close=%d)"%(inline+src,close))
     if re.search(r'document\.b(?![a-zA-Z])',dec): iss.append("hamburger-cut")
     tail=b.rstrip(b"\x00\r\n \t")
-    if not tail.endswith((b"</html>",b"</footer>",b"</body>")):
+    # מוקאפים ("תוכן בלבד") מסתיימים בסמן ה-chrome ולא בתגית סגירה - זה תקין
+    ok_ends=(b"</html>",b"</footer>",b"</body>",b"<!--@CHROME:FOOTER@-->")
+    is_fragment = "<html" not in dec[:2000].lower()   # שברי תוכן (portal) - אין להם תגית סוגרת
+    if not is_fragment and not tail.endswith(ok_ends):
         iss.append("badEnd:"+tail[-14:].decode("utf-8","replace"))
+    # חתך באמצע תגית: תגית שנפתחת ולא נסגרת, והשורה הבאה אינה המשך תקין של מאפיינים
+    lines=dec.split("\n")
+    for i,l in enumerate(lines):
+        st=l.strip()
+        if not re.match(r'^<[a-zA-Z][^>]*$',st) or st.startswith('<!--'): continue
+        nxt=lines[i+1].strip() if i+1<len(lines) else ''
+        # המשך לגיטימי: מאפיין נוסף, סגירת תגית, או ערך מאפיין שנמשך
+        if nxt and not nxt.startswith('<') and re.match(r'^[a-zA-Z-]+\s*=|^/?>|^[\"\']',nxt): continue
+        iss.append("cutTag@%d:%s"%(i+1,st[:40])); break
     return iss
 def main():
     args=[a for a in sys.argv[1:] if not a.startswith("--")]
