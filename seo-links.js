@@ -95,7 +95,6 @@ const KEYWORD_MAP = {
   'מחשבון חיסכון במס':                   '/tools/tax-savings/',
   'מחשבון דמי ניהול':                    '/tools/management-fees/',
   'מחשבון נדל"ן':                        '/tools/real-estate-vs-market/',
-  'מחשבון ROI ייעוץ':                    '/tools/roi-advisor/',
   'מחשבונים פיננסיים':                   '/tools/',
 
   // ── פילר 8: אודות ──
@@ -246,4 +245,13 @@ for (const filePath of htmlFiles) {
   if (updated !== original) {
     fs.writeFileSync(filePath, updated, 'utf8');
     // ספור כמה קישורים נוספו
-    const a
+    const added = (updated.match(/<a href="\/[^"]+">(?!.*<\/a>)/g) || []).length -
+                  (original.match(/<a href="\/[^"]+">(?!.*<\/a>)/g) || []).length;
+    console.log(`  ✅ ${currentUrl} — נוספו קישורים`);
+    totalLinks++;
+  }
+}
+
+console.log(`\n✨ סיום — עודכנו ${totalLinks} דפים`);
+console.log(`כל הקישורים הפנימיים מנוהלים על ידי KEYWORD_MAP.
+`);
