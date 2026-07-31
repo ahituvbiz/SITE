@@ -831,6 +831,36 @@ section { padding: var(--s-2xl) 0; }
 .calc-breakdown .row .label { color: var(--text-2); }
 .calc-breakdown .row .val { color: var(--text-1); font-weight: 600; }
 
+/* Segmented toggle (birth year) */
+.calc-seg {
+  display: inline-flex;
+  background: var(--bg-2, #f0f2f5);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  width: 100%;
+}
+.calc-seg .seg-btn {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background .15s, color .15s, box-shadow .15s;
+}
+.calc-seg .seg-btn.is-active {
+  background: #fff;
+  color: var(--brand, #0072C6);
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+.calc-seg .seg-btn:hover:not(.is-active) { color: var(--text-1); }
+
 /* Pension comparison */
 .pension-compare {
   background: #1A1A1A;
@@ -1367,6 +1397,17 @@ textarea:focus-visible,
 
         <div class="calc-control">
           <div class="label-row">
+            <span>שנת לידת הילד/ה (קובעת את מסלול המענקים)</span>
+          </div>
+          <div class="calc-seg" id="calc-birth-seg" role="group" aria-label="שנת לידה">
+            <button type="button" class="seg-btn is-active" data-scheme="new" aria-pressed="true">נולד/ה מ-2017 ואילך</button>
+            <button type="button" class="seg-btn" data-scheme="old" aria-pressed="false">נולד/ה עד 2016</button>
+          </div>
+          <div class="toggle-note" id="calc-seg-note">291 ₪ בגיל 3, 291 ₪ בבר/בת מצווה, 582 ₪ בגיל 21</div>
+        </div>
+
+        <div class="calc-control">
+          <div class="label-row">
             <span>אינפלציה צפויה (שנתית)</span>
             <span class="value"><span id="calc-infl-out">2.0</span>%</span>
           </div>
@@ -1397,7 +1438,7 @@ textarea:focus-visible,
 
       <div class="calc-breakdown">
         <div class="row"><span class="label">סך הפקדות חודשיות (קרן)</span><span class="val" id="calc-deposits">-</span></div>
-        <div class="row"><span class="label">סך מענקים (582 ₪ × 2)</span><span class="val">₪ 1,164</span></div>
+        <div class="row"><span class="label" id="calc-grants-label">סך מענקים (291 + 291 + 582)</span><span class="val" id="calc-grants-val">₪ 1,164</span></div>
         <div class="row"><span class="label">רווח ברוטו (נומינלי) עד גיל 21</span><span class="val" id="calc-gain">-</span></div>
         <div class="row"><span class="label">מס רווחי הון (25% מהריאלי) בגיל 21</span><span class="val" id="calc-tax">-</span></div>
       </div>
@@ -1808,7 +1849,15 @@ textarea:focus-visible,
   var inflEl = document.getElementById('calc-infl');
   var retEl  = document.getElementById('calc-ret');
   var dblEl  = document.getElementById('calc-double');
+  var segEl  = document.getElementById('calc-birth-seg');
+  var segNote = document.getElementById('calc-seg-note');
   if (!inflEl || !retEl || !dblEl) return;
+
+  var currentScheme = 'new';
+  var SEG_NOTE = {
+    'new': '291 ₪ בגיל 3, 291 ₪ בבר/בת מצווה, 582 ₪ בגיל 21',
+    'old': '582 ₪ בגיל 18, 582 ₪ בגיל 21'
+  };
 
   var inflOut = document.getElementById('calc-infl-out');
   var retOut  = document.getElementById('calc-ret-out');
@@ -1819,26 +1868,38 @@ textarea:focus-visible,
   var depEl   = document.getElementById('calc-deposits');
   var gainEl  = document.getElementById('calc-gain');
   var taxEl   = document.getElementById('calc-tax');
+  var grantsLabel = document.getElementById('calc-grants-label');
+  var grantsVal   = document.getElementById('calc-grants-val');
   var pcChild = document.getElementById('pc-child');
   var pcPens  = document.getElementById('pc-pension');
   var pcRatio = document.getElementById('pc-ratio');
 
-  var GRANT = 582;            /* מענק קבוע בחוק, לא מוכפל */
   var DEPOSIT_MONTHS = 216;   /* הפקדות מלידה עד גיל 18 */
-  var GRANT18_M = 216, GRANT21_M = 252;
   var TAX = 0.25;             /* מס רווחי הון על הרווח הריאלי */
+
+  /* לוחות המענקים לפי מסלול (חודש מאז לידה => סכום).
+     שני המסלולים מסתכמים ב-1,164 ₪ - ההבדל הוא רק בתזמון. */
+  var GRANTS = {
+    /* נולד עד 31.12.2016: 582 בגיל 18, 582 בגיל 21 */
+    old: [{ m: 216, a: 582 }, { m: 252, a: 582 }],
+    /* נולד מ-1.1.2017: 291 בגיל 3, 291 בבר/בת מצווה (~12.5), 582 בגיל 21 */
+    new: [{ m: 36, a: 291 }, { m: 150, a: 291 }, { m: 252, a: 582 }]
+  };
 
   function fmt(n){ return '₪ ' + Math.round(n).toLocaleString('en-US'); }
 
   /* סימולציה חודש-אחר-חודש: ערך נומינלי + בסיס עלות צמוד למדד */
-  function simulate(m, months, iN, iI){
+  function simulate(m, months, iN, iI, grants){
     var value = 0, indexedCost = 0, cost = 0;
     for (var t = 1; t <= months; t++){
       value *= (1 + iN);
       indexedCost *= (1 + iI);
       if (t <= DEPOSIT_MONTHS){ value += m; cost += m; indexedCost += m; }
-      if (t === GRANT18_M){ value += GRANT; cost += GRANT; indexedCost += GRANT; }
-      if (t === GRANT21_M){ value += GRANT; cost += GRANT; indexedCost += GRANT; }
+      for (var g = 0; g < grants.length; g++){
+        if (t === grants[g].m){
+          value += grants[g].a; cost += grants[g].a; indexedCost += grants[g].a;
+        }
+      }
     }
     return { value: value, indexedCost: indexedCost, cost: cost };
   }
@@ -1853,6 +1914,9 @@ textarea:focus-visible,
     var infl = parseFloat(inflEl.value) / 100;
     var ret  = parseFloat(retEl.value) / 100;
     var m    = dblEl.checked ? 116 : 58;
+    var scheme = currentScheme;
+    var grants = GRANTS[scheme];
+    var grantsTotal = grants.reduce(function(s, g){ return s + g.a; }, 0);
 
     inflOut.textContent = (infl * 100).toFixed(1);
     retOut.textContent  = (ret * 100).toFixed(1);
@@ -1860,12 +1924,12 @@ textarea:focus-visible,
     var iN = Math.pow(1 + ret, 1/12) - 1;
     var iI = Math.pow(1 + infl, 1/12) - 1;
 
-    var s18 = simulate(m, GRANT18_M, iN, iI);
+    var s18 = simulate(m, 216, iN, iI, grants);
     var tax18 = TAX * Math.max(0, s18.value - s18.indexedCost);
     var net18 = s18.value - tax18;
     var real18 = net18 / Math.pow(1 + infl, 18);
 
-    var s21 = simulate(m, GRANT21_M, iN, iI);
+    var s21 = simulate(m, 252, iN, iI, grants);
     var tax21 = TAX * Math.max(0, s21.value - s21.indexedCost);
     var net21 = s21.value - tax21;
     var real21 = net21 / Math.pow(1 + infl, 21);
@@ -1876,6 +1940,10 @@ textarea:focus-visible,
     age21r.textContent = fmt(real21);
 
     depEl.textContent  = fmt(m * DEPOSIT_MONTHS);
+    if (grantsLabel) grantsLabel.textContent = scheme === 'old'
+      ? 'סך מענקים (582 × 2)'
+      : 'סך מענקים (291 + 291 + 582)';
+    if (grantsVal) grantsVal.textContent = fmt(grantsTotal);
     gainEl.textContent = fmt(s21.value - s21.cost);
     taxEl.textContent  = fmt(tax21);
 
@@ -1889,6 +1957,21 @@ textarea:focus-visible,
   inflEl.addEventListener('input', recalc);
   retEl.addEventListener('input', recalc);
   dblEl.addEventListener('change', recalc);
+  if (segEl){
+    segEl.addEventListener('click', function(e){
+      var btn = e.target.closest('.seg-btn');
+      if (!btn) return;
+      currentScheme = btn.getAttribute('data-scheme') === 'old' ? 'old' : 'new';
+      var btns = segEl.querySelectorAll('.seg-btn');
+      for (var i = 0; i < btns.length; i++){
+        var on = btns[i] === btn;
+        btns[i].classList.toggle('is-active', on);
+        btns[i].setAttribute('aria-pressed', String(on));
+      }
+      if (segNote) segNote.textContent = SEG_NOTE[currentScheme];
+      recalc();
+    });
+  }
   recalc();
 })();
 </script>
