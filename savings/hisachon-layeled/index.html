@@ -1406,16 +1406,6 @@ textarea:focus-visible,
           <div class="toggle-note" id="calc-seg-note">291 ₪ בגיל 3, 291 ₪ בבר/בת מצווה, 582 ₪ בגיל 21</div>
         </div>
 
-        <div class="calc-control" id="calc-gender-wrap">
-          <div class="label-row">
-            <span>מין הילד/ה (גיל בר/בת מצווה)</span>
-          </div>
-          <div class="calc-seg" id="calc-gender-seg" role="group" aria-label="מין הילד/ה">
-            <button type="button" class="seg-btn is-active" data-gender="boy" aria-pressed="true">בן — בר מצווה בגיל 13</button>
-            <button type="button" class="seg-btn" data-gender="girl" aria-pressed="false">בת — בת מצווה בגיל 12</button>
-          </div>
-        </div>
-
         <div class="calc-control">
           <div class="label-row">
             <span>אינפלציה צפויה (שנתית)</span>
@@ -1861,12 +1851,9 @@ textarea:focus-visible,
   var dblEl  = document.getElementById('calc-double');
   var segEl  = document.getElementById('calc-birth-seg');
   var segNote = document.getElementById('calc-seg-note');
-  var genderSeg = document.getElementById('calc-gender-seg');
-  var genderWrap = document.getElementById('calc-gender-wrap');
   if (!inflEl || !retEl || !dblEl) return;
 
   var currentScheme = 'new';
-  var currentGender = 'boy';
   var SEG_NOTE = {
     'new': '291 ₪ בגיל 3, 291 ₪ בבר/בת מצווה, 582 ₪ בגיל 21',
     'old': '582 ₪ בגיל 18, 582 ₪ בגיל 21'
@@ -1892,13 +1879,12 @@ textarea:focus-visible,
 
   /* לוחות המענקים לפי מסלול (חודש מאז לידה => סכום).
      שני המסלולים מסתכמים ב-1,164 ₪ - ההבדל הוא רק בתזמון.
-     במסלול החדש גיל בר/בת מצווה תלוי במין: בן=13 (156 חודשים), בת=12 (144). */
-  function buildGrants(scheme, gender){
+     במסלול החדש מענק בר/בת מצווה מחושב לפי גיל 12.5 (חודש 150) - ממוצע בן/בת. */
+  function buildGrants(scheme){
     if (scheme === 'old') {
       return [{ m: 216, a: 582 }, { m: 252, a: 582 }];
     }
-    var bmMonth = gender === 'girl' ? 144 : 156;
-    return [{ m: 36, a: 291 }, { m: bmMonth, a: 291 }, { m: 252, a: 582 }];
+    return [{ m: 36, a: 291 }, { m: 150, a: 291 }, { m: 252, a: 582 }];
   }
 
   function fmt(n){ return '₪ ' + Math.round(n).toLocaleString('en-US'); }
@@ -1930,8 +1916,7 @@ textarea:focus-visible,
     var ret  = parseFloat(retEl.value) / 100;
     var m    = dblEl.checked ? 116 : 58;
     var scheme = currentScheme;
-    var grants = buildGrants(scheme, currentGender);
-    if (genderWrap) genderWrap.style.display = (scheme === 'old') ? 'none' : '';
+    var grants = buildGrants(scheme);
     var grantsTotal = grants.reduce(function(s, g){ return s + g.a; }, 0);
 
     inflOut.textContent = (infl * 100).toFixed(1);
@@ -1985,20 +1970,6 @@ textarea:focus-visible,
         btns[i].setAttribute('aria-pressed', String(on));
       }
       if (segNote) segNote.textContent = SEG_NOTE[currentScheme];
-      recalc();
-    });
-  }
-  if (genderSeg){
-    genderSeg.addEventListener('click', function(e){
-      var btn = e.target.closest('.seg-btn');
-      if (!btn) return;
-      currentGender = btn.getAttribute('data-gender') === 'girl' ? 'girl' : 'boy';
-      var btns = genderSeg.querySelectorAll('.seg-btn');
-      for (var i = 0; i < btns.length; i++){
-        var on = btns[i] === btn;
-        btns[i].classList.toggle('is-active', on);
-        btns[i].setAttribute('aria-pressed', String(on));
-      }
       recalc();
     });
   }
