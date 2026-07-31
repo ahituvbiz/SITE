@@ -376,4 +376,10 @@
     <!-- מחשבון חיסכון במס -->
   </url>
 
+  <url>
+    <loc>https://pensya.info/pension/meshichat-pensya-nechut/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
