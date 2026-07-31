@@ -1802,6 +1802,98 @@ textarea:focus-visible,
 </script>
 
 
+<script>
+/* חיסכון לכל ילד - מחשבון אינטראקטיבי */
+(function(){
+  var inflEl = document.getElementById('calc-infl');
+  var retEl  = document.getElementById('calc-ret');
+  var dblEl  = document.getElementById('calc-double');
+  if (!inflEl || !retEl || !dblEl) return;
+
+  var inflOut = document.getElementById('calc-infl-out');
+  var retOut  = document.getElementById('calc-ret-out');
+  var age18   = document.getElementById('calc-age18');
+  var age18r  = document.getElementById('calc-age18-real');
+  var age21   = document.getElementById('calc-age21');
+  var age21r  = document.getElementById('calc-age21-real');
+  var depEl   = document.getElementById('calc-deposits');
+  var gainEl  = document.getElementById('calc-gain');
+  var taxEl   = document.getElementById('calc-tax');
+  var pcChild = document.getElementById('pc-child');
+  var pcPens  = document.getElementById('pc-pension');
+  var pcRatio = document.getElementById('pc-ratio');
+
+  var GRANT = 582;            /* מענק קבוע בחוק, לא מוכפל */
+  var DEPOSIT_MONTHS = 216;   /* הפקדות מלידה עד גיל 18 */
+  var GRANT18_M = 216, GRANT21_M = 252;
+  var TAX = 0.25;             /* מס רווחי הון על הרווח הריאלי */
+
+  function fmt(n){ return '₪ ' + Math.round(n).toLocaleString('en-US'); }
+
+  /* סימולציה חודש-אחר-חודש: ערך נומינלי + בסיס עלות צמוד למדד */
+  function simulate(m, months, iN, iI){
+    var value = 0, indexedCost = 0, cost = 0;
+    for (var t = 1; t <= months; t++){
+      value *= (1 + iN);
+      indexedCost *= (1 + iI);
+      if (t <= DEPOSIT_MONTHS){ value += m; cost += m; indexedCost += m; }
+      if (t === GRANT18_M){ value += GRANT; cost += GRANT; indexedCost += GRANT; }
+      if (t === GRANT21_M){ value += GRANT; cost += GRANT; indexedCost += GRANT; }
+    }
+    return { value: value, indexedCost: indexedCost, cost: cost };
+  }
+
+  function annuityFV(m, months, iN){
+    var v = 0;
+    for (var t = 1; t <= months; t++){ v = v * (1 + iN) + m; }
+    return v;
+  }
+
+  function recalc(){
+    var infl = parseFloat(inflEl.value) / 100;
+    var ret  = parseFloat(retEl.value) / 100;
+    var m    = dblEl.checked ? 116 : 58;
+
+    inflOut.textContent = (infl * 100).toFixed(1);
+    retOut.textContent  = (ret * 100).toFixed(1);
+
+    var iN = Math.pow(1 + ret, 1/12) - 1;
+    var iI = Math.pow(1 + infl, 1/12) - 1;
+
+    var s18 = simulate(m, GRANT18_M, iN, iI);
+    var tax18 = TAX * Math.max(0, s18.value - s18.indexedCost);
+    var net18 = s18.value - tax18;
+    var real18 = net18 / Math.pow(1 + infl, 18);
+
+    var s21 = simulate(m, GRANT21_M, iN, iI);
+    var tax21 = TAX * Math.max(0, s21.value - s21.indexedCost);
+    var net21 = s21.value - tax21;
+    var real21 = net21 / Math.pow(1 + infl, 21);
+
+    age18.textContent  = fmt(net18);
+    age18r.textContent = fmt(real18);
+    age21.textContent  = fmt(net21);
+    age21r.textContent = fmt(real21);
+
+    depEl.textContent  = fmt(m * DEPOSIT_MONTHS);
+    gainEl.textContent = fmt(s21.value - s21.cost);
+    taxEl.textContent  = fmt(tax21);
+
+    var pension = annuityFV(2000, 480, iN);
+    pcChild.textContent = fmt(net21);
+    pcPens.textContent  = fmt(pension);
+    var ratio = net21 > 0 ? Math.round(pension / net21) : 0;
+    pcRatio.textContent = 'פי ' + ratio.toLocaleString('en-US');
+  }
+
+  inflEl.addEventListener('input', recalc);
+  retEl.addEventListener('input', recalc);
+  dblEl.addEventListener('change', recalc);
+  recalc();
+})();
+</script>
+
+
 <script src="/search.js"></script>
 <!-- Unified site footer -->
 <footer class="site-footer" role="contentinfo">
