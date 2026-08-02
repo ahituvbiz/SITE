@@ -92,7 +92,7 @@
           "name": "כמה עולה כל שירות?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות נסתרות ואין תשלום תלוי-סכום. נסקור את המחיר יחד בשיחת ההיכרות."
+            "text": "המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות נסתרות ואין תשלום תלוי-סכום. לשני שירותים יש מחיר קבוע ומפורסם: צירוף ל-IRA - 690 ₪, ובדיקת זכאות לפטור ממס בנכות - 1,190 ₪. בשאר השירותים שכר הטרחה נקבע לפי היקף העבודה, ואני שולח הצעת מחיר בכתב אחרי שיחת ההיכרות."
           }
         },
         {
@@ -231,6 +231,12 @@ section { padding: var(--s-2xl) 0; }
 .service-card ul li { padding: 7px 24px 7px 0; font-size: 14px; position: relative; border-bottom: 1px dashed var(--border); color: var(--text-2); line-height: 1.5; }
 .service-card ul li:last-child { border-bottom: none; }
 .service-card ul li::before { content: '✓'; color: var(--positive); font-weight: 700; position: absolute; right: 0; top: 7px; }
+.service-card .sc-price {
+  font-size: 14px; color: var(--text-2); background: var(--bg-cream);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 13px; margin: 0 0 var(--s-md); line-height: 1.5;
+}
+.service-card .sc-price strong { color: var(--primary); font-size: 17px; font-weight: 700; }
 .service-card .sc-link { font-weight: 700; color: var(--cta); font-size: 15px; margin-top: auto; }
 .service-card .sc-link:hover { text-decoration: underline; }
 @media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; } }
@@ -434,6 +440,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>איתור כפילויות, פערים וסיכונים מיותרים</li>
           <li>המלצות בכתב + ליווי ביצוע מול הקרנות והחברות</li>
         </ul>
+        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
         <a class="sc-link" href="/financial-planning/">לדף שירות התכנון הפיננסי ←</a>
       </div>
 
@@ -454,6 +461,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>זיהוי מסלולים יקרים מדי או חשופים לריבית</li>
           <li>ליווי אובייקטיבי - בלי אינטרס מכירה של הלוואה</li>
         </ul>
+        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
         <a class="sc-link" href="/mortgage/mortgage-and-pension/">משכנתא ופנסיה - לתכנן יחד ←</a>
       </div>
 
@@ -474,6 +482,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>החתמה על מסמכי ההצטרפות וצירוף בפועל</li>
           <li>תשלום חד-פעמי, ישיר ושקוף - בלי עמלה נסתרת</li>
         </ul>
+        <div class="sc-price"><strong>690 ₪</strong> · תשלום חד-פעמי, ידוע מראש. בלי עמלה מהברוקר או מהקופה.</div>
         <a class="sc-link" href="/investment/ira/">לדף שירות ה-IRA ←</a>
       </div>
 
@@ -494,6 +503,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>בחינה אם מיחזור באמת משתלם - אחרי כל העלויות</li>
           <li>מספרים קונקרטיים לפני שאתה חותם על משהו</li>
         </ul>
+        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
         <a class="sc-link" href="#contact">קבע שיחה לבדיקה ←</a>
       </div>
 
@@ -514,6 +524,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>בדיקה אם אתה משלם יותר מדי על הפרמיות</li>
           <li>המלצות בכתב - בלי אינטרס מכירה של פוליסה</li>
         </ul>
+        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
       </div>
 
       <!-- 6. Investment portfolio -->
@@ -533,6 +544,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>ליווי בבחירת מכשירי ההשקעה - קרנות סל ומדדים רחבים</li>
           <li>תשלום חד-פעמי, ישיר ושקוף - בלי עמלה נסתרת</li>
         </ul>
+        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
       </div>
 
       <!-- 7. Disability pension withdrawal exemption -->
@@ -552,6 +564,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>תכנון המהלך - אם, כמה, ואיך להפקיד מחדש</li>
           <li>ליווי אובייקטיבי, בלי עמלות</li>
         </ul>
+        <div class="sc-price"><strong>1,190 ₪</strong> · בדיקת זכאות ותכנון המהלך.</div>
         <a class="sc-link" href="/pension/meshichat-pensya-nechut/">לדף השירות - פטור נכות ←</a>
       </div>
 
@@ -612,7 +625,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
       <summary>כמה עולה כל שירות?</summary>
       <div class="faq-body">
         המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות נסתרות ואין תשלום
-        תלוי-סכום. נסקור את המחיר יחד בשיחת ההיכרות.
+        תלוי-סכום. לשני שירותים יש מחיר קבוע ומפורסם: צירוף ל-<a href="/investment/ira/">IRA</a> - 690 ₪,
+        ו<a href="/pension/meshichat-pensya-nechut/">בדיקת זכאות לפטור ממס בנכות</a> - 1,190 ₪.
+        בשאר השירותים שכר הטרחה נקבע לפי היקף העבודה, ואני שולח הצעת מחיר בכתב אחרי שיחת ההיכרות.
       </div>
     </details>
     <details class="faq-item">
