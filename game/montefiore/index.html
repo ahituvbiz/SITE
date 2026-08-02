@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>המסע בעקבות מונטיפיורי — משחק שטח</title>
+<style>
+  :root{
+    --brown:#6d4c2f; --gold:#c9962e; --cream:#fdf6e9; --paper:#fffdf7;
+    --green:#3e7a4e; --red:#b5432f; --ink:#3a2e20;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{margin:0; font-family:'Segoe UI',Arial,sans-serif; background:var(--cream); color:var(--ink); font-size:17px; line-height:1.65;}
+  .wrap{max-width:560px; margin:0 auto; padding:14px 14px 60px;}
+  header.game{background:linear-gradient(160deg,#6d4c2f,#8a6238); color:#fff; text-align:center; padding:18px 14px 14px; border-radius:0 0 22px 22px;}
+  header.game h1{margin:0; font-size:1.45em;}
+  header.game .sub{opacity:.9; font-size:.85em; margin-top:4px;}
+  .progress{display:flex; gap:5px; justify-content:center; margin-top:12px;}
+  .dot{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:.75em;color:#fff;border:2px solid rgba(255,255,255,.4);}
+  .dot.done{background:var(--gold); border-color:#fff;}
+  .dot.cur{background:#fff; color:var(--brown); font-weight:bold; border-color:var(--gold);}
+  .score{margin-top:8px; font-size:.9em; background:rgba(0,0,0,.18); display:inline-block; padding:3px 14px; border-radius:14px;}
+  .card{background:var(--paper); border:1px solid #e8dcc4; border-radius:16px; padding:18px; margin:16px 0; box-shadow:0 2px 8px rgba(109,76,47,.08);}
+  .card h2{margin:0 0 6px; color:var(--brown); font-size:1.2em;}
+  .tag{display:inline-block; font-size:.75em; background:var(--gold); color:#fff; border-radius:10px; padding:2px 10px; margin-bottom:8px;}
+  .tag.wiki{background:var(--green);}
+  .tag.field{background:var(--red);}
+  .riddle{background:#f7efdd; border-right:4px solid var(--gold); padding:12px 14px; border-radius:10px; font-size:1.05em;}
+  .wikibox{background:#f2f7f0; border:1px solid #cfe0cd; border-radius:12px; padding:14px;}
+  .wikibox h3{margin:0 0 4px; color:var(--green); font-size:1.05em;}
+  .wikibox .wtag{font-size:.7em; color:#6b8a6f; letter-spacing:.5px;}
+  .funfact{background:#fff8e6; border:1px dashed var(--gold); border-radius:10px; padding:8px 12px; margin-top:10px; font-size:.92em;}
+  button{font-family:inherit; font-size:1em; cursor:pointer;}
+  .btn{display:block; width:100%; background:var(--brown); color:#fff; border:none; border-radius:12px; padding:13px; font-size:1.05em; font-weight:bold; margin-top:12px;}
+  .btn.gold{background:var(--gold);}
+  .btn.ghost{background:transparent; color:var(--brown); border:2px solid var(--brown); font-weight:normal; padding:9px;}
+  .btn:disabled{opacity:.45;}
+  .opt{display:block; width:100%; text-align:right; background:#fff; border:2px solid #ddd0b8; border-radius:12px; padding:11px 14px; margin-top:9px;}
+  .opt.right{border-color:var(--green); background:#e9f5ea;}
+  .opt.wrong{border-color:var(--red); background:#fbeae7; opacity:.7;}
+  input[type=text]{width:100%; padding:11px; border:2px solid #ddd0b8; border-radius:12px; font-size:1.1em; text-align:center; font-family:inherit; margin-top:9px; background:#fff;}
+  .hintbox{display:none; background:#eef3fb; border-radius:10px; padding:9px 12px; margin-top:9px; font-size:.92em;}
+  .msg{margin-top:9px; font-weight:bold; min-height:1.2em;}
+  .msg.ok{color:var(--green);} .msg.no{color:var(--red);}
+  .bonus{background:#f6eefb; border:1px solid #ddc9ee; border-radius:12px; padding:12px 14px; margin-top:14px; font-size:.95em;}
+  .bonus label{display:flex; gap:8px; align-items:flex-start; cursor:pointer;}
+  .bonus input{margin-top:4px; transform:scale(1.3);}
+  .maplink{display:inline-block; margin-top:8px; font-size:.85em; color:#7a6a52;}
+  .hidden{display:none;}
+  .cert{text-align:center; border:6px double var(--gold); border-radius:14px; padding:22px 14px; background:#fffdf2;}
+  .cert h2{color:var(--brown); margin:4px 0;}
+  .cert .rank{font-size:1.5em; color:var(--gold); font-weight:bold; margin:8px 0;}
+  .cert .names{font-size:1.15em; margin:6px 0; white-space:pre-line;}
+  .stationemoji{font-size:2em; float:left; margin-right:8px;}
+  footer{ text-align:center; font-size:.8em; color:#a09274; margin-top:30px;}
+  footer a{color:#a09274;}
+  .confetti{position:fixed; top:-10px; font-size:1.4em; animation:fall linear forwards; z-index:99;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}
+  .parent .card{border-color:#c9b285;}
+  .parent h3{color:var(--brown); margin-bottom:4px;}
+  .anskey{font-size:.95em;}
+  .anskey b{color:var(--green);}
+</style>
+</head>
+<body>
+<header class="game">
+  <h1>🕵️ המסע בעקבות מונטיפיורי</h1>
+  <div class="sub">משחק שטח: משכנות שאננים · ימין משה · גן בלומפילד</div>
+  <div class="progress" id="progress"></div>
+  <div class="score" id="scorebar">⭐ 0 נקודות</div>
+</header>
+<div class="wrap" id="app"></div>
+<footer>
+  משחק משפחתי · <a href="#" onclick="parentGate();return false;">🔑 אזור מלווה</a> · <a href="#" onclick="if(confirm('לאפס את כל המשחק?')){localStorage.removeItem('montegame');location.reload();}return false;">איפוס</a>
+</footer>
+
+<script>
+/* ---------- נתוני המשחק ---------- */
+const STATIONS = [
+{
+ emoji:"🪨", name:"קבר משפחת הורדוס",
+ riddle:"צאו לדרך! מאחורי המלון המפורסם ביותר בירושלים, בתוך הגן הגדול, מסתתרת מערה בת 2,000 שנה. חפשו את הכניסה החצובה בסלע!",
+ map:"https://maps.google.com/?q=קבר+משפחת+הורדוס+ירושלים",
+ wikiTitle:"קבר משפחת הורדוס",
+ wiki:"לפני כ-2,000 שנה שלט בירושלים המלך הורדוס — המלך שבנה את בית המקדש השני בגדולתו, את מצדה ואת קיסריה. כאן, בתוך גן בלומפילד, נמצאת מערת קבורה מפוארת שחצובה בסלע. חוקרים מאמינים שכאן נקברו בני משפחתו של הורדוס. המלך עצמו נקבר רחוק מכאן — בהר הרודיון שליד בית לחם. המערה התגלתה מחדש בשנת 1891, והכניסה אליה נסגרה בעזרת אבן ענקית ועגולה שאפשר לגלגל — בדיוק כמו גלגל. אבן כזאת נקראת \"אבן גולל\", והיא אחת הבודדות שנשארו בירושלים.",
+ fun:"💡 ידעתם? כדי לגלגל אבן כזאת היו צריכים כמה אנשים חזקים ביחד!",
+ q1:{ q:"לפי מה שקראתם — איפה נקבר המלך הורדוס עצמו?",
+      opts:["כאן, במערה הזאת","בהר הרודיון ליד בית לחם","בתוך חומות העיר העתיקה"], right:1,
+      hint:"קראו שוב את המשפט על המלך עצמו..." },
+ q2:{ q:"עכשיו תסתכלו טוב על הכניסה למערה: איזו צורה יש לאבן הגדולה שסוגרת אותה?",
+      opts:["מרובעת","משולשת","עגולה כמו גלגל"], right:2,
+      hint:"בגלל הצורה שלה אפשר היה לגלגל אותה!" },
+ bonus:"📸 בונוס (15 נק'): צלמו את כולכם \"מגלגלים\" ביחד אבן ענקית דמיונית!"
+},
+{
+ emoji:"🌬️", name:"טחנת הרוח של מונטיפיורי",
+ riddle:"המשיכו דרומה בתוך הגן. חפשו ענק עגול מאבן ירושלמית, שמסובב זרועות ברוח אבל אף פעם לא זז ממקומו.",
+ map:"https://maps.google.com/?q=טחנת+הרוח+מונטיפיורי+ירושלים",
+ wikiTitle:"טחנת הרוח במשכנות שאננים",
+ wiki:"את הטחנה הזאת בנה בשנת 1857 השר משה מונטיפיורי — יהודי עשיר ומפורסם מלונדון שהקדיש את חייו לעזרה ליהודי ירושלים. המטרה: שתושבי העיר יוכלו לטחון קמח בזול ולא לשלם הרבה כסף לטוחנים אחרים. הטחנה גבוהה כ-18 מטרים, בנויה מאבן ירושלמית, והיא טחנה קמח במשך כ-20 שנה. אחר כך עמדה שקטה שנים רבות, עד שבשנת 2012 הביאו מומחים מהולנד מנגנון חדש — ומאז הכנפיים שלה שוב מסתובבות כשנושבת רוח! היום יש בתוכה מוזיאון קטן על מונטיפיורי.",
+ fun:"💡 ידעתם? משה מונטיפיורי חי עד גיל 100! והוא הגיע לארץ ישראל 7 פעמים — בתקופה שבה כל נסיעה כזאת ארכה שבועות בספינה.",
+ q1:{ q:"לפי הערך — למה מונטיפיורי בנה את הטחנה?",
+      opts:["כדי שתושבי ירושלים יטחנו קמח בזול","כדי לייצר חשמל","כדי שתהיה תצפית על העיר העתיקה"], right:0,
+      hint:"מה עושים בטחנת קמח?" },
+ q2:{ q:"הרימו את הראש ותספרו: כמה כנפיים יש לטחנה? הקלידו את המספר:",
+      input:true, answer:["4","ארבע"],
+      hint:"תספרו לאט, כנף-כנף..." },
+ bonus:"📸 בונוס (15 נק'): צלמו סרטון קצר שבו כולכם מסתובבים כמו כנפי טחנת רוח!"
+},
+{
+ emoji:"🐎", name:"הכרכרה של מונטיפיורי",
+ riddle:"ממש ליד הטחנה ישן כלי רכב מיוחד: בלי מנוע ובלי הגה, אבל הוא חצה את כל הארץ. חפשו אותו בתוך קופסת הזכוכית שלו.",
+ map:"https://maps.google.com/?q=טחנת+הרוח+מונטיפיורי+ירושלים",
+ wikiTitle:"הכרכרה של מונטיפיורי",
+ wiki:"בכרכרה כזאת נסע משה מונטיפיורי ברחבי ארץ ישראל לפני כ-150 שנה — בלי כבישים, בלי מזגן, רק סוסים ודרכי עפר. הכרכרה הוצבה כאן ליד הטחנה כדי להזכיר את מסעותיו. אבל בשנת 1986 קרה אסון: אלמוני הצית אותה באש, וכל חלקי העץ והבד נשרפו. נשארה רק שלדת המתכת. במשך שנים אספו חלקים ושחזרו אותה בסבלנות, ובשנת 1990 חזרה הכרכרה המשוחזרת למקומה. כדי שזה לא יקרה שוב — היום היא שמורה מאחורי זכוכית מגן חזקה במיוחד.",
+ fun:"💡 ידעתם? במסעות שלו בארץ נהג מונטיפיורי לחלק מטבעות לילדים שרצו אחרי הכרכרה!",
+ q1:{ q:"לפי הערך — מה קרה לכרכרה בשנת 1986?",
+      opts:["היא נגנבה","מישהו הצית אותה באש","היא התפרקה מזקנה"], right:1,
+      hint:"בגלל זה נשארה רק שלדת המתכת..." },
+ q2:{ q:"תסתכלו מקרוב: מה מגן היום על הכרכרה?",
+      opts:["סורגי ברזל","חבלים","קיר זכוכית"], right:2,
+      hint:"אפשר לראות דרכו אבל אי אפשר לגעת!" },
+ bonus:"📸 בונוס (15 נק'): צלמו תמונה שבה אתם \"רוכבים\" על סוסים דמיוניים שמושכים את הכרכרה!"
+},
+{
+ emoji:"🏰", name:"משכנות שאננים — הבית הארוך",
+ riddle:"מתחת לטחנה משתרע בית ארוך-ארוך, שנראה קצת כמו חומה קטנה. זה הבית שבו גרו האמיצים הראשונים. רדו אליו!",
+ map:"https://maps.google.com/?q=משכנות+שאננים+ירושלים",
+ wikiTitle:"משכנות שאננים",
+ wiki:"עד לפני כ-165 שנה כל תושבי ירושלים גרו בצפיפות בתוך החומות של העיר העתיקה, ובלילה השערים ננעלו. בשנת 1860 קרה דבר מהפכני: מונטיפיורי בנה כאן את השכונה היהודית הראשונה מחוץ לחומות! את הכסף לבנייה תרם יהודי אמריקאי בשם יהודה טורא מהעיר ניו אורלינס. אבל הייתה בעיה — אנשים פחדו לגור פה! בלילות הסתובבו שודדים, וחלק מהדיירים הראשונים אפילו קיבלו תשלום כדי להסכים לישון בשכונה. כדי שירגישו בטוחים, נבנה הגג עם שיניות — בדיוק כמו של חומת מבצר. שם השכונה לקוח מספר ישעיהו: \"וישב עמי בנווה שלום ובמשכנות שאננים\".",
+ fun:"💡 ידעתם? היום לגור פה זה חלום — אבל אז שילמו לאנשים כדי שיסכימו!",
+ q1:{ q:"לפי הערך — מי תרם את הכסף לבניית השכונה?",
+      opts:["יהודה טורא מניו אורלינס","הסולטן הטורקי","מלכת אנגליה"], right:0,
+      hint:"יהודי אמריקאי מעיר הג'אז..." },
+ q2:{ q:"הביטו על החלק העליון של הבניין הארוך: מה יש לאורך הגג?",
+      opts:["כיפות זהב","שיניות כמו של חומת מבצר","פסלי אריות"], right:1,
+      hint:"כמו במגדל של אבירים!" },
+ bonus:"🔎 בונוס (15 נק'): מצאו על המבנה שלט עם שם השכונה וצלמו אותו!"
+},
+{
+ emoji:"🎨", name:"ימין משה — שכונת האמנים",
+ riddle:"עכשיו היכנסו לשכונה הצבעונית עם הסמטאות הקטנות. גלו איך קוראים לה ולמה — ומצאו את בית הכנסת שלה.",
+ map:"https://maps.google.com/?q=ימין+משה+ירושלים",
+ wikiTitle:"ימין משה",
+ wiki:"אחרי משכנות שאננים נבנתה כאן, לפני כ-130 שנה, שכונה שלמה — והיא נקראה \"ימין משה\" על שם... נכון, שוב משה מונטיפיורי! שימו לב שאין כאן כמעט מכוניות: הסמטאות צרות ובנויות מדרגות-מדרגות במורד ההר. במלחמות שהיו כאן השכונה עמדה ממש על קו הגבול, והבתים נפגעו מירי. אחרי מלחמת ששת הימים (1967) שופצה השכונה, וציירים, פסלים ומוזיקאים באו לגור בה — כך הפכה לשכונת אמנים יפהפייה. טיילו בסמטאות, הציצו בגלריות, ושימו לב לשמות הסמטאות ולדלתות הצבעוניות.",
+ fun:"💡 ידעתם? \"ימין\" בשם השכונה זה מהפסוק על יד ימין — סימן של כוח ועזרה, בדיוק כמו העזרה של מונטיפיורי.",
+ q1:{ q:"לפי הערך — מי בא לגור בשכונה אחרי 1967 והפך אותה למפורסמת?",
+      opts:["חיילים","אמנים — ציירים, פסלים ומוזיקאים","טוחני קמח"], right:1,
+      hint:"בגלל זה יש פה גלריות..." },
+ q2:{ q:"תסתכלו סביב: ממה עשויות רוב הסמטאות של השכונה?",
+      opts:["כביש אספלט רחב","מדרגות אבן","גשרים מעץ"], right:1,
+      hint:"ספרו כמה ירדתם או עליתם..." },
+ bonus:"📸 בונוס (15 נק'): מצאו דלת כחולה אחת לפחות וצלמו אותה. מצאתם יותר? ספרו כמה!"
+},
+{
+ emoji:"🦁", name:"מזרקת האריות",
+ riddle:"חצו בחזרה את הגן הגדול ולכו דרומה, לפינת הגן. חפשו מקום שבו אריות יושבים ליד המים ולא נושכים אף אחד.",
+ map:"https://maps.google.com/?q=מזרקת+האריות+ירושלים",
+ wikiTitle:"מזרקת האריות",
+ wiki:"המזרקה הזאת הגיעה לירושלים בשנת 1989 כמתנה מגרמניה, ובזמנו הייתה המזרקה הראשונה בעיר! עיצב אותה האמן הגרמני גֶרנוֹט רוּמְפְּף, שביקר במיוחד בירושלים ואפילו בגן החיות התנ\"כי כדי לקבל השראה. הכול כאן מלא סודות: האריות נוצרו בהשראת סמל העיר ירושלים. במרכז עומד עץ מיוחד שיש לו שלושה גזעים מפותלים. ובין האריות מסתתרים... עכברים קטנים מברונזה! הם מזכירים את המשל המפורסם על העכבר הקטן שהציל את האריה הגדול מהמלכודת — כי גם הקטנים יכולים לעזור לגדולים.",
+ fun:"💡 ידעתם? במים של המזרקה מסתתרים גם יונים ושושנים מברונזה. מוזמנים לחפש!",
+ q1:{ q:"לפי הערך — בהשראת מה נוצרו האריות של המזרקה?",
+      opts:["סמל העיר ירושלים","סרט מצויר","גן החיות בלונדון"], right:0,
+      hint:"מה החיה שמופיעה בסמל של העיר?" },
+ q2:{ q:"תסתכלו על העץ שבמרכז המזרקה ותספרו: כמה גזעים מפותלים יש לו? הקלידו מספר:",
+      input:true, answer:["3","שלוש","שלושה"],
+      hint:"עקבו עם האצבע אחרי כל גזע מלמטה למעלה." },
+ bonus:"🔎 בונוס (15 נק'): מצאו עכבר ברונזה אחד לפחות וצלמו אותו! ותספרו — כמה אריות ולביאות יש בסך הכול?"
+},
+{
+ emoji:"🏟️", name:"בריכת הסולטן",
+ riddle:"התחנה האחרונה! הביטו מזרחה, אל העמק שמתחת לחומות. שם שוכבת בריכה ענקית — אבל בלי טיפת מים. מצאו נקודת תצפית טובה עליה.",
+ map:"https://maps.google.com/?q=בריכת+הסולטן+ירושלים",
+ wikiTitle:"בריכת הסולטן",
+ wiki:"הבריכה הענקית שלמטה היא בת מאות שנים! עוד בימי קדם אגרו כאן את מי הגשמים של עמק בן הינום. לפני כ-500 שנה שיפץ אותה הסולטן סוּלֵימָאן המפואר — אותו סולטן טורקי מפורסם שבנה גם את החומות המרשימות של העיר העתיקה שאתם רואים ממול. לכן היא נקראת עד היום \"בריכת הסולטן\". פעם באו לכאן גמלים, רועים וסוחרים למלא מים. והיום? המים כבר לא כאן — במקומם יש במה ענקית, והבריכה הפכה לאחד ממקומות ההופעות המפורסמים בישראל. הזמרים הכי גדולים הופיעו בדיוק במקום שאתם רואים!",
+ fun:"💡 ידעתם? בקצה הגשר שמעל הבריכה יש סַבִּיל — ברזיית אבן עתיקה שבנה הסולטן כדי שעוברי דרך צמאים ישתו בחינם.",
+ q1:{ q:"לפי הערך — מה עוד בנה סולימאן המפואר בירושלים חוץ מהבריכה?",
+      opts:["את טחנת הרוח","את חומות העיר העתיקה","את מגדלי המלונות"], right:1,
+      hint:"אתם רואים את זה ממש ממול..." },
+ q2:{ q:"הביטו למטה אל הבריכה: מה נמצא היום בתוכה במקום מים?",
+      opts:["בריכת שחייה","במה ענקית להופעות","מגרש כדורגל"], right:1,
+      hint:"מה עושים פה בערבי קיץ?" },
+ bonus:"📸 בונוס (15 נק'): צלמו תמונה קבוצתית כשברקע חומות העיר העתיקה — התמונה הכי יפה של המסע!"
+}
+];
+
+const RANKS=[
+ {min:0,   name:"חוקר מתחיל 🧭"},
+ {min:80,  name:"בלש שטח 🔍"},
+ {min:130, name:"מגלה ארצות 🗺️"},
+ {min:180, name:"יורש מונטיפיורי 👑"}
+];
+const PARENT_CODE="1885"; // שנת פטירתו של מונטיפיורי
+
+/* ---------- מצב ---------- */
+let S = JSON.parse(localStorage.getItem('montegame')||'null') || {
+  screen:'intro', st:0, phase:'riddle', score:0, names:'',
+  tries:{}, bonus:{}, done:false
+};
+function save(){ localStorage.setItem('montegame', JSON.stringify(S)); }
+
+/* ---------- עזר ---------- */
+const app=document.getElementById('app');
+function el(h){const d=document.createElement('div');d.innerHTML=h;return d;}
+function renderHeader(){
+  const p=document.getElementById('progress'); p.innerHTML='';
+  STATIONS.forEach((s,i)=>{
+    const d=document.createElement('div'); d.className='dot';
+    if(i<S.st||S.done) d.classList.add('done');
+    else if(i===S.st&&S.screen==='game') d.classList.add('cur');
+    d.textContent=i+1; p.appendChild(d);
+  });
+  document.getElementById('scorebar').textContent='⭐ '+S.score+' נקודות';
+}
+function norm(t){return (t||'').trim().replace(/["'\s]+/g,'');}
+function confetti(){
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.textContent=['🎉','⭐','🎊','🏅'][i%4];
+    c.style.left=Math.random()*100+'vw';
+    c.style.animationDuration=(2+Math.random()*2)+'s';
+    c.style.animationDelay=(Math.random()*1.5)+'s';
+    document.body.appendChild(c); setTimeout(()=>c.remove(),5000);
+  }
+}
+
+/* ---------- מסכים ---------- */
+function render(){
+  renderHeader(); app.innerHTML='';
+  if(S.screen==='intro') return renderIntro();
+  if(S.screen==='parent') return renderParent();
+  if(S.done) return renderEnd();
+  renderStation();
+}
+
+function renderIntro(){
+  app.appendChild(el(`
+  <div class="card">
+    <h2>ברוכים הבאים, חוקרים! 🧳</h2>
+    <p>לפני כ-160 שנה הגיע לירושלים אדם מיוחד בשם <b>משה מונטיפיורי</b>, ושינה את פני העיר לתמיד. הוא השאיר אחריו טחנת רוח, שכונות, סיפורים — ואולי גם... מטמון?</p>
+    <p>לפניכם <b>7 תחנות</b>. בכל תחנה תצטרכו:</p>
+    <p>🧭 לפתור חידת ניווט ולמצוא את המקום<br>
+       📖 לקרוא ערך קצר מ"מיני-ויקיפדיה" שלנו<br>
+       ❓ לענות על שאלה מתוך הערך<br>
+       👀 לענות על שאלה שרק מי שנמצא במקום יכול לדעת!<br>
+       📸 ולהרוויח נקודות בונוס במשימות מצחיקות</p>
+    <p><b>ככל שתצברו יותר נקודות — תקבלו דרגה גבוהה יותר בסוף.</b> הדרגה הכי גבוהה: יורש מונטיפיורי 👑</p>
+    <div class="card" style="margin:10px 0; background:#f7efdd;">
+      <b>מי יוצא למסע?</b> כתבו את שמות החוקרים:
+      <input type="text" id="names" placeholder="למשל: נועה, איתי, תמר ואמא" value="${S.names||''}">
+    </div>
+    <button class="btn gold" onclick="startGame()">🚀 יוצאים לדרך!</button>
+  </div>`));
+}
+function startGame(){
+  S.names=document.getElementById('names').value||'';
+  S.screen='game'; S.st=0; S.phase='riddle'; save(); render();
+}
+
+function renderStation(){
+  const st=STATIONS[S.st], n=S.st+1;
+  const head=`<div class="card"><span class="stationemoji">${st.emoji}</span>
+     <span class="tag">תחנה ${n} מתוך ${STATIONS.length}</span>
+     <h2>${S.phase==='riddle' ? 'לאן עכשיו?' : st.name}</h2>`;
+
+  if(S.phase==='riddle'){
+    app.appendChild(el(head+`
+      <div class="riddle">🧭 ${st.riddle}</div>
+      <a class="maplink" href="${st.map}" target="_blank" rel="noopener">🗺️ נתקעתם? פתחו מפה (רק אם חייבים!)</a>
+      <button class="btn" onclick="S.phase='wiki';save();render();window.scrollTo(0,0);">✅ מצאנו! הגענו לתחנה</button>
+    </div>`));
+    return;
+  }
+
+  if(S.phase==='wiki'){
+    app.appendChild(el(head+`
+      <div class="wikibox">
+        <div class="wtag">📖 מיני-ויקיפדיה של המסע</div>
+        <h3>${st.wikiTitle}</h3>
+        <p>${st.wiki}</p>
+        <div class="funfact">${st.fun}</div>
+      </div>
+      <p style="font-size:.9em; margin-top:10px;">👆 קראו בקול רם ביחד — השאלות הבאות מסתתרות בתוך הערך ובשטח!</p>
+      <button class="btn" onclick="S.phase='q1';save();render();window.scrollTo(0,0);">📚 קראנו הכול! לשאלות</button>
+    </div>`));
+    return;
+  }
+
+  if(S.phase==='q1'||S.phase==='q2'){
+    const q = S.phase==='q1' ? st.q1 : st.q2;
+    const tag = S.phase==='q1' ? '<span class="tag wiki">❓ שאלה מתוך הערך</span>' : '<span class="tag field">👀 שאלת שטח — תסתכלו טוב!</span>';
+    let body=head+tag+`<p style="margin:8px 0 0;"><b>${q.q}</b></p>`;
+    if(q.input){
+      body+=`<input type="text" id="ans" inputmode="text" placeholder="התשובה שלכם">
+             <button class="btn" onclick="checkInput()">בדיקה</button>`;
+    } else {
+      q.opts.forEach((o,i)=>{ body+=`<button class="opt" id="opt${i}" onclick="checkOpt(${i})">${o}</button>`; });
+    }
+    body+=`<div class="msg" id="msg"></div>
+      <button class="btn ghost" onclick="document.getElementById('hint').style.display='block'">💡 רמז</button>
+      <div class="hintbox" id="hint">💡 ${q.hint}</div>
+      ${S.phase==='wiki'?'':'<button class="btn ghost" onclick="S.phase=\'wiki\';save();render();">📖 חזרה לערך</button>'}
+    </div>`;
+    app.appendChild(el(body));
+    return;
+  }
+
+  if(S.phase==='bonus'){
+    const key='b'+S.st;
+    app.appendChild(el(head+`
+      <div class="msg ok">🎉 כל הכבוד! פתרתם את תחנת ${st.name}!</div>
+      <div class="bonus">
+        <label><input type="checkbox" id="bchk" ${S.bonus[key]?'checked':''} onchange="toggleBonus('${key}')">
+        <span>${st.bonus}<br><small>סמנו ✔ רק אחרי שביצעתם באמת (אמא שופטת ראשית!)</small></span></label>
+      </div>
+      <button class="btn gold" onclick="nextStation()">${S.st<STATIONS.length-1 ? '🧭 לחידת הדרך הבאה!' : '🏆 לסיום המסע!'}</button>
+    </div>`));
+    return;
+  }
+}
+
+function award(base){
+  const key=S.phase+'-'+S.st;
+  const tries=S.tries[key]||0;
+  return Math.max(base-3*tries, 4);
+}
+function markTry(){ const key=S.phase+'-'+S.st; S.tries[key]=(S.tries[key]||0)+1; }
+
+function checkOpt(i){
+  const st=STATIONS[S.st], q=S.phase==='q1'?st.q1:st.q2;
+  const msg=document.getElementById('msg');
+  if(i===q.right){
+    document.getElementById('opt'+i).classList.add('right');
+    S.score+=award(10);
+    msg.className='msg ok'; msg.textContent='נכון! ⭐';
+    setTimeout(()=>{ S.phase = S.phase==='q1' ? 'q2' : 'bonus'; save(); render(); window.scrollTo(0,0); },700);
+  } else {
+    document.getElementById('opt'+i).classList.add('wrong');
+    markTry(); msg.className='msg no'; msg.textContent='לא בדיוק... נסו שוב! (אפשר להציץ שוב בערך)';
+  }
+  save(); renderHeader();
+}
+function checkInput(){
+  const st=STATIONS[S.st], q=S.phase==='q1'?st.q1:st.q2;
+  const v=norm(document.getElementById('ans').value);
+  const msg=document.getElementById('msg');
+  if(q.answer.some(a=>norm(a)===v)){
+    S.score+=award(10);
+    msg.className='msg ok'; msg.textContent='נכון! ⭐';
+    setTimeout(()=>{ S.phase = S.phase==='q1' ? 'q2' : 'bonus'; save(); render(); window.scrollTo(0,0); },700);
+  } else {
+    markTry(); msg.className='msg no'; msg.textContent='לא בדיוק... תסתכלו שוב ונסו שנית!';
+  }
+  save(); renderHeader();
+}
+function toggleBonus(key){
+  const chk=document.getElementById('bchk');
+  if(chk.checked && !S.bonus[key]){ S.bonus[key]=true; S.score+=15; }
+  else if(!chk.checked && S.bonus[key]){ delete S.bonus[key]; S.score-=15; }
+  save(); renderHeader();
+}
+function nextStation(){
+  if(S.st<STATIONS.length-1){ S.st++; S.phase='riddle'; }
+  else { S.done=true; }
+  save(); render(); window.scrollTo(0,0);
+  if(S.done) confetti();
+}
+
+function renderEnd(){
+  const rank=[...RANKS].reverse().find(r=>S.score>=r.min);
+  app.appendChild(el(`
+  <div class="card cert">
+    <div style="font-size:2.2em;">🏆</div>
+    <h2>תעודת סיום המסע</h2>
+    <p>מוענקת בזאת ל:</p>
+    <div class="names"><b>${S.names||'החוקרים האמיצים'}</b></div>
+    <p>על שהשלימו בהצלחה את כל 7 תחנות<br><b>המסע בעקבות מונטיפיורי</b><br>במשכנות שאננים, ימין משה וגן בלומפילד</p>
+    <div class="rank">${rank.name}</div>
+    <p>⭐ ${S.score} נקודות</p>
+    <p style="font-size:.9em;">ירושלים, ${new Date().toLocaleDateString('he-IL')}</p>
+  </div>
+  <div class="card">
+    <h2>🎁 ורגע... המטמון?</h2>
+    <p>מונטיפיורי תמיד דאג לתת לאחרים. עכשיו תורכם לקבל: <b>גשו למלווה שלכם ותגידו את המשפט הסודי —</b></p>
+    <div class="riddle">"אנחנו יורשי מונטיפיורי, ובאנו לקבל את המטמון!"</div>
+    <p style="font-size:.9em;">(למלווה יש הוראות סודיות משלו 😉)</p>
+    <button class="btn ghost" onclick="if(confirm('להתחיל משחק חדש? הניקוד יימחק.')){localStorage.removeItem('montegame');location.reload();}">🔄 משחק חדש</button>
+  </div>`));
+}
+
+/* ---------- אזור מלווה ---------- */
+function parentGate(){
+  const c=prompt('אזור המלווה 🔑\nהקלידו את הקוד (רמז: השנה שבה נפטר מונטיפיורי בגיל 100... 1785+100):');
+  if(c===PARENT_CODE){ S.screen='parent'; render(); window.scrollTo(0,0); }
+  else if(c!==null) alert('קוד שגוי');
+}
+function backFromParent(){ S.screen = S.names||S.st>0 ? 'game' : 'intro'; render(); }
+function renderParent(){
+  let keys='';
+  STATIONS.forEach((st,i)=>{
+    const a1 = st.q1.input ? st.q1.answer[0] : st.q1.opts[st.q1.right];
+    const a2 = st.q2.input ? st.q2.answer[0] : st.q2.opts[st.q2.right];
+    keys+=`<p>${st.emoji} <b>תחנה ${i+1} — ${st.name}</b><br>ערך: <b>${a1}</b><br>שטח: <b>${a2}</b></p>`;
+  });
+  app.appendChild(el(`
+  <div class="parent">
+  <div class="card">
+    <h2>🔑 אזור המלווה</h2>
+    <h3>לפני היציאה</h3>
+    <p>⏱️ משך משוער: 1.5–2 שעות הליכה נינוחה · 🥤 מים וכובעים (אין הרבה צל בין התחנות) · 🔋 טלפונים טעונים · 🎁 <b>להחביא/להכין פרס-מטמון</b> — מומלץ גלידה בסינמטק או הפתעה קטנה בתיק. כשהילדים אומרים בסוף את "המשפט הסודי" — מגישים את המטמון.</p>
+    <h3>המסלול בקצרה</h3>
+    <p>מתחילים בגן בלומפילד מאחורי מלון המלך דוד (קבר משפחת הורדוס) → יורדים דרומה לטחנת הרוח → הכרכרה לידה → הבית הארוך של משכנות שאננים → סמטאות ימין משה → חוצים את הגן למזרקת האריות (בפינה הדרומית, מול גן הפעמון) → תצפית על בריכת הסולטן → סיום מומלץ: סינמטק (גלידה!).</p>
+    <h3>תשובות (לחירום בלבד 😉)</h3>
+    <div class="anskey">${keys}</div>
+    <h3>תקלות</h3>
+    <p>המשחק נשמר אוטומטית בטלפון — אפשר לסגור ולפתוח את הדפדפן. "איפוס" בתחתית הדף מוחק הכול.</p>
+    <button class="btn" onclick="backFromParent()">חזרה למשחק</button>
+  </div></div>`));
+}
+
+render();
+</script>
+</body>
+</html>
