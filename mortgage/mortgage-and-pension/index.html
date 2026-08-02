@@ -37,11 +37,29 @@
       "about": ["משכנתא ופנסיה", "תכנון פיננסי הוליסטי", "יועץ פנסיוני", "שילוב תיקים"]
     },
     {
+      "@type": "Service",
+      "serviceType": "ייעוץ משכנתאות אובייקטיבי",
+      "name": "ייעוץ משכנתאות - בשילוב התמונה הפנסיונית",
+      "description": "בחינת תמהיל המשכנתא מהצד של הלווה, בשילוב התכנון הפנסיוני והחיסכון. יועץ פנסיוני בעל רישיון משרד האוצר, ללא עמלות מהבנקים.",
+      "provider": {
+        "@type": "Person",
+        "name": "איתן אחיטוב",
+        "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר",
+        "url": "https://pensya.info/about/"
+      },
+      "areaServed": { "@type": "Country", "name": "Israel" },
+      "url": "https://pensya.info/mortgage/mortgage-and-pension/",
+      "offers": [
+        { "@type": "Offer", "name": "ייעוץ משכנתא - דירה יד שנייה או מקבלן", "price": "7250", "priceCurrency": "ILS", "valueAddedTaxIncluded": true },
+        { "@type": "Offer", "name": "ייעוץ משכנתא - בנייה עצמית או מחיר למשתכן", "price": "8300", "priceCurrency": "ILS", "valueAddedTaxIncluded": true }
+      ]
+    },
+    {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
-        { "@type": "ListItem", "position": 2, "name": "תכנון פיננסי הוליסטי", "item": "https://pensya.info/planning/" },
-        { "@type": "ListItem", "position": 3, "name": "משכנתא ופנסיה", "item": "https://pensya.info/planning/mortgage-pension" }
+        { "@type": "ListItem", "position": 2, "name": "שירותים", "item": "https://pensya.info/services/" },
+        { "@type": "ListItem", "position": 3, "name": "משכנתא ופנסיה", "item": "https://pensya.info/mortgage/mortgage-and-pension/" }
       ]
     },
     {
@@ -810,6 +828,20 @@ textarea:focus-visible,
   border-radius: 2px;
 }
 
+
+/* Pricing */
+.pricing-section { background: var(--bg-cream); padding: var(--s-2xl) 0; }
+.pricing-section .container { max-width: var(--article-width); }
+.pricing-section h2 { text-align: center; margin: 0 0 var(--s-xs); }
+.pricing-section .p-sub { text-align: center; color: var(--text-2); font-size: 16px; margin: 0 auto var(--s-lg); max-width: 560px; }
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+.price-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--s-lg); text-align: center; box-shadow: var(--shadow-card); }
+.price-card h3 { margin: 0 0 var(--s-xs); font-size: 18px; color: var(--text-1); }
+.price-card .amount { font-size: 34px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+.price-note { list-style: none; padding: 0; font-size: 15px; color: var(--text-2); margin: var(--s-md) 0 0; }
+.price-note li { margin: 7px 0; padding-right: 18px; position: relative; line-height: 1.6; }
+.price-note li::before { content: '\2022'; position: absolute; right: 0; color: var(--primary); }
+@media (max-width: 700px) { .pricing-grid { grid-template-columns: 1fr; } }
 </style>
   <link rel="canonical" href="https://pensya.info/mortgage/mortgage-and-pension/" />
 <link rel="stylesheet" href="/site-chrome.css">
@@ -1315,6 +1347,29 @@ textarea:focus-visible,
       </div>
     </div>
     </article>
+
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <h2>עלות ייעוץ המשכנתאות</h2>
+    <p class="p-sub">המחיר ידוע מראש ובכתב, לפני שמתחילים.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>דירה יד שנייה או מקבלן</h3>
+        <div class="amount">7,250 ₪</div>
+      </div>
+      <div class="price-card">
+        <h3>בנייה עצמית או מחיר למשתכן</h3>
+        <div class="amount">8,300 ₪</div>
+      </div>
+    </div>
+    <ul class="price-note">
+      <li>המחירים כוללים מע"מ.</li>
+      <li>כיועץ פנסיוני בעל רישיון משרד האוצר אסור לי לקבל עמלות מהבנקים או מהיצרניות - ההכנסה היחידה שלי היא שכר הטרחה שאתה משלם.</li>
+      <li>תמהיל המשכנתא נבחן יחד עם התמונה הפנסיונית והחיסכון, לא במנותק מהם.</li>
+      <li>אפשר להתחיל ב<a href="https://wa.me/972527700599" target="_blank" rel="noopener">שיחת היכרות</a> של 20 דקות, בלי התחייבות.</li>
+    </ul>
+  </div>
+</section>
 
 <section class="related-links-section" id="related">
   <div class="container">
