@@ -1117,7 +1117,7 @@ textarea:focus-visible,
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
-.calc-widget-wrap{background:#fff;border:1px solid #D6E4F0;border-radius:12px;padding:2rem;margin:1.5rem 0;font-family:'Heebo',sans-serif;direction:rtl;}
+.calc-widget-wrap{font-family:'Heebo',sans-serif;direction:rtl;}
 .calc-widget-wrap h2,.calc-widget-wrap h3{color:#007DA8;font-family:'Heebo',sans-serif;}
 .calc-widget-wrap input,.calc-widget-wrap select{font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
 .calc-widget-wrap input:focus,.calc-widget-wrap select:focus{outline:2px solid #007DA8;border-color:#007DA8;}
@@ -1131,27 +1131,14 @@ textarea:focus-visible,
             --border-color: #dcdde1;
         }
 
-        body {
-            background-color: #eee;
-            font-family: 'Heebo', sans-serif;
-        }
-
         .calc-container {
             max-width: 850px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 25px;
             background-color: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border: 1px solid var(--border-color);
-        }
-
-        .calc-header {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 15px;
         }
 
         /* מבנה שתי העמודות */
@@ -1255,9 +1242,6 @@ textarea:focus-visible,
         }
 </style>
 <div class="calc-widget-wrap"><div class="calc-container">
-    <div class="calc-header">
-        
-    </div>
 
     <div class="calc-content">
         <div class="inputs-side">
