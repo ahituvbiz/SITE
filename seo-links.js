@@ -102,8 +102,6 @@ const KEYWORD_MAP = {
   'יועץ פנסיוני בלתי תלוי':             '/about/recommended-advisor/',
   'רישיון יועץ פנסיוני':                '/about/license/',
   'יועץ פנסיוני מורשה':                  '/about/license/',
-  'כמה עולה ייעוץ פנסיוני':             '/about/pricing/',
-  'מחירון ייעוץ פנסיוני':               '/about/pricing/',
   'יועץ פנסיוני מול מתכנן פיננסי':      '/about/advisor-vs-planner-vs-agent/',
   'סיפורי לקוחות':                       '/about/case-studies/',
   'המלצות לקוחות':                       '/about/testimonials/',
