@@ -29,7 +29,7 @@ import sys, os, re, subprocess
 BLOCK_TAGS = ["div", "section", "article", "details", "svg"]
 
 # דפים שמותר להם לא לכלול פוטר אחיד (אזור לקוחות + דאטה מוטמע)
-FOOTER_EXEMPT = ("clients/",)
+FOOTER_EXEMPT = ("clients/", "game/")
 
 def all_html():
     try:
