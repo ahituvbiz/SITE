@@ -92,7 +92,7 @@
           "name": "כמה עולה כל שירות?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות נסתרות ואין תשלום תלוי-סכום. לחלק מהשירותים יש מחיר קבוע ומפורסם: תכנון פיננסי - 3,170 ₪ ליחיד ו-5,290 ₪ לזוג (כולל מע"מ), צירוף ל-IRA - 690 ₪, ובדיקת זכאות לפטור ממס בנכות - 1,190 ₪. בשאר השירותים שכר הטרחה נקבע לפי היקף העבודה, ואני שולח הצעת מחיר בכתב אחרי שיחת ההיכרות."
+            "text": "המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות מחברות הביטוח, מהקרנות או מהברוקרים. תכנון פיננסי - 3,170 ₪ ליחיד ו-5,290 ₪ לזוג. ייעוץ משכנתאות - 7,250 ₪ ליד שנייה או קבלן, ו-8,300 ₪ לבנייה עצמית או מחיר למשתכן. כל אלה כוללים מע\"מ. צירוף ל-IRA - 690 ₪, ובדיקת זכאות לפטור ממס בנכות - 1,190 ₪. ייעוץ ביטוחים - 440 ₪ + מע\"מ לשעה, מינימום שעה. פתיחת תיק השקעות - 800 ₪ + מע\"מ. חיסכון בעמלות סילוק משכנתא מתומחר כ-10% מהחיסכון שהושג בפועל, ומוסכם בכתב מראש."
           }
         },
         {
@@ -232,11 +232,10 @@ section { padding: var(--s-2xl) 0; }
 .service-card ul li:last-child { border-bottom: none; }
 .service-card ul li::before { content: '✓'; color: var(--positive); font-weight: 700; position: absolute; right: 0; top: 7px; }
 .service-card .sc-price {
-  font-size: 14px; color: var(--text-2); background: var(--bg-cream);
-  border: 1px solid var(--border); border-radius: 10px;
-  padding: 9px 13px; margin: 0 0 var(--s-md); line-height: 1.5;
+  margin: var(--s-sm) 0 0; padding-top: 10px; border-top: 1px dashed var(--border);
+  font-size: 12.5px; color: var(--text-2); line-height: 1.5;
 }
-.service-card .sc-price strong { color: var(--primary); font-size: 17px; font-weight: 700; }
+.service-card .sc-price strong { color: var(--text-1); font-weight: 700; }
 .service-card .sc-link { font-weight: 700; color: var(--cta); font-size: 15px; margin-top: auto; }
 .service-card .sc-link:hover { text-decoration: underline; }
 @media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; } }
@@ -440,8 +439,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>איתור כפילויות, פערים וסיכונים מיותרים</li>
           <li>המלצות בכתב + ליווי ביצוע מול הקרנות והחברות</li>
         </ul>
-        <div class="sc-price"><strong>3,170 ₪</strong> ליחיד · <strong>5,290 ₪</strong> לזוג. כולל מע"מ, ניתן לפרוס ל-12 תשלומים.</div>
         <a class="sc-link" href="/financial-planning/">לדף שירות התכנון הפיננסי ←</a>
+        <div class="sc-price"><strong>3,170 ₪</strong> ליחיד · <strong>5,290 ₪</strong> לזוג. כולל מע"מ, ניתן לפרוס ל-12 תשלומים.</div>
       </div>
 
       <!-- 2. Mortgage advice -->
@@ -461,8 +460,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>זיהוי מסלולים יקרים מדי או חשופים לריבית</li>
           <li>ליווי אובייקטיבי - בלי אינטרס מכירה של הלוואה</li>
         </ul>
-        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
         <a class="sc-link" href="/mortgage/mortgage-and-pension/">משכנתא ופנסיה - לתכנן יחד ←</a>
+        <div class="sc-price"><strong>7,250 ₪</strong> יד שנייה / קבלן · <strong>8,300 ₪</strong> בנייה עצמית / מחיר למשתכן. כולל מע"מ.</div>
       </div>
 
       <!-- 3. IRA -->
@@ -482,8 +481,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>החתמה על מסמכי ההצטרפות וצירוף בפועל</li>
           <li>תשלום חד-פעמי, ישיר ושקוף - בלי עמלה נסתרת</li>
         </ul>
-        <div class="sc-price"><strong>690 ₪</strong> · תשלום חד-פעמי, ידוע מראש. בלי עמלה מהברוקר או מהקופה.</div>
         <a class="sc-link" href="/investment/ira/">לדף שירות ה-IRA ←</a>
+        <div class="sc-price"><strong>690 ₪</strong> · תשלום חד-פעמי, ידוע מראש. בלי עמלה מהברוקר או מהקופה.</div>
       </div>
 
       <!-- 4. Mortgage prepayment fees -->
@@ -503,8 +502,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>בחינה אם מיחזור באמת משתלם - אחרי כל העלויות</li>
           <li>מספרים קונקרטיים לפני שאתה חותם על משהו</li>
         </ul>
-        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
         <a class="sc-link" href="#contact">קבע שיחה לבדיקה ←</a>
+        <div class="sc-price"><strong>10% מהחיסכון בפועל</strong> · אין חיסכון, אין תשלום. מוסכם בכתב מראש.</div>
       </div>
 
       <!-- 5. Insurance advice -->
@@ -524,7 +523,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>בדיקה אם אתה משלם יותר מדי על הפרמיות</li>
           <li>המלצות בכתב - בלי אינטרס מכירה של פוליסה</li>
         </ul>
-        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
+        <a class="sc-link" href="/pension/meshichat-pensya-nechut/">לדף השירות - פטור נכות ←</a>
+        <div class="sc-price"><strong>440 ₪ + מע"מ לשעה</strong> · מינימום שעה אחת.</div>
       </div>
 
       <!-- 6. Investment portfolio -->
@@ -544,7 +544,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>ליווי בבחירת מכשירי ההשקעה - קרנות סל ומדדים רחבים</li>
           <li>תשלום חד-פעמי, ישיר ושקוף - בלי עמלה נסתרת</li>
         </ul>
-        <div class="sc-price">שכר טרחה לפי היקף העבודה — הצעת מחיר בכתב לפני שמתחילים, בלי עמלות מהיצרניות.</div>
+        <div class="sc-price"><strong>800 ₪ + מע"מ</strong> · תשלום חד-פעמי.</div>
       </div>
 
       <!-- 7. Disability pension withdrawal exemption -->
@@ -565,7 +565,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
           <li>ליווי אובייקטיבי, בלי עמלות</li>
         </ul>
         <div class="sc-price"><strong>1,190 ₪</strong> · בדיקת זכאות ותכנון המהלך.</div>
-        <a class="sc-link" href="/pension/meshichat-pensya-nechut/">לדף השירות - פטור נכות ←</a>
       </div>
 
     </div>
@@ -586,7 +585,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
       </div>
       <div class="why-card">
         <h4>מחיר שקוף מראש</h4>
-        <p>שכר טרחה ידוע בכתב לפני שמתחילים. בלי עמלות נסתרות, בלי תשלום תלוי-סכום.</p>
+        <p>שכר טרחה מוסכם בכתב לפני שמתחילים. בלי עמלות מהיצרניות ובלי הפתעות.</p>
       </div>
       <div class="why-card">
         <h4>ראייה הוליסטית</h4>
@@ -624,11 +623,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
     <details class="faq-item">
       <summary>כמה עולה כל שירות?</summary>
       <div class="faq-body">
-        המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות נסתרות ואין תשלום
-        תלוי-סכום. לחלק מהשירותים יש מחיר קבוע ומפורסם: <a href="/financial-planning/">תכנון פיננסי</a> -
-        3,170 ₪ ליחיד ו-5,290 ₪ לזוג (כולל מע"מ), צירוף ל-<a href="/investment/ira/">IRA</a> - 690 ₪,
-        ו<a href="/pension/meshichat-pensya-nechut/">בדיקת זכאות לפטור ממס בנכות</a> - 1,190 ₪.
-        בשאר השירותים שכר הטרחה נקבע לפי היקף העבודה, ואני שולח הצעת מחיר בכתב אחרי שיחת ההיכרות.
+        המחיר תמיד ידוע מראש, בכתב, לפני שמתחילים - אין עמלות מחברות הביטוח, מהקרנות או מהברוקרים.
+        <a href="/financial-planning/">תכנון פיננסי</a> - 3,170 ₪ ליחיד ו-5,290 ₪ לזוג.
+        <a href="/mortgage/mortgage-and-pension/">ייעוץ משכנתאות</a> - 7,250 ₪ ליד שנייה או קבלן,
+        ו-8,300 ₪ לבנייה עצמית או מחיר למשתכן. כל אלה כוללים מע"מ.
+        צירוף ל-<a href="/investment/ira/">IRA</a> - 690 ₪, ו<a href="/pension/meshichat-pensya-nechut/">בדיקת
+        זכאות לפטור ממס בנכות</a> - 1,190 ₪. ייעוץ ביטוחים - 440 ₪ + מע"מ לשעה, מינימום שעה.
+        פתיחת תיק השקעות - 800 ₪ + מע"מ. חיסכון בעמלות סילוק משכנתא מתומחר כ-10% מהחיסכון
+        שהושג בפועל, ומוסכם בכתב מראש.
       </div>
     </details>
     <details class="faq-item">
