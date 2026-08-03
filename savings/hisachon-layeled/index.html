@@ -897,6 +897,7 @@ section { padding: var(--s-2xl) 0; }
   font-size: 16px;
   margin: 0 0 var(--s-md);
 }
+.pension-compare strong, .pension-compare em { color: #fff; }
 .pension-compare .pc-numbers {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -1921,18 +1922,19 @@ textarea:focus-visible,
     inflOut.textContent = (infl * 100).toFixed(1);
     retOut.textContent  = (ret * 100).toFixed(1);
 
-    var iN = Math.pow(1 + ret, 1/12) - 1;
-    var iI = Math.pow(1 + infl, 1/12) - 1;
+    /* ריבית נומינלית שנתית מחולקת ל-12 (קונבנציה סטנדרטית של נוסחת FV) */
+    var iN = ret / 12;
+    var iI = infl / 12;
 
     var s18 = simulate(m, 216, iN, iI, grants);
     var tax18 = TAX * Math.max(0, s18.value - s18.indexedCost);
     var net18 = s18.value - tax18;
-    var real18 = net18 / Math.pow(1 + infl, 18);
+    var real18 = net18 / Math.pow(1 + iI, 216);
 
     var s21 = simulate(m, 252, iN, iI, grants);
     var tax21 = TAX * Math.max(0, s21.value - s21.indexedCost);
     var net21 = s21.value - tax21;
-    var real21 = net21 / Math.pow(1 + infl, 21);
+    var real21 = net21 / Math.pow(1 + iI, 252);
 
     age18.textContent  = fmt(net18);
     age18r.textContent = fmt(real18);
