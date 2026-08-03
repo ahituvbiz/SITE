@@ -947,7 +947,9 @@ textarea:focus-visible,
         @media (max-width: 600px) { 
             .calc-widget-wrap .input-grid { grid-template-columns: 1fr; } 
             .calc-widget-wrap .bar-container { gap: 40px; height: 350px; }
-            .calc-widget-wrap .bar { width: 70px; }}</style>
+            .calc-widget-wrap .bar { width: 70px; }}
+.calc-widget-wrap { max-width: var(--max-width, 1200px); margin-left: auto; margin-right: auto; padding-left: var(--s-md); padding-right: var(--s-md); box-sizing: border-box; }
+</style>
 
 <div class="calc-widget-wrap">
   <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הנתונים חינוכיים בלבד. אינם מהווים ייעוץ מס. כל הסכומים בשקלים שנתיים.</p>

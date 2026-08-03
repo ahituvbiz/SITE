@@ -168,7 +168,7 @@ section { padding: var(--s-2xl) 0; }
 .page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; max-width: 700px; }
 
 /* ---------- Section header ---------- */
-.section-header { text-align: center; max-width: 720px; margin: 0 auto var(--s-xl); }
+.section-header { text-align: center; max-width: 720px; margin: 0 auto var(--s-lg); }
 .section-eyebrow {
   display: inline-block; font-size: 13px; font-weight: 700;
   color: var(--cta); letter-spacing: 1.5px; text-transform: uppercase;
@@ -912,7 +912,9 @@ textarea:focus-visible,
         @media (max-width: 650px) {
             .calc-widget-wrap .layout { flex-direction: column; gap: 15px; }
             .calc-widget-wrap .column-results { width: 100%; box-sizing: border-box; }
-            .calc-widget-wrap input, .calc-widget-wrap select { width: 110px; }}</style>
+            .calc-widget-wrap input, .calc-widget-wrap select { width: 110px; }}
+.calc-widget-wrap { max-width: var(--max-width, 1200px); margin-left: auto; margin-right: auto; box-sizing: border-box; }
+</style>
 
 <div class="calc-widget-wrap">
   <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה לצרכי לימוד בלבד. תוצאות תלויות בהנחות שהוזנו ואינן מהוות ייעוץ השקעות.</p>
