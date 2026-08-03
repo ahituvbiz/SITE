@@ -839,14 +839,14 @@ textarea:focus-visible,
      ═══════════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;.calc-widget-wrap 600;700&display=swap');
 /* ── Site design overrides for calculator ── */
 .calc-widget-wrap {
   background: #fff;
   border: 1px solid #D6E4F0;
   border-radius: 12px;
-  padding: 2rem;
-  margin: 1.5rem 0;
+  padding: 1.5rem;
+  margin: 0;
   font-family: 'Heebo', sans-serif;
   direction: rtl;
 }
@@ -854,9 +854,7 @@ textarea:focus-visible,
   color: #007DA8;
   font-family: 'Heebo', sans-serif;
 }
-.calc-widget-wrap input[type=number],
-.calc-widget-wrap input[type=text],
-.calc-widget-wrap select {
+.calc-widget-wrap input[type=number], .calc-widget-wrap input[type=text], .calc-widget-wrap select {
   font-family: 'Heebo', sans-serif;
   border: 1px solid #D6E4F0;
   border-radius: 6px;
@@ -881,7 +879,7 @@ textarea:focus-visible,
 }
 .calc-widget-wrap button:hover { background: #006487; }
 /* ── Legacy calculator CSS (color-adapted) ── */
-:root {
+.calc-widget-wrap {
             --primary: #007DA8;
             --secondary: #007DA8;
             --danger: #D74E3C;
@@ -892,31 +890,29 @@ textarea:focus-visible,
             --result-bg: #f8fafc;
         }
 
-        html, body { margin: 0; padding: 0; background-color: transparent; font-family: 'Heebo', sans-serif; overflow-x: hidden; }
-        .calculator-container { padding: 15px; width: 100%; box-sizing: border-box; }
-        .layout { display: flex; gap: 20px; }
-        .column-inputs, .column-results { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .column-results { background: var(--result-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
-        .section-title { font-size: 0.85rem; font-weight: 800; color: var(--primary); margin: 10px 0 5px 0; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
-        .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
-        label { font-size: 0.85rem; color: var(--text); font-weight: 500; }
-        input, select { width: 105px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.9rem; direction: ltr; }
-        select { direction: rtl; width: 123px; }
-        .result-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #cbd5e1; }
-        .res-label { font-size: 0.8rem; font-weight: 600; color: #475569; }
-        .res-val { font-size: 1rem; font-weight: 800; color: var(--primary); }
-        .comparison-box { margin-top: 10px; padding-top: 5px; border-top: 3px solid var(--primary); }
-        .chart-wrapper { margin-top: 15px; background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border); height: 350px; }
-        .highlight-green { color: var(--secondary); }
-        .negative { color: var(--danger); }
-        .error-msg { color: var(--danger); font-size: 0.75rem; font-weight: bold; margin-top: 5px; text-align: center; }
+        .calc-widget-wrap {font-family: 'Heebo', sans-serif;}
+        .calc-widget-wrap .calculator-container { padding: 0; width: 100%; box-sizing: border-box; }
+        .calc-widget-wrap .layout { display: flex; gap: 20px; }
+        .calc-widget-wrap .column-inputs, .calc-widget-wrap .column-results { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        .calc-widget-wrap .column-results { background: var(--result-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .calc-widget-wrap .section-title { font-size: 0.85rem; font-weight: 800; color: var(--primary); margin: 10px 0 5px 0; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+        .calc-widget-wrap .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+        .calc-widget-wrap label { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+        .calc-widget-wrap input, .calc-widget-wrap select { width: 105px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.9rem; direction: ltr; }
+        .calc-widget-wrap select { direction: rtl; width: 123px; }
+        .calc-widget-wrap .result-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #cbd5e1; }
+        .calc-widget-wrap .res-label { font-size: 0.8rem; font-weight: 600; color: #475569; }
+        .calc-widget-wrap .res-val { font-size: 1rem; font-weight: 800; color: var(--primary); }
+        .calc-widget-wrap .comparison-box { margin-top: 10px; padding-top: 5px; border-top: 3px solid var(--primary); }
+        .calc-widget-wrap .chart-wrapper { margin-top: 15px; background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border); height: 350px; }
+        .calc-widget-wrap .highlight-green { color: var(--secondary); }
+        .calc-widget-wrap .negative { color: var(--danger); }
+        .calc-widget-wrap .error-msg { color: var(--danger); font-size: 0.75rem; font-weight: bold; margin-top: 5px; text-align: center; }
 
         @media (max-width: 650px) {
-            .layout { flex-direction: column; gap: 15px; }
-            .column-results { width: 100%; box-sizing: border-box; }
-            input, select { width: 110px; }
-        }
-</style>
+            .calc-widget-wrap .layout { flex-direction: column; gap: 15px; }
+            .calc-widget-wrap .column-results { width: 100%; box-sizing: border-box; }
+            .calc-widget-wrap input, .calc-widget-wrap select { width: 110px; }}</style>
 
 <div class="calc-widget-wrap">
   <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה לצרכי לימוד בלבד. תוצאות תלויות בהנחות שהוזנו ואינן מהוות ייעוץ השקעות.</p>

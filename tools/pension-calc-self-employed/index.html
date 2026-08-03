@@ -840,14 +840,9 @@ textarea:focus-visible,
      ═══════════════════════════════════════════════ -->
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;.calc-widget-wrap 600;700&display=swap');
 /* ── Site design overrides for calculator ── */
 .calc-widget-wrap {
-  background: #fff;
-  border: 1px solid #D6E4F0;
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 1.5rem 0;
   font-family: 'Heebo', sans-serif;
   direction: rtl;
 }
@@ -855,9 +850,7 @@ textarea:focus-visible,
   color: #007DA8;
   font-family: 'Heebo', sans-serif;
 }
-.calc-widget-wrap input[type=number],
-.calc-widget-wrap input[type=text],
-.calc-widget-wrap select {
+.calc-widget-wrap input[type=number], .calc-widget-wrap input[type=text], .calc-widget-wrap select {
   font-family: 'Heebo', sans-serif;
   border: 1px solid #D6E4F0;
   border-radius: 6px;
@@ -882,7 +875,7 @@ textarea:focus-visible,
 }
 .calc-widget-wrap button:hover { background: #006487; }
 /* ── Legacy calculator CSS (color-adapted) ── */
-:root {
+.calc-widget-wrap {
             --yield4: #5C8D5A;
             --yield5: #5C8D5A;
             --yield6: #cddc39;
@@ -893,24 +886,18 @@ textarea:focus-visible,
             --text-color: #007DA8;
         }
 
-        body {
-            font-family: 'Heebo', sans-serif;
-            background-color: #F8F6F2;
-            padding: 20px;
-            margin: 0;
-            color: var(--text-color);
-        }
+        .calc-widget-wrap {font-family: 'Heebo', sans-serif; color: var(--text-color);}
 
-        .container {
+        .calc-widget-wrap .container {
             max-width: 1100px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
+            padding: 28px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
 
-        h1 {
+        .calc-widget-wrap h1 {
             text-align: center;
             margin-bottom: 40px;
             font-size: 28px;
@@ -918,7 +905,7 @@ textarea:focus-visible,
         }
 
         /* שורת קלט */
-        .input-row {
+        .calc-widget-wrap .input-row {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -930,7 +917,7 @@ textarea:focus-visible,
             flex-wrap: wrap;
         }
 
-        .input-group {
+        .calc-widget-wrap .input-group {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -938,7 +925,7 @@ textarea:focus-visible,
             font-size: 18px;
         }
 
-        input, select {
+        .calc-widget-wrap input, .calc-widget-wrap select {
             padding: 12px 18px;
             border: 2px solid #ddd;
             border-radius: 10px;
@@ -948,7 +935,7 @@ textarea:focus-visible,
         }
 
         /* גריד 3 טורים */
-        .results-grid {
+        .calc-widget-wrap .results-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
@@ -956,13 +943,13 @@ textarea:focus-visible,
             align-items: flex-end;
         }
 
-        .chart-wrapper {
+        .calc-widget-wrap .chart-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .col-title {
+        .calc-widget-wrap .col-title {
             font-weight: bold;
             font-size: 20px;
             margin-bottom: 30px;
@@ -971,7 +958,7 @@ textarea:focus-visible,
             min-height: 50px;
         }
 
-        .bar-area {
+        .calc-widget-wrap .bar-area {
             display: flex;
             flex-direction: row;
             align-items: flex-end;
@@ -980,7 +967,7 @@ textarea:focus-visible,
             height: 450px; /* גובה קבוע לאזור הגרף למניעת קריסה */
         }
 
-        .labels-container {
+        .calc-widget-wrap .labels-container {
             display: flex;
             flex-direction: column-reverse; /* מלמטה למעלה */
             height: 100%;
@@ -988,7 +975,7 @@ textarea:focus-visible,
             margin-left: 10px;
         }
 
-        .label-item {
+        .calc-widget-wrap .label-item {
             font-size: 14px;
             font-weight: 700;
             display: flex;
@@ -998,7 +985,7 @@ textarea:focus-visible,
             white-space: nowrap;
         }
 
-        .bar-container {
+        .calc-widget-wrap .bar-container {
             width: 180px; /* עמודות רחבות מאוד */
             height: 100%;
             display: flex;
@@ -1006,7 +993,7 @@ textarea:focus-visible,
             background-color: transparent; /* ללא רקע אפור */
         }
 
-        .segment {
+        .calc-widget-wrap .segment {
             width: 100%;
             display: flex;
             align-items: center;
@@ -1020,20 +1007,18 @@ textarea:focus-visible,
         }
 
         /* צבעים */
-        .s-4 { background-color: var(--yield4); }
-        .s-5 { background-color: var(--yield5); }
-        .s-6 { background-color: var(--yield6); }
-        .s-7 { background-color: var(--yield7); }
-        .s-spouse { background-color: var(--spouse); color: white; }
-        .s-children { background-color: var(--children); color: white; }
-        .s-disability { background-color: var(--disability); color: white; border-radius: 8px 8px 0 0; border-bottom: none; }
+        .calc-widget-wrap .s-4 { background-color: var(--yield4); }
+        .calc-widget-wrap .s-5 { background-color: var(--yield5); }
+        .calc-widget-wrap .s-6 { background-color: var(--yield6); }
+        .calc-widget-wrap .s-7 { background-color: var(--yield7); }
+        .calc-widget-wrap .s-spouse { background-color: var(--spouse); color: white; }
+        .calc-widget-wrap .s-children { background-color: var(--children); color: white; }
+        .calc-widget-wrap .s-disability { background-color: var(--disability); color: white; border-radius: 8px 8px 0 0; border-bottom: none; }
 
         @media (max-width: 900px) {
-            .results-grid { grid-template-columns: 1fr; gap: 80px; }
-            .bar-area { height: 350px; }
-            .bar-container { width: 220px; }
-        }
-</style>
+            .calc-widget-wrap .results-grid { grid-template-columns: 1fr; gap: 80px; }
+            .calc-widget-wrap .bar-area { height: 350px; }
+            .calc-widget-wrap .bar-container { width: 220px; }}</style>
 
 <div class="calc-widget-wrap">
   <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. אינה מהווה ייעוץ פנסיוני.</p>

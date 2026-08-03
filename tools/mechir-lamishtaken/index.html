@@ -1111,48 +1111,48 @@ textarea:focus-visible,
 <section class="calc-section" id="calculator">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
-.calc-widget-wrap{background:#fff;border:1px solid #D6E4F0;border-radius:12px;padding:2rem;margin:1.5rem 0;font-family:'Heebo',sans-serif;direction:rtl;}
-.calc-widget-wrap h2,.calc-widget-wrap h3{color:#007DA8;font-family:'Heebo',sans-serif;}
-.calc-widget-wrap input,.calc-widget-wrap select{font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
-.calc-widget-wrap input:focus,.calc-widget-wrap select:focus{outline:2px solid #007DA8;border-color:#007DA8;}
-.calc-widget-wrap button{background:#007DA8;color:#fff;border:none;border-radius:8px;padding:.7rem 1.8rem;font-size:1rem;font-family:'Heebo',sans-serif;cursor:pointer;}
-.calc-widget-wrap button:hover{background:#006487;}
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;.calc-widget-wrap 600;700&display=swap');
+.calc-widget-wrap{font-family:'Heebo',sans-serif;direction:rtl;}
+.calc-widget-wrap h2, .calc-widget-wrap h3 {color:#007DA8;font-family:'Heebo',sans-serif;}
+.calc-widget-wrap input, .calc-widget-wrap select {font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
+.calc-widget-wrap input:focus, .calc-widget-wrap select:focus {outline:2px solid #007DA8;border-color:#007DA8;}
+.calc-widget-wrap button {background:#007DA8;color:#fff;border:none;border-radius:8px;padding:.7rem 1.8rem;font-size:1rem;font-family:'Heebo',sans-serif;cursor:pointer;}
+.calc-widget-wrap button:hover {background:#006487;}
+.calc-widget-wrap {
             --primary-color: #007DA8;
             --accent-color: #007DA8;
             --error-color: #D74E3C;
             --bg-color: #F8F6F2;
         }
-        .calc-container {
+        .calc-widget-wrap .calc-container {
             font-family: 'Heebo', sans-serif;
             max-width: 450px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 25px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .calc-header {
+        .calc-widget-wrap .calc-header {
             text-align: center;
             border-bottom: 2px solid var(--bg-color);
             margin-bottom: 20px;
             padding-bottom: 10px;
         }
         /* עיצוב השורה: טקסט מימין, קלט משמאל */
-        .input-row {
+        .calc-widget-wrap .input-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
         }
-        .input-row label {
+        .calc-widget-wrap .input-row label {
             font-weight: 600;
             font-size: 0.95em;
             flex: 1;
             padding-left: 10px;
         }
-        .input-row input {
+        .calc-widget-wrap .input-row input {
             width: 120px; /* רוחב צר לשדה */
             padding: 8px 10px;
             border: 1px solid #ccc;
@@ -1160,7 +1160,7 @@ textarea:focus-visible,
             text-align: left; /* מספרים מוצמדים לשמאל בתוך השדה */
             font-family: 'Heebo', sans-serif;
         }
-        button {
+        .calc-widget-wrap button {
             width: 100%;
             padding: 12px;
             background-color: var(--accent-color);
@@ -1172,20 +1172,20 @@ textarea:focus-visible,
             cursor: pointer;
             margin-top: 15px;
         }
-        .results {
+        .calc-widget-wrap .results {
             margin-top: 20px;
             padding: 15px;
             background-color: var(--bg-color);
             border-radius: 8px;
             display: none;
         }
-        .result-item {
+        .calc-widget-wrap .result-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
-        .highlight { font-weight: bold; color: #5C8D5A; }
-        .warning {
+        .calc-widget-wrap .highlight { font-weight: bold; color: #5C8D5A; }
+        .calc-widget-wrap .warning {
             color: var(--error-color);
             font-weight: bold;
             background: #fff0f0;
@@ -1194,8 +1194,7 @@ textarea:focus-visible,
             margin-top: 10px;
             border-right: 4px solid var(--error-color);
             font-size: 0.9em;
-        }
-</style>
+        }</style>
 <div class="calc-widget-wrap"><p style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">⚠️ מחיר הסופי יכלול הצמדה למדד תשומות הבניה ועלויות נלוות. חישוב לצרכי הערכה בלבד.</p><div class="calc-container">
     <div class="calc-header">
         <h3 style="margin:0">סימולטור משכנתא - דירה בהנחה</h3>

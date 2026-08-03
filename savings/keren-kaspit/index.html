@@ -1116,14 +1116,14 @@ textarea:focus-visible,
 <section class="calc-section" id="calculator">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap');
-.calc-widget-wrap{font-family:'Heebo',sans-serif;direction:rtl;}
-.calc-widget-wrap h2,.calc-widget-wrap h3{color:#007DA8;font-family:'Heebo',sans-serif;}
-.calc-widget-wrap input,.calc-widget-wrap select{font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
-.calc-widget-wrap input:focus,.calc-widget-wrap select:focus{outline:2px solid #007DA8;border-color:#007DA8;}
-.calc-widget-wrap button{background:#007DA8;color:#fff;border:none;border-radius:8px;padding:.7rem 1.8rem;font-size:1rem;font-family:'Heebo',sans-serif;cursor:pointer;}
-.calc-widget-wrap button:hover{background:#006487;}
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;.calc-widget-wrap 600;700&display=swap');
+.calc-widget-wrap {font-family:'Heebo',sans-serif;direction:rtl;}
+.calc-widget-wrap h2, .calc-widget-wrap h3 {color:#007DA8;font-family:'Heebo',sans-serif;}
+.calc-widget-wrap input, .calc-widget-wrap select {font-family:'Heebo',sans-serif;border:1px solid #D6E4F0;border-radius:6px;padding:.4rem .6rem;font-size:1rem;color:#1A1A1A;}
+.calc-widget-wrap input:focus, .calc-widget-wrap select:focus {outline:2px solid #007DA8;border-color:#007DA8;}
+.calc-widget-wrap button {background:#007DA8;color:#fff;border:none;border-radius:8px;padding:.7rem 1.8rem;font-size:1rem;font-family:'Heebo',sans-serif;cursor:pointer;}
+.calc-widget-wrap button:hover {background:#006487;}
+.calc-widget-wrap {
             --primary-color: #007DA8;
             --accent-color: #5C8D5A;
             --bg-color: #F8F6F2;
@@ -1131,7 +1131,7 @@ textarea:focus-visible,
             --border-color: #dcdde1;
         }
 
-        .calc-container {
+        .calc-widget-wrap .calc-container {
             max-width: 850px;
             margin: 0 auto;
             padding: 25px;
@@ -1142,20 +1142,20 @@ textarea:focus-visible,
         }
 
         /* מבנה שתי העמודות */
-        .calc-content {
+        .calc-widget-wrap .calc-content {
             display: flex;
             gap: 30px;
             flex-wrap: wrap; /* תמיכה במובייל */
         }
 
         /* צד ימין - קלטים */
-        .inputs-side {
+        .calc-widget-wrap .inputs-side {
             flex: 1;
             min-width: 300px;
         }
 
         /* צד שמאל - תוצאות */
-        .results-side {
+        .calc-widget-wrap .results-side {
             flex: 1.2;
             min-width: 300px;
             padding: 20px;
@@ -1164,11 +1164,11 @@ textarea:focus-visible,
             border: 1px dashed #dcdde1;
         }
 
-        .input-group {
+        .calc-widget-wrap .input-group {
             margin-bottom: 20px;
         }
 
-        .input-group label {
+        .calc-widget-wrap .input-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
@@ -1176,7 +1176,7 @@ textarea:focus-visible,
             font-size: 0.95em;
         }
 
-        .input-group input {
+        .calc-widget-wrap .input-group input {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--border-color);
@@ -1186,13 +1186,13 @@ textarea:focus-visible,
             transition: border-color 0.2s;
         }
 
-        .input-group input:focus {
+        .calc-widget-wrap .input-group input:focus {
             outline: none;
             border-color: #007DA8;
             box-shadow: 0 0 5px rgba(52,152,219,0.2);
         }
 
-        .result-card {
+        .calc-widget-wrap .result-card {
             display: flex;
             justify-content: space-between;
             padding: 15px;
@@ -1202,17 +1202,17 @@ textarea:focus-visible,
             border: 1px solid var(--border-color);
         }
 
-        .result-card.winner {
+        .calc-widget-wrap .result-card.winner {
             background-color: #d4edda;
             border: 1px solid #c3e6cb;
             color: #155724;
             transform: scale(1.02);
         }
 
-        .result-label { font-weight: bold; }
-        .result-value { font-size: 1.2em; font-weight: bold; }
+        .calc-widget-wrap .result-label { font-weight: bold; }
+        .calc-widget-wrap .result-value { font-size: 1.2em; font-weight: bold; }
 
-        .recommendation {
+        .calc-widget-wrap .recommendation {
             margin-top: 15px;
             padding: 15px;
             border-radius: 8px;
@@ -1222,7 +1222,7 @@ textarea:focus-visible,
             font-size: 0.95em;
         }
 
-        .tax-note {
+        .calc-widget-wrap .tax-note {
             font-size: 0.85em;
             color: #e67e22;
             margin-top: 15px;
@@ -1233,14 +1233,13 @@ textarea:focus-visible,
 
         /* התאמה למובייל */
         @media (max-width: 650px) {
-            .calc-content {
+            .calc-widget-wrap .calc-content {
                 flex-direction: column;
             }
-            .results-side {
+            .calc-widget-wrap .results-side {
                 order: 2; /* התוצאות יופיעו מתחת לקלט במובייל */
             }
-        }
-</style>
+        }</style>
 <div class="calc-widget-wrap"><div class="calc-container">
 
     <div class="calc-content">
