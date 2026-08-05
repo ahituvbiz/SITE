@@ -494,6 +494,17 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--text-2);
   font-size: 16px;
 }
+.video-frame.is-playing { cursor: default; transform: none; }
+.video-frame.is-playing::after { display: none; }
+.video-frame.is-playing:hover { transform: none; }
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 3;
+}
 
 @media (max-width: 900px) {
   .video-grid { grid-template-columns: 1fr; }
@@ -1260,10 +1271,12 @@ textarea:focus-visible,
 
     <!-- Video 1: על אובייקטיביות - מתחבר ישירות לפער יועץ/סוכן -->
     <div class="video-block">
-      <span class="video-block-eyebrow">סרטון · 90 שניות</span>
+      <span class="video-block-eyebrow">סרטון</span>
       <h3 class="video-title" style="font-size:22px; margin-bottom:var(--s-md);">למה אתה חייב מישהו אובייקטיבי</h3>
-      <div class="video-frame">
-        <span class="video-overlay-text">סרטון 1 · 90 שניות</span>
+      <div class="video-frame video-lazy" data-yt="9snrqRLjybw" data-yt-title="הטיות מובנות" role="button" tabindex="0"
+           aria-label="נגן סרטון: הטיות מובנות"
+           style="background-image:url('https://i.ytimg.com/vi/9snrqRLjybw/maxresdefault.jpg');">
+        <span class="video-overlay-text">סרטון 1</span>
         <div class="play-btn">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -1749,6 +1762,34 @@ renderQuestion();
 })();
 </script>
 <script src="/search.js"></script>
+<!-- Lazy-load YouTube: טוען iframe רק בלחיצה -->
+<script>
+(function(){
+  function play(frame){
+    if (frame.classList.contains('is-playing')) return;
+    var id = frame.getAttribute('data-yt');
+    if (!id) return;
+    var title = frame.getAttribute('data-yt-title') || 'סרטון';
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&hl=he';
+    iframe.title = title;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.setAttribute('allowfullscreen','');
+    iframe.setAttribute('loading','lazy');
+    frame.innerHTML = '';
+    frame.appendChild(iframe);
+    frame.classList.add('is-playing');
+    frame.removeAttribute('role');
+    frame.removeAttribute('tabindex');
+  }
+  document.querySelectorAll('.video-frame.video-lazy').forEach(function(frame){
+    frame.addEventListener('click', function(){ play(frame); });
+    frame.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 <!-- Unified site footer -->
 <footer class="site-footer" role="contentinfo">
   <div class="sf-inner">
