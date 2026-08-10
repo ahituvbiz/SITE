@@ -226,7 +226,7 @@ section { padding: var(--s-2xl) 0; }
   background: var(--bg-cream);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: var(--s-2xl) 0;
+  padding: clamp(17px, 2.7vw, 26px) 0;
 }
 .calc-wrap { max-width: var(--article-width); margin: 0 auto; }
 .calc-section-eyebrow {
@@ -988,14 +988,14 @@ textarea:focus-visible,
             max-width: 1100px;
             margin: 0 auto;
             background: white;
-            padding: 28px;
+            padding: 18px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
 
         .calc-widget-wrap h1 {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-size: 28px;
             color: #1a252f;
         }
@@ -1006,9 +1006,9 @@ textarea:focus-visible,
             align-items: center;
             justify-content: center;
             gap: 25px;
-            margin-bottom: 50px;
+            margin-bottom: 28px;
             background: #f1f3f5;
-            padding: 30px;
+            padding: 18px;
             border-radius: 15px;
             flex-wrap: wrap;
         }
@@ -1119,7 +1119,6 @@ textarea:focus-visible,
 </style>
 
 <div class="calc-widget-wrap">
-  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. אינה מהווה ייעוץ פנסיוני.</p>
   <div class="container">
     <h2>מחשבון פנסיה לעצמאי</h2>
 
@@ -1307,41 +1306,6 @@ const data = {"25": {"y4": 5.628, "y5": 7.352, "y6": 9.673, "y7": 12.807, "surv"
     update(); // הפעלה ראשונית
 </script>
 
-</section>
-
-<!-- SCENARIOS -->
-<section class="scenarios-section" id="scenarios">
-  <div class="container article-container">
-    <h2 id="tarcishei-teshua">תרחישי תשואה שונים</h2>
-    <p>
-      התשואה הממוצעת של קרנות הפנסיה הגדולות בישראל בעשור האחרון עמדה על כ-7% בשנה.
-      אבל העתיד לא מובטח. הנה מה שקורה לצבירה שלך בשלושה תרחישים - לפי הנתונים שהזנת:
-    </p>
-
-    <div class="scenarios-grid">
-      <div class="scenario-card pessimistic">
-        <span class="sc-eyebrow">פסימי</span>
-        <h4>תשואה נמוכה</h4>
-        <div class="sc-rate" id="sc-pess-rate">4%</div>
-        <div class="sc-accumulation">צבירה צפויה: <strong id="sc-pess-val">-</strong></div>
-        <p style="font-size:14px; color: var(--text-2); margin-top: 10px;">תרחיש שמרני - שוק ההון בתשואות נמוכות, אינפלציה גבוהה. קורה בתקופות כמו שנות ה-2000.</p>
-      </div>
-      <div class="scenario-card realistic">
-        <span class="sc-eyebrow">ריאלי</span>
-        <h4>תשואה ממוצעת</h4>
-        <div class="sc-rate" id="sc-real-rate">7%</div>
-        <div class="sc-accumulation">צבירה צפויה: <strong id="sc-real-val">-</strong></div>
-        <p style="font-size:14px; color: var(--text-2); margin-top: 10px;">ממוצע היסטורי של עשרות שנים. מניח פיזור נכון, מסלול מנייתי מתאים לגיל, ודמי ניהול סבירים.</p>
-      </div>
-      <div class="scenario-card optimistic">
-        <span class="sc-eyebrow">אופטימי</span>
-        <h4>תשואה גבוהה</h4>
-        <div class="sc-rate" id="sc-opt-rate">10%</div>
-        <div class="sc-accumulation">צבירה צפויה: <strong id="sc-opt-val">-</strong></div>
-        <p style="font-size:14px; color: var(--text-2); margin-top: 10px;">תרחיש אופטימי - שנים חיוביות חזקות. מניח מסלול מנייתי מלא ואי-הגעה לגיל הפרישה בשיא ירידה.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ARTICLE BODY -->
