@@ -423,7 +423,7 @@ textarea:focus-visible,
       <div class="pc-err" id="pc-err"></div>
       <div class="pc-results" id="pc-results">
         <div class="pc-hero">
-          <div class="pc-hero-lbl" id="pc-heroLbl">הקצבה החודשית הצפויה בגיל 67</div>
+          <div class="pc-hero-lbl" id="pc-heroLbl">הצבירה הצפויה בגיל 67</div>
           <div class="pc-hero-val" id="pc-heroPension">-</div>
           <div class="pc-hero-sc" id="pc-heroScn"></div>
         </div>
@@ -536,9 +536,9 @@ function pcFmt(n){return Math.round(n).toLocaleString('en-US');}
 function pcNv(id){return +String(document.getElementById(id).value).replace(/,/g,'')||0;}
 function pcRun(){var err=document.getElementById('pc-err');err.style.display='none';var bd=document.getElementById('pc-bdate').value;if(!bd){err.textContent='נא להזין תאריך לידה';err.style.display='block';return;}var bdate=new Date(bd),now=new Date();var ageExact=(now-bdate)/(365.25*24*3600*1000);var retAge=parseFloat(document.getElementById('pc-retage').value);if(ageExact<15||ageExact>=retAge){err.textContent='גיל הפרישה חייב להיות גדול מהגיל הנוכחי';err.style.display='block';return;}pcUpdateFactor();var p={ageExact:ageExact,by:bdate.getFullYear(),gender:document.getElementById('pc-gender').value,balance:pcNv('pc-balance'),salary:pcNv('pc-salary'),deprate:pcNv('pc-deprate')/100,feedep:pcNv('pc-feedep')/100,feebal:pcNv('pc-feebal')/100};var factor=pcNv('pc-factor')||200;var infl=pcNv('pc-inflation')/100;var yrs2ret=retAge-ageExact;var rs=[pcNv('pc-r1')/100,pcNv('pc-r2')/100,pcNv('pc-r3')/100],labels=['נמוך','בסיס','גבוה'];var res=rs.map(function(r){return pcSimulate(p,r,retAge);});
 var pension=function(i){return res[i].final/factor;};var adjP=function(i){return pension(i)/Math.pow(1+infl,yrs2ret);};
-document.getElementById('pc-heroLbl').textContent='הקצבה החודשית הצפויה בגיל '+retAge;
-document.getElementById('pc-heroPension').innerHTML=pcFmt(pension(1))+' <small>₪ לחודש</small>';
-document.getElementById('pc-heroScn').textContent='בתרחיש בסיס ('+(rs[1]*100).toFixed(1)+'% בשנה) · בערכי היום '+pcFmt(adjP(1))+' ₪ · צבירה '+pcFmt(res[1].final)+' ₪';
+document.getElementById('pc-heroLbl').textContent='הצבירה הצפויה בגיל '+retAge;
+document.getElementById('pc-heroPension').innerHTML=pcFmt(res[1].final)+' <small>₪</small>';
+document.getElementById('pc-heroScn').textContent='בתרחיש בסיס ('+(rs[1]*100).toFixed(1)+'% בשנה) · קצבה חודשית צפויה '+pcFmt(pension(1))+' ₪ · בערכי היום '+pcFmt(adjP(1))+' ₪';
 var hh='<tr><th>מדד</th>';labels.forEach(function(l,i){hh+='<th class="'+(i===1?'pc-mid':'')+'">תרחיש '+l+'<br>'+(rs[i]*100).toFixed(1)+'%</th>';});hh+='</tr>';
 function rowf(lbl,fn,cls){var r='<tr><td class="pc-lbl">'+lbl+'</td>';res.forEach(function(x,i){r+='<td class="'+(i===1?'pc-mid ':'')+(cls||'pc-big')+'">'+fn(i)+'</td>';});return r+'</tr>';}
 hh+=rowf('צבירה צפויה בגיל '+retAge+' (₪)',function(i){return pcFmt(res[i].final);});
