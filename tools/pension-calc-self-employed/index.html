@@ -203,7 +203,7 @@ section { padding: var(--s-2xl) 0; }
 .hero-meta .dot { color: var(--text-meta); }
 .page-hero h1 { font-size: 40px; margin-bottom: var(--s-md); }
 .page-hero h1 .accent { color: var(--primary); }
-.page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; margin-bottom: var(--s-lg); }
+.page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; margin-bottom: 0; }
 
 .quick-stats {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-md);
@@ -946,6 +946,7 @@ textarea:focus-visible,
   color: #007DA8;
   font-family: 'Heebo', sans-serif;
 }
+.calc-widget-wrap .container > h2 { margin-top: 0; margin-bottom: 14px; }
 .calc-widget-wrap input[type=number], .calc-widget-wrap input[type=text], .calc-widget-wrap select {
   font-family: 'Heebo', sans-serif;
   border: 1px solid #D6E4F0;
@@ -1048,10 +1049,10 @@ textarea:focus-visible,
         .calc-widget-wrap .col-title {
             font-weight: bold;
             font-size: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 12px;
             color: #1a252f;
             text-align: center;
-            min-height: 50px;
+            min-height: 28px;
         }
 
         .calc-widget-wrap .bar-area {
