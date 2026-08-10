@@ -10,6 +10,9 @@
 /about/pricing   /services/  301
 /about/pricing/  /services/  301
 
-# הפניית www לדומיין הראשי (נוסף 10.8.26) — מונע כפילות כתובות
-# חייב להיות אחרון: כלל splat רחב שתופס כל נתיב
-https://www.pensya.info/*   https://pensya.info/:splat   301
+# כתובות עבריות מהאתר הישן (נוסף 10.8.26)
+/למה-לשלם    /articles/why-pay/   301
+/למה-לשלם/   /articles/why-pay/   301
+
+# הערה: הפניית www→apex מטופלת ב-Cloudflare Redirect Rule ברמת הזון,
+# לא כאן — _redirects מתאים נתיבים בלבד ולא שמות מארח.
