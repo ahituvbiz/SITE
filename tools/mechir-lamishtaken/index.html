@@ -815,22 +815,40 @@ textarea:focus-visible,
   <title>מחיר למשתכן - מחשבון ומדריך | איתן אחיטוב - יועץ פנסיוני</title>
 <link rel="stylesheet" href="/site-chrome.css">
 <!--@CHROME:HEAD@-->
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP"></script>
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
 <script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  window.gtag = function(){dataLayer.push(arguments);};
   gtag('js', new Date());
   gtag('config', 'G-E3PV7TKMLP');
+})();
 </script>
 <!-- שלט טיוטא — מוצג רק לבעל האתר. הפעלה: ?draft=1 | כיבוי: ?draft=0 -->
 <script>
 (function(){
   try{
-    var K='pensyaDraftMode', p=new URLSearchParams(location.search), q=p.get('draft');
-    if(q==='1'){localStorage.setItem(K,'1');}
-    if(q==='0'){localStorage.removeItem(K);}
-    if(localStorage.getItem(K)!=='1') return;
+    if(localStorage.getItem('pensyaDraftMode')!=='1') return;
     document.addEventListener('DOMContentLoaded',function(){
       var h=document.querySelector('header.header'); if(!h) return;
       var d=document.createElement('div');
@@ -840,7 +858,8 @@ textarea:focus-visible,
       d.innerHTML='<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
         ' style="max-width:min(360px,70vw);height:auto;display:inline-block">'+
         '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:6px">'+
-        'סימון פנימי — לא גלוי לגולשים. כיבוי: הוסף <code>?draft=0</code> לכתובת · '+
+        'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+        'כיבוי: הוסף <code>?draft=0</code> לכתובת · '+
         '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
       h.insertAdjacentElement('afterend', d);
     });
