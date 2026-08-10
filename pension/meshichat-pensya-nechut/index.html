@@ -423,24 +423,55 @@ section { padding: var(--s-2xl) 0; }
   gtag('config', 'G-E3PV7TKMLP');
 })();
 </script>
-<!-- שלט טיוטא — מוצג רק לבעל האתר. הפעלה: ?draft=1 | כיבוי: ?draft=0 -->
+<!-- שלט טיוטא — רק לבעל האתר, ורק בדפים שטרם הוגהו.
+     הפעלה: ?draft=1 · כיבוי גלובלי: ?draft=0
+     מסתתר אוטומטית בדף שסומן כמוגה ב-/proof/ (מפתח localStorage: pensyaProof) -->
 <script>
 (function(){
+  var PROOF_KEY='pensyaProof';
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1)!=='/') p += '/';
+    return p;
+  }
+  function readProof(){
+    try{ return JSON.parse(localStorage.getItem(PROOF_KEY)||'{}'); }catch(e){ return {}; }
+  }
+  function isDone(){
+    var st=readProof(), k=pathKey();
+    var e = st[k] || st[k.replace(/\/$/,'')];
+    return !!(e && e.done);
+  }
+  function setDone(v){
+    var st=readProof(), k=pathKey();
+    st[k]=st[k]||{}; st[k].done=v;
+    try{ localStorage.setItem(PROOF_KEY, JSON.stringify(st)); }catch(e){}
+  }
   try{
     if(localStorage.getItem('pensyaDraftMode')!=='1') return;
+    if(isDone()) return;                       // הדף כבר מוגה — אין שלט
     document.addEventListener('DOMContentLoaded',function(){
       var h=document.querySelector('header.header'); if(!h) return;
       var d=document.createElement('div');
       d.id='pensya-draft-sign';
       d.setAttribute('data-nosnippet','');
       d.style.cssText='text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
-      d.innerHTML='<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
-        ' style="max-width:min(360px,70vw);height:auto;display:inline-block">'+
-        '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:6px">'+
+      d.innerHTML=
+        '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+        ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+        '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+        'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+        '✓ סמן כמוגה</button>'+
+        '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
         'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
-        'כיבוי: הוסף <code>?draft=0</code> לכתובת · '+
+        'כיבוי בכל הדפים: <code>?draft=0</code> · '+
         '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
       h.insertAdjacentElement('afterend', d);
+      d.querySelector('#pensya-mark-done').addEventListener('click',function(){
+        setDone(true);
+        d.style.transition='opacity .25s'; d.style.opacity='0';
+        setTimeout(function(){ d.remove(); }, 250);
+      });
     });
   }catch(e){}
 })();
