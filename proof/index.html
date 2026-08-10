@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>מעקב הגהה — פנימי</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:400 16px/1.6 Heebo,system-ui,sans-serif;background:#F8F6F2;color:#1A1A1A}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:#555;font-size:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:20px;margin-bottom:20px}
+.big{font-size:40px;font-weight:700;color:#007DA8;line-height:1}
+.bar{height:12px;background:#E5E7EB;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#007DA8,#5C8D5A);width:0;transition:width .4s}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tools button,.tools label{font:inherit;font-size:14px;padding:7px 12px;border:1px solid #E5E7EB;background:#fff;border-radius:8px;cursor:pointer}
+.tools button:hover{background:#F1F5F9}
+input[type=search]{flex:1;min-width:180px;padding:8px 12px;border:1px solid #E5E7EB;border-radius:8px;font:inherit}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-bottom:1px solid #F1F1F1}
+li.done{opacity:.45}
+li.done .ttl{text-decoration:line-through}
+input[type=checkbox]{width:22px;height:22px;flex:none;margin-top:3px;cursor:pointer;accent-color:#5C8D5A}
+.meta{flex:1;min-width:0}
+.ttl{font-weight:600;font-size:15px;display:block;margin-bottom:2px}
+.u{font-size:12px;color:#999;word-break:break-all}
+.note{width:100%;margin-top:6px;padding:6px 8px;border:1px solid #E5E7EB;border-radius:6px;font:inherit;font-size:13px;display:none}
+li.open .note{display:block}
+.go{font-size:13px;color:#007DA8;text-decoration:none;flex:none;padding-top:3px}
+.pen{background:none;border:none;cursor:pointer;font-size:15px;padding:0 4px;color:#999}
+#gate{max-width:340px;margin:15vh auto;text-align:center}
+#gate input{width:100%;padding:10px;border:1px solid #E5E7EB;border-radius:8px;font:inherit;text-align:center}
+#app{display:none}
+</style>
+</head>
+<body>
+<div id="gate" class="card">
+  <h1>מעקב הגהה</h1>
+  <p class="sub">אזור פנימי</p>
+  <input type="password" id="pw" placeholder="סיסמה" autocomplete="off">
+</div>
+
+<div class="wrap" id="app">
+  <h1>מעקב הגהה — pensya.info</h1>
+  <p class="sub">סמן דף אחרי שהגהת אותו. הסימונים נשמרים בדפדפן הזה. השתמש בייצוא כדי להעביר למכשיר אחר.</p>
+
+  <div class="card">
+    <div><span class="big" id="cnt">0</span> <span style="color:#555">מתוך <b id="tot">0</b> דפים הוגהו · <b id="pct">0%</b></span></div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="sub" style="margin:12px 0 0" id="left"></div>
+  </div>
+
+  <div class="card">
+    <div class="tools">
+      <input type="search" id="q" placeholder="סינון לפי שם או כתובת...">
+      <button id="hide">הסתר שהוגהו</button>
+      <button id="exp">ייצוא</button>
+      <label>ייבוא<input type="file" id="imp" accept=".json" hidden></label>
+    </div>
+    <ul id="list"></ul>
+  </div>
+</div>
+
+<script>
+var PAGES=[{"u": "/articles/lectures/die-with-zero/", "t": "למות בלי שקל (Die with Zero) - שיחה עם ביל פרקינס | איתן אחיטוב", "w": 4788, "d": "2026-08-03"}, {"u": "/investment/why-not-sp500/", "t": "מדד S&P 500 - הטעות הנפוצה והסיכונים | איתן אחיטוב - יועץ פנסיוני", "w": 3827, "d": "2026-08-03"}, {"u": "/investment/ira/", "t": "IRA - קופת גמל והשתלמות בניהול אישי | יועץ פנסיוני איתן אחיטוב", "w": 2822, "d": "2026-08-03"}, {"u": "/investment/ira-tax-deferral/", "t": "קרן השתלמות מעל התקרה: דחיית מס וכדאיות | איתן אחיטוב", "w": 2817, "d": "2026-08-03"}, {"u": "/investment/ira-explained/", "t": "IRA בישראל: למה להעדיף השתלמות, ולמה לא לגעת בפנסיה | איתן אחיטוב", "w": 2791, "d": "2026-08-03"}, {"u": "/investment/ai-loop-economy/", "t": "כלכלת הלולאה של ה-AI: ריכוזיות S&P 500 שמדדים לא תופסים | איתן אחיטוב — יועץ פנסיוני", "w": 2639, "d": "2026-08-03"}, {"u": "/savings/hisachon-layeled/", "t": "חיסכון לכל ילד: המדריך המלא לבחירה נכונה | איתן אחיטוב", "w": 2551, "d": "2026-08-03"}, {"u": "/savings/keren-kaspit/", "t": "קרן כספית: המדריך השלם - תשואה, מיסוי והשוואה לפיקדון | איתן אחיטוב", "w": 2300, "d": "2026-08-03"}, {"u": "/pension/keren-pensya-mekifa/", "t": "קרן פנסיה מקיפה: מה זה ולמי זה מתאים | יועץ פנסיוני איתן אחיטוב", "w": 2226, "d": "2026-08-03"}, {"u": "/about/advisor-vs-planner-vs-agent/", "t": "יועץ פנסיוני מול מתכנן פיננסי וסוכן ביטוח - ההבדל שעולה מאות אלפי ₪ | איתן אחיטוב", "w": 2089, "d": "2026-08-03"}, {"u": "/about/testimonials/", "t": "המלצות מלקוחות - יועץ פנסיוני איתן אחיטוב | תכנון פיננסי אובייקטיבי", "w": 2048, "d": "2026-08-03"}, {"u": "/about/case-studies/", "t": "דוגמאות מתוך ייעוצים - סיפורי לקוחות | יועץ פנסיוני איתן אחיטוב", "w": 2026, "d": "2026-08-03"}, {"u": "/pension/mekifa-vs-mashlima/", "t": "קרן פנסיה מקיפה מול משלימה: איזו לבחור? | יועץ פנסיוני איתן אחיטוב", "w": 2022, "d": "2026-08-03"}, {"u": "/pension/", "t": "מוצרי פנסיה - המדריך המלא והאובייקטיבי | איתן אחיטוב", "w": 1979, "d": "2026-08-03"}, {"u": "/about/license/", "t": "רישיון יועץ פנסיוני: למה זה הנכס הכי חשוב שלך | איתן אחיטוב", "w": 1899, "d": "2026-08-03"}, {"u": "/insurance/cancel-siudi/", "t": "ביטול ביטוח סיעודי: שיקולים לפני שמבטלים | יועץ פנסיוני איתן אחיטוב", "w": 1898, "d": "2026-08-03"}, {"u": "/articles/true-cost-free/", "t": "על מה אתה באמת משלם בייעוץ פנסיוני חינם? | איתן אחיטוב", "w": 1858, "d": "2026-08-03"}, {"u": "/savings/keren-hishtalmut/", "t": "קרן השתלמות: המדריך השלם 2026 | יועץ פנסיוני איתן אחיטוב", "w": 1849, "d": "2026-08-03"}, {"u": "/savings/gamal-lehashkaa/", "t": "גמל להשקעה: האם זה כדאי לך? | יועץ פנסיוני איתן אחיטוב", "w": 1829, "d": "2026-08-03"}, {"u": "/audiences/senior-employees/", "t": "תכנון פיננסי לשכירים בכירים בעלי שכר גבוה | איתן אחיטוב", "w": 1801, "d": "2026-08-03"}, {"u": "/articles/why-pay/", "t": "למה כדאי לשלם על ייעוץ פנסיוני | איתן אחיטוב", "w": 1798, "d": "2026-08-03"}, {"u": "/about/", "t": "איתן אחיטוב - יועץ פנסיוני מטעם משרד האוצר | אודות", "w": 1794, "d": "2026-08-03"}, {"u": "/articles/", "t": "כדאי לדעת — מרכז ידע פיננסי | איתן אחיטוב יועץ פנסיוני", "w": 1756, "d": "2026-08-03"}, {"u": "/mortgage/mortgage-and-pension/", "t": "משכנתא ופנסיה: שילוב תיקים לתכנון פיננסי הוליסטי | איתן אחיטוב", "w": 1749, "d": "2026-08-03"}, {"u": "/savings/how-to-buy-keren-kaspit/", "t": "איך קונים קרן כספית בפועל - מדריך צעד אחר צעד | איתן אחיטוב", "w": 1642, "d": "2026-08-03"}, {"u": "/pension/contribution-employee/", "t": "כמה להפקיד לפנסיה כשכיר? המדריך המלא | איתן אחיטוב", "w": 1641, "d": "2026-08-03"}, {"u": "/savings/start-saving-early/", "t": "להתחיל לחסוך לפנסיה מוקדם - כמה שווה כל שנה | איתן אחיטוב", "w": 1629, "d": "2026-08-03"}, {"u": "/audiences/self-employed/", "t": "פנסיה לעצמאים: המדריך המלא 2026 | יועץ פנסיוני איתן אחיטוב", "w": 1624, "d": "2026-08-03"}, {"u": "/tools/mechir-lamishtaken/", "t": "מחיר למשתכן - מחשבון ומדריך | איתן אחיטוב - יועץ פנסיוני", "w": 1605, "d": "2026-08-03"}, {"u": "/about/recommended-advisor/", "t": "יועץ פנסיוני מומלץ - איך לבחור (מדריך מקצועי) | איתן אחיטוב", "w": 1521, "d": "2026-08-03"}, {"u": "/pension/meshichat-pensya-nechut/", "t": "משיכת פנסיה בפטור ממס בזכות נכות במשפחה | pensya.info", "w": 1466, "d": "2026-08-10"}, {"u": "/", "t": "איתן אחיטוב | יועץ פנסיוני בעל רישיון משרד האוצר", "w": 1383, "d": "2026-08-05"}, {"u": "/articles/lectures/index-investing-deep-dive/", "t": "השקעה במדדים — ניתוח ביקורתי מלא | אסף נתן | יועץ פנסיוני איתן אחיטוב", "w": 1382, "d": "2026-08-03"}, {"u": "/articles/real-estate-vs-stocks/", "t": "נדל\"ן או שוק ההון: סימולציה ומסקנות | יועץ פנסיוני איתן אחיטוב", "w": 1381, "d": "2026-08-03"}, {"u": "/services/", "t": "שירותי ייעוץ פנסיוני ומשכנתאות | איתן אחיטוב", "w": 1372, "d": "2026-08-03"}, {"u": "/tools/pension-calc-self-employed/", "t": "מחשבון פנסיה לעצמאים — סימולטור אינטראקטיבי | יועץ פנסיוני איתן אחיטוב", "w": 1367, "d": "2026-08-03"}, {"u": "/tools/tax-savings/", "t": "מחשבון חיסכון במס לעצמאים ושכירים | יועץ פנסיוני איתן אחיטוב", "w": 1280, "d": "2026-08-03"}, {"u": "/investment/ira-fees/", "t": "עמלות ברוקרים IRA - השוואה מלאה | יועץ פנסיוני איתן אחיטוב", "w": 1205, "d": "2026-08-03"}, {"u": "/financial-planning/", "t": "תכנון פיננסי אובייקטיבי | איתן אחיטוב - יועץ בעל רישיון", "w": 1188, "d": "2026-08-03"}, {"u": "/investment/ira-investment-rules/", "t": "כללי ההשקעה ב-IRA - מה מותר ומה אסור | יועץ פנסיוני איתן אחיטוב", "w": 1112, "d": "2026-08-03"}, {"u": "/articles/lectures/israel-housing-2026/", "t": "שוק הדיור בישראל 2026 - ניתוח כלכלי | מתן שטרית | יועץ פנסיוני איתן אחיטוב", "w": 1110, "d": "2026-08-03"}, {"u": "/bedikat-pensya/", "t": "רובייקטיבי - בדיקת קרן פנסיה בעברית, ב-60 שניות | איתן אחיטוב", "w": 1105, "d": "2026-08-03"}, {"u": "/tools/pension-calculator/", "t": "מחשבון פנסיה - כמה קצבה תקבלו בפרישה? | איתן אחיטוב", "w": 1046, "d": "2026-08-03"}, {"u": "/tools/real-estate-vs-market/", "t": "מחשבון נדל\"ן מול שוק ההון - השוואה אובייקטיבית | יועץ פנסיוני איתן אחיטוב", "w": 866, "d": "2026-08-03"}, {"u": "/ai/", "t": "רובייקטיבי - בדיקת קרן פנסיה בעברית, ב-60 שניות | איתן אחיטוב", "w": 858, "d": "2026-08-03"}, {"u": "/bedikat-pensya/guides/", "t": "הורדת דוח קרן פנסיה - מדריך לכל הקרנות | pensya.info", "w": 785, "d": "2026-08-03"}, {"u": "/savings/", "t": "חיסכון והשקעות - כל המדריכים | יועץ פנסיוני איתן אחיטוב", "w": 523, "d": "2026-08-03"}, {"u": "/tools/", "t": "מחשבונים פיננסיים - מרכז הכלים | יועץ פנסיוני איתן אחיטוב", "w": 500, "d": "2026-08-03"}, {"u": "/tools/mekadem-hamara/", "t": "מחשבון מקדם המרה לקצבת פנסיה | איתן אחיטוב", "w": 483, "d": "2026-08-03"}, {"u": "/tools/management-fees/", "t": "מחשבון דמי ניהול - כמה עולה לך כל 0.1%? | יועץ פנסיוני איתן אחיטוב", "w": 430, "d": "2026-08-03"}, {"u": "/articles/lectures/", "t": "הרצאות מומלצות בתכנון פיננסי - סיכומים | יועץ פנסיוני איתן אחיטוב", "w": 429, "d": "2026-08-10"}];
+var KEY='pensyaProof';
+var st=JSON.parse(localStorage.getItem(KEY)||'{}');
+function save(){localStorage.setItem(KEY,JSON.stringify(st));}
+
+document.getElementById('pw').addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  if(this.value==='hagaha'){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block';render();}
+  else{this.value='';this.placeholder='סיסמה שגויה';}
+});
+
+var hideDone=false;
+function render(){
+  var q=(document.getElementById('q').value||'').trim();
+  var ul=document.getElementById('list'); ul.innerHTML='';
+  var done=0;
+  PAGES.forEach(function(p,i){
+    var s=st[p.u]||{}; if(s.done)done++;
+    if(q && p.t.indexOf(q)<0 && p.u.indexOf(q)<0) return;
+    if(hideDone && s.done) return;
+    var li=document.createElement('li');
+    li.className=(s.done?'done ':'')+(s.note?'open':'');
+    li.innerHTML='<input type="checkbox" '+(s.done?'checked':'')+'>'+
+      '<div class="meta"><span class="ttl"></span><span class="u"></span>'+
+      '<textarea class="note" rows="2" placeholder="הערה..."></textarea></div>'+
+      '<button class="pen" title="הערה">✎</button>'+
+      '<a class="go" target="_blank">פתח ↗</a>';
+    li.querySelector('.ttl').textContent=p.t;
+    li.querySelector('.u').textContent=p.u+' · '+p.w+' מילים · עודכן '+p.d;
+    li.querySelector('.go').href=p.u+'?draft=1';
+    var ta=li.querySelector('.note'); ta.value=s.note||'';
+    li.querySelector('input').onchange=function(){
+      st[p.u]=st[p.u]||{}; st[p.u].done=this.checked; save(); render();
+    };
+    li.querySelector('.pen').onclick=function(){li.classList.toggle('open');ta.focus();};
+    ta.onchange=function(){st[p.u]=st[p.u]||{}; st[p.u].note=ta.value; save();};
+    ul.appendChild(li);
+  });
+  var tot=PAGES.length, pct=tot?Math.round(done/tot*100):0;
+  document.getElementById('cnt').textContent=done;
+  document.getElementById('tot').textContent=tot;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('left').textContent= done===tot ? 'הכול הוגה. סיימת.' : ('נותרו '+(tot-done)+' דפים.');
+}
+document.getElementById('q').oninput=render;
+document.getElementById('hide').onclick=function(){hideDone=!hideDone;this.textContent=hideDone?'הצג הכול':'הסתר שהוגהו';render();};
+document.getElementById('exp').onclick=function(){
+  var b=new Blob([JSON.stringify(st,null,1)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='proof-progress.json';a.click();
+};
+document.getElementById('imp').onchange=function(e){
+  var f=e.target.files[0]; if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){try{st=JSON.parse(r.result);save();render();}catch(x){alert('קובץ לא תקין');}};
+  r.readAsText(f);
+};
+</script>
+</body>
+</html>
