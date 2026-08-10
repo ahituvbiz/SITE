@@ -172,7 +172,23 @@ textarea:focus-visible,
 }
 
     .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
-  </style>
+  
+/* fee comparison calculator */
+.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 4px}
+.alt-box{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--bg-cream)}
+.alt-box .alt-title{font-size:14px;font-weight:700;margin-bottom:12px}
+.alt-box .form-group label{font-size:13px}
+.alt-box.alt-a{border-top:3px solid var(--cta)}
+.alt-box.alt-a .alt-title{color:var(--cta)}
+.alt-box.alt-a .val-display{color:var(--cta)}
+.alt-box.alt-a input[type=range]{accent-color:var(--cta)}
+.alt-box.alt-b{border-top:3px solid var(--primary)}
+.alt-box.alt-b .alt-title{color:var(--primary)}
+.res-big.bad{color:var(--negative)}
+.chart-wrap{margin-top:var(--s-lg);background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.chart-box{position:relative;height:340px}
+@media(max-width:520px){.alt-grid{grid-template-columns:1fr}.chart-box{height:260px}}
+</style>
   <link rel="canonical" href="https://pensya.info/tools/management-fees/" />
 <link rel="stylesheet" href="/site-chrome.css">
 <!--@CHROME:HEAD@-->
@@ -336,8 +352,8 @@ textarea:focus-visible,
     </p>
     <div class="stats-strip">
       <div class="stat-item">
-        <div class="stat-val">250K ₪</div>
-        <div class="stat-label">הפרש אופייני על הורדת 0.3% - 25 שנה</div>
+        <div class="stat-val">220K ₪</div>
+        <div class="stat-label">ההפרש בין שתי החלופות בברירת המחדל - מגיל 30 עד 67</div>
       </div>
       <div class="stat-item">
         <div class="stat-val">0.5%</div>
@@ -363,54 +379,70 @@ textarea:focus-visible,
           הסיבה: דמי הניהול לא נגבים על הקרן - הם נגבים על כל הצבירה, כל שנה. ככל שהצבירה גדלה, כך גם "שכר" חברת הניהול. ואם הייתם משקיעים את אותו הכסף במקום "לתת" אותו לחברה - הוא היה גדל גם הוא.
         </p>
         <div class="insight-box">
-          <strong>מה המחשבון מחשב:</strong> ההפרש הנומינלי בין סיום הצבירה עם דמי ניהול נוכחיים לבין סיום עם דמי ניהול מוזלים - בהתחשב בריבית-דריבית על פני שנות הצבירה.
+          <strong>מה המחשבון מחשב:</strong> הצבירה הצפויה בגיל 67 בשתי חלופות של דמי ניהול, וההפרש ביניהן. החישוב הוא חודשי ומנכה את עלויות הביטוח (נכות ושאירים) לפי תקנון קרן פנסיה מקיפה - בדיוק כמו במחשבון הפנסיה המלא.
         </div>
         <div class="insight-box" style="margin-top:12px;border-color:var(--cta);background:#fff5f4">
-          <strong>חשוב לדעת:</strong> ירידה של 0.3% בדמי ניהול לא מגיעה אוטומטית - היא דורשת ידע, משא ומתן, ולעתים שינוי קרן. זה בדיוק מה שאני עוזר ללקוחות לעשות.
+          <strong>חשוב לדעת:</strong> דמי ניהול נמוכים לא מגיעים אוטומטית - הם דורשים ידע, משא ומתן, ולעתים שינוי קרן. זה בדיוק מה שאני עוזר ללקוחות לעשות.
         </div>
       </div>
 
       <div class="calc-card">
-        <h3>📉 מחשבון עלות דמי ניהול</h3>
+        <h3>📉 מחשבון השוואת דמי ניהול</h3>
 
         <div class="form-group">
-          <label>צבירה נוכחית (₪) <span class="val-display" id="fee-balance-out">300,000 ₪</span></label>
-          <input type="range" id="fee-balance" min="0" max="3000000" step="25000" value="300000">
-        </div>
-        <div class="form-group">
-          <label>הפקדה חודשית (₪) <span class="val-display" id="fee-monthly-out">3,000 ₪</span></label>
-          <input type="range" id="fee-monthly" min="500" max="15000" step="200" value="3000">
-        </div>
-        <div class="form-group">
-          <label>שנות צבירה נותרות <span class="val-display" id="fee-years-out">25</span></label>
-          <input type="range" id="fee-years" min="5" max="40" step="1" value="25">
+          <label>הפקדה חודשית לפנסיה (₪) <span class="val-display" id="mf-dep-out">3,000 ₪</span></label>
+          <input type="range" id="mf-dep" min="500" max="15000" step="100" value="3000">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>דמי ניהול נוכחיים <span class="val-display" id="fee-current-out">0.50%</span></label>
-            <input type="range" id="fee-current" min="0.05" max="1.5" step="0.05" value="0.50">
+            <label>הגיל שלך <span class="val-display" id="mf-age-out">30</span></label>
+            <input type="range" id="mf-age" min="18" max="66" step="1" value="30">
           </div>
           <div class="form-group">
-            <label>דמי ניהול מוזלים <span class="val-display" id="fee-new-out">0.20%</span></label>
-            <input type="range" id="fee-new" min="0.05" max="1.5" step="0.05" value="0.20">
+            <label>צבירה קיימת (₪) <span class="val-display" id="mf-bal-out">150,000 ₪</span></label>
+            <input type="range" id="mf-bal" min="0" max="2000000" step="10000" value="150000">
+          </div>
+        </div>
+
+        <div class="alt-grid">
+          <div class="alt-box alt-a">
+            <div class="alt-title">חלופה א'</div>
+            <div class="form-group">
+              <label>מהפקדה <span class="val-display" id="mf-a-dep-out">2.00%</span></label>
+              <input type="range" id="mf-a-dep" min="0" max="6" step="0.05" value="2">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>מהצבירה <span class="val-display" id="mf-a-bal-out">0.25%</span></label>
+              <input type="range" id="mf-a-bal" min="0" max="1.05" step="0.01" value="0.25">
+            </div>
+          </div>
+          <div class="alt-box alt-b">
+            <div class="alt-title">חלופה ב'</div>
+            <div class="form-group">
+              <label>מהפקדה <span class="val-display" id="mf-b-dep-out">1.00%</span></label>
+              <input type="range" id="mf-b-dep" min="0" max="6" step="0.05" value="1">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>מהצבירה <span class="val-display" id="mf-b-bal-out">0.15%</span></label>
+              <input type="range" id="mf-b-bal" min="0" max="1.05" step="0.01" value="0.15">
+            </div>
           </div>
         </div>
 
         <div class="calc-results">
-          <div class="res-title">ההפרש בגיל פרישה</div>
-          <div class="res-big good" id="fee-diff">-</div>
-          <div class="res-sub">כסף שנשאר בכיסך - מהורדת דמי הניהול בלבד</div>
+          <div class="res-title">ההפרש בצבירה בגיל 67</div>
+          <div class="res-big good" id="mf-diff">-</div>
+          <div class="res-sub" id="mf-diff-sub">כסף שנשאר בכיסך - מהפרש דמי הניהול בלבד</div>
           <div class="res-grid">
             <div class="res-item">
-              <div class="ri-val" id="fee-current-balance">-</div>
-              <div class="ri-label">סיום - דמי ניהול נוכחיים</div>
+              <div class="ri-val" id="mf-a-final">-</div>
+              <div class="ri-label">צבירה - חלופה א'</div>
             </div>
             <div class="res-item">
-              <div class="ri-val" id="fee-new-balance">-</div>
-              <div class="ri-label">סיום - דמי ניהול מוזלים</div>
+              <div class="ri-val" id="mf-b-final">-</div>
+              <div class="ri-label">צבירה - חלופה ב'</div>
             </div>
           </div>
-          <p class="res-note">* תשואה ברוטו 7% שנתי, חישוב ריבית-דריבית. דמי ניהול מחושבים מהצבירה בלבד. אינו ייעוץ השקעות.</p>
         </div>
 
         <div style="margin-top:20px">
@@ -418,6 +450,12 @@ textarea:focus-visible,
         </div>
       </div>
     </div>
+
+    <div class="chart-wrap">
+      <div class="chart-box"><canvas id="mf-chart"></canvas></div>
+    </div>
+
+    <p class="res-note" id="mf-assumptions"></p>
   </div>
 </section>
 
@@ -447,44 +485,91 @@ textarea:focus-visible,
   <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/></svg>
 </a>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-function fmt(n){if(isNaN(n)||!isFinite(n))return'-';if(Math.abs(n)>=1000000)return(n/1000000).toFixed(1)+'M ₪';return Math.round(n).toLocaleString('he-IL')+' ₪';}
+/* מחשבון השוואת דמי ניהול - מנוע חישוב זהה למחשבון הפנסיה (/tools/pension-calculator/),
+   מקובע ל: גבר נשוי, גיל פרישה 67, שיעור הפקדה 20.83%, תשואה 6.4676% נומינלי */
+var MF_RATES={"disability":{"M":{"18":2.7957,"19":2.7158,"20":2.6835,"21":2.6948,"22":2.7462,"23":2.8343,"24":2.9802,"25":3.1595,"26":3.3437,"27":3.555,"28":3.7916,"29":4.0523,"30":4.4028,"31":4.7139,"32":5.0484,"33":5.4066,"34":5.7898,"35":6.1495,"36":6.6395,"37":7.169,"38":7.7422,"39":8.3637,"40":8.6994,"41":9.4838,"42":10.2617,"43":11.1099,"44":12.0347,"45":13.0421,"46":14.2082,"47":15.4719,"48":16.97,"49":18.589,"50":18.9496,"51":20.711,"52":22.3958,"53":24.132,"54":25.6843,"55":27.186,"56":28.8804,"57":30.4592,"58":31.8353,"59":32.8964,"60":33.0908,"61":33.0676,"62":32.18,"63":30.1056,"64":26.4173,"65":17.496,"66":3.7912}},"survivor_sar":{"M":{"18":{"2005":294.46},"19":{"2005":294.53},"20":{"2005":294.6},"21":{"2005":294.66,"2000":294.32},"22":{"2005":293.87,"2000":293.52},"23":{"2005":293.05,"2000":292.7},"24":{"2005":292.2,"2000":291.83},"25":{"2005":291.31,"2000":290.93},"26":{"2005":290.38,"2000":290.0,"1995":289.58},"27":{"2005":289.42,"2000":289.02,"1995":288.6},"28":{"2005":288.42,"2000":288.01,"1995":287.58},"29":{"2005":287.39,"2000":286.97,"1995":286.52},"30":{"2005":286.31,"2000":285.88,"1995":285.41},"31":{"2005":285.19,"2000":284.75,"1995":284.27,"1990":283.76},"32":{"2005":284.03,"2000":283.58,"1995":283.08,"1990":282.56},"33":{"2005":282.83,"2000":282.36,"1995":281.86,"1990":281.31},"34":{"2005":281.59,"2000":281.1,"1995":280.58,"1990":280.02},"35":{"2005":280.3,"2000":279.8,"1995":279.26,"1990":278.69},"36":{"2005":278.96,"2000":278.45,"1995":277.89,"1990":277.3,"1985":276.67},"37":{"2005":277.58,"2000":277.05,"1995":276.48,"1990":275.87,"1985":275.22},"38":{"2005":276.14,"2000":275.59,"1995":275.01,"1990":274.39,"1985":273.72},"39":{"2005":274.66,"2000":274.09,"1995":273.49,"1990":272.85,"1985":272.16},"40":{"2005":273.12,"2000":272.54,"1995":271.92,"1990":271.26,"1985":270.56},"41":{"2005":271.53,"2000":270.93,"1995":270.3,"1990":269.62,"1985":268.89,"1980":268.11},"42":{"2005":269.88,"2000":269.27,"1995":268.62,"1990":267.92,"1985":267.18,"1980":266.38},"43":{"2005":268.18,"2000":267.55,"1995":266.88,"1990":266.17,"1985":265.41,"1980":264.59},"44":{"2005":266.42,"2000":265.78,"1995":265.09,"1990":264.36,"1985":263.58,"1980":262.74},"45":{"2005":264.61,"2000":263.94,"1995":263.24,"1990":262.49,"1985":261.69,"1980":260.84},"46":{"2005":262.73,"2000":262.05,"1995":261.33,"1990":260.56,"1985":259.75,"1980":258.87,"1975":257.92},"47":{"2005":260.8,"2000":260.1,"1995":259.36,"1990":258.58,"1985":257.74,"1980":256.85,"1975":255.89},"48":{"2005":258.8,"2000":258.09,"1995":257.33,"1990":256.53,"1985":255.68,"1980":254.77,"1975":253.79},"49":{"2005":256.75,"2000":256.02,"1995":255.25,"1990":254.43,"1985":253.56,"1980":252.63,"1975":251.64},"50":{"2005":254.63,"2000":253.88,"1995":253.1,"1990":252.26,"1985":251.38,"1980":250.43,"1975":249.42},"51":{"2005":252.44,"2000":251.68,"1995":250.88,"1990":250.03,"1985":249.13,"1980":248.17,"1975":247.15,"1970":246.03},"52":{"2005":250.19,"2000":249.42,"1995":248.61,"1990":247.74,"1985":246.83,"1980":245.85,"1975":244.82,"1970":243.69},"53":{"2005":247.87,"2000":247.09,"1995":246.26,"1990":245.39,"1985":244.46,"1980":243.47,"1975":242.42,"1970":241.29},"54":{"2005":245.49,"2000":244.7,"1995":243.86,"1990":242.97,"1985":242.03,"1980":241.03,"1975":239.97,"1970":238.83},"55":{"2005":243.03,"2000":242.23,"1995":241.38,"1990":240.48,"1985":239.53,"1980":238.53,"1975":237.46,"1970":236.31},"56":{"2005":240.51,"2000":239.7,"1995":238.84,"1990":237.93,"1985":236.97,"1980":235.96,"1975":234.88,"1970":233.73,"1965":232.46},"57":{"2005":237.91,"2000":237.1,"1995":236.23,"1990":235.32,"1985":234.35,"1980":233.33,"1975":232.25,"1970":231.09,"1965":229.82},"58":{"2005":235.25,"2000":234.42,"1995":233.55,"1990":232.63,"1985":231.66,"1980":230.64,"1975":229.56,"1970":228.4,"1965":227.14},"59":{"2005":232.52,"2000":231.69,"1995":230.82,"1990":229.9,"1985":228.93,"1980":227.9,"1975":226.82,"1970":225.66,"1965":224.41},"60":{"2005":229.71,"2000":228.89,"1995":228.02,"1990":227.1,"1985":226.13,"1980":225.11,"1975":224.03,"1970":222.88,"1965":221.64},"61":{"2005":226.85,"2000":226.02,"1995":225.16,"1990":224.24,"1985":223.27,"1980":222.26,"1975":221.19,"1970":220.05,"1965":218.83,"1960":217.46},"62":{"2005":223.91,"2000":223.09,"1995":222.23,"1990":221.32,"1985":220.36,"1980":219.36,"1975":218.3,"1970":217.17,"1965":215.97,"1960":214.64},"63":{"2005":220.9,"2000":220.09,"1995":219.24,"1990":218.34,"1985":217.4,"1980":216.4,"1975":215.36,"1970":214.26,"1965":213.08,"1960":211.78},"64":{"2005":217.82,"2000":217.03,"1995":216.19,"1990":215.31,"1985":214.38,"1980":213.4,"1975":212.38,"1970":211.3,"1965":210.15,"1960":208.9},"65":{"2005":214.69,"2000":213.91,"1995":213.09,"1990":212.23,"1985":211.32,"1980":210.36,"1975":209.37,"1970":208.32,"1965":207.2,"1960":205.99},"66":{"2005":211.49,"2000":210.74,"1995":209.94,"1990":209.1,"1985":208.22,"1980":207.3,"1975":206.33,"1970":205.31,"1965":204.24,"1960":203.08,"1955":201.8}}},"survivor_prem":{"M":{"18":{"2005":1.8035},"19":{"2005":1.6603},"20":{"2005":1.526},"21":{"2005":1.4496,"2000":1.6379},"22":{"2005":1.3884,"2000":1.5977},"23":{"2005":1.3277,"2000":1.5275},"24":{"2005":1.2681,"2000":1.4311},"25":{"2005":1.2102,"2000":1.3393},"26":{"2005":1.1702,"2000":1.2822,"1995":1.4488},"27":{"2005":1.1325,"2000":1.2407,"1995":1.4277},"28":{"2005":1.1093,"2000":1.2153,"1995":1.3982},"29":{"2005":1.0897,"2000":1.1937,"1995":1.3471},"30":{"2005":1.065,"2000":1.1662,"1995":1.2906},"31":{"2005":1.0285,"2000":1.1253,"1995":1.233,"1990":1.3931},"32":{"2005":1.0032,"2000":1.096,"1995":1.2008,"1990":1.3817},"33":{"2005":0.9906,"2000":1.0797,"1995":1.1828,"1990":1.3608},"34":{"2005":0.992,"2000":1.0777,"1995":1.1805,"1990":1.3323},"35":{"2005":1.0187,"2000":1.1025,"1995":1.2073,"1990":1.336},"36":{"2005":1.0508,"2000":1.1328,"1995":1.2394,"1990":1.358,"1985":1.5343},"37":{"2005":1.1015,"2000":1.183,"1995":1.2924,"1990":1.416,"1985":1.6293},"38":{"2005":1.1614,"2000":1.2432,"1995":1.355,"1990":1.4844,"1985":1.7078},"39":{"2005":1.2414,"2000":1.3257,"1995":1.4402,"1990":1.5777,"1985":1.7805},"40":{"2005":1.33,"2000":1.4181,"1995":1.5348,"1990":1.6806,"1985":1.8599},"41":{"2005":1.439,"2000":1.533,"1995":1.6525,"1990":1.8082,"1985":1.981,"1980":2.2383},"42":{"2005":1.5844,"2000":1.6872,"1995":1.8119,"1990":1.9795,"1985":2.1687,"1980":2.4954},"43":{"2005":1.7377,"2000":1.8503,"1995":1.9806,"1990":2.1586,"1985":2.3647,"1980":2.7205},"44":{"2005":1.9317,"2000":2.057,"1995":2.1965,"1990":2.386,"1985":2.614,"1980":2.9497},"45":{"2005":2.1652,"2000":2.3055,"1995":2.4582,"1990":2.6605,"1985":2.9134,"1980":3.2238},"46":{"2005":2.4083,"2000":2.5645,"1995":2.7315,"1990":2.9447,"1985":3.2219,"1980":3.5296,"1975":3.9806},"47":{"2005":2.6784,"2000":2.8523,"1995":3.037,"1990":3.2619,"1985":3.563,"1980":3.9033,"1975":4.4781},"48":{"2005":2.961,"2000":3.1531,"1995":3.3578,"1990":3.594,"1985":3.9169,"1980":4.2906,"1975":4.9204},"49":{"2005":3.2525,"2000":3.4631,"1995":3.6879,"1990":3.938,"1985":4.2778,"1980":4.6861,"1975":5.2726},"50":{"2005":3.583,"2000":3.8151,"1995":4.0621,"1990":4.3312,"1985":4.6869,"1980":5.1321,"1975":5.6644},"51":{"2005":3.9366,"2000":4.1915,"1995":4.4634,"1990":4.7543,"1985":5.1245,"1980":5.6067,"1975":6.128,"1970":6.9184},"52":{"2005":4.359,"2000":4.6413,"1995":4.9422,"1990":5.2622,"1985":5.6509,"1980":6.1723,"1975":6.7482,"1970":7.7659},"53":{"2005":4.8635,"2000":5.1785,"1995":5.5138,"1990":5.8714,"1985":6.2845,"1980":6.8477,"1975":7.4879,"1970":8.6206},"54":{"2005":5.4112,"2000":5.7619,"1995":6.1344,"1990":6.5317,"1985":6.9746,"1980":7.5752,"1975":8.2855,"1970":9.3544},"55":{"2005":6.0041,"2000":6.3928,"1995":6.8078,"1990":7.2479,"1985":7.7266,"1980":8.3611,"1975":9.1441,"1970":10.1204},"56":{"2005":6.6466,"2000":7.0777,"1995":7.535,"1990":8.0232,"1985":8.5458,"1980":9.2096,"1975":10.0672,"1970":11.0284,"1965":12.5479},"57":{"2005":7.3412,"2000":7.8158,"1995":8.322,"1990":8.8605,"1985":9.4335,"1980":10.1288,"1975":11.0576,"1970":12.1107,"1965":14.061},"58":{"2005":8.0126,"2000":8.5317,"1995":9.0835,"1990":9.6704,"1985":10.2961,"1980":11.0184,"1975":12.0037,"1970":13.1432,"1965":15.2625},"59":{"2005":8.7333,"2000":9.2981,"1995":9.8981,"1990":10.5386,"1985":11.2203,"1980":11.9794,"1975":13.0093,"1970":14.2429,"1965":16.2063},"60":{"2005":9.4115,"2000":10.0194,"1995":10.6676,"1990":11.3572,"1985":12.0917,"1980":12.8892,"1975":13.9436,"1970":15.2598,"1965":17.0104},"61":{"2005":10.2306,"2000":10.8909,"1995":11.5955,"1990":12.3435,"1985":13.141,"1980":13.9953,"1975":15.0807,"1970":16.4921,"1965":18.182,"1960":20.6344},"62":{"2005":11.1077,"2000":11.8244,"1995":12.5887,"1990":13.4017,"1985":14.2667,"1980":15.1896,"1975":16.3049,"1970":17.804,"1965":19.6077,"1960":22.6456},"63":{"2005":12.0468,"2000":12.8244,"1995":13.654,"1990":14.5345,"1985":15.4733,"1980":16.4716,"1975":17.6262,"1970":19.1987,"1965":21.1234,"1960":24.3701},"64":{"2005":12.9295,"2000":13.763,"1995":14.6529,"1990":15.5978,"1985":16.6031,"1980":17.6742,"1975":18.8661,"1970":20.4848,"1965":22.5156,"1960":25.4818},"65":{"2005":13.7195,"2000":14.6037,"1995":15.5466,"1990":16.5499,"1985":17.6148,"1980":18.7515,"1975":19.983,"1970":21.6149,"1965":23.7261,"1960":26.3296},"66":{"2005":14.5341,"2000":15.4715,"1995":16.4686,"1990":17.5301,"1985":18.6589,"1980":19.8613,"1975":21.1479,"1970":22.7853,"1965":24.9664,"1960":27.4293,"1955":30.6336}}},"orphan_sar":{"M":{"18":0.035,"19":0.483,"20":2.176,"21":5.267,"22":9.184,"23":15.204,"24":22.81,"25":29.923,"26":37.515,"27":45.781,"28":56.008,"29":65.362,"30":77.033,"31":87.095,"32":96.237,"33":103.259,"34":109.272,"35":114.506,"36":117.174,"37":118.735,"38":123.881,"39":124.329,"40":123.138,"41":121.721,"42":119.654,"43":115.739,"44":112.089,"45":107.963,"46":102.35,"47":96.876,"48":90.771,"49":84.304,"50":76.759,"51":70.135,"52":62.277,"53":54.981,"54":47.646,"55":41.018,"56":34.449,"57":28.5,"58":23.191,"59":18.757,"60":13.901,"61":11.052,"62":8.69,"63":7.189,"64":5.777,"65":4.614,"66":3.863}}};
+var MF_RET=67, MF_DEPRATE=0.2083, MF_RETURN=0.064676, MF_CHART=null;
 
-function compound(pv,monthly,years,rate){
-  const r=rate/12,n=years*12;
-  return pv*Math.pow(1+r,n)+(r>0?monthly*(Math.pow(1+r,n)-1)/r:monthly*n);
+function mfAges(g){return Object.keys(g).map(Number).sort(function(a,b){return a-b;});}
+function mfLerp(a,b,t){return a+(b-a)*t;}
+function mfByAge(tbl,age){var g=tbl.M;age=Math.round(age);if(g[age]!=null)return g[age];
+  var ag=mfAges(g);if(age<ag[0])return g[ag[0]];if(age>ag[ag.length-1])return g[ag[ag.length-1]];
+  var lo=ag[0];for(var i=0;i<ag.length;i++){if(ag[i]<=age)lo=ag[i];}return g[lo];}
+function mfByCohort(tbl,age,by){var g=tbl.M;age=Math.round(age);var ag=mfAges(g);
+  age=Math.max(ag[0],Math.min(ag[ag.length-1],age));var row=g[age];
+  var yrs=Object.keys(row).map(Number).sort(function(a,b){return a-b;});
+  if(by<=yrs[0])return row[yrs[0]];if(by>=yrs[yrs.length-1])return row[yrs[yrs.length-1]];
+  var lo=yrs[0],hi=yrs[yrs.length-1];
+  for(var i=0;i<yrs.length;i++){if(yrs[i]<=by)lo=yrs[i];}
+  for(var j=yrs.length-1;j>=0;j--){if(yrs[j]>=by)hi=yrs[j];}
+  if(lo===hi)return row[lo];return mfLerp(row[lo],row[hi],(by-lo)/(hi-lo));}
+
+function mfSim(p,feedep,feebal){
+  var bal=p.balance, mret=Math.pow(1+MF_RETURN,1/12)-1, mfee=feebal/12;
+  var sm=p.age*12, em=MF_RET*12, months=em-sm, traj=[];
+  for(var m=0;m<months;m++){
+    var a=Math.floor((sm+m)/12);
+    var netDep=p.deposit-p.deposit*feedep;
+    var disPrem=(0.75*p.salary+MF_DEPRATE*p.salary*0.94)*mfByAge(MF_RATES.disability,a)/1000;
+    var PV=0.60*p.salary*mfByCohort(MF_RATES.survivor_sar,a,p.by)+0.40*p.salary*mfByAge(MF_RATES.orphan_sar,a);
+    var survPrem=Math.max(0,PV-bal)*mfByCohort(MF_RATES.survivor_prem,a,p.by)/100000;
+    bal+=(netDep-disPrem-survPrem);
+    bal*=(1+mret);
+    bal-=bal*mfee;
+    if(m%12===0||m===months-1)traj.push({age:(sm+m)/12,bal:bal});
+  }
+  return {final:bal,traj:traj};
 }
 
-function updateFees(){
-  const balance=parseFloat(document.getElementById('fee-balance').value);
-  const monthly=parseFloat(document.getElementById('fee-monthly').value);
-  const years=parseFloat(document.getElementById('fee-years').value);
-  const cur=parseFloat(document.getElementById('fee-current').value)/100;
-  const nw=parseFloat(document.getElementById('fee-new').value)/100;
-  const grossReturn=0.07;
+function mfFmt(n){if(isNaN(n)||!isFinite(n))return'-';return Math.round(n).toLocaleString('en-US')+' ₪';}
+function mfV(id){return parseFloat(document.getElementById(id).value);}
 
-  document.getElementById('fee-balance-out').textContent=balance.toLocaleString('he-IL')+' ₪';
-  document.getElementById('fee-monthly-out').textContent=monthly.toLocaleString('he-IL')+' ₪';
-  document.getElementById('fee-years-out').textContent=years;
-  document.getElementById('fee-current-out').textContent=cur.toFixed(2)+'%';
-  document.getElementById('fee-new-out').textContent=nw.toFixed(2)+'%';
+function mfUpdate(){
+  var dep=mfV('mf-dep'), age=mfV('mf-age'), balance=mfV('mf-bal');
+  var aDep=mfV('mf-a-dep'), aBal=mfV('mf-a-bal'), bDep=mfV('mf-b-dep'), bBal=mfV('mf-b-bal');
+  document.getElementById('mf-dep-out').textContent=dep.toLocaleString('en-US')+' ₪';
+  document.getElementById('mf-age-out').textContent=age;
+  document.getElementById('mf-bal-out').textContent=balance.toLocaleString('en-US')+' ₪';
+  document.getElementById('mf-a-dep-out').textContent=aDep.toFixed(2)+'%';
+  document.getElementById('mf-a-bal-out').textContent=aBal.toFixed(2)+'%';
+  document.getElementById('mf-b-dep-out').textContent=bDep.toFixed(2)+'%';
+  document.getElementById('mf-b-bal-out').textContent=bBal.toFixed(2)+'%';
 
-  const netCur=grossReturn-cur;
-  const netNew=grossReturn-nw;
-  const balCur=compound(balance,monthly,years,netCur);
-  const balNew=compound(balance,monthly,years,netNew);
-  const diff=balNew-balCur;
+  var p={age:age, by:(new Date()).getFullYear()-age, deposit:dep, salary:dep/MF_DEPRATE, balance:balance};
+  var A=mfSim(p,aDep/100,aBal/100), B=mfSim(p,bDep/100,bBal/100);
+  var diff=B.final-A.final;
 
-  document.getElementById('fee-current-balance').textContent=fmt(balCur);
-  document.getElementById('fee-new-balance').textContent=fmt(balNew);
-  document.getElementById('fee-diff').textContent=fmt(Math.max(0,diff));
+  document.getElementById('mf-a-final').textContent=mfFmt(A.final);
+  document.getElementById('mf-b-final').textContent=mfFmt(B.final);
+  var el=document.getElementById('mf-diff');
+  el.textContent=mfFmt(Math.abs(diff));
+  el.className='res-big '+(diff>=0?'good':'bad');
+  var pct=A.final>0?Math.abs(diff)/A.final*100:0;
+  document.getElementById('mf-diff-sub').textContent=(diff>=0?"לטובת חלופה ב'":"לטובת חלופה א'")+' - '+pct.toFixed(1)+'% מהצבירה, מהפרש דמי הניהול בלבד';
+
+  document.getElementById('mf-assumptions').innerHTML='<strong>הנחות החישוב:</strong> גיל פרישה 67. גבר נשוי. שיעור הפקדה 20.83% מהשכר (6% עובד + 6.5% מעסיק + 8.33% פיצויים) - השכר המבוטח נגזר מההפקדה שהזנת ועומד על '+Math.round(p.salary).toLocaleString('en-US')+' ₪. תשואה שנתית 6.4676% נומינלי, השקולה ל-4.38% ריאלי בתוספת 2% אינפלציה. ההפקדה קבועה נומינלית לאורך כל התקופה (ללא עליית שכר). מנוכות עלויות ביטוח נכות ושאירים לפי תקנון קרן פנסיה מקיפה 2025 (שאירים 100% + נכות 75%, ללא נכות מתפתחת). הסכומים נומינליים - לא בערכי היום. מוצגת הצבירה בלבד, ללא המרה לקצבה. אינו ייעוץ פנסיוני או ייעוץ השקעות.';
+
+  var labels=A.traj.map(function(t){return Math.round(t.age);});
+  var dsA=A.traj.map(function(t){return Math.round(t.bal);});
+  var dsB=B.traj.map(function(t){return Math.round(t.bal);});
+  if(MF_CHART){MF_CHART.data.labels=labels;MF_CHART.data.datasets[0].data=dsA;MF_CHART.data.datasets[1].data=dsB;MF_CHART.update();return;}
+  if(typeof Chart==='undefined')return;
+  MF_CHART=new Chart(document.getElementById('mf-chart'),{type:'line',
+    data:{labels:labels,datasets:[
+      {label:"חלופה א'",data:dsA,borderColor:'#D74E3C',backgroundColor:'#D74E3C',tension:.25,pointRadius:0,borderWidth:2},
+      {label:"חלופה ב'",data:dsB,borderColor:'#007DA8',backgroundColor:'#007DA8',tension:.25,pointRadius:0,borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},title:{display:true,text:'התפתחות הצבירה לפי גיל'}},
+      scales:{x:{title:{display:true,text:'גיל'}},y:{title:{display:true,text:'צבירה (₪)'},ticks:{callback:function(v){return (v/1000).toLocaleString('en-US')+'K';}}}}}});
 }
 
-['fee-balance','fee-monthly','fee-years','fee-current','fee-new'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)el.addEventListener('input',updateFees);
+['mf-dep','mf-age','mf-bal','mf-a-dep','mf-a-bal','mf-b-dep','mf-b-bal'].forEach(function(id){
+  var el=document.getElementById(id);if(el)el.addEventListener('input',mfUpdate);
 });
-updateFees();
+mfUpdate();
+window.addEventListener('load',function(){if(!MF_CHART)mfUpdate();});
+
 </script>
 
 <script>
