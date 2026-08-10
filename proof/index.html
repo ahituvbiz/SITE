@@ -94,8 +94,13 @@ function save(url, done, li){
     method:'POST', redirect:'follow',
     headers:{'Content-Type':'text/plain;charset=utf-8'},
     body: JSON.stringify({token:TOKEN, url:url, done:done})
-  }).then(function(){
-    DATA[url].done = done; li.classList.remove('saving'); render();
+  }).then(function(r){ return r.json(); }).then(function(j){
+    li.classList.remove('saving');
+    if(!j || !j.ok){
+      status('השמירה נכשלה' + (j && j.error ? ' — ' + j.error : ''), true);
+      render(); return;
+    }
+    DATA[url].done = done; status(''); render();
   }).catch(function(){
     li.classList.remove('saving');
     status('השמירה נכשלה — הסימון לא נשמר בגיליון', true);
