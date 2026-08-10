@@ -268,15 +268,22 @@ li { margin-bottom: 8px; color: var(--text-2); }
     d.querySelector('#pensya-mark-done').addEventListener('click', function(){
       var b = this;
       b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
       post(key, true)
-        .then(function(){
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
           d.style.transition = 'opacity .25s'; d.style.opacity = '0';
           setTimeout(function(){ d.remove(); }, 250);
         })
-        .catch(function(){
-          b.disabled = false; b.style.background = '#C53030';
-          b.textContent = '✗ השמירה נכשלה — נסה שוב';
-        });
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
     });
   }
 
