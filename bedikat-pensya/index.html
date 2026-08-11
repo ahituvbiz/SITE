@@ -164,10 +164,11 @@ section.tight { padding: var(--s-2xl) 0; }
   border: 1px solid var(--border);
 }
 .hero-visual .preview-title { font-size: 13px; color: var(--text-meta); letter-spacing: 1px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
-.preview-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.preview-row { display: grid; grid-template-columns: 36px 1fr; align-items: start; gap: 4px 12px; padding: 12px 0; border-bottom: 1px dashed var(--border); }
 .preview-row:last-child { border-bottom: none; }
-.preview-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.preview-label { flex: 1; font-size: 15px; font-weight: 600; color: var(--text-1); }
+.preview-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 18px; grid-row: span 2; }
+.preview-label { font-size: 15px; font-weight: 600; color: var(--text-1); }
+.preview-desc { font-size: 14px; line-height: 1.5; color: var(--text-2); }
 .preview-status { font-size: 13px; padding: 3px 10px; border-radius: 999px; font-weight: 600; }
 .preview-status.good { background: var(--positive-soft); color: #2d5a2c; }
 .preview-status.bad { background: var(--negative-soft); color: #7a1f1f; }
@@ -942,7 +943,6 @@ textarea:focus-visible,
           <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4z"/></svg>
           או בוואטסאפ
         </a>
-        <a href="#how-it-works" class="btn btn-ghost">איך זה עובד?</a>
       </div>
       <div class="trust-row">
         <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <a href="/about/license/">רישיון יועץ פנסיוני</a></span>
@@ -951,26 +951,26 @@ textarea:focus-visible,
       </div>
     </div>
     <div class="hero-visual">
-      <div class="preview-title">דוגמית תוצאה</div>
+      <div class="preview-title">מה הבוט מנתח</div>
       <div class="preview-row">
         <div class="preview-icon">💰</div>
         <div class="preview-label">הפקדות</div>
-        <div class="preview-status good">תקין</div>
+        <div class="preview-desc">חוסר בהפקדות, שכר מבוטח, סך הפקדות ועוד.</div>
       </div>
       <div class="preview-row">
         <div class="preview-icon">🛡️</div>
-        <div class="preview-label">כיסוי ביטוחי</div>
-        <div class="preview-status warn">דורש תשומת לב</div>
+        <div class="preview-label">כיסויים ביטוחיים</div>
+        <div class="preview-desc">קצבת שארים ונכות, התאמה למצב המשפחתי שלך, כיסוי מיותר או חסר.</div>
       </div>
       <div class="preview-row">
         <div class="preview-icon">📊</div>
         <div class="preview-label">דמי ניהול</div>
-        <div class="preview-status bad">גבוה מהממוצע</div>
+        <div class="preview-desc">השוואה לקרנות אחרות בשוק, הפער שאתה משלם, חיסכון פוטנציאלי.</div>
       </div>
       <div class="preview-row">
         <div class="preview-icon">📈</div>
         <div class="preview-label">מסלול השקעה</div>
-        <div class="preview-status good">מותאם</div>
+        <div class="preview-desc">בחינת מסלול ההשקעה שלך והמלצה על המסלול המתאים בקרן הפנסיה שלך.</div>
       </div>
     </div>
   </div>
@@ -1265,58 +1265,6 @@ textarea:focus-visible,
         <div style="margin-top: 24px; text-align: center;">
           <button class="btn btn-ghost" onclick="resetBot()">← נתח דוח אחר</button>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================================
-     LIMITS - Only AFTER value is delivered (CONTEXT §7)
-     ========================================================= -->
-<section class="limits-section" id="how-it-works">
-  <div class="container">
-    <span class="section-eyebrow">איך זה עובד · מה הבוט עושה ולא עושה</span>
-    <h2>מה הבוט מנתח</h2>
-    <p class="lead">4 פרמטרים מרכזיים בקרן הפנסיה המקיפה שלך - בעברית, בלי מונחים מסובכים, ב-60 שניות.</p>
-
-    <div class="limits-grid">
-      <div class="limits-card">
-        <h4>💰 הפקדות</h4>
-        <p>חוסר בהפקדות, שכר מבוטח, סך הפקדות ועוד.</p>
-      </div>
-      <div class="limits-card">
-        <h4>🛡️ כיסויים ביטוחיים</h4>
-        <p>קצבת שארים ונכות, התאמה למצב המשפחתי שלך, כיסוי מיותר או חסר.</p>
-      </div>
-      <div class="limits-card">
-        <h4>📊 דמי ניהול</h4>
-        <p>השוואה לקרנות אחרות בשוק, הפער שאתה משלם, חיסכון פוטנציאלי.</p>
-      </div>
-      <div class="limits-card">
-        <h4>📈 מסלול השקעה</h4>
-        <p>בחינת מסלול ההשקעה שלך והמלצה על המסלול המתאים בקרן הפנסיה שלך.</p>
-      </div>
-    </div>
-
-    <h2 style="margin-top: var(--s-2xl);">מה הבוט לא יכול לעשות</h2>
-    <p class="lead">לכן הוא כלי שיווקי, לא תחליף לייעוץ הוליסטי.</p>
-
-    <div class="limits-grid">
-      <div class="limits-card">
-        <h4>סקירת כל המוצרים</h4>
-        <p>הבוט בודק רק קרן פנסיה. בייעוץ אני סוקר גם <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>, גמל, ביטוחים פרטיים, ומשכנתא.</p>
-      </div>
-      <div class="limits-card">
-        <h4>מסלקה פנסיונית</h4>
-        <p>בייעוץ אני מבצע מסלקה מול רשות שוק ההון - לפעמים מתגלות קרנות שלא ידעת שיש לך.</p>
-      </div>
-      <div class="limits-card">
-        <h4>המלצה על קרן ספציפית</h4>
-        <p>הבוט נותן השוואה כללית. בחירת הקרן הספציפית דורשת אנליזה אישית - מסלולי השקעה, מגבלות העברה, היסטוריה.</p>
-      </div>
-      <div class="limits-card">
-        <h4>תמונה כלכלית מלאה</h4>
-        <p>הבוט רואה רק מה שיש בדוח הפנסיה. הייעוץ ההוליסטי כולל הכנסה, הוצאות, חיסכון, חובות ויעדים.</p>
       </div>
     </div>
   </div>
