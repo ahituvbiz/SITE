@@ -1247,7 +1247,7 @@ textarea:focus-visible,
                 <tr>
                   <th class="row-label">מחיר</th>
                   <td class="col-bot">חינם</td>
-                  <td class="col-advisor">בתשלום</td>
+                  <td class="col-advisor"><a href="/financial-planning/">בתשלום</a></td>
                 </tr>
               </tbody>
             </table>
@@ -1259,7 +1259,6 @@ textarea:focus-visible,
           <h3>הניתוח חשף נקודות לטיפול?</h3>
           <p>הבוט סקר את 4 הפרמטרים הבסיסיים של קרן הפנסיה. הייעוץ ההוליסטי מסתכל גם על קרנות אחרות שלך, ביטוחים פרטיים, משכנתא ותמונה כלכלית מלאה.</p>
           <a href="/about/recommended-advisor/" class="btn">קבע שיחה כדי לשמוע יותר ←</a>
-          <p class="post-cta-sub">שיחת 20 דקות · ללא התחייבות · להבין אם זה מתאים</p>
         </div>
 
         <div style="margin-top: 24px; text-align: center;">
@@ -1552,12 +1551,6 @@ function renderResults(data) {
 
     const bookingUrl = cta.advisor_booking_url || '/about/recommended-advisor/';
     ctaHtml += '<a href="' + escapeHtml(bookingUrl) + '" class="btn" target="_blank" rel="noopener">קבע שיחה כדי לשמוע יותר ←</a>';
-    ctaHtml += '<p class="post-cta-sub">שיחת 20 דקות · ללא התחייבות · להבין אם זה מתאים</p>';
-
-    if (cta.subsidy_url) {
-      ctaHtml += '<p class="post-cta-sub"><a href="' + escapeHtml(cta.subsidy_url)
-        + '" style="color:rgba(255,255,255,0.8);" target="_blank" rel="noopener">מידע על הטבות ממשלתיות ←</a></p>';
-    }
 
     postCta.innerHTML = ctaHtml;
   }
