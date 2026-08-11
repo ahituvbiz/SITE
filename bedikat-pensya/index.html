@@ -477,6 +477,8 @@ section.tight { padding: var(--s-2xl) 0; }
 .post-cta p { color: rgba(255,255,255,0.9); margin-bottom: var(--s-md); max-width: 480px; margin-inline: auto; }
 .post-cta .btn { background: #fff; color: var(--primary); }
 .post-cta .btn:hover { background: #f0f4f8; }
+.post-cta .btn-whatsapp { background: #25D366; color: #fff; }
+.post-cta .btn-whatsapp:hover { background: #1ea354; }
 .post-cta .post-cta-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 12px; }
 
 /* "What the bot doesn't do" - Bottom section per CONTEXT §7 rule */
@@ -1257,8 +1259,8 @@ textarea:focus-visible,
         <!-- Post-analysis CTA -->
         <div class="post-cta">
           <h3>הניתוח חשף נקודות לטיפול?</h3>
-          <p>הבוט סקר את 4 הפרמטרים הבסיסיים של קרן הפנסיה. הייעוץ ההוליסטי מסתכל גם על קרנות אחרות שלך, ביטוחים פרטיים, משכנתא ותמונה כלכלית מלאה.</p>
-          <a href="/about/recommended-advisor/" class="btn">קבע שיחה כדי לשמוע יותר ←</a>
+          <p>הבוט לא מוסמך לייעץ. הוא לא ממליץ לעבור לקרן טובה יותר, לא ישיג עבורך דמי ניהול נמוכים, לא יטפל במעבר ובכלל הוא רואה רק חלק מהתמונה.<br>פנה ליועץ פנסיוני אובייקטיבי לחסוך מאות אלפי שקלים באמצעות תכנון פיננסי שעובד לטובתך.</p>
+          <a href="https://wa.me/972527700599?text=שלום" class="btn btn-whatsapp" target="_blank" rel="noopener">קבע שיחה כדי לשמוע יותר ←</a>
         </div>
 
         <div style="margin-top: 24px; text-align: center;">
@@ -1547,10 +1549,9 @@ function renderResults(data) {
     }
 
     ctaHtml += '<h3>הניתוח חשף נקודות לטיפול?</h3>'
-      + '<p>הבוט סקר את 4 הפרמטרים הבסיסיים של קרן הפנסיה. הייעוץ ההוליסטי מסתכל גם על קרנות אחרות שלך, ביטוחים פרטיים, משכנתא ותמונה כלכלית מלאה.</p>';
+      + '<p>הבוט לא מוסמך לייעץ. הוא לא ממליץ לעבור לקרן טובה יותר, לא ישיג עבורך דמי ניהול נמוכים, לא יטפל במעבר ובכלל הוא רואה רק חלק מהתמונה.<br>פנה ליועץ פנסיוני אובייקטיבי לחסוך מאות אלפי שקלים באמצעות תכנון פיננסי שעובד לטובתך.</p>';
 
-    const bookingUrl = cta.advisor_booking_url || '/about/recommended-advisor/';
-    ctaHtml += '<a href="' + escapeHtml(bookingUrl) + '" class="btn" target="_blank" rel="noopener">קבע שיחה כדי לשמוע יותר ←</a>';
+    ctaHtml += '<a href="https://wa.me/972527700599?text=שלום" class="btn btn-whatsapp" target="_blank" rel="noopener">קבע שיחה כדי לשמוע יותר ←</a>';
 
     postCta.innerHTML = ctaHtml;
   }
