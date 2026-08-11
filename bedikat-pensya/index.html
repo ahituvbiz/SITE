@@ -1506,22 +1506,23 @@ function renderResults(data) {
         const maxVal = Math.max(...d.chart.bars.map(b => b.value));
         html += `<h3 style="margin: 28px 0 12px; font-size: 18px;">פילוח לפי חודש - ${d.chart.report_year || ''}</h3>`;
         html += '<div class="deposits-chart">';
-        d.chart.bars.forEach(b => {
+        // דוח רבעוני: החודש האחרון של הרבעון מסומן בכוכבית והסבר מתחת לגרף
+        const lastIdx = d.chart.bars.length - 1;
+        const markLast = !!d.chart.last_month_normal && d.chart.bars[lastIdx].value === 0;
+        d.chart.bars.forEach((b, i) => {
           const h = maxVal > 0 ? Math.max(4, (b.value / maxVal) * 100) : 0;
           const cls = b.missing ? 'bar missing' : 'bar';
           const valueLabel = b.value > 0 ? `<span class="bar-value">${shortMoney(b.value)}</span>` : '';
-          html += `<div class="${cls}" style="height: ${h}%;">${valueLabel}<span class="bar-label">${b.month_name}</span></div>`;
+          const star = (markLast && i === lastIdx) ? '*' : '';
+          html += `<div class="${cls}" style="height: ${h}%;">${valueLabel}<span class="bar-label">${b.month_name}${star}</span></div>`;
         });
         html += '</div>';
-        // הסבר: החודש האחרון של דוח רבעוני לא בהכרח מופיע - זה נורמלי
-        if (d.chart.last_month_normal && d.chart.bars.length > 0) {
-          const lastBar = d.chart.bars[d.chart.bars.length - 1];
-          if (lastBar.value === 0) {
-            html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
-              + '💡 <strong>החודש ' + escapeHtml(lastBar.month_name) + ' לא מופיע בדוח</strong> - זה לגמרי נורמלי. '
-              + 'הפקדות שנעשות בסוף חודש עלולות להופיע רק בדוח הרבעוני הבא, בגלל עיכוב בעיבוד אצל הקרן.'
-              + '</div>';
-          }
+        if (markLast) {
+          const lastBar = d.chart.bars[lastIdx];
+          html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">'
+            + '💡 <strong>* ההפקדה על חודש ' + escapeHtml(lastBar.month_name) + ' התבצעה לאחר תום הרבעון</strong>, '
+            + 'כך שהיא לא אמורה להיות כלולה בדוח הזה. היא תופיע בדוח הרבעוני הבא.'
+            + '</div>';
         }
       }
       panel.innerHTML = html;
