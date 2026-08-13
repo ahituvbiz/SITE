@@ -16,3 +16,7 @@
 
 # הערה: הפניית www→apex מטופלת ב-Cloudflare Redirect Rule ברמת הזון,
 # לא כאן — _redirects מתאים נתיבים בלבד ולא שמות מארח.
+
+# אזור לקוחות — כתובת ישנה (הוחזר מהתיקייה המקומית 13.8.26)
+/investment/ira/clients/             /clients/                     301
+/investment/ira/clients              /clients/                     301
