@@ -232,9 +232,6 @@ table.sg-table td.dim{color:var(--text-meta)}
 .sg-dl[disabled]{opacity:.6;cursor:progress}
 .sg-dl svg{width:18px;height:18px}
 .sg-dl-msg{font-size:13px;color:var(--text-meta)}
-.sg-assumptions{font-size:13px;color:var(--text-2);line-height:1.75;background:var(--bg-cream);
-  border-right:4px solid var(--primary);border-radius:10px;padding:16px 18px}
-.sg-assumptions strong{color:var(--text-1)}
 
 /* ══════ גרסת לייט: כפתורים נעולים + מודאל שדרוג ══════ */
 .sg-locked{position:relative;opacity:.62;filter:grayscale(.55)}
@@ -606,8 +603,6 @@ table.sg-table td.dim{color:var(--text-meta)}
       </button>
       <span class="sg-dl-msg" id="sg-dl-msg"></span>
     </div>
-
-    <p class="sg-assumptions" id="sg-assumptions"></p>
 
   </div>
 </section>
@@ -1298,34 +1293,6 @@ table.sg-table td.dim{color:var(--text-meta)}
       '</tr>';
     }
 
-    document.getElementById('sg-assumptions').innerHTML = assumptionsHtml(c);
-  }
-
-  function assumptionsHtml(c) {
-    return '<strong>הנחות החישוב:</strong> הפקדה חודשית קבועה בסוף כל חודש, צבירה חודשית. ' +
-      'הסכום שהזנתם לכל יעד הוא בערכי היום ומוצמד לאינפלציה של ' + (c.p.infl * 100).toFixed(1) + '% לשנה ' +
-      '(למשל 10,000 ₪ שנדרשים בעוד שנתיים = ' + nis(10000 * Math.pow(1 + c.p.infl, 2)) + ' בפועל). ' +
-      'תשואה ' + (c.p.rLong * 100).toFixed(1) + '% בכלי ארוך טווח ו-' + (c.p.rShort * 100).toFixed(1) + '% בכלי קצר טווח, נומינלי. ' +
-      'ב-' + SHORT_WINDOW + ' השנים שלפני מועד היעד כל הצבירה מועברת לכלי קצר טווח וההפקדות ממשיכות לשם, ' +
-      'ולכן התשואה על אותו כסף פוחתת בהתאם. ' +
-      '<br><br><strong>אופן החישוב:</strong> ' +
-      'חיסכון <em>מדורג</em> - לכל יעד הפקדה חודשית נפרדת שנמשכת עד מועדו, ולכן הסכום הכולל יורד ' +
-      'בכל פעם שיעד מגיע למועדו. (חישוב לפי חיסכון חודשי אחיד לאורך כל התקופה זמין בגרסה המלאה.) ' +
-      '<br><br><strong>מיסוי:</strong> מס רווחי הון של 25% (הנחת מערכת) מחושב פעם אחת, במשיכה, על הרווח <em>הריאלי</em> ' +
-      '(בסיס העלות צמוד למדד) - כפי שנהוג בישראל על ניירות ערך שקליים ועל קופת גמל להשקעה. ' +
-      'המעבר בין הכלים אינו מטופל כאירוע מס (כמו החלפת מסלול השקעה בתוך אותו מוצר). ' +
-      'לגבי הצבירות הקיימות הונח שבסיס העלות שווה לשווי הנוכחי - כלומר המס מחושב רק על הרווח שייצבר מכאן והלאה. ' +
-      '<br><br><strong>סדר מקורות המימון:</strong> כל יעד ממומן קודם מהצבירות הקיימות (החל מהיעד הקרוב ביותר), ' +
-      'ורק היתרה דורשת הפקדה חודשית חדשה. ' +
-      'צבירה קיימת בכלי ארוך טווח שמיועדת ליעד שבתוך פחות מ-' + SHORT_WINDOW + ' שנים מחושבת כאילו כבר הועברה לכלי הקצר, ' +
-      'בהתאם לאותו כלל. ' +
-      '<br><br><strong>קרנות השתלמות:</strong> הגרסה החינמית אינה משלבת קרנות השתלמות כמקור מימון ליעדים. ' +
-      'קרן השתלמות נזילה יכולה להקטין משמעותית את החיסכון החודשי הנדרש, ושילובה בתוכנית פתוח ללקוחות ' +
-      '<a href="' + UPGRADE_URL + '">תכנון פיננסי</a>. ' +
-      '<br><br><strong>כללי:</strong> סך ההפקדות החדשות לאורך כל התקופה: ' + nis(c.tDep) + '. ' +
-      'ההפקדה החודשית קבועה נומינלית ואינה עולה עם השכר או עם המדד. ' +
-      'תשואות עבר אינן מבטיחות תשואות עתיד, והתשואה בפועל אינה אחידה משנה לשנה. ' +
-      'המחשבון אינו ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס.';
   }
 
   function render() { renderGoals(); renderFunds(); calc(); syncGoalLock(); }
