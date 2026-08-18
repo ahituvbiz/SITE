@@ -1,4 +1,5 @@
-// gate.js — v8 | tag-based personalized content + insurance / donations / child-savings tabs
+// gate.js — v9 | tag-based personalized content + insurance / donations / child-savings tabs
+//                + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -13,6 +14,7 @@ const KNOWN_TAGS = [
 // כשמעדכנים תוכן בלשונית מסוימת, משנים כאן רק את התאריך שלה. השאר נשארים כמו שהם.
 var TAB_DATES = {
   'פנסיה והשתלמות': '12.7.2026',
+  'מחשבון יעדי חיסכון': '18.8.2026',
   'IRA':             '12.7.2026',
   'ביטוחים':         '12.7.2026',
   'תיק השקעות':      '12.7.2026',
@@ -96,6 +98,7 @@ function buildUI(sections, name) {
       panelsDiv.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('tab-panel-active'); });
       btn.classList.add('tab-active');
       panelsDiv.querySelector('.tab-panel[data-idx="' + idx + '"]').classList.add('tab-panel-active');
+      pingActiveFrame(panelsDiv);
     });
   });
 
@@ -423,6 +426,43 @@ var CHILD_SAVINGS_HTML =
 
 var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD_SAVINGS_HTML };
 
+// ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
+// הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
+// הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
+var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=1';
+
+var SAVINGS_GOALS_HTML =
+  '<div style="background:var(--bg-cream);">' +
+  '<iframe id="savings-goals-frame" src="' + SAVINGS_GOALS_URL + '" ' +
+  'title="מחשבון יעדי חיסכון" ' +
+  'style="display:block;width:100%;height:1500px;border:0;background:var(--bg-cream);"></iframe>' +
+  '<div style="text-align:center;padding:4px 20px 28px;">' +
+  '<a href="' + SAVINGS_GOALS_URL + '" target="_blank" rel="noopener" ' +
+  'style="color:var(--primary);font-weight:600;font-size:14px;">פתיחת המחשבון בחלון נפרד ↗</a>' +
+  '</div></div>';
+
+var SAVINGS_GOALS_SECTION = { tagName: 'מחשבון יעדי חיסכון', html: SAVINGS_GOALS_HTML };
+
+// התאמת גובה ה-iframe להודעה שמגיעה מהדף המוטמע
+window.addEventListener('message', function(ev) {
+  if (!ev || !ev.data || ev.data.pensyaFrame !== 'savings-goals') return;
+  var h = parseInt(ev.data.height, 10);
+  if (!h || h < 400 || h > 30000) return;
+  var frame = document.getElementById('savings-goals-frame');
+  if (frame) frame.style.height = (h + 2) + 'px';
+});
+
+// כשעוברים ללשונית — מבקשים מהדף המוטמע לדווח גובה מחדש (ה-iframe מודד נכון רק כשהוא גלוי)
+function pingActiveFrame(panelsDiv) {
+  var frame = panelsDiv.querySelector('.tab-panel-active iframe');
+  if (!frame || !frame.contentWindow) return;
+  [0, 250, 800].forEach(function(t) {
+    setTimeout(function() {
+      try { frame.contentWindow.postMessage({ pensyaPing: 1 }, '*'); } catch (e) {}
+    }, t);
+  });
+}
+
 function buildSections(data) {
   var origTags = (data.tags && data.tags.length > 0) ? data.tags : KNOWN_TAGS;
   var has = function(id) { return origTags.some(function(t) { return t.id === id; }); };
@@ -432,7 +472,9 @@ function buildSections(data) {
   var hasTag11 = has(11);
 
   if (data.sections && data.sections.length > 0) {
-    return Promise.resolve(data.sections.concat([buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION]));
+    var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
+    if (hasTag11) extra.unshift(SAVINGS_GOALS_SECTION);
+    return Promise.resolve(data.sections.concat(extra));
   }
 
   // שולפים תוכן רק לתגיות שיש ללקוח דף תוכן אישי עבורן
@@ -449,6 +491,9 @@ function buildSections(data) {
       tagName: 'פנסיה והשתלמות',
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
+
+    // 1b. מחשבון יעדי חיסכון — רק לבעלי תגית #11 (תכנון פיננסי)
+    if (hasTag11) sections.push(SAVINGS_GOALS_SECTION);
 
     // 2. IRA — לכולם
     sections.push({
