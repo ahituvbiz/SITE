@@ -1,4 +1,4 @@
-// gate.js — v9 | tag-based personalized content + insurance / donations / child-savings tabs
+// gate.js — v10 | tag-based personalized content + insurance / donations / child-savings tabs
 //                + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
@@ -429,17 +429,14 @@ var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD
 // ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
 // הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
 // הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
-var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=1';
+var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=2';
 
 var SAVINGS_GOALS_HTML =
   '<div style="background:var(--bg-cream);">' +
   '<iframe id="savings-goals-frame" src="' + SAVINGS_GOALS_URL + '" ' +
   'title="מחשבון יעדי חיסכון" ' +
   'style="display:block;width:100%;height:1500px;border:0;background:var(--bg-cream);"></iframe>' +
-  '<div style="text-align:center;padding:4px 20px 28px;">' +
-  '<a href="' + SAVINGS_GOALS_URL + '" target="_blank" rel="noopener" ' +
-  'style="color:var(--primary);font-weight:600;font-size:14px;">פתיחת המחשבון בחלון נפרד ↗</a>' +
-  '</div></div>';
+  '</div>';
 
 var SAVINGS_GOALS_SECTION = { tagName: 'מחשבון יעדי חיסכון', html: SAVINGS_GOALS_HTML };
 

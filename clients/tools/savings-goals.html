@@ -110,11 +110,12 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-section-title{font-size:19px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sg-section-title .sg-hint{font-weight:400;font-size:13px;color:var(--text-meta)}
 
-/* שדות */
-.sg-params{display:flex;flex-wrap:wrap;gap:16px 34px}
-.sg-params .sg-field{flex:0 1 auto;max-width:230px}
-.sg-params .sg-inputwrap{width:104px}
-@media(max-width:460px){.sg-params{gap:14px 20px}.sg-params .sg-field{flex:1 1 130px}}
+/* שדות — חמש הרובריקות בשורה אחת, מרווח אופקי אחיד */
+.sg-params{display:flex;flex-wrap:wrap;gap:18px 24px}
+.sg-params .sg-field{flex:1 1 170px;max-width:215px}
+.sg-params .sg-inputwrap{width:100%}
+.sg-params .sg-inputwrap.pct{width:104px}
+@media(max-width:520px){.sg-params{gap:14px 18px}.sg-params .sg-field{flex:1 1 140px;max-width:none}}
 .sg-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:560px){.sg-two{grid-template-columns:1fr}}
 /* שדות סכום צרים - המספר לכל היותר בן 7 ספרות */
@@ -144,10 +145,11 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-card.is-fund{border-top-color:#6B5CA5}
 .sg-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
 .sg-card-idx{font-size:12px;font-weight:700;color:var(--text-meta);letter-spacing:.04em}
-.sg-del{background:none;border:1px solid var(--border);color:var(--text-meta);width:30px;height:30px;
-  border-radius:8px;cursor:pointer;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;
-  transition:.15s;font-family:inherit;flex-shrink:0}
-.sg-del:hover{border-color:var(--negative);color:var(--negative);background:#fff5f4}
+.sg-del{background:#FDECEA;border:1px solid #F0BDB6;color:var(--negative);width:36px;height:36px;
+  border-radius:9px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;
+  transition:.15s;font-family:inherit;flex-shrink:0;padding:0}
+.sg-del svg{width:19px;height:19px;display:block}
+.sg-del:hover{background:var(--negative);border-color:var(--negative);color:#fff}
 .sg-rows{display:grid;grid-template-columns:1fr;gap:12px}
 .sg-card-res{margin-top:14px;background:var(--bg-cream);border-radius:10px;padding:12px 14px;
   display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
@@ -389,13 +391,14 @@ html,body{background:#F8F6F3}
 <section class="calc-wrap">
   <div class="container">
 
-    <!-- ═══ הנחות ═══ -->
+    <!-- ═══ הנחות ונתוני פתיחה ═══ -->
     <div class="sg-panel">
-      <div class="sg-panel-title">⚙️ הנחות החישוב</div>
+      <div class="sg-panel-title">⚙️ הנחות ונתוני פתיחה</div>
+      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
       <div class="sg-params">
         <div class="sg-field">
           <label for="sg-infl">תחזית אינפלציה</label>
-          <div class="sg-inputwrap">
+          <div class="sg-inputwrap pct">
             <input type="number" id="sg-infl" class="has-suffix" value="2" min="0" max="15" step="0.1" inputmode="decimal">
             <span class="sg-suffix">%</span>
           </div>
@@ -403,43 +406,35 @@ html,body{background:#F8F6F3}
         </div>
         <div class="sg-field">
           <label for="sg-long">תשואה ארוכת טווח</label>
-          <div class="sg-inputwrap">
+          <div class="sg-inputwrap pct">
             <input type="number" id="sg-long" class="has-suffix" value="8" min="0" max="20" step="0.1" inputmode="decimal">
             <span class="sg-suffix">%</span>
           </div>
-          <div class="sg-note">גמל להשקעה, ניירות ערך, קרן השתלמות</div>
+          <div class="sg-note">גם לקרנות ההשתלמות</div>
         </div>
         <div class="sg-field">
           <label for="sg-short">תשואה קצרת טווח</label>
-          <div class="sg-inputwrap">
+          <div class="sg-inputwrap pct">
             <input type="number" id="sg-short" class="has-suffix" value="3" min="0" max="20" step="0.1" inputmode="decimal">
             <span class="sg-suffix">%</span>
           </div>
           <div class="sg-note">3 השנים שלפני כל יעד</div>
         </div>
-      </div>
-    </div>
-
-    <!-- ═══ צבירות קיימות ═══ -->
-    <div class="sg-panel">
-      <div class="sg-panel-title">🏦 צבירות קיימות</div>
-      <div class="sg-panel-sub">כמה כבר חסכתם לטובת היעדים האלה. הכספים ישמשו קודם את היעדים הקרובים.</div>
-      <div class="sg-two">
         <div class="sg-field">
-          <label for="sg-exist-long">בכלי ארוך טווח</label>
+          <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
           <div class="sg-inputwrap">
             <input type="text" id="sg-exist-long" class="has-suffix" value="30,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">גמל להשקעה, ניירות ערך, קרנות נאמנות וכיו״ב</div>
+          <div class="sg-note">גמל להשקעה, ניירות ערך</div>
         </div>
         <div class="sg-field">
-          <label for="sg-exist-short">בכלי קצר טווח</label>
+          <label for="sg-exist-short">צבירה קיימת - קצר טווח</label>
           <div class="sg-inputwrap">
             <input type="text" id="sg-exist-short" class="has-suffix" value="15,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון וכיו״ב</div>
+          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון</div>
         </div>
       </div>
     </div>
@@ -572,7 +567,8 @@ html,body{background:#F8F6F3}
   var seqG = 0, seqF = 0;
   var goals = [], funds = [];
   var lastCalc = null;
-  var mode = 'level';            // 'level' = חיסכון חודשי אחיד | 'stepped' = מדורג לפי יעד
+  var mode = 'level';
+  var DEL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';            // 'level' = חיסכון חודשי אחיד | 'stepped' = מדורג לפי יעד
 
   var SAMPLE_GOALS = [
     { name: 'החלפת רכב', amount: 80000,  years: 2 },
@@ -968,7 +964,7 @@ html,body{background:#F8F6F3}
       '<div class="sg-card" data-id="' + g.id + '">' +
         '<div class="sg-card-head">' +
           '<span class="sg-card-idx">יעד ' + (i + 1) + '</span>' +
-          '<button type="button" class="sg-del" data-act="del" aria-label="מחיקת היעד">✕</button>' +
+          '<button type="button" class="sg-del" data-act="del" aria-label="מחיקת היעד" title="מחיקת היעד">' + DEL_ICON + '</button>' +
         '</div>' +
         '<div class="sg-rows">' +
           '<div class="sg-field">' +
@@ -1003,7 +999,7 @@ html,body{background:#F8F6F3}
       '<div class="sg-card is-fund" data-id="' + f.id + '">' +
         '<div class="sg-card-head">' +
           '<span class="sg-card-idx">קרן השתלמות ' + (i + 1) + '</span>' +
-          '<button type="button" class="sg-del" data-act="del-fund" aria-label="מחיקת הקרן">✕</button>' +
+          '<button type="button" class="sg-del" data-act="del-fund" aria-label="מחיקת הקרן" title="מחיקת הקרן">' + DEL_ICON + '</button>' +
         '</div>' +
         '<div class="sg-rows">' +
           '<div class="sg-two">' +
