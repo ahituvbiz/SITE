@@ -10,6 +10,11 @@
 .site-footer .logo-footer{display:inline-flex;flex-direction:column;align-items:flex-start;width:max-content;text-decoration:none!important;line-height:1;}
 .site-footer .logo-footer img{height:48px;width:auto;display:block;}
 .site-footer .logo-footer .logo-obj{color:#00AEEF;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;margin-top:8px;align-self:flex-end;}
+.site-footer .sf-social{list-style:none;display:flex;gap:10px;padding:0;margin:16px 0 0;}
+.site-footer .sf-social li{margin:0;}
+.site-footer .sf-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#2A2D33;color:#C9CDD3;transition:background .15s,color .15s;}
+.site-footer .sf-social a:hover{background:#00AEEF;color:#fff;}
+.site-footer .sf-social svg{width:18px;height:18px;display:block;}
 .site-footer .sf-bottom{border-top:1px solid #2A2D33;padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#6E747D;flex-wrap:wrap;gap:12px;}
 .site-footer .license-badge{display:inline-flex;align-items:center;gap:6px;background:#2A2D33;padding:6px 12px;border-radius:6px;color:#C9CDD3;}
 .site-footer .license-badge svg{width:14px;height:14px;}

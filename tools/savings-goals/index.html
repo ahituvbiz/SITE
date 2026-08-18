@@ -232,6 +232,9 @@ table.sg-table td.dim{color:var(--text-meta)}
 .sg-dl[disabled]{opacity:.6;cursor:progress}
 .sg-dl svg{width:18px;height:18px}
 .sg-dl-msg{font-size:13px;color:var(--text-meta)}
+.sg-assumptions{font-size:13px;color:var(--text-2);line-height:1.75;background:var(--bg-cream);
+  border-right:4px solid var(--primary);border-radius:10px;padding:16px 18px}
+.sg-assumptions strong{color:var(--text-1)}
 
 /* ══════ גרסת לייט: כפתורים נעולים + מודאל שדרוג ══════ */
 .sg-locked{position:relative;opacity:.62;filter:grayscale(.55)}
@@ -412,7 +415,7 @@ table.sg-table td.dim{color:var(--text-meta)}
       <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/services/">שירותים</a>
-      <a href="/tools/" class="active" aria-current="page">מחשבונים</a>
+      <a href="/tools/">מחשבונים</a>
       <a href="/articles/">כדאי לדעת</a>
       <a href="/about/">אודות</a>
     </nav>
@@ -497,7 +500,7 @@ table.sg-table td.dim{color:var(--text-meta)}
             <input type="text" id="sg-exist-long" class="has-suffix" value="30,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">גמל להשקעה, ניירות ערך</div>
+          <div class="sg-note">גמל להשקעה, ניירות ערך - נטו אחרי מס</div>
         </div>
         <div class="sg-field">
           <label for="sg-exist-short">צבירה קיימת - קצר טווח</label>
@@ -505,7 +508,7 @@ table.sg-table td.dim{color:var(--text-meta)}
             <input type="text" id="sg-exist-short" class="has-suffix" value="15,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון</div>
+          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון - נטו אחרי מס</div>
         </div>
       </div>
     </div>
@@ -604,6 +607,8 @@ table.sg-table td.dim{color:var(--text-meta)}
       <span class="sg-dl-msg" id="sg-dl-msg"></span>
     </div>
 
+    <p class="sg-assumptions" id="sg-assumptions"></p>
+
   </div>
 </section>
 
@@ -642,7 +647,8 @@ table.sg-table td.dim{color:var(--text-meta)}
    • כל יעד מוצמד לאינפלציה:  FV = סכום × (1+i)^שנים
    • גלישה: טווח מעל 3 שנים → הכסף בכלי ארוך טווח עד 3 שנים לפני היעד,
      ואז כל הצבירה עוברת לכלי קצר טווח וההפקדות ממשיכות לשם.
-   • מס רווחי הון 25% על הרווח הריאלי (בסיס עלות צמוד למדד), פעם אחת במשיכה.
+   • מס רווחי הון 25% על הרווח הריאלי (בסיס עלות צמוד למדד). המעבר לכלי הקצר
+     הוא אירוע מס: מס משולם במימוש הכלי הארוך, ושוב על רווחי הכלי הקצר במשיכה.
    • סדר מקורות המימון לכל יעד (מהיעד הקרוב לרחוק):
        1. צבירה קיימת בכלי קצר טווח
        2. צבירה קיימת בכלי ארוך טווח
@@ -799,17 +805,26 @@ table.sg-table td.dim{color:var(--text-meta)}
     var rmS = Math.pow(1 + p.rShort, 1 / 12) - 1;
     var im  = Math.pow(1 + p.infl, 1 / 12) - 1;
 
-    /* מקדם נטו לסכום חד-פעמי שנשאר m1 חודשים בארוך ואז m2 בקצר */
+    /* ניכוי מס רווחי הון ריאלי: שווי ברוטו V מול בסיס עלות צמוד למדד B.
+       בהפסד ריאלי אין החזר מס (ההפסד אינו מקוזז כאן). */
+    function net(V, B) { return V > B ? V - p.tax * (V - B) : V; }
+    /* מקדם נטו של 1 ₪ שצומח בתשואה חודשית r במשך n חודשים ואז ממומש */
+    function netGrow(r, n) { return net(Math.pow(1 + r, n), Math.pow(1 + im, n)); }
+
+    /* מקדם נטו לסכום חד-פעמי שנשאר m1 חודשים בארוך ואז m2 בקצר.
+       המעבר לכלי הקצר הוא אירוע מס: מכירת הנכסים בכלי הארוך מחייבת מס על
+       הרווח הריאלי שנצבר עד אותו מועד, ורק התמורה נטו מושקעת בכלי הקצר -
+       והיא בסיס העלות החדש שלו. */
     function lumpF(m1, m2) {
-      var G = Math.pow(1 + rmL, m1) * Math.pow(1 + rmS, m2);
-      var I = Math.pow(1 + im, m1 + m2);
-      return G > I ? (1 - p.tax) * G + p.tax * I : G;
+      return netGrow(rmL, m1) * netGrow(rmS, m2);
     }
-    /* מקדם נטו להפקדה חודשית של 1 ₪ עם אותה גלישה */
+    /* מקדם נטו להפקדה חודשית של 1 ₪ עם אותה גלישה.
+       ההפקדות שנצברו עד המעבר ממוסות במעבר ומושקעות מחדש נטו בכלי הקצר;
+       ההפקדות שמבוצעות אחריו נכנסות ישירות לכלי הקצר וממוסות רק במשיכה. */
     function annF(m1, m2) {
-      var K = ann(rmL, m1) * Math.pow(1 + rmS, m2) + ann(rmS, m2);
-      var Ci = ann(im, m1 + m2);
-      return K > Ci ? (1 - p.tax) * K + p.tax * Ci : K;
+      var beforeSwitch = net(ann(rmL, m1), ann(im, m1)) * netGrow(rmS, m2);
+      var afterSwitch  = net(ann(rmS, m2), ann(im, m2));
+      return beforeSwitch + afterSwitch;
     }
 
     /* --- קרנות השתלמות --- */
@@ -919,11 +934,10 @@ table.sg-table td.dim{color:var(--text-meta)}
       act.forEach(function (a) {
         a.ff = new Float64Array(a.m + 1);
         for (var t = 1; t <= a.m; t++) {
-          var G = (t >= a.glide)
-            ? Math.pow(1 + rmS, a.m - t)
-            : Math.pow(1 + rmL, a.glide - t) * Math.pow(1 + rmS, a.m - a.glide);
-          var I = Math.pow(1 + im, a.m - t);
-          a.ff[t] = G > I ? (1 - p.tax) * G + p.tax * I : G;
+          /* הפקדה לפני מועד המעבר ממוסה פעמיים: במימוש הכלי הארוך ובמשיכה */
+          a.ff[t] = (t >= a.glide)
+            ? netGrow(rmS, a.m - t)
+            : netGrow(rmL, a.glide - t) * netGrow(rmS, a.m - a.glide);
         }
       });
       var M = act[act.length - 1].m;
@@ -1293,6 +1307,41 @@ table.sg-table td.dim{color:var(--text-meta)}
       '</tr>';
     }
 
+    document.getElementById('sg-assumptions').innerHTML = assumptionsHtml(c);
+  }
+
+  function assumptionsHtml(c) {
+    return '<strong>הנחות החישוב:</strong> הפקדה חודשית קבועה בסוף כל חודש, צבירה חודשית. ' +
+      'הסכום שהזנתם לכל יעד הוא בערכי היום ומוצמד לאינפלציה של ' + (c.p.infl * 100).toFixed(1) + '% לשנה ' +
+      '(למשל 10,000 ₪ שנדרשים בעוד שנתיים = ' + nis(10000 * Math.pow(1 + c.p.infl, 2)) + ' בפועל). ' +
+      'תשואה ' + (c.p.rLong * 100).toFixed(1) + '% בכלי ארוך טווח ו-' + (c.p.rShort * 100).toFixed(1) + '% בכלי קצר טווח, נומינלי. ' +
+      'ב-' + SHORT_WINDOW + ' השנים שלפני מועד היעד כל הצבירה מועברת לכלי קצר טווח וההפקדות ממשיכות לשם, ' +
+      'ולכן התשואה על אותו כסף פוחתת בהתאם. ' +
+      '<br><br><strong>אופן החישוב:</strong> ' +
+      'חיסכון <em>מדורג</em> - לכל יעד הפקדה חודשית נפרדת שנמשכת עד מועדו, ולכן הסכום הכולל יורד ' +
+      'בכל פעם שיעד מגיע למועדו. (חישוב לפי חיסכון חודשי אחיד לאורך כל התקופה זמין בגרסה המלאה.) ' +
+      '<br><br><strong>מיסוי:</strong> מס רווחי הון של 25% (הנחת מערכת) על הרווח <em>הריאלי</em> ' +
+      '(בסיס העלות צמוד למדד) - כנהוג בישראל על ניירות ערך ועל קרן כספית. ' +
+      'המעבר לכלי הקצר מטופל כ<strong>אירוע מס</strong>: מכירת הנכסים בכלי הארוך ' +
+      SHORT_WINDOW + ' שנים לפני היעד מחייבת מס על כל הרווח הריאלי שנצבר עד אותו מועד, ' +
+      'ורק התמורה נטו עוברת לכלי הקצר ומהווה שם את בסיס העלות החדש. ' +
+      'על רווחי הכלי הקצר משולם מס נוסף במשיכה. ' +
+      'כלומר המס נגבה פעמיים לאורך הדרך, והחיסכון החודשי הנדרש גבוה יותר מאשר במודל שדוחה את כל המס למשיכה אחת. ' +
+      'אם הכלי הארוך והכלי הקצר נמצאים בתוך אותו מוצר (קופת גמל להשקעה או פוליסת חיסכון), ' +
+      'החלפת המסלול אינה אירוע מס והחיסכון הנדרש בפועל יהיה נמוך במעט מהמוצג כאן. ' +
+      'את הצבירות הקיימות יש להזין <strong>נטו אחרי מס</strong> - הסכום שהיה נשאר ביד אילו נמכר הכל היום ושולם מס על הרווח שנצבר עד כה. ' +
+      'המס במחשבון מחושב מכאן והלאה בלבד. ' +
+      '<br><br><strong>סדר מקורות המימון:</strong> כל יעד ממומן קודם מהצבירות הקיימות (החל מהיעד הקרוב ביותר), ' +
+      'ורק היתרה דורשת הפקדה חודשית חדשה. ' +
+      'צבירה קיימת בכלי ארוך טווח שמיועדת ליעד שבתוך פחות מ-' + SHORT_WINDOW + ' שנים מחושבת כאילו כבר הועברה לכלי הקצר, ' +
+      'בהתאם לאותו כלל. ' +
+      '<br><br><strong>קרנות השתלמות:</strong> הגרסה החינמית אינה משלבת קרנות השתלמות כמקור מימון ליעדים. ' +
+      'קרן השתלמות נזילה יכולה להקטין משמעותית את החיסכון החודשי הנדרש, ושילובה בתוכנית פתוח ללקוחות ' +
+      '<a href="' + UPGRADE_URL + '">תכנון פיננסי</a>. ' +
+      '<br><br><strong>כללי:</strong> סך ההפקדות החדשות לאורך כל התקופה: ' + nis(c.tDep) + '. ' +
+      'ההפקדה החודשית קבועה נומינלית ואינה עולה עם השכר או עם המדד. ' +
+      'תשואות עבר אינן מבטיחות תשואות עתיד, והתשואה בפועל אינה אחידה משנה לשנה. ' +
+      'המחשבון אינו ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס.';
   }
 
   function render() { renderGoals(); renderFunds(); calc(); syncGoalLock(); }
@@ -1491,6 +1540,12 @@ table.sg-table td.dim{color:var(--text-meta)}
           <span class="logo-obj">אובייקטיבי</span>
         </a>
         <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+        <ul class="sf-social" aria-label="רשתות חברתיות">
+          <li><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+          <li><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+          <li><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+          <li><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+        </ul>
       </div>
       <div>
         <h4>מוצרי השקעה</h4>
