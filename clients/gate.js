@@ -1,14 +1,14 @@
-// gate.js — v10 | tag-based personalized content + insurance / donations / child-savings tabs
-//                + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
+// gate.js — v11 | tag-based personalized content + insurance / donations / child-savings tabs
+//                 + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
 const CONTENT_BASE    = '/clients/content/tag-';
 
-const KNOWN_TAGS = [
-  { id: 8,  name: 'IRA' },
-  { id: 10, name: 'תיק השקעות' }
-];
+// ⚠️ אין ברירת מחדל לתגיות. לקוח שחוזר מה-CRM בלי אף תגית הוא לקוח בלי תגיות,
+// והוא אמור לראות את התוכן הפרסומי — לא את התוכן שמיועד לבעלי תגית.
+// (עד 18.8.26 הייתה כאן רשימת KNOWN_TAGS = [8, 10] ששימשה fallback, וגרמה
+//  ללקוח חסר תגיות לראות את תוכן ה-IRA ותיק ההשקעות האמיתי. אין להחזיר אותה.)
 
 // תאריך העדכון האחרון שמוצג מתחת לכל טאב — נפרד לכל לשונית.
 // כשמעדכנים תוכן בלשונית מסוימת, משנים כאן רק את התאריך שלה. השאר נשארים כמו שהם.
@@ -461,7 +461,8 @@ function pingActiveFrame(panelsDiv) {
 }
 
 function buildSections(data) {
-  var origTags = (data.tags && data.tags.length > 0) ? data.tags : KNOWN_TAGS;
+  // רשימה ריקה נשארת ריקה — ראה ההערה למעלה. אין fallback.
+  var origTags = (data.tags && data.tags.length > 0) ? data.tags : [];
   var has = function(id) { return origTags.some(function(t) { return t.id === id; }); };
   var hasTag2  = has(2);
   var hasTag8  = has(8);
