@@ -1,6 +1,6 @@
-// gate.js — v12 | tag-based personalized content + insurance / donations / child-savings tabs
-//                 + savings-goals calculator tab (tags #11 / #13, embedded iframe with auto-height)
-//                 + tag #13 (רכש מחשבון ב-Grow): מחשבון + הצעת תכנון פיננסי בלבד
+// gate.js — v13 | tag-based personalized content + insurance / donations / child-savings tabs
+//                 + savings-goals calculator tab (tag #13 ONLY — נמכר כמוצר נפרד ב-Grow)
+//                 + tag #13 בלבד (בלי תגיות אחרות): מחשבון + הצעת תכנון פיננסי בלבד
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -512,7 +512,7 @@ function buildSections(data) {
 
   if (data.sections && data.sections.length > 0) {
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
-    if (hasTag11 || hasTag13) extra.unshift(SAVINGS_GOALS_SECTION);
+    if (hasTag13) extra.unshift(SAVINGS_GOALS_SECTION);   // המחשבון — רק למי שרכש (#13)
     return Promise.resolve(data.sections.concat(extra));
   }
 
@@ -531,8 +531,8 @@ function buildSections(data) {
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
 
-    // 1b. מחשבון יעדי חיסכון — לבעלי תגית #11 (תכנון פיננסי) או #13 (רכש מחשבון)
-    if (hasTag11 || hasTag13) sections.push(SAVINGS_GOALS_SECTION);
+    // 1b. מחשבון יעדי חיסכון — רק לבעלי תגית #13 (נמכר כמוצר נפרד ב-Grow)
+    if (hasTag13) sections.push(SAVINGS_GOALS_SECTION);
 
     // 2. IRA — לכולם
     sections.push({
