@@ -214,6 +214,39 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-source .ss-val{font-size:19px;font-weight:700;color:var(--text-1)}
 .sg-source .ss-lbl{font-size:12px;color:var(--text-meta);margin-top:2px;line-height:1.4}
 
+/* ══════ גרפים ══════ */
+.sg-charts{display:grid;gap:18px;margin-bottom:24px}
+.sg-chart{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 18px 14px}
+.sg-chart-title{font-size:17px;font-weight:700;margin:0 0 3px;color:var(--text-1)}
+.sg-chart-sub{font-size:12.5px;color:var(--text-meta);margin:0 0 12px;line-height:1.55}
+.sg-chart-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:8px}
+.sg-lg{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-2);
+  background:none;border:none;padding:0;margin:0;font-family:inherit;line-height:1.4;text-align:right}
+.sg-lg .sw{width:12px;height:12px;border-radius:3px;flex-shrink:0;display:inline-block}
+.sg-lg.locked{cursor:pointer;opacity:.75}
+.sg-lg.locked:hover{opacity:1;color:var(--primary)}
+.sg-lg.locked .sw{background:repeating-linear-gradient(45deg,#6B5CA5 0 3px,#EDEAF7 3px 6px)}
+.sg-lg .sg-lock-ico{width:12px;height:12px}
+.sg-lg .sg-lock-ico svg{width:12px;height:12px}
+.sg-chart-box{position:relative}
+.sg-svg{display:block;width:100%;height:auto;direction:ltr}
+.sg-svg text{font-family:inherit}
+.sg-tip{position:absolute;pointer-events:none;z-index:5;background:#1A1A1A;color:#fff;border-radius:8px;
+  padding:8px 11px;font-size:12px;line-height:1.55;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.22);
+  transform:translate(-50%,-108%);max-width:230px}
+.sg-tip[hidden]{display:none}
+.sg-tip .tt{font-weight:700;margin-bottom:4px;font-size:12.5px}
+.sg-tip .tr{display:flex;align-items:center;gap:7px}
+.sg-tip .tr .sw{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.sg-tip .tr span{opacity:.8}
+.sg-tip .tr b{font-variant-numeric:tabular-nums;margin-right:auto;padding-right:12px}
+.sg-tip .tg{margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.22);font-size:11.5px;opacity:.9;white-space:normal}
+.sg-chart-note{font-size:12px;color:var(--text-meta);margin:10px 0 0;line-height:1.6}
+.sg-chart-note.locked{background:#F5F3FA;border-right:3px solid #6B5CA5;border-radius:8px;padding:9px 12px;
+  color:#544787;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px}
+.sg-chart-note.locked:hover{background:#EDEAF7}
+.sg-chart-empty{padding:34px 0;text-align:center;color:var(--text-meta);font-size:14px}
+
 /* טבלה */
 .sg-tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:20px}
 table.sg-table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
@@ -597,6 +630,33 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
       <div class="sg-sources" id="sg-sources"></div>
     </div>
 
+    <!-- ═══ גרפים ═══ -->
+    <div class="sg-charts" id="sg-charts">
+
+      <div class="sg-chart">
+        <h3 class="sg-chart-title">הפקדות חודשיות</h3>
+        <p class="sg-chart-sub">כמה מופקד כל חודש לכל אחד משלושת הכלים. הגרף יורד במדרגה בכל פעם שיעד מגיע למועדו ומפסיק לצרוך הפקדות.</p>
+        <div class="sg-chart-legend" id="sg-legend-dep"></div>
+        <div class="sg-chart-box">
+          <svg class="sg-svg" id="sg-svg-dep" viewBox="0 0 760 250" role="img" aria-label="גרף הפקדות חודשיות לפי כלי חיסכון"></svg>
+          <div class="sg-tip" id="sg-tip-dep" hidden></div>
+        </div>
+        <p class="sg-chart-note" id="sg-note-dep"></p>
+      </div>
+
+      <div class="sg-chart">
+        <h3 class="sg-chart-title">צבירות — היתרה בסוף כל חודש</h3>
+        <p class="sg-chart-sub">היתרה הצפויה בסוף כל חודש בכל אחד מהכלים, בערכים נומינליים ולפני ניכוי מס. כל צניחה בגרף היא משיכה למימון יעד. צבירה קיימת שמיועדת ליעד שבתוך 3 שנים מוצגת כבר בנקודת הפתיחה בכלי קצר הטווח, כי שם מקומה לפי התוכנית.</p>
+        <div class="sg-chart-legend" id="sg-legend-bal"></div>
+        <div class="sg-chart-box">
+          <svg class="sg-svg" id="sg-svg-bal" viewBox="0 0 760 250" role="img" aria-label="גרף הצבירה הצפויה בסוף כל חודש לפי כלי חיסכון"></svg>
+          <div class="sg-tip" id="sg-tip-bal" hidden></div>
+        </div>
+        <p class="sg-chart-note" id="sg-note-bal"></p>
+      </div>
+
+    </div>
+
     <div class="sg-tablewrap" id="sg-schedwrap">
       <table class="sg-table" id="sg-sched">
         <thead>
@@ -788,6 +848,7 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
       <li>יעדי חיסכון ללא הגבלה</li>
       <li>שילוב קרנות השתלמות כמקור מימון ליעדים</li>
       <li>חיסכון חודשי אחיד לאורך כל התקופה</li>
+      <li>גרפים של ההפקדות ושל הצבירות, כולל קרנות ההשתלמות</li>
       <li>הורדת התוכנית המלאה כקובץ PDF</li>
     </ul>
     <div class="sg-modal-btns">
@@ -825,6 +886,7 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
   var KH_ALERT = 1700;           // הפקדה חודשית לקרן השתלמות שמעליה מוצגת התראת מיסוי
   /* ── גרסת לייט: עד 3 יעדים, ללא קרנות השתלמות ── */
   var MAX_GOALS = 3, MAX_FUNDS = 0;
+  var IS_LITE = (MAX_FUNDS === 0);
   var UPGRADE_URL = '/financial-planning/';
   var EPS = 1e-7;
   var seqG = 0, seqF = 0;
@@ -1036,19 +1098,22 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
       var m2 = m - m1;
       var target = g.amount * Math.pow(1 + p.infl, g.years);
       var need = target, fromST = 0, fromLT = 0, fromKH = 0, khDetail = [];
+      var useST0 = 0, useLT0 = 0;
 
       /* 1. צבירה קיימת קצרת טווח */
       if (stRemain > EPS && need > EPS) {
         var f1 = lumpF(0, m);
         var take1 = Math.min(stRemain * f1, need);
-        stRemain -= take1 / f1; need -= take1; fromST += take1;
+        useST0 = take1 / f1;
+        stRemain -= useST0; need -= take1; fromST += take1;
         if (stRemain < EPS) stRemain = 0;
       }
       /* 2. צבירה קיימת ארוכת טווח (גולשת לקצר 3 שנים לפני היעד) */
       if (ltRemain > EPS && need > EPS) {
         var f2 = lumpF(m1, m2);
         var take2 = Math.min(ltRemain * f2, need);
-        ltRemain -= take2 / f2; need -= take2; fromLT += take2;
+        useLT0 = take2 / f2;
+        ltRemain -= useLT0; need -= take2; fromLT += take2;
         if (ltRemain < EPS) ltRemain = 0;
       }
       /* 3. קרנות השתלמות — רק אם נגמרו הכספים האחרים ורק לאחר הנזילות */
@@ -1071,6 +1136,7 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
         months: m, monthsLong: m1, target: target,
         fromExisting: fromST + fromLT, fromST: fromST, fromLT: fromLT,
         fromKH: fromKH, khDetail: khDetail,
+        useST0: useST0, useLT0: useLT0,
         needNew: Math.max(0, need),
         monthly: monthly, covered: monthly <= EPS,
         isShort: m <= SHORT_WINDOW * 12,
@@ -1106,7 +1172,9 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
       var tryT = function (T, collect) {
         var rem = act.map(function (a) { return a.need; });
         var left = act.length, plan = collect ? [] : null;
-        if (collect) act.forEach(function (a) { a.first = null; a.last = null; });
+        if (collect) act.forEach(function (a) {
+          a.first = null; a.last = null; a.dep = new Float64Array(a.m + 1);
+        });
         for (var t = 1; t <= M && left > 0; t++) {
           var b = T, L = 0, S = 0;
           for (var j = 0; j < act.length && b > EPS; j++) {
@@ -1117,7 +1185,8 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
             rem[j] -= use * f; b -= use;
             if (rem[j] <= EPS) { rem[j] = 0; left--; }
             if (collect) {
-              if (t > a.glide) S += use; else L += use;
+              if (t >= a.glide) S += use; else L += use;
+              a.dep[t] += use;
               if (a.first === null) a.first = t;
               a.last = t;
             }
@@ -1162,6 +1231,91 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
         : 0;
     });
 
+    /* ═══ ציר זמן חודשי — הפקדות ויתרות בשלושת הכלים ═══
+       סימולציה חודש-אחר-חודש, נאמנה למודל של המנוע: לכל יעד "דלי" משלו
+       (הצבירה הקיימת שיועדה לו + ההפקדות החדשות עבורו), שגולש לכלי הקצר
+       במועד הגלישה - אירוע מס - ומתרוקן במועד היעד. צבירה קיימת שלא נדרשה
+       לאף יעד ממשיכה לצמוח בכלי שלה. */
+    function buildTimeline(isLevel) {
+      var N = 0;
+      sorted.forEach(function (g) { if (res[g.id].months > N) N = res[g.id].months; });
+      if (N > 0) N += 2;            /* שני חודשים נוספים - כדי שתיראה המשיכה במועד היעד */
+      if (N > 720) N = 720;
+      var out = {
+        n: N, isLevel: isLevel,
+        depL: [], depS: [], depK: [],
+        balL: [], balS: [], balK: [],
+        marks: []
+      };
+      var t;
+      for (t = 0; t <= N; t++) {
+        out.depL[t] = 0; out.depS[t] = 0; out.depK[t] = 0;
+        out.balL[t] = 0; out.balS[t] = 0; out.balK[t] = 0;
+      }
+      if (N <= 0) return out;
+
+      var depMap = {};
+      if (isLevel) act.forEach(function (a) { depMap[a.id] = a.dep || null; });
+
+      sorted.forEach(function (g) {
+        var r = res[g.id];
+        var m = r.months, m1 = r.monthsLong;
+        /* גבול המעבר להפקדה לכלי הקצר - לפי המקדמים שבהם חושבה ההפקדה */
+        var toShortFrom = isLevel ? Math.max(1, m1) : m1 + 1;
+        var LV = 0, LB = 0, SV = 0, SB = 0;
+        if (m1 > 0) { LV = LB = r.useLT0; SV = SB = r.useST0; }
+        else { SV = SB = r.useLT0 + r.useST0; }
+        out.balL[0] += LV; out.balS[0] += SV;
+        var dep = isLevel ? depMap[g.id] : null;
+        for (var q = 1; q <= m && q <= N; q++) {
+          LV *= (1 + rmL); LB *= (1 + im);
+          SV *= (1 + rmS); SB *= (1 + im);
+          var d = isLevel ? (dep ? (dep[q] || 0) : 0) : r.monthly;
+          var toShort = (q >= toShortFrom);
+          if (!toShort && d > 0) { LV += d; LB += d; out.depL[q] += d; }
+          if (q === m1 && m1 > 0) { var nv = net(LV, LB); SV += nv; SB += nv; LV = 0; LB = 0; }
+          if (toShort && d > 0) { SV += d; SB += d; out.depS[q] += d; }
+          out.balL[q] += LV; out.balS[q] += SV;
+        }
+        if (m <= N) out.marks.push({ t: m, name: g.name || 'יעד', amount: r.target, net: r.target });
+      });
+
+      /* צבירה קיימת שלא נדרשה לאף יעד - ממשיכה לצמוח בכלי שלה */
+      var restL = ltRemain, restS = stRemain;
+      for (t = 1; t <= N; t++) {
+        restL *= (1 + rmL); restS *= (1 + rmS);
+        out.balL[t] += restL; out.balS[t] += restS;
+      }
+      out.balL[0] += ltRemain; out.balS[0] += stRemain;
+
+      /* קרנות השתלמות */
+      var khMon = 0, kv = [], k0 = 0;
+      fs.forEach(function (f, i) {
+        kv[i] = f.valid ? f.balance : 0; k0 += kv[i];
+        if (f.valid) khMon += f.monthly;
+      });
+      var wd = {};
+      sorted.forEach(function (g) {
+        var r = res[g.id];
+        if (!r.khDetail || !r.khDetail.length || r.months > N) return;
+        wd[r.months] = (wd[r.months] || []).concat(r.khDetail);
+      });
+      out.balK[0] = k0;
+      for (t = 1; t <= N; t++) {
+        fs.forEach(function (f, i) { if (f.valid) kv[i] = kv[i] * (1 + rmL) + f.monthly; });
+        out.depK[t] = khMon;
+        if (wd[t]) wd[t].forEach(function (x) {
+          fs.forEach(function (f, i) { if (f.id === x.id) kv[i] = Math.max(0, kv[i] - x.amount); });
+        });
+        var tot = 0;
+        fs.forEach(function (f, i) { if (f.valid) tot += kv[i]; });
+        out.balK[t] = tot;
+      }
+      return out;
+    }
+    var tlStepped = buildTimeline(false);
+    var tlLevel   = buildTimeline(true);
+
     /* --- סיכומים --- */
     var tLong = 0, tShort = 0, tTargets = 0, tToday = 0, tExisting = 0, tKH = 0, tDep = 0, tNeedNew = 0;
     valid.forEach(function (g) {
@@ -1181,6 +1335,7 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
 
     return {
       p: p, all: all, valid: valid, sorted: sorted, res: res, funds: fs, level: level,
+      tlStepped: tlStepped, tlLevel: tlLevel,
       existLong0: existLong0, existShort0: existShort0,
       leftoverExisting: stRemain + ltRemain, khLeft: khLeft, lastMonth: lastMonth,
       khOverCeiling: khOverCeiling,
@@ -1400,6 +1555,9 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
     }
     document.getElementById('sg-total-sub').textContent = subTxt;
 
+    /* גרפים */
+    renderCharts(c, isLevel);
+
     /* לוח ההפקדות (רק במצב אחיד) */
     var schedWrap = document.getElementById('sg-schedwrap');
     if (isLevel && lv.segments.length) {
@@ -1471,6 +1629,234 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
 
   }
 
+  /* ═══════════════ גרפים ═══════════════ */
+  var CH_SER = [
+    { k: 'L', name: 'חיסכון לטווח ארוך', color: '#007DA8' },
+    { k: 'S', name: 'חיסכון לטווח קצר',  color: '#D9A72C' },
+    { k: 'K', name: 'קרן השתלמות',       color: '#6B5CA5' }
+  ];
+  var LOCK_SVG = '<span class="sg-lock-ico" aria-hidden="true"><svg viewBox="0 0 24 24">' +
+    '<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></span>';
+
+  /* מעצב תוויות ציר אחיד לכל הסולם - כדי שכל התוויות יהיו באותה יחידה */
+  function tickFmt(top) {
+    if (top >= 1e6) return function (v) { return (Math.round(v / 1e4) / 100).toLocaleString('en-US') + 'M'; };
+    if (top >= 1e4) return function (v) { return (Math.round(v / 100) / 10).toLocaleString('en-US') + 'K'; };
+    return function (v) { return Math.round(v).toLocaleString('en-US'); };
+  }
+  function niceTop(v) {
+    if (!(v > 0)) return 1;
+    var e = Math.pow(10, Math.floor(Math.log(v) / Math.LN10)), f = v / e;
+    var n = f <= 1 ? 1 : f <= 1.5 ? 1.5 : f <= 2 ? 2 : f <= 2.5 ? 2.5
+          : f <= 3 ? 3 : f <= 4 ? 4 : f <= 5 ? 5 : f <= 7.5 ? 7.5 : 10;
+    return n * e;
+  }
+  function sgLegend(elId, lockedK) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = CH_SER.map(function (s) {
+      var locked = lockedK && lockedK.indexOf(s.k) > -1;
+      var tag = locked ? 'button' : 'span';
+      return '<' + tag + ' class="sg-lg' + (locked ? ' locked' : '') + '"' +
+        (locked ? ' type="button" data-lock="charts" title="פתוח ללקוחות תכנון פיננסי"' : '') + '>' +
+        '<i class="sw"' + (locked ? '' : ' style="background:' + s.color + '"') + '></i>' +
+        esc(s.name) + (locked ? ' ' + LOCK_SVG : '') +
+        '</' + tag + '>';
+    }).join('');
+  }
+
+  /* ציור גרף שכבות מוערמות. opt: {svgId, tipId, tl, kind:'dep'|'bal', locked, aria} */
+  function drawStack(opt) {
+    var svg = document.getElementById(opt.svgId);
+    var tip = document.getElementById(opt.tipId);
+    if (!svg) return;
+
+    /* יחידות ה-SVG שוות לפיקסלים על המסך - כך שגודל הטקסט נשמר בכל רוחב */
+    var W = Math.round((svg.parentNode && svg.parentNode.clientWidth) || 760);
+    if (!(W > 120)) W = 760;
+    if (W > 980) W = 980;
+    var narrow = W < 430;
+    var H = narrow ? 215 : 250;
+    var PL = 10, PR = narrow ? 46 : 62, PT = 12, PB = narrow ? 32 : 36;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('height', H);
+
+    var tl = opt.tl, n = tl ? tl.n : 0;
+    var pre = opt.kind === 'dep' ? 'dep' : 'bal';
+    var vals = { L: tl ? tl[pre + 'L'] : [], S: tl ? tl[pre + 'S'] : [], K: tl ? tl[pre + 'K'] : [] };
+    if (!n) {
+      svg.innerHTML = '<text x="' + (W / 2) + '" y="' + (H / 2) +
+        '" text-anchor="middle" fill="#999" font-size="14">הזינו יעד כדי לראות את הגרף</text>';
+      if (tip) tip.hidden = true;
+      return;
+    }
+    var isDep = opt.kind === 'dep';
+    var x0 = PL, x1 = W - PR, y0 = H - PB, y1 = PT;
+    var X = function (t) { return x0 + (t / n) * (x1 - x0); };
+
+    var c1 = [], c2 = [], c3 = [], mx = 0, t;
+    for (t = 0; t <= n; t++) {
+      var a = vals.L[t] || 0, b = vals.S[t] || 0, k = vals.K[t] || 0;
+      c1[t] = a; c2[t] = a + b; c3[t] = a + b + k;
+      if (c3[t] > mx) mx = c3[t];
+    }
+    var top = niceTop(mx * 1.06), fmtY = tickFmt(top);
+    var Y = function (v) { return y0 - (v / top) * (y0 - y1); };
+
+    function areaStep(c) {
+      var d = 'M' + X(0).toFixed(1) + ' ' + Y(0).toFixed(1);
+      for (var q = 1; q <= n; q++) {
+        d += ' L' + X(q - 1).toFixed(1) + ' ' + Y(c[q]).toFixed(1) +
+             ' L' + X(q).toFixed(1) + ' ' + Y(c[q]).toFixed(1);
+      }
+      return d + ' L' + X(n).toFixed(1) + ' ' + Y(0).toFixed(1) + ' Z';
+    }
+    function areaLine(c) {
+      var d = 'M' + X(0).toFixed(1) + ' ' + Y(c[0]).toFixed(1);
+      for (var q = 1; q <= n; q++) d += ' L' + X(q).toFixed(1) + ' ' + Y(c[q]).toFixed(1);
+      return d + ' L' + X(n).toFixed(1) + ' ' + Y(0).toFixed(1) +
+             ' L' + X(0).toFixed(1) + ' ' + Y(0).toFixed(1) + ' Z';
+    }
+    var area = isDep ? areaStep : areaLine;
+
+    var g = '', i;
+    /* קווי רשת ותוויות ציר Y */
+    var steps = 4;
+    for (i = 0; i <= steps; i++) {
+      var v = top * i / steps, yy = Y(v).toFixed(1);
+      g += '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy +
+           '" stroke="' + (i === 0 ? '#CFCCC6' : '#EFEDE9') + '" stroke-width="1"/>';
+      g += '<text x="' + (x1 + 7) + '" y="' + (Y(v) + 4).toFixed(1) + '" font-size="' + (narrow ? 10 : 11) +
+           '" fill="#999" text-anchor="start">' + (i === 0 ? '0' : fmtY(v)) + '</text>';
+    }
+    /* שכבות - מהעליונה לתחתונה */
+    g += '<path d="' + area(c3) + '" fill="' + CH_SER[2].color + '" fill-opacity="' + (opt.locked ? '.3' : '.92') + '"/>';
+    g += '<path d="' + area(c2) + '" fill="' + CH_SER[1].color + '" fill-opacity=".95"/>';
+    g += '<path d="' + area(c1) + '" fill="' + CH_SER[0].color + '" fill-opacity=".95"/>';
+
+    /* ציר X - שנים */
+    var years = Math.max(1, Math.ceil(n / 12));
+    var stepY = Math.max(1, Math.ceil(years / (narrow ? 5 : 9)));
+    for (var yv = 0; yv <= years; yv += stepY) {
+      var tt = Math.min(n, yv * 12);
+      if (yv > 0 && tt >= n && yv * 12 > n + 6) break;
+      g += '<line x1="' + X(tt).toFixed(1) + '" y1="' + y0 + '" x2="' + X(tt).toFixed(1) +
+           '" y2="' + (y0 + 4) + '" stroke="#CFCCC6" stroke-width="1"/>';
+      g += '<text x="' + X(tt).toFixed(1) + '" y="' + (y0 + 16) + '" font-size="' + (narrow ? 10 : 11) +
+           '" fill="#999" text-anchor="middle">' + (yv === 0 ? 'היום' : yv) + '</text>';
+    }
+    g += '<text x="' + X(n / 2).toFixed(1) + '" y="' + (y0 + (narrow ? 28 : 30)) +
+         '" font-size="10.5" fill="#BBB" text-anchor="middle">שנים מהיום</text>';
+
+    /* סימוני מועדי היעדים */
+    (tl.marks || []).forEach(function (mk) {
+      var xx = X(mk.t).toFixed(1);
+      g += '<line x1="' + xx + '" y1="' + y1 + '" x2="' + xx + '" y2="' + y0 +
+           '" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>';
+      g += '<circle cx="' + xx + '" cy="' + y0 + '" r="3.2" fill="#fff" stroke="#7A7A7A" stroke-width="1.4"/>';
+    });
+
+    /* שכבת אינטראקציה */
+    g += '<line id="' + opt.svgId + '-cur" x1="0" y1="' + y1 + '" x2="0" y2="' + y0 +
+         '" stroke="#1A1A1A" stroke-width="1" opacity="0" pointer-events="none"/>';
+    g += '<rect id="' + opt.svgId + '-hit" x="' + x0 + '" y="' + y1 + '" width="' + (x1 - x0) +
+         '" height="' + (y0 - y1) + '" fill="transparent" style="cursor:crosshair"/>';
+    svg.innerHTML = g;
+    if (opt.aria) svg.setAttribute('aria-label', opt.aria);
+
+    /* Tooltip */
+    var hit = document.getElementById(opt.svgId + '-hit');
+    var cur = document.getElementById(opt.svgId + '-cur');
+    if (!hit || !tip) return;
+    function at(ev) {
+      var r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      var cx = (ev.touches && ev.touches[0] ? ev.touches[0].clientX : ev.clientX) - r.left;
+      var vx = cx * (W / r.width);
+      var q = Math.round(((vx - x0) / (x1 - x0)) * n);
+      if (q < 0) q = 0;
+      if (q > n) q = n;
+      if (isDep && q === 0) q = 1;
+      var a = vals.L[q] || 0, b = vals.S[q] || 0, k = vals.K[q] || 0;
+      var rows = '<div class="tt">' + monthLabel(q - (isDep ? 1 : 0)) + '</div>';
+      CH_SER.forEach(function (s, si) {
+        var vv = si === 0 ? a : si === 1 ? b : k;
+        rows += '<div class="tr"><i class="sw" style="background:' + s.color + '"></i>' +
+                '<span>' + esc(s.name) + '</span><b>' + nis(vv) + '</b></div>';
+      });
+      rows += '<div class="tr" style="margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.22)">' +
+              '<span>סה״כ</span><b>' + nis(a + b + k) + '</b></div>';
+      var near = (tl.marks || []).filter(function (mk) { return Math.abs(mk.t - q) <= 1; });
+      if (near.length) {
+        rows += '<div class="tg">מועד היעד: ' +
+                esc(near.map(function (x) { return x.name; }).join(', ')) + '</div>';
+      }
+      tip.innerHTML = rows;
+      tip.hidden = false;
+      var sc = r.width / W;
+      tip.style.left = (X(q) * sc) + 'px';
+      tip.style.top  = (Math.max(Y(c3[q]), y1 + 4) * sc) + 'px';
+      cur.setAttribute('x1', X(q).toFixed(1));
+      cur.setAttribute('x2', X(q).toFixed(1));
+      cur.setAttribute('opacity', '.35');
+    }
+    function off() { tip.hidden = true; if (cur) cur.setAttribute('opacity', '0'); }
+    hit.addEventListener('mousemove', at);
+    hit.addEventListener('mouseleave', off);
+    hit.addEventListener('touchstart', at, { passive: true });
+    hit.addEventListener('touchmove', at, { passive: true });
+    hit.addEventListener('touchend', off);
+  }
+
+  var lastCharts = null;
+  function renderCharts(c, isLevel) {
+    lastCharts = { c: c, isLevel: isLevel };
+    var tl = isLevel ? c.tlLevel : c.tlStepped;
+    var lockedK = IS_LITE ? ['K'] : null;
+    sgLegend('sg-legend-dep', lockedK);
+    sgLegend('sg-legend-bal', lockedK);
+
+    drawStack({ svgId: 'sg-svg-dep', tipId: 'sg-tip-dep', tl: tl, kind: 'dep', locked: IS_LITE,
+      aria: 'גרף הפקדות חודשיות: כמה מופקד בכל חודש לחיסכון לטווח ארוך, לחיסכון לטווח קצר ולקרן השתלמות, ' +
+            'לאורך ' + monthsLabel(tl.n) + '.' });
+    drawStack({ svgId: 'sg-svg-bal', tipId: 'sg-tip-bal', tl: tl, kind: 'bal', locked: IS_LITE,
+      aria: 'גרף צבירות: היתרה בסוף כל חודש בחיסכון לטווח ארוך, בחיסכון לטווח קצר ובקרן השתלמות, ' +
+            'לאורך ' + monthsLabel(tl.n) + '.' });
+
+    var nDep = document.getElementById('sg-note-dep');
+    var nBal = document.getElementById('sg-note-bal');
+    if (IS_LITE) {
+      var lockNote = LOCK_SVG + '<span>קרן השתלמות מוצגת כ-0 ₪ בגרסה החינמית. ' +
+        'שילוב קרנות השתלמות בגרפים ובחישוב פתוח ללקוחות תכנון פיננסי.</span>';
+      [nDep, nBal].forEach(function (el) {
+        if (!el) return;
+        el.className = 'sg-chart-note locked';
+        el.setAttribute('data-lock', 'charts');
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.innerHTML = lockNote;
+      });
+    } else {
+      if (nDep) nDep.textContent = 'ההפקדות לקרן השתלמות הן אלה שהזנתם בכרטיסי הקרנות, וממשיכות כל עוד יש יעד פתוח.';
+      if (nBal) nBal.textContent = 'היתרות ברוטו, לפני מס רווחי הון. המס מנוכה במעבר בין הכלים ובמשיכה, ' +
+        'ולכן הסכום שיישאר ביד במועד היעד נמוך מהשיא שבגרף.';
+    }
+  }
+
+  /* ציור מחדש בשינוי רוחב המסך - יחידות ה-SVG נגזרות מרוחב המכל */
+  (function () {
+    var tmr = null, lastW = -1;
+    window.addEventListener('resize', function () {
+      if (!lastCharts) return;
+      if (window.innerWidth === lastW) return;
+      clearTimeout(tmr);
+      tmr = setTimeout(function () {
+        lastW = window.innerWidth;
+        renderCharts(lastCharts.c, lastCharts.isLevel);
+      }, 160);
+    });
+  })();
+
   function render() { renderGoals(); renderFunds(); calc(); syncGoalLock(); }
 
   /* ───────── אירועים ───────── */
@@ -1531,7 +1917,9 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
            'תכנון של מספר יעדים ללא הגבלה זמין בגרסה המלאה של המחשבון.',
     level: 'חישוב לפי חיסכון חודשי אחיד לאורך כל התקופה זמין בגרסה המלאה של המחשבון. ' +
            'בגרסה החינמית החישוב מוצג במתכונת מדורגת לפי יעד.',
-    pdf:   'הורדת התוכנית כקובץ PDF זמינה בגרסה המלאה של המחשבון.'
+    pdf:   'הורדת התוכנית כקובץ PDF זמינה בגרסה המלאה של המחשבון.',
+    charts: 'הגרפים מציגים את קרן ההשתלמות כ-0 ₪, כי בגרסה החינמית קרנות השתלמות אינן נכללות בחישוב. '
+          + 'בגרסה המלאה הן משולבות בשני הגרפים וכמקור מימון ליעדים - מה שיכול להקטין משמעותית את החיסכון החודשי שתצטרכו.'
   };
 
   function openLock(kind) {
@@ -1566,6 +1954,27 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
       var first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
+  /* פתיחת מודאל השדרוג מתוך אזור הגרפים */
+  var chartsWrap = document.getElementById('sg-charts');
+  if (IS_LITE && chartsWrap) {
+    var lockTarget = function (t) {
+      while (t && t !== chartsWrap) {
+        if (t.getAttribute && t.getAttribute('data-lock')) return t;
+        t = t.parentNode;
+      }
+      return null;
+    };
+    chartsWrap.addEventListener('click', function (e) {
+      var el = lockTarget(e.target);
+      if (el) openLock(el.getAttribute('data-lock'));
+    });
+    chartsWrap.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var el = lockTarget(e.target);
+      if (el) { e.preventDefault(); openLock(el.getAttribute('data-lock')); }
     });
   }
 
