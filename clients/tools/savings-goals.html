@@ -165,6 +165,34 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
   padding:9px 12px;font-size:12.5px;font-weight:600;color:#8A6D0B;line-height:1.5}
 .sg-warn[hidden]{display:none}
 
+/* יעד חוזר (ריטואלי) */
+.sg-recur-row{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-top:2px}
+.sg-recur{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--text-2);
+  cursor:pointer;user-select:none;padding:6px 0}
+.sg-recur input{width:17px;height:17px;accent-color:var(--primary);cursor:pointer;margin:0}
+.sg-freq{max-width:150px}
+.sg-freq .sg-inputwrap{width:130px}
+
+/* פאנל גוגל שיטס */
+.sg-sheets-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sg-gbtn{background:#fff;border:1.5px solid var(--primary);color:var(--primary);border-radius:10px;
+  padding:11px 20px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;
+  display:inline-flex;align-items:center;gap:8px}
+.sg-gbtn:hover{background:var(--primary-soft)}
+.sg-gbtn.primary{background:var(--primary);color:#fff}
+.sg-gbtn.primary:hover{background:#00648A}
+.sg-gbtn[disabled]{opacity:.55;cursor:progress}
+.sg-gbtn svg{width:16px;height:16px}
+.sg-sheets-msg{font-size:13px;color:var(--text-2)}
+.sg-sheets-msg.err{color:var(--negative);font-weight:600}
+.sg-sheets-msg a{font-weight:700}
+.sg-changed{margin-top:14px;background:#FBF3D6;border-right:4px solid var(--warning);border-radius:10px;
+  padding:12px 14px;font-size:13.5px;color:#6B5409;line-height:1.6;display:flex;align-items:center;
+  gap:14px;flex-wrap:wrap}
+.sg-changed[hidden]{display:none}
+.sg-changed .sg-gbtn{border-color:#8A6D0B;color:#6B5409;background:#fff}
+.sg-changed .sg-gbtn:hover{background:#FFF8E6}
+
 .sg-addwrap{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0 18px}
 .sg-add{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:13px 24px;
   font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
@@ -424,6 +452,28 @@ html,body{background:#F8F6F3}
 <section class="calc-wrap">
   <div class="container">
 
+    <!-- ═══ גיבוי בגוגל שיטס ═══ -->
+    <div class="sg-panel" id="sg-sheets-panel">
+      <div class="sg-panel-title">📗 התכנית שלי בגוגל שיטס
+        <span class="sg-hint">שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש</span>
+      </div>
+      <div class="sg-sheets-actions">
+        <button type="button" class="sg-gbtn primary" id="sg-gs-save">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
+          שמירת התכנית לגיליון
+        </button>
+        <button type="button" class="sg-gbtn" id="sg-gs-load">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+          טעינת התכנית מהגיליון
+        </button>
+        <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+      </div>
+      <div class="sg-changed" id="sg-gs-changed" hidden>
+        <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
+        <button type="button" class="sg-gbtn" id="sg-gs-savenew">שמירה כתכנית מעודכנת</button>
+      </div>
+    </div>
+
     <!-- ═══ הנחות ונתוני פתיחה ═══ -->
     <div class="sg-panel">
       <div class="sg-panel-title">⚙️ הנחות ונתוני פתיחה</div>
@@ -452,6 +502,14 @@ html,body{background:#F8F6F3}
             <span class="sg-suffix">%</span>
           </div>
           <div class="sg-note">3 השנים שלפני כל יעד</div>
+        </div>
+        <div class="sg-field">
+          <label for="sg-horizon">אופק תכנון</label>
+          <div class="sg-inputwrap pct">
+            <input type="number" id="sg-horizon" class="has-suffix" value="30" min="1" max="50" step="1" inputmode="numeric">
+            <span class="sg-suffix">שנים</span>
+          </div>
+          <div class="sg-note">עד מתי משוכפלים יעדים חוזרים</div>
         </div>
         <div class="sg-field">
           <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
@@ -818,13 +876,35 @@ html,body{background:#F8F6F3}
     var ltRemain = num('sg-exist-long');
     var existShort0 = stRemain, existLong0 = ltRemain;
 
-    /* --- יעדים --- */
-    var all = goals.map(function (g, i) {
-      return {
-        id: g.id, idx: i, name: (g.name || '').trim(),
+    /* --- יעדים ---
+       יעד חוזר (ריטואלי) משוכפל למופעים: המופע הראשון במועד שהוזן, והבאים
+       בקפיצות של התדירות — עד אופק התכנון. כל מופע מחושב כיעד עצמאי. */
+    var horizon = num('sg-horizon'); if (!(horizon > 0)) horizon = 30;
+    var MAX_OCC = 30;
+    var all = [];
+    goals.forEach(function (g, i) {
+      var base = {
+        id: g.id, baseId: g.id, occ: 0, idx: i, name: (g.name || '').trim(),
         amount: parseFloat(digitsOnly(g.amount)) || 0,
         years: parseFloat(g.years) || 0
       };
+      var freq = g.recur ? (parseFloat(g.freq) || 0) : 0;
+      if (freq > 0 && base.years > 0 && base.amount > 0) {
+        var dispBase = base.name || ('יעד ' + (i + 1));
+        var k = 0;
+        for (var yy = base.years; yy <= horizon + EPS && k < MAX_OCC; yy += freq) {
+          all.push({
+            id: k === 0 ? g.id : String(g.id) + '#' + (k + 1),
+            baseId: g.id, occ: k, idx: i,
+            name: k === 0 ? base.name : dispBase + ' · מופע ' + (k + 1),
+            amount: base.amount, years: yy, recurring: true, freq: freq
+          });
+          k++;
+        }
+        if (!k) { base.recurring = true; base.freq = freq; all.push(base); }
+      } else {
+        all.push(base);
+      }
     });
     var valid = all.filter(function (g) { return g.amount > 0 && g.years > 0; });
     var sorted = valid.slice().sort(function (a, b) {
@@ -1075,6 +1155,7 @@ html,body{background:#F8F6F3}
 
     return {
       p: p, all: all, valid: valid, sorted: sorted, res: res, funds: fs, level: level,
+      horizonY: horizon,
       tlStepped: tlStepped, tlLevel: tlLevel,
       existLong0: existLong0, existShort0: existShort0,
       leftoverExisting: stRemain + ltRemain, khLeft: khLeft, lastMonth: lastMonth,
@@ -1090,7 +1171,9 @@ html,body{background:#F8F6F3}
     if (goals.length >= MAX_GOALS) return;
     goals.push({ id: ++seqG, name: g && g.name || '',
                  amount: g && g.amount != null ? g.amount : '',
-                 years: g && g.years != null ? g.years : '' });
+                 years: g && g.years != null ? g.years : '',
+                 recur: !!(g && g.recur),
+                 freq: g && g.freq != null ? g.freq : '' });
   }
   function addFund(f) {
     if (funds.length >= MAX_FUNDS) return;
@@ -1140,6 +1223,20 @@ html,body{background:#F8F6F3}
               '<label for="sg-y-' + g.id + '">בעוד כמה שנים</label>' +
               '<input type="number" id="sg-y-' + g.id + '" data-f="years" value="' + esc(g.years) + '" min="0.5" max="50" step="0.5" inputmode="decimal" placeholder="0">' +
             '</div>' +
+          '</div>' +
+          '<div class="sg-recur-row">' +
+            '<label class="sg-recur" title="יעד שחוזר על עצמו בכל תקופה — למשל החלפת רכב או חופשה שנתית">' +
+              '<input type="checkbox" data-f="recur"' + (g.recur ? ' checked' : '') + '> יעד חוזר (ריטואלי)' +
+            '</label>' +
+            (g.recur
+              ? '<div class="sg-field sg-freq">' +
+                  '<label for="sg-fr-' + g.id + '">ולאחר מכן כל</label>' +
+                  '<div class="sg-inputwrap">' +
+                    '<input type="number" id="sg-fr-' + g.id + '" class="has-suffix" data-f="freq" value="' + esc(g.freq) + '" min="0.5" max="30" step="0.5" inputmode="decimal" placeholder="5">' +
+                    '<span class="sg-suffix">שנים</span>' +
+                  '</div>' +
+                '</div>'
+              : '') +
           '</div>' +
         '</div>' +
         '<div class="sg-card-res">' +
@@ -1211,8 +1308,18 @@ html,body{background:#F8F6F3}
         bEl.className = 'sg-badge long'; bEl.textContent = 'ממתין לנתונים';
         xEl.innerHTML = ''; return;
       }
-      mEl.textContent = nis((mode === 'level') ? r.needNew : r.monthly);
-      if (r.covered) {
+      /* מופעים של יעד חוזר — הכרטיס מציג את הסכום המצטבר של כולם */
+      var occs = c.sorted.filter(function (a) { return a.baseId === g.id; });
+      var agg = 0, allCovered = true;
+      occs.forEach(function (a) {
+        var rr = c.res[a.id];
+        if (!rr) return;
+        agg += (mode === 'level') ? rr.needNew : rr.monthly;
+        if (!rr.covered) allCovered = false;
+      });
+      if (occs.length > 1) { r = c.res[occs[0].id] || r; }
+      mEl.textContent = nis(occs.length > 1 ? agg : ((mode === 'level') ? r.needNew : r.monthly));
+      if (occs.length > 1 ? allCovered : r.covered) {
         card.classList.add('is-covered');
         bEl.className = 'sg-badge covered'; bEl.textContent = 'מכוסה במלואו';
       } else if (r.isShort) {
@@ -1232,6 +1339,15 @@ html,body{background:#F8F6F3}
       }
       if (!r.covered && r.switchMonths !== null) {
         parts.push('מעבר לכלי קצר טווח בעוד ' + monthsLabel(r.switchMonths));
+      }
+      if (occs.length > 1) {
+        var yl = occs.map(function (a) {
+          return (Math.round(a.years * 10) / 10).toLocaleString('en-US');
+        }).join(', ');
+        parts.push('<strong>יעד חוזר:</strong> ' + occs.length + ' מופעים עד אופק התכנון — בעוד ' + yl +
+                   ' שנים. הסכום המוצג למעלה הוא סך החיסכון החודשי לכל המופעים יחד, והנתונים שלמעלה מתייחסים למופע הראשון');
+      } else if (g.recur && parseFloat(g.freq) > 0) {
+        parts.push('<strong>יעד חוזר:</strong> בתוך אופק התכנון הנוכחי יש מופע אחד בלבד');
       }
       xEl.innerHTML = parts.join('. ') + '.';
     });
@@ -1372,6 +1488,7 @@ html,body{background:#F8F6F3}
     }
 
     document.getElementById('sg-assumptions').innerHTML = assumptionsHtml(c);
+    updateChangedBanner();
   }
 
   function assumptionsHtml(c) {
@@ -1381,6 +1498,9 @@ html,body{background:#F8F6F3}
       'תשואה ' + (c.p.rLong * 100).toFixed(1) + '% בכלי ארוך טווח ו-' + (c.p.rShort * 100).toFixed(1) + '% בכלי קצר טווח, נומינלי. ' +
       'ב-' + SHORT_WINDOW + ' השנים שלפני מועד היעד כל הצבירה מועברת לכלי קצר טווח וההפקדות ממשיכות לשם, ' +
       'ולכן התשואה על אותו כסף פוחתת בהתאם. ' +
+      'יעד שסומן כ<strong>יעד חוזר (ריטואלי)</strong> משוכפל אוטומטית: המופע הראשון במועד שהוזן, והבאים ' +
+      'בקפיצות של התדירות שנקבעה — עד אופק התכנון (' + c.horizonY + ' שנים). כל מופע מחושב כיעד עצמאי, ' +
+      'צמוד לאינפלציה עד מועדו. ' +
       '<br><br><strong>אופן החישוב שנבחר:</strong> ' +
       (mode === 'level'
         ? 'חיסכון חודשי <em>אחיד</em> - סכום קבוע אחד לכל אורך התקופה. המחשבון מוצא את הסכום הקבוע ' +
@@ -1658,6 +1778,16 @@ html,body{background:#F8F6F3}
       if (!f) return;
       var rec = recById(list, e.target);
       if (!rec) return;
+      if (f === 'recur') {
+        rec.recur = !!e.target.checked;
+        if (rec.recur && !rec.freq) rec.freq = '';
+        renderGoals(); calc();
+        if (rec.recur) {
+          var fi = document.getElementById('sg-fr-' + rec.id);
+          if (fi) fi.focus();
+        }
+        return;
+      }
       if (f === 'amount' || f === 'balance' || f === 'monthly') {
         var inp = e.target;
         var atEnd = inp.selectionStart === inp.value.length;
@@ -1709,11 +1839,12 @@ html,body{background:#F8F6F3}
     document.getElementById('sg-infl').value = 2;
     document.getElementById('sg-long').value = 8;
     document.getElementById('sg-short').value = 3;
+    document.getElementById('sg-horizon').value = 30;
     document.getElementById('sg-exist-long').value = groupInt(SAMPLE_EXIST.long);
     document.getElementById('sg-exist-short').value = groupInt(SAMPLE_EXIST.short);
     render();
   });
-  ['sg-infl', 'sg-long', 'sg-short'].forEach(function (id) {
+  ['sg-infl', 'sg-long', 'sg-short', 'sg-horizon'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('input', calc);
   });
@@ -1852,6 +1983,7 @@ html,body{background:#F8F6F3}
           '<div class="sgr-param"><b>' + (c.p.infl * 100).toFixed(1) + '%</b><span>תחזית אינפלציה</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rLong * 100).toFixed(1) + '%</b><span>תשואה ארוכת טווח</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rShort * 100).toFixed(1) + '%</b><span>תשואה קצרת טווח</span></div>' +
+          '<div class="sgr-param"><b>' + c.horizonY + ' שנים</b><span>אופק תכנון</span></div>' +
           '<div class="sgr-param"><b>25%</b><span>מס רווחי הון (ריאלי)</span></div>' +
         '</div>' +
         '<div class="sgr-sum">' +
@@ -1980,6 +2112,326 @@ html,body{background:#F8F6F3}
       busy = false; btn.disabled = false;
     });
   });
+
+  /* ═══════════════ גוגל שיטס — התכנית נשמרת בחשבון הגוגל של הלקוח ═══════════════
+     הרשאת drive.file בלבד: הדף רואה אך ורק את הקבצים שהוא עצמו יצר,
+     ואין לו שום גישה לשאר הדרייב של הלקוח. */
+  var GSI_CLIENT_ID = '183156141362-uua3qh0p3nrr9qog2aa494thhmejvdbi.apps.googleusercontent.com';
+  var GS_TITLE = 'תוכנית חיסכון ליעדים - pensya.info';
+  var GS_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+  var gsToken = null, gsTokenExp = 0, gsTokenClient = null, gsResolve = null, gsReject = null;
+  var gsFileId = null, gsUrl = null, gsSnapshot = null, gsBusy = false;
+
+  function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+  function isoInMonths(m) {
+    var d = new Date(); d.setHours(0, 0, 0, 0);
+    d.setMonth(d.getMonth() + m);
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  function sheetDate(x) {
+    if (x == null || x === '') return '';
+    if (typeof x === 'number' && x > 10000) {          /* מספר סידורי של Sheets */
+      var d = new Date(Date.UTC(1899, 11, 30) + x * 86400000);
+      return d.getUTCFullYear() + '-' + pad2(d.getUTCMonth() + 1) + '-' + pad2(d.getUTCDate());
+    }
+    var s = String(x).trim();
+    var m = s.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/);  /* dd/mm/yyyy שהוזן ידנית */
+    if (m) return m[3] + '-' + pad2(m[2]) + '-' + pad2(m[1]);
+    return s;
+  }
+
+  /* כמו monthsUntil, אבל בלי חיתוך ב-0 — כדי שגלגול יעד חוזר שעבר ישמר את הזמן שחלף */
+  function gsMonthsUntil(str) {
+    if (!str) return null;
+    var d = new Date(str + 'T00:00:00');
+    if (isNaN(d.getTime())) return null;
+    var n = new Date(); n.setHours(0, 0, 0, 0);
+    var m = (d.getFullYear() - n.getFullYear()) * 12 + (d.getMonth() - n.getMonth());
+    if (d.getDate() < n.getDate()) m -= 1;
+    return m;
+  }
+
+  function gsMsg(t, isErr, linkHtml) {
+    var el = document.getElementById('sg-gs-msg');
+    if (!el) return;
+    el.className = 'sg-sheets-msg' + (isErr ? ' err' : '');
+    el.innerHTML = esc(t) + (linkHtml || '');
+  }
+  function gsLink() {
+    return gsUrl ? ' <a href="' + esc(gsUrl) + '" target="_blank" rel="noopener">פתיחת הגיליון ↗</a>' : '';
+  }
+  function gsErr(e) {
+    var m = String(e && e.message || e);
+    if (/popup|closed|access_denied|interaction|dismissed/i.test(m)) {
+      gsMsg('ההתחברות לחשבון הגוגל בוטלה. נסו שוב.', true);
+    } else {
+      gsMsg('משהו השתבש: ' + m.slice(0, 140), true);
+    }
+    if (window.console) console.error(e);
+  }
+
+  function gsGetToken() {
+    return new Promise(function (res, rej) {
+      if (GSI_CLIENT_ID.indexOf('__') === 0) return rej(new Error('חיבור גוגל שיטס עדיין לא הוגדר באתר'));
+      if (gsToken && Date.now() < gsTokenExp - 60000) return res(gsToken);
+      var go = function () {
+        if (!gsTokenClient) {
+          gsTokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: GSI_CLIENT_ID, scope: GS_SCOPE,
+            callback: function (t) {
+              if (t && t.access_token) {
+                gsToken = t.access_token;
+                gsTokenExp = Date.now() + (parseInt(t.expires_in, 10) || 3600) * 1000;
+                if (gsResolve) gsResolve(gsToken);
+              } else if (gsReject) { gsReject(new Error((t && t.error) || 'auth')); }
+              gsResolve = gsReject = null;
+            },
+            error_callback: function (e) {
+              if (gsReject) gsReject(new Error((e && (e.type || e.message)) || 'auth'));
+              gsResolve = gsReject = null;
+            }
+          });
+        }
+        gsResolve = res; gsReject = rej;
+        gsTokenClient.requestAccessToken({ prompt: '' });
+      };
+      if (window.google && google.accounts && google.accounts.oauth2) go();
+      else loadScript('https://accounts.google.com/gsi/client').then(go)['catch'](rej);
+    });
+  }
+
+  function gsApi(url, opts) {
+    opts = opts || {};
+    opts.headers = opts.headers || {};
+    opts.headers['Authorization'] = 'Bearer ' + gsToken;
+    if (opts.body && typeof opts.body !== 'string') {
+      opts.body = JSON.stringify(opts.body);
+      opts.headers['Content-Type'] = 'application/json';
+    }
+    return fetch(url, opts).then(function (r) {
+      if (!r.ok) return r.text().then(function (t) {
+        if (r.status === 401) { gsToken = null; }
+        throw new Error('שגיאת גוגל ' + r.status + ' ' + t.slice(0, 160));
+      });
+      return r.json()['catch'](function () { return null; });
+    });
+  }
+
+  function gsFind() {
+    var q = "appProperties has { key='pensyaApp' and value='savingsGoals' } and trashed=false";
+    return gsApi('https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) +
+                 '&fields=' + encodeURIComponent('files(id,name,webViewLink)') + '&pageSize=5')
+      .then(function (j) {
+        var f = j && j.files && j.files[0];
+        if (f) { gsFileId = f.id; gsUrl = f.webViewLink; }
+        return f || null;
+      });
+  }
+  function gsCreate() {
+    return gsApi('https://www.googleapis.com/drive/v3/files?fields=id,webViewLink', {
+      method: 'POST',
+      body: { name: GS_TITLE, mimeType: 'application/vnd.google-apps.spreadsheet',
+              appProperties: { pensyaApp: 'savingsGoals' } }
+    }).then(function (j) {
+      gsFileId = j.id; gsUrl = j.webViewLink;
+      /* כיוון מימין-לשמאל ושם עברי ללשונית */
+      return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId + ':batchUpdate', {
+        method: 'POST',
+        body: { requests: [{ updateSheetProperties: {
+          properties: { sheetId: 0, rightToLeft: true, title: 'התוכנית' },
+          fields: 'rightToLeft,title' } }] }
+      })['catch'](function () { return null; }).then(function () { return j; });
+    });
+  }
+
+  /* מצב המחשבון בצורה קנונית — לשמירה ולזיהוי שינויים */
+  function gsState() {
+    return {
+      infl: num('sg-infl'), rLong: num('sg-long'), rShort: num('sg-short'),
+      horizon: num('sg-horizon'),
+      existLong: num('sg-exist-long'), existShort: num('sg-exist-short'),
+      goals: goals.map(function (g) {
+        return { name: (g.name || '').trim(),
+                 amount: parseFloat(digitsOnly(g.amount)) || 0,
+                 years: parseFloat(g.years) || 0,
+                 recur: !!g.recur, freq: g.recur ? (parseFloat(g.freq) || 0) : 0 };
+      }),
+      funds: funds.map(function (f) {
+        return { name: (f.name || '').trim(), liquidity: f.liquidity || '',
+                 balance: parseFloat(digitsOnly(f.balance)) || 0,
+                 monthly: parseFloat(digitsOnly(f.monthly)) || 0 };
+      })
+    };
+  }
+  function gsSerial() { return JSON.stringify(gsState()); }
+  function updateChangedBanner() {
+    var el = document.getElementById('sg-gs-changed');
+    if (!el) return;
+    el.hidden = !(gsSnapshot && gsSerial() !== gsSnapshot);
+  }
+
+  function gsValues(st) {
+    var rows = [];
+    rows.push([GS_TITLE]);
+    rows.push(['התכנית נוצרה בתאריך', isoInMonths(0)]);
+    rows.push([]);
+    rows.push(['הנחות']);
+    rows.push(['תחזית אינפלציה %', 'תשואה ארוכת טווח %', 'תשואה קצרת טווח %', 'אופק תכנון (שנים)']);
+    rows.push([st.infl, st.rLong, st.rShort, st.horizon]);
+    rows.push([]);
+    rows.push(['צבירות קיימות (נטו, בערכי היום)']);
+    rows.push(['ארוך טווח ₪', 'קצר טווח ₪']);
+    rows.push([st.existLong, st.existShort]);
+    rows.push([]);
+    rows.push(['היעדים']);
+    rows.push(['שם היעד', 'סכום בערכי היום ₪', 'תאריך היעד', 'בעוד שנים (בעת השמירה)', 'יעד חוזר?', 'חוזר כל (שנים)']);
+    st.goals.forEach(function (g) {
+      rows.push([g.name, g.amount,
+                 g.years > 0 ? isoInMonths(Math.round(g.years * 12)) : '',
+                 g.years, g.recur ? 'כן' : 'לא', (g.recur && g.freq) ? g.freq : '']);
+    });
+    rows.push([]);
+    rows.push(['קרנות השתלמות']);
+    rows.push(['שם הקרן', 'תאריך נזילות', 'צבירה קיימת ₪', 'הפקדה חודשית ₪']);
+    st.funds.forEach(function (f) {
+      rows.push([f.name, f.liquidity, f.balance, f.monthly]);
+    });
+    rows.push([]);
+    rows.push(['הגיליון נוצר אוטומטית ממחשבון יעדי החיסכון של pensya.info. אפשר לערוך בו ערכים ולטעון אותו מחדש במחשבון.']);
+    return rows;
+  }
+
+  function gsSave() {
+    if (gsBusy) return;
+    gsBusy = true;
+    var b1 = document.getElementById('sg-gs-save');
+    var b2 = document.getElementById('sg-gs-savenew');
+    b1.disabled = true; if (b2) b2.disabled = true;
+    gsMsg('מתחברים לחשבון הגוגל…');
+    gsGetToken()
+      .then(function () { gsMsg('שומרים את התכנית…'); return gsFileId ? null : gsFind(); })
+      .then(function () { return gsFileId ? null : gsCreate(); })
+      .then(function () {
+        return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId +
+                     '/values/' + encodeURIComponent('A1:H300') + ':clear', { method: 'POST', body: {} });
+      })
+      .then(function () {
+        return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId +
+                     '/values/A1?valueInputOption=RAW', {
+          method: 'PUT', body: { values: gsValues(gsState()) } });
+      })
+      .then(function () {
+        gsSnapshot = gsSerial();
+        updateChangedBanner();
+        gsMsg('התכנית נשמרה בגיליון בחשבון שלכם ✓', false, gsLink());
+      })
+      ['catch'](gsErr)
+      .then(function () { gsBusy = false; b1.disabled = false; if (b2) b2.disabled = false; });
+  }
+
+  function gsApply(v) {
+    function cell(r, i) { return r && r[i] != null ? r[i] : ''; }
+    function rowIs(r, t) { return String(cell(r, 0)).replace(/\s+/g, ' ').trim().indexOf(t) === 0; }
+    function numOf(x) { return parseFloat(String(x).replace(/,/g, '')) || 0; }
+    var i, created = '', assume = null, exist = null, goalRows = [], fundRows = [];
+    for (i = 0; i < v.length; i++) {
+      var r = v[i];
+      if (rowIs(r, 'התכנית נוצרה')) created = sheetDate(cell(r, 1));
+      else if (rowIs(r, 'הנחות')) assume = v[i + 2] || [];
+      else if (rowIs(r, 'צבירות קיימות')) exist = v[i + 2] || [];
+      else if (rowIs(r, 'היעדים')) {
+        for (var j = i + 2; j < v.length; j++) {
+          if (!v[j] || (!String(cell(v[j], 0)).trim() && !String(cell(v[j], 1)).trim())) break;
+          goalRows.push(v[j]);
+        }
+      }
+      else if (rowIs(r, 'קרנות השתלמות')) {
+        for (var q = i + 2; q < v.length; q++) {
+          if (!v[q] || (!String(cell(v[q], 0)).trim() && !String(cell(v[q], 1)).trim())) break;
+          fundRows.push(v[q]);
+        }
+      }
+    }
+    if (!goalRows.length && !assume) throw new Error('הגיליון לא במבנה המוכר — שמרו תכנית מחדש');
+
+    var notes = [];
+    if (assume) {
+      if (String(cell(assume, 0)) !== '') document.getElementById('sg-infl').value = numOf(cell(assume, 0));
+      if (String(cell(assume, 1)) !== '') document.getElementById('sg-long').value = numOf(cell(assume, 1));
+      if (String(cell(assume, 2)) !== '') document.getElementById('sg-short').value = numOf(cell(assume, 2));
+      document.getElementById('sg-horizon').value = numOf(cell(assume, 3)) || 30;
+    }
+    if (exist) {
+      document.getElementById('sg-exist-long').value = groupInt(String(Math.round(numOf(cell(exist, 0)))));
+      document.getElementById('sg-exist-short').value = groupInt(String(Math.round(numOf(cell(exist, 1)))));
+    }
+    goals.length = 0; funds.length = 0; seqG = 0; seqF = 0;
+    goalRows.forEach(function (r) {
+      var name = String(cell(r, 0)).trim();
+      var amount = Math.round(numOf(cell(r, 1)));
+      var dISO = sheetDate(cell(r, 2));
+      var savedYears = numOf(cell(r, 3));
+      var recur = /כן|true|v|1/i.test(String(cell(r, 4)));
+      var freq = numOf(cell(r, 5));
+      var months = dISO ? gsMonthsUntil(dISO) : null;
+      if (months == null) months = Math.round(savedYears * 12);
+      if (months <= 0) {
+        if (recur && freq > 0) {
+          var fm = Math.max(1, Math.round(freq * 12));
+          while (months <= 0) months += fm;
+          notes.push('היעד "' + (name || 'ללא שם') + '" כבר עבר — קודם למופע הבא, בעוד ' + monthsLabel(months));
+        } else {
+          notes.push('היעד "' + (name || 'ללא שם') + '" כבר עבר ולכן לא נטען');
+          return;
+        }
+      }
+      var years = Math.round((months / 12) * 100) / 100;
+      if (amount > 0) addGoal({ name: name, amount: String(amount), years: years,
+                                recur: recur, freq: (recur && freq) ? freq : '' });
+    });
+    fundRows.forEach(function (r) {
+      var name = String(cell(r, 0)).trim();
+      var liq = sheetDate(cell(r, 1));
+      var bal = Math.round(numOf(cell(r, 2)));
+      var mon = Math.round(numOf(cell(r, 3)));
+      if ((bal > 0 || mon > 0) && funds.length < MAX_FUNDS) {
+        funds.push({ id: ++seqF, name: name, liquidity: liq, balance: String(bal), monthly: String(mon) });
+      }
+    });
+    render();
+    gsSnapshot = gsSerial();
+    updateChangedBanner();
+    var msg = 'התכנית נטענה מהגיליון' + (created ? ' (נוצרה ב-' + heDate(created) + ')' : '') +
+              ' — טווחי הזמן עודכנו לפי הזמן שחלף ✓';
+    if (notes.length) msg += ' · ' + notes.join(' · ');
+    gsMsg(msg, false, gsLink());
+  }
+
+  function gsLoad() {
+    if (gsBusy) return;
+    gsBusy = true;
+    var b = document.getElementById('sg-gs-load');
+    b.disabled = true;
+    gsMsg('מתחברים לחשבון הגוגל…');
+    gsGetToken()
+      .then(function () { gsMsg('טוענים את התכנית…'); return gsFind(); })
+      .then(function (f) {
+        if (!f) throw new Error('NOSHEET');
+        return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId +
+                     '/values/' + encodeURIComponent('A1:H300') + '?valueRenderOption=UNFORMATTED_VALUE');
+      })
+      .then(function (j) { gsApply((j && j.values) || []); })
+      ['catch'](function (e) {
+        if (String(e && e.message) === 'NOSHEET') {
+          gsMsg('לא נמצא גיליון תכנית בחשבון הגוגל הזה. שמרו קודם תכנית — והיא תחכה לכם שם בביקור הבא.', true);
+        } else { gsErr(e); }
+      })
+      .then(function () { gsBusy = false; b.disabled = false; });
+  }
+
+  document.getElementById('sg-gs-save').addEventListener('click', gsSave);
+  document.getElementById('sg-gs-savenew').addEventListener('click', gsSave);
+  document.getElementById('sg-gs-load').addEventListener('click', gsLoad);
 
   /* ───────── אתחול ───────── */
   SAMPLE_GOALS.forEach(addGoal);
