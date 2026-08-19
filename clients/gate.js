@@ -420,7 +420,7 @@ var CHILD_SAVINGS_HTML =
 
   '</div>' +
   '<div class="intro-note" style="max-width:720px;margin:28px auto 0;font-size:15px;line-height:1.8;">' +
-  '<strong>הערה:</strong> אם החיסכון של הילד נמצא בבנק — לא ניתן לשנות זאת.' +
+  '<strong>הערה:</strong> אם החיסכון של הילד נמצא בבנק — אפשר להעביר לאינפיניטי (או קופת גמל אחרת) רק את ההפקדות מכאן ואילך.' +
   '</div>' +
   '</div></div>';
 
