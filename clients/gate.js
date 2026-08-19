@@ -433,7 +433,7 @@ var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD
 // ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
 // הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
 // הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
-var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=6';
+var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=7';
 
 var SAVINGS_GOALS_HTML =
   '<div style="background:var(--bg-cream);">' +

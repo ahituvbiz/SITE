@@ -321,6 +321,13 @@ table.sg-table td.dim{color:var(--text-meta)}
 .sgr-sum-box .val{font-size:23px;font-weight:700;color:#007DA8;line-height:1.25}
 .sgr-sum-box.short .val{color:#8A6D0B}
 .sgr h3{font-size:14.5px;font-weight:700;margin:14px 0 7px}
+.sgr-chart{margin:8px 0 14px;padding:12px 14px;border:1px solid #E2E0DC;border-radius:10px;background:#fff}
+.sgr-chart-t{font-size:12.5px;font-weight:700;color:#1A1A1A;margin-bottom:2px}
+.sgr-chart-cap{font-size:10px;color:#888;margin-bottom:8px;line-height:1.5}
+.sgr-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:8px}
+.sgr-lg{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#555}
+.sgr-lg .sw{width:11px;height:11px;border-radius:3px;flex-shrink:0;display:inline-block}
+.sgr-chart .sg-svg{width:100%;height:auto;display:block;direction:ltr}
 table.sgr-table{width:100%;border-collapse:collapse;font-size:11px}
 table.sgr-table th,table.sgr-table td{padding:6px 7px;text-align:right;border-bottom:1px solid #E2E0DC}
 table.sgr-table thead th{background:#F8F6F2;font-size:10px;color:#555;font-weight:700}
@@ -1997,6 +2004,28 @@ html,body{background:#F8F6F3}
         }).join('') + '</tbody></table>';
     }
 
+    /* גרפים לדוח — נבנים באותם צבעים ונתונים של גרפי המסך, ברוחב קבוע של הדוח */
+    var tlR = isLevel ? c.tlLevel : c.tlStepped;
+    var showCharts = c.valid.length && tlR && tlR.n > 0;
+    var legendHtml = CH_SER.map(function (s) {
+      return '<span class="sgr-lg"><i class="sw" style="background:' + s.color + '"></i>' + esc(s.name) + '</span>';
+    }).join('');
+    var chartsHtml = showCharts ? (
+      '<h3>גרפים</h3>' +
+      '<div class="sgr-chart">' +
+        '<div class="sgr-chart-t">הפקדות חודשיות</div>' +
+        '<div class="sgr-chart-cap">כמה מופקד כל חודש לכל אחד מהכלים. הציר מסתיים ביעד האחרון שדורש חיסכון חדש.</div>' +
+        '<div class="sgr-legend">' + legendHtml + '</div>' +
+        '<div class="sgr-chart-box"><svg id="sgr-svg-dep" class="sg-svg" role="img"></svg></div>' +
+      '</div>' +
+      '<div class="sgr-chart">' +
+        '<div class="sgr-chart-t">צבירות — היתרה בסוף כל חודש</div>' +
+        '<div class="sgr-chart-cap">היתרה הצפויה בסוף כל חודש בכל כלי, בערכים נומינליים ולפני מס. כל צניחה היא משיכה למימון יעד.</div>' +
+        '<div class="sgr-legend">' + legendHtml + '</div>' +
+        '<div class="sgr-chart-box"><svg id="sgr-svg-bal" class="sg-svg" role="img"></svg></div>' +
+      '</div>'
+    ) : '';
+
     var holder = document.getElementById('sg-report-holder');
     holder.innerHTML =
       '<div class="sgr" id="sg-report">' +
@@ -2042,10 +2071,20 @@ html,body{background:#F8F6F3}
         '</table>' +
         schedHtml +
         fundsHtml +
+        chartsHtml +
         '<div class="sgr-notes">' + assumptionsHtml(c) + '</div>' +
         '<div class="sgr-foot"><span>איתן אחיטוב · יועץ פנסיוני בעל רישיון משרד האוצר</span>' +
           '<span>pensya.info · 052-770-0599</span></div>' +
       '</div>';
+
+    /* לאחר שה-DOM מוכן — מציירים את הגרפים לתוך ה-SVG של הדוח (drawStack מודד רוחב מהמכל) */
+    if (showCharts) {
+      try {
+        drawStack({ svgId: 'sgr-svg-dep', tipId: 'sgr-tip-none', tl: tlR, kind: 'dep', locked: false, aria: 'גרף הפקדות חודשיות' });
+        drawStack({ svgId: 'sgr-svg-bal', tipId: 'sgr-tip-none', tl: tlR, kind: 'bal', locked: false, aria: 'גרף צבירות' });
+      } catch (e) { if (window.console) console.error('report charts', e); }
+    }
+
     return document.getElementById('sg-report');
   }
 
