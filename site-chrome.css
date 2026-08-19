@@ -10,11 +10,16 @@
 .site-footer .logo-footer{display:inline-flex;flex-direction:column;align-items:flex-start;width:max-content;text-decoration:none!important;line-height:1;}
 .site-footer .logo-footer img{height:48px;width:auto;display:block;}
 .site-footer .logo-footer .logo-obj{color:#00AEEF;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;margin-top:8px;align-self:flex-end;}
-.site-footer .sf-social{list-style:none;display:flex;gap:10px;padding:0;margin:16px 0 0;}
+.site-footer .sf-social{list-style:none;display:flex;gap:12px;padding:0;margin:0;}
 .site-footer .sf-social li{margin:0;}
-.site-footer .sf-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#2A2D33;color:#C9CDD3;transition:background .15s,color .15s;}
-.site-footer .sf-social a:hover{background:#00AEEF;color:#fff;}
-.site-footer .sf-social svg{width:18px;height:18px;display:block;}
+.site-footer .sf-social a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;color:#fff;transition:transform .15s,filter .15s;}
+.site-footer .sf-social a:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.site-footer .sf-social svg{width:17px;height:17px;display:block;}
+.site-footer .sf-fb a{background:#1877F2;}
+.site-footer .sf-li a{background:#0A66C2;}
+.site-footer .sf-wa a{background:#25D366;}
+.site-footer .sf-ig a{background:radial-gradient(circle at 30% 107%,#FDF497 0%,#FDF497 5%,#FD5949 45%,#D6249F 60%,#285AEB 90%);}
+@media (max-width:560px){.site-footer .sf-social{order:3;width:100%;justify-content:center;margin-top:4px;}}
 .site-footer .sf-bottom{border-top:1px solid #2A2D33;padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#6E747D;flex-wrap:wrap;gap:12px;}
 .site-footer .license-badge{display:inline-flex;align-items:center;gap:6px;background:#2A2D33;padding:6px 12px;border-radius:6px;color:#C9CDD3;}
 .site-footer .license-badge svg{width:14px;height:14px;}
