@@ -294,6 +294,18 @@ table.sg-table td.dim{color:var(--text-meta)}
 .sg-dl[disabled]{opacity:.6;cursor:progress}
 .sg-dl svg{width:18px;height:18px}
 .sg-dl-msg{font-size:13px;color:var(--text-meta)}
+/* לוח פתיחת קרנות השתלמות */
+.sg-fundplan{background:#F5F3FA;border:1px solid #DED8EF;border-right:4px solid #6B5CA5;border-radius:12px;
+  padding:16px 18px;margin-bottom:var(--s-lg)}
+.sg-fundplan[hidden]{display:none}
+.sg-fundplan h4{font-size:15px;font-weight:700;color:#4A3D7A;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.sg-fundplan .sg-fp-sub{font-size:12.5px;color:var(--text-meta);margin-bottom:12px;line-height:1.6}
+.sg-fundplan ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sg-fundplan li{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid #E7E2F3;
+  border-radius:9px;padding:10px 13px;font-size:14px}
+.sg-fundplan li .sg-fp-open{font-weight:700;color:#4A3D7A}
+.sg-fundplan li .sg-fp-liq{font-size:12.5px;color:var(--text-2)}
+.sg-fundplan .sg-fp-none{font-size:13px;color:var(--text-2);line-height:1.6}
 .sg-assumptions{font-size:13px;color:var(--text-2);line-height:1.75;background:var(--bg-cream);
   border-right:4px solid var(--primary);border-radius:10px;padding:16px 18px}
 .sg-assumptions strong{color:var(--text-1)}
@@ -664,6 +676,8 @@ html,body{background:#F8F6F3}
       </table>
     </div>
 
+    <div class="sg-fundplan" id="sg-fundplan" hidden></div>
+
     <div class="sg-actions">
       <button type="button" class="sg-dl" id="sg-download">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
@@ -705,6 +719,7 @@ html,body{background:#F8F6F3}
   var TAX = 0.25;                // הנחת מערכת - לא נתון לשינוי המשתמש
   var SHORT_WINDOW = 3;          // שנים לפני היעד שבהן הכסף בכלי קצר טווח
   var KH_ALERT = 1700;           // הפקדה חודשית לקרן השתלמות שמעליה מוצגת התראת מיסוי
+  var KH_LOCK = 72;              // חודשי נעילה של קרן השתלמות חדשה (6 שנים)
   var MAX_GOALS = 20, MAX_FUNDS = 10;
   var IS_LITE = (MAX_FUNDS === 0);
   var EPS = 1e-7;
@@ -784,6 +799,71 @@ html,body{background:#F8F6F3}
     if (n <= 0) return 0;
     if (Math.abs(r) < 1e-12) return n;
     return (Math.pow(1 + r, n) - 1) / r;
+  }
+
+  /* ═══ סולם קרנות השתלמות ═══
+     כללי המערכת: אפשר למשוך מקרן רק לאחר שהיא נזילה (6 שנים); לאחר משיכה אי אפשר
+     להפקיד לאותה קרן — ההפקדות עוברות לקרן חדשה שנעולה 6 שנים; אפשר לפתוח קרן חדשה
+     מראש כדי שתהיה נזילה בזמן (just-in-time). יעד שאי אפשר לממן מקרן נזילה בזמן ממומן
+     מחיסכון חודשי רגיל. בלי החלת וותק. מספר קרנות שהוזנו ממוזגות (סכום יתרה, סכום
+     הפקדה, נזילות מוקדמת ביותר). מכיוון שהסולם משפיע רק על הנזילות (לא על היתרה
+     הכוללת), חישוב היתרה בגרף נשאר מדויק גם ללא פירוק לדורות. */
+  function ladderSimGen(gen, demands, startIdx, funded, rmL) {
+    var EPS = 1e-6, balance = gen.startBalance, curM = gen.openMonth, recs = [];
+    function adv(toM) {
+      var dep = Math.max(0, Math.min(toM, gen.freezeMonth) - curM);
+      var nd  = Math.max(0, toM - Math.max(curM, gen.freezeMonth));
+      if (dep > 0) balance = balance * Math.pow(1 + rmL, dep) + gen.M * ann(rmL, dep);
+      if (nd  > 0) balance = balance * Math.pow(1 + rmL, nd);
+      curM = toM;
+    }
+    for (var i = startIdx; i < demands.length; i++) {
+      var d = demands[i];
+      if (d.m < gen.liqMonth) return { recs: recs, stopIdx: i };
+      var residual = d.need - (funded[d.gid] || 0);
+      if (residual <= EPS) continue;
+      adv(d.m);
+      if (balance >= residual - EPS) { balance -= residual; recs.push({ gid: d.gid, amount: residual }); }
+      else { if (balance > EPS) recs.push({ gid: d.gid, amount: balance }); balance = 0; return { recs: recs, stopIdx: i }; }
+    }
+    return { recs: recs, stopIdx: demands.length };
+  }
+  /* funds: [{balance,monthly,liq}] ; demands: [{gid,m,need}] ממויין לפי m */
+  function runFundLadder(fundsIn, demands, rmL) {
+    var valid = fundsIn.filter(function (f) { return (f.balance > 0 || f.monthly > 0); });
+    var funded = {}; demands.forEach(function (d) { funded[d.gid] = 0; });
+    if (!valid.length || !demands.length) return { funded: funded, opens: [], shortfall: {}, totalKH: 0 };
+    var B0 = valid.reduce(function (s, f) { return s + (f.balance || 0); }, 0);
+    var M  = valid.reduce(function (s, f) { return s + (f.monthly || 0); }, 0);
+    var liq0 = Math.max(0, Math.min.apply(null, valid.map(function (f) { return (f.liq == null ? 0 : Math.max(0, f.liq)); })));
+    var EPS = 1e-6, gens = [];
+    var di = 0, openMonth = 0, liqMonth = liq0, startBalance = B0, prevOpen = -1, guard = 0;
+    while (di < demands.length && guard++ < 2000) {
+      if (demands[di].m < liqMonth) { di++; continue; }
+      var Fw = demands[di].m;
+      var freeze = Fw;
+      var sim = ladderSimGen({ openMonth: openMonth, liqMonth: liqMonth, startBalance: startBalance, M: M, freezeMonth: freeze }, demands, di, funded, rmL);
+      if (sim.stopIdx > di && sim.stopIdx < demands.length) {
+        var earlier = Math.max(openMonth, Math.min(Fw, demands[sim.stopIdx].m - KH_LOCK));
+        if (earlier < freeze) {
+          var sim2 = ladderSimGen({ openMonth: openMonth, liqMonth: liqMonth, startBalance: startBalance, M: M, freezeMonth: earlier }, demands, di, funded, rmL);
+          if (sim2.stopIdx > di) { freeze = earlier; sim = sim2; }
+        }
+      }
+      var genFunded = 0;
+      for (var r = 0; r < sim.recs.length; r++) { funded[sim.recs[r].gid] += sim.recs[r].amount; genFunded += sim.recs[r].amount; }
+      gens.push({ openMonth: openMonth, liqMonth: liqMonth, funded: genFunded, isSuccessor: gens.length > 0 });
+      if (sim.stopIdx >= demands.length) break;
+      var nextOpen = Math.max(freeze, prevOpen + 1, 0);
+      var nextLiq = nextOpen + KH_LOCK;
+      prevOpen = openMonth; openMonth = nextOpen; liqMonth = nextLiq; startBalance = 0;
+      di = (demands[sim.stopIdx].m < nextLiq) ? sim.stopIdx + 1 : sim.stopIdx;
+    }
+    var opens = [], MEANINGFUL = 500, totalKH = 0;
+    gens.forEach(function (g) { if (g.isSuccessor && g.funded > MEANINGFUL) opens.push({ openMonth: g.openMonth, liqMonth: g.liqMonth }); });
+    var shortfall = {};
+    demands.forEach(function (d) { totalKH += funded[d.gid]; if (funded[d.gid] < d.need - 1) shortfall[d.gid] = d.need - funded[d.gid]; });
+    return { funded: funded, opens: opens, shortfall: shortfall, totalKH: totalKH };
   }
 
   /* קיבוץ לוח ההפקדות לתקופות רציפות בעלות אותה חלוקה בין הכלים */
@@ -882,18 +962,9 @@ html,body{background:#F8F6F3}
         id: f.id, name: (f.name || '').trim(), liquidity: f.liquidity,
         balance: bal, monthly: mon, liq: liq,
         valid: liq !== null && (bal > 0 || mon > 0),
-        val: bal, month: 0, used: 0
+        used: 0
       };
     });
-    function rollFunds(m) {
-      fs.forEach(function (f) {
-        if (!f.valid) return;
-        var d = m - f.month;
-        if (d <= 0) return;
-        f.val = f.val * Math.pow(1 + rmL, d) + f.monthly * ann(rmL, d);
-        f.month = m;
-      });
-    }
 
     /* --- צבירות קיימות (בערכי היום) --- */
     var stRemain = num('sg-exist-short');
@@ -935,16 +1006,15 @@ html,body{background:#F8F6F3}
       return (a.years - b.years) || (a.idx - b.idx);
     });
 
+    /* ── מעבר 1: צבירות קיימות (ST/LT) לכל יעד → הצורך שנותר לפני קרנות השתלמות ── */
     var res = {};
     sorted.forEach(function (g) {
       var m  = Math.max(1, Math.round(g.years * 12));
       var m1 = Math.max(0, m - SHORT_WINDOW * 12);
       var m2 = m - m1;
       var target = g.amount * Math.pow(1 + p.infl, g.years);
-      var need = target, fromST = 0, fromLT = 0, fromKH = 0, khDetail = [];
-      var useST0 = 0, useLT0 = 0;
+      var need = target, fromST = 0, fromLT = 0, useST0 = 0, useLT0 = 0;
 
-      /* 1. צבירה קיימת קצרת טווח */
       if (stRemain > EPS && need > EPS) {
         var f1 = lumpF(0, m);
         var take1 = Math.min(stRemain * f1, need);
@@ -952,7 +1022,6 @@ html,body{background:#F8F6F3}
         stRemain -= useST0; need -= take1; fromST += take1;
         if (stRemain < EPS) stRemain = 0;
       }
-      /* 2. צבירה קיימת ארוכת טווח (גולשת לקצר 3 שנים לפני היעד) */
       if (ltRemain > EPS && need > EPS) {
         var f2 = lumpF(m1, m2);
         var take2 = Math.min(ltRemain * f2, need);
@@ -960,35 +1029,50 @@ html,body{background:#F8F6F3}
         ltRemain -= useLT0; need -= take2; fromLT += take2;
         if (ltRemain < EPS) ltRemain = 0;
       }
-      /* 3. קרנות השתלמות — רק אם נגמרו הכספים האחרים ורק לאחר הנזילות */
-      rollFunds(m);
-      if (need > EPS && stRemain <= EPS && ltRemain <= EPS) {
-        fs.forEach(function (f) {
-          if (!f.valid || need <= EPS) return;
-          if (f.liq > m) return;
-          var take = Math.min(f.val, need);
-          if (take <= EPS) return;
-          f.val -= take; f.used += take; need -= take; fromKH += take;
-          khDetail.push({ id: f.id, name: f.name, amount: take });
-        });
-      }
-      /* 4. הפקדה חודשית חדשה */
-      var F = annF(m1, m2);
-      var monthly = (need > EPS && F > 0) ? need / F : 0;
-
       res[g.id] = {
-        months: m, monthsLong: m1, target: target,
+        months: m, monthsLong: m1, m2: m2, target: target,
         fromExisting: fromST + fromLT, fromST: fromST, fromLT: fromLT,
-        fromKH: fromKH, khDetail: khDetail,
         useST0: useST0, useLT0: useLT0,
-        needNew: Math.max(0, need),
-        monthly: monthly, covered: monthly <= EPS,
+        needAfterExisting: Math.max(0, need),
         isShort: m <= SHORT_WINDOW * 12,
         switchMonths: m > SHORT_WINDOW * 12 ? m1 : null,
-        firstMonth: null, lastMonth: null,
-        gross: 0, deposits: monthly * m
+        firstMonth: null, lastMonth: null, gross: 0
       };
     });
+
+    /* ── סולם קרנות השתלמות: כמה כל יעד מקבל מקרן נזילה בזמן, ומתי לפתוח קרן חדשה ── */
+    var demands = sorted
+      .filter(function (g) { return res[g.id].needAfterExisting > EPS; })
+      .map(function (g) { return { gid: g.id, m: res[g.id].months, need: res[g.id].needAfterExisting }; });
+    var ladder = runFundLadder(
+      fs.filter(function (f) { return f.valid; }).map(function (f) { return { balance: f.balance, monthly: f.monthly, liq: f.liq }; }),
+      demands, rmL);
+    var fundOpens = ladder.opens;
+
+    /* ── מעבר 2: קרן השתלמות → הצורך הסופי → הפקדה חודשית חדשה ── */
+    sorted.forEach(function (g) {
+      var r = res[g.id];
+      var fromKH = Math.min(ladder.funded[g.id] || 0, r.needAfterExisting);
+      var need = r.needAfterExisting - fromKH;
+      var F = annF(r.monthsLong, r.m2);
+      var monthly = (need > EPS && F > 0) ? need / F : 0;
+      r.fromKH = fromKH;
+      r.khDetail = fromKH > EPS ? [{ name: 'קרן השתלמות', amount: fromKH }] : [];
+      r.needNew = Math.max(0, need);
+      r.monthly = monthly;
+      r.covered = monthly <= EPS;
+      r.deposits = monthly * r.months;
+      /* יעד שרצה מימון מקרן אך לא קיבל את כולו בזמן (נעילה/חוסר יתרה) → ההשלמה מחיסכון חודשי */
+      r.fundShort = (ladder.shortfall[g.id] || 0) > 1 && fs.some(function (f) { return f.valid; });
+    });
+    /* ניצול הקרנות לתצוגה: מפזרים את סך המשיכות על הקרנות שהוזנו לפי חלקן */
+    (function () {
+      var vf = fs.filter(function (f) { return f.valid; });
+      var base = vf.reduce(function (s, f) { return s + f.balance + f.monthly * 12; }, 0);
+      vf.forEach(function (f) {
+        f.used = base > 0 ? ladder.totalKH * (f.balance + f.monthly * 12) / base : (vf.length ? ladder.totalKH / vf.length : 0);
+      });
+    })();
 
     /* ═══ חיסכון חודשי אחיד (החלקה) ═══
        T המינימלי שבו הפקדה חודשית קבועה מממנת את כל היעדים במועדם.
@@ -1143,28 +1227,23 @@ html,body{background:#F8F6F3}
       }
       out.balL[0] += ltRemain; out.balS[0] += stRemain;
 
-      /* קרנות השתלמות */
-      var khMon = 0, kv = [], k0 = 0;
-      fs.forEach(function (f, i) {
-        kv[i] = f.valid ? f.balance : 0; k0 += kv[i];
-        if (f.valid) khMon += f.monthly;
-      });
+      /* קרנות השתלמות — מאגר כולל אחד. הסולם (נעילות/פתיחת קרנות) קובע כמה כל יעד
+         מקבל בפועל (r.fromKH), אך היתרה הכוללת אינה תלויה בפירוק לדורות: הפקדות נכנסות
+         תמיד לקרן כלשהי, ולכן די בסימולציה של מאגר אחד עם המשיכות שחישב הסולם. */
+      var khMon = 0, kbal = 0;
+      fs.forEach(function (f) { if (f.valid) { kbal += f.balance; khMon += f.monthly; } });
       var wd = {};
       sorted.forEach(function (g) {
         var r = res[g.id];
-        if (!r.khDetail || !r.khDetail.length || r.months > N) return;
-        wd[r.months] = (wd[r.months] || []).concat(r.khDetail);
+        if (!(r.fromKH > 0) || r.months > N) return;
+        wd[r.months] = (wd[r.months] || 0) + r.fromKH;
       });
-      out.balK[0] = k0;
+      out.balK[0] = kbal;
       for (t = 1; t <= N; t++) {
-        fs.forEach(function (f, i) { if (f.valid) kv[i] = kv[i] * (1 + rmL) + f.monthly; });
+        kbal = kbal * (1 + rmL) + khMon;
         out.depK[t] = khMon;
-        if (wd[t]) wd[t].forEach(function (x) {
-          fs.forEach(function (f, i) { if (f.id === x.id) kv[i] = Math.max(0, kv[i] - x.amount); });
-        });
-        var tot = 0;
-        fs.forEach(function (f, i) { if (f.valid) tot += kv[i]; });
-        out.balK[t] = tot;
+        if (wd[t]) kbal = Math.max(0, kbal - wd[t]);
+        out.balK[t] = kbal;
       }
       return out;
     }
@@ -1182,15 +1261,14 @@ html,body{background:#F8F6F3}
     });
 
     var lastMonth = sorted.length ? res[sorted[sorted.length - 1].id].months : 0;
-    var khLeft = 0, khOverCeiling = false;
-    fs.forEach(function (f) {
-      if (f.valid) khLeft += f.val;
-      if (f.monthly > KH_ALERT) khOverCeiling = true;
-    });
+    var khOverCeiling = false;
+    fs.forEach(function (f) { if (f.monthly > KH_ALERT) khOverCeiling = true; });
+    /* יתרת קרנות ההשתלמות שלא נדרשה ליעדים — היתרה במאגר בסוף התקופה */
+    var khLeft = (tlLevel && tlLevel.balK && tlLevel.n) ? (tlLevel.balK[Math.min(lastMonth, tlLevel.n)] || 0) : 0;
 
     return {
       p: p, all: all, valid: valid, sorted: sorted, res: res, funds: fs, level: level,
-      horizonY: horizon,
+      horizonY: horizon, fundOpens: fundOpens,
       tlStepped: tlStepped, tlLevel: tlLevel,
       existLong0: existLong0, existShort0: existShort0,
       leftoverExisting: stRemain + ltRemain, khLeft: khLeft, lastMonth: lastMonth,
@@ -1522,8 +1600,40 @@ html,body{background:#F8F6F3}
       '</tr>';
     }
 
+    renderFundPlan(c);
     document.getElementById('sg-assumptions').innerHTML = assumptionsHtml(c);
     updateChangedBanner();
+  }
+
+  /* לוח פתיחת קרנות השתלמות + התראות על יעדים שהקרן לא תספיק להם בזמן */
+  function renderFundPlan(c) {
+    var el = document.getElementById('sg-fundplan');
+    if (!el) return;
+    var hasFunds = c.funds.some(function (f) { return f.valid; });
+    var opens = (c.fundOpens || []);
+    var shorts = c.sorted.filter(function (g) { return c.res[g.id].fundShort; });
+    if (!hasFunds || (!opens.length && !shorts.length)) { el.hidden = true; el.innerHTML = ''; return; }
+    var html = '<h4>💼 לוח קרנות ההשתלמות</h4>' +
+      '<div class="sg-fp-sub">כדי להשתמש בקרן השתלמות למימון יעד היא חייבת להיות נזילה (6 שנים מפתיחתה), ' +
+      'ואחרי משיכה אי אפשר להפקיד אליה עוד — צריך לפתוח קרן חדשה. כדי שתהיה קרן נזילה בדיוק כשצריך, ' +
+      'כדאי לפתוח קרנות חדשות מראש לפי הלוח הבא:</div>';
+    if (opens.length) {
+      html += '<ul>' + opens.map(function (o) {
+        return '<li><span class="sg-fp-open">➕ לפתוח קרן השתלמות חדשה ב־' + esc(monthLabel(o.openMonth)) + '</span>' +
+          '<span class="sg-fp-liq">· תהיה נזילה ב־' + esc(monthLabel(o.liqMonth)) + '</span></li>';
+      }).join('') + '</ul>';
+    } else {
+      html += '<div class="sg-fp-none">אין צורך לפתוח קרנות חדשות — הקרנות הקיימות מספיקות לפי לוח הזמנים.</div>';
+    }
+    if (shorts.length) {
+      html += '<div class="sg-fp-sub" style="margin-top:12px;color:#8A6D0B">⚠️ ' +
+        'ליעדים הבאים קרן ההשתלמות לא תהיה נזילה בזמן (מוקדם מדי ביחס לנעילת 6 השנים), ' +
+        'וההשלמה שלהם מגיעה מהחיסכון החודשי הרגיל: <strong>' +
+        shorts.map(function (g) { return esc((g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'); }).join(', ') +
+        '</strong>.</div>';
+    }
+    el.innerHTML = html;
+    el.hidden = false;
   }
 
   function assumptionsHtml(c) {
@@ -1561,7 +1671,11 @@ html,body{background:#F8F6F3}
       'בהתאם לאותו כלל. ' +
       '<br><br><strong>קרנות השתלמות:</strong> הונח שהקרן משוקעת במסלול מנייתי עד המשיכה, ולכן היא צומחת ' +
       'בתשואה ארוכת הטווח (' + (c.p.rLong * 100).toFixed(1) + '%) לכל אורך התקופה - גם בשלוש השנים שלפני היעד. ' +
-      'המשיכה מקרן השתלמות מתבצעת רק לאחר שנוצלו כל שאר החסכונות, ורק אם מועד היעד מאוחר ממועד הנזילות. ' +
+      'המשיכה מקרן השתלמות מתבצעת רק לאחר שנוצלו כל שאר החסכונות, ורק אם הקרן נזילה במועד היעד. ' +
+      '<strong>נעילת 6 שנים ופתיחת קרן חדשה:</strong> אפשר למשוך מקרן רק לאחר 6 שנים מפתיחתה, ולאחר משיכה ' +
+      'אי אפשר להפקיד אליה עוד — ההפקדות עוברות לקרן חדשה שנעולה 6 שנים. המחשבון מתזמן פתיחת קרנות חדשות ' +
+      'מראש (כדי שתהיה קרן נזילה בדיוק כשצריך) ומציג את לוח הפתיחות למעלה. יעד שקרן ההשתלמות אינה נזילה עבורו ' +
+      'בזמן — ההשלמה שלו מגיעה מהחיסכון החודשי הרגיל. לא הובאה בחשבון החלת וותק. ' +
       'המשיכה מחושבת <strong>כפטורה ממס רווחי הון</strong> - כנהוג בקרן השתלמות הנמשכת לאחר מועד הנזילות, בגבולות התקרה המוטבת. ' +
       (c.khOverCeiling
         ? '<strong>שימו לב:</strong> באחת הקרנות שהוזנו ההפקדה החודשית עולה על ' + nis(KH_ALERT) + ' - ' +
@@ -2004,6 +2118,19 @@ html,body{background:#F8F6F3}
             '<td>' + nis(f.atLiquidity) + '</td>' +
             '<td>' + (f.used > 1 ? nis(f.used) : '—') + '</td></tr>';
         }).join('') + '</tbody></table>';
+      var fpOpens = (c.fundOpens || []);
+      var fpShorts = c.sorted.filter(function (g) { return c.res[g.id].fundShort; });
+      if (fpOpens.length) {
+        fundsHtml += '<h3>לוח פתיחת קרנות השתלמות חדשות</h3>' +
+          '<table class="sgr-table"><thead><tr><th>לפתוח קרן חדשה בתאריך</th><th>תהיה נזילה בתאריך</th></tr></thead><tbody>' +
+          fpOpens.map(function (o) { return '<tr><td>' + esc(monthLabel(o.openMonth)) + '</td><td>' + esc(monthLabel(o.liqMonth)) + '</td></tr>'; }).join('') +
+          '</tbody></table>';
+      }
+      if (fpShorts.length) {
+        fundsHtml += '<div class="sgr-notes" style="border-top:none;margin-top:6px;padding-top:0">⚠️ קרן ההשתלמות אינה נזילה בזמן ליעדים: ' +
+          esc(fpShorts.map(function (g) { return (g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'; }).join(', ')) +
+          ' — ההשלמה שלהם מהחיסכון החודשי הרגיל.</div>';
+      }
     }
 
     /* גרפים לדוח — נבנים באותם צבעים ונתונים של גרפי המסך, ברוחב קבוע של הדוח */
