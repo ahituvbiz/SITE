@@ -124,6 +124,12 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-params .sg-inputwrap{width:100%}
 .sg-params .sg-inputwrap.pct{width:104px}
 @media(max-width:520px){.sg-params{gap:14px 18px}.sg-params .sg-field{flex:1 1 140px;max-width:none}}
+.sg-groups{display:flex;flex-wrap:wrap;gap:16px}
+.sg-group{flex:1 1 320px;border-radius:12px;padding:16px 18px 18px;border:1px solid var(--border)}
+.sg-group.g-rates{background:var(--primary-soft);border-color:#BFE4F2}
+.sg-group.g-exist{background:var(--bg-cream);border-color:#E8E2D6}
+.sg-group-title{font-size:14px;font-weight:600;color:var(--text-1);margin-bottom:12px}
+@media(max-width:520px){.sg-group{flex:1 1 100%;padding:14px}}
 .sg-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:560px){.sg-two{grid-template-columns:1fr}}
 /* שדות סכום צרים - המספר לכל היותר בן 7 ספרות */
@@ -529,9 +535,10 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
           <li>הוספת יעדים ללא מגבלה</li>
           <li>הוספת יעדים מחזוריים (למשל החלפת רכב כל 5 שנים או חופשה משפחתית שנתית)</li>
           <li>שילוב שימוש בקרנות השתלמות</li>
-          <li>הורדה כקובץ PDF</li>
-          <li>גיבוי לגוגל דרייב שלכם כדי שתוכלו לטעון מחדש את הנתונים בעתיד — כך תעדכנו יעדים וסטטוס חיסכון בלי להזין הכל מההתחלה</li>
+          <li>הורדה כקובץ PDF - בכדי שניתן יהיה לעקוב אחרי עמידה ביעדי החיסכון</li>
+          <li>גיבוי לגוגל דרייב שלכם כדי שתוכלו לטעון מחדש את הנתונים בעתיד ולעדכן את התכניות בקלות</li>
           <li>"החלקת" החיסכון החודשי</li>
+          <li>תיזמון פתיחת קרן השתלמות חדשה בכדי שהכסף יהיה נזיל כשצריך אותו</li>
         </ul>
       </div>
       <a href="https://pay.grow.link/OTg2Njg~a63bd7cd6a6602bad7e1bc75a0339ddf-Mzg2MzU3MQ" target="_blank" rel="noopener" class="lb-cta">לרכישת הגרסה המלאה</a>
@@ -541,7 +548,10 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
     <div class="sg-panel">
       <div class="sg-panel-title">⚙️ הנחות ונתוני פתיחה</div>
       <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
-      <div class="sg-params">
+      <div class="sg-groups">
+      <div class="sg-group g-rates">
+        <div class="sg-group-title">אינפלציה ותשואות</div>
+        <div class="sg-params">
         <div class="sg-field">
           <label for="sg-infl">תחזית אינפלציה</label>
           <div class="sg-inputwrap pct">
@@ -566,6 +576,11 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
           </div>
           <div class="sg-note">3 השנים שלפני כל יעד</div>
         </div>
+        </div>
+      </div>
+      <div class="sg-group g-exist">
+        <div class="sg-group-title">צבירות קיימות</div>
+        <div class="sg-params">
         <div class="sg-field">
           <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
           <div class="sg-inputwrap">
@@ -582,6 +597,8 @@ table.faq-table td.num{font-variant-numeric:tabular-nums;font-weight:600}
           </div>
           <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון - נטו אחרי מס</div>
         </div>
+        </div>
+      </div>
       </div>
     </div>
 
