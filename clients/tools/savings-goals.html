@@ -192,6 +192,14 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-changed[hidden]{display:none}
 .sg-changed .sg-gbtn{border-color:#8A6D0B;color:#6B5409;background:#fff}
 .sg-changed .sg-gbtn:hover{background:#FFF8E6}
+.sg-gs-guide{margin-top:14px;background:var(--primary-soft);border-right:4px solid var(--primary);
+  border-radius:10px;padding:14px 16px;font-size:13.5px;color:#0A4A63;line-height:1.7}
+.sg-gs-guide[hidden]{display:none}
+.sg-gs-guide strong{color:#083A4E}
+.sg-gs-guide ol{margin:8px 0 0;padding-right:20px}
+.sg-gs-guide li{margin-bottom:4px}
+.sg-gs-guide .sg-gs-guide-x{background:none;border:none;color:#0A4A63;font-size:13px;font-weight:700;
+  cursor:pointer;padding:0;margin-top:10px;text-decoration:underline;font-family:inherit}
 
 .sg-addwrap{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0 18px}
 .sg-add{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:13px 24px;
@@ -467,6 +475,15 @@ html,body{background:#F8F6F3}
           טעינת התכנית מהגיליון
         </button>
         <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+      </div>
+      <div class="sg-gs-guide" id="sg-gs-guide" hidden>
+        <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
+        <ol>
+          <li>בחרו את חשבון הגוגל שלכם.</li>
+          <li>אם תופיע הודעה ש<strong>“Google לא אימתה את האפליקציה”</strong> (Google hasn’t verified this app) — אין מה לחשוש, זו האפליקציה של pensya.info. לחצו על <strong>“מתקדם”</strong> (Advanced) בתחתית החלון, ואז על <strong>“המשך אל pensya savings goals web”</strong>.</li>
+          <li>אשרו את הבקשה בלחיצה על <strong>“המשך”</strong> (Continue / Allow). האפליקציה מבקשת גישה <strong>רק לגיליון שהיא יוצרת עבורכם</strong> — לא לשאר הקבצים בדרייב.</li>
+        </ol>
+        <button type="button" class="sg-gs-guide-x" id="sg-gs-guide-x">הבנתי, סגירת ההסבר</button>
       </div>
       <div class="sg-changed" id="sg-gs-changed" hidden>
         <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
@@ -2301,15 +2318,20 @@ html,body{background:#F8F6F3}
     return rows;
   }
 
+  /* חלון הגוגל צפוי לקפוץ רק כשאין עדיין הרשאה בתוקף — אז מציגים הסבר מרגיע */
+  function gsGuide(show) { var g = document.getElementById('sg-gs-guide'); if (g) g.hidden = !show; }
+  function gsWillPrompt() { return !gsToken || Date.now() >= gsTokenExp - 60000; }
+
   function gsSave() {
     if (gsBusy) return;
     gsBusy = true;
     var b1 = document.getElementById('sg-gs-save');
     var b2 = document.getElementById('sg-gs-savenew');
     b1.disabled = true; if (b2) b2.disabled = true;
+    if (gsWillPrompt()) gsGuide(true);
     gsMsg('מתחברים לחשבון הגוגל…');
     gsGetToken()
-      .then(function () { gsMsg('שומרים את התכנית…'); return gsFileId ? null : gsFind(); })
+      .then(function () { gsGuide(false); gsMsg('שומרים את התכנית…'); return gsFileId ? null : gsFind(); })
       .then(function () { return gsFileId ? null : gsCreate(); })
       .then(function () {
         return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId +
@@ -2412,9 +2434,10 @@ html,body{background:#F8F6F3}
     gsBusy = true;
     var b = document.getElementById('sg-gs-load');
     b.disabled = true;
+    if (gsWillPrompt()) gsGuide(true);
     gsMsg('מתחברים לחשבון הגוגל…');
     gsGetToken()
-      .then(function () { gsMsg('טוענים את התכנית…'); return gsFind(); })
+      .then(function () { gsGuide(false); gsMsg('טוענים את התכנית…'); return gsFind(); })
       .then(function (f) {
         if (!f) throw new Error('NOSHEET');
         return gsApi('https://sheets.googleapis.com/v4/spreadsheets/' + gsFileId +
@@ -2432,6 +2455,7 @@ html,body{background:#F8F6F3}
   document.getElementById('sg-gs-save').addEventListener('click', gsSave);
   document.getElementById('sg-gs-savenew').addEventListener('click', gsSave);
   document.getElementById('sg-gs-load').addEventListener('click', gsLoad);
+  document.getElementById('sg-gs-guide-x').addEventListener('click', function () { gsGuide(false); });
 
   /* ───────── אתחול ───────── */
   SAMPLE_GOALS.forEach(addGoal);
