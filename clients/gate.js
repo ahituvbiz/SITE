@@ -1,6 +1,5 @@
-// gate.js — v13 | tag-based personalized content + insurance / donations / child-savings tabs
-//                 + savings-goals calculator tab (tag #13 ONLY — נמכר כמוצר נפרד ב-Grow)
-//                 + tag #13 בלבד (בלי תגיות אחרות): מחשבון + הצעת תכנון פיננסי בלבד
+// gate.js — v11 | tag-based personalized content + insurance / donations / child-savings tabs
+//                 + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -20,7 +19,6 @@ var clientEmail = null;
 var TAB_DATES = {
   'פנסיה והשתלמות': '12.7.2026',
   'מחשבון יעדי חיסכון': '18.8.2026',
-  'תכנון פיננסי אישי': '19.8.2026',
   'IRA':             '12.7.2026',
   'ביטוחים':         '12.7.2026',
   'תיק השקעות':      '12.7.2026',
@@ -435,7 +433,7 @@ var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD
 // ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
 // הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
 // הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
-var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=5';
+var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=6';
 
 var SAVINGS_GOALS_HTML =
   '<div style="background:var(--bg-cream);">' +
@@ -445,21 +443,6 @@ var SAVINGS_GOALS_HTML =
   '</div>';
 
 var SAVINGS_GOALS_SECTION = { tagName: 'מחשבון יעדי חיסכון', html: SAVINGS_GOALS_HTML };
-
-// ====== לשונית "תכנון פיננסי אישי" — הצעת שדרוג לרוכשי המחשבון (#13) ======
-var CALC_PLANNING_OFFER_HTML =
-  '<div class="content-hero"><div class="container">' +
-  '<div class="eyebrow">אזור לקוחות · תכנון פיננסי</div>' +
-  '<h1>תכנון פיננסי אישי</h1>' +
-  '</div></div>' +
-  '<div style="background:var(--bg-cream,#F8F6F3);padding:48px 0 64px;"><div class="container">' +
-  '<div class="portfolio-card" style="padding:30px 34px;max-width:680px;margin:0 auto;text-align:center;">' +
-  '<div style="font-size:20px;font-weight:800;color:var(--primary,#1F4E79);margin-bottom:14px;">המחשבון נתן לך את המספרים — רוצה גם את הדרך להגיע אליהם?</div>' +
-  '<p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:var(--text-secondary,#4A4A6A);">בתכנון פיננסי אישי נעבור יחד על כל התמונה: קרן הפנסיה, קרן ההשתלמות וקופות הגמל, הביטוחים, תיק ההשקעות והיעדים שהגדרת במחשבון — ונבנה תוכנית מעשית שמתאימה בדיוק לך ולמשפחה שלך. בלי עמלות מגופים פיננסיים, אובייקטיבי לחלוטין.</p>' +
-  '<a href="https://wa.me/972527700599" style="display:inline-block;background:#25D366;color:#fff;padding:14px 34px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">💬 לתיאום שיחת היכרות</a>' +
-  '</div></div></div>';
-
-var CALC_PLANNING_OFFER_SECTION = { tagName: 'תכנון פיננסי אישי', html: CALC_PLANNING_OFFER_HTML };
 
 // התאמת גובה ה-iframe להודעה שמגיעה מהדף המוטמע
 window.addEventListener('message', function(ev) {
@@ -492,27 +475,15 @@ function pingActiveFrame(panelsDiv) {
 function buildSections(data) {
   // רשימה ריקה נשארת ריקה — ראה ההערה למעלה. אין fallback.
   var origTags = (data.tags && data.tags.length > 0) ? data.tags : [];
-  // השוואה סובלנית: תומכת גם ב-id מספרי וגם במחרוזת, וגם בתגית שמגיעה כמספר גולמי
-  var has = function(id) {
-    return origTags.some(function(t) {
-      var tid = (t && typeof t === 'object') ? t.id : t;
-      return String(tid) === String(id);
-    });
-  };
+  var has = function(id) { return origTags.some(function(t) { return t.id === id; }); };
   var hasTag2  = has(2);
   var hasTag8  = has(8);
   var hasTag10 = has(10);
   var hasTag11 = has(11);
-  var hasTag13 = has(13);   // רכש מחשבון ב-Grow
-
-  // רוכש מחשבון בלבד (#13 ללא תגיות לקוח אחרות): מחשבון + הצעת תכנון, ותו לא.
-  if (hasTag13 && !hasTag2 && !hasTag8 && !hasTag10 && !hasTag11) {
-    return Promise.resolve([SAVINGS_GOALS_SECTION, CALC_PLANNING_OFFER_SECTION]);
-  }
 
   if (data.sections && data.sections.length > 0) {
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
-    if (hasTag13) extra.unshift(SAVINGS_GOALS_SECTION);   // המחשבון — רק למי שרכש (#13)
+    if (hasTag11) extra.unshift(SAVINGS_GOALS_SECTION);
     return Promise.resolve(data.sections.concat(extra));
   }
 
@@ -531,8 +502,8 @@ function buildSections(data) {
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
 
-    // 1b. מחשבון יעדי חיסכון — רק לבעלי תגית #13 (נמכר כמוצר נפרד ב-Grow)
-    if (hasTag13) sections.push(SAVINGS_GOALS_SECTION);
+    // 1b. מחשבון יעדי חיסכון — רק לבעלי תגית #11 (תכנון פיננסי)
+    if (hasTag11) sections.push(SAVINGS_GOALS_SECTION);
 
     // 2. IRA — לכולם
     sections.push({
