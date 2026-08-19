@@ -2138,6 +2138,16 @@ html,body{background:#F8F6F3}
   var GS_SCOPE = 'https://www.googleapis.com/auth/drive.file';
   var gsToken = null, gsTokenExp = 0, gsTokenClient = null, gsResolve = null, gsReject = null;
   var gsFileId = null, gsUrl = null, gsSnapshot = null, gsBusy = false;
+  var gsHint = null;   // מייל הכניסה של הלקוח (מגיע מהפורטל) — משמש כ-hint לחלון גוגל
+
+  /* אזור הלקוחות (same-origin) שולח את מייל הכניסה כדי שהחשבון המוצע בגוגל
+     יהיה אותו מייל. מקבלים רק מאותו מקור, ורק מחרוזת שנראית כמו כתובת מייל. */
+  window.addEventListener('message', function (ev) {
+    if (!ev || ev.origin !== window.location.origin) return;
+    if (ev.data && typeof ev.data.pensyaHint === 'string' && /@/.test(ev.data.pensyaHint)) {
+      gsHint = ev.data.pensyaHint.trim().toLowerCase();
+    }
+  });
 
   function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
   function isoInMonths(m) {
@@ -2210,7 +2220,11 @@ html,body{background:#F8F6F3}
           });
         }
         gsResolve = res; gsReject = rej;
-        gsTokenClient.requestAccessToken({ prompt: '' });
+        /* hint מציע מראש את חשבון הגוגל שתואם למייל הכניסה לפורטל. זו הצעה בלבד —
+           הלקוח עדיין יכול לבחור חשבון אחר, וההצעה עובדת רק אם המייל הוא חשבון גוגל. */
+        var opts = { prompt: '' };
+        if (gsHint) opts.hint = gsHint;
+        gsTokenClient.requestAccessToken(opts);
       };
       if (window.google && google.accounts && google.accounts.oauth2) go();
       else loadScript('https://accounts.google.com/gsi/client').then(go)['catch'](rej);

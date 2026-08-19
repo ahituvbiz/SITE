@@ -5,6 +5,10 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW6
 const AUTH_TOKEN      = 'pensya-ira-2024';
 const CONTENT_BASE    = '/clients/content/tag-';
 
+// המייל שדרכו הלקוח נכנס לאזור הלקוחות — מועבר למחשבון יעדי החיסכון
+// כ-hint לחלון ההתחברות של גוגל, כדי שהחשבון המוצע יהיה החשבון הזה.
+var clientEmail = null;
+
 // ⚠️ אין ברירת מחדל לתגיות. לקוח שחוזר מה-CRM בלי אף תגית הוא לקוח בלי תגיות,
 // והוא אמור לראות את התוכן הפרסומי — לא את התוכן שמיועד לבעלי תגית.
 // (עד 18.8.26 הייתה כאן רשימת KNOWN_TAGS = [8, 10] ששימשה fallback, וגרמה
@@ -429,7 +433,7 @@ var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD
 // ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
 // הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
 // הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
-var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=4';
+var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=5';
 
 var SAVINGS_GOALS_HTML =
   '<div style="background:var(--bg-cream);">' +
@@ -443,6 +447,11 @@ var SAVINGS_GOALS_SECTION = { tagName: 'מחשבון יעדי חיסכון', htm
 // התאמת גובה ה-iframe להודעה שמגיעה מהדף המוטמע
 window.addEventListener('message', function(ev) {
   if (!ev || !ev.data || ev.data.pensyaFrame !== 'savings-goals') return;
+  // כל הודעה מהמחשבון היא הזדמנות למסור לו את מייל הלקוח (hint לחלון גוגל).
+  // נשלח רק לאותו מקור (same-origin) כדי לא לחשוף את המייל לאף גורם אחר.
+  if (clientEmail && ev.source) {
+    try { ev.source.postMessage({ pensyaHint: clientEmail }, location.origin); } catch (e) {}
+  }
   var h = parseInt(ev.data.height, 10);
   if (!h || h < 400 || h > 30000) return;
   var frame = document.getElementById('savings-goals-frame');
@@ -456,6 +465,9 @@ function pingActiveFrame(panelsDiv) {
   [0, 250, 800].forEach(function(t) {
     setTimeout(function() {
       try { frame.contentWindow.postMessage({ pensyaPing: 1 }, '*'); } catch (e) {}
+      if (clientEmail) {
+        try { frame.contentWindow.postMessage({ pensyaHint: clientEmail }, location.origin); } catch (e) {}
+      }
     }, t);
   });
 }
@@ -529,6 +541,7 @@ function buildSections(data) {
   try {
     var parsed = JSON.parse(saved);
     if (parsed.sections && parsed.sections.length > 0) {
+      clientEmail = parsed.email || null;
       buildUI(parsed.sections, parsed.name);
     } else {
       sessionStorage.removeItem('pensya_client_auth');
@@ -564,8 +577,9 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
         return;
       }
+      clientEmail = email;
       return buildSections(data).then(function(sections) {
-        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, sections: sections }));
+        sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, email: email, sections: sections }));
         buildUI(sections, data.name);
       });
     })
