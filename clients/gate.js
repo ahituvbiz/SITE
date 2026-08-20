@@ -1,5 +1,4 @@
 // gate.js — v11 | tag-based personalized content + insurance / donations / child-savings tabs
-//                 + savings-goals calculator tab (tag #11 only, embedded iframe with auto-height)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -430,34 +429,6 @@ var CHILD_SAVINGS_HTML =
 
 var CHILD_SAVINGS_SECTION = { tagName: 'חיסכון לכל ילד', html: CHILD_SAVINGS_HTML };
 
-// ====== לשונית "מחשבון יעדי חיסכון" — רק לבעלי תגית #11 (תכנון פיננסי) ======
-// הדף עצמו יושב ב-/clients/tools/ (חסום ב-robots + noindex) ומוטמע כאן ב-iframe.
-// הגובה מתעדכן אוטומטית לפי הודעת postMessage שהדף שולח, כדי שלא תיווצר גלילה כפולה.
-var SAVINGS_GOALS_URL = '/clients/tools/savings-goals.html?v=9';
-
-var SAVINGS_GOALS_HTML =
-  '<div style="background:var(--bg-cream);">' +
-  '<iframe id="savings-goals-frame" src="' + SAVINGS_GOALS_URL + '" ' +
-  'title="מחשבון יעדי חיסכון" ' +
-  'style="display:block;width:100%;height:1500px;border:0;background:var(--bg-cream);"></iframe>' +
-  '</div>';
-
-var SAVINGS_GOALS_SECTION = { tagName: 'מחשבון יעדי חיסכון', html: SAVINGS_GOALS_HTML };
-
-// התאמת גובה ה-iframe להודעה שמגיעה מהדף המוטמע
-window.addEventListener('message', function(ev) {
-  if (!ev || !ev.data || ev.data.pensyaFrame !== 'savings-goals') return;
-  // כל הודעה מהמחשבון היא הזדמנות למסור לו את מייל הלקוח (hint לחלון גוגל).
-  // נשלח רק לאותו מקור (same-origin) כדי לא לחשוף את המייל לאף גורם אחר.
-  if (clientEmail && ev.source) {
-    try { ev.source.postMessage({ pensyaHint: clientEmail }, location.origin); } catch (e) {}
-  }
-  var h = parseInt(ev.data.height, 10);
-  if (!h || h < 400 || h > 30000) return;
-  var frame = document.getElementById('savings-goals-frame');
-  if (frame) frame.style.height = (h + 2) + 'px';
-});
-
 // כשעוברים ללשונית — מבקשים מהדף המוטמע לדווח גובה מחדש (ה-iframe מודד נכון רק כשהוא גלוי)
 function pingActiveFrame(panelsDiv) {
   var frame = panelsDiv.querySelector('.tab-panel-active iframe');
@@ -483,7 +454,6 @@ function buildSections(data) {
 
   if (data.sections && data.sections.length > 0) {
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
-    if (hasTag11) extra.unshift(SAVINGS_GOALS_SECTION);
     return Promise.resolve(data.sections.concat(extra));
   }
 
@@ -501,9 +471,6 @@ function buildSections(data) {
       tagName: 'פנסיה והשתלמות',
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
-
-    // 1b. מחשבון יעדי חיסכון — רק לבעלי תגית #11 (תכנון פיננסי)
-    if (hasTag11) sections.push(SAVINGS_GOALS_SECTION);
 
     // 2. IRA — לכולם
     sections.push({
