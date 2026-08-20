@@ -20,3 +20,65 @@
 # אזור לקוחות — כתובת ישנה (הוחזר מהתיקייה המקומית 13.8.26)
 /investment/ira/clients/             /clients/                     301
 /investment/ira/clients              /clients/                     301
+
+# ============================================================
+# כתובות האתר הישן שגוגל עדיין מציג (נוסף 21.8.26, לפי Search Console)
+# ספציפי לפני splat — Cloudflare עוצר בהתאמה הראשונה
+# ============================================================
+
+# FinPlan — הדף הישן של תכנון פיננסי (195 הופעות) ותתי-הדפים שלו
+/FinPlan/ייעוץ-פנסיוני                                 /services/                          301
+/FinPlan/ייעוץ-פנסיוני/                                /services/                          301
+/FinPlan/קרן-כספית/תכלס-איך-קונים-קרן-כספית           /savings/how-to-buy-keren-kaspit/   301
+/FinPlan/קרן-כספית/תכלס-איך-קונים-קרן-כספית/          /savings/how-to-buy-keren-kaspit/   301
+/FinPlan/קרן-כספית/קרן-כספית-מחלקת                    /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/קרן-כספית-מחלקת/                   /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/קרן-כספית-ללא-קונצרני              /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/קרן-כספית-ללא-קונצרני/             /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/קרן-כספית-מטחית                    /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/קרן-כספית-מטחית/                   /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית                                     /savings/keren-kaspit/              301
+/FinPlan/קרן-כספית/                                    /savings/keren-kaspit/              301
+/FinPlan/בדיקת-ביטוחים/ביטול-סיעודי                   /insurance/cancel-siudi/            301
+/FinPlan/בדיקת-ביטוחים/ביטול-סיעודי/                  /insurance/cancel-siudi/            301
+/FinPlan/בדיקת-ביטוחים                                 /insurance/cancel-siudi/            301
+/FinPlan/בדיקת-ביטוחים/                                /insurance/cancel-siudi/            301
+/FinPlan/HLY                                           /savings/hisachon-layeled/          301
+/FinPlan/HLY/                                          /savings/hisachon-layeled/          301
+/FinPlan/*                                             /financial-planning/                301
+/FinPlan                                               /financial-planning/                301
+
+# פנסיה לעצמאים (233 הופעות) ותתי-דפים
+/פנסיה-לעצמאים/מחשבון-פנסיה-לעצמאים                   /tools/pension-calc-self-employed/  301
+/פנסיה-לעצמאים/מחשבון-פנסיה-לעצמאים/                  /tools/pension-calc-self-employed/  301
+/פנסיה-לעצמאים/דוגמאות-לייעוץ                          /audiences/self-employed/           301
+/פנסיה-לעצמאים/דוגמאות-לייעוץ/                         /audiences/self-employed/           301
+/פנסיה-לעצמאים/*                                       /audiences/self-employed/           301
+/פנסיה-לעצמאים                                         /audiences/self-employed/           301
+/פנסיה-לעצמאים/                                        /audiences/self-employed/           301
+
+# משכנתא — מבנה ישן
+/mortgage/MISHTAKEN/בחירת-הגרלה-דירה-בהנחה            /tools/mechir-lamishtaken/          301
+/mortgage/MISHTAKEN/בחירת-הגרלה-דירה-בהנחה/           /tools/mechir-lamishtaken/          301
+/mortgage/MISHTAKEN/בחירת-דירה-דירה-בהנחה             /tools/mechir-lamishtaken/          301
+/mortgage/MISHTAKEN/בחירת-דירה-דירה-בהנחה/            /tools/mechir-lamishtaken/          301
+/mortgage/MISHTAKEN/*                                  /tools/mechir-lamishtaken/          301
+/mortgage/MISHTAKEN                                    /tools/mechir-lamishtaken/          301
+/mortgage/כשהמשכנתא-והפנסיה-מתייעצים                  /mortgage/mortgage-and-pension/     301
+/mortgage/כשהמשכנתא-והפנסיה-מתייעצים/                 /mortgage/mortgage-and-pension/     301
+/mortgage                                              /mortgage/mortgage-and-pension/     301
+/mortgage/                                             /mortgage/mortgage-and-pension/     301
+
+# דפים עבריים בודדים מהאתר הישן
+/תכנון-פיננסי-להייטקיסטים                              /audiences/senior-employees/        301
+/תכנון-פיננסי-להייטקיסטים/                             /audiences/senior-employees/        301
+/מחשבונים                                              /tools/                             301
+/מחשבונים/                                             /tools/                             301
+/המלצות                                                /about/testimonials/                301
+/המלצות/                                               /about/testimonials/                301
+/אודות                                                 /about/                             301
+/אודות/                                                /about/                             301
+/כדאי-לדעת                                             /articles/                          301
+/כדאי-לדעת/                                            /articles/                          301
+/ייעוץ-פנסיוני-מסובסד                                  /services/                          301
+/ייעוץ-פנסיוני-מסובסד/                                 /services/                          301
