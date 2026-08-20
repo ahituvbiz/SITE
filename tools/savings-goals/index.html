@@ -71,7 +71,7 @@ a:hover{text-decoration:underline}
 .page-hero{background:linear-gradient(135deg,#fafbfd 0%,var(--primary-soft) 100%);padding:var(--s-2xl) 0 var(--s-xl)}
 .page-hero h1{font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px}
 .page-hero h1 .accent{color:var(--primary)}
-.page-hero .lead{font-size:18px;color:var(--text-2);max-width:640px;line-height:1.7}
+.page-hero .lead{font-size:18px;color:var(--text-2);max-width:100%;line-height:1.7}
 
 /* CTA / BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s;border:none;font-family:inherit}
@@ -110,6 +110,21 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 /* ══════ מחשבון יעדי חיסכון ══════ */
 .calc-wrap{padding:var(--s-2xl) 0 var(--s-xl)}
 .sg-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:0 4px 16px rgba(0,0,0,0.05);margin-bottom:24px}
+.sg-panel.sg-p-rates{background:linear-gradient(135deg,#f5f9fe 0%,#eaf2fc 100%);border-color:#d5e4f5}
+/* שתי סקציות ההנחות זו לצד זו בדסקטופ */
+.sg-assume-row{display:flex;gap:16px;align-items:stretch;margin-bottom:24px}
+.sg-assume-row>.sg-panel{margin-bottom:0;padding:16px 18px 14px}
+.sg-assume-row>.sg-p-rates{flex:1 1 auto}
+.sg-assume-row>.sg-p-bal{flex:1 1 auto}
+.sg-assume-row .sg-panel-sub{margin-bottom:12px}
+.sg-assume-row .sg-params{gap:12px 14px}
+.sg-assume-row .sg-params .sg-field{flex:0 0 auto;width:152px;max-width:none}
+.sg-assume-row .sg-params .sg-field.sg-f-pct{width:112px}
+.sg-assume-row .sg-params .sg-inputwrap{width:100%}
+.sg-assume-row .sg-params .sg-inputwrap.pct{width:100%}
+@media(max-width:900px){.sg-assume-row{flex-direction:column;gap:0}.sg-assume-row>.sg-panel{margin-bottom:16px}}
+@media(max-width:520px){.sg-assume-row .sg-params .sg-field,.sg-assume-row .sg-params .sg-field.sg-f-pct{width:140px}}
+.sg-panel.sg-p-bal{background:linear-gradient(135deg,#f6fbf7 0%,#eaf6ee 100%);border-color:#d2e8da}
 .sg-panel-title{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sg-panel-title .sg-hint{font-weight:400;font-size:13px;color:var(--text-meta)}
 .sg-panel-sub{font-size:12px;color:var(--text-meta);margin-bottom:16px}
@@ -621,12 +636,13 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       </div>
     </div>
 
-    <!-- ═══ הנחות ונתוני פתיחה ═══ -->
-    <div class="sg-panel">
-      <div class="sg-panel-title">⚙️ הנחות ונתוני פתיחה</div>
-      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
+    <!-- ═══ תשואות ותחזית אינפלציה ═══ -->
+    <div class="sg-assume-row">
+    <div class="sg-panel sg-p-rates">
+      <div class="sg-panel-title">📈 תשואות ותחזית אינפלציה</div>
+      <div class="sg-panel-sub">ההנחות שלפיהן מוצמדים היעדים לאינפלציה ומחושבת התשואה על החיסכון.</div>
       <div class="sg-params">
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-infl">תחזית אינפלציה</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-infl" class="has-suffix" value="2" min="0" max="15" step="0.1" inputmode="decimal">
@@ -634,7 +650,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">מייקר את היעד לאורך הזמן</div>
         </div>
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-long">תשואה ארוכת טווח</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-long" class="has-suffix" value="8" min="0" max="20" step="0.1" inputmode="decimal">
@@ -642,7 +658,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">גם לקרנות ההשתלמות</div>
         </div>
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-short">תשואה קצרת טווח</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-short" class="has-suffix" value="3" min="0" max="20" step="0.1" inputmode="decimal">
@@ -650,21 +666,21 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">3 השנים שלפני כל יעד</div>
         </div>
-        <div class="sg-field">
-          <label for="sg-horizon">אופק תכנון</label>
-          <div class="sg-inputwrap pct">
-            <input type="number" id="sg-horizon" class="has-suffix" value="30" min="1" max="50" step="1" inputmode="numeric">
-            <span class="sg-suffix">שנים</span>
-          </div>
-          <div class="sg-note">עד מתי משוכפלים יעדים חוזרים</div>
-        </div>
+      </div>
+    </div>
+
+    <!-- ═══ צבירות ═══ -->
+    <div class="sg-panel sg-p-bal">
+      <div class="sg-panel-title">💰 צבירות</div>
+      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
+      <div class="sg-params">
         <div class="sg-field">
           <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
           <div class="sg-inputwrap">
             <input type="text" id="sg-exist-long" class="has-suffix" value="30,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">גמל להשקעה, ניירות ערך - נטו אחרי מס</div>
+          <div class="sg-note">גמל להשקעה, ניירות ערך — נטו אחרי מס</div>
         </div>
         <div class="sg-field">
           <label for="sg-exist-short">צבירה קיימת - קצר טווח</label>
@@ -672,9 +688,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             <input type="text" id="sg-exist-short" class="has-suffix" value="15,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון - נטו אחרי מס</div>
+          <div class="sg-note">קרן כספית, פיקדון, עו״ש — נטו אחרי מס</div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- ═══ קרנות השתלמות ═══ -->
@@ -1001,7 +1018,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   var DEL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';            // 'level' = חיסכון חודשי אחיד | 'stepped' = מדורג לפי יעד
 
   var SAMPLE_GOALS = [
-    { name: 'החלפת רכב', amount: 80000,  years: 2 },
+    { name: 'החלפת רכב', amount: 80000,  years: 2, recur: true, freq: 5 },
     { name: 'בר מצווה',  amount: 40000,  years: 5 },
     { name: 'חתונה',     amount: 150000, years: 12 }
   ];
@@ -1295,9 +1312,19 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
     /* --- יעדים ---
        יעד חוזר (ריטואלי) משוכפל למופעים: המופע הראשון במועד שהוזן, והבאים
-       בקפיצות של התדירות — עד אופק התכנון. כל מופע מחושב כיעד עצמאי. */
-    var horizon = num('sg-horizon'); if (!(horizon > 0)) horizon = 30;
-    var MAX_OCC = 30;
+       בקפיצות של התדירות — עד מופע אחד אחרי היעד החד-פעמי הרחוק ביותר. כל מופע מחושב כיעד עצמאי. */
+    /* אופק השכפול נגזר מהיעד החד-פעמי הרחוק ביותר */
+    var oneTimeMax = 0;
+    goals.forEach(function (g) {
+      var yy0 = parseFloat(g.years) || 0;
+      var am0 = parseFloat(digitsOnly(g.amount)) || 0;
+      if (!(yy0 > 0 && am0 > 0)) return;
+      var fr0 = g.recur ? (parseFloat(g.freq) || 0) : 0;
+      if (!(fr0 > 0) && yy0 > oneTimeMax) oneTimeMax = yy0;
+    });
+    /* אין יעד חד-פעמי כלל — נופלים חזרה ל-30 שנה */
+    var horizon = oneTimeMax > 0 ? oneTimeMax : 30;
+    var MAX_OCC = 60;
     var all = [];
     goals.forEach(function (g, i) {
       var base = {
@@ -1309,7 +1336,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (freq > 0 && base.years > 0 && base.amount > 0) {
         var dispBase = base.name || ('יעד ' + (i + 1));
         var k = 0;
-        for (var yy = base.years; yy <= horizon + EPS && k < MAX_OCC; yy += freq) {
+        for (var yy = base.years; k < MAX_OCC; yy += freq) {
           all.push({
             id: k === 0 ? g.id : String(g.id) + '#' + (k + 1),
             baseId: g.id, occ: k, idx: i,
@@ -1317,6 +1344,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             amount: base.amount, years: yy, recurring: true, freq: freq
           });
           k++;
+          if (yy > horizon + EPS) break;
         }
         if (!k) { base.recurring = true; base.freq = freq; all.push(base); }
       } else {
@@ -1779,10 +1807,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         var yl = occs.map(function (a) {
           return (Math.round(a.years * 10) / 10).toLocaleString('en-US');
         }).join(', ');
-        parts.push('<strong>יעד חוזר:</strong> ' + occs.length + ' מופעים עד אופק התכנון — בעוד ' + yl +
+        parts.push('<strong>יעד חוזר:</strong> ' + occs.length + ' מופעים — בעוד ' + yl +
                    ' שנים. הסכום המוצג למעלה הוא סך החיסכון החודשי לכל המופעים יחד, והנתונים שלמעלה מתייחסים למופע הראשון');
       } else if (g.recur && parseFloat(g.freq) > 0) {
-        parts.push('<strong>יעד חוזר:</strong> בתוך אופק התכנון הנוכחי יש מופע אחד בלבד');
+        parts.push('<strong>יעד חוזר:</strong> בטווח התכנון יש מופע אחד בלבד');
       }
       xEl.innerHTML = parts.join('. ') + '.';
     });
@@ -1970,6 +1998,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     el.hidden = false;
   }
 
+  function fmtY(v) { return (Math.round((v || 0) * 10) / 10).toLocaleString('en-US'); }
   function assumptionsHtml(c) {
     return '<strong>הנחות החישוב:</strong> הפקדה חודשית קבועה בסוף כל חודש, צבירה חודשית. ' +
       'הסכום שהזנתם לכל יעד הוא בערכי היום ומוצמד לאינפלציה של ' + (c.p.infl * 100).toFixed(1) + '% לשנה ' +
@@ -1978,7 +2007,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       'ב-' + SHORT_WINDOW + ' השנים שלפני מועד היעד כל הצבירה מועברת לכלי קצר טווח וההפקדות ממשיכות לשם, ' +
       'ולכן התשואה על אותו כסף פוחתת בהתאם. ' +
       'יעד שסומן כ<strong>יעד חוזר (ריטואלי)</strong> משוכפל אוטומטית: המופע הראשון במועד שהוזן, והבאים ' +
-      'בקפיצות של התדירות שנקבעה — עד אופק התכנון (' + c.horizonY + ' שנים). כל מופע מחושב כיעד עצמאי, ' +
+      'בקפיצות של התדירות שנקבעה, עד מופע אחד אחרי היעד החד-פעמי הרחוק ביותר (' + fmtY(c.horizonY) + ' שנים). כל מופע מחושב כיעד עצמאי, ' +
       'צמוד לאינפלציה עד מועדו. ' +
       '<br><br><strong>אופן החישוב שנבחר:</strong> ' +
       (mode === 'level'
@@ -2326,12 +2355,11 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     document.getElementById('sg-infl').value = 2;
     document.getElementById('sg-long').value = 8;
     document.getElementById('sg-short').value = 3;
-    document.getElementById('sg-horizon').value = 30;
     document.getElementById('sg-exist-long').value = groupInt(SAMPLE_EXIST.long);
     document.getElementById('sg-exist-short').value = groupInt(SAMPLE_EXIST.short);
     render();
   });
-  ['sg-infl', 'sg-long', 'sg-short', 'sg-horizon'].forEach(function (id) {
+  ['sg-infl', 'sg-long', 'sg-short'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('input', calc);
   });
@@ -2515,7 +2543,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           '<div class="sgr-param"><b>' + (c.p.infl * 100).toFixed(1) + '%</b><span>תחזית אינפלציה</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rLong * 100).toFixed(1) + '%</b><span>תשואה ארוכת טווח</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rShort * 100).toFixed(1) + '%</b><span>תשואה קצרת טווח</span></div>' +
-          '<div class="sgr-param"><b>' + c.horizonY + ' שנים</b><span>אופק תכנון</span></div>' +
+          '<div class="sgr-param"><b>' + fmtY(c.horizonY) + ' שנים</b><span>טווח התכנון</span></div>' +
           '<div class="sgr-param"><b>25%</b><span>מס רווחי הון (ריאלי)</span></div>' +
         '</div>' +
         '<div class="sgr-sum">' +
@@ -2820,7 +2848,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   function gsState() {
     return {
       infl: num('sg-infl'), rLong: num('sg-long'), rShort: num('sg-short'),
-      horizon: num('sg-horizon'),
       existLong: num('sg-exist-long'), existShort: num('sg-exist-short'),
       goals: goals.map(function (g) {
         return { name: (g.name || '').trim(),
@@ -2848,8 +2875,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     rows.push(['התכנית נוצרה בתאריך', isoInMonths(0)]);
     rows.push([]);
     rows.push(['הנחות']);
-    rows.push(['תחזית אינפלציה %', 'תשואה ארוכת טווח %', 'תשואה קצרת טווח %', 'אופק תכנון (שנים)']);
-    rows.push([st.infl, st.rLong, st.rShort, st.horizon]);
+    rows.push(['תחזית אינפלציה %', 'תשואה ארוכת טווח %', 'תשואה קצרת טווח %']);
+    rows.push([st.infl, st.rLong, st.rShort]);
     rows.push([]);
     rows.push(['צבירות קיימות (נטו, בערכי היום)']);
     rows.push(['ארוך טווח ₪', 'קצר טווח ₪']);
@@ -2936,7 +2963,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (String(cell(assume, 0)) !== '') document.getElementById('sg-infl').value = numOf(cell(assume, 0));
       if (String(cell(assume, 1)) !== '') document.getElementById('sg-long').value = numOf(cell(assume, 1));
       if (String(cell(assume, 2)) !== '') document.getElementById('sg-short').value = numOf(cell(assume, 2));
-      document.getElementById('sg-horizon').value = numOf(cell(assume, 3)) || 30;
     }
     if (exist) {
       document.getElementById('sg-exist-long').value = groupInt(String(Math.round(numOf(cell(exist, 0)))));
