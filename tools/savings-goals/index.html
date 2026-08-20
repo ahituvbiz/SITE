@@ -110,6 +110,8 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 /* ══════ מחשבון יעדי חיסכון ══════ */
 .calc-wrap{padding:var(--s-2xl) 0 var(--s-xl)}
 .sg-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:0 4px 16px rgba(0,0,0,0.05);margin-bottom:24px}
+.sg-panel.sg-p-rates{background:linear-gradient(135deg,#f5f9fe 0%,#eaf2fc 100%);border-color:#d5e4f5}
+.sg-panel.sg-p-bal{background:linear-gradient(135deg,#f6fbf7 0%,#eaf6ee 100%);border-color:#d2e8da}
 .sg-panel-title{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sg-panel-title .sg-hint{font-weight:400;font-size:13px;color:var(--text-meta)}
 .sg-panel-sub{font-size:12px;color:var(--text-meta);margin-bottom:16px}
@@ -621,10 +623,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       </div>
     </div>
 
-    <!-- ═══ הנחות ונתוני פתיחה ═══ -->
-    <div class="sg-panel">
-      <div class="sg-panel-title">⚙️ הנחות ונתוני פתיחה</div>
-      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
+    <!-- ═══ תשואות ותחזית אינפלציה ═══ -->
+    <div class="sg-panel sg-p-rates">
+      <div class="sg-panel-title">📈 תשואות ותחזית אינפלציה</div>
+      <div class="sg-panel-sub">ההנחות שלפיהן מוצמדים היעדים לאינפלציה ומחושבת התשואה על החיסכון.</div>
       <div class="sg-params">
         <div class="sg-field">
           <label for="sg-infl">תחזית אינפלציה</label>
@@ -650,14 +652,14 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">3 השנים שלפני כל יעד</div>
         </div>
-        <div class="sg-field">
-          <label for="sg-horizon">אופק תכנון</label>
-          <div class="sg-inputwrap pct">
-            <input type="number" id="sg-horizon" class="has-suffix" value="30" min="1" max="50" step="1" inputmode="numeric">
-            <span class="sg-suffix">שנים</span>
-          </div>
-          <div class="sg-note">עד מתי משוכפלים יעדים חוזרים</div>
-        </div>
+      </div>
+    </div>
+
+    <!-- ═══ צבירות ═══ -->
+    <div class="sg-panel sg-p-bal">
+      <div class="sg-panel-title">💰 צבירות</div>
+      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
+      <div class="sg-params">
         <div class="sg-field">
           <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
           <div class="sg-inputwrap">
@@ -1244,9 +1246,19 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
     /* --- יעדים ---
        יעד חוזר (ריטואלי) משוכפל למופעים: המופע הראשון במועד שהוזן, והבאים
-       בקפיצות של התדירות — עד אופק התכנון. כל מופע מחושב כיעד עצמאי. */
-    var horizon = num('sg-horizon'); if (!(horizon > 0)) horizon = 30;
-    var MAX_OCC = 30;
+       בקפיצות של התדירות — עד מופע אחד אחרי היעד החד-פעמי הרחוק ביותר. כל מופע מחושב כיעד עצמאי. */
+    /* אופק השכפול נגזר מהיעד החד-פעמי הרחוק ביותר */
+    var oneTimeMax = 0;
+    goals.forEach(function (g) {
+      var yy0 = parseFloat(g.years) || 0;
+      var am0 = parseFloat(digitsOnly(g.amount)) || 0;
+      if (!(yy0 > 0 && am0 > 0)) return;
+      var fr0 = g.recur ? (parseFloat(g.freq) || 0) : 0;
+      if (!(fr0 > 0) && yy0 > oneTimeMax) oneTimeMax = yy0;
+    });
+    /* אין יעד חד-פעמי כלל — נופלים חזרה ל-30 שנה */
+    var horizon = oneTimeMax > 0 ? oneTimeMax : 30;
+    var MAX_OCC = 60;
     var all = [];
     goals.forEach(function (g, i) {
       var base = {
@@ -1258,7 +1270,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (freq > 0 && base.years > 0 && base.amount > 0) {
         var dispBase = base.name || ('יעד ' + (i + 1));
         var k = 0;
-        for (var yy = base.years; yy <= horizon + EPS && k < MAX_OCC; yy += freq) {
+        for (var yy = base.years; k < MAX_OCC; yy += freq) {
           all.push({
             id: k === 0 ? g.id : String(g.id) + '#' + (k + 1),
             baseId: g.id, occ: k, idx: i,
@@ -1266,6 +1278,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             amount: base.amount, years: yy, recurring: true, freq: freq
           });
           k++;
+          if (yy > horizon + EPS) break;
         }
         if (!k) { base.recurring = true; base.freq = freq; all.push(base); }
       } else {
@@ -1728,10 +1741,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         var yl = occs.map(function (a) {
           return (Math.round(a.years * 10) / 10).toLocaleString('en-US');
         }).join(', ');
-        parts.push('<strong>יעד חוזר:</strong> ' + occs.length + ' מופעים עד אופק התכנון — בעוד ' + yl +
+        parts.push('<strong>יעד חוזר:</strong> ' + occs.length + ' מופעים — בעוד ' + yl +
                    ' שנים. הסכום המוצג למעלה הוא סך החיסכון החודשי לכל המופעים יחד, והנתונים שלמעלה מתייחסים למופע הראשון');
       } else if (g.recur && parseFloat(g.freq) > 0) {
-        parts.push('<strong>יעד חוזר:</strong> בתוך אופק התכנון הנוכחי יש מופע אחד בלבד');
+        parts.push('<strong>יעד חוזר:</strong> בטווח התכנון יש מופע אחד בלבד');
       }
       xEl.innerHTML = parts.join('. ') + '.';
     });
@@ -1919,6 +1932,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     el.hidden = false;
   }
 
+  function fmtY(v) { return (Math.round((v || 0) * 10) / 10).toLocaleString('en-US'); }
   function assumptionsHtml(c) {
     return '<strong>הנחות החישוב:</strong> הפקדה חודשית קבועה בסוף כל חודש, צבירה חודשית. ' +
       'הסכום שהזנתם לכל יעד הוא בערכי היום ומוצמד לאינפלציה של ' + (c.p.infl * 100).toFixed(1) + '% לשנה ' +
@@ -1927,7 +1941,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       'ב-' + SHORT_WINDOW + ' השנים שלפני מועד היעד כל הצבירה מועברת לכלי קצר טווח וההפקדות ממשיכות לשם, ' +
       'ולכן התשואה על אותו כסף פוחתת בהתאם. ' +
       'יעד שסומן כ<strong>יעד חוזר (ריטואלי)</strong> משוכפל אוטומטית: המופע הראשון במועד שהוזן, והבאים ' +
-      'בקפיצות של התדירות שנקבעה — עד אופק התכנון (' + c.horizonY + ' שנים). כל מופע מחושב כיעד עצמאי, ' +
+      'בקפיצות של התדירות שנקבעה, עד מופע אחד אחרי היעד החד-פעמי הרחוק ביותר (' + fmtY(c.horizonY) + ' שנים). כל מופע מחושב כיעד עצמאי, ' +
       'צמוד לאינפלציה עד מועדו. ' +
       '<br><br><strong>אופן החישוב שנבחר:</strong> ' +
       (mode === 'level'
@@ -2274,12 +2288,11 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     document.getElementById('sg-infl').value = 2;
     document.getElementById('sg-long').value = 8;
     document.getElementById('sg-short').value = 3;
-    document.getElementById('sg-horizon').value = 30;
     document.getElementById('sg-exist-long').value = groupInt(SAMPLE_EXIST.long);
     document.getElementById('sg-exist-short').value = groupInt(SAMPLE_EXIST.short);
     render();
   });
-  ['sg-infl', 'sg-long', 'sg-short', 'sg-horizon'].forEach(function (id) {
+  ['sg-infl', 'sg-long', 'sg-short'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('input', calc);
   });
@@ -2463,7 +2476,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           '<div class="sgr-param"><b>' + (c.p.infl * 100).toFixed(1) + '%</b><span>תחזית אינפלציה</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rLong * 100).toFixed(1) + '%</b><span>תשואה ארוכת טווח</span></div>' +
           '<div class="sgr-param"><b>' + (c.p.rShort * 100).toFixed(1) + '%</b><span>תשואה קצרת טווח</span></div>' +
-          '<div class="sgr-param"><b>' + c.horizonY + ' שנים</b><span>אופק תכנון</span></div>' +
+          '<div class="sgr-param"><b>' + fmtY(c.horizonY) + ' שנים</b><span>טווח התכנון</span></div>' +
           '<div class="sgr-param"><b>25%</b><span>מס רווחי הון (ריאלי)</span></div>' +
         '</div>' +
         '<div class="sgr-sum">' +
@@ -2768,7 +2781,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   function gsState() {
     return {
       infl: num('sg-infl'), rLong: num('sg-long'), rShort: num('sg-short'),
-      horizon: num('sg-horizon'),
       existLong: num('sg-exist-long'), existShort: num('sg-exist-short'),
       goals: goals.map(function (g) {
         return { name: (g.name || '').trim(),
@@ -2796,8 +2808,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     rows.push(['התכנית נוצרה בתאריך', isoInMonths(0)]);
     rows.push([]);
     rows.push(['הנחות']);
-    rows.push(['תחזית אינפלציה %', 'תשואה ארוכת טווח %', 'תשואה קצרת טווח %', 'אופק תכנון (שנים)']);
-    rows.push([st.infl, st.rLong, st.rShort, st.horizon]);
+    rows.push(['תחזית אינפלציה %', 'תשואה ארוכת טווח %', 'תשואה קצרת טווח %']);
+    rows.push([st.infl, st.rLong, st.rShort]);
     rows.push([]);
     rows.push(['צבירות קיימות (נטו, בערכי היום)']);
     rows.push(['ארוך טווח ₪', 'קצר טווח ₪']);
@@ -2884,7 +2896,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (String(cell(assume, 0)) !== '') document.getElementById('sg-infl').value = numOf(cell(assume, 0));
       if (String(cell(assume, 1)) !== '') document.getElementById('sg-long').value = numOf(cell(assume, 1));
       if (String(cell(assume, 2)) !== '') document.getElementById('sg-short').value = numOf(cell(assume, 2));
-      document.getElementById('sg-horizon').value = numOf(cell(assume, 3)) || 30;
     }
     if (exist) {
       document.getElementById('sg-exist-long').value = groupInt(String(Math.round(numOf(cell(exist, 0)))));
