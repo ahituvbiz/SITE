@@ -1962,9 +1962,9 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
   /* ═══════════════ גרפים ═══════════════ */
   var CH_SER = [
+    { k: 'K', name: 'קרן השתלמות',       color: '#6B5CA5' },
     { k: 'L', name: 'חיסכון לטווח ארוך', color: '#007DA8' },
-    { k: 'S', name: 'חיסכון לטווח קצר',  color: '#D9A72C' },
-    { k: 'K', name: 'קרן השתלמות',       color: '#6B5CA5' }
+    { k: 'S', name: 'חיסכון לטווח קצר',  color: '#D9A72C' }
   ];
   var LOCK_SVG = '<span class="sg-lock-ico" aria-hidden="true"><svg viewBox="0 0 24 24">' +
     '<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></span>';
@@ -2027,7 +2027,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
     var c1 = [], c2 = [], c3 = [], mx = 0, t;
     for (t = 0; t <= n; t++) {
-      var a = vals.L[t] || 0, b = vals.S[t] || 0, k = vals.K[t] || 0;
+      var a = vals[CH_SER[0].k][t] || 0, b = vals[CH_SER[1].k][t] || 0, k = vals[CH_SER[2].k][t] || 0;
       c1[t] = a; c2[t] = a + b; c3[t] = a + b + k;
       if (c3[t] > mx) mx = c3[t];
     }
@@ -2108,7 +2108,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (q < 0) q = 0;
       if (q > n) q = n;
       if (isDep && q === 0) q = 1;
-      var a = vals.L[q] || 0, b = vals.S[q] || 0, k = vals.K[q] || 0;
+      var a = vals[CH_SER[0].k][q] || 0, b = vals[CH_SER[1].k][q] || 0, k = vals[CH_SER[2].k][q] || 0;
       var rows = '<div class="tt">' + monthLabel(q - (isDep ? 1 : 0)) + '</div>';
       CH_SER.forEach(function (s, si) {
         var vv = si === 0 ? a : si === 1 ? b : k;
