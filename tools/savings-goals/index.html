@@ -194,23 +194,34 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-freq{max-width:150px}
 .sg-freq .sg-inputwrap{width:130px}
 
-/* כרטיסי יעדים — כל הרובריקות בשורה אחת בדסקטופ */
+/* כרטיסי יעדים — שניים בשורה, קומפקטיים */
+#sg-goals .sg-card{padding:12px 16px 12px}
+#sg-goals .sg-card-head{margin-bottom:10px}
+#sg-goals .sg-card .sg-field label{font-size:12.5px;margin-bottom:4px;white-space:nowrap}
+#sg-goals .sg-card .sg-field input{height:40px;padding:0 10px;font-size:15px}
+#sg-goals .sg-card .sg-field input.has-suffix{padding-left:28px}
+#sg-goals .sg-card .sg-field .sg-suffix{left:10px;font-size:13px}
+#sg-goals .sg-card .sg-rows{gap:10px}
+#sg-goals .sg-card .sg-card-res{margin-top:10px;padding:9px 12px}
+#sg-goals .sg-card .sg-card-res .sg-gr-val{font-size:20px}
+#sg-goals .sg-card .sg-card-meta{margin-top:8px;font-size:12px;line-height:1.55}
+#sg-goals .sg-card .sg-del{width:32px;height:32px}
+#sg-goals .sg-card .sg-del svg{width:17px;height:17px}
+#sg-goals .sg-card .sg-recur-row:empty{display:none}
+#sg-goals .sg-card .sg-recur{padding:0;font-size:13px;white-space:nowrap}
 @media(min-width:1000px){
-  #sg-goals.sg-cards{grid-template-columns:1fr}
-  #sg-goals .sg-card .sg-rows{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:14px}
-  #sg-goals .sg-card .sg-rows>.sg-field{flex:1 1 200px;min-width:150px}
-  #sg-goals .sg-card .sg-rows>.sg-two{display:flex;gap:14px;flex:0 0 auto}
-  #sg-goals .sg-card .sg-rows>.sg-recur-row{flex:0 0 auto;margin-top:0;flex-wrap:nowrap;gap:12px}
-  #sg-goals .sg-card .sg-inputwrap{width:132px}
-  #sg-goals .sg-card input[data-f="years"]{width:86px}
+  #sg-goals .sg-card .sg-rows{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px}
+  #sg-goals .sg-card .sg-rows>.sg-field{flex:1 1 130px;min-width:110px}
+  #sg-goals .sg-card .sg-rows>.sg-two{display:flex;gap:10px;flex:0 0 auto}
+  #sg-goals .sg-card .sg-two>.sg-field{width:124px;min-width:0;flex:0 0 auto}
+  #sg-goals .sg-card .sg-two>.sg-field:last-child{width:88px}
+  #sg-goals .sg-card .sg-freq{width:104px;min-width:0;flex:0 0 auto}
+  #sg-goals .sg-card .sg-rows>.sg-recur-row{flex:0 0 auto;margin-top:0;gap:10px}
+  #sg-goals .sg-card .sg-inputwrap{width:124px}
+  #sg-goals .sg-card input[data-f="years"]{width:88px}
   #sg-goals .sg-card .sg-freq{max-width:none}
-  #sg-goals .sg-card .sg-freq .sg-inputwrap{width:112px}
-  #sg-goals .sg-card .sg-recur{white-space:nowrap}
+  #sg-goals .sg-card .sg-freq .sg-inputwrap{width:104px}
 }
-/* פחות אוויר בתוך שדות הכרטיס */
-#sg-goals .sg-card .sg-field input{height:42px;padding:0 10px}
-#sg-goals .sg-card .sg-field input.has-suffix{padding-left:30px}
-#sg-goals .sg-card .sg-field .sg-suffix{left:10px}
 
 /* פאנל גוגל שיטס */
 .sg-sheets-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
@@ -1734,6 +1745,9 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       '<div class="sg-card" data-id="' + g.id + '">' +
         '<div class="sg-card-head">' +
           '<span class="sg-card-idx">יעד ' + (i + 1) + '</span>' +
+          '<label class="sg-recur" title="יעד שחוזר על עצמו בכל תקופה — למשל החלפת רכב או חופשה שנתית">' +
+            '<input type="checkbox" data-f="recur"' + (g.recur ? ' checked' : '') + '> יעד חוזר (ריטואלי)' +
+          '</label>' +
           '<button type="button" class="sg-del" data-act="del" aria-label="מחיקת היעד" title="מחיקת היעד">' + DEL_ICON + '</button>' +
         '</div>' +
         '<div class="sg-rows">' +
@@ -1742,16 +1756,13 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             '<input type="text" id="sg-n-' + g.id + '" data-f="name" value="' + esc(g.name) + '" placeholder="למשל: חתונה של דנה" maxlength="40">' +
           '</div>' +
           '<div class="sg-two">' +
-            amountField('sg-a-' + g.id, 'amount', g.amount, 'הסכום הדרוש (בערכי היום)') +
+            amountField('sg-a-' + g.id, 'amount', g.amount, 'סכום בערכי היום') +
             '<div class="sg-field">' +
               '<label for="sg-y-' + g.id + '">בעוד כמה שנים</label>' +
               '<input type="number" id="sg-y-' + g.id + '" data-f="years" value="' + esc(g.years) + '" min="0.5" max="50" step="0.5" inputmode="decimal" placeholder="0">' +
             '</div>' +
           '</div>' +
           '<div class="sg-recur-row">' +
-            '<label class="sg-recur" title="יעד שחוזר על עצמו בכל תקופה — למשל החלפת רכב או חופשה שנתית">' +
-              '<input type="checkbox" data-f="recur"' + (g.recur ? ' checked' : '') + '> יעד חוזר (ריטואלי)' +
-            '</label>' +
             (g.recur
               ? '<div class="sg-field sg-freq">' +
                   '<label for="sg-fr-' + g.id + '">ולאחר מכן כל</label>' +
