@@ -1897,11 +1897,23 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       html += '<div class="sg-fp-none">אין צורך לפתוח קרנות חדשות — הקרנות הקיימות מספיקות לפי לוח הזמנים.</div>';
     }
     if (shorts.length) {
-      html += '<div class="sg-fp-sub" style="margin-top:12px;color:#8A6D0B">⚠️ ' +
-        'ליעדים הבאים קרן ההשתלמות לא תהיה נזילה בזמן (מוקדם מדי ביחס לנעילת 6 השנים), ' +
-        'וההשלמה שלהם מגיעה מהחיסכון החודשי הרגיל: <strong>' +
-        shorts.map(function (g) { return esc((g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'); }).join(', ') +
-        '</strong>.</div>';
+      var liqArr = c.funds.filter(function (f) { return f.valid; }).map(function (f) { return f.liq == null ? 0 : f.liq; });
+      var minLiq = liqArr.length ? Math.min.apply(null, liqArr) : 0;
+      var notInTime = shorts.filter(function (g) { return c.res[g.id].months < minLiq; });
+      var notEnough = shorts.filter(function (g) { return c.res[g.id].months >= minLiq; });
+      if (notInTime.length) {
+        html += '<div class="sg-fp-sub" style="margin-top:12px;color:#8A6D0B">⚠️ ' +
+          'ליעדים הבאים קרן ההשתלמות לא תהיה נזילה בזמן (מוקדם מדי ביחס לנעילת 6 השנים), ' +
+          'והמימון שלהם מגיע מהחיסכון החודשי הרגיל: <strong>' +
+          notInTime.map(function (g) { return esc((g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'); }).join(', ') +
+          '</strong>.</div>';
+      }
+      if (notEnough.length) {
+        html += '<div class="sg-fp-sub" style="margin-top:12px;color:#8A6D0B">⚠️ ' +
+          'ביעדים הבאים הקרן נזילה בזמן, אבל אין בה מספיק כסף לכל הסכום — היא נותנת את מה שיש בה, והיתרה מגיעה מהחיסכון החודשי הרגיל: <strong>' +
+          notEnough.map(function (g) { var r = c.res[g.id]; return esc((g.name || 'יעד') + ' (מהקרן: ' + nis(r.fromKH) + ')'); }).join(', ') +
+          '</strong>.</div>';
+      }
     }
     el.innerHTML = html;
     el.hidden = false;
@@ -2007,8 +2019,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     if (!(W > 120)) W = 760;
     if (W > 980) W = 980;
     var narrow = W < 430;
-    var H = narrow ? 215 : 250;
-    var PL = 10, PR = narrow ? 46 : 62, PT = 12, PB = narrow ? 32 : 36;
+    var H = narrow ? 229 : 264;
+    var PL = 10, PR = narrow ? 46 : 62, PT = 12, PB = narrow ? 46 : 50;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.setAttribute('height', H);
 
@@ -2066,6 +2078,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     g += '<path d="' + area(c1) + '" fill="' + CH_SER[0].color + '" fill-opacity=".95"/>';
 
     /* ציר X - שנים */
+    var baseYear = new Date().getFullYear();
     var years = Math.max(1, Math.ceil(n / 12));
     var stepY = Math.max(1, Math.ceil(years / (narrow ? 5 : 9)));
     for (var yv = 0; yv <= years; yv += stepY) {
@@ -2075,8 +2088,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
            '" y2="' + (y0 + 4) + '" stroke="#CFCCC6" stroke-width="1"/>';
       g += '<text x="' + X(tt).toFixed(1) + '" y="' + (y0 + 16) + '" font-size="' + (narrow ? 10 : 11) +
            '" fill="#999" text-anchor="middle">' + (yv === 0 ? 'היום' : yv) + '</text>';
+      g += '<text x="' + X(tt).toFixed(1) + '" y="' + (y0 + 29) + '" font-size="' + (narrow ? 9 : 9.5) +
+           '" fill="#B8B5AF" text-anchor="middle">' + (baseYear + yv) + '</text>';
     }
-    g += '<text x="' + X(n / 2).toFixed(1) + '" y="' + (y0 + (narrow ? 28 : 30)) +
+    g += '<text x="' + X(n / 2).toFixed(1) + '" y="' + (y0 + (narrow ? 42 : 44)) +
          '" font-size="10.5" fill="#BBB" text-anchor="middle">שנים מהיום</text>';
 
     /* סימוני מועדי היעדים */
@@ -2398,9 +2413,19 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           '</tbody></table>';
       }
       if (fpShorts.length) {
-        fundsHtml += '<div class="sgr-notes" style="border-top:none;margin-top:6px;padding-top:0">⚠️ קרן ההשתלמות אינה נזילה בזמן ליעדים: ' +
-          esc(fpShorts.map(function (g) { return (g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'; }).join(', ')) +
-          ' — ההשלמה שלהם מהחיסכון החודשי הרגיל.</div>';
+        var fpLiq = c.funds.filter(function (f) { return f.valid; }).map(function (f) { return f.liq == null ? 0 : f.liq; });
+        var fpMinLiq = fpLiq.length ? Math.min.apply(null, fpLiq) : 0;
+        var fpNotInTime = fpShorts.filter(function (g) { return c.res[g.id].months < fpMinLiq; });
+        var fpNotEnough = fpShorts.filter(function (g) { return c.res[g.id].months >= fpMinLiq; });
+        if (fpNotInTime.length) {
+          fundsHtml += '<div class="sgr-notes" style="border-top:none;margin-top:6px;padding-top:0">⚠️ קרן ההשתלמות אינה נזילה בזמן ליעדים: ' +
+            esc(fpNotInTime.map(function (g) { return (g.name || 'יעד') + ' (' + monthsLabel(c.res[g.id].months) + ')'; }).join(', ')) +
+            ' — המימון שלהם מהחיסכון החודשי הרגיל.</div>';
+        }
+        if (fpNotEnough.length) {
+          fundsHtml += '<div class="sgr-notes" style="border-top:none;margin-top:6px;padding-top:0">⚠️ ביעדים הבאים הקרן נזילה בזמן אך אינה מכסה את מלוא הסכום, והיתרה מגיעה מהחיסכון החודשי: ' +
+            esc(fpNotEnough.map(function (g) { return (g.name || 'יעד') + ' (מהקרן: ' + nis(c.res[g.id].fromKH) + ')'; }).join(', ')) + '.</div>';
+        }
       }
     }
 
