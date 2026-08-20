@@ -194,6 +194,24 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .sg-freq{max-width:150px}
 .sg-freq .sg-inputwrap{width:130px}
 
+/* כרטיסי יעדים — כל הרובריקות בשורה אחת בדסקטופ */
+@media(min-width:1000px){
+  #sg-goals.sg-cards{grid-template-columns:1fr}
+  #sg-goals .sg-card .sg-rows{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:14px}
+  #sg-goals .sg-card .sg-rows>.sg-field{flex:1 1 200px;min-width:150px}
+  #sg-goals .sg-card .sg-rows>.sg-two{display:flex;gap:14px;flex:0 0 auto}
+  #sg-goals .sg-card .sg-rows>.sg-recur-row{flex:0 0 auto;margin-top:0;flex-wrap:nowrap;gap:12px}
+  #sg-goals .sg-card .sg-inputwrap{width:132px}
+  #sg-goals .sg-card input[data-f="years"]{width:86px}
+  #sg-goals .sg-card .sg-freq{max-width:none}
+  #sg-goals .sg-card .sg-freq .sg-inputwrap{width:112px}
+  #sg-goals .sg-card .sg-recur{white-space:nowrap}
+}
+/* פחות אוויר בתוך שדות הכרטיס */
+#sg-goals .sg-card .sg-field input{height:42px;padding:0 10px}
+#sg-goals .sg-card .sg-field input.has-suffix{padding-left:30px}
+#sg-goals .sg-card .sg-field .sg-suffix{left:10px}
+
 /* פאנל גוגל שיטס */
 .sg-sheets-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .sg-gbtn{background:#fff;border:1.5px solid var(--primary);color:var(--primary);border-radius:10px;
