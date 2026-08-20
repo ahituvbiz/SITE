@@ -704,7 +704,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     <!-- ═══ צבירות ═══ -->
     <div class="sg-panel sg-p-bal">
       <div class="sg-panel-title">💰 צבירות</div>
-      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר.</div>
+      <div class="sg-panel-sub">הצבירות הקיימות ישמשו קודם את היעדים הקרובים ביותר. המחשבון מניח שכל צבירה מושקעת לפי מועד היעד שאליו שויכה — מנייתי עד 3 שנים לפני היעד, ואז סולידי.</div>
       <div class="sg-params">
         <div class="sg-field">
           <label for="sg-exist-long">צבירה קיימת - ארוך טווח</label>
@@ -1437,8 +1437,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       var target = g.amount * Math.pow(1 + p.infl, g.years);
       var need = target, fromST = 0, fromLT = 0, useST0 = 0, useLT0 = 0;
 
+      /* כלל אחיד: כל צבירה קיימת שמיועדת ליעד יושבת בכלי הארוך עד 3 שנים
+         לפני מועדו ואז עוברת לכלי הקצר - גם אם היא נמצאת היום בכלי סולידי. */
       if (stRemain > EPS && need > EPS) {
-        var f1 = lumpF(0, m);
+        var f1 = lumpF(m1, m2);
         var take1 = Math.min(stRemain * f1, need);
         useST0 = take1 / f1;
         stRemain -= useST0; need -= take1; fromST += take1;
@@ -1624,7 +1626,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         /* גבול המעבר להפקדה לכלי הקצר - לפי המקדמים שבהם חושבה ההפקדה */
         var toShortFrom = isLevel ? Math.max(1, m1) : m1 + 1;
         var LV = 0, LB = 0, SV = 0, SB = 0;
-        if (m1 > 0) { LV = LB = r.useLT0; SV = SB = r.useST0; }
+        if (m1 > 0) { LV = LB = r.useLT0 + r.useST0; SV = SB = 0; }
         else { SV = SB = r.useLT0 + r.useST0; }
         out.balL[0] += LV; out.balS[0] += SV;
         var dep = isLevel ? depMap[g.id] : null;
@@ -2104,8 +2106,9 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       'המס במחשבון מחושב מכאן והלאה בלבד. ' +
       '<br><br><strong>סדר מקורות המימון:</strong> כל יעד ממומן קודם מהצבירות הקיימות (החל מהיעד הקרוב ביותר), ' +
       'אחר כך מקרנות ההשתלמות, ורק היתרה דורשת הפקדה חודשית חדשה. ' +
-      'צבירה קיימת בכלי ארוך טווח שמיועדת ליעד שבתוך פחות מ-' + SHORT_WINDOW + ' שנים מחושבת כאילו כבר הועברה לכלי הקצר, ' +
-      'בהתאם לאותו כלל. ' +
+      'כלל ה-' + SHORT_WINDOW + ' שנים חל על הצבירות הקיימות בדיוק כמו על ההפקדות החדשות: צבירה שמיועדת ליעד ' +
+      'רחוק יותר מ-' + SHORT_WINDOW + ' שנים מחושבת כמושקעת בכלי הארוך עד נקודת המעבר - גם אם היא יושבת היום בקרן כספית - ' +
+      'וצבירה שמיועדת ליעד קרוב יותר מחושבת כבר עכשיו בכלי הקצר. כלומר המחשבון מניח שתעבירו את הכסף בהתאם למועד היעד. ' +
       '<br><br><strong>קרנות השתלמות:</strong> הונח שהקרן משוקעת במסלול מנייתי עד המשיכה, ולכן היא צומחת ' +
       'בתשואה ארוכת הטווח (' + (c.p.rLong * 100).toFixed(1) + '%) לכל אורך התקופה - גם בשלוש השנים שלפני היעד. ' +
       'המשיכה מקרן השתלמות מתבצעת רק לאחר שנוצלו כל שאר החסכונות, ורק אם הקרן נזילה במועד היעד. ' +
