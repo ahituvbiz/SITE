@@ -111,6 +111,19 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 .calc-wrap{padding:var(--s-2xl) 0 var(--s-xl)}
 .sg-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:0 4px 16px rgba(0,0,0,0.05);margin-bottom:24px}
 .sg-panel.sg-p-rates{background:linear-gradient(135deg,#f5f9fe 0%,#eaf2fc 100%);border-color:#d5e4f5}
+/* שתי סקציות ההנחות זו לצד זו בדסקטופ */
+.sg-assume-row{display:flex;gap:16px;align-items:stretch;margin-bottom:24px}
+.sg-assume-row>.sg-panel{margin-bottom:0;padding:16px 18px 14px}
+.sg-assume-row>.sg-p-rates{flex:1 1 auto}
+.sg-assume-row>.sg-p-bal{flex:1 1 auto}
+.sg-assume-row .sg-panel-sub{margin-bottom:12px}
+.sg-assume-row .sg-params{gap:12px 14px}
+.sg-assume-row .sg-params .sg-field{flex:0 0 auto;width:152px;max-width:none}
+.sg-assume-row .sg-params .sg-field.sg-f-pct{width:112px}
+.sg-assume-row .sg-params .sg-inputwrap{width:100%}
+.sg-assume-row .sg-params .sg-inputwrap.pct{width:100%}
+@media(max-width:900px){.sg-assume-row{flex-direction:column;gap:0}.sg-assume-row>.sg-panel{margin-bottom:16px}}
+@media(max-width:520px){.sg-assume-row .sg-params .sg-field,.sg-assume-row .sg-params .sg-field.sg-f-pct{width:140px}}
 .sg-panel.sg-p-bal{background:linear-gradient(135deg,#f6fbf7 0%,#eaf6ee 100%);border-color:#d2e8da}
 .sg-panel-title{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sg-panel-title .sg-hint{font-weight:400;font-size:13px;color:var(--text-meta)}
@@ -624,11 +637,12 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     </div>
 
     <!-- ═══ תשואות ותחזית אינפלציה ═══ -->
+    <div class="sg-assume-row">
     <div class="sg-panel sg-p-rates">
       <div class="sg-panel-title">📈 תשואות ותחזית אינפלציה</div>
       <div class="sg-panel-sub">ההנחות שלפיהן מוצמדים היעדים לאינפלציה ומחושבת התשואה על החיסכון.</div>
       <div class="sg-params">
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-infl">תחזית אינפלציה</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-infl" class="has-suffix" value="2" min="0" max="15" step="0.1" inputmode="decimal">
@@ -636,7 +650,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">מייקר את היעד לאורך הזמן</div>
         </div>
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-long">תשואה ארוכת טווח</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-long" class="has-suffix" value="8" min="0" max="20" step="0.1" inputmode="decimal">
@@ -644,7 +658,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           </div>
           <div class="sg-note">גם לקרנות ההשתלמות</div>
         </div>
-        <div class="sg-field">
+        <div class="sg-field sg-f-pct">
           <label for="sg-short">תשואה קצרת טווח</label>
           <div class="sg-inputwrap pct">
             <input type="number" id="sg-short" class="has-suffix" value="3" min="0" max="20" step="0.1" inputmode="decimal">
@@ -666,7 +680,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             <input type="text" id="sg-exist-long" class="has-suffix" value="30,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">גמל להשקעה, ניירות ערך - נטו אחרי מס</div>
+          <div class="sg-note">גמל להשקעה, ניירות ערך — נטו אחרי מס</div>
         </div>
         <div class="sg-field">
           <label for="sg-exist-short">צבירה קיימת - קצר טווח</label>
@@ -674,9 +688,10 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
             <input type="text" id="sg-exist-short" class="has-suffix" value="15,000" inputmode="numeric" autocomplete="off" placeholder="0">
             <span class="sg-suffix">₪</span>
           </div>
-          <div class="sg-note">קרן כספית, פיקדון, חשבון חיסכון - נטו אחרי מס</div>
+          <div class="sg-note">קרן כספית, פיקדון, עו״ש — נטו אחרי מס</div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- ═══ קרנות השתלמות ═══ -->
