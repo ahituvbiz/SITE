@@ -2266,7 +2266,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       if (!rec) return;
       if (f === 'recur') {
         rec.recur = !!e.target.checked;
-        if (rec.recur && !rec.freq) rec.freq = '';
+        /* ברירת מחדל לתדירות — כדי שהסימון ישפיע על החישוב מיד, בלי שדה ריק */
+        if (rec.recur && !(parseFloat(rec.freq) > 0)) rec.freq = (parseFloat(rec.years) > 0 ? parseFloat(rec.years) : 5);
         renderGoals(); calc();
         if (rec.recur) {
           var fi = document.getElementById('sg-fr-' + rec.id);
