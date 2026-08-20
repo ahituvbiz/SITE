@@ -622,35 +622,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
 <section class="calc-wrap">
   <div class="container">
-    <div class="sg-panel" id="sg-sheets-panel">
-      <div class="sg-panel-title">📗 התכנית שלי בגוגל שיטס
-        <span class="sg-hint">שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש</span>
-      </div>
-      <div class="sg-sheets-actions">
-        <button type="button" class="sg-gbtn primary" id="sg-gs-save">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
-          שמירת התכנית לגיליון
-        </button>
-        <button type="button" class="sg-gbtn" id="sg-gs-load">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
-          טעינת התכנית מהגיליון
-        </button>
-        <span class="sg-sheets-msg" id="sg-gs-msg"></span>
-      </div>
-      <div class="sg-gs-guide" id="sg-gs-guide" hidden>
-        <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
-        <ol>
-          <li>בחרו את חשבון הגוגל שלכם.</li>
-          <li>אם תופיע הודעה ש<strong>“Google לא אימתה את האפליקציה”</strong> (Google hasn’t verified this app) — אין מה לחשוש, זו האפליקציה של pensya.info. לחצו על <strong>“מתקדם”</strong> (Advanced) בתחתית החלון, ואז על <strong>“המשך אל pensya savings goals web”</strong>.</li>
-          <li>אשרו את הבקשה בלחיצה על <strong>“המשך”</strong> (Continue / Allow). האפליקציה מבקשת גישה <strong>רק לגיליון שהיא יוצרת עבורכם</strong> — לא לשאר הקבצים בדרייב.</li>
-        </ol>
-        <button type="button" class="sg-gs-guide-x" id="sg-gs-guide-x">הבנתי, סגירת ההסבר</button>
-      </div>
-      <div class="sg-changed" id="sg-gs-changed" hidden>
-        <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
-        <button type="button" class="sg-gbtn" id="sg-gs-savenew">שמירה כתכנית מעודכנת</button>
-      </div>
-    </div>
 
     <!-- ═══ תשואות ותחזית אינפלציה ═══ -->
     <div class="sg-assume-row">
@@ -834,6 +805,36 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       <span class="sg-dl-msg" id="sg-dl-msg"></span>
       <div class="sg-remind-note">התזכורת נפתחת ביומן גוגל שלכם עם כל הפרטים — נשאר רק ללחוץ „שמור”.
         לא משתמשים ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a></div>
+    </div>
+
+    <div class="sg-panel" id="sg-sheets-panel">
+      <div class="sg-panel-title">📗 התכנית שלי בגוגל שיטס
+        <span class="sg-hint">שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש</span>
+      </div>
+      <div class="sg-sheets-actions">
+        <button type="button" class="sg-gbtn primary" id="sg-gs-save">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
+          שמירת התכנית לגיליון
+        </button>
+        <button type="button" class="sg-gbtn" id="sg-gs-load">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+          טעינת התכנית מהגיליון
+        </button>
+        <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+      </div>
+      <div class="sg-gs-guide" id="sg-gs-guide" hidden>
+        <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
+        <ol>
+          <li>בחרו את חשבון הגוגל שלכם.</li>
+          <li>אם תופיע הודעה ש<strong>“Google לא אימתה את האפליקציה”</strong> (Google hasn’t verified this app) — אין מה לחשוש, זו האפליקציה של pensya.info. לחצו על <strong>“מתקדם”</strong> (Advanced) בתחתית החלון, ואז על <strong>“המשך אל pensya savings goals web”</strong>.</li>
+          <li>אשרו את הבקשה בלחיצה על <strong>“המשך”</strong> (Continue / Allow). האפליקציה מבקשת גישה <strong>רק לגיליון שהיא יוצרת עבורכם</strong> — לא לשאר הקבצים בדרייב.</li>
+        </ol>
+        <button type="button" class="sg-gs-guide-x" id="sg-gs-guide-x">הבנתי, סגירת ההסבר</button>
+      </div>
+      <div class="sg-changed" id="sg-gs-changed" hidden>
+        <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
+        <button type="button" class="sg-gbtn" id="sg-gs-savenew">שמירה כתכנית מעודכנת</button>
+      </div>
     </div>
 
     <details class="sg-assume-det">
