@@ -298,6 +298,18 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 
 /* טבלה */
 .sg-tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:20px}
+/* טבלאות מקופלות */
+.sg-tabledet{border:1px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:20px;overflow:hidden}
+.sg-tabledet>summary{padding:15px 18px;cursor:pointer;font-size:16px;font-weight:700;color:var(--text-1);
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--bg-cream)}
+.sg-tabledet>summary::-webkit-details-marker{display:none}
+.sg-tabledet>summary:hover{color:var(--primary)}
+.sg-tabledet>summary::after{content:'';display:inline-block;width:11px;height:11px;flex-shrink:0;
+  border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);
+  transform:rotate(45deg);transition:transform .2s}
+.sg-tabledet[open]>summary::after{transform:rotate(-135deg)}
+.sg-tabledet[open]>summary{border-bottom:1px solid var(--border)}
+.sg-tabledet .sg-tablewrap{border:none;border-radius:0;margin-bottom:0}
 table.sg-table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
 table.sg-table th,table.sg-table td{padding:11px 13px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
 table.sg-table thead th{background:var(--bg-cream);font-size:12px;font-weight:700;color:var(--text-2);
@@ -309,6 +321,10 @@ table.sg-table td.goalname{white-space:normal;min-width:120px;font-weight:600}
 table.sg-table td.dim{color:var(--text-meta)}
 
 .sg-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:var(--s-lg)}
+.sg-actions>button{height:50px;padding-top:0;padding-bottom:0;white-space:nowrap}
+.sg-actions .sg-gbtn{font-size:15px;padding-right:20px;padding-left:20px}
+.sg-actions .sg-gs-guide,.sg-actions .sg-changed{flex-basis:100%}
+@media(max-width:1000px){.sg-actions>button{height:46px;font-size:14px}}
 .sg-dl{background:var(--cta);color:#fff;border:none;border-radius:10px;padding:14px 26px;font-family:inherit;
   font-size:15px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:9px}
 .sg-dl:hover{background:var(--cta-hover)}
@@ -616,7 +632,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   <div class="container">
     <h1>מחשבון <span class="accent">יעדי חיסכון</span></h1>
     <p class="page-updated">עודכן: 20 באוגוסט 2026</p>
-    <p class="lead">לכולנו יש יעדים שונים שאנחנו לא יכולים לממן מההכנסה השוטפת ועלינו להיערך אליהם מראש - חתונות של ילדים, חופשה משפחתית, החלפת רכב כל כמה שנים וכדומה.<br>כדי לחסוך עבור אותם יעדים אנחנו משתמשים בכלים פיננסיים שונים כמו קרנות כספיות, קופות גמל להשקעה, חשבון ניירות ערך וכדומה.<br>הבעיה היא שאנו מתקשים לחשב כמה צריך לחסוך עבור כל יעד, ואיך להקצות את כספי החיסכון בין תכניות עם תשואה ותנודתיות גבוהות יותר לכלים סולידיים כמו קרנות כספיות.<br>המחשבון שלפניכם יאפשר לכם לשקלל את השפעות התשואה, האינפלציה, הזמן והמס וכן לחלק נכון את המאמץ לחסוך עבור יעדים שיתממשו במועדים שונים.</p>
+    <p class="lead">לכולנו יש יעדים שונים שאנחנו לא יכולים לממן מההכנסה השוטפת ועלינו להיערך אליהם מראש - חתונות של ילדים, חופשה משפחתית, החלפת רכב כל כמה שנים וכדומה.<br>כדי לחסוך עבור אותם יעדים אנחנו משתמשים בכלים פיננסיים שונים כמו קרנות כספיות, קופות גמל להשקעה, חשבון ניירות ערך וכדומה.<br>הבעיה היא שאנו מתקשים לחשב כמה צריך לחסוך עבור כל יעד, ואיך לחלק את כספי החיסכון בין כלי חיסכון סולידיים למנייתיים.<br>המחשבון שלפניכם יאפשר לכם לשקלל את השפעות התשואה, האינפלציה, הזמן והמס וכן לחלק נכון את המאמץ לחסוך עבור יעדים שיתממשו במועדים שונים.</p>
   </div>
 </section>
 
@@ -757,7 +773,9 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 
     </div>
 
-    <div class="sg-tablewrap" id="sg-schedwrap">
+    <details class="sg-tabledet" id="sg-schedwrap">
+      <summary>כמה ולאן מפקידים בתקופות השונות</summary>
+      <div class="sg-tablewrap">
       <table class="sg-table" id="sg-sched">
         <thead>
           <tr>
@@ -770,9 +788,12 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         </thead>
         <tbody id="sg-schedbody"></tbody>
       </table>
-    </div>
+      </div>
+    </details>
 
-    <div class="sg-tablewrap">
+    <details class="sg-tabledet">
+      <summary>איך מממנים כל יעד</summary>
+      <div class="sg-tablewrap">
       <table class="sg-table" id="sg-table">
         <thead>
           <tr>
@@ -789,11 +810,12 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         <tbody id="sg-tbody"></tbody>
         <tfoot id="sg-tfoot"></tfoot>
       </table>
-    </div>
+      </div>
+    </details>
 
     <div class="sg-fundplan" id="sg-fundplan" hidden></div>
 
-    <div class="sg-actions">
+    <div class="sg-actions" id="sg-actions">
       <button type="button" class="sg-dl" id="sg-download">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
         שליחת התוכנית כ-PDF למייל
@@ -802,25 +824,20 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/><path d="m9 16 2 2 4-4"/></svg>
         תזכורת שנתית ביומן
       </button>
-      <span class="sg-dl-msg" id="sg-dl-msg"></span>
-      <div class="sg-remind-note">התזכורת נפתחת ביומן גוגל שלכם עם כל הפרטים — נשאר רק ללחוץ „שמור”.
-        לא משתמשים ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a></div>
-    </div>
-
-    <div class="sg-panel" id="sg-sheets-panel">
-      <div class="sg-panel-title">📗 התכנית שלי בגוגל שיטס
-        <span class="sg-hint">שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש</span>
-      </div>
-      <div class="sg-sheets-actions">
-        <button type="button" class="sg-gbtn primary" id="sg-gs-save">
+      <button type="button" class="sg-gbtn primary" id="sg-gs-save">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
-          שמירת התכנית לגיליון
-        </button>
-        <button type="button" class="sg-gbtn" id="sg-gs-load">
+        שמירת התכנית לגיליון
+      </button>
+      <button type="button" class="sg-gbtn" id="sg-gs-load">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
-          טעינת התכנית מהגיליון
-        </button>
-        <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+        טעינת התכנית מהגיליון
+      </button>
+      <span class="sg-dl-msg" id="sg-dl-msg"></span>
+      <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+      <div class="sg-remind-note">
+        <strong>תזכורת ביומן:</strong> נפתח אצלכם ביומן גוגל אירוע מוכן — נשאר רק ללחוץ „שמור”.
+        לא ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a>.
+        &nbsp;·&nbsp; <strong>גוגל שיטס:</strong> שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש.
       </div>
       <div class="sg-gs-guide" id="sg-gs-guide" hidden>
         <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
