@@ -182,7 +182,7 @@ section { padding: var(--s-2xl) 0; }
 /* Hero */
 .page-hero {
   background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
-  padding: var(--s-2xl) 0 var(--s-xl);
+  padding: var(--s-xl) 0 var(--s-lg);
 }
 .page-hero .wide-container { text-align: center; }
 .page-hero .eyebrow {
@@ -254,7 +254,7 @@ section { padding: var(--s-2xl) 0; }
 .gr-summary-stars { color: #F5A623; font-size: 16px; letter-spacing: 2px; }
 .gr-summary-txt { font-size: 15px; color: var(--text-2); }
 
-.gr-title { text-align: center; margin: 0 0 var(--s-lg); }
+.gr-title { text-align: center; margin: 0 0 var(--s-md); }
 .gr-wall { display: flex; align-items: flex-start; gap: var(--s-md); }
 .gr-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--s-md); }
 .gr-card {
@@ -274,7 +274,7 @@ section { padding: var(--s-2xl) 0; }
   font-weight: 700; font-size: 14px; line-height: 1;
 }
 .gr-name { font-weight: 600; font-size: 15px; }
-.gr-note { font-size: 14px; color: var(--text-meta); text-align: center; margin-top: var(--s-lg); }
+.gr-note { font-size: 14px; color: var(--text-meta); text-align: center; margin-top: var(--s-md); }
 @media (max-width: 1000px) {
   .gr-wall { display: block; columns: 2; column-gap: var(--s-md); }
   .gr-col { display: contents; }
@@ -540,33 +540,57 @@ section { padding: var(--s-2xl) 0; }
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: var(--s-lg) var(--s-xl);
-  margin: var(--s-lg) 0;
+  padding: var(--s-md) var(--s-md) var(--s-lg);
+  margin: 0;
   box-shadow: var(--shadow-card);
 }
-.process-strip h4 { color: var(--primary); margin: 0 0 var(--s-md); font-size: 18px; }
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--s-lg) var(--s-md);
-}
-.process-step { text-align: center; }
-.process-step .ps-num {
-  width: 44px;
-  height: 44px;
+.process-strip h4 { color: var(--primary); margin: 0 0 var(--s-md); font-size: 18px; text-align: center; }
+
+/* Flow ribbon */
+.flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0 6px; }
+.flow-step { min-width: 0; }
+.flow-chev {
+  position: relative;
   background: var(--primary);
   color: #fff;
-  border-radius: 50%;
+  padding: 12px 16px 12px 26px;
+  min-height: 76px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  margin: 0 auto var(--s-sm);
+  gap: 3px;
+  text-align: center;
+  clip-path: polygon(100% 0, 16px 0, 0 50%, 16px 100%, 100% 100%, calc(100% - 16px) 50%);
 }
-.process-step .ps-text { font-size: 14px; color: var(--text-2); line-height: 1.5; }
-.process-step .ps-text strong { color: var(--text-1); display: block; margin-bottom: 4px; }
-@media (max-width: 700px) { .process-steps { grid-template-columns: 1fr 1fr; gap: var(--s-sm); } }
+.flow-step:nth-child(even) .flow-chev { background: #00658A; }
+.flow-step:first-child .flow-chev { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, calc(100% - 16px) 50%); border-radius: 6px 0 0 6px; }
+.flow-step:last-child .flow-chev  { clip-path: polygon(100% 0, 16px 0, 0 50%, 16px 100%, 100% 100%); border-radius: 0 6px 6px 0; }
+.flow-num {
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  opacity: .75; line-height: 1;
+}
+.flow-title { font-size: 15px; font-weight: 700; line-height: 1.25; }
+.flow-text {
+  font-size: 13px; color: var(--text-2); line-height: 1.5;
+  padding: 10px 10px 0; text-align: center;
+}
+@media (max-width: 900px) {
+  .flow { grid-template-columns: 1fr; gap: 0; }
+  .flow-step { display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: var(--s-sm); }
+  .flow-chev, .flow-step:first-child .flow-chev, .flow-step:last-child .flow-chev {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), 50% 100%, 0 calc(100% - 12px));
+    border-radius: 6px 6px 0 0;
+    min-height: 0; padding: 12px 14px 20px;
+    margin-bottom: 8px;
+  }
+  .flow-step:last-child .flow-chev { clip-path: none; border-radius: 6px; padding-bottom: 12px; }
+  .flow-text { text-align: right; padding: 0 0 var(--s-sm); }
+}
+@media (max-width: 560px) {
+  .flow-step { grid-template-columns: 1fr; gap: 0; }
+  .flow-text { padding: 0 0 var(--s-md); }
+}
 
 /* Contact CTA */
 .contact-section {
@@ -627,8 +651,8 @@ section { padding: var(--s-2xl) 0; }
 .related-links-section {
   background: #F8F6F2;
   border-top: 3px solid #007DA8;
-  padding: 2.5rem 2rem;
-  margin-top: 3rem;
+  padding: 2rem;
+  margin-top: 0;
   direction: rtl;
 }
 .related-links-section .eyebrow {
@@ -1013,9 +1037,9 @@ textarea:focus-visible,
 </section>
 
 <!-- ===== REVIEWS ===== -->
-<section class="gr-section" style="background: var(--bg-cream);">
+<section class="gr-section" style="background: var(--bg-cream); padding: var(--s-lg) 0 var(--s-xl);">
   <div class="container">
-    <h2 class="gr-title">מה שלקוחות כתבו</h2>
+    <h2 class="gr-title">מה שלקוחות כתבו. לא נגענו</h2>
 
     <div class="gr-wall">
       <div class="gr-col">
@@ -1165,35 +1189,53 @@ textarea:focus-visible,
 </section>
 
 <!-- ===== PROCESS STRIP ===== -->
-<section style="background: var(--bg-white); padding: var(--s-xl) 0;">
+<section style="background: var(--bg-white); padding: var(--s-lg) 0;">
   <div class="container">
     <div class="wide-container">
       <div class="process-strip">
         <h4>איך נראה התהליך עם לקוחות חדשים - 6 שלבים</h4>
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="ps-num">1</div>
-            <div class="ps-text"><strong>איסוף נתונים</strong>פנייה למסלקה הפנסיונית ולהר הביטוח, בתוספת שאלון מפורט שממלאים מראש.</div>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 1</span>
+              <span class="flow-title">איסוף נתונים</span>
+            </div>
+            <p class="flow-text">פנייה למסלקה הפנסיונית ולהר הביטוח, בתוספת שאלון מפורט שממלאים מראש.</p>
           </div>
-          <div class="process-step">
-            <div class="ps-num">2</div>
-            <div class="ps-text"><strong>פגישת אבחון</strong>שיחת זום ארוכה: הבנת תמונת המצב המלאה, מעבר על התיק הפנסיוני והמלצות.</div>
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 2</span>
+              <span class="flow-title">פגישת אבחון</span>
+            </div>
+            <p class="flow-text">שיחת זום ארוכה: הבנת תמונת המצב המלאה, מעבר על התיק הפנסיוני והמלצות.</p>
           </div>
-          <div class="process-step">
-            <div class="ps-num">3</div>
-            <div class="ps-text"><strong>בניית תכנית</strong>תכנית שמתאימה את המוצרים, המסלולים והכלים לצרכים ולרצונות שלך.</div>
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 3</span>
+              <span class="flow-title">בניית תכנית</span>
+            </div>
+            <p class="flow-text">תכנית שמתאימה את המוצרים, המסלולים והכלים לצרכים ולרצונות שלך.</p>
           </div>
-          <div class="process-step">
-            <div class="ps-num">4</div>
-            <div class="ps-text"><strong>יישום</strong>קישור ליצרנים המומלצים, ומעבר על התיק הביטוחי וכלי החיסכון בשיחה נפרדת.</div>
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 4</span>
+              <span class="flow-title">יישום</span>
+            </div>
+            <p class="flow-text">קישור ליצרנים המומלצים, ומעבר על התיק הביטוחי וכלי החיסכון בשיחה נפרדת.</p>
           </div>
-          <div class="process-step">
-            <div class="ps-num">5</div>
-            <div class="ps-text"><strong>מעקב וליווי</strong>ליווי בניוד התכניות ובקרה על היישום, כולל קבוצת עדכונים שקטה.</div>
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 5</span>
+              <span class="flow-title">מעקב וליווי</span>
+            </div>
+            <p class="flow-text">ליווי בניוד התכניות ובקרה על היישום, כולל קבוצת עדכונים שקטה.</p>
           </div>
-          <div class="process-step">
-            <div class="ps-num">6</div>
-            <div class="ps-text"><strong>עדכונים</strong>תנאי השוק, הרגולציה והיצע המוצרים משתנים. מקבלים עדכון בוואטסאפ ובאזור הלקוחות באתר.</div>
+          <div class="flow-step">
+            <div class="flow-chev">
+              <span class="flow-num">שלב 6</span>
+              <span class="flow-title">עדכונים</span>
+            </div>
+            <p class="flow-text">תנאי השוק, הרגולציה והיצע המוצרים משתנים. מקבלים עדכון בוואטסאפ ובאזור הלקוחות באתר.</p>
           </div>
         </div>
       </div>
