@@ -187,6 +187,17 @@ details.datatable th,details.datatable td{border:1px solid var(--border);padding
 details.datatable th{background:var(--bg-cream);font-weight:600;}
 .caveat{font-size:14.5px;color:var(--text-2);margin-top:var(--s-md);line-height:1.6;border-inline-start:3px solid var(--border);padding-inline-start:14px;}
 
+/* ---------- MISTAKES ---------- */
+.mistakes-h{font-size:clamp(20px,2.6vw,25px);font-weight:700;margin:var(--s-xl) 0 var(--s-xs);}
+.mistakes-sub{font-size:16px;color:var(--text-2);margin-bottom:var(--s-md);}
+.mistakes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-md);}
+.mcard{background:#fff;border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);box-shadow:var(--shadow-card);display:flex;flex-direction:column;}
+.mcard .v{font-size:26px;font-weight:700;color:var(--primary);line-height:1.1;letter-spacing:-.5px;}
+.mcard .t{font-size:17px;font-weight:600;margin-top:8px;line-height:1.4;}
+.mcard .d{font-size:15px;color:var(--text-2);line-height:1.6;margin-top:8px;flex-grow:1;}
+.mcard .a{font-size:13px;color:var(--text-meta);line-height:1.5;margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);}
+@media(max-width:860px){.mistakes{grid-template-columns:1fr;}}
+
 /* ---------- TAKEAWAYS ---------- */
 .takeaways{list-style:none;margin-top:var(--s-lg);display:grid;grid-template-columns:repeat(2,1fr);gap:14px var(--s-md);}
 .takeaways li{position:relative;padding-inline-start:34px;font-size:16.5px;line-height:1.6;}
@@ -202,12 +213,13 @@ details.datatable th{background:var(--bg-cream);font-weight:600;}
 .qa-item .a b{color:var(--text-1);font-weight:600;}
 
 /* ---------- HOW IT WORKS ---------- */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-md);margin-top:var(--s-lg);counter-reset:s;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-md);margin-top:var(--s-lg);counter-reset:s;}
 .step{background:#fff;border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);box-shadow:var(--shadow-card);}
 .step .n{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
 .step h3{margin-bottom:6px;}
 .step p{font-size:15.5px;color:var(--text-2);margin:0;line-height:1.6;}
-@media(max-width:760px){.steps{grid-template-columns:1fr;}}
+@media(max-width:1000px){.steps{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:620px){.steps{grid-template-columns:1fr;}}
 .logi{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-sm);margin-top:var(--s-md);}
 .logi div{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;}
 .logi .k{font-size:13px;color:var(--text-meta);font-weight:600;}
@@ -462,8 +474,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <!-- 1. אובייקטיביות -->
 <section>
   <div class="article-container">
-    <h2>אין מה למכור לעובדים שלכם</h2>
-    <p class="lede">זו בדרך כלל השאלה הראשונה של מי שמקבל הצעה להרצאה פיננסית, ובצדק. אז נענה עליה מיד, לפני הכול.</p>
+    <h2>העובדים שלכם מקבלים תוכן — לא הצעת מכירה</h2>
+    <p class="lede">"זו לא מצגת מכירה בתחפושת?" זו בדרך כלל השאלה הראשונה של מי שמקבל הצעה להרצאה פיננסית, ובצדק. אז נענה עליה מיד, לפני הכול.</p>
 
     <div class="zero-grid">
       <div class="zero-card"><div class="big">0</div><div class="lbl">מכירת מוצרים</div><div class="sub">אין מוצר פיננסי שאני מציע לעובדים לרכוש</div></div>
@@ -509,14 +521,14 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <!-- 3. הערך הכלכלי -->
 <section>
   <div class="article-container">
-    <h2>כמה זה שווה בפועל</h2>
+    <h2>הסטה קטנה של המחט. מאות אלפי שקלים לאורך הקריירה.</h2>
     <p class="lede">הפרש קטן באחוזים, כשהוא פועל על הפקדה חודשית גדולה ולאורך עשרות שנים, מצטבר לסכום שקשה להתעלם ממנו. הנה החישוב, עם כל ההנחות גלויות.</p>
 
     <div class="chart-wrap">
       <div class="hero-num">
         <div class="k">אותה הפקדה, הפרש של 0.5% בתשואה נטו. הפער בגיל 67:</div>
         <div class="v">כ-577,000 ₪</div>
-        <div class="n">בערכי היום — לא בשקלים עתידיים</div>
+        <div class="n">בערכי היום — לא בשקלים עתידיים · המחשה בלבד, לפי ההנחות שלמטה</div>
       </div>
       <div class="chart-scroll">
 <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="chTitle chDesc" class="growth-chart">
@@ -601,6 +613,29 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 
       <p class="caveat">זו דוגמה להמחשה, לא תחזית. תשואות עתידיות אינן ידועות ואינן מובטחות, והתוצאה בפועל תלויה בשכר, בוותק, במסלול, בדמי הניהול ובנסיבות האישיות. בחרתי בכוונה מספרים שמרניים — אפשר לבדוק את התרחיש הספציפי שלכם ב<a href="/tools/pension-calculator/">מחשבון הפנסיה</a> וב<a href="/tools/management-fees/">מחשבון דמי הניהול</a>.</p>
     </div>
+
+    <h3 class="mistakes-h">הטעויות שעולות לעובדים מאות אלפי שקלים — ואף אחד לא מספר להם</h3>
+    <p class="mistakes-sub">אותה הסטה של המחט, בשלושה מקומות שונים. כל המספרים הם המחשה לפי ההנחות שמתחת לכל אחד.</p>
+    <div class="mistakes">
+      <div class="mcard">
+        <div class="v">300–500 אלף ₪</div>
+        <div class="t">מסלול "כללי" במקום מסלול מותאם גיל</div>
+        <div class="d">מסלול ברירת המחדל נפתח בקליטה לעבודה, ורוב העובדים לא בדקו אותו מאז. ההפרש בתשואה מצטבר על כל הצבירה, לא רק על ההפקדות החדשות.</div>
+        <div class="a">המחשה: עובד בן 38 עם צבירה של 800,000 ₪, פער תשואה של 1%–1.5% בשנה, על פני 20 שנה.</div>
+      </div>
+      <div class="mcard">
+        <div class="v">כ-120,000 ₪</div>
+        <div class="t">פער של 0.4% בדמי הניהול</div>
+        <div class="d">נשמע זניח בדוח השנתי — כ-4,000 ₪ בשנה. אבל הסכום הזה לא רק נגרע, הוא גם מפסיק לצבור תשואה, ולכן הפער גדל עם השנים.</div>
+        <div class="a">המחשה: צבירה של מיליון ₪, פער דמי ניהול של 0.4%, על פני 20 שנה בריבית דריבית.</div>
+      </div>
+      <div class="mcard">
+        <div class="v">500–1,500 ₪ בחודש</div>
+        <div class="t">כפל בין הכיסויים הביטוחיים</div>
+        <div class="d">אובדן כושר עבודה דרך קרן הפנסיה, פוליסה פרטית שנפתחה פעם, והביטוח הקבוצתי של החברה. שלושה מסמכים בשלושה גופים — וחפיפה שאי אפשר לזהות בלי לפתוח את שלושתם יחד.</div>
+        <div class="a">טווח מתוך ניסיוני בייעוץ, תלוי בגיל, בשכר ובהיקף הכיסויים בפועל.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -608,7 +643,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <section class="section-alt">
   <div class="article-container">
     <h2>מה העובדים ידעו לעשות אחרי ההרצאה</h2>
-    <p class="lede">לא רשימת נושאים — רשימת יכולות. אלה הדברים שעובד יוכל לעשות בעצמו כשיחזור לשולחן.</p>
+    <p class="lede"><b>לא הרצאה על "מהי פנסיה"</b> — הרצאה על החלטות שעשויות להיות שוות לעובדים כסף אמיתי. לא רשימת נושאים, אלא רשימת יכולות: הדברים שעובד יוכל לעשות בעצמו כשיחזור לשולחן.</p>
     <ul class="takeaways">
       <li>לפתוח את הדוח הפנסיוני השנתי ולדעת אילו שלושה-ארבעה נתונים בו באמת חשובים</li>
       <li>למצוא כמה הוא משלם בפועל בדמי ניהול — מהצבירה ומההפקדה — ומול מה להשוות</li>
@@ -648,11 +683,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <section class="section-alt" id="how">
   <div class="article-container">
     <h2>איך זה עובד מבחינת החברה</h2>
-    <p class="lede">שלושה צעדים, ואפשר לעצור בכל אחד מהם.</p>
+    <p class="lede">ארבעה צעדים, ואפשר לעצור בכל אחד מהם. <b>עלות לחברה בכל שלב: 0 ₪.</b></p>
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>הודעה קצרה</h3><p>וואטסאפ או טלפון. מספיק לכתוב באיזו חברה מדובר ומה סדר הגודל של הקהל.</p></div>
-      <div class="step"><div class="n">2</div><h3>המצגת אצלכם לעיון</h3><p>אני שולח את המצגת המלאה. אתם עוברים עליה בקצב שלכם ומחליטים אם התוכן מתאים לעובדים שלכם.</p></div>
-      <div class="step"><div class="n">3</div><h3>קובעים מועד</h3><p>רק אם אישרתם את התוכן. מתאמים תאריך, שעה ופורמט — פיזי, זום או היברידי.</p></div>
+      <div class="step"><div class="n">2</div><h3>המצגת אצלכם לעיון</h3><p><b>אין הפתעות.</b> אני שולח את המצגת המלאה, אתם עוברים עליה בקצב שלכם ורואים בדיוק מה העובדים יקבלו.</p></div>
+      <div class="step"><div class="n">3</div><h3>קובעים מועד ומזמינים</h3><p>רק אם אישרתם את התוכן. מתאמים תאריך, שעה ופורמט — פיזי, זום או היברידי — ואתם מזמינים את העובדים.</p></div>
+      <div class="step"><div class="n">4</div><h3>אני מגיע ומעביר</h3><p>45–60 דקות, כולל שאלות ותשובות. אני מביא את המצגת ואת הדמו החי של קריאת דוח פנסיוני.</p></div>
     </div>
     <div class="logi">
       <div><div class="k">משך</div><div class="v">45–60 דק'</div></div>
@@ -725,7 +761,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
     <p>אשלח לכם את המצגת המלאה לעיון — בדיוק מה שהעובדים ישמעו, שקף אחר שקף. אם התוכן מתאים, נקבע מועד. אם לא, לא קרה כלום.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%99%20%D7%9E-HR%20%D7%91%D7%97%D7%91%D7%A8%D7%AA%20%D7%94%D7%99%D7%99%D7%98%D7%A7.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%AA%20%D7%94%D7%9E%D7%A6%D7%92%D7%AA%20%D7%A9%D7%9C%20%D7%94%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%9C%D7%A2%D7%99%D7%95%D7%9F." rel="noopener">שלחו לי את המצגת לעיון ←</a>
-      <a class="btn btn-ghost" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">יש לי שאלה לפני זה</a>
+      <a class="btn btn-ghost" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%A8%D7%95%D7%A6%D7%99%D7%9D%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%9C%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">או לתיאום מועד ישירות</a>
     </div>
     <p class="alt">או בטלפון: <a href="tel:+972527700599">052-770-0599</a> · <a href="/design-assets/hitech-lecture-flyer.pdf" download>הורדת דף מידע להעברה פנימית (PDF)</a></p>
   </div>
