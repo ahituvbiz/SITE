@@ -66,7 +66,7 @@
         {
           "@type": "Question",
           "name": "אפשר לראות את תוכן ההרצאה לפני שמאשרים?",
-          "acceptedAnswer": { "@type": "Answer", "text": "כן. אני שולח את המצגת המלאה לעיון לפני קביעת מועד, בלי שום התחייבות. זו הדרך הפשוטה ביותר לוודא שאין בה מכירה — פשוט לקרוא אותה." }
+          "acceptedAnswer": { "@type": "Answer", "text": "כן. ראשי הפרקים המלאים של ההרצאה מפורטים בדף הזה, ואפשר לעבור עליהם עכשיו — אין נושא שלא מופיע שם. לכל שאלה נוספת על התוכן אני זמין בוואטסאפ או בטלפון." }
         },
         {
           "@type": "Question",
@@ -187,23 +187,26 @@ details.datatable th,details.datatable td{border:1px solid var(--border);padding
 details.datatable th{background:var(--bg-cream);font-weight:600;}
 .caveat{font-size:14.5px;color:var(--text-2);margin-top:var(--s-md);line-height:1.6;border-inline-start:3px solid var(--border);padding-inline-start:14px;}
 
-/* ---------- MISTAKES ---------- */
-.mistakes-h{font-size:clamp(20px,2.6vw,25px);font-weight:700;margin:var(--s-xl) 0 var(--s-xs);}
-.mistakes-sub{font-size:16px;color:var(--text-2);margin-bottom:var(--s-md);}
-.mistakes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-md);}
-.mcard{background:#fff;border:1px solid var(--border);border-radius:var(--radius-card);padding:var(--s-md);box-shadow:var(--shadow-card);display:flex;flex-direction:column;}
-.mcard .v{font-size:26px;font-weight:700;color:var(--primary);line-height:1.1;letter-spacing:-.5px;}
-.mcard .t{font-size:17px;font-weight:600;margin-top:8px;line-height:1.4;}
-.mcard .d{font-size:15px;color:var(--text-2);line-height:1.6;margin-top:8px;flex-grow:1;}
-.mcard .a{font-size:13px;color:var(--text-meta);line-height:1.5;margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);}
-@media(max-width:860px){.mistakes{grid-template-columns:1fr;}}
-
 /* ---------- TAKEAWAYS ---------- */
 .takeaways{list-style:none;margin-top:var(--s-lg);display:grid;grid-template-columns:repeat(2,1fr);gap:14px var(--s-md);}
 .takeaways li{position:relative;padding-inline-start:34px;font-size:16.5px;line-height:1.6;}
 .takeaways li::before{content:"";position:absolute;inset-inline-start:0;top:8px;width:19px;height:19px;border-radius:50%;background:var(--primary-soft);border:1.5px solid var(--primary);}
 .takeaways li::after{content:"\2713";position:absolute;inset-inline-start:0;top:8px;width:19px;height:19px;line-height:19px;text-align:center;font-size:12px;font-weight:700;color:var(--primary-dark);}
 @media(max-width:760px){.takeaways{grid-template-columns:1fr;}}
+
+/* ---------- SYLLABUS ---------- */
+.syllabus{margin-top:var(--s-lg);border:1px solid var(--border);border-radius:var(--radius-card);background:#fff;box-shadow:var(--shadow-card);overflow:hidden;}
+.syllabus > summary{cursor:pointer;list-style:none;padding:var(--s-md);display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:18.5px;font-weight:600;color:var(--primary-dark);}
+.syllabus > summary::-webkit-details-marker{display:none;}
+.syllabus > summary::after{content:"+";color:var(--primary);font-weight:700;font-size:24px;line-height:1;flex:none;}
+.syllabus[open] > summary::after{content:"−";}
+.syllabus > summary:hover{background:var(--bg-cream);}
+.syl-body{padding:0 var(--s-md) var(--s-md);}
+.syl-body > p{font-size:15.5px;color:var(--text-2);margin:0 0 var(--s-sm);}
+.syl-list{list-style:none;counter-reset:syl;}
+.syl-list li{counter-increment:syl;position:relative;padding:12px 42px 12px 0;border-top:1px solid var(--border);font-size:16.5px;font-weight:600;line-height:1.5;}
+.syl-list li::before{content:counter(syl);position:absolute;right:0;top:12px;width:28px;height:28px;border-radius:50%;background:var(--primary-soft);color:var(--primary-dark);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.syl-list li span{display:block;font-size:14.5px;font-weight:400;color:var(--text-2);margin-top:2px;line-height:1.55;}
 
 /* ---------- THREE QUESTIONS ---------- */
 .qa{margin-top:var(--s-lg);display:grid;gap:var(--s-md);}
@@ -464,10 +467,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
       <span class="chip">אין התחייבות</span>
     </div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%99%20%D7%9E-HR%20%D7%91%D7%97%D7%91%D7%A8%D7%AA%20%D7%94%D7%99%D7%99%D7%98%D7%A7.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%AA%20%D7%94%D7%9E%D7%A6%D7%92%D7%AA%20%D7%A9%D7%9C%20%D7%94%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%9C%D7%A2%D7%99%D7%95%D7%9F." rel="noopener">קבלו את המצגת המלאה לעיון ←</a>
-      <a class="btn btn-ghost" href="#how">איך זה עובד ↓</a>
+      <a class="btn btn-primary" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%A8%D7%95%D7%A6%D7%99%D7%9D%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%9C%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">לתיאום הרצאה בוואטסאפ ←</a>
+      <a class="btn btn-ghost" href="#syllabus">מה בדיוק בהרצאה? ↓</a>
     </div>
-    <p class="hero-note">בלי התחייבות ובלי לקבוע כלום — קודם תראו בדיוק מה העובדים ישמעו.</p>
+    <p class="hero-note">ראשי הפרקים המלאים מופיעים כאן בדף — אין הפתעות ואין נושא שלא כתוב.</p>
   </div>
 </header>
 
@@ -616,28 +619,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
       <p class="caveat">זו דוגמה להמחשה, לא תחזית. תשואות עתידיות אינן ידועות ואינן מובטחות, והתוצאה בפועל תלויה בשכר, בוותק, במסלול, בדמי הניהול ובנסיבות האישיות. בחרתי בכוונה מספרים שמרניים — אפשר לבדוק את התרחיש הספציפי שלכם ב<a href="/tools/pension-calculator/">מחשבון הפנסיה</a> וב<a href="/tools/management-fees/">מחשבון דמי הניהול</a>.</p>
     </div>
 
-    <h3 class="mistakes-h">הטעויות שעולות לעובדים מאות אלפי שקלים — ואף אחד לא מספר להם</h3>
-    <p class="mistakes-sub">אותה הסטה של המחט, בשלושה מקומות שונים. כל המספרים הם המחשה לפי ההנחות שמתחת לכל אחד.</p>
-    <div class="mistakes">
-      <div class="mcard">
-        <div class="v">300–500 אלף ₪</div>
-        <div class="t">מסלול "כללי" במקום מסלול מותאם גיל</div>
-        <div class="d">מסלול ברירת המחדל נפתח בקליטה לעבודה, ורוב העובדים לא בדקו אותו מאז. ההפרש בתשואה מצטבר על כל הצבירה, לא רק על ההפקדות החדשות.</div>
-        <div class="a">המחשה: עובד בן 38 עם צבירה של 800,000 ₪, פער תשואה של 1%–1.5% בשנה, על פני 20 שנה.</div>
-      </div>
-      <div class="mcard">
-        <div class="v">כ-120,000 ₪</div>
-        <div class="t">פער של 0.4% בדמי הניהול</div>
-        <div class="d">נשמע זניח בדוח השנתי — כ-4,000 ₪ בשנה. אבל הסכום הזה לא רק נגרע, הוא גם מפסיק לצבור תשואה, ולכן הפער גדל עם השנים.</div>
-        <div class="a">המחשה: צבירה של מיליון ₪, פער דמי ניהול של 0.4%, על פני 20 שנה בריבית דריבית.</div>
-      </div>
-      <div class="mcard">
-        <div class="v">500–1,500 ₪ בחודש</div>
-        <div class="t">כפל בין הכיסויים הביטוחיים</div>
-        <div class="d">אובדן כושר עבודה דרך קרן הפנסיה, פוליסה פרטית שנפתחה פעם, והביטוח הקבוצתי של החברה. שלושה מסמכים בשלושה גופים — וחפיפה שאי אפשר לזהות בלי לפתוח את שלושתם יחד.</div>
-        <div class="a">טווח מתוך ניסיוני בייעוץ, תלוי בגיל, בשכר ובהיקף הכיסויים בפועל.</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -655,6 +636,24 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
       <li>לזהות חפיפה אפשרית בין הכיסויים הביטוחיים — דרך הפנסיה, פוליסה פרטית וביטוח קבוצתי</li>
       <li>לדעת אילו שאלות לשאול, ומה לבקש בכתב, לפני שמקבלים החלטה או חותמים על מסמך</li>
     </ul>
+
+    <details class="syllabus" id="syllabus">
+      <summary>ראשי הפרקים המלאים של ההרצאה</summary>
+      <div class="syl-body">
+        <p>אין נושא שלא מופיע כאן. אם יש נושא שחשוב לכם שיקבל יותר מקום — אפשר לומר לי מראש.</p>
+        <ol class="syl-list">
+          <li>למה דווקא עכשיו<span>מה הופך את שנות ה-30 וה-40 לתקופה שבה כל החלטה שווה הכי הרבה</span></li>
+          <li>קריאת דוח פנסיוני — דמו חי<span>אילו נתונים בדוח באמת חשובים, ואיפה בדיוק מוצאים אותם</span></li>
+          <li>מסלול ההשקעה<span>מה זה "כללי", מה ההבדל בין המסלולים, ואיך מתאימים מסלול לגיל ולאופק</span></li>
+          <li>דמי ניהול<span>מצבירה מול מהפקדה, איפה בודקים את השיעור בפועל, ומול מה נכון להשוות</span></li>
+          <li>האיזון האקטוארי<span>המנגנון שרוב החוסכים לא מכירים, ואיך הוא משפיע על התשואה בפועל</span></li>
+          <li>קרן השתלמות<span>הכלי היעיל ביותר שיש לשכיר, ולמה משיכה מוקדמת ממנה יקרה יותר ממה שנדמה</span></li>
+          <li>הכיסויים הביטוחיים<span>אובדן כושר עבודה ושאירים, ואיך מזהים חפיפה בין הפנסיה, פוליסה פרטית והביטוח הקבוצתי</span></li>
+          <li>מעבר בין מקומות עבודה<span>מה קורה לכספי הפיצויים, לוותק ולכיסויים — ומה כדאי לבדוק לפני שחותמים</span></li>
+          <li>שאלות ותשובות פתוחות<span>10–15 דקות, בלי הגבלת נושא</span></li>
+        </ol>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -673,8 +672,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
         <div class="a">שם מתגלה האופי האמיתי של ההרצאה. ההבדל הוא בין <b>"השאירו פרטים ונחזור אליכם"</b> לבין <b>"הנה איפה למצוא אותי אם תרצו"</b>. <b>אצלי: שאלות ותשובות, ובשקף האחרון ברקוד ליצירת קשר.</b> אני לא אוסף פרטים, לא רושם מי היה בחדר ולא מתקשר לאף אחד — היוזמה נשארת לגמרי אצל העובד.</div>
       </div>
       <div class="qa-item">
-        <div class="q">3. אפשר לראות את התוכן מראש?</div>
-        <div class="a">הדרך הפשוטה ביותר לבדוק אם יש בהרצאה מכירה היא לקרוא אותה. <b>אצלי: אני שולח את המצגת המלאה לעיון לפני שקובעים מועד</b>, בלי התחייבות. אין הפתעות ואין שקף שלא ראיתם.</div>
+        <div class="q">3. אפשר לדעת מראש בדיוק מה יהיה בה?</div>
+        <div class="a">"נדבר על זה בשיחה" הוא בדרך כלל סימן לא טוב. <b>אצלי: <a href="#syllabus">ראשי הפרקים המלאים</a> מפורטים כאן בדף</b>, פתוחים לכל מי שרוצה לקרוא, ואין נושא שלא מופיע שם.</div>
       </div>
     </div>
     <p style="margin-top:var(--s-lg)"><b>לשקיפות מלאה — מה אני מקבל מזה:</b> ההרצאה חושפת אותי לקהל שמתאים לשירות שאני נותן. בשקף האחרון יש ברקוד ליצירת קשר, ומי שרוצה סורק אותו. חלק מהעובדים יפנו אליי בהמשך באופן פרטי ויקבלו הצעת מחיר שקופה מראש; רובם פשוט ייקחו את המידע ויפעלו לבד — וזה בסדר גמור מבחינתי. לחברה, בכל מקרה, אין עלות ואין התחייבות.</p>
@@ -688,9 +687,9 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
     <p class="lede">ארבעה צעדים, ואפשר לעצור בכל אחד מהם. <b>עלות לחברה בכל שלב: 0 ₪.</b></p>
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>הודעה קצרה</h3><p>וואטסאפ או טלפון. מספיק לכתוב באיזו חברה מדובר ומה סדר הגודל של הקהל.</p></div>
-      <div class="step"><div class="n">2</div><h3>המצגת אצלכם לעיון</h3><p><b>אין הפתעות.</b> אני שולח את המצגת המלאה, אתם עוברים עליה בקצב שלכם ורואים בדיוק מה העובדים יקבלו.</p></div>
-      <div class="step"><div class="n">3</div><h3>קובעים מועד ומזמינים</h3><p>רק אם אישרתם את התוכן. מתאמים תאריך, שעה ופורמט — פיזי, זום או היברידי — ואתם מזמינים את העובדים.</p></div>
-      <div class="step"><div class="n">4</div><h3>אני מגיע ומעביר</h3><p>45–60 דקות, כולל שאלות ותשובות. אני מביא את המצגת ואת הדמו החי של קריאת דוח פנסיוני.</p></div>
+      <div class="step"><div class="n">2</div><h3>מוודאים שהתוכן מתאים</h3><p>עוברים יחד על <a href="#syllabus">ראשי הפרקים</a>, ואם יש נושא שחשוב לכם שיודגש — אומרים לי מראש.</p></div>
+      <div class="step"><div class="n">3</div><h3>קובעים מועד ומזמינים</h3><p>מתאמים תאריך, שעה ופורמט — פיזי, זום או היברידי — ואתם מזמינים את העובדים.</p></div>
+      <div class="step"><div class="n">4</div><h3>אני מגיע ומעביר</h3><p>45–60 דקות, כולל שאלות ותשובות ודמו חי של קריאת דוח פנסיוני.</p></div>
     </div>
     <div class="logi">
       <div><div class="k">משך</div><div class="v">45–60 דק'</div></div>
@@ -734,7 +733,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
       </details>
       <details>
         <summary>אפשר לראות את תוכן ההרצאה לפני שמאשרים?</summary>
-        <p>כן, וזה הצעד שאני ממליץ עליו. אני שולח את המצגת המלאה לעיון לפני קביעת מועד, בלי שום התחייבות. זו הדרך הפשוטה ביותר לוודא שאין בה מכירה — פשוט לקרוא אותה.</p>
+        <p>כן. <a href="#syllabus">ראשי הפרקים המלאים</a> מפורטים כאן בדף ואפשר לעבור עליהם עכשיו — אין נושא שלא מופיע שם. אם יש נושא שחשוב לכם שיקבל יותר מקום, אפשר לומר לי מראש ואתאים.</p>
       </details>
       <details>
         <summary>כמה זמן ההרצאה ומה נדרש מאיתנו?</summary>
@@ -759,11 +758,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <!-- 9. CTA -->
 <section class="cta-final">
   <div class="container">
-    <h2>הצעד הראשון הוא לקרוא, לא להתחייב</h2>
-    <p>אשלח לכם את המצגת המלאה לעיון — בדיוק מה שהעובדים ישמעו, שקף אחר שקף. אם התוכן מתאים, נקבע מועד. אם לא, לא קרה כלום.</p>
+    <h2>הודעה אחת, ויש לעובדים שלכם הרצאה</h2>
+    <p>בלי תקציב, בלי התחייבות ובלי ניירת. מספיק לכתוב באיזו חברה מדובר ומה סדר הגודל של הקהל, ונמצא מועד שמתאים לכם.</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%99%20%D7%9E-HR%20%D7%91%D7%97%D7%91%D7%A8%D7%AA%20%D7%94%D7%99%D7%99%D7%98%D7%A7.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%AA%20%D7%94%D7%9E%D7%A6%D7%92%D7%AA%20%D7%A9%D7%9C%20%D7%94%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D%20%D7%9C%D7%A2%D7%99%D7%95%D7%9F." rel="noopener">שלחו לי את המצגת לעיון ←</a>
-      <a class="btn btn-ghost" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%A8%D7%95%D7%A6%D7%99%D7%9D%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%9C%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">או לתיאום מועד ישירות</a>
+      <a class="btn btn-primary" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%A8%D7%95%D7%A6%D7%99%D7%9D%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%9C%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">לתיאום הרצאה בוואטסאפ ←</a>
+      <a class="btn btn-ghost" href="https://wa.me/972527700599?text=%D7%94%D7%99%D7%99%20%D7%90%D7%99%D7%AA%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%92%D7%91%D7%99%20%D7%94%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%9C%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%9D." rel="noopener">יש לי שאלה לפני זה</a>
     </div>
     <p class="alt">או בטלפון: <a href="tel:+972527700599">052-770-0599</a> · <a href="/design-assets/hitech-lecture-flyer.pdf" download>הורדת דף מידע להעברה פנימית (PDF)</a></p>
   </div>
