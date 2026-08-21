@@ -241,6 +241,15 @@ section { padding: var(--s-2xl) 0; }
 @media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; } }
 
 /* Why me strip */
+.employer-strip { background: linear-gradient(135deg, #007DA8 0%, #006487 100%); color: #fff; padding: var(--s-2xl) 0; }
+.employer-strip .container { max-width: var(--article-width); }
+.employer-strip .es-tag { display: inline-block; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+.employer-strip h2 { color: #fff; margin: 0 0 10px; }
+.employer-strip p { color: rgba(255,255,255,.93); font-size: 17px; line-height: 1.65; margin: 0 0 var(--s-md); }
+.employer-strip .es-points { list-style: none; padding: 0; margin: 0 0 var(--s-lg); display: flex; flex-wrap: wrap; gap: 10px; }
+.employer-strip .es-points li { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); border-radius: 999px; padding: 6px 14px; font-size: 14.5px; font-weight: 600; }
+.employer-strip .btn-primary { background: var(--cta); color: #fff; }
+.employer-strip .btn-primary:hover { background: var(--cta-hover); }
 .why-section { background: var(--bg-cream); }
 .why-section .container { max-width: var(--article-width); }
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-md); margin-top: var(--s-lg); }
@@ -677,6 +686,26 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- FOR EMPLOYERS -->
+<section class="employer-strip">
+  <div class="container">
+    <span class="es-tag">לחברות ומעסיקים</span>
+    <h2>הרצאה פיננסית לעובדים — ללא עלות לחברה</h2>
+    <p>
+      הרצאת Lunch &amp; Learn בת 45-60 דקות לעובדי החברה, על פנסיה, קרן השתלמות, ביטוחים
+      ומעברי עבודה. אני יועץ פנסיוני בעל רישיון, ולכן אסור לי לקבל עמלות מגופים פיננסיים -
+      אין כאן מצגת מכירה ואין מוצר שמוצע לעובדים. את המצגת המלאה אפשר לקבל לעיון מראש.
+    </p>
+    <ul class="es-points">
+      <li>0 ₪ לחברה</li>
+      <li>ללא מכירת מוצרים</li>
+      <li>ללא התחייבות</li>
+      <li>המצגת נשלחת מראש</li>
+    </ul>
+    <a class="btn btn-primary" href="/services/hitech-lecture/">לפרטי ההרצאה לעובדים ←</a>
   </div>
 </section>
 
