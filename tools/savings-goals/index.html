@@ -114,16 +114,17 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 /* שתי סקציות ההנחות זו לצד זו בדסקטופ */
 .sg-assume-row{display:flex;gap:16px;align-items:stretch;margin-bottom:24px}
 .sg-assume-row>.sg-panel{margin-bottom:0;padding:16px 18px 14px}
-.sg-assume-row>.sg-p-rates{flex:1 1 auto}
-.sg-assume-row>.sg-p-bal{flex:1 1 auto}
+.sg-assume-row>.sg-p-rates{flex:3 1 400px}
+.sg-assume-row>.sg-p-bal{flex:2 1 330px}
 .sg-assume-row .sg-panel-sub{margin-bottom:12px}
 .sg-assume-row .sg-params{gap:12px 14px}
-.sg-assume-row .sg-params .sg-field{flex:0 0 auto;width:152px;max-width:none}
-.sg-assume-row .sg-params .sg-field.sg-f-pct{width:112px}
+.sg-assume-row .sg-params{flex-wrap:nowrap}
+.sg-assume-row .sg-params .sg-field{flex:1 1 130px;min-width:120px;max-width:210px}
+.sg-assume-row .sg-params .sg-field.sg-f-pct{flex:1 1 100px;min-width:100px;max-width:150px}
 .sg-assume-row .sg-params .sg-inputwrap{width:100%}
 .sg-assume-row .sg-params .sg-inputwrap.pct{width:100%}
-@media(max-width:900px){.sg-assume-row{flex-direction:column;gap:0}.sg-assume-row>.sg-panel{margin-bottom:16px}}
-@media(max-width:520px){.sg-assume-row .sg-params .sg-field,.sg-assume-row .sg-params .sg-field.sg-f-pct{width:140px}}
+@media(max-width:900px){.sg-assume-row{flex-direction:column;gap:0}.sg-assume-row>.sg-panel{margin-bottom:16px;flex:0 0 auto}}
+@media(max-width:900px){.sg-assume-row .sg-params{flex-wrap:wrap}}
 .sg-panel.sg-p-bal{background:linear-gradient(135deg,#f6fbf7 0%,#eaf6ee 100%);border-color:#d2e8da}
 .sg-panel-title{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sg-panel-title .sg-hint{font-weight:400;font-size:13px;color:var(--text-meta)}
