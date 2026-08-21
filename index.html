@@ -726,10 +726,13 @@ section.tight { padding: var(--s-2xl) 0; }
 .testimonials-section { background: var(--bg-cream); }
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--s-md);
+  align-items: stretch;
 }
 .testimonial {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   padding: var(--s-lg);
   border-radius: var(--radius-card);
@@ -743,11 +746,12 @@ section.tight { padding: var(--s-2xl) 0; }
   letter-spacing: 2px;
 }
 .testimonial-quote {
+  flex: 1 1 auto;
   font-size: 16px;
   color: var(--text-1);
   line-height: 1.6;
   margin-bottom: var(--s-md);
-  min-height: 110px;
+  min-height: 0;
 }
 .testimonial-author {
   display: flex;
@@ -767,11 +771,12 @@ section.tight { padding: var(--s-2xl) 0; }
 }
 .author-info .name { font-weight: 600; font-size: 15px; }
 .author-info .role { font-size: 13px; color: var(--text-meta); }
+.testimonials-more { text-align: center; margin-top: var(--s-lg); }
+.testimonials-more-link { font-size: 17px; font-weight: 600; }
+.testimonials-note { font-size: 13px; color: var(--text-meta); margin-top: var(--s-xs); }
 
-@media (max-width: 900px) {
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .testimonial-quote { min-height: auto; }
-}
+@media (max-width: 1100px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
 /* =========================================================
    CONTACT CTA
@@ -1608,6 +1613,68 @@ textarea:focus-visible,
   </div>
 </section>
 
+
+<!-- =========================================================
+     TESTIMONIALS
+     ========================================================= -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>מה אומרים לקוחות</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
+        <p class="testimonial-quote">ממליץ מאוד. חסך לי מאות אלפי שקלים בפנסיה. בקיא בתחום ונטול אינטרסים.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">D</div>
+          <div class="author-info">
+            <div class="name">Dani Moriel</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
+        <p class="testimonial-quote">…בתכנון משכנתא שעשינו עם איתן הצלחנו לחסוך עשרות אלפי שקלים (לפחות) בזכות מחשבה ותכנון נכון של התמהיל והתנאים.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">Y</div>
+          <div class="author-info">
+            <div class="name">Yossi Yacov</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
+        <p class="testimonial-quote">…סוף סוף פגשתי מישהו שבאמת עובד בשביל הלקוח ולא בשביל הבנק, חברת הביטוח או כל גוף פיננסי אחר.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ע</div>
+          <div class="author-info">
+            <div class="name">עומר טל</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
+        <p class="testimonial-quote">…איתן חסך לנו במהלך השנים הרבות שאני מתייעץ איתו במשכנתאות, בפנסיות, בביטוחים, ובנושאים כלכליים נוספים, סכומי כסף גדולים מאוד.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">E</div>
+          <div class="author-info">
+            <div class="name">Elazar Peli</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonials-more">
+      <a href="/about/testimonials/" class="testimonials-more-link">לקריאת המלצות נוספות מלקוחות ←</a>
+      <p class="testimonials-note">הציטוטים כאן מקוצרים. הנוסח המלא של כל חוות דעת מופיע בעמוד ההמלצות.</p>
+    </div>
+  </div>
+</section>
 
 <!-- =========================================================
      CONTACT CTA
