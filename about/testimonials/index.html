@@ -564,8 +564,10 @@ section { padding: var(--s-2xl) 0; }
   clip-path: polygon(100% 0, 16px 0, 0 50%, 16px 100%, 100% 100%, calc(100% - 16px) 50%);
 }
 .flow-step:nth-child(even) .flow-chev { background: #00658A; }
-.flow-step:first-child .flow-chev { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, calc(100% - 16px) 50%); border-radius: 6px 0 0 6px; }
-.flow-step:last-child .flow-chev  { clip-path: polygon(100% 0, 16px 0, 0 50%, 16px 100%, 100% 100%); border-radius: 0 6px 6px 0; }
+/* הראשון (הימני ב-RTL): קצה ימני ישר, חוד שמאלה */
+.flow-step:first-child .flow-chev { clip-path: polygon(100% 0, 16px 0, 0 50%, 16px 100%, 100% 100%); border-radius: 0 6px 6px 0; }
+/* האחרון (השמאלי): קצה שמאלי ישר, מגרעת בימין */
+.flow-step:last-child .flow-chev  { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, calc(100% - 16px) 50%); border-radius: 6px 0 0 6px; }
 .flow-num {
   font-size: 11px; font-weight: 700; letter-spacing: .06em;
   opacity: .75; line-height: 1;
