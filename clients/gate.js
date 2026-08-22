@@ -1,4 +1,4 @@
-// gate.js — v11 | tag-based personalized content + insurance / donations / child-savings tabs
+// gate.js — v12 | tag-based personalized content + insurance / donations / child-savings tabs + pension calculator (#11)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -17,6 +17,7 @@ var clientEmail = null;
 // כשמעדכנים תוכן בלשונית מסוימת, משנים כאן רק את התאריך שלה. השאר נשארים כמו שהם.
 var TAB_DATES = {
   'פנסיה והשתלמות': '12.7.2026',
+  'מחשבון פנסיה':   '22.8.2026',
   'מחשבון יעדי חיסכון': '18.8.2026',
   'IRA':             '12.7.2026',
   'ביטוחים':         '12.7.2026',
@@ -443,6 +444,30 @@ function pingActiveFrame(panelsDiv) {
   });
 }
 
+// ====== מחשבון פנסיה משפחתי — לבעלי תגית תכנון פיננסי (#11) ======
+var PENSION_CALC_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · כלי אישי</div>' +
+  '<h1>מחשבון פנסיה משפחתי</h1>' +
+  '</div></div>' +
+  '<iframe src="/clients/tools/pension/" class="pensya-calc-frame" title="מחשבון פנסיה משפחתי" ' +
+  'style="display:block;width:100%;border:0;height:1600px;background:#F8F6F2"></iframe>';
+
+var PENSION_CALC_SECTION = { tagName: 'מחשבון פנסיה', html: PENSION_CALC_HTML };
+
+// הדף המוטמע מדווח על גובהו — מותחים את ה-iframe בהתאם (רק מאותו מקור)
+window.addEventListener('message', function (ev) {
+  if (!ev || ev.origin !== location.origin) return;
+  if (!ev.data || typeof ev.data.pensyaCalcHeight !== 'number') return;
+  var frames = document.querySelectorAll('iframe.pensya-calc-frame');
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === ev.source) {
+      frames[i].style.height = Math.max(600, Math.min(20000, ev.data.pensyaCalcHeight)) + 'px';
+      break;
+    }
+  }
+});
+
 function buildSections(data) {
   // רשימה ריקה נשארת ריקה — ראה ההערה למעלה. אין fallback.
   var origTags = (data.tags && data.tags.length > 0) ? data.tags : [];
@@ -454,6 +479,7 @@ function buildSections(data) {
 
   if (data.sections && data.sections.length > 0) {
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
+    if (hasTag11) extra.unshift(PENSION_CALC_SECTION);
     return Promise.resolve(data.sections.concat(extra));
   }
 
@@ -471,6 +497,9 @@ function buildSections(data) {
       tagName: 'פנסיה והשתלמות',
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
+
+    // 1.5 מחשבון פנסיה משפחתי — לבעלי תכנון פיננסי בלבד
+    if (hasTag11) sections.push(PENSION_CALC_SECTION);
 
     // 2. IRA — לכולם
     sections.push({
