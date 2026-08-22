@@ -718,12 +718,12 @@ function gsApply(v){
     }
     return out;
   }
-  var i,assume=null,ownerRows=[],fundRows=[],fundHeader=null;
+  var i,assume=null,ownerRows=[],fundRows=[];
   for(i=0;i<v.length;i++){
     var r=v[i];
     if(rowIs(r,'הנחות'))assume=v[i+2]||[];
     else if(rowIs(r,'בעלי הקרנות'))ownerRows=readBlock(i+2);
-    else if(rowIs(r,'הקרנות')){fundHeader=v[i+1]||[];fundRows=readBlock(i+2);}
+    else if(rowIs(r,'הקרנות'))fundRows=readBlock(i+2);
   }
   if(!fundRows.length&&!assume)throw new Error('הגיליון לא במבנה המוכר — שמרו נתונים מחדש');
   if(assume){
@@ -731,38 +731,23 @@ function gsApply(v){
     if(String(cell(assume,1))!=='')document.getElementById('g-infl').value=numOf(cell(assume,1));
   }
   owners=[];fundsList=[];oseq=0;fseq=0;
-  var oldFormat = String(cell(fundHeader,1)).indexOf('תאריך')===0; /* גרסה ראשונה: תאריך לידה בתוך שורת הקרן */
-  if(oldFormat){
-    fundRows.forEach(function(r){
-      if(owners.length>=MAX_OWNERS||fundsList.length>=MAX_FUNDS)return;
-      var manual=String(cell(r,9)).trim()!=='';
-      var o=newOwner({name:String(cell(r,0)).trim(),bdate:sheetDate(cell(r,1)),
-        gender:/^f/i.test(String(cell(r,2)).trim())?'F':'M',retage:Math.round(numOf(cell(r,3)))||67,
-        factor:manual?numOf(cell(r,9)):'',factorManual:manual});
-      owners.push(o);
-      fundsList.push(newFund({ownerId:o.id,name:String(cell(r,0)).trim(),
-        balance:grp(String(Math.round(numOf(cell(r,4))))),salary:grp(String(Math.round(numOf(cell(r,5))))),
-        deprate:numOf(cell(r,6)),feedep:numOf(cell(r,7)),feebal:numOf(cell(r,8))}));
-    });
-  } else {
-    ownerRows.forEach(function(r){
-      if(owners.length>=MAX_OWNERS)return;
-      var manual=String(cell(r,4)).trim()!=='';
-      owners.push(newOwner({name:String(cell(r,0)).trim(),bdate:sheetDate(cell(r,1)),
-        gender:/^f/i.test(String(cell(r,2)).trim())?'F':'M',retage:Math.round(numOf(cell(r,3)))||67,
-        factor:manual?numOf(cell(r,4)):'',factorManual:manual}));
-    });
-    if(!owners.length)owners.push(newOwner({}));
-    fundRows.forEach(function(r){
-      if(fundsList.length>=MAX_FUNDS)return;
-      var nm=String(cell(r,0)).trim(), o=null;
-      for(var x=0;x<owners.length;x++){if((owners[x].name||'').trim()===nm){o=owners[x];break;}}
-      if(!o)o=owners[0];
-      fundsList.push(newFund({ownerId:o.id,name:String(cell(r,1)).trim(),
-        balance:grp(String(Math.round(numOf(cell(r,2))))),salary:grp(String(Math.round(numOf(cell(r,3))))),
-        deprate:numOf(cell(r,4)),feedep:numOf(cell(r,5)),feebal:numOf(cell(r,6))}));
-    });
-  }
+  ownerRows.forEach(function(r){
+    if(owners.length>=MAX_OWNERS)return;
+    var manual=String(cell(r,4)).trim()!=='';
+    owners.push(newOwner({name:String(cell(r,0)).trim(),bdate:sheetDate(cell(r,1)),
+      gender:/^f/i.test(String(cell(r,2)).trim())?'F':'M',retage:Math.round(numOf(cell(r,3)))||67,
+      factor:manual?numOf(cell(r,4)):'',factorManual:manual}));
+  });
+  if(!owners.length)owners.push(newOwner({}));
+  fundRows.forEach(function(r){
+    if(fundsList.length>=MAX_FUNDS)return;
+    var nm=String(cell(r,0)).trim(), o=null;
+    for(var x=0;x<owners.length;x++){if((owners[x].name||'').trim()===nm){o=owners[x];break;}}
+    if(!o)o=owners[0];
+    fundsList.push(newFund({ownerId:o.id,name:String(cell(r,1)).trim(),
+      balance:grp(String(Math.round(numOf(cell(r,2))))),salary:grp(String(Math.round(numOf(cell(r,3))))),
+      deprate:numOf(cell(r,4)),feedep:numOf(cell(r,5)),feebal:numOf(cell(r,6))}));
+  });
   if(!owners.length)owners.push(newOwner({}));
   if(!fundsList.length)fundsList.push(newFund({}));
   renderAll();recalc();
