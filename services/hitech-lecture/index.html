@@ -139,6 +139,7 @@ section{padding:var(--s-2xl) 0;}
 .hero .eyebrow{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:14px;font-weight:600;padding:6px 14px;border-radius:99px;margin-bottom:var(--s-md);}
 .hero h1{color:#fff;margin-bottom:var(--s-md);max-width:20ch;}
 .hero h1 .nowrap{white-space:nowrap;}
+.hero h1 .h1-sub{display:block;font-size:.6em;font-weight:600;opacity:.92;margin-top:8px;}
 .hero .sub{font-size:19px;line-height:1.65;opacity:.94;max-width:64ch;margin-bottom:var(--s-lg);}
 .hero .sub b{font-weight:600;}
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:var(--s-lg);}
@@ -195,7 +196,7 @@ details.datatable th{background:var(--bg-cream);font-weight:600;}
 @media(max-width:760px){.takeaways{grid-template-columns:1fr;}}
 
 /* ---------- SYLLABUS ---------- */
-.syllabus{margin-top:var(--s-lg);border:1px solid var(--border);border-radius:var(--radius-card);background:#fff;box-shadow:var(--shadow-card);overflow:hidden;}
+.syllabus{scroll-margin-top:100px;margin-top:var(--s-lg);border:1px solid var(--border);border-radius:var(--radius-card);background:#fff;box-shadow:var(--shadow-card);overflow:hidden;}
 .syllabus > summary{cursor:pointer;list-style:none;padding:var(--s-md);display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:18.5px;font-weight:600;color:var(--primary-dark);}
 .syllabus > summary::-webkit-details-marker{display:none;}
 .syllabus > summary::after{content:"+";color:var(--primary);font-weight:700;font-size:24px;line-height:1;flex:none;}
@@ -458,8 +459,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <header class="hero" id="main-content">
   <div class="container">
     <span class="eyebrow">הצעה למחלקות HR ו-People בחברות הייטק</span>
-    <h1>הרצאה פיננסית לעובדי הייטק — <span class="nowrap">ללא עלות לחברה</span></h1>
-    <p class="sub">איך החלטות קטנות בפנסיה מצטברות לסכומים משמעותיים לאורך קריירה שלמה. <b>45–60 דקות במשרדי החברה, מפי יועץ פנסיוני בעל רישיון משרד האוצר</b> — שאסור לו לפי חוק לקבל עמלות מחברות ביטוח, מקרנות פנסיה או מבתי השקעות.</p>
+    <h1>הרצאה פיננסית לעובדי החברה<span class="h1-sub">ללא עלות</span></h1>
+    <p class="sub">החלטות קטנות בפנסיה יכולות להצטבר לסכומים משמעותיים לאורך קריירה שלמה. <b>45–60 דקות במשרדי החברה, מפי יועץ פנסיוני בעל רישיון משרד האוצר</b> — שאסור לו לפי חוק לקבל עמלות מחברות ביטוח ומבתי השקעות.</p>
     <div class="chips">
       <span class="chip"><span class="zero">0 ₪</span> עלות לחברה</span>
       <span class="chip">אין מכירת מוצרים</span>
@@ -795,6 +796,20 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
   nav.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){ toggle(false); });
   });
+})();
+</script>
+<script>
+(function(){
+  var d = document.getElementById('syllabus');
+  if (!d) return;
+  function openIt(){ if (!d.open) d.open = true; }
+  document.querySelectorAll('a[href="#syllabus"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      openIt();
+      setTimeout(function(){ d.scrollIntoView({behavior:'smooth', block:'start'}); }, 0);
+    });
+  });
+  if (location.hash === '#syllabus') openIt();
 })();
 </script>
 <script src="/search.js"></script>
