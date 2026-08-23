@@ -87,18 +87,11 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .brk{border-top:1px dashed var(--border);margin-top:8px;padding-top:7px}
 .brk-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--text-2);padding:2px 0}
 .owner-add-cell{display:flex;align-items:center;justify-content:center}
-.xi-hint{font-size:12px;color:var(--text-meta);line-height:1.5;margin-bottom:8px}
-.xi-item{border-top:1px dashed var(--border);padding-top:8px;margin-top:8px}
-#xi-list .xi-item:first-child{border-top:none;margin-top:0;padding-top:0}
-.xi-top{display:flex;gap:6px;align-items:center;margin-bottom:5px}
-.xi-top select{flex:1;min-width:0;padding:6px 8px;font-size:13.5px}
-.xi-amt{width:100%;padding:6px 8px;font-size:14px}
-.xi-custom{width:100%;margin-bottom:5px;padding:6px 8px;font-size:13px}
-.xi-del{background:none;border:none;color:var(--text-meta);cursor:pointer;font-size:14px;padding:2px 4px;flex-shrink:0}
-.xi-del:hover{color:var(--negative)}
-.xi-add{background:none;border:1px dashed var(--primary);color:var(--primary);border-radius:8px;padding:5px 12px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;margin-top:8px}
-.xi-add:hover{background:var(--primary-soft)}
-.xi-sum-row{border-top:1px dashed var(--border);margin-top:8px;padding-top:7px}
+.xi-cpi{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:9px;font-size:14px;font-weight:400;color:var(--text-1);background:#fff;cursor:pointer}
+.xi-cpi input{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;margin:0}
+#add-menu{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+#add-menu[hidden]{display:none}
+#add-menu .btn{font-size:14px;padding:9px 16px}
 @media(max-width:560px){.card{padding:16px 14px}}
 </style>
 <!--@CHROME:HEAD@-->
@@ -251,7 +244,14 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   </div>
 
   <div id="funds"></div>
-  <div style="margin-bottom:18px"><button class="btn ghost" id="add-fund">+ הוספת קרן / קופת גמל</button></div>
+  <div id="xincomes"></div>
+  <div style="margin-bottom:18px">
+    <button class="btn ghost" id="add-fund">+ הוספת קרן / קופת גמל / מקור הכנסה אחר</button>
+    <div id="add-menu" hidden>
+      <button class="btn ghost" id="add-fund-btn">קרן פנסיה / קופת גמל</button>
+      <button class="btn ghost" id="add-xi-btn">מקור הכנסה אחר — פנסיה תקציבית, שכ"ד, ביטוח מנהלים…</button>
+    </div>
+  </div>
   <div class="err" id="calc-err"></div>
 
   <div id="results" style="display:none">
@@ -260,7 +260,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <div class="chart-box"><canvas id="chart" height="340"></canvas></div>
   </div>
 
-  <p class="note" id="assumptions"><strong>הנחות המחשבון:</strong> שכר קבוע (ללא עליית שכר). מקדם ההמרה מחושב אוטומטית לכל אדם לפי מין, שנת לידה וגיל פרישה (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, פער גילאים 1.7 שנים) וניתן לעריכה ידנית. צבירה בקרן פנסיה משלימה ובקופת גמל מומרת לקצבה לפי מקדם של קרן משלימה — גבוה בכ-3%-5% ממקדם המקיפה (נגזר מנספחי התקנונים של מנורה מבטחים, מהדורות 2026); בהיעדר נתוני האדם ננקט מקדם 208. בקופת גמל לא נגרעות עלויות ביטוח, ודמי הניהול מהצבירה בה — ברירת מחדל 0.5% (בקופת גמל בדרך כלל אין דמי ניהול מהפקדה). מסלול ביטוח ברירת מחדל — שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ'יזה. קרן של מי שהגיע לגיל הפרישה שלו מוצגת בגרף המשולב כצבירה קפואה עד פרישת בן הזוג האחרון. הקצבה של כל אדם מחושבת מסך הצבירות שלו חלקי המקדם שלו, והקצבה בערכי היום מנוכה לפי השנים עד הפרישה שלו. הכנסות נוספות בפנסיה (פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים וכד׳) נכללות בסיכום המשפחתי בסכום שהוזן — הן בקצבה החודשית והן בערכי היום, ללא הצמדה — ואינן חלק מהצבירה ומהגרף. הקצבאות המוצגות הן לפני מס הכנסה. התוצאה היא אומדן ואינה מהווה ייעוץ פנסיוני אישי.</p>
+  <p class="note" id="assumptions"><strong>הנחות המחשבון:</strong> שכר קבוע (ללא עליית שכר). מקדם ההמרה מחושב אוטומטית לכל אדם לפי מין, שנת לידה וגיל פרישה (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, פער גילאים 1.7 שנים) וניתן לעריכה ידנית. צבירה בקרן פנסיה משלימה ובקופת גמל מומרת לקצבה לפי מקדם של קרן משלימה — גבוה בכ-3%-5% ממקדם המקיפה (נגזר מנספחי התקנונים של מנורה מבטחים, מהדורות 2026); בהיעדר נתוני האדם ננקט מקדם 208. בקופת גמל לא נגרעות עלויות ביטוח, ודמי הניהול מהצבירה בה — ברירת מחדל 0.5% (בקופת גמל בדרך כלל אין דמי ניהול מהפקדה). מסלול ביטוח ברירת מחדל — שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ'יזה. קרן של מי שהגיע לגיל הפרישה שלו מוצגת בגרף המשולב כצבירה קפואה עד פרישת בן הזוג האחרון. הקצבה של כל אדם מחושבת מסך הצבירות שלו חלקי המקדם שלו, והקצבה בערכי היום מנוכה לפי השנים עד הפרישה שלו. מקורות הכנסה נוספים בפנסיה (פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים וכד׳) מוזנים כסכום חודשי בערכי היום ומשויכים לאדם: מקור צמוד מדד שומר על ערכו הריאלי — בקצבה החודשית הוא מוצג מוצמד לפי האינפלציה שהוגדרה עד פרישת בעליו; מקור לא צמוד נשאר קבוע נומינלית וערכו היום נמוך בהתאם. מקורות אלה נכללים בסיכום המשפחתי ואינם חלק מהצבירה ומהגרף. הקצבאות המוצגות הן לפני מס הכנסה. התוצאה היא אומדן ואינה מהווה ייעוץ פנסיוני אישי.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -299,18 +299,38 @@ var owners=[], fundsList=[], oseq=0, fseq=0, chart=null, viewMode='stack';
 var addOwnerCell=document.getElementById('add-owner-cell');
 /* ═══ הכנסות נוספות בפנסיה ═══ */
 var XI_TYPES=['פנסיה תקציבית','הכנסה משכ"ד','קצבה מביטוח מנהלים','קצבת זקנה מביטוח לאומי','אחר'];
-var extraIncomes=[], xiSeq=0, lastTot={f:0,p:0,pt:0};
+var MAX_XI=6;
+var extraIncomes=[], xiSeq=0;
 function newXi(init){
   init=init||{};
   var t=init.type!=null&&String(init.type).trim()!==''?String(init.type).trim():XI_TYPES[0];
   var custom='';
   if(XI_TYPES.indexOf(t)<0){custom=t;t='אחר';}
   if(t==='אחר'&&init.typeCustom)custom=String(init.typeCustom);
-  return {id:++xiSeq,type:t,typeCustom:custom,amount:init.amount!=null&&init.amount!==''?grp(String(init.amount)):''};
+  return {id:++xiSeq,type:t,typeCustom:custom,
+    ownerId:init.ownerId||(owners[0]&&owners[0].id)||0,
+    amount:init.amount!=null&&init.amount!==''?grp(String(init.amount)):'',
+    cpi:init.cpi!==false}; /* ברירת מחדל: צמוד למדד */
 }
 function xiById(id){for(var i=0;i<extraIncomes.length;i++)if(extraIncomes[i].id===+id)return extraIncomes[i];return null;}
 function xiName(x){return x.type==='אחר'?(x.typeCustom||'').trim():x.type;}
-function extraSum(){var s=0;extraIncomes.forEach(function(x){s+=+digits(x.amount)||0;});return s;}
+function xiYears(x){ /* שנים עד פרישת בעל ההכנסה — אופק ההצמדה */
+  var o=ownerById(x.ownerId);
+  if(!o)return 0;
+  var age=ageOf(o), ret=parseFloat(o.retage);
+  return (age!=null&&ret>age)?ret-age:0;
+}
+function xiCalc(infl){ /* קצבה נומינלית בפרישה + ערך היום לכל מקור */
+  var out={rows:[],nom:0,tod:0};
+  extraIncomes.forEach(function(x){
+    var a=+digits(x.amount)||0;
+    var f=Math.pow(1+infl,xiYears(x));
+    var nom=x.cpi?a*f:a, tod=x.cpi?a:(f>0?a/f:a);
+    out.rows.push({x:x,nominal:nom,today:tod});
+    out.nom+=nom;out.tod+=tod;
+  });
+  return out;
+}
 function fmt(n){return Math.round(n).toLocaleString('en-US');}
 function digits(s){return String(s==null?'':s).replace(/[^\d]/g,'');}
 function grp(s){var v=digits(s);return v?(+v).toLocaleString('en-US'):'';}
@@ -462,9 +482,47 @@ function renderFunds(){
       '</div>';
     host.appendChild(div);
   });
-  document.getElementById('add-fund').style.display = fundsList.length>=MAX_FUNDS?'none':'';
+  updateAddMenu();
 }
-function renderAll(){renderOwners();renderFunds();}
+function xiTypeOptions(sel){
+  return XI_TYPES.map(function(t){
+    return '<option value="'+esc(t)+'"'+(sel===t?' selected':'')+'>'+esc(t==='אחר'?'אחר…':t)+'</option>';
+  }).join('');
+}
+function renderIncomes(){
+  var host=document.getElementById('xincomes');
+  host.innerHTML='';
+  extraIncomes.forEach(function(x){
+    var div=document.createElement('div');
+    div.className='card fund-card';
+    div.style.setProperty('--fc','#5C8D5A');
+    div.innerHTML=
+      '<div class="fund-head">'+
+        '<span class="fund-dot" style="background:#5C8D5A"></span>'+
+        '<select class="fund-co-sel" data-xk="type" data-xid="'+x.id+'">'+xiTypeOptions(x.type)+'</select>'+
+        (x.type==='אחר'?'<input class="fund-co-other" type="text" data-xk="typeCustom" data-xid="'+x.id+'" value="'+esc(x.typeCustom)+'" placeholder="שם מקור ההכנסה">':'')+
+        '<span class="own-of">של</span>'+
+        '<select class="own-sel" data-xk="ownerId" data-xid="'+x.id+'">'+ownerOptions(x.ownerId)+'</select>'+
+        '<button class="fund-del" data-xdel="'+x.id+'">הסרה ✕</button>'+
+      '</div>'+
+      '<div class="grid">'+
+        '<div><label>סכום חודשי (₪)</label><input type="text" inputmode="numeric" data-xk="amount" data-xid="'+x.id+'" value="'+esc(x.amount)+'"></div>'+
+        '<div><label>הצמדה למדד</label><label class="xi-cpi"><input type="checkbox" data-xk="cpi" data-xid="'+x.id+'"'+(x.cpi?' checked':'')+'> צמוד מדד</label></div>'+
+      '</div>'+
+      '<div class="fund-link">מקור הכנסה נוסף בפנסיה — מוצג בכרטיס "הכנסות נוספות בפנסיה" ונכלל בסיכום המשפחתי. מקור צמוד מדד שומר על ערכו הריאלי עד הפרישה; מקור לא צמוד נשאר קבוע נומינלית.</div>';
+    host.appendChild(div);
+  });
+  updateAddMenu();
+}
+function updateAddMenu(){
+  var fFull=fundsList.length>=MAX_FUNDS, xFull=extraIncomes.length>=MAX_XI;
+  var bf=document.getElementById('add-fund-btn'), bx=document.getElementById('add-xi-btn'), main=document.getElementById('add-fund');
+  if(bf)bf.style.display=fFull?'none':'';
+  if(bx)bx.style.display=xFull?'none':'';
+  if(main)main.style.display=(fFull&&xFull)?'none':'';
+  if(fFull&&xFull){var m=document.getElementById('add-menu');if(m)m.hidden=true;}
+}
+function renderAll(){renderOwners();renderFunds();renderIncomes();}
 
 /* ═══ אירועים — בעלי קרנות ═══ */
 document.getElementById('owners').addEventListener('input',function(e){
@@ -509,6 +567,10 @@ document.getElementById('owners').addEventListener('click',function(e){
     var o=ownerById(del); if(!o)return;
     if(ownerFunds(o).length){
       showErr('כדי להסיר את "'+ownerLabel(o)+'" — קודם העבירו לקרנות בעלים אחרים, או הסירו אותן.');
+      return;
+    }
+    if(extraIncomes.some(function(x){return x.ownerId===o.id;})){
+      showErr('כדי להסיר את "'+ownerLabel(o)+'" — קודם העבירו את מקורות ההכנסה שלו לבן/בת הזוג, או הסירו אותם.');
       return;
     }
     owners=owners.filter(function(x){return x.id!==+del;});
@@ -556,9 +618,42 @@ document.getElementById('funds').addEventListener('click',function(e){
   if(del){fundsList=fundsList.filter(function(f){return f.id!==+del;});renderFunds();recalc();}
 });
 document.getElementById('add-fund').addEventListener('click',function(){
+  var m=document.getElementById('add-menu');
+  m.hidden=!m.hidden;
+  postHeight();
+});
+document.getElementById('add-fund-btn').addEventListener('click',function(){
   if(fundsList.length>=MAX_FUNDS)return;
   fundsList.push(newFund({}));
+  document.getElementById('add-menu').hidden=true;
   renderFunds();recalc();
+});
+document.getElementById('add-xi-btn').addEventListener('click',function(){
+  if(extraIncomes.length>=MAX_XI)return;
+  extraIncomes.push(newXi({}));
+  document.getElementById('add-menu').hidden=true;
+  renderIncomes();recalc();
+});
+
+/* ═══ אירועים — מקורות הכנסה נוספים ═══ */
+document.getElementById('xincomes').addEventListener('input',function(e){
+  var t=e.target, x=xiById(t.getAttribute('data-xid')); if(!x)return;
+  var k=t.getAttribute('data-xk');
+  if(k==='cpi')return; /* מטופל ב-change */
+  if(k==='amount'){t.value=grp(t.value);x.amount=t.value;}
+  else{x[k]=t.value;}
+  recalc();
+});
+document.getElementById('xincomes').addEventListener('change',function(e){
+  var t=e.target, x=xiById(t.getAttribute('data-xid')); if(!x)return;
+  var k=t.getAttribute('data-xk');
+  if(k==='type'){x.type=t.value;renderIncomes();recalc();}
+  else if(k==='ownerId'){x.ownerId=+t.value;recalc();}
+  else if(k==='cpi'){x.cpi=t.checked;recalc();}
+});
+document.getElementById('xincomes').addEventListener('click',function(e){
+  var del=e.target.getAttribute&&e.target.getAttribute('data-xdel');
+  if(del){extraIncomes=extraIncomes.filter(function(x){return x.id!==+del;});renderIncomes();recalc();}
 });
 document.getElementById('g-return').addEventListener('input',recalc);
 document.getElementById('g-infl').addEventListener('input',recalc);
@@ -600,55 +695,13 @@ function recalc(){
   updateChangedBanner();
   postHeight();
 }
-function xiTypeOptions(sel){
-  return XI_TYPES.map(function(t){
-    return '<option value="'+esc(t)+'"'+(sel===t?' selected':'')+'>'+esc(t==='אחר'?'אחר…':t)+'</option>';
-  }).join('');
+function xiRowLabel(x){
+  var nm=xiName(x)||'ללא שם';
+  var o=ownerById(x.ownerId);
+  if(owners.length>1&&o)nm+=' ('+ownerLabel(o)+')';
+  if(!x.cpi)nm+=' · לא צמוד';
+  return nm;
 }
-function extraCardHtml(){
-  var items=extraIncomes.map(function(x){
-    return '<div class="xi-item">'+
-      '<div class="xi-top"><select data-xk="type" data-xid="'+x.id+'">'+xiTypeOptions(x.type)+'</select>'+
-      '<button type="button" class="xi-del" data-xdel="'+x.id+'" aria-label="הסרת מקור הכנסה">✕</button></div>'+
-      (x.type==='אחר'?'<input type="text" class="xi-custom" placeholder="שם מקור ההכנסה" data-xk="typeCustom" data-xid="'+x.id+'" value="'+esc(x.typeCustom)+'">':'')+
-      '<input type="text" class="xi-amt" inputmode="numeric" placeholder="סכום חודשי ₪" data-xk="amount" data-xid="'+x.id+'" value="'+esc(x.amount)+'">'+
-    '</div>';
-  }).join('');
-  var xs=extraSum();
-  return '<div class="res-card" style="--fc:#5C8D5A">'+
-    '<div class="nm"><span class="fund-dot" style="background:#5C8D5A"></span>הכנסות נוספות בפנסיה</div>'+
-    '<div class="xi-hint">פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים וכד׳ — נכלל בסיכום המשפחתי.</div>'+
-    '<div id="xi-list">'+items+'</div>'+
-    '<button type="button" class="xi-add" id="xi-add">+ הוספת מקור הכנסה</button>'+
-    '<div class="row xi-sum-row" id="xi-sum-row"'+(extraIncomes.length?'':' style="display:none"')+'><span>סה"כ לחודש</span><b id="xi-sum">'+fmt(xs)+' ₪</b></div>'+
-  '</div>';
-}
-function xiRefreshTotals(){ /* עדכון סכומים בלבד — בלי רינדור מחדש, כדי לא לאבד פוקוס בהקלדה */
-  var xs=extraSum();
-  var el=document.getElementById('xi-sum');if(el)el.textContent=fmt(xs)+' ₪';
-  var sr=document.getElementById('xi-sum-row');if(sr)sr.style.display=extraIncomes.length?'':'none';
-  var tp=document.getElementById('tot-p');if(tp)tp.textContent=fmt(lastTot.p+xs)+' ₪';
-  var tpt=document.getElementById('tot-pt');if(tpt)tpt.textContent=fmt(lastTot.pt+xs)+' ₪';
-  var brk=document.getElementById('xi-tot-brk');if(brk)brk.style.display=xs>0?'':'none';
-  var v=document.getElementById('xi-tot-val');if(v)v.textContent=fmt(xs)+' ₪';
-  updateChangedBanner();postHeight();
-}
-document.getElementById('res-cards').addEventListener('input',function(e){
-  var t=e.target,x=xiById(t.getAttribute('data-xid'));if(!x)return;
-  var k=t.getAttribute('data-xk');
-  if(k==='amount'){t.value=grp(t.value);x.amount=t.value;xiRefreshTotals();}
-  else if(k==='typeCustom'){x.typeCustom=t.value;updateChangedBanner();}
-});
-document.getElementById('res-cards').addEventListener('change',function(e){
-  var t=e.target;if(t.getAttribute('data-xk')!=='type')return;
-  var x=xiById(t.getAttribute('data-xid'));if(!x)return;
-  x.type=t.value;recalc();
-});
-document.getElementById('res-cards').addEventListener('click',function(e){
-  if(e.target.id==='xi-add'){extraIncomes.push(newXi({}));recalc();return;}
-  var del=e.target.getAttribute&&e.target.getAttribute('data-xdel');
-  if(del){extraIncomes=extraIncomes.filter(function(x){return x.id!==+del;});recalc();}
-});
 function renderResults(perOwner,infl){
   var host=document.getElementById('res-cards');
   var html='';
@@ -669,15 +722,23 @@ function renderResults(perOwner,infl){
   });
   var totF=0,totP=0,totPT=0;
   perOwner.forEach(function(po){totF+=po.final;totP+=po.pension;totPT+=po.pensionToday;});
-  lastTot={f:totF,p:totP,pt:totPT};
-  var xs=extraSum();
-  html+=extraCardHtml();
+  var xc=xiCalc(infl);
+  if(extraIncomes.length){ /* כרטיס תצוגה — ההזנה בכרטיסי "מקור הכנסה אחר" למעלה */
+    var brkX='<div class="brk">'+xc.rows.map(function(r){
+      return '<div class="brk-row"><span>'+esc(xiRowLabel(r.x))+'</span><span>'+fmt(+digits(r.x.amount)||0)+' ₪</span></div>';
+    }).join('')+'</div>';
+    html+='<div class="res-card" style="--fc:#5C8D5A">'+
+      '<div class="nm"><span class="fund-dot" style="background:#5C8D5A"></span>הכנסות נוספות בפנסיה</div>'+
+      '<div class="row"><span>קצבה חודשית</span><b>'+fmt(xc.nom)+' ₪</b></div>'+
+      '<div class="row"><span>קצבה בערכי היום</span><b>'+fmt(xc.tod)+' ₪</b></div>'+
+      brkX+'</div>';
+  }
   html+='<div class="res-card total">'+
     '<div class="nm">💠 כל המשפחה יחד</div>'+
     '<div class="row"><span>סה"כ צבירה בפרישה</span><b>'+fmt(totF)+' ₪</b></div>'+
-    '<div class="row"><span>סה"כ קצבה חודשית</span><b class="big" id="tot-p">'+fmt(totP+xs)+' ₪</b></div>'+
-    '<div class="row"><span>סה"כ בערכי היום</span><b id="tot-pt">'+fmt(totPT+xs)+' ₪</b></div>'+
-    '<div class="brk" id="xi-tot-brk"'+(xs>0?'':' style="display:none"')+'><div class="brk-row"><span>מזה הכנסות נוספות</span><span id="xi-tot-val">'+fmt(xs)+' ₪</span></div></div>'+
+    '<div class="row"><span>סה"כ קצבה חודשית</span><b class="big">'+fmt(totP+xc.nom)+' ₪</b></div>'+
+    '<div class="row"><span>סה"כ בערכי היום</span><b>'+fmt(totPT+xc.tod)+' ₪</b></div>'+
+    (xc.nom>0?'<div class="brk"><div class="brk-row"><span>מזה הכנסות נוספות</span><span>'+fmt(xc.nom)+' ₪</span></div></div>':'')+
     '</div>';
   host.innerHTML=html;
   var vt=document.getElementById('view-toggle');
@@ -820,7 +881,8 @@ function gsState(){
         factor:(f.ftype==='mashlima'||f.ftype==='gemel')&&String(f.factor||'').trim()!==''?parseFloat(f.factor):''};
     }),
     extras:extraIncomes.map(function(x){
-      return {name:xiName(x)||x.type,amount:+digits(x.amount)||0};
+      var o=ownerById(x.ownerId);
+      return {name:xiName(x)||x.type,ownerIdx:o?owners.indexOf(o):0,amount:+digits(x.amount)||0,cpi:!!x.cpi};
     })
   };
 }
@@ -861,8 +923,11 @@ function gsValues(st){
   });
   rows.push([]);
   rows.push(['הכנסות נוספות בפנסיה']);
-  rows.push(['מקור ההכנסה','סכום חודשי ₪']);
-  st.extras.forEach(function(x){rows.push([x.name,x.amount]);});
+  rows.push(['מקור ההכנסה','של','סכום חודשי ₪','צמוד למדד']);
+  st.extras.forEach(function(x){
+    var o=st.owners[x.ownerIdx]||st.owners[0]||{name:''};
+    rows.push([x.name,o.name,x.amount,x.cpi?'כן':'לא']);
+  });
   rows.push([]);
   rows.push(['הגיליון נוצר אוטומטית ממחשבון הפנסיה באזור הלקוחות של pensya.info. אפשר לערוך בו ערכים ולטעון אותו מחדש במחשבון.']);
   return rows;
@@ -937,9 +1002,17 @@ function gsApply(v){
     fundsList.push(newFund(init));
   });
   xiRows.forEach(function(r){
-    var nm=String(cell(r,0)).trim(), amt=numOf(cell(r,1));
+    if(extraIncomes.length>=MAX_XI)return;
+    var nm=String(cell(r,0)).trim();
+    /* פורמט חדש: [מקור, של, סכום, צמוד] · תאימות לאחור לפורמט הישן: [מקור, סכום] */
+    var isNew=String(cell(r,2)).trim()!==''||String(cell(r,3)).trim()!=='';
+    var ownerName=isNew?String(cell(r,1)).trim():'';
+    var amt=isNew?numOf(cell(r,2)):numOf(cell(r,1));
+    var cpi=isNew?String(cell(r,3)).trim().indexOf('לא')<0:true;
     if(!nm&&!amt)return;
-    extraIncomes.push(newXi({type:nm||'אחר',amount:Math.round(amt)||''}));
+    var o=null;
+    for(var x2=0;x2<owners.length;x2++){if((owners[x2].name||'').trim()===ownerName){o=owners[x2];break;}}
+    extraIncomes.push(newXi({type:nm||'אחר',ownerId:(o||owners[0]||{id:0}).id,amount:Math.round(amt)||'',cpi:cpi}));
   });
   if(!owners.length)owners.push(newOwner({}));
   if(!fundsList.length)fundsList.push(newFund({}));
