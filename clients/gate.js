@@ -1,4 +1,4 @@
-// gate.js — v13 | tag-based personalized content + insurance / donations / child-savings tabs + pension & savings calculators (#11)
+// gate.js — v14 | tag-based personalized content + insurance / donations / child-savings tabs + pension & savings calculators (#11)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -512,9 +512,9 @@ function buildSections(data) {
   var hasTag11 = has(11);
 
   if (data.sections && data.sections.length > 0) {
+    var lead = hasTag11 ? [PENSION_CALC_SECTION, SAVINGS_CALC_SECTION] : [];
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
-    if (hasTag11) { extra.unshift(SAVINGS_CALC_SECTION); extra.unshift(PENSION_CALC_SECTION); }
-    return Promise.resolve(data.sections.concat(extra));
+    return Promise.resolve(lead.concat(data.sections).concat(extra));
   }
 
   // שולפים תוכן רק לתגיות שיש ללקוח דף תוכן אישי עבורן
@@ -526,14 +526,14 @@ function buildSections(data) {
     var html11 = r[0], html8 = r[1], html10 = r[2];
     var sections = [];
 
-    // 1. פנסיה והשתלמות — לכולם
+    // 1. הפנסיה שלי + החסכונות שלי — לבעלי תכנון פיננסי, הלשוניות הימניות ביותר
+    if (hasTag11) { sections.push(PENSION_CALC_SECTION); sections.push(SAVINGS_CALC_SECTION); }
+
+    // 2. פנסיה והשתלמות — לכולם
     sections.push({
       tagName: 'פנסיה והשתלמות',
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
-
-    // 1.5 מחשבון פנסיה משפחתי + מחשבון יעדי חיסכון — לבעלי תכנון פיננסי בלבד
-    if (hasTag11) { sections.push(PENSION_CALC_SECTION); sections.push(SAVINGS_CALC_SECTION); }
 
     // 2. IRA — לכולם
     sections.push({
