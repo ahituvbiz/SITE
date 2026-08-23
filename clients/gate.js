@@ -1,4 +1,4 @@
-// gate.js — v12 | tag-based personalized content + insurance / donations / child-savings tabs + pension calculator (#11)
+// gate.js — v13 | tag-based personalized content + insurance / donations / child-savings tabs + pension & savings calculators (#11)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -17,8 +17,6 @@ var clientEmail = null;
 // כשמעדכנים תוכן בלשונית מסוימת, משנים כאן רק את התאריך שלה. השאר נשארים כמו שהם.
 var TAB_DATES = {
   'פנסיה והשתלמות': '12.7.2026',
-  'מחשבון פנסיה':   '22.8.2026',
-  'מחשבון יעדי חיסכון': '18.8.2026',
   'IRA':             '12.7.2026',
   'ביטוחים':         '12.7.2026',
   'תיק השקעות':      '12.7.2026',
@@ -27,6 +25,30 @@ var TAB_DATES = {
 };
 // ברירת מחדל ללשונית שלא מופיעה במפה למעלה
 var DEFAULT_TAB_UPDATED = '12.7.2026';
+
+// לשוניות המחשבונים מציגות את מועד השמירה האחרון לגיליון (נשמר ב-localStorage
+// על ידי המחשבון עצמו, באותו origin). כשאין שמירה — אין תאריך.
+var CALC_SAVE_KEYS = { 'הפנסיה שלי': 'pensya-pension-saved', 'החסכונות שלי': 'pensya-savings-saved' };
+function tabDateFor(s) {
+  if (CALC_SAVE_KEYS[s.tagName]) {
+    var d = null;
+    try { d = localStorage.getItem(CALC_SAVE_KEYS[s.tagName]); } catch (e) {}
+    return d || '';
+  }
+  return s.updated || TAB_DATES[s.tagName] || DEFAULT_TAB_UPDATED;
+}
+function refreshCalcTabDates(headerBar, sections) {
+  headerBar.querySelectorAll('.tab-btn').forEach(function(btn) {
+    var s = sections[+btn.dataset.idx];
+    if (!s || !CALC_SAVE_KEYS[s.tagName]) return;
+    var upd = tabDateFor(s);
+    var span = btn.querySelector('.tab-btn-date');
+    if (upd) {
+      if (span) { span.textContent = 'עודכן ' + upd; }
+      else { span = document.createElement('span'); span.className = 'tab-btn-date'; span.textContent = 'עודכן ' + upd; btn.appendChild(span); }
+    } else if (span) { span.remove(); }
+  });
+}
 
 function normalizePhone(raw) {
   let digits = raw.replace(/\D/g, '');
@@ -76,10 +98,10 @@ function buildUI(sections, name) {
   }
 
   var tabBtns = sections.map(function(s, i) {
-    var upd = s.updated || TAB_DATES[s.tagName] || DEFAULT_TAB_UPDATED;
+    var upd = tabDateFor(s);
     return '<button class="tab-btn' + (i === 0 ? ' tab-active' : '') + '" data-idx="' + i + '">' +
       '<span class="tab-btn-name">' + s.tagName + '</span>' +
-      '<span class="tab-btn-date">עודכן ' + upd + '</span>' +
+      (upd ? '<span class="tab-btn-date">עודכן ' + upd + '</span>' : '') +
       '</button>';
   }).join('');
 
@@ -102,6 +124,7 @@ function buildUI(sections, name) {
       panelsDiv.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('tab-panel-active'); });
       btn.classList.add('tab-active');
       panelsDiv.querySelector('.tab-panel[data-idx="' + idx + '"]').classList.add('tab-panel-active');
+      refreshCalcTabDates(headerBar, sections);
       pingActiveFrame(panelsDiv);
     });
   });
@@ -453,7 +476,18 @@ var PENSION_CALC_HTML =
   '<iframe src="/clients/tools/pension/" class="pensya-calc-frame" title="מחשבון פנסיה משפחתי" ' +
   'style="display:block;width:100%;border:0;height:1600px;background:#F8F6F2"></iframe>';
 
-var PENSION_CALC_SECTION = { tagName: 'מחשבון פנסיה', html: PENSION_CALC_HTML };
+var PENSION_CALC_SECTION = { tagName: 'הפנסיה שלי', html: PENSION_CALC_HTML };
+
+// ====== מחשבון יעדי חיסכון — לבעלי תגית תכנון פיננסי (#11) ======
+var SAVINGS_CALC_HTML =
+  '<div class="content-hero"><div class="container">' +
+  '<div class="eyebrow">אזור לקוחות · כלי אישי</div>' +
+  '<h1>מחשבון יעדי חיסכון</h1>' +
+  '</div></div>' +
+  '<iframe src="/clients/tools/savings/" class="pensya-calc-frame" title="מחשבון יעדי חיסכון" ' +
+  'style="display:block;width:100%;border:0;height:2200px;background:#F8F6F2"></iframe>';
+
+var SAVINGS_CALC_SECTION = { tagName: 'החסכונות שלי', html: SAVINGS_CALC_HTML };
 
 // הדף המוטמע מדווח על גובהו — מותחים את ה-iframe בהתאם (רק מאותו מקור)
 window.addEventListener('message', function (ev) {
@@ -479,7 +513,7 @@ function buildSections(data) {
 
   if (data.sections && data.sections.length > 0) {
     var extra = [buildInsuranceSection(hasTag11), DONATIONS_SECTION, CHILD_SAVINGS_SECTION];
-    if (hasTag11) extra.unshift(PENSION_CALC_SECTION);
+    if (hasTag11) { extra.unshift(SAVINGS_CALC_SECTION); extra.unshift(PENSION_CALC_SECTION); }
     return Promise.resolve(data.sections.concat(extra));
   }
 
@@ -498,8 +532,8 @@ function buildSections(data) {
       html: (hasTag11 && html11) ? (ISRAELI_NOTICE_BANNER + html11) : PENSION_INVITE_HTML
     });
 
-    // 1.5 מחשבון פנסיה משפחתי — לבעלי תכנון פיננסי בלבד
-    if (hasTag11) sections.push(PENSION_CALC_SECTION);
+    // 1.5 מחשבון פנסיה משפחתי + מחשבון יעדי חיסכון — לבעלי תכנון פיננסי בלבד
+    if (hasTag11) { sections.push(PENSION_CALC_SECTION); sections.push(SAVINGS_CALC_SECTION); }
 
     // 2. IRA — לכולם
     sections.push({

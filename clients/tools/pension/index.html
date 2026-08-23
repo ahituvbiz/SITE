@@ -32,6 +32,8 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .fund-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .fund-dot{width:14px;height:14px;border-radius:50%;background:var(--fc,#007DA8);flex-shrink:0}
 .fund-name-inp{flex:1;min-width:180px;font-weight:700;font-size:16px}
+.fund-co-sel{width:auto;flex:0 1 190px;min-width:150px;font-weight:700;font-size:15px}
+.fund-co-other{width:auto;flex:1 1 140px;min-width:120px;max-width:230px;font-weight:700;font-size:15px}
 .fund-link{font-size:13px;color:var(--text-meta);margin-top:10px}
 .fund-link a{color:var(--primary);font-weight:600}
 .fund-del{background:none;border:1px solid var(--border);color:var(--text-meta);border-radius:8px;padding:5px 12px;font-family:inherit;font-size:13px;cursor:pointer}
@@ -58,6 +60,11 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .chart-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px}
 .note{font-size:12.5px;color:var(--text-meta);line-height:1.7;margin-top:16px}
 .gs-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.gs-sheets-btn{background:#0F9D58;display:inline-flex;align-items:center;gap:9px}
+.gs-sheets-btn:hover{background:#0C8A4D}
+.gs-sheets-btn svg{width:19px;height:19px;flex-shrink:0}
+.gs-load-btn{background:#fff;color:#0F9D58;border:2px solid #0F9D58}
+.gs-load-btn:hover{background:#E8F5EE}
 .gs-msg{font-size:14px;margin-top:10px;color:var(--positive)}
 .gs-msg.err{color:var(--negative)}
 .gs-msg a{color:var(--primary);font-weight:600}
@@ -193,9 +200,24 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   <div class="card">
     <h3>הנחות משותפות</h3>
     <div class="assume-grid">
-      <div><label>תשואה שנתית צפויה (%)</label><input type="number" id="g-return" value="5" step="0.5"></div>
+      <div><label>תשואה שנתית צפויה (%)</label><input type="number" id="g-return" value="7.6" step="0.5"></div>
       <div><label>אינפלציה חזויה (%)</label><input type="number" id="g-infl" value="2" step="0.1"></div>
     </div>
+  </div>
+
+  <div class="card">
+    <h3>שמירה ושחזור</h3>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:12px">הנתונים נשמרים בגיליון גוגל שיטס <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב. בביקור הבא לחצו על "טעינה" והנתונים יחזרו.</p>
+    <div class="gs-bar">
+      <button class="btn gs-sheets-btn" id="gs-save"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#fff"/><rect x="7" y="9" width="10" height="8.4" rx="1" fill="#0F9D58"/><path d="M7 11.8h10M7 14.6h10M10.3 9v8.4M13.7 9v8.4" stroke="#fff" stroke-width="1.15"/></svg><span>שמירה לגוגל שיטס</span></button>
+      <button class="btn gs-load-btn" id="gs-load">⟳ טעינת נתונים שמורים</button>
+    </div>
+    <div class="gs-guide" id="gs-guide" hidden>
+      <button class="x" id="gs-guide-x" aria-label="סגירה">✕</button>
+      כעת ייפתח חלון התחברות של גוגל. בחרו את החשבון שלכם ואשרו — ההרשאה מאפשרת לדף לראות <strong>אך ורק</strong> את הגיליון שהוא עצמו יוצר.
+    </div>
+    <div class="gs-changed" id="gs-changed" hidden>⚠️ יש שינויים שלא נשמרו — לחצו "שמירה" כדי לעדכן את הגיליון.</div>
+    <div class="gs-msg" id="gs-msg"></div>
   </div>
 
   <div class="card">
@@ -213,21 +235,6 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <div class="res-cards" id="res-cards"></div>
     <div class="view-toggle" id="view-toggle"></div>
     <div class="chart-box"><canvas id="chart" height="340"></canvas></div>
-  </div>
-
-  <div class="card" style="margin-top:22px">
-    <h3>שמירה ושחזור</h3>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:12px">הנתונים נשמרים בגיליון גוגל <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב. בביקור הבא לחצו על "טעינה" והנתונים יחזרו.</p>
-    <div class="gs-bar">
-      <button class="btn" id="gs-save">💾 שמירה בחשבון הגוגל</button>
-      <button class="btn" id="gs-load" style="background:#fff;color:var(--primary);border:2px solid var(--primary)">⟳ טעינת נתונים שמורים</button>
-    </div>
-    <div class="gs-guide" id="gs-guide" hidden>
-      <button class="x" id="gs-guide-x" aria-label="סגירה">✕</button>
-      כעת ייפתח חלון התחברות של גוגל. בחרו את החשבון שלכם ואשרו — ההרשאה מאפשרת לדף לראות <strong>אך ורק</strong> את הגיליון שהוא עצמו יוצר.
-    </div>
-    <div class="gs-changed" id="gs-changed" hidden>⚠️ יש שינויים שלא נשמרו — לחצו "שמירה" כדי לעדכן את הגיליון.</div>
-    <div class="gs-msg" id="gs-msg"></div>
   </div>
 
   <p class="note" id="assumptions"><strong>הנחות המחשבון:</strong> שכר קבוע (ללא עליית שכר). מקדם ההמרה מחושב אוטומטית לכל אדם לפי מין, שנת לידה וגיל פרישה (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, פער גילאים 1.7 שנים) וניתן לעריכה ידנית. צבירה בקרן פנסיה משלימה ובקופת גמל מומרת לקצבה לפי מקדם של קרן משלימה — גבוה בכ-3%-5% ממקדם המקיפה (נגזר מנספחי התקנונים של מנורה מבטחים, מהדורות 2026); בהיעדר נתוני האדם ננקט מקדם 208. בקופת גמל לא נגרעות עלויות ביטוח, ודמי הניהול מהצבירה בה — ברירת מחדל 0.5% (בקופת גמל בדרך כלל אין דמי ניהול מהפקדה). מסלול ביטוח ברירת מחדל — שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ'יזה. קרן של מי שהגיע לגיל הפרישה שלו מוצגת בגרף המשולב כצבירה קפואה עד פרישת בן הזוג האחרון. הקצבה של כל אדם מחושבת מסך הצבירות שלו חלקי המקדם שלו, והקצבה בערכי היום מנוכה לפי השנים עד הפרישה שלו. הקצבאות המוצגות הן לפני מס הכנסה. התוצאה היא אומדן ואינה מהווה ייעוץ פנסיוני אישי.</p>
@@ -260,6 +267,7 @@ function pcSimulate(p,ar,retAge){var bal=p.balance,mret=Math.pow(1+ar,1/12)-1,mf
 
 /* ═══ מודל: בעלי קרנות + קרנות ═══ */
 var FUND_TYPES={makifa:'קרן פנסיה מקיפה',mashlima:'קרן פנסיה משלימה',gemel:'קופת גמל'};
+var COMPANIES=['מנורה מבטחים','הראל','מגדל','כלל','הפניקס','מיטב','אלטשולר שחם','מור','אינפיניטי','אנליסט','ילין לפידות','סלייס'];
 var OWNER_COLORS=['#007DA8','#D74E3C','#5C8D5A','#C9A227','#7B5EA7','#3D7C8C'];
 var MAX_OWNERS=4, MAX_FUNDS=8;
 var owners=[], fundsList=[], oseq=0, fseq=0, chart=null, viewMode='stack';
@@ -287,7 +295,9 @@ function newFund(init){
   init=init||{};
   return { id:++fseq,
     ownerId: init.ownerId||(owners[0]&&owners[0].id)||0,
-    name: init.name!=null?init.name:('קרן '+(fundsList.length+1)),
+    company: init.company!=null?String(init.company):'',
+    companyCustom: init.companyCustom!=null?String(init.companyCustom):'',
+    track: init.track!=null?String(init.track):'',
     balance: init.balance!=null?String(init.balance):'150,000',
     salary: init.salary!=null?String(init.salary):'12,000',
     deprate: init.deprate!=null?init.deprate:20.83,
@@ -325,6 +335,14 @@ function fundAutoFactor(f){
   var o=ownerById(f.ownerId);
   if(o&&o.bdate){var d=new Date(o.bdate);if(!isNaN(d.getTime())){var by=d.getFullYear()+d.getMonth()/12;var gHe=o.gender==='M'?'גבר':'אישה';var v=pcComputeFactorMashlima(gHe,parseFloat(o.retage)||67,by);if(v>0)return v.toFixed(1);}}
   return '208';
+}
+function fundCompanyName(f){return f.company==='אחר'?(f.companyCustom||'').trim():(f.company||'').trim();}
+function fundLabel(f){var c=fundCompanyName(f),t=(f.track||'').trim();return c&&t?c+' — '+t:(c||t);}
+function companyOptions(sel){
+  var out='<option value=""'+(sel?'':' selected')+' disabled hidden>חברה מנהלת</option>';
+  COMPANIES.forEach(function(c){out+='<option value="'+c+'"'+(sel===c?' selected':'')+'>'+c+'</option>';});
+  out+='<option value="אחר"'+(sel==='אחר'?' selected':'')+'>אחר…</option>';
+  return out;
 }
 function fundFactor(f){
   if(f.ftype!=='mashlima'&&f.ftype!=='gemel'){var o=ownerById(f.ownerId);return o?ownerFactor(o):200;}
@@ -376,7 +394,9 @@ function renderFunds(){
     div.innerHTML=
       '<div class="fund-head">'+
         '<span class="fund-dot" style="background:'+c+'"></span>'+
-        '<input class="fund-name-inp" type="text" data-k="name" data-id="'+f.id+'" value="'+esc(f.name)+'" placeholder="שם הקרן">'+
+        '<select class="fund-co-sel" data-k="company" data-id="'+f.id+'">'+companyOptions(f.company||'')+'</select>'+
+        (f.company==='אחר'?'<input class="fund-co-other" type="text" data-k="companyCustom" data-id="'+f.id+'" value="'+esc(f.companyCustom)+'" placeholder="שם החברה">':'')+
+        '<input class="fund-name-inp" type="text" data-k="track" data-id="'+f.id+'" value="'+esc(f.track)+'" placeholder="מסלול השקעה">'+
         '<span class="own-of">של</span>'+
         '<select class="own-sel" data-k="ownerId" data-id="'+f.id+'">'+ownerOptions(f.ownerId)+'</select>'+
         (fundsList.length>1?'<button class="fund-del" data-del="'+f.id+'">הסרה ✕</button>':'')+
@@ -476,6 +496,7 @@ document.getElementById('funds').addEventListener('input',function(e){
 document.getElementById('funds').addEventListener('change',function(e){
   var t=e.target, f=fundById(t.getAttribute('data-id')); if(!f)return;
   if(t.getAttribute('data-k')==='ownerId'){f.ownerId=+t.value;renderFunds();recalc();}
+  if(t.getAttribute('data-k')==='company'){f.company=t.value;renderFunds();recalc();}
   if(t.getAttribute('data-k')==='ftype'){
     f.ftype=t.value;
     if(f.ftype==='gemel'){f.feedep=0;f.feebal=0.5;}
@@ -540,7 +561,7 @@ function renderResults(perOwner,infl){
     var brk='';
     if(po.rows.length>1){
       brk='<div class="brk">'+po.rows.map(function(r){
-        return '<div class="brk-row"><span><span class="fund-dot sm" style="background:'+r.color+'"></span>'+esc(r.fund.name||'ללא שם')+'</span><span>'+fmt(r.pension)+' ₪</span></div>';
+        return '<div class="brk-row"><span><span class="fund-dot sm" style="background:'+r.color+'"></span>'+esc(fundLabel(r.fund)||'ללא שם')+'</span><span>'+fmt(r.pension)+' ₪</span></div>';
       }).join('')+'</div>';
     }
     html+='<div class="res-card" style="--fc:'+po.color+'">'+
@@ -570,7 +591,7 @@ document.getElementById('view-toggle').addEventListener('click',function(e){
   viewMode=v;recalc();
 });
 function chartLabel(r){
-  var fn=(r.fund.name||'').trim()||'ללא שם';
+  var fn=fundLabel(r.fund)||'ללא שם';
   return owners.length>1?fn+' ('+ownerLabel(r.owner)+')':fn;
 }
 function renderChart(perFund){
@@ -693,7 +714,7 @@ function gsState(){
     }),
     funds:fundsList.map(function(f){
       var o=ownerById(f.ownerId);
-      return {ownerIdx:o?owners.indexOf(o):0,name:(f.name||'').trim(),
+      return {ownerIdx:o?owners.indexOf(o):0,company:fundCompanyName(f),track:(f.track||'').trim(),
         balance:+digits(f.balance)||0,salary:+digits(f.salary)||0,
         deprate:parseFloat(f.deprate)||0,feedep:parseFloat(f.feedep)||0,feebal:parseFloat(f.feebal)||0,
         ftype:FUND_TYPES[f.ftype]?f.ftype:'makifa',
@@ -705,6 +726,8 @@ function gsSerial(){return JSON.stringify(gsState());}
 function updateChangedBanner(){var el=document.getElementById('gs-changed');if(!el)return;el.hidden=!(gsSnapshot&&gsSerial()!==gsSnapshot);}
 function pad2(n){n=String(n);return n.length<2?'0'+n:n;}
 function todayISO(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+function dmyOfISO(iso){var m=String(iso||'').match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);return m?(+m[3])+'.'+(+m[2])+'.'+m[1]:'';}
+function markSaved(iso){var d=dmyOfISO(iso);if(!d)return;try{localStorage.setItem('pensya-pension-saved',d);}catch(e){}}
 function sheetDate(x){
   if(x==null||x==='')return '';
   if(typeof x==='number'&&x>10000){var d=new Date(Date.UTC(1899,11,30)+x*86400000);return d.getUTCFullYear()+'-'+pad2(d.getUTCMonth()+1)+'-'+pad2(d.getUTCDate());}
@@ -729,10 +752,10 @@ function gsValues(st){
   });
   rows.push([]);
   rows.push(['הקרנות']);
-  rows.push(['שייכת ל','שם הקרן','צבירה קיימת ₪','שכר מבוטח ₪','שיעור הפקדה %','דמי ניהול מהפקדה %','דמי ניהול מצבירה %','סוג קופה','מקדם ידני (משלימה/גמל)']);
+  rows.push(['שייכת ל','חברה מנהלת','מסלול השקעה','צבירה קיימת ₪','שכר מבוטח ₪','שיעור הפקדה %','דמי ניהול מהפקדה %','דמי ניהול מצבירה %','סוג קופה','מקדם ידני (משלימה/גמל)']);
   st.funds.forEach(function(f){
     var o=st.owners[f.ownerIdx]||st.owners[0]||{name:''};
-    rows.push([o.name,f.name,f.balance,f.salary,f.deprate,f.feedep,f.feebal,FUND_TYPES[f.ftype]||FUND_TYPES.makifa,f.factor!==''?f.factor:'']);
+    rows.push([o.name,f.company,f.track,f.balance,f.salary,f.deprate,f.feedep,f.feebal,FUND_TYPES[f.ftype]||FUND_TYPES.makifa,f.factor!==''?f.factor:'']);
   });
   rows.push([]);
   rows.push(['הגיליון נוצר אוטומטית ממחשבון הפנסיה באזור הלקוחות של pensya.info. אפשר לערוך בו ערכים ולטעון אותו מחדש במחשבון.']);
@@ -749,7 +772,7 @@ function gsSave(){
     .then(function(){return gsFileId?null:gsCreate();})
     .then(function(){return gsApi('https://sheets.googleapis.com/v4/spreadsheets/'+gsFileId+'/values/'+encodeURIComponent('A1:K200')+':clear',{method:'POST',body:{}});})
     .then(function(){return gsApi('https://sheets.googleapis.com/v4/spreadsheets/'+gsFileId+'/values/A1?valueInputOption=RAW',{method:'PUT',body:{values:gsValues(gsState())}});})
-    .then(function(){gsSnapshot=gsSerial();updateChangedBanner();gsMsg('הנתונים נשמרו בגיליון בחשבון שלכם ✓',false,gsLink());})
+    .then(function(){gsSnapshot=gsSerial();updateChangedBanner();markSaved(todayISO());gsMsg('הנתונים נשמרו בגיליון בחשבון שלכם ✓',false,gsLink());})
     ['catch'](gsErr)
     .then(function(){gsBusy=false;b1.disabled=false;postHeight();});
 }
@@ -765,12 +788,13 @@ function gsApply(v){
     }
     return out;
   }
-  var i,assume=null,ownerRows=[],fundRows=[];
+  var i,assume=null,ownerRows=[],fundRows=[],fundHdr=null,savedISO='';
   for(i=0;i<v.length;i++){
     var r=v[i];
-    if(rowIs(r,'הנחות'))assume=v[i+2]||[];
+    if(rowIs(r,'נשמר בתאריך'))savedISO=sheetDate(cell(r,1));
+    else if(rowIs(r,'הנחות'))assume=v[i+2]||[];
     else if(rowIs(r,'בעלי הקרנות'))ownerRows=readBlock(i+2);
-    else if(rowIs(r,'הקרנות'))fundRows=readBlock(i+2);
+    else if(rowIs(r,'הקרנות')){fundHdr=v[i+1]||[];fundRows=readBlock(i+2);}
   }
   if(!fundRows.length&&!assume)throw new Error('הגיליון לא במבנה המוכר — שמרו נתונים מחדש');
   if(assume){
@@ -786,23 +810,29 @@ function gsApply(v){
       factor:manual?numOf(cell(r,4)):'',factorManual:manual}));
   });
   if(!owners.length)owners.push(newOwner({}));
+  var nf=fundHdr&&String(cell(fundHdr,2)||'').indexOf('מסלול')>=0?1:0;
   fundRows.forEach(function(r){
     if(fundsList.length>=MAX_FUNDS)return;
     var nm=String(cell(r,0)).trim(), o=null;
     for(var x=0;x<owners.length;x++){if((owners[x].name||'').trim()===nm){o=owners[x];break;}}
     if(!o)o=owners[0];
-    var tLbl=String(cell(r,7)||'');
+    var co=String(cell(r,1)).trim(), tr=nf?String(cell(r,2)).trim():'';
+    var tLbl=String(cell(r,7+nf)||'');
     var ft=tLbl.indexOf('משלימ')>=0?'mashlima':(tLbl.indexOf('גמל')>=0?'gemel':'makifa');
-    var manualF=String(cell(r,8)).trim()!==''?numOf(cell(r,8)):'';
-    fundsList.push(newFund({ownerId:o.id,name:String(cell(r,1)).trim(),
-      balance:grp(String(Math.round(numOf(cell(r,2))))),salary:grp(String(Math.round(numOf(cell(r,3))))),
-      deprate:numOf(cell(r,4)),feedep:numOf(cell(r,5)),feebal:numOf(cell(r,6)),
-      ftype:ft,factor:manualF}));
+    var manualF=String(cell(r,8+nf)).trim()!==''?numOf(cell(r,8+nf)):'';
+    var init={ownerId:o.id,track:tr,
+      balance:grp(String(Math.round(numOf(cell(r,2+nf))))),salary:grp(String(Math.round(numOf(cell(r,3+nf))))),
+      deprate:numOf(cell(r,4+nf)),feedep:numOf(cell(r,5+nf)),feebal:numOf(cell(r,6+nf)),
+      ftype:ft,factor:manualF};
+    if(COMPANIES.indexOf(co)>=0)init.company=co;
+    else if(co){init.company='אחר';init.companyCustom=co;}
+    fundsList.push(newFund(init));
   });
   if(!owners.length)owners.push(newOwner({}));
   if(!fundsList.length)fundsList.push(newFund({}));
   renderAll();recalc();
   gsSnapshot=gsSerial();updateChangedBanner();
+  if(savedISO)markSaved(savedISO);
   gsMsg('הנתונים נטענו מהגיליון ✓',false,gsLink());
 }
 function gsLoad(){
@@ -830,7 +860,7 @@ document.getElementById('gs-guide-x').addEventListener('click',function(){gsGuid
 
 /* ═══ אתחול ═══ */
 owners.push(newOwner({name:'אני'}));
-fundsList.push(newFund({name:'קרן פנסיה'}));
+fundsList.push(newFund({}));
 renderAll();
 recalc();
 </script>
