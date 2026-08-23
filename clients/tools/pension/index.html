@@ -86,6 +86,19 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .nm-sub{font-size:12px;font-weight:400;color:var(--text-meta);margin-right:auto}
 .brk{border-top:1px dashed var(--border);margin-top:8px;padding-top:7px}
 .brk-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--text-2);padding:2px 0}
+.owner-add-cell{display:flex;align-items:center;justify-content:center}
+.xi-hint{font-size:12px;color:var(--text-meta);line-height:1.5;margin-bottom:8px}
+.xi-item{border-top:1px dashed var(--border);padding-top:8px;margin-top:8px}
+#xi-list .xi-item:first-child{border-top:none;margin-top:0;padding-top:0}
+.xi-top{display:flex;gap:6px;align-items:center;margin-bottom:5px}
+.xi-top select{flex:1;min-width:0;padding:6px 8px;font-size:13.5px}
+.xi-amt{width:100%;padding:6px 8px;font-size:14px}
+.xi-custom{width:100%;margin-bottom:5px;padding:6px 8px;font-size:13px}
+.xi-del{background:none;border:none;color:var(--text-meta);cursor:pointer;font-size:14px;padding:2px 4px;flex-shrink:0}
+.xi-del:hover{color:var(--negative)}
+.xi-add{background:none;border:1px dashed var(--primary);color:var(--primary);border-radius:8px;padding:5px 12px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;margin-top:8px}
+.xi-add:hover{background:var(--primary-soft)}
+.xi-sum-row{border-top:1px dashed var(--border);margin-top:8px;padding-top:7px}
 @media(max-width:560px){.card{padding:16px 14px}}
 </style>
 <!--@CHROME:HEAD@-->
@@ -201,7 +214,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 <body>
 <div class="wrap">
   <h1>מחשבון פנסיה משפחתי</h1>
-  <p class="sub">הזינו את בני הזוג פעם אחת, שייכו לכל אחד קרן פנסיה — מקיפה או משלימה — או קופת גמל, אחת או יותר, וראו את הקצבה הצפויה של כל אחד בנפרד ושל כל המשפחה יחד. החישוב זהה למחשבון הפנסיה של pensya.info וכולל את עלויות ביטוח הנכות והשארים שנגרעות מההפקדה בקרן פנסיה (בקופת גמל אין עלויות ביטוח). <strong>מומלץ לשמור את הנתונים בחשבון הגוגל שלכם בכדי שתוכלו לעקוב אחרי השינויים בצבירות ובצפי הפנסיה שלכם.</strong></p>
+  <p class="sub">הזינו את בני הזוג פעם אחת, שייכו לכל אחד קרן פנסיה — מקיפה או משלימה — או קופת גמל, אחת או יותר, וראו את הקצבה הצפויה של כל אחד בנפרד ושל כל המשפחה יחד. אפשר להוסיף גם מקורות הכנסה נוספים בפנסיה — פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים ועוד — והם ייכללו בסיכום המשפחתי. החישוב זהה למחשבון הפנסיה של pensya.info וכולל את עלויות ביטוח הנכות והשארים שנגרעות מההפקדה בקרן פנסיה (בקופת גמל אין עלויות ביטוח). <strong>מומלץ לשמור את הנתונים בחשבון הגוגל שלכם בכדי שתוכלו לעקוב אחרי השינויים בצבירות ובצפי הפנסיה שלכם.</strong></p>
 
   <div class="top-row">
   <div class="card">
@@ -232,8 +245,9 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   <div class="card">
     <h3>בעלי הקרנות</h3>
     <p class="ownote">כל אדם מוזן פעם אחת — תאריך הלידה, המין וגיל הפרישה שלו משמשים את כל הקרנות המשויכות אליו. מקדם ההמרה שבכרטיס האדם משמש את הקרנות המקיפות שלו; לקרן משלימה ולקופת גמל יש מקדם נפרד בכרטיס הקרן.</p>
-    <div class="owners-grid" id="owners"></div>
-    <div style="margin-top:12px"><button class="btn ghost" id="add-owner">+ הוספת בן/בת זוג</button></div>
+    <div class="owners-grid" id="owners">
+      <div class="owner-add-cell" id="add-owner-cell"><button class="btn ghost" id="add-owner">+ הוספת בן/בת זוג</button></div>
+    </div>
   </div>
 
   <div id="funds"></div>
@@ -246,7 +260,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <div class="chart-box"><canvas id="chart" height="340"></canvas></div>
   </div>
 
-  <p class="note" id="assumptions"><strong>הנחות המחשבון:</strong> שכר קבוע (ללא עליית שכר). מקדם ההמרה מחושב אוטומטית לכל אדם לפי מין, שנת לידה וגיל פרישה (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, פער גילאים 1.7 שנים) וניתן לעריכה ידנית. צבירה בקרן פנסיה משלימה ובקופת גמל מומרת לקצבה לפי מקדם של קרן משלימה — גבוה בכ-3%-5% ממקדם המקיפה (נגזר מנספחי התקנונים של מנורה מבטחים, מהדורות 2026); בהיעדר נתוני האדם ננקט מקדם 208. בקופת גמל לא נגרעות עלויות ביטוח, ודמי הניהול מהצבירה בה — ברירת מחדל 0.5% (בקופת גמל בדרך כלל אין דמי ניהול מהפקדה). מסלול ביטוח ברירת מחדל — שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ'יזה. קרן של מי שהגיע לגיל הפרישה שלו מוצגת בגרף המשולב כצבירה קפואה עד פרישת בן הזוג האחרון. הקצבה של כל אדם מחושבת מסך הצבירות שלו חלקי המקדם שלו, והקצבה בערכי היום מנוכה לפי השנים עד הפרישה שלו. הקצבאות המוצגות הן לפני מס הכנסה. התוצאה היא אומדן ואינה מהווה ייעוץ פנסיוני אישי.</p>
+  <p class="note" id="assumptions"><strong>הנחות המחשבון:</strong> שכר קבוע (ללא עליית שכר). מקדם ההמרה מחושב אוטומטית לכל אדם לפי מין, שנת לידה וגיל פרישה (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, פער גילאים 1.7 שנים) וניתן לעריכה ידנית. צבירה בקרן פנסיה משלימה ובקופת גמל מומרת לקצבה לפי מקדם של קרן משלימה — גבוה בכ-3%-5% ממקדם המקיפה (נגזר מנספחי התקנונים של מנורה מבטחים, מהדורות 2026); בהיעדר נתוני האדם ננקט מקדם 208. בקופת גמל לא נגרעות עלויות ביטוח, ודמי הניהול מהצבירה בה — ברירת מחדל 0.5% (בקופת גמל בדרך כלל אין דמי ניהול מהפקדה). מסלול ביטוח ברירת מחדל — שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ'יזה. קרן של מי שהגיע לגיל הפרישה שלו מוצגת בגרף המשולב כצבירה קפואה עד פרישת בן הזוג האחרון. הקצבה של כל אדם מחושבת מסך הצבירות שלו חלקי המקדם שלו, והקצבה בערכי היום מנוכה לפי השנים עד הפרישה שלו. הכנסות נוספות בפנסיה (פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים וכד׳) נכללות בסיכום המשפחתי בסכום שהוזן — הן בקצבה החודשית והן בערכי היום, ללא הצמדה — ואינן חלק מהצבירה ומהגרף. הקצבאות המוצגות הן לפני מס הכנסה. התוצאה היא אומדן ואינה מהווה ייעוץ פנסיוני אישי.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -276,10 +290,27 @@ function pcSimulate(p,ar,retAge){var bal=p.balance,mret=Math.pow(1+ar,1/12)-1,mf
 
 /* ═══ מודל: בעלי קרנות + קרנות ═══ */
 var FUND_TYPES={makifa:'קרן פנסיה מקיפה',mashlima:'קרן פנסיה משלימה',gemel:'קופת גמל'};
-var COMPANIES=['מנורה מבטחים','הראל','מגדל','כלל','הפניקס','מיטב','אלטשולר שחם','מור','אינפיניטי','אנליסט','ילין לפידות','סלייס'];
+/* רק ל-9 החברות האלו יש קרנות פנסיה; בקופת גמל נוספות גם חברות הגמל */
+var COMPANIES=['מנורה מבטחים','הראל','מגדל','כלל','הפניקס','מיטב','אלטשולר שחם','מור','אינפיניטי'];
+var GEMEL_EXTRA_COMPANIES=['אנליסט','ילין לפידות','סלייס'];
 var OWNER_COLORS=['#007DA8','#D74E3C','#5C8D5A','#C9A227','#7B5EA7','#3D7C8C'];
-var MAX_OWNERS=4, MAX_FUNDS=8;
+var MAX_OWNERS=2, MAX_FUNDS=8;
 var owners=[], fundsList=[], oseq=0, fseq=0, chart=null, viewMode='stack';
+var addOwnerCell=document.getElementById('add-owner-cell');
+/* ═══ הכנסות נוספות בפנסיה ═══ */
+var XI_TYPES=['פנסיה תקציבית','הכנסה משכ"ד','קצבה מביטוח מנהלים','קצבת זקנה מביטוח לאומי','אחר'];
+var extraIncomes=[], xiSeq=0, lastTot={f:0,p:0,pt:0};
+function newXi(init){
+  init=init||{};
+  var t=init.type!=null&&String(init.type).trim()!==''?String(init.type).trim():XI_TYPES[0];
+  var custom='';
+  if(XI_TYPES.indexOf(t)<0){custom=t;t='אחר';}
+  if(t==='אחר'&&init.typeCustom)custom=String(init.typeCustom);
+  return {id:++xiSeq,type:t,typeCustom:custom,amount:init.amount!=null&&init.amount!==''?grp(String(init.amount)):''};
+}
+function xiById(id){for(var i=0;i<extraIncomes.length;i++)if(extraIncomes[i].id===+id)return extraIncomes[i];return null;}
+function xiName(x){return x.type==='אחר'?(x.typeCustom||'').trim():x.type;}
+function extraSum(){var s=0;extraIncomes.forEach(function(x){s+=+digits(x.amount)||0;});return s;}
 function fmt(n){return Math.round(n).toLocaleString('en-US');}
 function digits(s){return String(s==null?'':s).replace(/[^\d]/g,'');}
 function grp(s){var v=digits(s);return v?(+v).toLocaleString('en-US'):'';}
@@ -347,9 +378,12 @@ function fundAutoFactor(f){
 }
 function fundCompanyName(f){return f.company==='אחר'?(f.companyCustom||'').trim():(f.company||'').trim();}
 function fundLabel(f){var c=fundCompanyName(f),t=(f.track||'').trim();return c&&t?c+' — '+t:(c||t);}
-function companyOptions(sel){
+function companiesFor(f){return f&&f.ftype==='gemel'?COMPANIES.concat(GEMEL_EXTRA_COMPANIES):COMPANIES.slice();}
+function companyOptions(sel,f){
+  var list=companiesFor(f);
+  if(sel&&sel!=='אחר'&&list.indexOf(sel)<0)list.push(sel); /* שמירה על ערך קיים שאינו ברשימה */
   var out='<option value=""'+(sel?'':' selected')+' disabled hidden>חברה מנהלת</option>';
-  COMPANIES.forEach(function(c){out+='<option value="'+c+'"'+(sel===c?' selected':'')+'>'+c+'</option>';});
+  list.forEach(function(c){out+='<option value="'+esc(c)+'"'+(sel===c?' selected':'')+'>'+esc(c)+'</option>';});
   out+='<option value="אחר"'+(sel==='אחר'?' selected':'')+'>אחר…</option>';
   return out;
 }
@@ -387,7 +421,8 @@ function renderOwners(){
       '</div>';
     host.appendChild(div);
   });
-  document.getElementById('add-owner').style.display = owners.length>=MAX_OWNERS?'none':'';
+  /* או לקוח אחד או שניים — הכפתור מוצג משמאל לכרטיס רק כשאין בן/בת זוג */
+  if(owners.length<MAX_OWNERS)host.appendChild(addOwnerCell);
 }
 function ownerOptions(sel){
   return owners.map(function(o){return '<option value="'+o.id+'"'+(o.id===+sel?' selected':'')+'>'+esc(ownerLabel(o))+'</option>';}).join('');
@@ -403,7 +438,7 @@ function renderFunds(){
     div.innerHTML=
       '<div class="fund-head">'+
         '<span class="fund-dot" style="background:'+c+'"></span>'+
-        '<select class="fund-co-sel" data-k="company" data-id="'+f.id+'">'+companyOptions(f.company||'')+'</select>'+
+        '<select class="fund-co-sel" data-k="company" data-id="'+f.id+'">'+companyOptions(f.company||'',f)+'</select>'+
         (f.company==='אחר'?'<input class="fund-co-other" type="text" data-k="companyCustom" data-id="'+f.id+'" value="'+esc(f.companyCustom)+'" placeholder="שם החברה">':'')+
         '<input class="fund-name-inp" type="text" data-k="track" data-id="'+f.id+'" value="'+esc(f.track)+'" placeholder="מסלול השקעה">'+
         '<span class="own-of">של</span>'+
@@ -490,7 +525,7 @@ document.getElementById('owners').addEventListener('click',function(e){
 });
 document.getElementById('add-owner').addEventListener('click',function(){
   if(owners.length>=MAX_OWNERS)return;
-  owners.push(newOwner(owners.length===1?{}:{name:'אדם '+(owners.length+1)}));
+  owners.push(newOwner({}));
   renderAll();recalc();
 });
 
@@ -510,6 +545,8 @@ document.getElementById('funds').addEventListener('change',function(e){
     f.ftype=t.value;
     if(f.ftype==='gemel'){f.feedep=0;f.feebal=0.5;}
     else{f.feedep=1;f.feebal=0.2;}
+    /* לחברות הגמל אין קרן פנסיה — במעבר לקרן פנסיה נדרשת בחירה מחדש */
+    if(f.ftype!=='gemel'&&GEMEL_EXTRA_COMPANIES.indexOf(f.company)>=0){f.company='';f.companyCustom='';}
     f.factor='';
     renderFunds();recalc();
   }
@@ -563,6 +600,55 @@ function recalc(){
   updateChangedBanner();
   postHeight();
 }
+function xiTypeOptions(sel){
+  return XI_TYPES.map(function(t){
+    return '<option value="'+esc(t)+'"'+(sel===t?' selected':'')+'>'+esc(t==='אחר'?'אחר…':t)+'</option>';
+  }).join('');
+}
+function extraCardHtml(){
+  var items=extraIncomes.map(function(x){
+    return '<div class="xi-item">'+
+      '<div class="xi-top"><select data-xk="type" data-xid="'+x.id+'">'+xiTypeOptions(x.type)+'</select>'+
+      '<button type="button" class="xi-del" data-xdel="'+x.id+'" aria-label="הסרת מקור הכנסה">✕</button></div>'+
+      (x.type==='אחר'?'<input type="text" class="xi-custom" placeholder="שם מקור ההכנסה" data-xk="typeCustom" data-xid="'+x.id+'" value="'+esc(x.typeCustom)+'">':'')+
+      '<input type="text" class="xi-amt" inputmode="numeric" placeholder="סכום חודשי ₪" data-xk="amount" data-xid="'+x.id+'" value="'+esc(x.amount)+'">'+
+    '</div>';
+  }).join('');
+  var xs=extraSum();
+  return '<div class="res-card" style="--fc:#5C8D5A">'+
+    '<div class="nm"><span class="fund-dot" style="background:#5C8D5A"></span>הכנסות נוספות בפנסיה</div>'+
+    '<div class="xi-hint">פנסיה תקציבית, שכר דירה, קצבה מביטוח מנהלים וכד׳ — נכלל בסיכום המשפחתי.</div>'+
+    '<div id="xi-list">'+items+'</div>'+
+    '<button type="button" class="xi-add" id="xi-add">+ הוספת מקור הכנסה</button>'+
+    '<div class="row xi-sum-row" id="xi-sum-row"'+(extraIncomes.length?'':' style="display:none"')+'><span>סה"כ לחודש</span><b id="xi-sum">'+fmt(xs)+' ₪</b></div>'+
+  '</div>';
+}
+function xiRefreshTotals(){ /* עדכון סכומים בלבד — בלי רינדור מחדש, כדי לא לאבד פוקוס בהקלדה */
+  var xs=extraSum();
+  var el=document.getElementById('xi-sum');if(el)el.textContent=fmt(xs)+' ₪';
+  var sr=document.getElementById('xi-sum-row');if(sr)sr.style.display=extraIncomes.length?'':'none';
+  var tp=document.getElementById('tot-p');if(tp)tp.textContent=fmt(lastTot.p+xs)+' ₪';
+  var tpt=document.getElementById('tot-pt');if(tpt)tpt.textContent=fmt(lastTot.pt+xs)+' ₪';
+  var brk=document.getElementById('xi-tot-brk');if(brk)brk.style.display=xs>0?'':'none';
+  var v=document.getElementById('xi-tot-val');if(v)v.textContent=fmt(xs)+' ₪';
+  updateChangedBanner();postHeight();
+}
+document.getElementById('res-cards').addEventListener('input',function(e){
+  var t=e.target,x=xiById(t.getAttribute('data-xid'));if(!x)return;
+  var k=t.getAttribute('data-xk');
+  if(k==='amount'){t.value=grp(t.value);x.amount=t.value;xiRefreshTotals();}
+  else if(k==='typeCustom'){x.typeCustom=t.value;updateChangedBanner();}
+});
+document.getElementById('res-cards').addEventListener('change',function(e){
+  var t=e.target;if(t.getAttribute('data-xk')!=='type')return;
+  var x=xiById(t.getAttribute('data-xid'));if(!x)return;
+  x.type=t.value;recalc();
+});
+document.getElementById('res-cards').addEventListener('click',function(e){
+  if(e.target.id==='xi-add'){extraIncomes.push(newXi({}));recalc();return;}
+  var del=e.target.getAttribute&&e.target.getAttribute('data-xdel');
+  if(del){extraIncomes=extraIncomes.filter(function(x){return x.id!==+del;});recalc();}
+});
 function renderResults(perOwner,infl){
   var host=document.getElementById('res-cards');
   var html='';
@@ -583,11 +669,15 @@ function renderResults(perOwner,infl){
   });
   var totF=0,totP=0,totPT=0;
   perOwner.forEach(function(po){totF+=po.final;totP+=po.pension;totPT+=po.pensionToday;});
+  lastTot={f:totF,p:totP,pt:totPT};
+  var xs=extraSum();
+  html+=extraCardHtml();
   html+='<div class="res-card total">'+
     '<div class="nm">💠 כל המשפחה יחד</div>'+
     '<div class="row"><span>סה"כ צבירה בפרישה</span><b>'+fmt(totF)+' ₪</b></div>'+
-    '<div class="row"><span>סה"כ קצבה חודשית</span><b class="big">'+fmt(totP)+' ₪</b></div>'+
-    '<div class="row"><span>סה"כ בערכי היום</span><b>'+fmt(totPT)+' ₪</b></div>'+
+    '<div class="row"><span>סה"כ קצבה חודשית</span><b class="big" id="tot-p">'+fmt(totP+xs)+' ₪</b></div>'+
+    '<div class="row"><span>סה"כ בערכי היום</span><b id="tot-pt">'+fmt(totPT+xs)+' ₪</b></div>'+
+    '<div class="brk" id="xi-tot-brk"'+(xs>0?'':' style="display:none"')+'><div class="brk-row"><span>מזה הכנסות נוספות</span><span id="xi-tot-val">'+fmt(xs)+' ₪</span></div></div>'+
     '</div>';
   host.innerHTML=html;
   var vt=document.getElementById('view-toggle');
@@ -728,6 +818,9 @@ function gsState(){
         deprate:parseFloat(f.deprate)||0,feedep:parseFloat(f.feedep)||0,feebal:parseFloat(f.feebal)||0,
         ftype:FUND_TYPES[f.ftype]?f.ftype:'makifa',
         factor:(f.ftype==='mashlima'||f.ftype==='gemel')&&String(f.factor||'').trim()!==''?parseFloat(f.factor):''};
+    }),
+    extras:extraIncomes.map(function(x){
+      return {name:xiName(x)||x.type,amount:+digits(x.amount)||0};
     })
   };
 }
@@ -767,6 +860,10 @@ function gsValues(st){
     rows.push([o.name,f.company,f.track,f.balance,f.salary,f.deprate,f.feedep,f.feebal,FUND_TYPES[f.ftype]||FUND_TYPES.makifa,f.factor!==''?f.factor:'']);
   });
   rows.push([]);
+  rows.push(['הכנסות נוספות בפנסיה']);
+  rows.push(['מקור ההכנסה','סכום חודשי ₪']);
+  st.extras.forEach(function(x){rows.push([x.name,x.amount]);});
+  rows.push([]);
   rows.push(['הגיליון נוצר אוטומטית ממחשבון הפנסיה באזור הלקוחות של pensya.info. אפשר לערוך בו ערכים ולטעון אותו מחדש במחשבון.']);
   return rows;
 }
@@ -797,12 +894,13 @@ function gsApply(v){
     }
     return out;
   }
-  var i,assume=null,ownerRows=[],fundRows=[],fundHdr=null,savedISO='';
+  var i,assume=null,ownerRows=[],fundRows=[],fundHdr=null,xiRows=[],savedISO='';
   for(i=0;i<v.length;i++){
     var r=v[i];
     if(rowIs(r,'נשמר בתאריך'))savedISO=sheetDate(cell(r,1));
     else if(rowIs(r,'הנחות'))assume=v[i+2]||[];
     else if(rowIs(r,'בעלי הקרנות'))ownerRows=readBlock(i+2);
+    else if(rowIs(r,'הכנסות נוספות'))xiRows=readBlock(i+2);
     else if(rowIs(r,'הקרנות')){fundHdr=v[i+1]||[];fundRows=readBlock(i+2);}
   }
   if(!fundRows.length&&!assume)throw new Error('הגיליון לא במבנה המוכר — שמרו נתונים מחדש');
@@ -810,7 +908,7 @@ function gsApply(v){
     if(String(cell(assume,0))!=='')document.getElementById('g-return').value=numOf(cell(assume,0));
     if(String(cell(assume,1))!=='')document.getElementById('g-infl').value=numOf(cell(assume,1));
   }
-  owners=[];fundsList=[];oseq=0;fseq=0;
+  owners=[];fundsList=[];extraIncomes=[];oseq=0;fseq=0;xiSeq=0;
   ownerRows.forEach(function(r){
     if(owners.length>=MAX_OWNERS)return;
     var manual=String(cell(r,4)).trim()!=='';
@@ -833,9 +931,15 @@ function gsApply(v){
       balance:grp(String(Math.round(numOf(cell(r,2+nf))))),salary:grp(String(Math.round(numOf(cell(r,3+nf))))),
       deprate:numOf(cell(r,4+nf)),feedep:numOf(cell(r,5+nf)),feebal:numOf(cell(r,6+nf)),
       ftype:ft,factor:manualF};
-    if(COMPANIES.indexOf(co)>=0)init.company=co;
+    var known=COMPANIES.concat(GEMEL_EXTRA_COMPANIES);
+    if(known.indexOf(co)>=0)init.company=co;
     else if(co){init.company='אחר';init.companyCustom=co;}
     fundsList.push(newFund(init));
+  });
+  xiRows.forEach(function(r){
+    var nm=String(cell(r,0)).trim(), amt=numOf(cell(r,1));
+    if(!nm&&!amt)return;
+    extraIncomes.push(newXi({type:nm||'אחר',amount:Math.round(amt)||''}));
   });
   if(!owners.length)owners.push(newOwner({}));
   if(!fundsList.length)fundsList.push(newFund({}));
