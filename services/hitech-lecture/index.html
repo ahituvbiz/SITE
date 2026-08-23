@@ -184,6 +184,10 @@ section{padding:var(--s-2xl) 0;}
 .swatch{display:inline-block;width:22px;height:3px;border-radius:2px;flex:none;}
 .assump{background:var(--primary-soft);border-radius:12px;padding:var(--s-sm) var(--s-md);margin-top:var(--s-md);font-size:15.5px;line-height:1.65;}
 .assump b{font-weight:600;}
+.assump > summary{cursor:pointer;font-weight:600;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.assump > summary::-webkit-details-marker{display:none;}
+.assump > summary::after{content:"+";color:var(--primary);font-weight:700;font-size:20px;line-height:1;flex:none;}
+.assump[open] > summary::after{content:"−";}
 .assump ul{margin:8px 0 0;padding-inline-start:20px;}
 .assump li{margin-bottom:3px;}
 details.datatable{margin-top:var(--s-sm);}
@@ -535,7 +539,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
       <div class="hero-num">
         <div class="k">אותו עובד, אותה הפקדה. הפרש של 0.3% בשנה. הפער בגיל 60:</div>
         <div class="v">כ-450,000 ₪</div>
-        <div class="n">מחושב במנוע של <a href="/tools/pension-calculator/" style="color:inherit;text-decoration:underline">מחשבון הפנסיה שבאתר</a> — אפשר לשחזר את החישוב</div>
       </div>
       <div class="chart-scroll">
 <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="chTitle chDesc" class="growth-chart">
@@ -593,17 +596,17 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
         <span><i class="swatch" style="background:#B5761A"></i> תשואה שנתית 6.0%</span>
       </div>
 
-      <div class="assump">
-        <b>ההנחות שמאחורי הגרף:</b>
+      <details class="assump">
+        <summary>ההנחות לביצוע החישוב שמאחורי הגרף</summary>
         <ul>
           <li>עובד בן 30 עם צבירה קיימת של 300,000 ₪ בקרן הפנסיה.</li>
-          <li>שכר מבוטח 30,000 ₪ והפקדה בשיעור הסטנדרטי של 20.83% (עובד, מעסיק ופיצויים), שנשארים קבועים לאורך כל התקופה — הנחה שמרנית: בפועל השכר עולה וההפקדה גדלה איתו.</li>
+          <li>שכר מבוטח 30,000 ₪ והפקדה בשיעור הסטנדרטי של 20.83% (עובד, מעסיק ופיצויים), שנשארים קבועים לאורך כל התקופה — <b>הנחה שמרנית: בפועל השכר עולה וההפקדה גדלה איתו.</b></li>
           <li>30 שנות חיסכון, עד גיל 60.</li>
           <li>דמי ניהול של 1% מההפקדה ו-0.2% מהצבירה, <b>זהים בשני התרחישים</b>, וכן עלויות הכיסוי הביטוחי (אובדן כושר עבודה ושאירים) לפי תקנון קרן פנסיה מקיפה — כל אלה מנוכים מהצבירה לאורך הדרך.</li>
           <li>ההפרש היחיד בין שני התרחישים הוא <b>0.3% בתשואה השנתית</b> — 6% מול 6.3%. הפרש כזה יכול לנבוע ממסלול ההשקעה או מהאיזון האקטוארי של הקרן; 0.3% שנחסכים בדמי ניהול פועלים בדיוק באותו אופן.</li>
           <li>החישוב נעשה במנוע של <a href="/tools/pension-calculator/">מחשבון הפנסיה שבאתר</a> — אפשר להזין שם את אותם נתונים ולקבל את אותן תוצאות.</li>
         </ul>
-      </div>
+      </details>
 
       <details class="datatable">
         <summary>הצגת הנתונים כטבלה</summary>
