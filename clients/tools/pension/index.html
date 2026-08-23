@@ -26,14 +26,14 @@ h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px}
 label{display:block;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:4px}
 input[type=text],input[type=number],input[type=date],select{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:9px;font-family:inherit;font-size:15px;background:#fff;color:var(--text-1)}
 input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,125,168,.12)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.assume-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;max-width:560px}
-.top-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;align-items:stretch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:12px}
+.assume-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,100%),1fr));gap:12px;max-width:560px}
+.top-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-bottom:18px;align-items:stretch}
 .top-row .card{margin-bottom:0;padding:14px 18px}
 .top-row .card h3{font-size:15px;margin-bottom:6px}
 .top-row .gs-bar .btn{padding:8px 14px;font-size:13.5px}
 .top-row .gs-sheets-btn svg{width:16px;height:16px}
-@media(max-width:900px){.top-row{grid-template-columns:1fr}}
+@media(max-width:900px){.top-row{grid-template-columns:minmax(0,1fr)}}
 .fund-card{position:relative;border-right:6px solid var(--fc,#007DA8)}
 .fund-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .fund-dot{width:14px;height:14px;border-radius:50%;background:var(--fc,#007DA8);flex-shrink:0}
@@ -47,13 +47,13 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .toggle{display:flex;border:1px solid var(--border);border-radius:9px;overflow:hidden}
 .toggle button{flex:1;padding:8px 0;border:none;background:#fff;font-family:inherit;font-size:14px;color:var(--text-2);cursor:pointer}
 .toggle button.on{background:var(--primary);color:#fff;font-weight:700}
-.agehint{font-size:12px;color:var(--text-meta);margin-top:3px;display:block;min-height:16px}
+.agehint{font-size:11px;color:var(--text-meta);font-weight:400}
 .btn{display:inline-block;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 22px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
 .btn:hover{filter:brightness(1.08)}
 .btn.ghost{background:#fff;color:var(--primary);border:2px dashed var(--primary)}
 .btn:disabled{opacity:.55;cursor:default}
 .err{display:none;background:#FDECEA;color:var(--negative);border-radius:10px;padding:10px 14px;font-size:14px;margin:10px 0}
-.res-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:18px}
+.res-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:14px;margin-bottom:18px}
 .res-card{background:#fff;border:1px solid var(--border);border-right:6px solid var(--fc,#007DA8);border-radius:var(--radius);padding:16px 18px}
 .res-card .nm{font-weight:700;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .res-card .row{display:flex;justify-content:space-between;font-size:14px;padding:3px 0;color:var(--text-2)}
@@ -77,8 +77,22 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .gs-guide{background:var(--primary-soft);border-radius:10px;padding:12px 16px;font-size:14px;margin-top:12px;position:relative}
 .gs-guide .x{position:absolute;top:6px;left:10px;cursor:pointer;color:var(--text-meta);font-size:16px;background:none;border:none}
 .gs-changed{background:#FFF7DF;border:1px solid #EAD98F;border-radius:10px;padding:9px 14px;font-size:13.5px;margin-top:10px;color:#7a6410}
-.owners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-.owner-card{border:1px solid var(--border);border-radius:12px;padding:14px 16px;border-right:6px solid var(--oc,#007DA8);background:#fff}
+.owners-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:14px}
+.owner-card{border:1px solid var(--border);border-radius:12px;padding:10px 14px 12px;border-right:6px solid var(--oc,#007DA8);background:#fff}
+.owner-card .fund-head{margin-bottom:8px;gap:8px}
+.owner-card .fund-name-inp{min-width:110px;padding:6px 9px;font-size:15px}
+.owner-card .fund-del{padding:4px 10px;font-size:12.5px}
+.owner-fields{display:flex;flex-wrap:wrap;gap:8px}
+.of-pair{display:flex;gap:8px;min-width:0;flex:1 1 236px}
+.of-pair.p2{flex:.8 1 178px}
+.of-pair>div{min-width:0}
+.f-date{flex:1.3 1 122px}
+.f-gender{flex:1.1 1 100px}
+.f-age{flex:.75 1 76px}
+.f-factor{flex:.95 1 90px}
+.owner-fields label{font-size:11.5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.owner-fields input,.owner-fields select{padding:6px 8px;font-size:14px;min-width:0}
+.owner-fields .toggle button{padding:6px 0;font-size:13px}
 .ownote{font-size:13.5px;color:var(--text-2);margin-bottom:12px}
 .own-of{font-size:13px;color:var(--text-meta)}
 .own-sel{width:auto;min-width:110px;padding:7px 10px;font-size:14px}
@@ -237,7 +251,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 
   <div class="card">
     <h3>בעלי הקרנות</h3>
-    <p class="ownote">כל אדם מוזן פעם אחת — תאריך הלידה, המין וגיל הפרישה שלו משמשים את כל הקרנות המשויכות אליו. מקדם ההמרה שבכרטיס האדם משמש את הקרנות המקיפות שלו; לקרן משלימה ולקופת גמל יש מקדם נפרד בכרטיס הקרן.</p>
+    <p class="ownote">כל אדם מוזן פעם אחת ומשמש את כל הקרנות המשויכות אליו. מקדם ההמרה כאן משמש את הקרנות המקיפות; לקרן משלימה ולקופת גמל יש מקדם נפרד בכרטיס הקרן.</p>
     <div class="owners-grid" id="owners">
       <div class="owner-add-cell" id="add-owner-cell"><button class="btn ghost" id="add-owner">+ הוספת בן/בת זוג</button></div>
     </div>
@@ -414,6 +428,7 @@ function fundFactor(f){
 
 /* ═══ רינדור ═══ */
 function ownerLabel(o){return (o.name||'').trim()||'ללא שם';}
+function ageHint(age){return (age!=null&&age>0&&age<120)?(' · גיל '+Math.floor(age)):'';}
 function renderOwners(){
   var host=document.getElementById('owners');
   host.innerHTML='';
@@ -428,16 +443,20 @@ function renderOwners(){
         '<input class="fund-name-inp" type="text" data-ok="name" data-oid="'+o.id+'" value="'+esc(o.name)+'" placeholder="שם">'+
         (owners.length>1?'<button class="fund-del" data-odel="'+o.id+'">הסרה ✕</button>':'')+
       '</div>'+
-      '<div class="grid">'+
-        '<div><label>תאריך לידה</label><input type="date" data-ok="bdate" data-oid="'+o.id+'" value="'+esc(o.bdate)+'"><span class="agehint">'+(age!=null&&age>0&&age<120?('גיל '+Math.floor(age)):'')+'</span></div>'+
-        '<div><label>מין</label><div class="toggle" data-ogt="'+o.id+'">'+
-          '<button type="button" data-g="M" class="'+(o.gender==='M'?'on':'')+'">גבר</button>'+
-          '<button type="button" data-g="F" class="'+(o.gender==='F'?'on':'')+'">אישה</button>'+
-        '</div></div>'+
-        '<div><label>גיל פרישה</label><select data-ok="retage" data-oid="'+o.id+'">'+
-          [60,61,62,63,64,65,66,67,68,69,70].map(function(a){return '<option value="'+a+'"'+(String(o.retage)===String(a)?' selected':'')+'>'+a+'</option>';}).join('')+
-        '</select></div>'+
-        '<div><label>מקדם המרה (מחושב)</label><input type="number" step="0.1" data-ok="factor" data-oid="'+o.id+'" value="'+esc(o.factor||autoFactor(o))+'"></div>'+
+      '<div class="owner-fields">'+
+        '<div class="of-pair">'+
+          '<div class="f-date"><label>תאריך לידה<span class="agehint">'+ageHint(age)+'</span></label><input type="date" data-ok="bdate" data-oid="'+o.id+'" value="'+esc(o.bdate)+'"></div>'+
+          '<div class="f-gender"><label>מין</label><div class="toggle" data-ogt="'+o.id+'">'+
+            '<button type="button" data-g="M" class="'+(o.gender==='M'?'on':'')+'">גבר</button>'+
+            '<button type="button" data-g="F" class="'+(o.gender==='F'?'on':'')+'">אישה</button>'+
+          '</div></div>'+
+        '</div>'+
+        '<div class="of-pair p2">'+
+          '<div class="f-age"><label>גיל פרישה</label><select data-ok="retage" data-oid="'+o.id+'">'+
+            [60,61,62,63,64,65,66,67,68,69,70].map(function(a){return '<option value="'+a+'"'+(String(o.retage)===String(a)?' selected':'')+'>'+a+'</option>';}).join('')+
+          '</select></div>'+
+          '<div class="f-factor"><label title="מחושב אוטומטית — ניתן לעריכה">מקדם המרה</label><input type="number" step="0.1" data-ok="factor" data-oid="'+o.id+'" value="'+esc(o.factor||autoFactor(o))+'"></div>'+
+        '</div>'+
       '</div>';
     host.appendChild(div);
   });
@@ -547,7 +566,7 @@ function refreshOwnerAux(t,o){
   var card=t.closest('.owner-card'); if(!card)return;
   var hint=card.querySelector('.agehint');
   var age=ageOf(o);
-  if(hint)hint.textContent=(age!=null&&age>0&&age<120)?('גיל '+Math.floor(age)):'';
+  if(hint)hint.textContent=ageHint(age);
   var fi=card.querySelector('input[data-ok=factor]');
   if(fi&&!o.factorManual)fi.value=autoFactor(o);
   refreshFundFactors(o);
