@@ -137,8 +137,10 @@ section{padding:var(--s-2xl) 0;}
 /* ---------- HERO ---------- */
 .hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;padding:var(--s-2xl) 0;}
 .hero .eyebrow{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:14px;font-weight:600;padding:6px 14px;border-radius:99px;margin-bottom:var(--s-md);}
-.hero h1{color:#fff;margin-bottom:var(--s-md);max-width:20ch;}
+.hero h1{color:#fff;margin-bottom:var(--s-md);max-width:30ch;}
 .hero h1 .nowrap{white-space:nowrap;}
+.hero h1 .h1-main{white-space:nowrap;}
+@media (max-width:560px){.hero h1 .h1-main{white-space:normal;}}
 .hero h1 .h1-sub{display:block;font-size:.6em;font-weight:600;opacity:.92;margin-top:8px;}
 .hero .sub{font-size:19px;line-height:1.65;opacity:.94;max-width:64ch;margin-bottom:var(--s-lg);}
 .hero .sub b{font-weight:600;}
@@ -459,7 +461,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #007D
 <header class="hero" id="main-content">
   <div class="container">
     <span class="eyebrow">הצעה למחלקות HR ו-People בחברות הייטק</span>
-    <h1>הרצאה פיננסית לעובדי החברה<span class="h1-sub">ללא עלות</span></h1>
+    <h1><span class="h1-main">הרצאה פיננסית לעובדי החברה</span><span class="h1-sub">ללא עלות</span></h1>
     <p class="sub">החלטות קטנות בפנסיה יכולות להצטבר לסכומים משמעותיים לאורך קריירה שלמה. <b>45–60 דקות במשרדי החברה, מפי יועץ פנסיוני בעל רישיון משרד האוצר</b> — שאסור לו לפי חוק לקבל עמלות מחברות ביטוח ומבתי השקעות.</p>
     <div class="chips">
       <span class="chip"><span class="zero">0 ₪</span> עלות לחברה</span>
