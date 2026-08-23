@@ -29,7 +29,10 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .assume-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;max-width:560px}
 .top-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;align-items:stretch}
-.top-row .card{margin-bottom:0}
+.top-row .card{margin-bottom:0;padding:14px 18px}
+.top-row .card h3{font-size:15px;margin-bottom:6px}
+.top-row .gs-bar .btn{padding:8px 14px;font-size:13.5px}
+.top-row .gs-sheets-btn svg{width:16px;height:16px}
 @media(max-width:900px){.top-row{grid-template-columns:1fr}}
 .fund-card{position:relative;border-right:6px solid var(--fc,#007DA8)}
 .fund-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
@@ -203,7 +206,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   <div class="top-row">
   <div class="card">
     <h3>שמירה ושחזור</h3>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:12px">הנתונים נשמרים בגיליון גוגל שיטס <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב. בביקור הבא לחצו על "טעינה" והנתונים יחזרו.</p>
+    <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">הנתונים נשמרים בגיליון גוגל שיטס <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב.</p>
     <div class="gs-bar">
       <button class="btn gs-sheets-btn" id="gs-save"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#fff"/><rect x="7" y="9" width="10" height="8.4" rx="1" fill="#0F9D58"/><path d="M7 11.8h10M7 14.6h10M10.3 9v8.4M13.7 9v8.4" stroke="#fff" stroke-width="1.15"/></svg><span>שמירה לגוגל שיטס</span></button>
       <button class="btn gs-load-btn" id="gs-load">⟳ טעינת נתונים שמורים</button>
