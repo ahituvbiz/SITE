@@ -817,13 +817,9 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
         שליחת התוכנית כ-PDF למייל
       </button>
-      <button type="button" class="sg-remind" id="sg-remind">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/><path d="m9 16 2 2 4-4"/></svg>
-        תזכורת שנתית ביומן
-      </button>
       <button type="button" class="sg-gbtn primary" id="sg-gs-save">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
-        שמירת התכנית לגיליון
+        שמירת התכנית לגיליון + תזכורת ליומן
       </button>
       <button type="button" class="sg-gbtn" id="sg-gs-load">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
@@ -832,9 +828,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       <span class="sg-dl-msg" id="sg-dl-msg"></span>
       <span class="sg-sheets-msg" id="sg-gs-msg"></span>
       <div class="sg-remind-note">
-        <strong>תזכורת ביומן:</strong> נפתח אצלכם ביומן גוגל אירוע מוכן — נשאר רק ללחוץ „שמור”.
+        <strong>לחיצה אחת עושה שניים:</strong> התכנית נשמרת בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש — ומיד אחר כך נפתח ביומן גוגל אירוע תזכורת שנתי מוכן, שנשאר רק ללחוץ בו „שמור”.
         לא ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a>.
-        &nbsp;·&nbsp; <strong>גוגל שיטס:</strong> שמרו את התכנית בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש.
       </div>
       <div class="sg-gs-guide" id="sg-gs-guide" hidden>
         <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
@@ -2632,16 +2627,40 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     var en = new Date(st.getTime() + 30 * 60000);
     return { s: utcStamp(st), e: utcStamp(en) };
   }
-  document.getElementById('sg-remind').addEventListener('click', function () {
+  /* התזכורת נוצרת כחלק מלחיצת השמירה לגיליון (gsSave) — כמו במחשבון הפנסיה. */
+  function remindDMY() {
+    var d = remindStart();
+    return pad2(d.getDate()) + '.' + pad2(d.getMonth() + 1) + '.' + d.getFullYear();
+  }
+  function remindUrl() {
     var t = remindTimes();
-    var u = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
       '&text=' + encodeURIComponent(REMIND_TITLE) +
       '&dates=' + t.s + '/' + t.e +
       '&details=' + encodeURIComponent(REMIND_BODY.join('\n')) +
       '&location=' + encodeURIComponent(REMIND_URL) +
       '&recur=' + encodeURIComponent('RRULE:FREQ=YEARLY');
-    window.open(u, '_blank', 'noopener');
-  });
+  }
+  /* חלון ריק נפתח בתוך אירוע הלחיצה עצמו — אחרת חוסם הפופאפים יחסום
+     את היומן אחרי ההמתנה לשמירה. אחרי השמירה מפנים אותו לכתובת התזכורת. */
+  function calOpenBlank() {
+    var w = null;
+    try { w = window.open('', '_blank'); } catch (e) { w = null; }
+    if (w && w.document) {
+      try {
+        w.document.write('<!doctype html><html dir="rtl" lang="he"><head><meta charset="utf-8">' +
+          '<title>מכינים תזכורת ליומן…</title><style>body{font-family:Arial,Helvetica,sans-serif;' +
+          'display:flex;align-items:center;justify-content:center;height:100vh;margin:0;color:#334;' +
+          'background:#F7F9FB;text-align:center}p{font-size:18px;line-height:1.7}</style></head><body>' +
+          '<p>📅 שומרים את התכנית…<br>התזכורת ליומן תיפתח כאן בעוד רגע.</p></body></html>');
+        w.document.close();
+      } catch (e) {}
+    }
+    return w;
+  }
+  function calLinkHtml(u) {
+    return ' <a href="' + esc(u) + '" target="_blank" rel="noopener">פתיחת התזכורת ביומן ↗</a>';
+  }
   function remindIcs() {
     var t = remindTimes();
     var uid = 'sg-' + t.s + '-' + Math.random().toString(36).slice(2, 10) + '@pensya.info';
@@ -2884,6 +2903,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     var b1 = document.getElementById('sg-gs-save');
     var b2 = document.getElementById('sg-gs-savenew');
     b1.disabled = true; if (b2) b2.disabled = true;
+    var calUrl = remindUrl(), calWhen = remindDMY(), calWin = calOpenBlank();
     if (gsWillPrompt()) gsGuide(true);
     gsMsg('מתחברים לחשבון הגוגל…');
     gsGetToken()
@@ -2902,9 +2922,25 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
         gsSnapshot = gsSerial();
         updateChangedBanner();
         sgMarkSaved(isoInMonths(0));
-        gsMsg('התכנית נשמרה בגיליון בחשבון שלכם ✓', false, gsLink());
+        var opened = false;
+        if (calWin && !calWin.closed) {
+          try { calWin.location.replace(calUrl); opened = true; } catch (e) { opened = false; }
+        }
+        if (!opened) {
+          try { opened = !!window.open(calUrl, '_blank', 'noopener'); } catch (e) { opened = false; }
+        }
+        if (opened) {
+          gsMsg('התכנית נשמרה בגיליון ✓ ונפתחה תזכורת ביומן ל-' + calWhen +
+                ' — לחצו שם „שמור”.', false, gsLink());
+        } else {
+          gsMsg('התכנית נשמרה בגיליון ✓ — הדפדפן חסם את חלון היומן:',
+                false, calLinkHtml(calUrl) + gsLink());
+        }
       })
-      ['catch'](gsErr)
+      ['catch'](function (e) {
+        if (calWin && !calWin.closed) { try { calWin.close(); } catch (x) {} }
+        gsErr(e);
+      })
       .then(function () { gsBusy = false; b1.disabled = false; if (b2) b2.disabled = false; });
   }
 
