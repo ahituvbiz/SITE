@@ -2259,7 +2259,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   });
   ['sg-infl', 'sg-long', 'sg-short'].forEach(function (id) {
     var el = document.getElementById(id);
-    if (el) el.addEventListener('input', calc);
+    if (el) el.addEventListener('input', function () { calc(); });
   });
   Array.prototype.forEach.call(document.querySelectorAll('.sg-mode-btn'), function (btn) {
     btn.addEventListener('click', function () {
@@ -3298,10 +3298,64 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     startPdfDownload();
   });
 
+  /* ───────── זיכרון מפגש בדפדפן (sessionStorage) ─────────
+     הלשוניות באזור הלקוחות הן iframe. בחלק מהדפדפנים/מכשירים מעבר בין לשוניות
+     טוען את ה-iframe מחדש, והמחשבון חוזר לברירת המחדל. לכן שומרים כאן את המצב
+     בכל שינוי, ומשחזרים אותו בטעינה — עד יציאה מהחשבון או סגירת לשונית הדפדפן.
+     sessionStorage ולא localStorage במכוון: נתונים פיננסיים לא נשארים על המחשב. */
+  var CACHE_KEY = 'pensya-calc-cache::' + location.pathname;
+  var cacheHold = false, cacheTimer = null;
+  function cacheRows() {
+    var rows = gsValues(gsState()), i;
+    /* מנטרלים את שורת "התכנית נוצרה בתאריך" — היא נכונה רק לשמירה אמיתית
+       בגיליון, ואסור ששחזור מהזיכרון יסמן את הלשונית כאילו נשמרה היום. */
+    for (i = 0; i < rows.length; i++) {
+      if (String((rows[i] && rows[i][0]) || '').indexOf('התכנית נוצרה') === 0) { rows[i][1] = ''; break; }
+    }
+    return rows;
+  }
+  function cacheClear() { try { sessionStorage.removeItem(CACHE_KEY); } catch (e) {} }
+  function cacheSave() {
+    if (cacheHold) return;
+    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ v: 1, rows: cacheRows(), snap: gsSnapshot || null })); }
+    catch (e) { /* מכסת אחסון / גלישה פרטית — פשוט אין זיכרון מפגש */ }
+  }
+  function cacheSaveSoon() {
+    if (cacheHold) return;
+    if (cacheTimer) clearTimeout(cacheTimer);
+    cacheTimer = setTimeout(cacheSave, 400);
+  }
+  function cacheRestore() {
+    var raw = null;
+    try { raw = sessionStorage.getItem(CACHE_KEY); } catch (e) { return false; }
+    if (!raw) return false;
+    var o = null;
+    try { o = JSON.parse(raw); } catch (e) { cacheClear(); return false; }
+    if (!o || !o.rows || !o.rows.length) return false;
+    cacheHold = true;
+    try {
+      gsApply(o.rows);
+      gsSnapshot = o.snap || null;
+      updateChangedBanner();
+      gsMsg('התכנית שוחזרה מהמפגש הנוכחי בדפדפן — לא מהגיליון. היא תימחק ביציאה מהחשבון.');
+    } catch (e) {
+      cacheHold = false; cacheClear();
+      goals.length = 0; funds.length = 0; seqG = 0; seqF = 0;
+      return false;
+    }
+    cacheHold = false;
+    return true;
+  }
+  /* calc() רץ אחרי כל שינוי של המשתמש — ולכן הוא נקודת השמירה */
+  var calcBase = calc;
+  calc = function () { calcBase.apply(null, arguments); cacheSaveSoon(); };
+
   /* ───────── אתחול ───────── */
-  SAMPLE_GOALS.forEach(addGoal);
-  SAMPLE_FUNDS.forEach(addFund);
-  render();
+  if (!cacheRestore()) {
+    SAMPLE_GOALS.forEach(addGoal);
+    SAMPLE_FUNDS.forEach(addFund);
+    render();
+  }
 })();
 
 </script>

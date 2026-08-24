@@ -151,8 +151,23 @@ function buildWelcomeBar(name) {
 function wireLogout() {
   document.getElementById('logout-btn').addEventListener('click', function() {
     sessionStorage.removeItem('pensya_client_auth');
+    clearCalcCaches();
     location.reload();
   });
+}
+
+// המחשבונים ("הפנסיה שלי" / "החסכונות שלי") שומרים את מצב העבודה ב-sessionStorage
+// של אותו origin, כדי שמעבר בין לשוניות לא ימחק את הנתונים. ביציאה מהחשבון —
+// וגם בכניסה חדשה, שעשויה להיות של לקוח אחר — מוחקים אותו.
+function clearCalcCaches() {
+  try {
+    var kill = [], i, k;
+    for (i = 0; i < sessionStorage.length; i++) {
+      k = sessionStorage.key(i);
+      if (k && k.indexOf('pensya-calc-cache::') === 0) kill.push(k);
+    }
+    for (i = 0; i < kill.length; i++) sessionStorage.removeItem(kill[i]);
+  } catch (e) {}
 }
 
 // מזהי תגיות שיש להם דף תוכן בפועל
@@ -617,6 +632,7 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         return;
       }
       clientEmail = email;
+      clearCalcCaches();   // כניסה חדשה מתחילה נקי — גם אם קודם היה לקוח אחר בלשונית הזו
       return buildSections(data).then(function(sections) {
         sessionStorage.setItem('pensya_client_auth', JSON.stringify({ name: data.name, email: email, sections: sections }));
         buildUI(sections, data.name);
