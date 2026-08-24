@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>פילוח יתרות קרנות פנסיה מקיפות — אזור הלקוחות | pensya.info</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C;
+  --text-1:#1A1A1A; --text-2:#555; --text-meta:#999;
+  --bg:#fff; --bg-cream:#F8F6F2; --border:#E2E0DC;
+  --positive:#1a7f44; --negative:#C53030;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;color:var(--text-1);background:var(--bg-cream);line-height:1.65;font-size:16px;overflow-x:hidden}
+.wrap{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-align:center}
+.sub{color:var(--text-2);font-size:15px;margin-bottom:20px;text-align:center}
+.badges{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.badge{border-radius:999px;padding:8px 20px;font-size:15px;font-weight:600;background:var(--primary);color:#fff}
+.badge.prev{background:#8A8A8A}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.chart-box{width:100%;max-width:390px;margin:0 auto;position:relative}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+thead tr{background:var(--primary);color:#fff}
+th,td{padding:10px 14px;text-align:right}
+th{font-weight:600;font-size:14px}
+tbody tr:nth-child(even){background:#FAFAF8}
+tbody tr:hover{background:var(--primary-soft)}
+tfoot tr{font-weight:700;background:#F1F1EE}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;margin-left:8px;vertical-align:middle}
+.up{color:var(--positive);font-weight:600}
+.down{color:var(--negative);font-weight:600}
+.flat{color:var(--text-meta)}
+.note{text-align:center;color:var(--text-meta);font-size:13px;margin-top:6px}
+.refresh{display:block;margin:22px auto 0;background:var(--cta);color:#fff;border:0;border-radius:10px;
+  padding:11px 26px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.refresh:hover{filter:brightness(.92)}
+.refresh.done{background:var(--positive)}
+</style>
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<div class="wrap">
+
+  <h1>פילוח יתרות קרנות פנסיה מקיפות</h1>
+  <p class="sub">לפי קטגוריות מסלולי השקעה · מקור: פנסיה נט, רשות שוק ההון</p>
+
+  <div class="badges">
+    <span class="badge prev" id="badgePrev"></span>
+    <span class="badge" id="badgeCur"></span>
+  </div>
+
+  <div class="card">
+    <div class="chart-box"><canvas id="pieChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>קטגוריה</th>
+            <th id="thPrev"></th>
+            <th>% מסך</th>
+            <th id="thCur"></th>
+            <th>% מסך</th>
+            <th>שינוי</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+        <tfoot id="tfoot"></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <p class="note">עיבוד: אחיטוב תכנון פיננסי · עודכן לאחרונה: <span id="updated"></span></p>
+
+  <button class="refresh" id="refreshBtn">עדכן נתונים</button>
+  <p class="note">הכפתור מעתיק ללוח פקודה — הדביקו אותה בשיחה חדשה עם Claude.</p>
+
+</div>
+
+<script id="breakdown-data" type="application/json">
+{
+  "updated": "24.8.2026",
+  "prev": {
+    "period": "202605",
+    "label": "מאי 2026"
+  },
+  "cur": {
+    "period": "202606",
+    "label": "יוני 2026"
+  },
+  "cats": [
+    {
+      "label": "ברירת מחדל",
+      "color": "#2563EB",
+      "prev": 803152.9,
+      "cur": 796075.9
+    },
+    {
+      "label": "S&P 500",
+      "color": "#16A34A",
+      "prev": 113784.6,
+      "cur": 117354.5
+    },
+    {
+      "label": "מנייתי מנוהל",
+      "color": "#9333EA",
+      "prev": 113465.8,
+      "cur": 116814.4
+    },
+    {
+      "label": "הלכה",
+      "color": "#EA580C",
+      "prev": 14588.1,
+      "cur": 14504.9
+    },
+    {
+      "label": "מנייתי ישראל",
+      "color": "#0891B2",
+      "prev": 12254.8,
+      "cur": 12244.4
+    },
+    {
+      "label": "מנייתי טכנולוגיה",
+      "color": "#DC2626",
+      "prev": 11807.3,
+      "cur": 12193.9
+    },
+    {
+      "label": "מנייתי אחר",
+      "color": "#CA8A04",
+      "prev": 9742.4,
+      "cur": 10019.3
+    },
+    {
+      "label": "בחירה אחר",
+      "color": "#7C3AED",
+      "prev": 4343.0,
+      "cur": 4359.1
+    },
+    {
+      "label": "תשואה נמוכה",
+      "color": "#64748B",
+      "prev": 4117.9,
+      "cur": 4103.0
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById('breakdown-data').textContent);
+  const cats = D.cats;
+  const totPrev = cats.reduce((s, c) => s + c.prev, 0);
+  const totCur  = cats.reduce((s, c) => s + c.cur, 0);
+  const fmt = v => Math.round(v).toLocaleString('he-IL');
+  const pct = (v, t) => (v / t * 100).toFixed(1) + '%';
+  const cell = d => {
+    const cls = d > 0.05 ? 'up' : d < -0.05 ? 'down' : 'flat';
+    const txt = d > 0.05 ? '▲ +' + fmt(d) : d < -0.05 ? '▼ ' + fmt(Math.abs(d)) : '—';
+    return '<td class="' + cls + '">' + txt + '</td>';
+  };
+
+  document.getElementById('badgePrev').textContent = D.prev.label + ': ' + fmt(totPrev) + ' מיל′ ₪';
+  document.getElementById('badgeCur').textContent  = D.cur.label  + ': ' + fmt(totCur)  + ' מיל′ ₪';
+  document.getElementById('thPrev').textContent = D.prev.label + ' (מיל′ ₪)';
+  document.getElementById('thCur').textContent  = D.cur.label  + ' (מיל′ ₪)';
+  document.getElementById('updated').textContent = D.updated;
+
+  document.getElementById('tbody').innerHTML = cats.map(c =>
+    '<tr><td><span class="swatch" style="background:' + c.color + '"></span>' + c.label + '</td>' +
+    '<td>' + fmt(c.prev) + '</td><td>' + pct(c.prev, totPrev) + '</td>' +
+    '<td>' + fmt(c.cur)  + '</td><td>' + pct(c.cur,  totCur)  + '</td>' +
+    cell(c.cur - c.prev) + '</tr>').join('');
+
+  document.getElementById('tfoot').innerHTML =
+    '<tr><td>סה"כ</td><td>' + fmt(totPrev) + '</td><td>100%</td>' +
+    '<td>' + fmt(totCur) + '</td><td>100%</td>' + cell(totCur - totPrev) + '</tr>';
+
+  new Chart(document.getElementById('pieChart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: cats.map(c => c.label),
+      datasets: [{
+        data: cats.map(c => c.cur),
+        backgroundColor: cats.map(c => c.color),
+        borderColor: '#fff', borderWidth: 2, hoverOffset: 14
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true, cutout: '52%',
+      plugins: {
+        legend: { position: 'bottom', rtl: true, labels: { boxWidth: 13, padding: 11, font: { size: 12, family: 'Heebo' } } },
+        tooltip: {
+          rtl: true, bodyFont: { family: 'Heebo' },
+          callbacks: { label: c => ' ' + fmt(c.parsed) + ' מיל′ ₪  (' + (c.parsed / totCur * 100).toFixed(1) + '%)' }
+        }
+      }
+    }
+  });
+
+  const CMD = 'הרץ את הסקיל pension-breakdown-update — עדכן את דף פילוח קרנות הפנסיה באתר.';
+  const btn = document.getElementById('refreshBtn');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(CMD).then(function () {
+      btn.textContent = '✓ הפקודה הועתקה — הדביקו בשיחה עם Claude';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'עדכן נתונים'; btn.classList.remove('done'); }, 4000);
+    });
+  });
+})();
+</script>
+</body>
+</html>
