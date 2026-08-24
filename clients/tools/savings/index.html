@@ -2650,6 +2650,20 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     }
     L.push('');
 
+    /* צבירה שיושבת היום בכלי קצר הטווח אך מיועדת ליעד רחוק — לפי המודל מקומה
+       בכלי ארוך הטווח עד 3 שנים לפני מועד היעד. זו פעולה לביצוע מיד, לא בעוד שנה. */
+    var toLong = 0;
+    c.sorted.forEach(function (g) {
+      var r = c.res[g.id];
+      if (r.switchMonths !== null && r.switchMonths > 0) toLong += r.useST0 || 0;
+    });
+    if (toLong > 1) {
+      L.push('■ להעברה לכלי ארוך הטווח: ' + nis(toLong));
+      L.push('   זה החלק מהצבירה שנמצאת היום בכלי קצר הטווח ומיועד ליעדים רחוקים —');
+      L.push('   לפי התכנית מקומו בכלי ארוך הטווח, עד 3 שנים לפני מועד היעד.');
+      L.push('');
+    }
+
     L.push('■ היעדים:');
     c.sorted.forEach(function (g, i) {
       var r = c.res[g.id];
@@ -2727,13 +2741,39 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
                 'היא תהיה נזילה ב' + monthLabel(o.liqMonth) + ' — וזה בדיוק המועד שבו התכנית מתכננת להשתמש בה.' });
       }
     });
+    /* מועמד משני: תחילת תקופה חדשה בלוח ההפקדות (מצב "חיסכון אחיד") — הרגע שבו
+       ההפקדה החודשית מתחילה או מפסיקה לזרום לאחד הכלים, כולל חזרה לכלי ארוך הטווח.
+       משמש רק אם אין אירוע מובהק יותר בשנה הקרובה. */
+    var lvSegs = (mode === 'level' && c.level && c.level.segments) ? c.level.segments : [];
+    if (!ev.length) {
+      lvSegs.forEach(function (s, i) {
+        var m = s.from - 1;
+        if (i === 0 || m <= 0 || m > 12) return;
+        var prev = lvSegs[i - 1];
+        var toLongNow = (s.L > 1) && !(prev.L > 1);
+        ev.push({ m: m,
+          title: toLongNow ? 'יעדי החיסכון: הפקדה חוזרת לכלי ארוך הטווח'
+                           : 'יעדי החיסכון: שינוי בחלוקת ההפקדה החודשית',
+          line: (toLongNow ? '📈 מכאן ההפקדה החודשית חוזרת לזרום לכלי ארוך הטווח.'
+                           : '📊 מכאן ההפקדה החודשית מתחלקת אחרת בין הכלים.') });
+      });
+    }
     if (!ev.length) return null;
     ev.sort(function (a, b) { return a.m - b.m; });
     var m0 = ev[0].m;
     var same = ev.filter(function (e) { return e.m === m0; });
+    var lines = same.map(function (e) { return e.line; });
+    /* בכל מקרה — אם באותו חודש מתחילה תקופה חדשה בלוח ההפקדות, מפרטים את החלוקה החדשה */
+    var seg = lvSegs.filter(function (s) { return s.from === m0 + 1; })[0];
+    if (seg) {
+      lines.push('📊 מכאן ההפקדה החודשית מתחלקת כך: ' +
+        (seg.L > 1 ? nis(seg.L) + ' לכלי ארוך טווח' : 'ללא הפקדה לכלי ארוך טווח') + '  ·  ' +
+        (seg.S > 1 ? nis(seg.S) + ' לכלי קצר טווח' : 'ללא הפקדה לכלי קצר טווח') +
+        '  (סה"כ ' + nis(seg.L + seg.S) + ' בחודש).');
+    }
     return { months: m0,
              title: same.length > 1 ? 'יעדי החיסכון: פעולות לביצוע החודש' : same[0].title,
-             lines: same.map(function (e) { return e.line; }) };
+             lines: lines };
   }
   function remindTitle() {
     var e = remindEvent();
