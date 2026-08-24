@@ -364,6 +364,15 @@ table.sg-table td.dim{color:var(--text-meta)}
 .sg-actions>button{height:50px;padding-top:0;padding-bottom:0;white-space:nowrap}
 .sg-actions .sg-gbtn{font-size:15px;padding-right:20px;padding-left:20px}
 .sg-actions .sg-gs-guide,.sg-actions .sg-changed{flex-basis:100%}
+/* כרטיס "שמירה ושחזור" בראש הדף — עיצוב כפתורים זהה למחשבון הפנסיה המשפחתי */
+.sg-p-save{padding:18px 22px 16px}
+.sg-p-save .sg-panel-sub{margin-bottom:14px}
+.sg-p-save .sg-actions{margin-bottom:0}
+.sg-gbtn.sheets{background:#0F9D58;border:2px solid #0F9D58;color:#fff}
+.sg-gbtn.sheets:hover{background:#0C8A4D;border-color:#0C8A4D}
+.sg-gbtn.sheets svg{width:19px;height:19px;flex-shrink:0}
+.sg-gbtn.outline{background:#fff;border:2px solid #0F9D58;color:#0F9D58}
+.sg-gbtn.outline:hover{background:#E8F5EE}
 @media(max-width:1000px){.sg-actions>button{height:46px;font-size:14px}}
 .sg-dl{background:var(--cta);color:#fff;border:none;border-radius:10px;padding:14px 26px;font-family:inherit;
   font-size:15px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:9px}
@@ -636,6 +645,45 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
 <section class="calc-wrap">
   <div class="container">
 
+    <!-- ═══ שמירה ושחזור ═══ -->
+    <div class="sg-panel sg-p-save">
+      <div class="sg-panel-title">💾 שמירה ושחזור</div>
+      <div class="sg-panel-sub">התכנית נשמרת בגיליון גוגל שיטס <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב.</div>
+      <div class="sg-actions" id="sg-actions">
+        <button type="button" class="sg-gbtn sheets" id="sg-gs-save">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#fff"/><rect x="7" y="9" width="10" height="8.4" rx="1" fill="#0F9D58"/><path d="M7 11.8h10M7 14.6h10M10.3 9v8.4M13.7 9v8.4" stroke="#fff" stroke-width="1.15"/></svg>
+          שמירת התכנית לגיליון + תזכורת ליומן
+        </button>
+        <button type="button" class="sg-gbtn outline" id="sg-gs-load">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+          טעינת התכנית מהגיליון
+        </button>
+        <button type="button" class="sg-dl" id="sg-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+          שליחת התוכנית כ-PDF למייל
+        </button>
+        <span class="sg-dl-msg" id="sg-dl-msg"></span>
+        <span class="sg-sheets-msg" id="sg-gs-msg"></span>
+        <div class="sg-remind-note">
+          <strong>לחיצה אחת עושה שניים:</strong> התכנית נשמרת בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש — ומיד אחר כך נפתח ביומן גוגל אירוע תזכורת מוכן, שנשאר רק ללחוץ בו „שמור”. התזכורת נקבעת למועד הפעולה הבאה שהתכנית דורשת (מעבר של יעד לכלי קצר טווח, פתיחת קרן השתלמות חדשה או מועד יעד), ואם אין כזו בשנה הקרובה — בעוד שנה, לבדיקת עמידה בתכנית. גוף האירוע כולל את התכנית המלאה: היעדים, מקורות המימון והחיסכון החודשי.
+          לא ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a>.
+        </div>
+        <div class="sg-gs-guide" id="sg-gs-guide" hidden>
+          <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
+          <ol>
+            <li>בחרו את חשבון הגוגל שלכם.</li>
+            <li>אם תופיע הודעה ש<strong>“Google לא אימתה את האפליקציה”</strong> (Google hasn’t verified this app) — אין מה לחשוש, זו האפליקציה של pensya.info. לחצו על <strong>“מתקדם”</strong> (Advanced) בתחתית החלון, ואז על <strong>“המשך אל pensya savings goals web”</strong>.</li>
+            <li>אשרו את הבקשה בלחיצה על <strong>“המשך”</strong> (Continue / Allow). האפליקציה מבקשת גישה <strong>רק לגיליון שהיא יוצרת עבורכם</strong> — לא לשאר הקבצים בדרייב.</li>
+          </ol>
+          <button type="button" class="sg-gs-guide-x" id="sg-gs-guide-x">הבנתי, סגירת ההסבר</button>
+        </div>
+        <div class="sg-changed" id="sg-gs-changed" hidden>
+          <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
+          <button type="button" class="sg-gbtn" id="sg-gs-savenew">שמירה כתכנית מעודכנת</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ═══ תשואות ותחזית אינפלציה ═══ -->
     <div class="sg-assume-row">
     <div class="sg-panel sg-p-rates">
@@ -811,40 +859,6 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     </details>
 
     <div class="sg-fundplan" id="sg-fundplan" hidden></div>
-
-    <div class="sg-actions" id="sg-actions">
-      <button type="button" class="sg-dl" id="sg-download">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
-        שליחת התוכנית כ-PDF למייל
-      </button>
-      <button type="button" class="sg-gbtn primary" id="sg-gs-save">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 21h16"/></svg>
-        שמירת התכנית לגיליון + תזכורת ליומן
-      </button>
-      <button type="button" class="sg-gbtn" id="sg-gs-load">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
-        טעינת התכנית מהגיליון
-      </button>
-      <span class="sg-dl-msg" id="sg-dl-msg"></span>
-      <span class="sg-sheets-msg" id="sg-gs-msg"></span>
-      <div class="sg-remind-note">
-        <strong>לחיצה אחת עושה שניים:</strong> התכנית נשמרת בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש — ומיד אחר כך נפתח ביומן גוגל אירוע תזכורת מוכן, שנשאר רק ללחוץ בו „שמור”. התזכורת נקבעת למועד הפעולה הבאה שהתכנית דורשת (מעבר של יעד לכלי קצר טווח, פתיחת קרן השתלמות חדשה או מועד יעד), ואם אין כזו בשנה הקרובה — בעוד שנה, לבדיקת עמידה בתכנית. גוף האירוע כולל את התכנית המלאה: היעדים, מקורות המימון והחיסכון החודשי.
-        לא ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a>.
-      </div>
-      <div class="sg-gs-guide" id="sg-gs-guide" hidden>
-        <strong>עוד רגע ייפתח חלון של Google.</strong> זה נורמלי לחלוטין ובטוח — כך התכנית נשמרת בחשבון שלכם. מה לעשות:
-        <ol>
-          <li>בחרו את חשבון הגוגל שלכם.</li>
-          <li>אם תופיע הודעה ש<strong>“Google לא אימתה את האפליקציה”</strong> (Google hasn’t verified this app) — אין מה לחשוש, זו האפליקציה של pensya.info. לחצו על <strong>“מתקדם”</strong> (Advanced) בתחתית החלון, ואז על <strong>“המשך אל pensya savings goals web”</strong>.</li>
-          <li>אשרו את הבקשה בלחיצה על <strong>“המשך”</strong> (Continue / Allow). האפליקציה מבקשת גישה <strong>רק לגיליון שהיא יוצרת עבורכם</strong> — לא לשאר הקבצים בדרייב.</li>
-        </ol>
-        <button type="button" class="sg-gs-guide-x" id="sg-gs-guide-x">הבנתי, סגירת ההסבר</button>
-      </div>
-      <div class="sg-changed" id="sg-gs-changed" hidden>
-        <span>שיניתם נתונים לעומת התכנית שנטענה מהגיליון. רוצים לשמור את המצב החדש כתכנית מעודכנת?</span>
-        <button type="button" class="sg-gbtn" id="sg-gs-savenew">שמירה כתכנית מעודכנת</button>
-      </div>
-    </div>
 
     <details class="sg-assume-det">
       <summary>הנחות החישוב</summary>
