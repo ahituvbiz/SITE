@@ -71,6 +71,10 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .gs-sheets-btn svg{width:19px;height:19px;flex-shrink:0}
 .gs-load-btn{background:#fff;color:#0F9D58;border:2px solid #0F9D58}
 .gs-load-btn:hover{background:#E8F5EE}
+.cal-btn{background:#4285F4;display:inline-flex;align-items:center;gap:8px}
+.cal-btn:hover{background:#3367D6}
+.cal-btn[disabled]{opacity:.45;cursor:default}
+.cal-hint{font-size:12.5px;color:var(--text-meta);margin-top:8px;line-height:1.6}
 .gs-msg{font-size:14px;margin-top:10px;color:var(--positive)}
 .gs-msg.err{color:var(--negative)}
 .gs-msg a{color:var(--primary);font-weight:600}
@@ -228,7 +232,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <h3>שמירה ושחזור</h3>
     <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">הנתונים נשמרים בגיליון גוגל שיטס <strong>בחשבון הגוגל שלכם בלבד</strong> — לאתר אין גישה לשאר הדרייב.</p>
     <div class="gs-bar">
-      <button class="btn gs-sheets-btn" id="gs-save"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#fff"/><rect x="7" y="9" width="10" height="8.4" rx="1" fill="#0F9D58"/><path d="M7 11.8h10M7 14.6h10M10.3 9v8.4M13.7 9v8.4" stroke="#fff" stroke-width="1.15"/></svg><span>שמירה לגוגל שיטס</span></button>
+      <button class="btn gs-sheets-btn" id="gs-save"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#fff"/><rect x="7" y="9" width="10" height="8.4" rx="1" fill="#0F9D58"/><path d="M7 11.8h10M7 14.6h10M10.3 9v8.4M13.7 9v8.4" stroke="#fff" stroke-width="1.15"/></svg><span>שמירה לשיטס + תזכורת ליומן</span></button>
       <button class="btn gs-load-btn" id="gs-load">⟳ טעינת נתונים שמורים</button>
     </div>
     <div class="gs-guide" id="gs-guide" hidden>
@@ -236,6 +240,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       כעת ייפתח חלון התחברות של גוגל. בחרו את החשבון שלכם ואשרו — ההרשאה מאפשרת לדף לראות <strong>אך ורק</strong> את הגיליון שהוא עצמו יוצר.
     </div>
     <div class="gs-changed" id="gs-changed" hidden>⚠️ יש שינויים שלא נשמרו — לחצו "שמירה" כדי לעדכן את הגיליון.</div>
+    <div class="cal-hint">📅 בלחיצה אחת הנתונים נשמרים בגיליון <em>וגם</em> נפתחת ביומן הגוגל שלכם תזכורת לבדיקת הפנסיה בעוד שנה — עם הצבירות של היום והצפי לשנה הבאה. נשאר רק ללחוץ "שמירה" ביומן.</div>
     <div class="gs-msg" id="gs-msg"></div>
   </div>
   <div class="card">
@@ -310,6 +315,7 @@ var GEMEL_EXTRA_COMPANIES=['אנליסט','ילין לפידות','סלייס'];
 var OWNER_COLORS=['#007DA8','#D74E3C','#5C8D5A','#C9A227','#7B5EA7','#3D7C8C'];
 var MAX_OWNERS=2, MAX_FUNDS=8;
 var owners=[], fundsList=[], oseq=0, fseq=0, chart=null, viewMode='stack';
+var lastPerFund=[];
 var addOwnerCell=document.getElementById('add-owner-cell');
 /* ═══ הכנסות נוספות בפנסיה ═══ */
 var XI_TYPES=['פנסיה תקציבית','הכנסה משכ"ד','קצבה מביטוח מנהלים','קצבת זקנה מביטוח לאומי','אחר'];
@@ -706,6 +712,7 @@ function recalc(){
     perOwner.push({owner:o,color:ownerColor(o),rows:rows,final:sumFinal,
       pension:sumPension,pensionToday:sumPension/Math.pow(1+infl,yrs),retIn:yrs});
   });
+  lastPerFund=perFund;
   if(problems.length){showErr(problems.join(' · '));}
   if(!perOwner.length){document.getElementById('results').style.display='none';postHeight();return;}
   renderResults(perOwner,infl);
@@ -955,6 +962,7 @@ function gsSave(){
   if(gsBusy)return;
   gsBusy=true;
   var b1=document.getElementById('gs-save');b1.disabled=true;
+  var cal=calUrl(), calWin=cal?calOpenBlank():null;
   if(gsWillPrompt())gsGuide(true);
   gsMsg('מתחברים לחשבון הגוגל…');
   gsGetToken()
@@ -962,8 +970,16 @@ function gsSave(){
     .then(function(){return gsFileId?null:gsCreate();})
     .then(function(){return gsApi('https://sheets.googleapis.com/v4/spreadsheets/'+gsFileId+'/values/'+encodeURIComponent('A1:K200')+':clear',{method:'POST',body:{}});})
     .then(function(){return gsApi('https://sheets.googleapis.com/v4/spreadsheets/'+gsFileId+'/values/A1?valueInputOption=RAW',{method:'PUT',body:{values:gsValues(gsState())}});})
-    .then(function(){gsSnapshot=gsSerial();updateChangedBanner();markSaved(todayISO());gsMsg('הנתונים נשמרו בגיליון בחשבון שלכם ✓',false,gsLink());})
-    ['catch'](gsErr)
+    .then(function(){
+      gsSnapshot=gsSerial();updateChangedBanner();markSaved(todayISO());
+      if(!cal){gsMsg('הנתונים נשמרו בגיליון בחשבון שלכם ✓',false,gsLink());return;}
+      var opened=false;
+      if(calWin&&!calWin.closed){try{calWin.location.replace(cal.url);opened=true;}catch(e){opened=false;}}
+      if(!opened){try{var w2=window.open(cal.url,'_blank','noopener');opened=!!w2;}catch(e){}}
+      if(opened)gsMsg('נשמר בגיליון ✓ ונפתחה תזכורת ליומן ל-'+cal.when+' — לחצו שם "שמירה".',false,gsLink());
+      else gsMsg('הנתונים נשמרו בגיליון ✓ — הדפדפן חסם את חלון היומן:',false,calLinkHtml(cal.url)+gsLink());
+    })
+    ['catch'](function(e){if(calWin&&!calWin.closed){try{calWin.close();}catch(x){}}gsErr(e);})
     .then(function(){gsBusy=false;b1.disabled=false;postHeight();});
 }
 function gsApply(v){
@@ -1060,6 +1076,77 @@ function gsLoad(){
     .then(function(){gsBusy=false;b.disabled=false;postHeight();});
 }
 document.getElementById('gs-save').addEventListener('click',gsSave);
+
+/* ═══ תזכורת שנתית בגוגל קלנדר ═══ */
+function calStamp(d){return d.toISOString().replace(/[-:]|\.\d{3}/g,'');}
+function calDMY(d){return pad2(d.getDate())+'.'+pad2(d.getMonth()+1)+'.'+d.getFullYear();}
+function calDetails(){
+  if(!lastPerFund.length)return null;
+  var today=new Date(), ret=numVal('g-return');
+  var byOwner=[], seen={};
+  lastPerFund.forEach(function(r){
+    var k=r.owner.id;
+    if(!seen[k]){seen[k]={owner:r.owner,rows:[],now:0,next:0};byOwner.push(seen[k]);}
+    var nowBal=+digits(r.fund.balance)||0;
+    var nextBal=r.traj.length>11?r.traj[11]:r.final;
+    seen[k].rows.push({label:fundLabel(r.fund)||'ללא שם',now:nowBal,next:nextBal});
+    seen[k].now+=nowBal; seen[k].next+=nextBal;
+  });
+  var L=[];
+  L.push('בתאריך '+calDMY(today)+' ערכתם בדיקת פנסיה באזור הלקוחות של pensya.info.');
+  L.push('אלו היו הצבירות אז — ומה היה הצפי להיום:');
+  L.push('');
+  var totNow=0, totNext=0, multi=byOwner.length>1;
+  byOwner.forEach(function(g){
+    totNow+=g.now; totNext+=g.next;
+    L.push('▪ '+ownerLabel(g.owner));
+    g.rows.forEach(function(x){
+      L.push('   '+x.label);
+      L.push('      אז '+fmt(x.now)+' ₪  ·  צפי להיום '+fmt(x.next)+' ₪');
+    });
+    if(g.rows.length>1)L.push('   סה"כ: אז '+fmt(g.now)+' ₪  ·  צפי להיום '+fmt(g.next)+' ₪');
+    L.push('');
+  });
+  if(multi){
+    L.push('■ סה"כ משפחתי: אז '+fmt(totNow)+' ₪  ·  צפי להיום '+fmt(totNext)+' ₪');
+    L.push('');
+  }
+  L.push('———');
+  L.push('מה לעשות עכשיו:');
+  L.push('1. פתחו את הדוח השנתי של כל קרן ובדקו מה הצבירה בפועל.');
+  L.push('2. השוו לצפי שלמעלה.');
+  L.push('3. עדכנו את הנתונים במחשבון ולחצו "שמירה" — הגיליון יתעדכן ותיווצר תזכורת חדשה לשנה הבאה.');
+  L.push('');
+  L.push('https://pensya.info/clients/tools/pension/');
+  L.push('');
+  L.push('(התחזית חושבה לפי תשואה שנתית של '+ret+'% ולפי הנתונים שהזנתם. זו הערכה בלבד, לא התחייבות.)');
+  return L.join('\n');
+}
+function calUrl(){
+  var details=calDetails();
+  if(!details)return null;
+  var d=new Date(); d.setFullYear(d.getFullYear()+1); d.setHours(9,0,0,0);
+  var end=new Date(d.getTime()+30*60000);
+  return {when:calDMY(d), url:'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    +'&text='+encodeURIComponent('בדיקת מצב הפנסיה — השוואה לתחזית')
+    +'&dates='+calStamp(d)+'/'+calStamp(end)
+    +'&details='+encodeURIComponent(details)
+    +'&location='+encodeURIComponent('https://pensya.info/clients/tools/pension/')};
+}
+function calOpenBlank(){
+  var w=null;
+  try{ w=window.open('','_blank'); }catch(e){ w=null; }
+  if(w&&w.document){
+    try{ w.document.write('<!doctype html><html dir="rtl" lang="he"><head><meta charset="utf-8">'+
+      '<title>מכינים תזכורת ליומן…</title><style>body{font-family:Arial,Helvetica,sans-serif;'+
+      'display:flex;align-items:center;justify-content:center;height:100vh;margin:0;color:#334;'+
+      'background:#F7F9FB;text-align:center}p{font-size:18px;line-height:1.7}</style></head><body>'+
+      '<p>📅 שומרים את הנתונים…<br>התזכורת ליומן תיפתח כאן בעוד רגע.</p></body></html>'); w.document.close(); }catch(e){}
+  }
+  return w;
+}
+function calLinkHtml(u){return ' <a href="'+esc(u)+'" target="_blank" rel="noopener">פתיחת התזכורת ביומן ↗</a>';}
+
 document.getElementById('gs-load').addEventListener('click',gsLoad);
 document.getElementById('gs-guide-x').addEventListener('click',function(){gsGuide(false);});
 
