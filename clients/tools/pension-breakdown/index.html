@@ -40,6 +40,9 @@ tfoot tr{font-weight:700;background:#F1F1EE}
 .down{color:var(--negative);font-weight:600}
 .flat{color:var(--text-meta)}
 .note{text-align:center;color:var(--text-meta);font-size:13px;margin-top:6px}
+.trend-box{position:relative;width:100%;height:min(58vw,380px)}
+.card h2{font-size:17px;color:var(--text-1);margin-bottom:4px}
+.card .hint{color:var(--text-meta);font-size:13px;margin-bottom:14px}
 .refresh{display:block;margin:22px auto 0;background:var(--cta);color:#fff;border:0;border-radius:10px;
   padding:11px 26px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
 .refresh:hover{filter:brightness(.92)}
@@ -189,6 +192,12 @@ tfoot tr{font-weight:700;background:#F1F1EE}
     </div>
   </div>
 
+  <div class="card" id="trendCard" hidden>
+    <h2>התפתחות הקטגוריות לאורך זמן</h2>
+    <p class="hint" id="trendHint"></p>
+    <div class="trend-box"><canvas id="trendChart"></canvas></div>
+  </div>
+
   <p class="note">עיבוד: אחיטוב תכנון פיננסי · עודכן לאחרונה: <span id="updated"></span></p>
 
   <button class="refresh" id="refreshBtn">עדכן נתונים</button>
@@ -198,7 +207,7 @@ tfoot tr{font-weight:700;background:#F1F1EE}
 
 <script id="breakdown-data" type="application/json">
 {
-  "updated": "25.8.2026",
+  "updated": "24.8.2026",
   "prev": {
     "period": "202606",
     "label": "יוני 2026"
@@ -262,7 +271,319 @@ tfoot tr{font-weight:700;background:#F1F1EE}
       "prev": 4103.0,
       "cur": 4133.8
     }
-  ]
+  ],
+  "trend": {
+    "from": "202407",
+    "to": "202607",
+    "labels": [
+      "07/24",
+      "08/24",
+      "09/24",
+      "10/24",
+      "11/24",
+      "12/24",
+      "01/25",
+      "02/25",
+      "03/25",
+      "04/25",
+      "05/25",
+      "06/25",
+      "07/25",
+      "08/25",
+      "09/25",
+      "10/25",
+      "11/25",
+      "12/25",
+      "01/26",
+      "02/26",
+      "03/26",
+      "04/26",
+      "05/26",
+      "06/26",
+      "07/26"
+    ],
+    "series": [
+      {
+        "label": "ברירת מחדל",
+        "color": "#2563EB",
+        "data": [
+          616650.1,
+          623494.8,
+          634144.6,
+          636271.2,
+          647671.1,
+          648297.7,
+          653771.9,
+          654961.3,
+          646405.6,
+          652937.1,
+          670965.7,
+          691596.7,
+          698471.3,
+          705349.4,
+          721406.7,
+          729956.4,
+          739019.6,
+          746251.8,
+          769657.0,
+          774597.5,
+          755248.1,
+          787151.0,
+          803152.9,
+          796075.9,
+          795995.0
+        ]
+      },
+      {
+        "label": "מנייתי מנוהל",
+        "color": "#9333EA",
+        "data": [
+          36110.1,
+          36871.9,
+          38047.0,
+          38495.4,
+          40177.0,
+          41297.2,
+          43162.6,
+          44327.7,
+          44979.7,
+          46577.0,
+          49838.9,
+          53624.6,
+          57481.7,
+          60820.7,
+          65296.3,
+          69466.4,
+          74502.1,
+          80290.4,
+          88034.0,
+          94065.3,
+          96223.3,
+          105458.4,
+          113465.8,
+          116814.4,
+          121327.3
+        ]
+      },
+      {
+        "label": "S&P 500",
+        "color": "#16A34A",
+        "data": [
+          68058.6,
+          71039.3,
+          77443.5,
+          80592.0,
+          87504.1,
+          91821.6,
+          96852.9,
+          99146.5,
+          100264.9,
+          100740.9,
+          106019.0,
+          108584.1,
+          113185.7,
+          114930.1,
+          118669.4,
+          119801.2,
+          120875.5,
+          119122.4,
+          116726.5,
+          115365.8,
+          110641.1,
+          113399.5,
+          113784.6,
+          117354.5,
+          119496.7
+        ]
+      },
+      {
+        "label": "הלכה",
+        "color": "#EA580C",
+        "data": [
+          11357.9,
+          11497.4,
+          11647.4,
+          11662.9,
+          11859.8,
+          11810.4,
+          11867.1,
+          11842.3,
+          11679.1,
+          11806.5,
+          12102.3,
+          12454.4,
+          12572.0,
+          12666.1,
+          12978.1,
+          13136.8,
+          13277.4,
+          13400.7,
+          13736.4,
+          13881.7,
+          13632.8,
+          14234.4,
+          14588.2,
+          14504.9,
+          14625.2
+        ]
+      },
+      {
+        "label": "מנייתי ישראל",
+        "color": "#0891B2",
+        "data": [
+          20.6,
+          32.6,
+          52.5,
+          70.9,
+          110.3,
+          195.9,
+          327.4,
+          479.8,
+          651.0,
+          815.2,
+          1018.6,
+          1396.2,
+          1975.6,
+          2367.7,
+          2782.4,
+          3375.5,
+          4120.3,
+          5140.5,
+          6589.7,
+          8028.6,
+          9421.6,
+          10778.4,
+          12254.8,
+          12244.4,
+          12812.2
+        ]
+      },
+      {
+        "label": "מנייתי טכנולוגיה",
+        "color": "#DC2626",
+        "data": [
+          2561.1,
+          2868.4,
+          3397.0,
+          3685.9,
+          4267.5,
+          4811.3,
+          5388.4,
+          5716.7,
+          6021.2,
+          6394.1,
+          7040.9,
+          7562.0,
+          8062.5,
+          8412.9,
+          9020.9,
+          9383.5,
+          9635.2,
+          9998.8,
+          10331.1,
+          10415.9,
+          10221.7,
+          11111.8,
+          11807.3,
+          12193.9,
+          12243.0
+        ]
+      },
+      {
+        "label": "מנייתי אחר",
+        "color": "#CA8A04",
+        "data": [
+          4984.3,
+          5296.3,
+          5836.6,
+          6097.5,
+          6595.9,
+          6927.2,
+          7405.5,
+          7633.8,
+          7855.9,
+          7959.6,
+          8383.8,
+          8592.3,
+          8887.2,
+          9041.7,
+          9262.9,
+          9376.7,
+          9412.6,
+          9428.0,
+          9593.1,
+          9636.8,
+          9271.0,
+          9557.1,
+          9742.4,
+          10019.3,
+          10172.2
+        ]
+      },
+      {
+        "label": "בחירה אחר",
+        "color": "#7C3AED",
+        "data": [
+          887.1,
+          1016.8,
+          1198.8,
+          1313.5,
+          1457.7,
+          1618.7,
+          1835.7,
+          1995.5,
+          2205.1,
+          2362.6,
+          2532.7,
+          2699.3,
+          2930.0,
+          3097.8,
+          3257.8,
+          3400.2,
+          3560.2,
+          3732.6,
+          3897.6,
+          4050.3,
+          4040.6,
+          4236.0,
+          4343.0,
+          4359.1,
+          4413.3
+        ]
+      },
+      {
+        "label": "תשואה נמוכה",
+        "color": "#64748B",
+        "data": [
+          3374.9,
+          3535.8,
+          3513.5,
+          3471.8,
+          3423.1,
+          3328.0,
+          3310.3,
+          3374.9,
+          3540.1,
+          3652.0,
+          3591.1,
+          3841.8,
+          3487.6,
+          3516.7,
+          3529.9,
+          3537.0,
+          3724.9,
+          3760.7,
+          3881.7,
+          4068.6,
+          4223.8,
+          4126.2,
+          4117.9,
+          4103.0,
+          4133.8
+        ]
+      }
+    ]
+  }
 }
 </script>
 
@@ -317,6 +638,44 @@ tfoot tr{font-weight:700;background:#F1F1EE}
       }
     }
   });
+
+  if (D.trend && D.trend.series && D.trend.series.length) {
+    const T = D.trend;
+    document.getElementById('trendCard').hidden = false;
+    document.getElementById('trendHint').textContent =
+      'צבירה במיליארדי ₪, נתון חודשי. ברירת המחדל מוסתרת כברירת מחדל כדי שהקטגוריות ' +
+      'האחרות יהיו קריאות — לחיצה על שם בתצוגה מוסיפה או מסירה קו.';
+    new Chart(document.getElementById('trendChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: T.labels,
+        datasets: T.series.map(s => ({
+          label: s.label, data: s.data,
+          borderColor: s.color, backgroundColor: s.color,
+          borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, tension: 0.25,
+          hidden: s.label === 'ברירת מחדל'
+        }))
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: { reverse: false, grid: { display: false },
+               ticks: { font: { size: 11, family: 'Heebo' }, maxRotation: 0, autoSkipPadding: 14 } },
+          y: { position: 'right', beginAtZero: true,
+               grid: { color: 'rgba(0,0,0,.06)' },
+               ticks: { font: { size: 11, family: 'Heebo' },
+                        callback: v => (v / 1000).toLocaleString('he-IL') } }
+        },
+        plugins: {
+          legend: { position: 'bottom', rtl: true,
+                    labels: { boxWidth: 13, padding: 10, font: { size: 12, family: 'Heebo' } } },
+          tooltip: { rtl: true, bodyFont: { family: 'Heebo' }, titleFont: { family: 'Heebo' },
+                     callbacks: { label: c => ' ' + c.dataset.label + ': ' + fmt(c.parsed.y) + ' מיל′ ₪' } }
+        }
+      }
+    });
+  }
 
   const CMD = 'הרץ את הסקיל pension-breakdown-update — עדכן את דף פילוח קרנות הפנסיה באתר.';
   const btn = document.getElementById('refreshBtn');
