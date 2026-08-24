@@ -828,7 +828,7 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       <span class="sg-dl-msg" id="sg-dl-msg"></span>
       <span class="sg-sheets-msg" id="sg-gs-msg"></span>
       <div class="sg-remind-note">
-        <strong>לחיצה אחת עושה שניים:</strong> התכנית נשמרת בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש — ומיד אחר כך נפתח ביומן גוגל אירוע תזכורת שנתי מוכן, שנשאר רק ללחוץ בו „שמור”.
+        <strong>לחיצה אחת עושה שניים:</strong> התכנית נשמרת בגיליון בחשבון הגוגל שלכם — ובביקור הבא טענו אותה בלחיצה, בלי להזין הכול מחדש — ומיד אחר כך נפתח ביומן גוגל אירוע תזכורת מוכן, שנשאר רק ללחוץ בו „שמור”. התזכורת נקבעת למועד הפעולה הבאה שהתכנית דורשת (מעבר של יעד לכלי קצר טווח, פתיחת קרן השתלמות חדשה או מועד יעד), ואם אין כזו בשנה הקרובה — בעוד שנה, לבדיקת עמידה בתכנית. גוף האירוע כולל את התכנית המלאה: היעדים, מקורות המימון והחיסכון החודשי.
         לא ביומן גוגל? <a id="sg-remind-ics" role="button" tabindex="0">הורדת קובץ ליומן (ICS)</a>.
       </div>
       <div class="sg-gs-guide" id="sg-gs-guide" hidden>
@@ -2602,20 +2602,151 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
      בלחיצה על „שמור”), ולמי שאינו ביומן גוגל — הורדת קובץ ICS זהה. */
   var REMIND_TITLE = 'מעקב ועדכון יעדי החיסכון';
   var REMIND_URL = 'https://pensya.info/tools/savings-goals/';
-  var REMIND_BODY = [
-    'תזכורת שנתית לבדוק את תוכנית החיסכון ליעדים:',
-    '1. לעדכן את הצבירות בפועל בכל אחד מכלי החיסכון.',
-    '2. לבדוק אם היעדים השתנו - סכום, מועד, יעד שהתווסף או שכבר מומן.',
-    '3. לעדכן את הנחות התשואה והאינפלציה אם צריך.',
-    '4. לעדכן את ההפקדה החודשית בהתאם לתוצאה החדשה.',
-    '',
-    'למחשבון: ' + REMIND_URL
-  ];
+  /* גוף התזכורת נבנה מהתכנית שעל המסך ברגע השמירה — כדי שבעוד שנה יהיה
+     באירוע עצמו כל מה שצריך כדי להשוות מול המצב בפועל, בלי לפתוח שום דבר. */
+  function remindBody() {
+    var L = [], c = lastCalc;
+    var t = new Date();
+    var todayS = pad2(t.getDate()) + '.' + pad2(t.getMonth() + 1) + '.' + t.getFullYear();
 
+    if (!c || !c.valid.length) {
+      L.push('תזכורת שנתית לבדוק את תוכנית החיסכון ליעדים:');
+      L.push('1. לעדכן את הצבירות בפועל בכל אחד מכלי החיסכון.');
+      L.push('2. לבדוק אם היעדים השתנו - סכום, מועד, יעד שהתווסף או שכבר מומן.');
+      L.push('3. לעדכן את הנחות התשואה והאינפלציה אם צריך.');
+      L.push('4. לעדכן את ההפקדה החודשית בהתאם לתוצאה החדשה.');
+      L.push('');
+      L.push('למחשבון: ' + REMIND_URL);
+      return L.join('\n');
+    }
+
+    var isLevel = (mode === 'level'), lv = c.level;
+    var total = isLevel ? lv.T : c.total;
+    var longNow = isLevel ? lv.long1 : c.tLong;
+    var shortNow = isLevel ? lv.short1 : c.tShort;
+    var khMonthly = 0, vf = [];
+    c.funds.forEach(function (f) { if (f.valid) { khMonthly += f.monthly; vf.push(f); } });
+
+    var evt = remindEvent();
+    if (evt) {
+      L.push('לפי תוכנית החיסכון ליעדים שבניתם ב-pensya.info בתאריך ' + todayS + ',');
+      L.push('זה המועד שבו צריך לבצע:');
+      L.push('');
+      evt.lines.forEach(function (x) { L.push(x); });
+      L.push('');
+      L.push('———');
+      L.push('התמונה המלאה כפי שתוכננה ב-' + todayS + ':');
+    } else {
+      L.push('בתאריך ' + todayS + ' בניתם תוכנית חיסכון ליעדים ב-pensya.info.');
+      L.push('זו הייתה התמונה אז — השוו אליה את המצב בפועל היום:');
+    }
+    L.push('');
+    L.push('■ החיסכון החודשי שנדרש: ' + nis(total) +
+           (isLevel ? '  (סכום אחיד וקבוע לאורך כל התקופה)'
+                    : '  (מדורג — יורד בכל פעם שיעד מגיע למועדו)'));
+    L.push('   לכלי ארוך טווח ' + nis(longNow) + '  ·  לכלי קצר טווח ' + nis(shortNow));
+    if (khMonthly > 0) {
+      L.push('   בנוסף ל-' + nis(khMonthly) + ' בחודש שכבר מופקדים לקרנות ההשתלמות');
+    }
+    L.push('');
+
+    L.push('■ היעדים:');
+    c.sorted.forEach(function (g, i) {
+      var r = c.res[g.id];
+      L.push('   ▪ ' + (g.name || ('יעד ' + (i + 1))) +
+             ' — ' + nis(g.amount) + ' בערכי היום, בעוד ' + monthsLabel(r.months) +
+             ' (' + monthLabel(r.months) + ')');
+      var d = ['נדרש בפועל ' + nis(r.target)];
+      if (r.fromExisting > 1) d.push('מהצבירה הקיימת ' + nis(r.fromExisting));
+      if (r.fromKH > 1) d.push('מקרן השתלמות ' + nis(r.fromKH));
+      d.push(isLevel ? ('יש לחסוך עבורו ' + nis(r.needNew))
+                     : ('חיסכון חודשי ' + nis(r.monthly)));
+      L.push('      ' + d.join('  ·  '));
+    });
+    L.push('');
+
+    if (c.existLong0 > 1 || c.existShort0 > 1) {
+      L.push('■ צבירות קיימות שהוזנו: ארוך טווח ' + nis(c.existLong0) +
+             '  ·  קצר טווח ' + nis(c.existShort0));
+      L.push('');
+    }
+    if (vf.length) {
+      L.push('■ קרנות השתלמות:');
+      vf.forEach(function (f, i) {
+        L.push('   ▪ ' + (f.name || ('קרן ' + (i + 1))) +
+               ' — צבירה ' + nis(f.balance) + '  ·  הפקדה חודשית ' + nis(f.monthly) +
+               '  ·  נזילה ' + (f.liq === 0 ? 'כבר עכשיו' : heDate(f.liquidity)) +
+               '  ·  צפי בנזילות ' + nis(f.atLiquidity));
+      });
+      L.push('');
+    }
+
+    L.push('———');
+    L.push(evt ? 'ובזמן שאתם בזה — כדאי גם:' : 'מה לעשות עכשיו:');
+    L.push('1. בדקו מה הצבירה בפועל בכל אחד מכלי החיסכון והשוו לתכנית שלמעלה.');
+    L.push('2. בדקו אם יעד השתנה — סכום, מועד, יעד שהתווסף או שכבר מומן.');
+    L.push('3. עדכנו את הנחות התשואה והאינפלציה אם צריך.');
+    L.push('4. פתחו את המחשבון, לחצו "טעינת התכנית מהגיליון", עדכנו — ולחצו שוב על');
+    L.push('   "שמירת התכנית לגיליון + תזכורת ליומן". הגיליון יתעדכן ותיווצר תזכורת חדשה לשנה הבאה.');
+    L.push('');
+    L.push(REMIND_URL);
+    L.push('');
+    L.push('(החישוב לפי אינפלציה ' + num('sg-infl') + '%, תשואה ארוכת טווח ' + num('sg-long') +
+           '% וקצרת טווח ' + num('sg-short') + '% — ההנחות שהזנתם. הערכה בלבד, לא התחייבות.)');
+    return L.join('\n');
+  }
+
+  /* ═══ מתי לתזמן את התזכורת ═══
+     אם בשנה הקרובה יש מועד שבו התכנית דורשת פעולה בפועל — העברת צבירה של יעד
+     מהכלי ארוך הטווח לכלי קצר הטווח, פתיחת קרן השתלמות חדשה, או מועד יעד שבו
+     מושכים את הכסף — התזכורת נקבעת למועד הזה ואומרת מה בדיוק צריך לעשות.
+     אין אירוע כזה בתוך שנה? תזכורת רגילה בעוד שנה, לבדיקת עמידה בתכנית. */
+  function remindEvent() {
+    var c = lastCalc;
+    if (!c || !c.valid.length) return null;
+    var ev = [];
+    c.sorted.forEach(function (g, i) {
+      var r = c.res[g.id];
+      var nm = g.name || ('יעד ' + (i + 1));
+      if (r.months > 0 && r.months <= 12) {
+        ev.push({ m: r.months, title: 'יעדי החיסכון: מועד היעד — ' + nm,
+          line: '💰 "' + nm + '" מגיע למועדו: למשוך את הכסף מהכלי קצר הטווח (' +
+                nis(r.target) + ' לפי התכנית) ולהפסיק את ההפקדה החודשית עבורו.' });
+      } else if (!r.covered && r.switchMonths !== null && r.switchMonths > 0 && r.switchMonths <= 12) {
+        ev.push({ m: r.switchMonths, title: 'יעדי החיסכון: העברה לכלי קצר טווח — ' + nm,
+          line: '🔄 להעביר את כל הצבירה של "' + nm + '" מהכלי ארוך הטווח לכלי קצר הטווח, ' +
+                'ומכאן גם להפנות לשם את ההפקדה החודשית עבורו. ' +
+                'היעד עצמו: ' + nis(g.amount) + ' בערכי היום, בעוד ' + monthsLabel(r.months) +
+                ' (' + monthLabel(r.months) + '). שימו לב: במעבר הזה משולם מס רווחי הון על הרווח שנצבר.' });
+      }
+    });
+    (c.fundOpens || []).forEach(function (o) {
+      if (o.openMonth > 0 && o.openMonth <= 12) {
+        ev.push({ m: o.openMonth, title: 'יעדי החיסכון: פתיחת קרן השתלמות חדשה',
+          line: '➕ לפתוח קרן השתלמות חדשה ולהפנות אליה את ההפקדה החודשית. ' +
+                'היא תהיה נזילה ב' + monthLabel(o.liqMonth) + ' — וזה בדיוק המועד שבו התכנית מתכננת להשתמש בה.' });
+      }
+    });
+    if (!ev.length) return null;
+    ev.sort(function (a, b) { return a.m - b.m; });
+    var m0 = ev[0].m;
+    var same = ev.filter(function (e) { return e.m === m0; });
+    return { months: m0,
+             title: same.length > 1 ? 'יעדי החיסכון: פעולות לביצוע החודש' : same[0].title,
+             lines: same.map(function (e) { return e.line; }) };
+  }
+  function remindTitle() {
+    var e = remindEvent();
+    return e ? e.title : REMIND_TITLE;
+  }
   function remindStart() {
-    var d = new Date();
-    d.setFullYear(d.getFullYear() + 1);
+    var e = remindEvent(), d = new Date();
+    if (e) d.setMonth(d.getMonth() + e.months);
+    else d.setFullYear(d.getFullYear() + 1);
     d.setHours(9, 0, 0, 0);
+    /* לא מתזמנים תזכורת למחר-מחרתיים — צריך זמן לפעול */
+    var min = new Date(); min.setDate(min.getDate() + 7); min.setHours(9, 0, 0, 0);
+    if (d.getTime() < min.getTime()) d = min;
     return d;
   }
   function utcStamp(d) {
@@ -2632,14 +2763,21 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
     var d = remindStart();
     return pad2(d.getDate()) + '.' + pad2(d.getMonth() + 1) + '.' + d.getFullYear();
   }
+  /* גבול ביטחון לאורך הכתובת — תכנית עם יעדים רבים לא תשבור את חלון היומן */
+  function remindDetails() {
+    var s = remindBody();
+    if (s.length > 7000) {
+      s = s.slice(0, 7000) + '\n…\n(הפירוט המלא בגיליון ובמחשבון: ' + REMIND_URL + ')';
+    }
+    return s;
+  }
   function remindUrl() {
     var t = remindTimes();
     return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + encodeURIComponent(REMIND_TITLE) +
+      '&text=' + encodeURIComponent(remindTitle()) +
       '&dates=' + t.s + '/' + t.e +
-      '&details=' + encodeURIComponent(REMIND_BODY.join('\n')) +
-      '&location=' + encodeURIComponent(REMIND_URL) +
-      '&recur=' + encodeURIComponent('RRULE:FREQ=YEARLY');
+      '&details=' + encodeURIComponent(remindDetails()) +
+      '&location=' + encodeURIComponent(REMIND_URL);
   }
   /* חלון ריק נפתח בתוך אירוע הלחיצה עצמו — אחרת חוסם הפופאפים יחסום
      את היומן אחרי ההמתנה לשמירה. אחרי השמירה מפנים אותו לכתובת התזכורת. */
@@ -2661,6 +2799,18 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
   function calLinkHtml(u) {
     return ' <a href="' + esc(u) + '" target="_blank" rel="noopener">פתיחת התזכורת ביומן ↗</a>';
   }
+  /* ICS: פסיק, נקודה-פסיק ולוכסן הפוך חייבים בריחה — אחרת שורה עם סכום
+     כמו "3,098 ₪" שוברת את הקובץ. שורות ארוכות מקופלות לפי התקן. */
+  function icsEsc(s) {
+    return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;')
+                    .replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  }
+  function icsFold(line) {
+    if (line.length <= 74) return line;
+    var out = line.slice(0, 74), i = 74;
+    while (i < line.length) { out += '\r\n ' + line.slice(i, i + 73); i += 73; }
+    return out;
+  }
   function remindIcs() {
     var t = remindTimes();
     var uid = 'sg-' + t.s + '-' + Math.random().toString(36).slice(2, 10) + '@pensya.info';
@@ -2669,12 +2819,11 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
       'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
       'UID:' + uid, 'DTSTAMP:' + utcStamp(new Date()),
       'DTSTART:' + t.s, 'DTEND:' + t.e,
-      'RRULE:FREQ=YEARLY',
-      'SUMMARY:' + REMIND_TITLE,
-      'DESCRIPTION:' + REMIND_BODY.join('\\n'),
-      'LOCATION:' + REMIND_URL,
+      'SUMMARY:' + icsEsc(remindTitle()),
+      icsFold('DESCRIPTION:' + icsEsc(remindBody())),
+      'LOCATION:' + icsEsc(REMIND_URL),
       'URL:' + REMIND_URL,
-      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + REMIND_TITLE,
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc(remindTitle()),
       'TRIGGER:-P1D', 'END:VALARM',
       'END:VEVENT', 'END:VCALENDAR'
     ];
@@ -2930,8 +3079,8 @@ button.sg-modal-go{font-family:inherit;font-size:15px;cursor:pointer;border:none
           try { opened = !!window.open(calUrl, '_blank', 'noopener'); } catch (e) { opened = false; }
         }
         if (opened) {
-          gsMsg('התכנית נשמרה בגיליון ✓ ונפתחה תזכורת ביומן ל-' + calWhen +
-                ' — לחצו שם „שמור”.', false, gsLink());
+          gsMsg('התכנית נשמרה בגיליון ✓ ונפתחה ביומן תזכורת ל-' + calWhen +
+                ' (' + remindTitle() + ') — לחצו שם „שמור”.', false, gsLink());
         } else {
           gsMsg('התכנית נשמרה בגיליון ✓ — הדפדפן חסם את חלון היומן:',
                 false, calLinkHtml(calUrl) + gsLink());
