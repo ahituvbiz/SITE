@@ -29,7 +29,7 @@ import sys, os, re, subprocess
 BLOCK_TAGS = ["div", "section", "article", "details", "svg"]
 
 # דפים שמותר להם לא לכלול פוטר אחיד (אזור לקוחות + דאטה מוטמע)
-FOOTER_EXEMPT = ("clients/", "game/")
+FOOTER_EXEMPT = ("clients/", "game/", "private/")   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
 
 def all_html():
     try:
