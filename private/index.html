@@ -30,7 +30,14 @@
   .nm{font-weight:700;font-size:1.02rem;line-height:1.35}
   .meta{font-size:.82rem;color:var(--mut)}
   .meta b{font-weight:600;color:#3D525C}
-  .path{font-size:.78rem;color:var(--mut);direction:ltr;text-align:right;word-break:break-all}
+  .pathrow{display:flex;align-items:center;gap:8px;margin-top:2px}
+  .path{flex:1;font-size:.76rem;color:var(--mut);direction:ltr;text-align:left;
+    unicode-bidi:plaintext;word-break:break-all;line-height:1.4}
+  .copy{flex:0 0 auto;font-family:inherit;font-size:.76rem;font-weight:600;cursor:pointer;
+    color:var(--brand);background:none;border:1.5px solid var(--line);border-radius:7px;
+    padding:5px 11px;transition:.13s;white-space:nowrap}
+  .copy:hover{border-color:var(--brand);background:var(--brand);color:#fff}
+  .copy.ok{border-color:#0E7C66;color:#0E7C66;background:none}
   .none{text-align:center;color:var(--mut);padding:50px 0}
   .sets{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
   .sets a{font-size:.86rem;font-weight:600;text-decoration:none;color:var(--brand);
@@ -168,11 +175,11 @@
   <div class="grid" id="grid"></div>
   <p class="none" id="none" style="display:none">לא נמצא פריט מתאים</p>
 
-  <footer>13 פריטים · עודכן 25.08.2026 14:30 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
+  <footer>13 פריטים · עודכן 25.08.2026 14:32 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
 </div>
 
 <script>
-const DATA = [{"n": "תרשים זרימת הכספים בפנסיה + איזונים אקטואריים", "t": "רכיב", "z": "private", "u": "/private/pension-flow.html", "f": "איזונים אקטואריים.xlsx", "o": "גרסה מקוצצת במצגת ההייטק (בלי מנורה משלימה)", "k": "זרימה כספים פנסיה איזון אקטוארי תרשים מנורה משלימה", "st": ["meeting"], "s": "זרימת הכספים בפנסיה + איזונים.html"}, {"n": "מנורה — מסלול מחקה מדדי מניות", "t": "רכיב", "z": "private", "u": "/private/menora-index-tracks.html", "f": "indx.co.il (סקיל menora-dashboard-refresh)", "o": "", "k": "מנורה מדדי מניות מחקה מכפיל רווח טופ 20 פילוח מדינות דשבורד", "st": ["meeting"], "s": "מנורה מדדי מניות.html"}, {"n": "תשואות עבר — בדיקה אמפירית", "t": "רכיב", "z": "private", "u": "/private/past-returns.html", "f": "פנסיה נט / גמל נט", "o": "", "k": "תשואות עבר אמפירי היסטוריה השוואה מסלולים", "st": ["meeting"], "s": "תשואות עבר - בדיקה אמפירית.html"}, {"n": "האם לנייד ממנהלים לפנסיה", "t": "כלי", "z": "private", "u": "/private/managers-to-pension.html", "f": "", "o": "", "k": "ניוד ביטוח מנהלים פנסיה מקדם המרה החלטה", "st": [], "s": "האם לנייד ממנהלים לפנסיה - כלי עזר להחלטה.html"}, {"n": "חישוב קצבה סיעודית", "t": "כלי", "z": "private", "u": "/private/ltc-benefit.html", "f": "", "o": "", "k": "סיעוד סיעודית קצבה ביטוח", "st": [], "s": "חישוב קצבה סיעודית.html"}, {"n": "כספי גיל הזהב", "t": "כלי", "z": "private", "u": "/private/golden-age.html", "f": "", "o": "", "k": "גיל הזהב פרישה קצבה זקנה", "st": [], "s": "כספי-גיל-הזהב.html"}, {"n": "מחשבון עמלה קבועה", "t": "כלי", "z": "private", "u": "/private/fixed-fee.html", "f": "", "o": "", "k": "עמלה קבועה דמי ניהול מחשבון עלות", "st": [], "s": "מחשבון-עמלה-קבועה.html"}, {"n": "אתר הרצאת ההייטק — חמש המצגות", "t": "מצגות", "z": "lecture", "u": "https://lecture.pensya.info", "p": "", "f": "", "o": "נבנה מהמקור ב-build-lecture.py", "k": "הרצאה הייטק מצגת יועץ פנסיוני השיא תשואות חוסכים בביטוחים להזיז את המחט", "st": []}, {"n": "אזור הלקוחות", "t": "אזור", "z": "clients", "u": "https://pensya.info/clients/", "p": "", "f": "", "o": "", "k": "לקוחות פורטל תגיות CRM מחשבון יעדי חיסכון", "st": []}, {"n": "פילוח יתרות קרנות פנסיה מקיפות", "t": "רכיב", "z": "clients", "u": "https://pensya.info/clients/tools/pension-breakdown/", "p": "", "f": "פנסיה נט (משימה כל 6 שעות)", "o": "", "k": "פילוח קרנות פנסיה קטגוריות מסלולים יתרות מגמה", "st": []}, {"n": "איזונים אקטואריים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "שיחת ייעוץ/איזונים אקטואריים.xlsx", "f": "", "o": "מזין את תרשים זרימת הכספים", "k": "איזון אקטוארי אקסל נתונים מקור", "st": []}, {"n": "מכפיל רווח TA-125.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "כלי עזר/מכפיל רווח TA-125.xlsx", "f": "", "o": "", "k": "מכפיל רווח תא 125 מדד בורסה", "st": []}, {"n": "פנסיה_עדכני.xlsx · קרנות_פנסיה_מסלולים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "../אתר/חומר רקע", "f": "", "o": "נבנה אוטומטית מ-history.csv", "k": "פנסיה עדכני מסלולים קטגוריות אקסל חומר רקע", "st": []}];
+const DATA = [{"n": "תרשים זרימת הכספים בפנסיה + איזונים אקטואריים", "t": "רכיב", "z": "private", "u": "/private/pension-flow.html", "f": "איזונים אקטואריים.xlsx", "o": "גרסה מקוצצת במצגת ההייטק (בלי מנורה משלימה)", "k": "זרימה כספים פנסיה איזון אקטוארי תרשים מנורה משלימה", "st": ["meeting"], "s": "זרימת הכספים בפנסיה + איזונים.html"}, {"n": "מנורה — מסלול מחקה מדדי מניות", "t": "רכיב", "z": "private", "u": "/private/menora-index-tracks.html", "f": "indx.co.il (סקיל menora-dashboard-refresh)", "o": "", "k": "מנורה מדדי מניות מחקה מכפיל רווח טופ 20 פילוח מדינות דשבורד", "st": ["meeting"], "s": "מנורה מדדי מניות.html"}, {"n": "תשואות עבר — בדיקה אמפירית", "t": "רכיב", "z": "private", "u": "/private/past-returns.html", "f": "פנסיה נט / גמל נט", "o": "", "k": "תשואות עבר אמפירי היסטוריה השוואה מסלולים", "st": ["meeting"], "s": "תשואות עבר - בדיקה אמפירית.html"}, {"n": "האם לנייד ממנהלים לפנסיה", "t": "כלי", "z": "private", "u": "/private/managers-to-pension.html", "f": "", "o": "", "k": "ניוד ביטוח מנהלים פנסיה מקדם המרה החלטה", "st": [], "s": "האם לנייד ממנהלים לפנסיה - כלי עזר להחלטה.html"}, {"n": "חישוב קצבה סיעודית", "t": "כלי", "z": "private", "u": "/private/ltc-benefit.html", "f": "", "o": "", "k": "סיעוד סיעודית קצבה ביטוח", "st": [], "s": "חישוב קצבה סיעודית.html"}, {"n": "כספי גיל הזהב", "t": "כלי", "z": "private", "u": "/private/golden-age.html", "f": "", "o": "", "k": "גיל הזהב פרישה קצבה זקנה", "st": [], "s": "כספי-גיל-הזהב.html"}, {"n": "מחשבון עמלה קבועה", "t": "כלי", "z": "private", "u": "/private/fixed-fee.html", "f": "", "o": "", "k": "עמלה קבועה דמי ניהול מחשבון עלות", "st": [], "s": "מחשבון-עמלה-קבועה.html"}, {"n": "אתר הרצאת ההייטק — חמש המצגות", "t": "מצגות", "z": "lecture", "u": "https://lecture.pensya.info", "p": "", "f": "", "o": "נבנה מהמקור ב-build-lecture.py", "k": "הרצאה הייטק מצגת יועץ פנסיוני השיא תשואות חוסכים בביטוחים להזיז את המחט", "st": []}, {"n": "אזור הלקוחות", "t": "אזור", "z": "clients", "u": "https://pensya.info/clients/", "p": "", "f": "", "o": "", "k": "לקוחות פורטל תגיות CRM מחשבון יעדי חיסכון", "st": []}, {"n": "פילוח יתרות קרנות פנסיה מקיפות", "t": "רכיב", "z": "clients", "u": "https://pensya.info/clients/tools/pension-breakdown/", "p": "", "f": "פנסיה נט (משימה כל 6 שעות)", "o": "", "k": "פילוח קרנות פנסיה קטגוריות מסלולים יתרות מגמה", "st": []}, {"n": "איזונים אקטואריים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\שיחת ייעוץ\\איזונים אקטואריים.xlsx", "f": "", "o": "מזין את תרשים זרימת הכספים", "k": "איזון אקטוארי אקסל נתונים מקור", "st": []}, {"n": "מכפיל רווח TA-125.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\כלי עזר\\מכפיל רווח TA-125.xlsx", "f": "", "o": "", "k": "מכפיל רווח תא 125 מדד בורסה", "st": []}, {"n": "פנסיה_עדכני.xlsx · קרנות_פנסיה_מסלולים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\אתר\\חומר רקע", "f": "", "o": "נבנה אוטומטית מ-history.csv", "k": "פנסיה עדכני מסלולים קטגוריות אקסל חומר רקע", "st": []}];
 const SETS = {"meeting": "שיחת ייעוץ"};
 const ZONES = {private:["שלך בלבד","#0E7C66"],lecture:["הרצאה","#9A6B12"],
                clients:["לקוחות","#2E5E8E"],computer:["במחשב","#6B7280"]};
@@ -187,11 +194,27 @@ function card(it){
     + (it.f?`<div class="meta"><b>מוזן מ:</b> ${it.f}</div>`:``)
     + (it.o?`<div class="meta">${it.o}</div>`:``)
     + (it.s?`<div class="meta"><b>מקור במחשב:</b> ${it.s}</div>`:``)
-    + (it.p?`<div class="path">${it.p}</div>`:``);
+    + (it.p?`<div class="meta" style="font-size:.78rem">להעתקה ואז Win+R להדבקה ופתיחה</div>`:``)
+    + (it.p?`<div class="pathrow"><span class="path" dir="ltr">${it.p}</span>`
+           +`<button class="copy" type="button" data-p="${it.p.replace(/"/g,'&quot;')}">העתק נתיב</button></div>`:``);
   if(it.u){const a=document.createElement('a');a.className='card';a.href=it.u;
            if(it.u.startsWith('http'))a.target='_blank';a.innerHTML=inner;return a;}
   const d=document.createElement('div');d.className='card';d.innerHTML=inner;return d;
 }
+grid.addEventListener('click', async e => {
+  const b = e.target.closest('.copy');
+  if (!b) return;
+  const done = () => { const t=b.textContent; b.textContent='הועתק ✓'; b.classList.add('ok');
+                       setTimeout(()=>{b.textContent=t;b.classList.remove('ok');},2000); };
+  try { await navigator.clipboard.writeText(b.dataset.p); done(); }
+  catch(err){
+    const ta=document.createElement('textarea'); ta.value=b.dataset.p;
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(_){ b.textContent='ההעתקה נכשלה'; }
+    document.body.removeChild(ta);
+  }
+});
+
 function render(list){
   grid.innerHTML=''; list.forEach(it=>grid.appendChild(card(it)));
   none.style.display=list.length?'none':'block';
