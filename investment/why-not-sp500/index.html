@@ -48,7 +48,7 @@
         "name": "אחיטוב | תכנון פיננסי"
       },
       "datePublished": "2026-06-11",
-      "dateModified": "2026-08-13",
+      "dateModified": "2026-08-25",
       "inLanguage": "he-IL",
       "about": ["מדד S&P 500", "פיזור השקעות", "מסלול מחקה מדד", "מדד עולמי", "MSCI ACWI", "MSCI World", "שווקים מתעוררים", "חשיפת מטבע", "ריכוזיות", "שקלול שווי שוק", "מכפיל רווח"]
     },
@@ -479,6 +479,50 @@ textarea:focus-visible, [tabindex]:focus-visible {
 </style>
 <link rel="canonical" href="https://pensya.info/investment/why-not-sp500/" />
 <link rel="stylesheet" href="/site-chrome.css?v=2">
+<!-- ===== מצב EMBED לגרפים =====================================================
+     /investment/why-not-sp500/?embed=charts  מציג רק את חמשת הגרפים המסומנים
+     ב-data-embed-chart, לפי הסדר שבמספר. משמש את אתר ההרצאה
+     (lecture.pensya.info/returns) דרך iframe — כך שכל עדכון בדף הזה מופיע
+     בהרצאה מיד, בלי להעתיק תוכן. אין להסיר בלי לעדכן את דף ההרצאה.
+     ============================================================================ -->
+<script>
+(function(){
+  if (!/[?&]embed=charts(?:&|$)/.test(location.search)) return;
+  var d = document;
+  d.documentElement.classList.add('embed-charts');
+  var css = 'html.embed-charts,html.embed-charts body{background:#fff!important;margin:0!important;padding:0!important;overflow-x:hidden;}'
+          + 'html.embed-charts body>*{display:none!important;}'
+          + 'html.embed-charts body>#embed-root{display:block!important;}'
+          + 'html.embed-charts #embed-root{max-width:900px;margin:0 auto;padding:4px 14px 18px;}'
+          + 'html.embed-charts #embed-root>*{margin:0 0 26px!important;}'
+          + 'html.embed-charts #embed-root>*:last-child{margin-bottom:0!important;}';
+  var st = d.createElement('style'); st.textContent = css;
+  (d.head || d.documentElement).appendChild(st);
+
+  function build(){
+    var root = d.createElement('div'); root.id = 'embed-root';
+    var nodes = [].slice.call(d.querySelectorAll('[data-embed-chart]'));
+    nodes.sort(function(a,b){
+      return (+a.getAttribute('data-embed-chart')) - (+b.getAttribute('data-embed-chart'));
+    });
+    nodes.forEach(function(n){ n.removeAttribute('loading'); root.appendChild(n); });
+    d.body.appendChild(root);
+    // דיווח גובה למסגרת המארחת (אתר ההרצאה) — כך אין גלילה פנימית
+    var last = 0;
+    function post(){
+      var hgt = Math.ceil(root.getBoundingClientRect().height) + 24;
+      if (Math.abs(hgt - last) > 4) {
+        last = hgt;
+        try { parent.postMessage({ pensyaEmbed: 'charts', height: hgt }, '*'); } catch(e){}
+      }
+    }
+    post(); setInterval(post, 600);
+    window.addEventListener('resize', post);
+    window.addEventListener('load', post);
+  }
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
 <!--@CHROME:HEAD@-->
 <!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
 <script>
@@ -641,7 +685,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <div class="article-meta">
       <span class="author">איתן אחיטוב, <a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
-      <span>עודכן: 13 באוגוסט 2026</span>
+      <span>עודכן: 25 באוגוסט 2026</span>
     </div>
     <h1>מדד S&P 500 - הטעות הנפוצה והסיכונים</h1>
     <p class="lede">בשנים האחרונות נדמה שכולם עברו למסלול מחקה S&P 500 - בפנסיה, בהשתלמות, בגמל ובתיקי ההשקעות. הבחירה במדד המניות הזה הפכה לברירת המחדל של כל מי שהתחיל לגלות ענין בנעשה בכספו אבל לא העמיק במשמעות הבחירה הזו, במידת ההיגיון ובסיכונים הכרוכים בה. בעמוד הזה אראה שהטענה שזה המדד הרווחי ביותר היא פשוט טעות ואסביר את הסיכונים הכרוכים בהשקעה הזו שפרצה לפתע לתיקי הפנסיה וההשקעה של החוסכים בארץ.</p>
@@ -690,7 +734,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <p>הוא לא תמיד היה כל כך פופולרי בארץ. אם הייתם מחפשים לפני 10 שנים קרן השתלמות או קופת גמל שתחקה את המדד הזה, אולי הייתם מוצאים קופה אחת. על מסלול פנסיוני כזה, לא היה מה לדבר. כדי להבין למה כמעט כל שיחה על חיסכון מתכנסת היום לשתי אותיות &amp; ושלוש ספרות, צריך להבין מה נמכר כאן. ה-S&P 500 הציע לחוסך שילוב מנצח: <strong>תשואות עבר חריגות</strong> - מאז 2009 המדד האמריקאי היכה כמעט כל אלטרנטיבה, שנה אחרי שנה; <strong>סיפור פשוט</strong> - "500 החברות הגדולות באמריקה", משפט אחד שכל אחד מבין; <strong>עלויות ניהול אפסיות</strong> ומסלול מחקה זמין בכל קרן פנסיה והשתלמות; ו<strong>הוכחה חברתית</strong> - הפורומים, הקבוצות וההמלצות של חברים שכבר עברו. כשמוסיפים לזה את ענקיות הטכנולוגיה וגל הבינה המלאכותית שמושכים את הכותרות - נוצר דיפולט תרבותי.</p>
     <p>התוצאה בישראל דרמטית: שיעור נכסי קרנות הפנסיה שצמודים למדד המניות הזה זינק <strong>מ-0.2% בסוף 2020 לשיא של 12.5% בדצמבר 2025</strong>, ועומד על כ-11.4% נכון ליולי 2026. בסך הכל, כ-170 מיליארד שקל - כעשירית מהחיסכון ארוך הטווח של הציבור הישראלי - צמודים היום למדד אחד.</p>
 
-    <div class="chart-card">
+    <div class="chart-card" data-embed-chart="1">
       <h4>סך הנכסים במסלולי פנסיה עוקבי S&P 500 (מיליארד ₪)</h4>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px;">
         <div style="background:#f1efe8;border-radius:8px;padding:12px 14px;"><div style="font-size:12px;color:#6b6b6b;">סך נכסים (יולי 2026)</div><div style="font-size:20px;font-weight:700;margin-top:2px;">130.7 מיליארד ₪</div></div>
@@ -775,7 +819,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <h2 id="global-flows">כסף מושך כסף: לאן זרמו טריליוני הדולרים</h2>
     <p>ישראל היא לא מקרה פרטי - היא העתק מוקטן של תופעה עולמית. שנת 2024 הייתה שנת שיא לתעשיית קרנות הסל האמריקאית: <strong>1.12 טריליון דולר</strong> נכנסו ל-ETF - כמעט כפול מכל שנה קודמת. ולאן הלך הכסף? שני שואבי האבק הגדולים היו מחקי S&P 500: קרן VOO של ואנגרד גייסה כ-113 מיליארד דולר - <strong>ה-ETF הראשון בהיסטוריה שחצה 100 מיליארד דולר בשנה אחת</strong> - ו-IVV של בלאקרוק הוסיפה כ-85 מיליארד (מקור: <a href="https://www.etf.com/sections/monthly-etf-flows/2024-etf-inflows-top-11-trillion-shattering-record" rel="noopener" target="_blank">etf.com - סיכום זרימות 2024</a>). וב-2025 השיא נשבר שוב: 1.49 טריליון דולר, ומתוכם VOO לבדה גייסה <strong>137.7 מיליארד</strong> - הגיוס השנתי הגדול ביותר אי-פעם לקרן בודדת. שלוש קרנות מחקות S&P 500 - VOO, IVV ו-SPYM - גייסו יחד כ-240 מיליארד דולר, בערך דולר מכל שישה דולרים שנכנסו לתעשייה כולה (מקור: <a href="https://www.etf.com/sections/monthly-etf-flows/us-etfs-pull-record-149-trillion-2025" rel="noopener" target="_blank">etf.com - סיכום זרימות 2025</a>).</p>
 
-    <div class="chart-card">
+    <div class="chart-card" data-embed-chart="2">
       <h4>לאן זרם הכסף ב-2025: עשרת ה-ETF המגייסים הגדולים בעולם (מיליארדי דולרים)</h4>
       <div class="chart-legend"><span><span style="display:inline-block;width:10px;height:10px;background:#007DA8;border-radius:2px;margin-left:5px;"></span>מחקה S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#6B93BD;border-radius:2px;margin-left:5px;"></span>חופף ברובו ל-S&P 500</span><span><span style="display:inline-block;width:10px;height:10px;background:#C2C7CF;border-radius:2px;margin-left:5px;"></span>אחר</span></div>
       <svg viewBox="0 0 660 332" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="גרף עמודות אופקי: עשרת ה-ETF עם הגיוסים הגדולים בעולם ב-2025. VOO מובילה עם 137.7 מיליארד דולר, IVV עם 73 מיליארד - שתיהן מחקות S&P 500. שלוש קרנות מחקות S&P 500 נמצאות בעשירייה" style="width:100%;display:block;direction:ltr">
@@ -833,7 +877,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <p>על הנייר קנית 500 חברות. בפועל - לא בדיוק. ה-S&P 500 הוא מדד <strong>משוקלל שווי שוק</strong>: ככל שחברה גדולה יותר, היא תופסת נתח גדול יותר מהמדד. ונכון ל-2026, 9 החברות הגדולות - רובן ענקיות טכנולוגיה - מהוות לבדן כ-39% מהמדד כולו, אחרי שבתחילת השנה הנתון אף חצה את ה-40% (מקורות: <a href="https://www.slickcharts.com/sp500" rel="noopener" target="_blank">Slickcharts - נתוני S&P Dow Jones Indices</a>; <a href="https://www.pionline.com/data-rankings/chart-of-the-day/pi-sp500-index-concentration/" rel="noopener" target="_blank">Pensions & Investments</a>). אגב, נהוג לדבר על "עשר החברות הגדולות", אבל למעשה מדובר ב-9 חברות בלבד: גוגל (אלפאבית) נספרת פעמיים במדד בשל שתי סדרות מניות נפרדות, למרות שמבחינת המשקיע זו חברה אחת.</p>
     <p>וזו לא תמונת מצב רגעית - זו מגמה שהלכה והקצינה לאורך עשור:</p>
 
-    <div class="chart-card">
+    <div class="chart-card" data-embed-chart="4">
       <h4>משקל 9 החברות הגדולות ב-S&P 500 - מסלול של ריכוזיות הולכת וגוברת</h4>
       <svg viewBox="0 0 660 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="גרף קו: משקל 9 החברות הגדולות במדד S&P 500 עלה מכ-18% ב-2015 לכ-27% ב-2020, כ-30% ב-2023 וכ-39% ב-2026" style="width:100%;display:block;direction:ltr">
         <line x1="55" y1="200" x2="630" y2="200" stroke="#E5E7EB" stroke-width="1.5"/>
@@ -885,7 +929,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <p>ההבדל הוא השאלה מה קורה כשהסיפור משתנה. ובשביל לענות עליה, שווה להכיר את המשקיע היפני של 1989.</p>
     <p>בסוף שנות ה-80, יפן הייתה סיפור ההצלחה של העולם. השוק היפני היווה קרוב למחצית משווי שוק המניות העולמי - יותר מארה"ב - ומשקיע יפני שראה את הביצועים ההיסטוריים לא מצא שום סיבה להשקיע מחוץ לארץ השמש העולה. ואז הבועה התפוצצה. <a href="https://en.wikipedia.org/wiki/Nikkei_225" rel="noopener" target="_blank">מדד הניקיי</a> חזר לשיא של 1989 רק בפברואר 2024 - <strong>אחרי 34 שנים</strong>. משקיע יפני שפיזר גלובלית עבר את התקופה הזו בשלום. משקיע שנשאר "בבית" איבד דור שלם של חיסכון.</p>
     <p>"זה לא יקרה לאמריקה"? אולי. אבל זה כבר קרה, בקטן: בעשור 2000–2009 - "העשור האבוד" - השיג ה-S&P 500 תשואה שנתית ממוצעת של <strong>מינוס 0.95%</strong> (מקור: <a href="https://www.macrotrends.net/2526/sp-500-historical-annual-returns" rel="noopener" target="_blank">Macrotrends - תשואות היסטוריות S&P 500</a>). עשר שנים של חיסכון, ובסופן פחות כסף ממה שהתחלת איתו. ומה קרה באותו עשור בדיוק למי שפיזר רחב? מדדי השווקים המתעוררים, מניות הערך והחברות הקטנות סיימו אותו בתשואה חיובית מצטברת. הפיזור לא היה "תיאוריה אקדמית" - הוא היה ההבדל בין עשור אבוד לעשור סביר.</p>
-    <figure style="margin:24px 0 8px;border:1px solid #e0e6ed;border-radius:10px;overflow:hidden;">
+    <figure data-embed-chart="3" style="margin:24px 0 8px;border:1px solid #e0e6ed;border-radius:10px;overflow:hidden;">
       <iframe src="etf-countries-vs-spy-2000-2015.html"
               title="גרף השוואת תשואה כוללת בדולר 2000–2015: עשרה מדדי מדינות - מקסיקו, אוסטרליה, דרום קוריאה, אוסטריה, שווייץ, מלזיה, קנדה, הונג קונג, סינגפור ובלגיה - היכו את מדד S&P 500, כולל דיבידנדים מושקעים מחדש"
               aria-label="גרף השוואת תשואה כוללת בדולר 2000–2015: עשרה מדדי מדינות - מקסיקו, אוסטרליה, דרום קוריאה, אוסטריה, שווייץ, מלזיה, קנדה, הונג קונג, סינגפור ובלגיה - היכו את מדד S&P 500, כולל דיבידנדים מושקעים מחדש"
@@ -911,7 +955,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <p>אני לא מתיימר לחזות שווקים - מי שמוכר לך תחזיות, מוכר לך אשליה. אבל יש הבדל בין תחזית לבין מחיר, ומחיר אפשר למדוד.</p>
     <p>מכפיל שילר (CAPE) של ה-S&P 500 - מדד התמחור המקובל ביותר להשוואה היסטורית - עומד נכון ליוני 2026 סביב 40 (מקור: <a href="https://www.multpl.com/shiller-pe" rel="noopener" target="_blank">נתוני פרופ' רוברט שילר, multpl.com</a>). רמה גבוהה מזו נרשמה רק פעם אחת בהיסטוריה: בשיא בועת הדוט-קום בשנת 2000. ומה קרה למי שקנה אז? ראה סעיף קודם - העשור האבוד.</p>
     <p>וזו לא רק תחושת בטן של זהירות. מחקר של ענקית הבנקאות <strong>J.P. Morgan</strong> (במסגרת <a href="https://am.jpmorgan.com/us/en/asset-management/adv/insights/market-insights/guide-to-the-markets/" rel="noopener" target="_blank">Guide to the Markets</a>), שבחן נתונים חודשיים מאז 1988, מצא ממצא כפול ומאלף: מכפיל הרווח של המדד <strong>לא מנבא כלום</strong> לגבי התשואה שנה קדימה - אבל מנבא <strong>היטב</strong> את התשואה עשור קדימה: ככל שהמכפיל בנקודת הכניסה גבוה יותר, התשואה המצטברת בעשור שאחריו נמוכה יותר, באופן מובהק. למי שחוסך לפנסיה, עשור קדימה הוא בדיוק טווח הזמן הרלוונטי.</p>
-    <div class="jpm-chart-wrap" style="margin:28px 0;">
+    <div class="jpm-chart-wrap" data-embed-chart="5" style="margin:28px 0;">
       <a href="https://am.jpmorgan.com/content/dam/jpm-am-aem/global/en/insights/market-insights/guide-to-the-markets/mi-guide-to-the-markets-ce-en.pdf" rel="noopener" target="_blank">
         <img src="/investment/why-not-sp500/jpm-pe-returns-chart.png"
              alt="S&P 500 forward P/E ratios and subsequent 10-year returns - JP Morgan Guide to the Markets Europe"
