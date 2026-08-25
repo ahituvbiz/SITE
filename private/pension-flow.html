@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<title>מסלול הכסף בפנסיה</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Suez+One&family=Assistant:wght@400;600;700&display=swap">
+<style>
+  :root{
+    --bg:#F3F6F4; --surface:#FFFFFF; --ink:#1A2621; --muted:#5C6B64;
+    --line:#D6DED9; --chip:#E9EFEB;
+    --green:#1E9455; --green-soft:#E1F2E8;
+    --amber:#B96F24; --amber-soft:#F6EAD9;
+    --red:#C24357;  --red-soft:#F8E5E9;
+    --blue:#3A6EA8; --blue-soft:#E3EDF7;
+    --shadow:0 10px 30px rgba(26,38,33,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1613; --surface:#171F1B; --ink:#E7EFEA; --muted:#94A49C;
+      --line:#2B3833; --chip:#1E2823;
+      --green:#43C687; --green-soft:#153826;
+      --amber:#E09A4E; --amber-soft:#3A2A15;
+      --red:#E27085;  --red-soft:#3E1D24;
+      --blue:#71A5DC; --blue-soft:#17293C;
+      --shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1613; --surface:#171F1B; --ink:#E7EFEA; --muted:#94A49C;
+    --line:#2B3833; --chip:#1E2823;
+    --green:#43C687; --green-soft:#153826;
+    --amber:#E09A4E; --amber-soft:#3A2A15;
+    --red:#E27085;  --red-soft:#3E1D24;
+    --blue:#71A5DC; --blue-soft:#17293C;
+    --shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+  body{background:var(--bg); color:var(--ink); margin:0;
+    font-family:"Assistant","Heebo","Segoe UI",Arial,sans-serif; font-size:16px; line-height:1.55;}
+  .wrap{max-width:1240px; margin:0 auto; padding:28px 20px 40px;}
+  header.top{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 18px; margin-bottom:6px;}
+  h1{font-family:"Suez One","Assistant",serif; font-weight:400; font-size:clamp(26px,4vw,40px);
+     margin:0; letter-spacing:.2px; text-wrap:balance;}
+  .sub{color:var(--muted); margin:0 0 14px; font-size:15px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px;}
+  .chip{background:var(--chip); border:1px solid var(--line); border-radius:999px;
+    padding:3px 12px; font-size:13px; color:var(--muted); white-space:nowrap;
+    font-variant-numeric:tabular-nums;}
+  .chip b{color:var(--ink); font-weight:700;}
+
+  .stage{background:var(--surface); border:1px solid var(--line); border-radius:18px;
+    box-shadow:var(--shadow); padding:14px 10px 6px; overflow-x:auto;}
+  .stage svg{display:block; min-width:860px; width:100%; height:auto;}
+
+  svg text{font-family:"Assistant","Heebo",Arial,sans-serif; fill:var(--ink); direction:rtl;}
+  .nname{font-size:15px; font-weight:700;}
+  .namt{font-size:14.5px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .nsub{font-size:12px; fill:var(--muted);}
+  .flbl{font-size:12.5px; fill:var(--muted); font-weight:600;}
+  .flbl .amt{fill:var(--ink); font-weight:700; font-variant-numeric:tabular-nums;}
+  .node{fill:var(--surface); stroke:var(--line); stroke-width:1.4;}
+  .node.green{fill:var(--green-soft); stroke:var(--green);}
+  .node.amber{fill:var(--amber-soft); stroke:var(--amber);}
+  .node.red{fill:var(--red-soft); stroke:var(--red);}
+  .node.blue{fill:var(--blue-soft); stroke:var(--blue);}
+  .pipe{fill:none; stroke-width:9; opacity:.28; stroke-linecap:round;}
+  .axis{fill:none; stroke-width:1.6; opacity:.85;}
+  .pipe.green,.axis.green{stroke:var(--green);}
+  .pipe.amber,.axis.amber{stroke:var(--amber);}
+  .pipe.red,.axis.red{stroke:var(--red);}
+  .pipe.blue,.axis.blue{stroke:var(--blue);}
+  .p-green{fill:var(--green);} .p-amber{fill:var(--amber);}
+  .p-red{fill:var(--red);} .p-blue{fill:var(--blue);}
+  #balHit{cursor:pointer;}
+  .hint{font-size:11.5px; fill:var(--muted); font-weight:600;}
+
+  .canvas{position:relative;}
+  .ovl{position:absolute; right:14px; bottom:14px; display:flex; align-items:flex-end; gap:10px;}
+  .balbtn{display:flex; flex-direction:column; align-items:center; gap:8px; width:118px;
+    padding:10px 8px 13px; border-radius:16px; border:1.5px solid; font:inherit; font-weight:700;
+    cursor:pointer; opacity:.5; filter:saturate(.5);
+    transition:opacity .2s, filter .2s, box-shadow .2s, transform .15s;}
+  .balbtn:hover{transform:translateY(-2px); opacity:.85;}
+  .balbtn .lbl{font-size:12.5px; white-space:nowrap;}
+  .balbtn .emo{display:grid; grid-template-columns:repeat(2,auto); gap:8px 16px; font-size:27px; line-height:1;}
+  .balbtn .emo span{display:inline-block;}
+  .b-pos{background:var(--green-soft); border-color:var(--green); color:var(--green);}
+  .b-neg{background:var(--red-soft); border-color:var(--red); color:var(--red);}
+  .balbtn:focus-visible,.ghost:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .state-pos .balbtn.b-pos{opacity:1; filter:none; box-shadow:0 6px 18px rgba(30,148,85,.22);}
+  .state-neg .balbtn.b-neg{opacity:1; filter:none; box-shadow:0 6px 18px rgba(194,67,87,.22);}
+  .state-pos .balbtn.b-pos .emo span{animation:hop 1.1s ease-in-out infinite;}
+  .state-neg .balbtn.b-neg .emo span{animation:limp 1.6s ease-in-out infinite;}
+  .ghost{width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    font-size:17px; line-height:1; cursor:pointer; transition:color .2s, border-color .2s;}
+  .ghost:hover{color:var(--ink); border-color:var(--muted);}
+  .ovl .ghost:first-of-type{margin-inline-end:-4px;}
+  @keyframes hop{0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);}}
+  @keyframes limp{0%,100%{transform:rotate(-5deg) translateY(0);} 50%{transform:rotate(5deg) translateY(3px);}}
+  .crowd-pos .emo span{animation:hop 1.1s ease-in-out infinite;}
+  .crowd-neg .emo span{animation:limp 1.6s ease-in-out infinite;}
+  .emo span:nth-child(2){animation-delay:.15s;} .emo span:nth-child(3){animation-delay:.3s;}
+  .emo span:nth-child(4){animation-delay:.45s;} .emo span:nth-child(5){animation-delay:.6s;}
+  .emo span:nth-child(6){animation-delay:.75s;}
+
+  .modes{position:absolute; top:10px; right:14px; z-index:3;
+    display:grid; grid-template-columns:repeat(2,1fr);
+    border:1.5px solid var(--green); border-radius:12px; overflow:hidden;
+    background:var(--surface); box-shadow:var(--shadow);}
+  .modes button{font:inherit; font-weight:700; font-size:15px; color:var(--green);
+    background:var(--surface); border:0; padding:9px 22px; cursor:pointer;
+    transition:background .18s, color .18s;}
+  .modes button:nth-child(2),.modes button:nth-child(4){border-inline-start:1.5px solid var(--green);}
+  .modes button:nth-child(3),.modes button:nth-child(4){border-top:1.5px solid var(--green);}
+  .modes button:hover{background:var(--green-soft);}
+  .modes button[aria-pressed="true"]{background:var(--green); color:#fff;}
+  .modes button:focus-visible{outline:2px solid var(--blue); outline-offset:-3px;}
+
+  #gGuar,#flowGuar,#dots-fpG1,#dots-fpG2,#chipGuar,#lblGuarPct{display:none;}
+  .mode-mekifa #lblGuarPct{display:inline;}
+  .mode-mekifa #gGuar,.mode-mekifa #flowGuar,
+  .mode-mekifa #dots-fpG1,.mode-mekifa #dots-fpG2{display:inline;}
+  .mode-mekifa #chipGuar{display:inline-block;}
+  .no-bal #balGroup,.no-bal #balHit,.no-bal #dots-fp9,.no-bal .balbtn,.no-bal #chipBal{display:none;}
+  .no-risk #gRisk,.no-risk #gClaims,.no-risk #flowRisk,.no-risk #flowClaims,
+  .no-risk #lblRisk,.no-risk #lblClaims,.no-risk #dots-fp3,.no-risk #dots-fp5,
+  .no-risk #chipRisk{display:none;}
+  .no-depfee #flowDepFee,.no-depfee #lblDepFee,.no-depfee #dots-fp2,.no-depfee #chipDepFee{display:none;}
+
+  figcaption{color:var(--muted); font-size:13.5px; margin:10px 4px 0;}
+  footer{margin-top:22px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px;}
+  @media (prefers-reduced-motion: reduce){
+    .emo span{animation:none !important;}
+    .crowd.show{animation:none;}
+  }
+
+  .tbl-sec{margin-top:26px;}
+  .tbl-head{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:12px;}
+  .tbl-head h2{font-family:"Suez One","Assistant",serif; font-weight:400; font-size:22px; margin:0; flex:1 1 auto;}
+  .tbl-tools{display:flex; align-items:center; gap:10px;}
+  .cb{width:19px; height:19px; accent-color:var(--green); cursor:pointer; margin:0;}
+  .cb:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .upd{border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    font:inherit; font-weight:600; font-size:13.5px; border-radius:10px; padding:7px 14px;
+    cursor:pointer; transition:color .2s, border-color .2s;}
+  .upd:hover{color:var(--ink); border-color:var(--muted);}
+  .upd:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .tbl-wrap{background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:6px 10px 10px; overflow-x:auto;}
+  table.ak{border-collapse:collapse; width:100%; min-width:660px;
+    font-variant-numeric:tabular-nums; font-size:14px;}
+  table.ak th, table.ak td{padding:7px 10px; text-align:center; white-space:nowrap;}
+  table.ak thead th{font-size:13px; color:var(--muted); font-weight:700;
+    border-bottom:1.5px solid var(--line);}
+  table.ak th.nm{text-align:right; font-weight:700; color:var(--ink); font-size:14px;}
+  table.ak td.avg, table.ak th.avg{border-inline-start:1px solid var(--line);}
+  table.ak tbody tr.sep td, table.ak tbody tr.sep th{border-bottom:1.5px solid var(--ink);}
+  table.ak tbody tr:hover td, table.ak tbody tr:hover th{background:var(--chip);}
+  .neg,.pos,.zero,.plain{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+  .neg{color:var(--red); font-weight:700;}
+  .pos{color:var(--green); font-weight:700;}
+  .zero{color:var(--muted); font-weight:700;}
+  .plain{color:var(--ink);}
+  .dash{color:var(--muted);}
+  td.lo{background:var(--red-soft); border-radius:6px;}
+  td.hi{background:var(--green-soft); border-radius:6px;}
+  tr.mash{display:none;}
+  .show-mash tr.mash{display:table-row;}
+  tr.mash th.nm, tr.mash td{color:var(--ink); font-weight:600;}
+  .tbl-note{color:var(--muted); font-size:12.5px; margin:10px 2px 0; display:flex;
+    flex-wrap:wrap; gap:6px 16px; align-items:center;}
+  .key{display:inline-flex; align-items:center; gap:6px;}
+  .sw{width:13px; height:13px; border-radius:4px; display:inline-block;}
+</style>
+
+<div class="wrap state-pos mode-mekifa" id="app" dir="rtl" lang="he">
+  <header class="top">
+    <h1>מסלול הכסף בפנסיה</h1>
+  </header>
+  <div class="chips" aria-label="הנחות ההמחשה">
+    <span class="chip">שכר מבוטח <b>20,000 ₪</b></span>
+    <span class="chip">הפקדה <b>20.83%</b></span>
+    <span class="chip" id="chipDepFee">ד״נ מהפקדה <b>1%</b></span>
+    <span class="chip" id="chipRisk">עלות ריסקים <b id="chipRiskAmt">120 ₪</b></span>
+    <span class="chip">ד״נ מצבירה <b id="chipAccFee">0.15%</b></span>
+    <span class="chip">תשואה שנתית <b>6.5%</b></span>
+    <span class="chip">צבירה <b>300,000 ₪</b></span>
+    <span class="chip" id="chipBal">איזון אקטוארי <b>±0.15%</b></span>
+    <span class="chip" id="chipGuar">תשואה מובטחת <b>5.15% + מדד</b></span>
+  </div>
+
+  <figure style="margin:0">
+  <div class="stage">
+  <div class="canvas">
+  <div class="modes" role="group" aria-label="סוג המוצר הפנסיוני">
+    <button type="button" data-mode="mekifa" aria-pressed="true">מקיפה</button>
+    <button type="button" data-mode="mashlima" aria-pressed="false">משלימה</button>
+    <button type="button" data-mode="menahalim" aria-pressed="false">מנהלים</button>
+    <button type="button" data-mode="gemel" aria-pressed="false">גמל</button>
+  </div>
+  <svg viewBox="0 0 1200 880" role="img" aria-label="תרשים זרימה: השכר המבוטח מזין הפקדה חודשית, שמתפצלת לדמי ניהול, לקופת הריסקים ולצבירה. הצבירה מושקעת בשוק ההון ומניבה תשואה, והאיזון האקטוארי זורם בין קופת הריסקים לצבירה — לכיוון הצבירה כשהוא חיובי, וממנה כשהוא שלילי.">
+    <defs>
+      <marker id="mGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/></marker>
+      <marker id="mAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--amber)"/></marker>
+      <marker id="mRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/></marker>
+      <marker id="mBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/></marker>
+      <marker id="mRedRev" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/></marker>
+
+    <!-- flow path geometry (referenced via use) -->
+    <g id="paths">
+      <path id="fp1" d="M1020,380 L916,380"/>
+      <path id="fp2" d="M826,332 C826,205 760,112 739,96"/>
+      <path id="fp3" d="M830,428 C830,545 820,585 816,638"/>
+      <path id="fp4" d="M764,380 L514,380"/>
+      <path id="fp5" d="M712,721 L556,721"/>
+      <path id="fp6" d="M414,310 C414,205 480,112 501,96"/>
+      <path id="fp7" d="M312,408 L186,408"/>
+      <path id="fp8" d="M182,354 L310,354"/>
+      <path id="fp9" d="M708,652 C600,690 413,640 413,450"/>
+      <path id="fpG1" d="M346,450 C290,502 228,552 182,552"/>
+      <path id="fpG2" d="M182,580 C228,580 290,518 374,450"/>
+    </g>
+    </defs>
+
+    <!-- node boxes -->
+    <g>
+      <rect class="node" x="1020" y="332" width="150" height="96" rx="14"/>
+      <text x="1095" y="370" text-anchor="middle" class="nname">משכורת מבוטחת</text>
+      <text x="1095" y="394" text-anchor="middle" class="namt">20,000 ₪</text>
+      <text x="1095" y="414" text-anchor="middle" class="nsub">בחודש</text>
+
+      <rect class="node green" x="764" y="332" width="152" height="96" rx="14"/>
+      <text x="840" y="368" text-anchor="middle" class="nname">הפקדה חודשית</text>
+      <text x="840" y="392" text-anchor="middle" class="namt">4,166 ₪</text>
+      <text x="840" y="413" text-anchor="middle" class="nsub">עובד + מעסיק + פיצויים</text>
+
+      <rect class="node amber" x="505" y="36" width="230" height="86" rx="14"/>
+      <text x="620" y="72" text-anchor="middle" class="nname">החברה המנהלת</text>
+      <text x="620" y="94" text-anchor="middle" class="nsub">גובה את דמי הניהול</text>
+
+      <g id="gRisk">
+        <rect class="node red" x="712" y="640" width="180" height="104" rx="14"/>
+        <text x="802" y="676" text-anchor="middle" class="nname" id="riskName">קופת הריסקים</text>
+        <text x="802" y="698" text-anchor="middle" class="nsub" id="riskSub1">ביטוח נכות ושאירים</text>
+        <text x="802" y="722" text-anchor="middle" class="nsub" id="riskSub2">משותפת לכל העמיתים</text>
+      </g>
+
+      <g id="gClaims">
+        <rect class="node" x="380" y="676" width="170" height="90" rx="14"/>
+        <text x="465" y="712" text-anchor="middle" class="nname">תביעות</text>
+        <text x="465" y="734" text-anchor="middle" class="nsub">קצבאות נכות ושאירים</text>
+      </g>
+
+      <rect class="node green" id="accumBox" x="312" y="310" width="202" height="140" rx="16"/>
+      <text x="413" y="356" text-anchor="middle" class="nname">הצבירה שלך</text>
+      <text x="413" y="384" text-anchor="middle" class="namt" style="font-size:19px">300,000 ₪</text>
+      <text x="413" y="408" text-anchor="middle" class="nsub">החיסכון לקצבה</text>
+
+      <rect class="node blue" x="30" y="322" width="150" height="116" rx="14"/>
+      <text x="105" y="366" text-anchor="middle" class="nname">שוק ההון</text>
+      <text x="105" y="388" text-anchor="middle" class="nsub">מניות, אג״ח,</text>
+      <text x="105" y="410" text-anchor="middle" class="nsub">נדל״ן ותשתיות</text>
+
+      <g id="gGuar">
+        <rect class="node blue" x="30" y="505" width="150" height="110" rx="14"/>
+        <text x="105" y="545" text-anchor="middle" class="nname">תשואה מובטחת</text>
+        <text x="105" y="572" text-anchor="middle" class="namt" style="font-size:17px">5.15%</text>
+        <text x="105" y="594" text-anchor="middle" class="nsub">בתוספת הצמדה למדד</text>
+      </g>
+    </g>
+
+    <!-- visible flows -->
+    <g>
+      <use href="#fp1" class="pipe green"/><use href="#fp1" class="axis green" marker-end="url(#mGreen)"/>
+      <g id="flowDepFee"><use href="#fp2" class="pipe amber"/><use href="#fp2" class="axis amber" marker-end="url(#mAmber)"/></g>
+      <g id="flowRisk"><use href="#fp3" class="pipe red"/><use href="#fp3" class="axis red" marker-end="url(#mRed)"/></g>
+      <use href="#fp4" class="pipe green" style="stroke-width:13"/><use href="#fp4" class="axis green" marker-end="url(#mGreen)"/>
+      <g id="flowClaims"><use href="#fp5" class="pipe red"/><use href="#fp5" class="axis red" marker-end="url(#mRed)"/></g>
+      <use href="#fp6" class="pipe amber"/><use href="#fp6" class="axis amber" marker-end="url(#mAmber)"/>
+      <use href="#fp7" class="pipe blue"/><use href="#fp7" class="axis blue" marker-end="url(#mBlue)"/>
+      <use href="#fp8" class="pipe green"/><use href="#fp8" class="axis green" marker-end="url(#mGreen)"/>
+      <g id="flowGuar">
+        <use href="#fpG1" class="pipe blue"/><use href="#fpG1" class="axis blue" marker-end="url(#mBlue)"/>
+        <use href="#fpG2" class="pipe green"/><use href="#fpG2" class="axis green" marker-end="url(#mGreen)"/>
+      </g>
+      <g id="balGroup">
+        <use href="#fp9" class="pipe green" id="balPipe"/>
+        <use href="#fp9" class="axis green" id="balAxis" marker-end="url(#mGreen)"/>
+      </g>
+    </g>
+
+    <!-- particles are appended here by script -->
+    <g id="particles"></g>
+
+    <!-- flow labels -->
+    <g>
+      <text x="968" y="362" text-anchor="middle" class="flbl">הפקדה <tspan class="amt">20.83%</tspan></text>
+      <g id="lblDepFee">
+        <text x="925" y="205" text-anchor="middle" class="flbl">דמי ניהול מהפקדה 1%</text>
+        <text x="925" y="223" text-anchor="middle" class="flbl"><tspan class="amt">42 ₪ בחודש</tspan></text>
+      </g>
+      <g id="lblRisk">
+        <text x="938" y="540" text-anchor="middle" class="flbl" id="lblRiskT">עלות ריסקים</text>
+        <text x="938" y="558" text-anchor="middle" class="flbl"><tspan class="amt" id="lblRiskAmt">120 ₪ בחודש</tspan></text>
+      </g>
+      <text x="639" y="362" text-anchor="middle" class="flbl">נטו לצבירה <tspan class="amt" id="lblNetAmt">4,004 ₪</tspan></text>
+      <g id="lblClaims"><text x="634" y="703" text-anchor="middle" class="flbl">תשלום תביעות</text></g>
+      <text x="315" y="205" text-anchor="middle" class="flbl" id="lblAccFeeT">דמי ניהול מצבירה 0.15%</text>
+      <text x="315" y="223" text-anchor="middle" class="flbl"><tspan class="amt" id="lblAccFeeAmt">כ־38 ₪ בחודש</tspan></text>
+      <text x="246" y="432" text-anchor="middle" class="flbl">השקעה</text>
+      <text x="246" y="450" text-anchor="middle" class="flbl"><tspan class="amt" id="lblInvPct">100% מהצבירה</tspan></text>
+      <g id="lblGuarPct"><text x="274" y="578" text-anchor="middle" class="flbl"><tspan class="amt">30% מהצבירה</tspan></text></g>
+      <text x="246" y="318" text-anchor="middle" class="flbl">תשואה 6.5% בשנה</text>
+      <text x="246" y="336" text-anchor="middle" class="flbl"><tspan class="amt">כ־1,625 ₪ בחודש</tspan></text>
+      <g id="balHit" role="button" tabindex="0" aria-label="החלפת כיוון האיזון האקטוארי">
+        <rect x="490" y="520" width="200" height="66" rx="12" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="590" y="544" text-anchor="middle" class="flbl" id="balT1">איזון אקטוארי חיובי</text>
+        <text x="590" y="562" text-anchor="middle" class="flbl" id="balT2"><tspan class="amt">נוספים לצבירה כ־37 ₪ בחודש</tspan></text>
+        <text x="590" y="578" text-anchor="middle" class="hint">לחיצה הופכת את הכיוון ⇄</text>
+      </g>
+    </g>
+  </svg>
+
+  <div class="ovl" role="group" aria-label="מצב האיזון האקטוארי">
+    <button class="balbtn b-pos" id="btnPos">
+      <span class="lbl">איזון אקטוארי חיובי</span>
+      <span class="emo" aria-hidden="true"><span>⛹️</span><span>🏊‍♂️</span><span>🚴‍♂️</span><span>🏃‍♀️</span></span>
+    </button>
+    <button class="balbtn b-neg" id="btnNeg">
+      <span class="lbl">איזון אקטוארי שלילי</span>
+      <span class="emo" aria-hidden="true"><span>🤕</span><span>🩼</span><span>😟</span><span>👨‍🦽</span></span>
+    </button>
+    <button class="ghost" id="btnPause" aria-label="השהיית התנועה" title="השהיה / הפעלה">⏸</button>
+    <button class="ghost" id="btnReset" aria-label="איפוס הצבירה" title="איפוס">↺</button>
+  </div>
+
+  </div>
+  </div>
+  </figure>
+
+
+  <section class="tbl-sec">
+    <div class="tbl-head">
+      <h2>איזונים אקטואריים לפי חברה</h2>
+      <div class="tbl-tools">
+        <input type="checkbox" id="cbMash" class="cb" aria-label="הצגת מנורה משלימה">
+        <button class="upd" id="btnUpd">עדכון מהאקסל</button>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="ak" id="akTable"></table>
+    </div>
+    <p class="tbl-note">
+      <span class="key"><span class="sw" style="background:var(--red-soft); border:1px solid var(--red)"></span>הנמוך ביותר בשנה</span>
+      <span class="key"><span class="sw" style="background:var(--green-soft); border:1px solid var(--green)"></span>הגבוה ביותר בשנה</span>
+      <span id="akSrc"></span>
+    </p>
+  </section>
+
+<script type="application/json" id="AK_DATA">
+{
+  "cols": ["2020","2021","2022","2023","2024","2025","ממוצע 3/6 שנים"],
+  "source": "איזונים אקטואריים.xlsx · גיליון \"איזונים אקטואריים\"",
+  "rows": [
+    {"name":"מנורה",        "v":[-0.35,-0.04,-0.30,-0.18,-0.10,-0.28,-0.21], "hl":["lo","","lo","","lo","lo","lo"]},
+    {"name":"מנורה משלימה", "v":[1.12,1.84,1.10,1.31,0.48,0.93,1.13], "hl":["","","","","","",""], "mash":true},
+    {"name":"הראל",         "v":[-0.11,0.05,-0.13,-0.22,0.00,-0.03,-0.07], "hl":["","","","lo","","",""]},
+    {"name":"מגדל",         "v":[-0.18,-0.10,-0.16,-0.14,0.15,0.09,-0.06], "hl":["","lo","","","","",""]},
+    {"name":"כלל",          "v":[0.10,0.14,-0.02,-0.17,-0.03,-0.03,0.00], "hl":["","","","","","",""]},
+    {"name":"הפניקס",       "v":[-0.29,0.22,0.10,-0.12,0.00,0.01,-0.01], "hl":["","","","","","",""], "sep":true},
+    {"name":"מיטב",         "v":[0.34,0.61,0.20,0.03,0.29,0.13,0.27], "hl":["","hi","","","","",""]},
+    {"name":"אלטשולר",      "v":[0.40,0.15,0.38,0.26,0.27,0.02,0.25], "hl":["hi","","hi","","","",""]},
+    {"name":"מור",          "v":[null,null,0.11,0.19,0.17,-0.06,0.10], "hl":["","","","","","",""]},
+    {"name":"אינפיניטי",    "v":[null,null,0.27,0.78,0.57,0.14,0.50], "hl":["","","","hi","hi","hi","hi"]}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('AK_DATA').textContent);
+  const fmt = v => (v>0?'':'') + v.toFixed(2) + '%';
+  const cls = (v,mash) => mash ? 'plain' : (v>0 ? 'pos' : v<0 ? 'neg' : 'zero');
+  let h = '<thead><tr><th class="nm"></th>';
+  data.cols.forEach((c,i)=>{ h += '<th'+(i===data.cols.length-1?' class="avg"':'')+'>'+c+'</th>'; });
+  h += '</tr></thead><tbody>';
+  data.rows.forEach(r=>{
+    h += '<tr class="'+(r.mash?'mash ':'')+(r.sep?'sep':'')+'"><th class="nm">'+r.name+'</th>';
+    r.v.forEach((v,i)=>{
+      const last = i===r.v.length-1;
+      const td = 'class="'+[r.hl[i]||'', last?'avg':''].filter(Boolean).join(' ')+'"';
+      h += '<td '+td+'>' + (v===null ? '<span class="dash">–</span>'
+           : '<span class="'+cls(v,r.mash)+'">'+fmt(v)+'</span>') + '</td>';
+    });
+    h += '</tr>';
+  });
+  document.getElementById('akTable').innerHTML = h + '</tbody>';
+  document.getElementById('akSrc').textContent = 'מקור: ' + data.source;
+
+  const sec = document.querySelector('.tbl-sec');
+  document.getElementById('cbMash').addEventListener('change', e=>{
+    sec.classList.toggle('show-mash', e.target.checked);
+  });
+
+  const CMD = 'עדכן את טבלת האיזונים האקטואריים בדף "תרשים זרימת הכספים בפנסיה.html" שבתיקייה C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\שיחת ייעוץ, מתוך הקובץ C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\שיחת ייעוץ\\איזונים אקטואריים.xlsx — גיליון "איזונים אקטואריים", טווח C3:K13, בלי עמודת Q4 2023. החלף רק את בלוק ה-JSON שב-<script id="AK_DATA">: שמות החברות, כותרות השנים, הערכים באחוזים, וסימוני ההדגשה lo/hi לפי צבעי הרקע בקובץ (ורוד = הנמוך בשנה, ירוק = הגבוה בשנה). אל תשנה שום דבר אחר בדף. בסיום שמור את הקובץ באותו נתיב ופרסם מחדש את הארטיפקט באותו קישור.';
+  const btn = document.getElementById('btnUpd');
+  btn.addEventListener('click', async ()=>{
+    const done = ()=>{ btn.textContent='הפקודה הועתקה ✓'; setTimeout(()=>btn.textContent='עדכון מהאקסל', 2600); };
+    try { await navigator.clipboard.writeText(CMD); done(); }
+    catch(e){
+      const t=document.createElement('textarea'); t.value=CMD; document.body.appendChild(t);
+      t.select(); try{ document.execCommand('copy'); done(); }catch(_){ btn.textContent='ההעתקה נכשלה'; }
+      document.body.removeChild(t);
+    }
+  });
+})();
+</script>
+
+  <footer>אחיטוב תכנון פיננסי · ההמחשה מבוססת על מספרים מייצגים בלבד ואינה תחליף לייעוץ פנסיוני אישי.</footer>
+</div>
+
+<script>
+(function(){
+  const app = document.getElementById('app');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const layer = document.getElementById('particles');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const flows = [
+    {path:'fp1', cls:'p-green', spacing:56, speed:62, r:4},
+    {path:'fp2', cls:'p-amber', spacing:105, speed:52, r:3},
+    {path:'fp3', cls:'p-red',   spacing:95,  speed:52, r:3.2},
+    {path:'fp4', cls:'p-green', spacing:42,  speed:70, r:4.6},
+    {path:'fp5', cls:'p-red',   spacing:110, speed:48, r:3},
+    {path:'fp6', cls:'p-amber', spacing:115, speed:52, r:3},
+    {path:'fp7', cls:'p-blue',  spacing:62,  speed:58, r:3.6},
+    {path:'fp8', cls:'p-green', spacing:52,  speed:58, r:4},
+    {path:'fp9', cls:'p-green', spacing:80,  speed:55, r:3.6, bal:true},
+    {path:'fpG1', cls:'p-blue',  spacing:70,  speed:56, r:3.6},
+    {path:'fpG2', cls:'p-green', spacing:60,  speed:56, r:4}
+  ];
+
+  flows.forEach(f=>{
+    f.el = document.getElementById(f.path);
+    f.len = f.el.getTotalLength();
+    f.dir = 1;
+    f.dots = [];
+    const grp = document.createElementNS(svgNS,'g');
+    grp.setAttribute('id', 'dots-' + f.path);
+    layer.appendChild(grp);
+    const n = Math.max(2, Math.ceil(f.len / f.spacing));
+    for(let i=0;i<n;i++){
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('r', f.r);
+      c.setAttribute('class', f.cls);
+      grp.appendChild(c);
+      f.dots.push({c, off: i * f.len / n});
+    }
+  });
+
+  let playing = !reduced, t0 = null, elapsed = 0, raf = null;
+  function frame(ts){
+    if(t0 === null) t0 = ts;
+    const t = elapsed + (ts - t0) / 1000;
+    flows.forEach(f=>{
+      f.dots.forEach(d=>{
+        let p = (t * f.speed + d.off) % f.len;
+        if(f.dir < 0) p = f.len - p;
+        const pt = f.el.getPointAtLength(p);
+        d.c.setAttribute('cx', pt.x);
+        d.c.setAttribute('cy', pt.y);
+      });
+    });
+    if(playing) raf = requestAnimationFrame(frame);
+  }
+  function start(){ t0 = null; raf = requestAnimationFrame(frame); }
+  function stop(){ if(raf) cancelAnimationFrame(raf); raf = null; }
+  if(playing){ start(); } else { playing = true; raf = requestAnimationFrame(frame); playing = false; }
+
+  // accumulation box grows +50% over 90 seconds, then stops
+  const accumBox = document.getElementById('accumBox');
+  const ACC_H0 = 140, ACC_CY = 380, ACC_MS = 90000;
+  const feeFlow = flows.find(f => f.path === 'fp6');
+  const balFlow = flows.find(f => f.path === 'fp9');
+  const guarOut = flows.find(f => f.path === 'fpG1');
+  const guarIn  = flows.find(f => f.path === 'fpG2');
+  let accT0 = performance.now(), accRaf = null;
+
+  function drawAccum(h){
+    const top = ACC_CY - h / 2;
+    accumBox.setAttribute('height', h);
+    accumBox.setAttribute('y', top);
+    feeFlow.el.setAttribute('d', 'M414,' + top.toFixed(1) + ' C414,205 480,112 501,96');
+    feeFlow.len = feeFlow.el.getTotalLength();
+    const bottom = ACC_CY + h / 2;
+    balFlow.el.setAttribute('d', 'M708,652 C600,690 413,640 413,' + bottom.toFixed(1));
+    balFlow.len = balFlow.el.getTotalLength();
+    guarOut.el.setAttribute('d', 'M346,' + bottom.toFixed(1) + ' C290,' + (bottom+52).toFixed(1) + ' 228,552 182,552');
+    guarOut.len = guarOut.el.getTotalLength();
+    guarIn.el.setAttribute('d', 'M182,580 C228,580 290,' + (bottom+68).toFixed(1) + ' 374,' + bottom.toFixed(1));
+    guarIn.len = guarIn.el.getTotalLength();
+  }
+  function growStep(ts){
+    const k = Math.min(1, (ts - accT0) / ACC_MS);
+    drawAccum(ACC_H0 * (1 + 0.5 * k));
+    accRaf = k < 1 ? requestAnimationFrame(growStep) : null;
+  }
+  function growReset(){
+    if(accRaf) cancelAnimationFrame(accRaf);
+    accT0 = performance.now();
+    drawAccum(ACC_H0);
+    accRaf = requestAnimationFrame(growStep);
+  }
+  growReset();
+
+  document.getElementById('btnReset').addEventListener('click', growReset);
+
+  const btnPause = document.getElementById('btnPause');
+  btnPause.addEventListener('click', ()=>{
+    if(playing){
+      playing = false; stop();
+      elapsed += (performance.now() - (t0 ?? performance.now())) / 1000;
+      btnPause.textContent = '▶';
+    } else {
+      playing = true; start();
+      btnPause.textContent = '⏸';
+    }
+  });
+
+  // actuarial balance state
+  const bal = flows.find(f=>f.bal);
+  const balPipe = document.getElementById('balPipe');
+  const balAxis = document.getElementById('balAxis');
+  const balT1 = document.getElementById('balT1');
+  const balT2 = document.getElementById('balT2');
+  function setState(pos){
+    app.classList.toggle('state-pos', pos);
+    app.classList.toggle('state-neg', !pos);
+    bal.dir = pos ? 1 : -1;
+    const cls = pos ? 'green' : 'red';
+    balPipe.setAttribute('class', 'pipe ' + cls);
+    balAxis.setAttribute('class', 'axis ' + cls);
+    if(pos){
+      balAxis.setAttribute('marker-end', 'url(#mGreen)');
+      balAxis.removeAttribute('marker-start');
+    } else {
+      balAxis.removeAttribute('marker-end');
+      balAxis.setAttribute('marker-start', 'url(#mRedRev)');
+    }
+    bal.dots.forEach(d=> d.c.setAttribute('class', pos ? 'p-green' : 'p-red'));
+    balT1.textContent = pos ? 'איזון אקטוארי חיובי' : 'איזון אקטוארי שלילי';
+    balT2.innerHTML = pos
+      ? '<tspan class="amt">נוספים לצבירה כ־37 ₪ בחודש</tspan>'
+      : '<tspan class="amt">נגבים מהצבירה כ־37 ₪ בחודש</tspan>';
+    balT1.style.fill = pos ? 'var(--green)' : 'var(--red)';
+    if(!playing && !reduced){ raf = requestAnimationFrame(ts=>{ playing=false; t0=null; frame(ts); }); }
+  }
+
+  document.getElementById('btnPos').addEventListener('click', ()=> setState(true));
+  document.getElementById('btnNeg').addEventListener('click', ()=> setState(false));
+  const hit = document.getElementById('balHit');
+  function flip(){ setState(!app.classList.contains('state-pos')); }
+  hit.addEventListener('click', flip);
+  hit.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); flip(); } });
+
+  // ---- product mode ----
+  const MODES = {
+    mekifa:    {cls:'mode-mekifa',             risk:'120 ₪ בחודש', chip:'120 ₪', net:'4,004 ₪', rn:'קופת הריסקים', rs2:'משותפת לכל העמיתים', rl:'עלות ריסקים', af:'0.15%', afa:'כ־38 ₪ בחודש', inv:'70% מהצבירה'},
+    mashlima:  {cls:'',                        risk:'120 ₪ בחודש', chip:'120 ₪', net:'4,004 ₪', rn:'קופת הריסקים', rs2:'משותפת לכל העמיתים', rl:'עלות ריסקים', af:'0.15%', afa:'כ־38 ₪ בחודש', inv:'100% מהצבירה'},
+    menahalim: {cls:'no-bal',                  risk:'350 ₪ בחודש', chip:'350 ₪', net:'3,774 ₪', rn:'חברת ביטוח',   rs2:'הפוליסה שלך',        rl:'עלות ביטוחים', af:'0.7%', afa:'כ־175 ₪ בחודש', inv:'100% מהצבירה'},
+    gemel:     {cls:'no-bal no-risk no-depfee',risk:'120 ₪ בחודש', chip:'120 ₪', net:'4,166 ₪', rn:'קופת הריסקים', rs2:'משותפת לכל העמיתים', rl:'עלות ריסקים', af:'0.5%', afa:'כ־125 ₪ בחודש', inv:'100% מהצבירה'}
+  };
+  const modeBtns = Array.prototype.slice.call(document.querySelectorAll('.modes button'));
+  function setMode(m){
+    const cfg = MODES[m]; if(!cfg) return;
+    app.classList.remove('mode-mekifa','no-bal','no-risk','no-depfee');
+    cfg.cls.split(' ').filter(Boolean).forEach(c => app.classList.add(c));
+    document.getElementById('lblRiskAmt').textContent = cfg.risk;
+    document.getElementById('lblRiskT').textContent = cfg.rl;
+    document.getElementById('chipRiskAmt').textContent = cfg.chip;
+    document.getElementById('lblNetAmt').textContent = cfg.net;
+    document.getElementById('chipAccFee').textContent = cfg.af;
+    document.getElementById('lblInvPct').textContent = cfg.inv;
+    document.getElementById('lblAccFeeT').textContent = 'דמי ניהול מצבירה ' + cfg.af;
+    document.getElementById('lblAccFeeAmt').textContent = cfg.afa;
+    document.getElementById('riskName').textContent = cfg.rn;
+    document.getElementById('riskSub2').textContent = cfg.rs2;
+    modeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    if(m === 'menahalim' || m === 'gemel') setState(true);
+  }
+  modeBtns.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  setMode('mekifa');
+
+  if(reduced){
+    // static positions once
+    raf = requestAnimationFrame(ts=>{ const keep=playing; playing=false; t0=null; frame(ts); playing=keep; });
+  }
+})();
+</script>
+
+</body>
+</html>

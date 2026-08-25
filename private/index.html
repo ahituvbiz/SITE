@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>הפורטל האישי — אחיטוב תכנון פיננסי</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#F4F6F7;--card:#fff;--ink:#12232B;--mut:#5C6E77;--line:#DDE4E7;--brand:#007DA8}
+  body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 22px 80px}
+  header{margin-bottom:26px}
+  h1{font-size:1.85rem;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--mut);font-size:.95rem;margin-top:4px}
+  .searchbox{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 12px;margin-bottom:6px}
+  input[type=search]{width:100%;padding:15px 18px;font-family:inherit;font-size:1.05rem;
+    border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+  input[type=search]:focus{outline:none;border-color:var(--brand)}
+  .count{color:var(--mut);font-size:.85rem;margin:6px 2px 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit;transition:.13s}
+  a.card:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,125,168,.10)}
+  .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .z{font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:5px;color:#fff;white-space:nowrap}
+  .ty{font-size:.72rem;color:var(--mut);font-weight:500}
+  .nm{font-weight:700;font-size:1.02rem;line-height:1.35}
+  .meta{font-size:.82rem;color:var(--mut)}
+  .meta b{font-weight:600;color:#3D525C}
+  .path{font-size:.78rem;color:var(--mut);direction:ltr;text-align:right;word-break:break-all}
+  .none{text-align:center;color:var(--mut);padding:50px 0}
+  footer{margin-top:38px;color:var(--mut);font-size:.8rem;border-top:1px solid var(--line);padding-top:16px}
+  @media(max-width:560px){.wrap{padding:26px 16px 60px}h1{font-size:1.45rem}}
+</style>
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>הפורטל האישי</h1>
+    <p class="sub">כל הכלים, הרכיבים וחומרי הגלם — במקום אחד</p>
+  </header>
+
+  <div class="searchbox">
+    <input type="search" id="q" placeholder="חפש: אקטוארי · מנורה · זרימה · סיעוד · עמלה…" autocomplete="off">
+  </div>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+  <p class="none" id="none" style="display:none">לא נמצא פריט מתאים</p>
+
+  <footer>13 פריטים · עודכן 25.08.2026 11:27 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
+</div>
+
+<script>
+const DATA = [{"n": "תרשים זרימת הכספים בפנסיה + איזונים אקטואריים", "t": "רכיב", "z": "private", "u": "/private/pension-flow.html", "f": "איזונים אקטואריים.xlsx", "o": "גרסה מקוצצת במצגת ההייטק (בלי מנורה משלימה)", "k": "זרימה כספים פנסיה איזון אקטוארי תרשים מנורה משלימה", "s": "זרימת הכספים בפנסיה + איזונים.html"}, {"n": "מנורה — מסלול מחקה מדדי מניות", "t": "רכיב", "z": "private", "u": "/private/menora-index-tracks.html", "f": "indx.co.il (סקיל menora-dashboard-refresh)", "o": "", "k": "מנורה מדדי מניות מחקה מכפיל רווח טופ 20 פילוח מדינות דשבורד", "s": "מנורה מדדי מניות.html"}, {"n": "תשואות עבר — בדיקה אמפירית", "t": "רכיב", "z": "private", "u": "/private/past-returns.html", "f": "פנסיה נט / גמל נט", "o": "", "k": "תשואות עבר אמפירי היסטוריה השוואה מסלולים", "s": "תשואות עבר - בדיקה אמפירית.html"}, {"n": "האם לנייד ממנהלים לפנסיה", "t": "כלי", "z": "private", "u": "/private/managers-to-pension.html", "f": "", "o": "", "k": "ניוד ביטוח מנהלים פנסיה מקדם המרה החלטה", "s": "האם לנייד ממנהלים לפנסיה - כלי עזר להחלטה.html"}, {"n": "חישוב קצבה סיעודית", "t": "כלי", "z": "private", "u": "/private/ltc-benefit.html", "f": "", "o": "", "k": "סיעוד סיעודית קצבה ביטוח", "s": "חישוב קצבה סיעודית.html"}, {"n": "כספי גיל הזהב", "t": "כלי", "z": "private", "u": "/private/golden-age.html", "f": "", "o": "", "k": "גיל הזהב פרישה קצבה זקנה", "s": "כספי-גיל-הזהב.html"}, {"n": "מחשבון עמלה קבועה", "t": "כלי", "z": "private", "u": "/private/fixed-fee.html", "f": "", "o": "", "k": "עמלה קבועה דמי ניהול מחשבון עלות", "s": "מחשבון-עמלה-קבועה.html"}, {"n": "אתר הרצאת ההייטק — חמש המצגות", "t": "מצגות", "z": "lecture", "u": "https://lecture.pensya.info", "p": "", "f": "", "o": "נבנה מהמקור ב-build-lecture.py", "k": "הרצאה הייטק מצגת יועץ פנסיוני השיא תשואות חוסכים בביטוחים להזיז את המחט"}, {"n": "אזור הלקוחות", "t": "אזור", "z": "clients", "u": "https://pensya.info/clients/", "p": "", "f": "", "o": "", "k": "לקוחות פורטל תגיות CRM מחשבון יעדי חיסכון"}, {"n": "פילוח יתרות קרנות פנסיה מקיפות", "t": "רכיב", "z": "clients", "u": "https://pensya.info/clients/tools/pension-breakdown/", "p": "", "f": "פנסיה נט (משימה כל 6 שעות)", "o": "", "k": "פילוח קרנות פנסיה קטגוריות מסלולים יתרות מגמה"}, {"n": "איזונים אקטואריים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "שיחת ייעוץ/איזונים אקטואריים.xlsx", "f": "", "o": "מזין את תרשים זרימת הכספים", "k": "איזון אקטוארי אקסל נתונים מקור"}, {"n": "מכפיל רווח TA-125.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "כלי עזר/מכפיל רווח TA-125.xlsx", "f": "", "o": "", "k": "מכפיל רווח תא 125 מדד בורסה"}, {"n": "פנסיה_עדכני.xlsx · קרנות_פנסיה_מסלולים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "../אתר/חומר רקע", "f": "", "o": "נבנה אוטומטית מ-history.csv", "k": "פנסיה עדכני מסלולים קטגוריות אקסל חומר רקע"}];
+const ZONES = {private:["שלך בלבד","#0E7C66"],lecture:["הרצאה","#9A6B12"],
+               clients:["לקוחות","#2E5E8E"],computer:["במחשב","#6B7280"]};
+const grid=document.getElementById('grid'), none=document.getElementById('none'),
+      cnt=document.getElementById('count'), q=document.getElementById('q');
+
+function card(it){
+  const z=ZONES[it.z]||["","#666"];
+  const inner=`<div class="top"><span class="z" style="background:${z[1]}">${z[0]}</span>
+      <span class="ty">${it.t}</span></div>
+    <div class="nm">${it.n}</div>`
+    + (it.f?`<div class="meta"><b>מוזן מ:</b> ${it.f}</div>`:``)
+    + (it.o?`<div class="meta">${it.o}</div>`:``)
+    + (it.s?`<div class="meta"><b>מקור במחשב:</b> ${it.s}</div>`:``)
+    + (it.p?`<div class="path">${it.p}</div>`:``);
+  if(it.u){const a=document.createElement('a');a.className='card';a.href=it.u;
+           if(it.u.startsWith('http'))a.target='_blank';a.innerHTML=inner;return a;}
+  const d=document.createElement('div');d.className='card';d.innerHTML=inner;return d;
+}
+function render(list){
+  grid.innerHTML=''; list.forEach(it=>grid.appendChild(card(it)));
+  none.style.display=list.length?'none':'block';
+  cnt.textContent=list.length===DATA.length?`${DATA.length} פריטים`:`${list.length} מתוך ${DATA.length}`;
+}
+q.addEventListener('input',()=>{
+  const t=q.value.trim();
+  if(!t)return render(DATA);
+  const w=t.split(/\s+/);
+  render(DATA.filter(it=>{
+    const hay=[it.n,it.t,it.k,it.f||'',it.o||'',it.s||'',it.p||''].join(' ');
+    return w.every(x=>hay.includes(x));
+  }));
+});
+render(DATA);
+q.focus();
+</script>
+</body>
+</html>

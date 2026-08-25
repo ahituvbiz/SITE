@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כספי גיל הזהב – כלי עזר לייעוץ 55+</title>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#ffffff; --ink:#1a2531; --muted:#5b6b7a;
+    --brand:#0e6e6e; --brand2:#12a3a3; --accent:#c9821b; --gold:#b8860b;
+    --good:#1f8a4c; --bad:#c0392b; --warn:#b7791f;
+    --line:#e2e8ee; --soft:#f4f8f9; --chip:#e8f4f4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Arial,"Assistant",sans-serif;background:#eef2f4;color:var(--ink);line-height:1.6}
+  header{background:linear-gradient(135deg,var(--brand),#0a4f57);color:#fff;padding:26px 20px;box-shadow:0 2px 14px rgba(0,0,0,.15)}
+  header .wrap{max-width:1180px;margin:0 auto}
+  header h1{margin:0;font-size:28px;letter-spacing:-.3px}
+  header p{margin:6px 0 0;opacity:.9;font-size:15px}
+  .disclaimer{background:#fff8e6;border:1px solid #f0d98a;color:#7a5b12;padding:10px 14px;border-radius:8px;font-size:13px;margin-top:14px}
+  nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  nav .wrap{max-width:1180px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px}
+  nav button{background:var(--soft);border:1px solid var(--line);color:var(--ink);padding:8px 13px;border-radius:20px;cursor:pointer;font-size:13.5px;font-weight:600;transition:.15s}
+  nav button:hover{background:var(--chip)}
+  nav button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+  main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:22px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  section h2{margin:0 0 4px;font-size:22px;color:var(--brand)}
+  section .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+  h3{color:var(--ink);font-size:17px;border-right:4px solid var(--accent);padding-right:10px;margin:22px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:right;vertical-align:top}
+  thead th{background:var(--brand);color:#fff;font-weight:600;position:sticky}
+  tbody tr:nth-child(even){background:var(--soft)}
+  .nom{background:#fdecea;color:#a5372b;font-weight:600;text-align:center}
+  .real{background:#e7f5ec;color:#1c7a44;font-weight:600;text-align:center}
+  .eq{background:#fff6e0;color:#8a6512;font-weight:700;text-align:center}
+  /* checklist */
+  .cl-group{margin-bottom:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .cl-head{background:var(--chip);padding:10px 14px;font-weight:700;color:var(--brand);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .cl-body{padding:8px 14px}
+  .q{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;border-bottom:1px dashed #eef2f4}
+  .q:last-child{border-bottom:none}
+  .q input[type=checkbox]{margin-top:5px;width:17px;height:17px;accent-color:var(--brand);flex:none}
+  .q .qt{font-weight:600}
+  .q .why{color:var(--muted);font-size:12.5px}
+  /* cards */
+  .filter{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .filter .seg{display:inline-flex;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+  .filter .seg button{background:#fff;border:none;padding:8px 16px;cursor:pointer;font-weight:600;font-size:13.5px}
+  .filter .seg button.on{background:var(--brand);color:#fff}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+  .card{border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .card .ct{background:var(--soft);padding:12px 14px;border-bottom:1px solid var(--line)}
+  .card .ct h4{margin:0;font-size:16px;color:var(--brand)}
+  .badges{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap}
+  .badge{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+  .b-tax{background:#eef;color:#3b3b8f}.b-defer{background:#e7f5ec;color:#1c7a44}
+  .b-liq{background:#fff1e0;color:#8a5512}.b-heir{background:#f3e8ff;color:#6b2f9e}
+  .card .cb{padding:12px 14px;font-size:13.5px}
+  .card .cb .line{display:flex;gap:6px;margin-bottom:5px}
+  .pro,.con{margin:8px 0}
+  .pro b{color:var(--good)}.con b{color:var(--bad)}
+  .pro ul,.con ul{margin:4px 0;padding-right:18px}
+  .pro li,.con li{margin:2px 0}
+  .fit{margin-top:8px;font-size:12.5px;padding:7px 9px;border-radius:8px;background:var(--soft)}
+  .star{color:var(--gold)}
+  /* forms */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  label.fld{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+  input[type=number],select,input[type=text]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:inherit}
+  .hint{font-size:12px;color:var(--muted);margin-top:3px}
+  .calc-out{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+  .kpi .box .v{font-size:22px;font-weight:800;color:var(--brand)}
+  .kpi .box .l{font-size:12px;color:var(--muted)}
+  .verdict{padding:12px 14px;border-radius:10px;font-weight:700;margin-top:14px;text-align:center;font-size:15px}
+  .v-nom{background:#fdecea;color:#a5372b;border:1px solid #f3c4bd}
+  .v-real{background:#e7f5ec;color:#1c7a44;border:1px solid #b8e0c6}
+  .btn{background:var(--brand);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+  .btn:hover{background:#0a5a5a}
+  details.note{margin-top:10px;font-size:13px;background:var(--soft);border-radius:8px;padding:8px 12px}
+  details.note summary{cursor:pointer;font-weight:600;color:var(--brand)}
+  .tag{display:inline-block;font-size:11px;background:var(--chip);color:var(--brand);padding:1px 7px;border-radius:10px;margin-inline-start:6px}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
+  @media print{nav{display:none}section{break-inside:avoid;box-shadow:none}}
+</style>
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>כספי גיל הזהב 🏅 — כלי עזר לייעוץ ללקוחות 55+</h1>
+    <p>צ'ק-ליסט שאלות · מפת מכשירים פיננסיים (סולידי / מנייתי) · מחשבון מס לגיל 60+ · סימולטור נומינלי מול ריאלי</p>
+    <div class="disclaimer">⚠️ כלי עזר פנימי בלבד. אינו מהווה ייעוץ מס/פנסיוני או תחליף לחוות דעת מוסמכת. חבות המס הסופית נקבעת ע"י רשות המסים. נתוני מדרגות מס נכונים לשנת המס 2026.</div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <button data-t="checklist" class="active">📋 צ'ק-ליסט שאלות</button>
+    <button data-t="instruments">🧰 מכשירים – יתרונות/חסרונות</button>
+    <button data-t="tables">📊 טבלאות מיסוי ותרחישים</button>
+    <button data-t="taxcalc">🧮 מחשבון מס 60+</button>
+    <button data-t="sim">📈 סימולטור נומינלי/ריאלי</button>
+    <button data-t="engine">🎯 מנוע המלצה</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= CHECKLIST ================= -->
+<section id="checklist">
+  <h2>📋 צ'ק-ליסט שאלות ללקוח</h2>
+  <p class="sub">לעבור על כל הקבוצות לפני מתן המלצה. סמן ✔ תוך כדי הפגישה. לחיצה על כותרת קבוצה מכווצת/פותחת.</p>
+  <div id="clWrap"></div>
+  <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn" onclick="printChecklist()">🖨️ הדפס צ'ק-ליסט</button>
+    <button class="btn" style="background:#5b6b7a" onclick="resetChecklist()">↺ אפס סימונים</button>
+  </div>
+</section>
+
+<!-- ================= INSTRUMENTS ================= -->
+<section id="instruments" style="display:none">
+  <h2>🧰 מכשירים פיננסיים — יתרונות וחסרונות</h2>
+  <p class="sub">מסננים לפי סוג ההשקעה שהלקוח מעוניין בה. הכוכבים <span class="star">★</span> מציינים מידת התאמה לאותה מטרה.</p>
+  <div class="filter">
+    <span style="font-weight:600">הצג התאמה ל:</span>
+    <div class="seg" id="fitSeg">
+      <button data-f="all" class="on">הכל</button>
+      <button data-f="solid">סולידי</button>
+      <button data-f="equity">מנייתי</button>
+    </div>
+  </div>
+  <div class="cards" id="cardWrap"></div>
+</section>
+
+<!-- ================= TABLES ================= -->
+<section id="tables" style="display:none">
+  <h2>📊 טבלאות עזר</h2>
+  <p class="sub">שתי הטבלאות מתוך מסמך ההנחיות — למבט מהיר תוך כדי הפגישה.</p>
+
+  <h3>טבלה 1 — מיסוי, דחיית מס והורשה לפי מכשיר</h3>
+  <div style="overflow:auto">
+  <table>
+    <thead><tr><th>כלי</th><th>בסיס המיסוי</th><th>דחיית מס</th><th>אחרי 120 (הורשה)</th></tr></thead>
+    <tbody id="taxTable"></tbody>
+  </table>
+  </div>
+
+  <h3>טבלה 2 — מתי עדיף מס נומינלי (15%) ומתי ריאלי (25%)</h3>
+  <p class="hint">הכלל: כאשר האינפלציה נמוכה יחסית לתשואה — עדיף מס <b>נומינלי 15%</b> (למשל תיקון 190, אג"ח לא צמוד). כשהאינפלציה גבוהה יחסית — עדיף מס <b>ריאלי 25%</b>. הצבע: <span style="color:#a5372b;font-weight:700">אדום=נומינלי עדיף</span>, <span style="color:#1c7a44;font-weight:700">ירוק=ריאלי עדיף</span>, <span style="color:#8a6512;font-weight:700">כתום=שקול</span>.</p>
+  <div style="overflow:auto">
+  <table>
+    <thead>
+      <tr><th>אפיק</th><th>תשואה נומ' ↓ / אינפלציה ←</th>
+      <th>0%</th><th>0.5%</th><th>1%</th><th>1.5%</th><th>2%</th><th>2.5%</th><th>3%</th><th>3.5%</th><th>4%</th></tr>
+    </thead>
+    <tbody id="scenTable"></tbody>
+  </table>
+  </div>
+  <details class="note"><summary>איך נבנתה הטבלה?</summary>
+    לכל תא: מס נומינלי = 15% × הרווח הנומינלי; מס ריאלי = 25% × הרווח הריאלי (בניכוי אינפלציה). מוצג האפיק שבו המס נמוך יותר לאותו שילוב תשואה/אינפלציה (חד־שנתי, לצורך המחשת הכלל — הפער מתעצם ככל שמאריכים אופק). התאים תואמים את הטבלה שבמסמך המקורי.</details>
+</section>
+
+<!-- ================= TAX CALC ================= -->
+<section id="taxcalc" style="display:none">
+  <h2>🧮 מחשבון מס רווח הון — יחיד 60+</h2>
+  <p class="sub">ממחיש את "נקודת הזהב": ל-60+ ללא הכנסה או עם הכנסה נמוכה, ניתן לדרוש בדוח השנתי מיסוי לפי מדרגות (10%/14%/20%) במקום 25% — ולעיתים להגיע למס אפקטיבי אפסי.</p>
+  <div class="grid3">
+    <div>
+      <label class="fld">הכנסה שנתית חייבת אחרת (₪) <span class="tag">פנסיה/עבודה/שכ"ד/ריבית</span></label>
+      <input type="number" id="tc_other" value="0" min="0" step="1000">
+      <div class="hint">כל הכנסה חייבת שאינה רווח ההון הנבדק.</div>
+    </div>
+    <div>
+      <label class="fld">רווח ההון הריאלי החייב (₪)</label>
+      <input type="number" id="tc_gain" value="50000" min="0" step="1000">
+    </div>
+    <div>
+      <label class="fld">סוג הנכס</label>
+      <select id="tc_asset">
+        <option value="real">רגיל / צמוד — מדרגות עד תקרת 25%</option>
+        <option value="nonlinked">אג"ח/פקדון לא צמוד — תקרת 15%</option>
+      </select>
+    </div>
+    <div>
+      <label class="fld">נקודות זיכוי (מס') <span class="tag">כ-2,904 ₪/שנה לנק'</span></label>
+      <input type="number" id="tc_credits" value="2.25" min="0" step="0.25">
+      <div class="hint">תושב 2.25, אזרח 2.75. גיל/גמלאי לא מזכה אוטומטית.</div>
+    </div>
+    <div>
+      <label class="fld">שווי נקודת זיכוי שנתי (₪)</label>
+      <input type="number" id="tc_cpval" value="2904" min="0" step="12">
+    </div>
+    <div>
+      <label class="fld">זיכוי נוסף – תרומות/ביטוח חיים (₪)</label>
+      <input type="number" id="tc_extra" value="0" min="0" step="100">
+      <div class="hint">סכום הזיכוי (לא ההוצאה) — מקטין מס שקל בשקל.</div>
+    </div>
+  </div>
+  <div style="margin-top:14px"><button class="btn" onclick="runTax()">חשב מס</button></div>
+
+  <div class="calc-out" id="taxOut" style="display:none">
+    <div class="kpi">
+      <div class="box"><div class="v" id="k_reg">—</div><div class="l">מס "רגיל" (25%/15% קבוע)</div></div>
+      <div class="box"><div class="v" id="k_opt">—</div><div class="l">מס לפי מדרגות (מיטבי)</div></div>
+      <div class="box"><div class="v" id="k_eff">—</div><div class="l">שיעור מס אפקטיבי</div></div>
+      <div class="box"><div class="v" id="k_save">—</div><div class="l">חיסכון / החזר פוטנציאלי</div></div>
+    </div>
+    <div id="taxBreak" style="margin-top:14px"></div>
+    <details class="note"><summary>הנחות וחשבון</summary>
+      מדרגות 2026 לגיל 60+ (שנתי): 10% עד 84,120 · 14% עד 120,720 · 20% עד 228,000 · מעליהן שיעורים רגילים (31/35/47%+מס יסף) בקירוב. רווח ההון "מונח" מעל ההכנסה האחרת, וכל שקל ממנו ממוסה בשיעור השולי אך <b>מוגבל לתקרה</b> (25% רגיל / 15% לא־צמוד). נקודות הזיכוי והזיכויים הנוספים מקוזזים כנגד סך המס עד לאיפוסו. המס ה"רגיל" מנוכה בד"כ במקור — הפער נדרש כהחזר בדוח שנתי.</details>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR ================= -->
+<section id="sim" style="display:none">
+  <h2>📈 סימולטור תשואה, אינפלציה ומס — הסכום המנייתי/סולידי</h2>
+  <p class="sub">הזן את הסכום המיועד להשקעה ובחן ערך עתידי, רווח ריאלי מול נומינלי, והשוואת נטל המס בין אפיק ממוסה ריאלית (25%) לאפיק ממוסה נומינלית (15%, כגון תיקון 190 / אג"ח לא צמוד).</p>
+  <div class="grid3">
+    <div><label class="fld">סכום ההשקעה (₪)</label><input type="number" id="s_amt" value="1000000" step="10000"></div>
+    <div><label class="fld">תשואה נומינלית שנתית (%)</label><input type="number" id="s_ret" value="7" step="0.25"></div>
+    <div><label class="fld">אינפלציה שנתית (%)</label><input type="number" id="s_inf" value="2.5" step="0.25"></div>
+    <div><label class="fld">אופק (שנים)</label><input type="number" id="s_yrs" value="15" step="1" min="1"></div>
+    <div>
+      <label class="fld">פרופיל</label>
+      <select id="s_prof">
+        <option value="solid">סולידי (3–5%)</option>
+        <option value="equity" selected>מנייתי (6–10%)</option>
+      </select>
+    </div>
+  </div>
+  <div style="margin-top:14px"><button class="btn" onclick="runSim()">הרץ סימולציה</button></div>
+
+  <div class="calc-out" id="simOut" style="display:none">
+    <div class="kpi">
+      <div class="box"><div class="v" id="s_fv">—</div><div class="l">שווי עתידי (נומינלי)</div></div>
+      <div class="box"><div class="v" id="s_fvr">—</div><div class="l">שווי עתידי בכוח קנייה של היום</div></div>
+      <div class="box"><div class="v" id="s_gn">—</div><div class="l">רווח נומינלי</div></div>
+      <div class="box"><div class="v" id="s_gr">—</div><div class="l">רווח ריאלי</div></div>
+    </div>
+    <div style="margin-top:16px" class="grid2">
+      <div class="box" style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px">
+        <h4 style="margin:0 0 8px;color:#a5372b">אפיק ממוסה נומינלית (15%)<br><span class="hint">תיקון 190 · אג"ח לא צמוד</span></h4>
+        <div>מס: <b id="s_taxnom">—</b></div>
+        <div>נטו ביד: <b id="s_netnom">—</b></div>
+      </div>
+      <div class="box" style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px">
+        <h4 style="margin:0 0 8px;color:#1c7a44">אפיק ממוסה ריאלית (25%)<br><span class="hint">מניות/קרן/אג"ח צמוד · תיק ני"ע</span></h4>
+        <div>מס: <b id="s_taxreal">—</b></div>
+        <div>נטו ביד: <b id="s_netreal">—</b></div>
+      </div>
+    </div>
+    <div class="verdict" id="s_verdict">—</div>
+    <details class="note"><summary>נוסחאות</summary>
+      שווי עתידי = סכום × (1+תשואה)^שנים · רווח נומינלי = שווי − קרן · רווח ריאלי = שווי − קרן×(1+אינפלציה)^שנים · מס נומינלי = 15%×רווח נומינלי · מס ריאלי = 25%×max(0, רווח ריאלי). לא נלקח בחשבון פיצול מדרגות 60+ (ראה מחשבון המס) — כאן ההשוואה היא ברמת שיעור המס הסטטוטורי בין האפיקים.</details>
+  </div>
+</section>
+
+<!-- ================= RECOMMENDATION ENGINE ================= -->
+<section id="engine" style="display:none">
+  <h2>🎯 מנוע המלצה</h2>
+  <p class="sub">מלא את נתוני הלקוח (עבור האדם שעל שמו שוקלים להפקיד). הכלי ידרג את האפיקים, ימליץ על המתאים ביותר עם יתרונותיו וחסרונותיו, ויציג את החלופות עם הסבר מדוע לא הומלצו.</p>
+  <div class="grid3">
+    <div>
+      <label class="fld">סוג ההשקעה הרצוי</label>
+      <select id="re_goal"><option value="equity">מנייתי</option><option value="solid">סולידי</option><option value="mixed">מעורב</option></select>
+    </div>
+    <div><label class="fld">גיל</label><input type="number" id="re_age" value="69" min="18"></div>
+    <div><label class="fld">סכום להפקדה (₪)</label><input type="number" id="re_amount" value="1000000" step="10000"></div>
+    <div><label class="fld">קצבת זקנה חודשית שכבר מתקבלת (₪)</label><input type="number" id="re_pension" value="8500" step="100">
+      <div class="hint">קצבה מעל ~4,600 ₪ פותחת משיכה כדין בתיקון 190.</div></div>
+    <div><label class="fld">הכנסה שנתית חייבת אחרת (₪)</label><input type="number" id="re_income" value="102000" step="1000">
+      <div class="hint">פנסיה/עבודה/שכ"ד — לבדיקת ניצול מדרגות 60+.</div></div>
+    <div><label class="fld">אזרח / גרין קארד ארה"ב?</label>
+      <select id="re_us"><option value="no">לא</option><option value="yes">כן</option></select></div>
+    <div><label class="fld">מטרת הכסף העיקרית</label>
+      <select id="re_purpose">
+        <option value="growth">צמיחת ההון</option>
+        <option value="inheritance">הורשה לילדים/יורשים</option>
+        <option value="income">הכנסה שוטפת / קצבה</option>
+        <option value="liquidity">נזילות ורזרבה</option>
+      </select></div>
+    <div><label class="fld">אופק ההשקעה (שנים)</label><input type="number" id="re_horizon" value="15" min="0"></div>
+    <div><label class="fld">תשואה נומינלית צפויה (%)</label><input type="number" id="re_ret" value="7" step="0.25">
+      <div class="hint">להערכת תחזית — סולידי ~3–5%, מנייתי ~6–8%.</div></div>
+    <div><label class="fld">אינפלציה שנתית צפויה (%)</label><input type="number" id="re_inf" value="2.5" step="0.25"></div>
+    <div><label class="fld">סבילות סיכון</label>
+      <select id="re_risk"><option value="med">בינונית</option><option value="low">נמוכה</option><option value="high">גבוהה</option></select></div>
+    <div><label class="fld">האם הרווח יְיוחס אליו לצורכי מס? <span class="tag">בן הזוג הרשום / יחיד</span></label>
+      <select id="re_registered"><option value="yes">כן</option><option value="no">לא (מיוחס לבן זוג עובד)</option><option value="unknown">לא בטוח</option></select>
+      <div class="hint">אם ההכנסה מיוחסת לבן זוג צעיר/עובד — הטבת מדרגות 60+ עלולה שלא לחול.</div></div>
+  </div>
+  <div style="margin-top:14px"><button class="btn" onclick="runEngine()">קבל המלצה</button></div>
+  <div id="engineOut" style="margin-top:18px"></div>
+  <details class="note" style="margin-top:16px"><summary>איך המנוע מחשב?</summary>
+    לכל אפיק מחושב ציון התאמה: בסיס לפי סוג ההשקעה (סולידי/מנייתי), ועליו מוחלים כללים לפי הנתונים — תנאי קצבה לתיקון 190, גיל 75 להורשה, בעיית PFIC לאזרח ארה"ב, תקרות הפקדה, נעילת נזילות בקרנות פנסיה, ניצול מדרגות מס 60+, וסבילות סיכון. הפלט מציג את ההנמקה המלאה כדי שתוכל לשקף אותה ללקוח. זהו כלי עזר — ההחלטה הסופית שלך.</details>
+</section>
+
+</main>
+
+<script>
+/* ---------- NAV ---------- */
+document.querySelectorAll('nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('main > section').forEach(s=>s.style.display='none');
+    document.getElementById(b.dataset.t).style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+/* ---------- CHECKLIST DATA ---------- */
+const checklist=[
+ {g:"פרטים דמוגרפיים ומעמד",items:[
+   ["גיל מדויק (ותאריך לידה)","קובע זכאות לתיקון 190 (60+), מדרגות מס 60+, גיל 75 להורשה, וגיל פרישה."],
+   ["מין","גיל פרישה/זכאות קצבה שונה בין גברים לנשים; משפיע על תכנון משיכות."],
+   ["מצב משפחתי + בן/בת זוג","רלוונטי לחישוב מאוחד/נפרד ולזהות 'בן הזוג הרשום' — קריטי לניצול מדרגות מס."],
+   ["מיהו 'בן הזוג הרשום' בתיק מס הכנסה?","אם ההכנסה מיוחסת לבן זוג צעיר/עובד — ההטבה של מדרגות 60+ עלולה להתבטל."],
+   ["תושב ישראל לצורכי מס?","קובע את משטר המס החל."],
+   ["אזרח/בעל גרין קארד ארה\"ב?","חשיפה ל-IRS, PFIC על קרנות ישראליות, דיווח FBAR/8938 — משנה דרמטית את בחירת המכשיר."],
+ ]},
+ {g:"הכנסות ומדרגת מס",items:[
+   ["האם יש הכנסה מעבודה? כמה?","ממלאת מדרגות מס וגורעת מ'רצפת' ההטבה לרווחי הון."],
+   ["הכנסות חייבות אחרות (פנסיה, שכ\"ד, ריבית, דיבידנד)","קובעות כמה 'מקום' נשאר במדרגות 10/14/20% לרווח ההון."],
+   ["סך הכנסה חייבת שנתית צפויה (למעט הרווח)","מתחת ל-228,000 ₪ (2026) → פוטנציאל למס מופחת על הרווח."],
+   ["בעל שליטה / פנסיה תקציבית?","פוסל חלק מהטבות תיקון 190 ומשפיע על שיעורי מס."],
+   ["נקודות זיכוי, זיכויי תרומות (46), ביטוח חיים","מקטינים מס שקל בשקל — עד מס אפקטיבי 0."],
+ ]},
+ {g:"קצבאות ופנסיה",items:[
+   ["האם מקבל קצבת זקנה חודשית? מה גובהה?","קצבה מעל המזערית (~4,600 ₪) היא תנאי להיוון/משיכת הון בתיקון 190."],
+   ["קצבה מוכרת קיימת?","קצבה שמקורה בכספים שכבר מוסו/פטורים — משפיעה על תכנון המשיכה."],
+   ["קצבה מזכה — האם נוצל פטור (קיבוע זכויות)?","משפיע על תכנון הורשה ומיסוי משיכות עתידיות."],
+   ["קרן פנסיה/ביטוח מנהלים פעילים?","נדרשים כדי לנייד כספי גמל/190 לקצבה פטורה."],
+   ["הופקדו כספים לפני/אחרי 2012?","תנאי סף למשיכה חד-פעמית בתיקון 190."],
+ ]},
+ {g:"מצב אישי ובריאות",items:[
+   ["האם יש נכות / זכאות לפטור סעיף 9(5)?","עשוי להקנות פטור ממס על הכנסות מסוימות."],
+   ["מצב בריאותי / תוחלת חיים משוערת","משקל מול תכנון הורשה, קצבה מובטחת, ואופק ההשקעה."],
+   ["ילדים/יורשים ומטרת הורשה?","מכוון לכלים עם מוטבים (מוציא מהעיזבון) מול כלים עם יורשים."],
+ ]},
+ {g:"מאפייני הכסף והצרכים",items:[
+   ["סכום הכסף הפנוי הכולל","בסיס לכל תכנון וחלוקה."],
+   ["חלוקה רצויה: כמה סולידי וכמה מנייתי?","קובע את תמהיל המכשירים."],
+   ["הסכום המיועד למניות (₪)","נדרש לסימולטור תרחישי תשואה/אינפלציה."],
+   ["אופק ההשקעה — מתי יזדקק לכסף?","נזילות מול דחיית מס; קצר-טווח פוסל מכשירים 'כלואים'."],
+   ["צורך בהכנסה שוטפת מהכסף?","מכוון לאפיקים מחלקים/קצבתיים מול צוברים."],
+   ["סבילות סיכון ותגובה לירידות","מרכך את שיעור החשיפה המנייתית."],
+   ["קרן חירום/נזילות מיידית קיימת בנפרד?","ודא שלא כל הכסף 'ננעל'."],
+   ["ניסיון והיכרות עם שוק ההון","משפיע על מורכבות המכשיר המומלץ."],
+ ]},
+];
+
+function renderChecklist(){
+  const w=document.getElementById('clWrap');w.innerHTML='';
+  checklist.forEach((grp,gi)=>{
+    const g=document.createElement('div');g.className='cl-group';
+    let body='';
+    grp.items.forEach((it,ii)=>{
+      body+=`<label class="q"><input type="checkbox" data-id="${gi}-${ii}">
+        <span><span class="qt">${it[0]}</span><br><span class="why">↳ ${it[1]}</span></span></label>`;
+    });
+    g.innerHTML=`<div class="cl-head" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+      <span>${grp.g}</span><span>▾</span></div><div class="cl-body">${body}</div>`;
+    w.appendChild(g);
+  });
+}
+function resetChecklist(){document.querySelectorAll('#clWrap input').forEach(c=>c.checked=false);}
+function printChecklist(){document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('main>section').forEach(s=>s.style.display='none');
+  document.getElementById('checklist').style.display='block';window.print();}
+
+/* ---------- INSTRUMENTS DATA ---------- */
+const instruments=[
+ {n:"קרן כספית",tax:"ריאלי 25%",defer:"אין",liq:"גבוהה מאוד",heir:"יורשים",
+  solid:3,equity:0,
+  pro:["נזילות יומית, ללא קנסות","תחליף פקדון בתשואה צמודה לריבית בנק ישראל","דמי ניהול נמוכים, שקיפות"],
+  con:["מיסוי ריאלי 25% על הרווח","תשואה מוגבלת לריבית קצרת טווח","לא מתאימה לחשיפה מנייתית"],
+  fit:"⭐ עוגן סולידי לכסף שצריך להישאר נזיל. חלופה מודרנית לפקדון."},
+ {n:"מניות (בתיק ני\"ע)",tax:"ריאלי 25%",defer:"אין",liq:"גבוהה",heir:"יורשים",
+  solid:0,equity:4,
+  pro:["פוטנציאל תשואה גבוה לטווח ארוך","שליטה מלאה ושקיפות","קיזוז הפסדים מול רווחים בתיק","דיבידנד 25% קבוע"],
+  con:["תנודתיות גבוהה — לא לסולידי","אין דחיית מס; אירוע מס בכל מכירה","מיסוי דיבידנד 25% קבוע (לא נהנה ממדרגות)"],
+  fit:"⭐ ליבת הרכיב המנייתי למשקיע שרוצה שליטה ישירה ואופק ארוך."},
+ {n:"קרן נאמנות / קרן סל (ETF)",tax:"ריאלי 25%",defer:"אין",liq:"גבוהה",heir:"יורשים",
+  solid:2,equity:4,
+  pro:["פיזור מיידי בעלות נמוכה (בעיקר קרנות סל)","גישה לשווקים גלובליים","מתאים גם לסולידי (אג\"ח) וגם למנייתי"],
+  con:["מיסוי ריאלי 25%; רווחים שחולקו 25% קבוע","דמי ניהול בקרנות אקטיביות","לאזרח ארה\"ב — בעיית PFIC בקרנות ישראליות"],
+  fit:"⭐ הדרך הפשוטה לפיזור. סל מנייתי לרכיב הצומח, סל אג\"ח לרכיב הסולידי."},
+ {n:"אג\"ח צמוד (מדד)",tax:"ריאלי 25%",defer:"אין",liq:"בינונית-גבוהה",heir:"יורשים",
+  solid:4,equity:1,
+  pro:["הגנה מפני אינפלציה (צמוד מדד)","תזרים ריבית ידוע","מיסוי ריאלי — האינפלציה לא ממוסה"],
+  con:["רגישות לשינויי ריבית (מח\"מ)","תשואה ריאלית נמוכה בסביבת ריבית נמוכה"],
+  fit:"⭐ עוגן סולידי למי שחושש מאינפלציה ורוצה שמירת כוח קנייה."},
+ {n:"פוליסת חיסכון",tax:"ריאלי 25%",defer:"בין מסלולים (לא בין חברות)",liq:"גבוהה",heir:"מוטבים",
+  solid:3,equity:3,
+  pro:["מעבר בין מסלולים ללא אירוע מס (דחייה)","נזילות מלאה בכל עת","מוטבים — מחוץ לעיזבון","גמיש: סולידי או מנייתי"],
+  con:["מס 25% ריאלי במשיכה","דמי ניהול גבוהים יחסית לקרן סל","מעבר לחברה אחרת = אירוע מס"],
+  fit:"⭐ 'מעטפת' גמישה המאפשרת שינוי תמהיל ללא מס. טובה לשני הפרופילים."},
+ {n:"גמל להשקעה",tax:"ריאלי 25% (15% במסלול קצבה)",defer:"יש",liq:"גבוהה",heir:"מוטבים",
+  solid:3,equity:3,
+  pro:["דחיית מס מלאה עד משיכה","מעבר בין מסלולים/גופים ללא אירוע מס","בגיל פרישה — ניוד לקצבה פטורה ממס","מוטבים מחוץ לעיזבון"],
+  con:["תקרת הפקדה שנתית (~76 אלף ₪ ליחיד)","מס 25% במשיכה הונית רגילה","דמי ניהול"],
+  fit:"⭐ כלי דחיית-מס נזיל. מצוין לגישור עד גיל פרישה והמרה לקצבה פטורה."},
+ {n:"קרן השתלמות מעל התקרה",tax:"ריאלי 25% (חלק מעל התקרה)",defer:"יש",liq:"אחרי 6 שנים",heir:"מוטבים",
+  solid:3,equity:3,
+  pro:["רווחים על ההפקדה עד התקרה — פטורים ממס","דחיית מס","נזילות אחרי 6 שנים / בגיל פרישה","מוטבים מחוץ לעיזבון"],
+  con:["הפקדה מעל התקרה — הרווח היחסי חייב 25%","נזילות רק אחרי 6 שנים","רלוונטי בעיקר למי שכבר מפקיד"],
+  fit:"⭐ נצל קודם את החלק הפטור עד התקרה; מעליה — יתרון הדחייה בלבד."},
+ {n:"אג\"ח לא צמוד",tax:"נומינלי 15%",defer:"אין",liq:"בינונית-גבוהה",heir:"יורשים",
+  solid:4,equity:1,
+  pro:["מיסוי נומינלי מופחת 15% (במקום 25%)","תזרים ריבית קבוע וצפוי","יתרון מס כשהאינפלציה נמוכה"],
+  con:["אין הגנת אינפלציה — נשחק בעליית מדד","רגישות לריבית","בסביבת אינפלציה גבוהה — 15% נומינלי פחות משתלם"],
+  fit:"⭐ עוגן סולידי כשמצפים לאינפלציה נמוכה — יתרון המס הנומינלי בולט."},
+ {n:"פקדון בנקאי לא צמוד",tax:"נומינלי 15%",defer:"אין",liq:"לפי תנאי הפקדון",heir:"יורשים",
+  solid:4,equity:0,
+  pro:["ודאות מלאה, ללא סיכון שוק","מיסוי נומינלי 15%","הטבות מס נוספות לגמלאים/הכנסה נמוכה על ריבית פקדון"],
+  con:["תשואה נמוכה; נשחק באינפלציה","כסף 'כלוא' לתקופת הפקדון","ריבית לרוב נחותה מקרן כספית"],
+  fit:"⭐ למי שרוצה ודאות מוחלטת ואפס תנודתיות. בדוק הטבות ריבית לגמלאי."},
+ {n:"תיקון 190",tax:"נומינלי 15% (משיכה כדין)",defer:"יש",liq:"מגיל 60 בתנאים",heir:"מוטבים",
+  solid:3,equity:4,
+  pro:["מס 15% נומינלי במקום 25% ריאלי","המרה לקצבה פטורה ממס מגיל 60","הורשה לפני גיל 75 — פטורה ממס רווחי הון","דחיית מס, מעבר מסלולים/גופים ללא מס, חשיפה לנכסים לא סחירים","הלוואה עד ~78% בתנאים אטרקטיביים"],
+  con:["דורש הפקדה מקבילה לקצבה עד התקרה המוטבת","נזילות מלאה רק מגיל 60 + קצבה מזערית","משיכה שלא כדין — 35% מהקרן!","הורשה אחרי 75 — 15% נומינלי"],
+  fit:"⭐ פנינת התכנון ל-60+ עם קצבה מספקת. מצוין למנייתי (מס נומינלי נמוך) ולהורשה."},
+ {n:"גמל פנסיוני (תגמולים)",tax:"אין מס רווחי הון",defer:"אין מס רווחי הון",liq:"קצבה בפרישה",heir:"מוטבים",
+  solid:3,equity:4,
+  pro:["פטור מלא ממס רווחי הון לאורך הצבירה","קצבה פטורה בפרישה (עד התקרה)","הטבות מס על הפקדה","מוטבים מחוץ לעיזבון"],
+  con:["נזילות רק בפרישה (משיכה מוקדמת — קנס 35%)","ייעוד קצבתי","פחות גמיש לכסף פנוי נזיל"],
+  fit:"⭐ העוגן הפנסיוני. לכסף שאין צורך בו עד הפרישה — פטור המס עוצמתי."},
+ {n:"קרן פנסיה",tax:"אין מס רווחי הון",defer:"אין מס רווחי הון",liq:"קצבה בפרישה",heir:"שארים",
+  solid:3,equity:3,
+  pro:["פטור ממס רווחי הון","קצבה מובטחת לכל החיים + כיסוי שארים ונכות","ערבות הדדית ודמי ניהול נמוכים","הטבות מס על הפקדה"],
+  con:["נזילות רק כקצבה בפרישה","הכסף עובר לשארים (לא ליורשים חופשי)","תלות בגורמים אקטואריים"],
+  fit:"⭐ בסיס הביטחון החודשי לכל החיים. פחות מתאים לכסף שמיועד להורשה חופשית."},
+];
+const solidRoman=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+function renderCards(f='all'){
+  const w=document.getElementById('cardWrap');w.innerHTML='';
+  instruments.forEach(it=>{
+    if(f==='solid'&&it.solid<2)return;
+    if(f==='equity'&&it.equity<2)return;
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<div class="ct"><h4>${it.n}</h4>
+      <div class="badges">
+        <span class="badge b-tax">מס: ${it.tax}</span>
+        <span class="badge b-defer">דחייה: ${it.defer}</span>
+        <span class="badge b-liq">נזילות: ${it.liq}</span>
+        <span class="badge b-heir">הורשה: ${it.heir}</span>
+      </div></div>
+      <div class="cb">
+        <div class="pro"><b>יתרונות ✔</b><ul>${it.pro.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="con"><b>חסרונות ✘</b><ul>${it.con.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div style="font-size:12.5px;margin-top:4px">התאמה סולידי: <span class="star">${solidRoman(it.solid)}</span> · מנייתי: <span class="star">${solidRoman(it.equity)}</span></div>
+        <div class="fit">${it.fit}</div>
+      </div>`;
+    w.appendChild(c);
+  });
+}
+document.querySelectorAll('#fitSeg button').forEach(b=>{
+  b.onclick=()=>{document.querySelectorAll('#fitSeg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');renderCards(b.dataset.f);};
+});
+
+/* ---------- TABLE 1 ---------- */
+const t1=[
+ ["קרן כספית","ריאלי","אין","יורשים"],
+ ["מניות (בתיק ני\"ע)","ריאלי","אין","יורשים"],
+ ["קרן נאמנות / קרן סל","ריאלי","אין","יורשים"],
+ ["אג\"ח צמוד","ריאלי","אין","יורשים"],
+ ["פוליסת חיסכון","ריאלי","בין מסלולים, לא בין חברות","מוטבים"],
+ ["גמל להשקעה","ריאלי","יש","מוטבים"],
+ ["קרן השתלמות מעל התקרה","ריאלי","יש","מוטבים"],
+ ["אג\"ח לא צמוד","נומינלי","אין","יורשים"],
+ ["פקדון בנקאי לא צמוד","נומינלי","אין","יורשים"],
+ ["תיקון 190","משיכה כדין: נומינלי · ירושה<75 פטורה · ירושה>75 נומינלי · שלא כדין 35%","יש","מוטבים"],
+ ["גמל פנסיוני","אין מס רווחי הון","אין מס רווחי הון","מוטבים"],
+ ["קרן פנסיה","אין מס רווחי הון","אין מס רווחי הון","שארים"],
+];
+function renderT1(){document.getElementById('taxTable').innerHTML=
+  t1.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');}
+
+/* ---------- TABLE 2 (scenario grid) ---------- */
+const returns=[3,4,5,6,7,8,9,10];
+const infls=[0,0.5,1,1.5,2,2.5,3,3.5,4];
+function cellVerdict(r,i){
+  const P=100;
+  const gainNom=P*(r/100);
+  const gainReal=P*((1+r/100)-(1+i/100));
+  const taxNom=0.15*gainNom;
+  const taxReal=0.25*Math.max(0,gainReal);
+  const d=taxNom-taxReal;
+  if(Math.abs(d)<0.001)return['=','eq'];
+  return d<0?['נומינלי','nom']:['ריאלי','real'];
+}
+function renderT2(){
+  const tb=document.getElementById('scenTable');tb.innerHTML='';
+  returns.forEach(r=>{
+    const prof=r<=5?'סולידי':'מנייתי';
+    let row=`<tr><td><b>${prof}</b></td><td style="text-align:center;font-weight:700">${r}%</td>`;
+    infls.forEach(i=>{const v=cellVerdict(r,i);row+=`<td class="${v[1]}">${v[0]}</td>`;});
+    tb.innerHTML+=row+'</tr>';
+  });
+}
+
+/* ---------- TAX CALC ---------- */
+const fmt=n=>'₪'+Math.round(n).toLocaleString('he-IL');
+const fmt1=n=>n.toLocaleString('he-IL',{maximumFractionDigits:1});
+const brackets=[[84120,.10],[120720,.14],[228000,.20],[269280,.31],[560280,.35],[721560,.47],[Infinity,.50]];
+function marginalRate(cum){for(const b of brackets){if(cum<b[0])return b[1];}return .50;}
+function runTax(){
+  const other=+document.getElementById('tc_other').value||0;
+  const gain=+document.getElementById('tc_gain').value||0;
+  const asset=document.getElementById('tc_asset').value;
+  const credits=+document.getElementById('tc_credits').value||0;
+  const cpval=+document.getElementById('tc_cpval').value||0;
+  const extra=+document.getElementById('tc_extra').value||0;
+  const cap=asset==='nonlinked'?.15:.25;
+  // exact bracket-fill: stack the gain above 'other' income
+  let tax=0;const bandTax={};
+  let lo=other, remaining=gain, prev=0;
+  const edges=brackets.map(b=>b[0]);
+  for(let bi=0;bi<brackets.length && remaining>0;bi++){
+    const top=brackets[bi][0];
+    if(lo>=top)continue;
+    const slice=Math.min(remaining, top-lo);
+    const r=Math.min(brackets[bi][1],cap);
+    tax+=slice*r; lo+=slice; remaining-=slice;
+    const key=(r*100).toFixed(0)+'%';bandTax[key]=(bandTax[key]||0)+slice;
+  }
+  const regTax=gain*cap;
+  const creditsVal=credits*cpval+extra;
+  const optNet=Math.max(0,tax-creditsVal);
+  const regNet=Math.max(0,regTax-creditsVal);
+  const eff=gain>0?optNet/gain*100:0;
+  document.getElementById('k_reg').textContent=fmt(regNet);
+  document.getElementById('k_opt').textContent=fmt(optNet);
+  document.getElementById('k_eff').textContent=fmt1(eff)+'%';
+  document.getElementById('k_save').textContent=fmt(Math.max(0,regNet-optNet));
+  let br='<b>פירוט מדרגות שחלו על הרווח:</b><table><thead><tr><th>שיעור שולי</th><th>חלק מהרווח (₪)</th><th>מס (₪)</th></tr></thead><tbody>';
+  Object.keys(bandTax).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(k=>{
+    const amt=bandTax[k];br+=`<tr><td>${k}</td><td>${fmt(amt)}</td><td>${fmt(amt*parseInt(k)/100)}</td></tr>`;});
+  br+=`</tbody></table><div style="margin-top:8px">מס לפני זיכויים: <b>${fmt(tax)}</b> · זיכויים (נק' + נוסף): <b>${fmt(creditsVal)}</b> · <b>מס סופי מיטבי: ${fmt(optNet)}</b></div>`;
+  if(optNet<=0)br+=`<div class="verdict v-real" style="margin-top:10px">✔ מס אפקטיבי אפסי — הזיכויים מכסים את מלוא חבות המס!</div>`;
+  document.getElementById('taxBreak').innerHTML=br;
+  document.getElementById('taxOut').style.display='block';
+}
+
+/* ---------- SIMULATOR ---------- */
+function runSim(){
+  const P=+document.getElementById('s_amt').value||0;
+  const r=(+document.getElementById('s_ret').value||0)/100;
+  const inf=(+document.getElementById('s_inf').value||0)/100;
+  const n=+document.getElementById('s_yrs').value||1;
+  const fv=P*Math.pow(1+r,n);
+  const infFactor=Math.pow(1+inf,n);
+  const fvReal=fv/infFactor;
+  const gainNom=fv-P;
+  const gainReal=fv-P*infFactor;
+  const taxNom=0.15*Math.max(0,gainNom);
+  const taxReal=0.25*Math.max(0,gainReal);
+  document.getElementById('s_fv').textContent=fmt(fv);
+  document.getElementById('s_fvr').textContent=fmt(fvReal);
+  document.getElementById('s_gn').textContent=fmt(gainNom);
+  document.getElementById('s_gr').textContent=fmt(gainReal);
+  document.getElementById('s_taxnom').textContent=fmt(taxNom);
+  document.getElementById('s_netnom').textContent=fmt(fv-taxNom);
+  document.getElementById('s_taxreal').textContent=fmt(taxReal);
+  document.getElementById('s_netreal').textContent=fmt(fv-taxReal);
+  const vd=document.getElementById('s_verdict');
+  if(taxNom<taxReal){vd.className='verdict v-nom';
+    vd.textContent=`💡 עדיף אפיק ממוסה נומינלית (15%) — כגון תיקון 190 / אג"ח לא צמוד. חיסכון מס: ${fmt(taxReal-taxNom)}`;}
+  else if(taxReal<taxNom){vd.className='verdict v-real';
+    vd.textContent=`💡 עדיף אפיק ממוסה ריאלית (25%) — האינפלציה מקטינה את הרווח החייב. חיסכון מס: ${fmt(taxNom-taxReal)}`;}
+  else{vd.className='verdict';vd.style.background='#fff6e0';vd.style.color='#8a6512';vd.textContent='שני האפיקים שקולים בתרחיש זה.';}
+  document.getElementById('simOut').style.display='block';
+}
+
+/* ---------- RECOMMENDATION ENGINE ---------- */
+function val(id){return document.getElementById(id).value;}
+function runEngine(){
+  const goal=val('re_goal'), age=+val('re_age')||0, amount=+val('re_amount')||0,
+    pension=+val('re_pension')||0, income=+val('re_income')||0, us=val('re_us')==='yes',
+    purpose=val('re_purpose'), horizon=+val('re_horizon')||0, risk=val('re_risk'),
+    registered=val('re_registered'), ret=(+val('re_ret')||0)/100, inf=(+val('re_inf')||0)/100;
+  const is60=age>=60, under75=age<75, pensionOK=pension>=4600, highInc=income>=228000;
+  const bracketBenefit=is60 && !highInc && registered==='yes';
+  const shortH=horizon>0 && horizon<5;
+
+  const res=instruments.map(it=>{
+    const n=it.n; let s=10*(goal==='solid'?it.solid:goal==='equity'?it.equity:Math.max(it.solid,it.equity));
+    const pos=[],neg=[];
+    const isPen=n.includes('גמל פנסיוני')||n.includes('קרן פנסיה');
+    if(n.includes('190')){
+      if(!is60){s-=40;neg.push('לא זמין למשיכה מתחת לגיל 60');}
+      else{
+        if(!pensionOK){s-=28;neg.push('קצבה חודשית מתחת ל-4,600 ₪ → משיכה "שלא כדין" (קנס 35% מהקרן) או כסף נעול כקצבה');}
+        else{s+=14;pos.push('מס 15% נומינלי במקום 25% ריאלי, ועומד בתנאי המשיכה כדין (קצבה מספקת)');}
+        if(under75&&purpose==='inheritance'){s+=12;pos.push('הורשה לפני גיל 75 — פטורה ממס רווחי הון (חלון רלוונטי לפי הגיל)');}
+        if(!bracketBenefit&&pensionOK){s+=4;pos.push('כשאין ניצול מדרגות מס — יתרון המס הנומינלי בולט');}
+      }
+      if(amount>200000&&pensionOK){s+=3;pos.push('אין תקרת הפקדה — מתאים לסכום גדול');}
+    }
+    if(isPen){
+      s+=8;pos.push('פטור מלא ממס רווחי הון לאורך הצבירה');
+      if(purpose==='income'){s+=14;pos.push('קצבה מובטחת לכל החיים (+ כיסוי שארים/נכות)');}
+      if(purpose==='liquidity'||shortH){s-=22;neg.push('נזיל רק כקצבה בפרישה — לא מתאים לצורך נזילות/טווח קצר');}
+      if(purpose==='inheritance'){
+        if(n.includes('קרן פנסיה')){s-=20;neg.push('הכספים עוברים לשארים בלבד — לא ליורשים חופשי');}
+        else{s-=8;neg.push('ייעוד קצבתי — פחות מתאים להורשה חופשית');}
+      }
+      if(n.includes('קרן פנסיה')&&amount>300000){s-=5;neg.push('מגבלות על הפקדה חד-פעמית גדולה לקרן מקיפה');}
+    }
+    if(n.includes('גמל להשקעה')){
+      s+=6;pos.push('דחיית מס, נזילות מלאה, וניוד בין גופים ללא אירוע מס');
+      if(amount>76000){s-=14;neg.push('תקרת הפקדה שנתית (~76 אלף ₪ ליחיד) — לא פתרון יחיד לסכום גדול');}
+    }
+    if(n.includes('השתלמות')){s-=10;neg.push('רלוונטי בעיקר למי שכבר מפקיד; החלק מעל התקרה חייב 25%');}
+    if(n.includes('פוליסת')){s+=5;pos.push('מעטפת גמישה: דחייה בין מסלולים, נזילות מלאה, מוטבים מחוץ לעיזבון');}
+    if(n.includes('כספית')){
+      if(purpose==='liquidity'){s+=8;pos.push('נזילות יומית — מתאים לרזרבה');}
+      if(goal==='equity'){s-=8;neg.push('מיועד לרכיב הסולידי בלבד');}
+    }
+    if(n.includes('מניות')){
+      if(bracketBenefit){s+=6;pos.push('ניתן לנצל מדרגות מס 60+ ולהפחית מ-25%');}
+      else{s-=4;neg.push('מס 25% ריאלי מלא, ללא ניצול מדרגות (הרווח מיוחס לבן זוג עובד / הכנסה גבוהה)');}
+      if(risk==='low'){s-=12;neg.push('תנודתיות גבוהה — לא תואם סבילות סיכון נמוכה');}
+    }
+    if(n.includes('נאמנות')||n.includes('סל')){
+      if(us){s-=25;neg.push('אזרח ארה"ב — קרנות ישראליות = בעיית PFIC ודיווח מורכב');}
+      else{s+=3;pos.push('פיזור מיידי בעלות נמוכה');}
+      if(bracketBenefit&&goal!=='solid'){s+=4;pos.push('אפשר לנצל מדרגות מס 60+');}
+      if(risk==='low'&&goal==='equity'){s-=8;neg.push('רכיב מנייתי — לא תואם סבילות סיכון נמוכה');}
+    }
+    if(n.includes('לא צמוד')){s+=2;pos.push('מיסוי נומינלי מופחת 15%');}
+    if(n.includes('פקדון')){
+      if(risk==='low'){s+=4;pos.push('ודאות מלאה, ללא סיכון שוק');}
+      if(goal==='equity'){s-=8;neg.push('לא מתאים לרכיב מנייתי');}
+    }
+    if(n.includes('אג"ח צמוד')){s+=1;pos.push('הגנת אינפלציה (צמוד מדד)');}
+    return {n,it,s,pos,neg};
+  }).sort((a,b)=>b.s-a.s);
+
+  const max=res[0].s;
+  // ----- projection (future value & expected tax per instrument) -----
+  const nYears=horizon>0?horizon:15;
+  const fv=amount*Math.pow(1+ret,nYears);
+  const gainNom=fv-amount, gainReal=fv-amount*Math.pow(1+inf,nYears);
+  const taxMode=n=>(n.includes('190')||n.includes('לא צמוד'))?'nom':(n.includes('גמל פנסיוני')||n.includes('קרן פנסיה'))?'exempt':'real';
+  const modeTxt={nom:'נומינלי 15%',real:'ריאלי 25%',exempt:'פטור ממס רו"ה'};
+  const taxOf=m=>m==='nom'?0.15*Math.max(0,gainNom):m==='exempt'?0:0.25*Math.max(0,gainReal);
+  res.forEach(x=>{const m=taxMode(x.n);x.taxMode=m;x.tax=taxOf(m);x.net=fv-x.tax;});
+  window._proj={amount,ret,inf,nYears,fv,gainNom,gainReal};
+  const badge=(t,c)=>`<span class="badge" style="background:${c};color:#fff">${t}</span>`;
+  let html='';
+  // warnings summary
+  const warns=[];
+  if(!is60)warns.push('הלקוח מתחת לגיל 60 — תיקון 190 וקצבה פטורה אינם זמינים למשיכה.');
+  if(is60&&!pensionOK)warns.push('הקצבה החודשית נמוכה מ-4,600 ₪ — תיקון 190 על שמו מסוכן (משיכה "שלא כדין" = 35%). שקול על שם בן זוג עם קצבה מספקת.');
+  if(us)warns.push('אזרח ארה"ב — הימנע מקרנות נאמנות/סל ישראליות (PFIC); העדף מניות ישירות / אפיקי גמל/190.');
+  if(registered!=='yes'&&(goal!=='solid'))warns.push('אם הרווח מיוחס לבן זוג עובד — הטבת מדרגות המס לגיל 60+ לא תחול; בדוק מיהו "בן הזוג הרשום".');
+  if(warns.length)html+=`<div class="calc-out" style="background:#fff8e6;border-color:#f0d98a"><b style="color:#8a5512">⚠️ דגלים לתשומת לבך</b><ul style="margin:8px 0 0">${warns.map(w=>`<li style="margin:4px 0">${w}</li>`).join('')}</ul></div>`;
+
+  // recommendation
+  const top=res[0];
+  html+=`<div class="calc-out" style="border:2px solid var(--brand)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div><span style="font-size:13px;color:var(--muted)">ההמלצה המובילה</span><br><span style="font-size:22px;font-weight:800;color:var(--brand)">${top.n}</span></div>
+      <div style="text-align:center"><div style="font-size:26px;font-weight:800;color:var(--good)">${Math.round(top.s/max*100)}%</div><div style="font-size:11px;color:var(--muted)">התאמה</div></div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <div><div style="font-weight:700;color:var(--good);margin-bottom:4px">✔ למה כן</div><ul style="margin:0;padding-right:18px">${
+        [...top.pos, ...top.it.pro.slice(0,2)].map(x=>`<li style="margin:3px 0">${x}</li>`).join('')}</ul></div>
+      <div><div style="font-weight:700;color:var(--bad);margin-bottom:4px">✘ חסרונות / לשים לב</div><ul style="margin:0;padding-right:18px">${
+        [...top.neg, ...top.it.con.slice(0,2)].map(x=>`<li style="margin:3px 0">${x}</li>`).join('')}</ul></div>
+    </div>
+    <div class="fit" style="margin-top:10px">${top.it.fit}</div>
+  </div>`;
+
+  // alternatives
+  html+=`<h3>חלופות — ומדוע לא הומלצו כראשונה</h3>`;
+  html+=`<div style="display:flex;flex-direction:column;gap:8px">`;
+  res.slice(1,6).forEach((r,i)=>{
+    const reason = r.neg.length?r.neg[0]:'מתאים, אך מדורג נמוך יותר עבור השילוב שהוגדר (מטרה/סיכון/סוג השקעה)';
+    html+=`<div style="border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+        <b>${i+2}. ${r.n}</b><span style="font-size:13px;color:var(--muted)">התאמה ${Math.round(Math.max(0,r.s)/max*100)}%</span></div>
+      <div style="font-size:13px;color:#8a3324;margin-top:4px">↳ מדוע לא ראשונה: ${reason}</div>
+    </div>`;
+  });
+  html+=`</div>`;
+  // projection block
+  html+=`<h3>תחזית שווי ומס צפוי</h3>
+   <p class="hint">הנחות: סכום ${fmt(amount)} · תשואה ${(ret*100).toLocaleString('he-IL')}% · אינפלציה ${(inf*100).toLocaleString('he-IL')}% · ${nYears} שנים ← שווי עתידי <b>${fmt(fv)}</b> (רווח נומינלי ${fmt(gainNom)}, ריאלי ${fmt(gainReal)}).</p>
+   <div style="overflow:auto"><table><thead><tr><th>אפיק</th><th>בסיס מיסוי</th><th>מס צפוי</th><th>נטו ביד</th></tr></thead><tbody>${
+     res.slice(0,5).map((x,i)=>`<tr${i===0?' style="background:#e7f5ec"':''}><td><b>${x.n}</b></td><td>${modeTxt[x.taxMode]}</td><td>${fmt(x.tax)}</td><td><b>${fmt(x.net)}</b></td></tr>`).join('')}
+   </tbody></table></div>
+   <p class="hint">* באפיקים פטורים (קרן פנסיה / גמל פנסיוני) הכסף נזיל כקצבה בלבד. לגיל 60+ עם הכנסה נמוכה ניתן להקטין עוד את המס הריאלי דרך מדרגות המס — ראה טאב "מחשבון מס 60+".</p>`;
+  html+=`<p class="hint" style="margin-top:12px">שילוב מקובל: לרוב לא מפקידים הכול באפיק אחד — עוגן מרכזי (ההמלצה) + רכיב נזיל לרזרבה/גמישות. זכור שזהו כלי עזר; ההחלטה הסופית וההנמקה מולך.</p>`;
+  html+=`<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn" onclick="exportRec()">📄 הורד המלצה כ-Word</button>
+    <button class="btn" style="background:#5b6b7a" onclick="window.print()">🖨️ הדפס / שמור PDF</button></div>`;
+  // store context for export
+  const goalTxt={equity:'מנייתי',solid:'סולידי',mixed:'מעורב'},
+    purposeTxt={growth:'צמיחת ההון',inheritance:'הורשה לילדים/יורשים',income:'הכנסה שוטפת / קצבה',liquidity:'נזילות ורזרבה'},
+    riskTxt={low:'נמוכה',med:'בינונית',high:'גבוהה'},
+    regTxt={yes:'כן',no:'לא (מיוחס לבן זוג עובד)',unknown:'לא בטוח'};
+  window._rec={
+    inputs:[['סוג ההשקעה הרצוי',goalTxt[goal]],['גיל',age],['סכום להפקדה','₪'+amount.toLocaleString('he-IL')],
+      ['קצבת זקנה חודשית','₪'+pension.toLocaleString('he-IL')],['הכנסה שנתית חייבת אחרת','₪'+income.toLocaleString('he-IL')],
+      ['אזרח / גרין קארד ארה"ב',us?'כן':'לא'],['מטרת הכסף',purposeTxt[purpose]],['אופק (שנים)',horizon],
+      ['סבילות סיכון',riskTxt[risk]],['ייחוס הרווח לצורכי מס',regTxt[registered]]],
+    warns,top,res,max};
+  document.getElementById('engineOut').innerHTML=html;
+}
+
+function exportRec(){
+  const r=window._rec; if(!r){alert('הרץ קודם "קבל המלצה"');return;}
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const date=new Date().toLocaleDateString('he-IL');
+  const inpRows=r.inputs.map(x=>`<tr><td class="k">${esc(x[0])}</td><td>${esc(x[1])}</td></tr>`).join('');
+  const topPos=[...r.top.pos,...r.top.it.pro.slice(0,2)].map(x=>`<li>${esc(x)}</li>`).join('');
+  const topNeg=[...r.top.neg,...r.top.it.con.slice(0,2)].map(x=>`<li>${esc(x)}</li>`).join('');
+  const warnsBlock=r.warns.length?`<h2>דגלים ושיקולים</h2><ul>${r.warns.map(w=>`<li>${esc(w)}</li>`).join('')}</ul>`:'';
+  const alts=r.res.slice(1,6).map((x,i)=>{
+    const reason=x.neg.length?x.neg[0]:'מתאים, אך מדורג נמוך יותר עבור השילוב שהוגדר (מטרה/סיכון/סוג השקעה)';
+    return `<p style="margin:6px 0"><b>${i+2}. ${esc(x.n)}</b> &mdash; התאמה ${Math.round(Math.max(0,x.s)/r.max*100)}%<br>
+      <span style="color:#8a3324">מדוע לא ההמלצה הראשונה: ${esc(reason)}</span></p>`;}).join('');
+  const p=window._proj||{};
+  const modeTxt={nom:'נומינלי 15%',real:'ריאלי 25%',exempt:'פטור ממס רווחי הון'};
+  const money=n=>'₪'+Math.round(n).toLocaleString('he-IL');
+  const projRows=r.res.slice(0,5).map((x,i)=>`<tr${i===0?' style="background:#e7f5ec"':''}><td>${esc(x.n)}</td><td>${modeTxt[x.taxMode]||''}</td><td>${money(x.tax||0)}</td><td><b>${money(x.net||0)}</b></td></tr>`).join('');
+  const projBlock=p.fv?`<h2>תחזית שווי ומס צפוי</h2>
+    <p>הנחות: סכום ${money(p.amount)} &middot; תשואה ${(p.ret*100).toLocaleString('he-IL')}% &middot; אינפלציה ${(p.inf*100).toLocaleString('he-IL')}% &middot; ${p.nYears} שנים &rarr; שווי עתידי <b>${money(p.fv)}</b> (רווח נומינלי ${money(p.gainNom)}, ריאלי ${money(p.gainReal)}).</p>
+    <table><tr><td class="k">אפיק</td><td class="k">בסיס מיסוי</td><td class="k">מס צפוי</td><td class="k">נטו ביד</td></tr>${projRows}</table>
+    <p style="font-size:9pt;color:#5b6b7a">* באפיקים פטורים (קרן פנסיה / גמל פנסיוני) הכסף נזיל כקצבה בלבד. לגיל 60+ עם הכנסה נמוכה ניתן להפחית עוד את המס הריאלי דרך מדרגות המס.</p>`:'';
+  const doc=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8"><title>המלצה - כספי גיל הזהב</title>
+<style>
+ body{font-family:Arial,sans-serif;direction:rtl;text-align:right;color:#1a2531;font-size:12pt}
+ h1{color:#0e6e6e;font-size:20pt;margin:0 0 2pt}
+ h2{color:#0e6e6e;font-size:14pt;border-bottom:1.5pt solid #c9821b;padding-bottom:2pt;margin:16pt 0 6pt}
+ .sub{color:#5b6b7a;font-size:10pt;margin:0 0 10pt}
+ table{border-collapse:collapse;width:100%}
+ td{border:1pt solid #ccc;padding:5pt;vertical-align:top}
+ td.k{background:#f4f8f9;font-weight:bold;width:38%}
+ .rec{border:1.5pt solid #0e6e6e;padding:8pt;margin:6pt 0}
+ .rec h3{color:#0e6e6e;font-size:15pt;margin:0 0 4pt}
+ ul{margin:4pt 0 4pt 0;padding-right:18pt}
+ .good{color:#1f8a4c;font-weight:bold}.bad{color:#c0392b;font-weight:bold}
+ .fit{background:#f4f8f9;padding:6pt;margin-top:6pt}
+ .disc{font-size:9pt;color:#8a6512;background:#fff8e6;border:1pt solid #f0d98a;padding:6pt;margin-top:14pt}
+</style></head>
+<body dir="rtl">
+ <h1>המלצת השקעה &mdash; כספי גיל הזהב</h1>
+ <p class="sub">הופק בתאריך ${date} · כלי עזר לייעוץ 55+ · שנת מס 2026</p>
+ <h2>נתוני הלקוח שהוזנו</h2>
+ <table>${inpRows}</table>
+ ${warnsBlock}
+ <h2>ההמלצה המובילה</h2>
+ <div class="rec">
+   <h3>${esc(r.top.n)} &mdash; התאמה ${Math.round(r.top.s/r.max*100)}%</h3>
+   <p class="good">יתרונות / למה כן:</p><ul>${topPos}</ul>
+   <p class="bad">חסרונות / לשים לב:</p><ul>${topNeg}</ul>
+   <div class="fit">${esc(r.top.it.fit)}</div>
+ </div>
+ <h2>חלופות &mdash; ומדוע לא הומלצו כראשונה</h2>
+ ${alts}
+ ${projBlock}
+ <p class="disc">מסמך זה הופק ככלי עזר לייעוץ בלבד ואינו מהווה ייעוץ מס/פנסיוני או תחליף לחוות דעת מוסמכת. חבות המס הסופית וזהות "בן הזוג הרשום" נקבעות ע"י רשות המסים. הנתונים מבוססים על מדרגות מס לשנת 2026.</p>
+</body></html>`;
+  const blob=new Blob(['﻿'+doc],{type:'application/msword'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='המלצה-כספי-גיל-הזהב.doc';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+/* ---------- INIT ---------- */
+renderChecklist();renderCards();renderT1();renderT2();
+</script>
+</body>
+</html>
