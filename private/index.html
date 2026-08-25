@@ -48,6 +48,33 @@
     box-shadow:0 6px 18px rgba(0,125,168,.10)}
   .folder .ic{flex:0 0 auto;font-size:1.5rem;line-height:1}
   .folder .cnt{margin-inline-start:auto;font-size:.82rem;font-weight:600;color:var(--mut)}
+  .editbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+  .btn{font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;border-radius:10px;
+    padding:9px 18px;border:1.5px solid var(--brand);background:none;color:var(--brand);transition:.13s}
+  .btn:hover{background:var(--brand);color:#fff}
+  .btn.solid{background:var(--brand);color:#fff}
+  .btn.solid:hover{background:#00648a}
+  .state{font-size:.86rem;color:var(--mut)}
+  .state.ok{color:#0E7C66;font-weight:600}
+  .fsel{width:100%;margin-top:10px;padding:8px 10px;font-family:inherit;font-size:.88rem;
+    border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  .fsel:focus{outline:none;border-color:var(--brand)}
+  body:not(.editing) .fsel{display:none}
+  body:not(.editing) .del{display:none}
+  .del{position:absolute;inset-inline-start:12px;top:12px;width:24px;height:24px;border-radius:50%;
+    border:1.5px solid var(--line);background:#fff;color:#A8452F;cursor:pointer;font-size:.9rem;
+    line-height:1;display:flex;align-items:center;justify-content:center;font-family:inherit}
+  .del:hover{border-color:#A8452F;background:#A8452F;color:#fff}
+  body.editing a.card{pointer-events:none}
+  body.editing .fsel,body.editing .del{pointer-events:auto}
+  .addbox{background:var(--card);border:1.5px dashed var(--brand);border-radius:12px;
+    padding:18px 20px;margin:0 0 18px;display:none;flex-direction:column;gap:10px}
+  .addbox.on{display:flex}
+  .addbox input{padding:10px 12px;font-family:inherit;font-size:.92rem;
+    border:1.5px solid var(--line);border-radius:8px}
+  .addbox input:focus{outline:none;border-color:var(--brand)}
+  .addbox .row{display:flex;gap:10px;flex-wrap:wrap}
+
   .back{display:inline-block;margin:0 0 16px;font-size:.9rem;font-weight:600;
     color:var(--brand);text-decoration:none}
   .back:hover{text-decoration:underline}
@@ -180,6 +207,23 @@
     <p class="sub" id="sub">כל הכלים, הרכיבים וחומרי הגלם — במקום אחד</p>
   </header>
 
+  <div class="editbar" id="editbar">
+    <button class="btn" id="btnEdit" type="button">סדר תיקיות</button>
+    <button class="btn" id="btnAdd" type="button" style="display:none">הוסף דף מהאתר</button>
+    <button class="btn solid" id="btnDone" type="button" style="display:none">סיימתי</button>
+    <span class="state" id="state"></span>
+  </div>
+
+  <div class="addbox" id="addbox">
+    <input id="aName" placeholder="שם הדף — איך הוא ייקרא בפורטל">
+    <input id="aUrl"  placeholder="הכתובת — למשל https://pensya.info/tools/management-fees/" dir="ltr">
+    <div class="row">
+      <select class="fsel" id="aFolder" style="display:block;max-width:220px"></select>
+      <button class="btn solid" id="aSave" type="button">הוסף</button>
+      <button class="btn" id="aCancel" type="button">ביטול</button>
+    </div>
+  </div>
+
   <nav class="folders" id="folders"></nav>
 
   <div class="searchbox">
@@ -189,7 +233,7 @@
   <div class="grid" id="grid"></div>
   <p class="none" id="none" style="display:none">לא נמצא פריט מתאים</p>
 
-  <footer>13 פריטים · עודכן 25.08.2026 15:16 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
+  <footer>13 פריטים · עודכן 25.08.2026 17:35 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
 </div>
 
 <script>
@@ -203,13 +247,15 @@ const grid=document.getElementById('grid'), none=document.getElementById('none')
 
 function card(it){
   const z=ZONES[it.z]||["","#666"];
-  const inner=`<div class="top"><span class="z" style="background:${z[1]}">${z[0]}</span>
+  const inner=(it.x?`<button class="del" type="button" data-del="${it.i}" title="הסר">✕</button>`:``)
+    +`<div class="top"><span class="z" style="background:${z[1]}">${z[0]}</span>
       <span class="ty">${it.t}</span></div>
     <div class="nm">${it.n}</div>`
     + (it.f?`<div class="meta"><b>מוזן מ:</b> ${it.f}</div>`:``)
     + (it.o?`<div class="meta">${it.o}</div>`:``)
     + (it.s?`<div class="meta"><b>מקור במחשב:</b> ${it.s}</div>`:``)
     + (it.p?`<div class="meta" style="font-size:.78rem">להעתקה ואז Win+R להדבקה ופתיחה</div>`:``)
+    + `<select class="fsel" data-set="${it.i}"></select>`
     + (it.p?`<div class="pathrow"><span class="path" dir="ltr">${it.p}</span>`
            +`<button class="copy" type="button" data-p="${it.p.replace(/"/g,'&quot;')}">העתק נתיב</button></div>`:``);
   if(it.u){const a=document.createElement('a');a.className='card';a.href=it.u;
@@ -217,7 +263,7 @@ function card(it){
   const d=document.createElement('div');d.className='card';d.innerHTML=inner;return d;
 }
 grid.addEventListener('click', async e => {
-  if (document.body.classList.contains('picking')) return;
+  if (document.body.classList.contains('editing')) return;
   const b = e.target.closest('.copy');
   if (!b) return;
   const done = () => { const t=b.textContent; b.textContent='הועתק ✓'; b.classList.add('ok');
@@ -234,40 +280,169 @@ grid.addEventListener('click', async e => {
 function render(list){
   grid.innerHTML=''; list.forEach(it=>grid.appendChild(card(it)));
   none.style.display=list.length?'none':'block';
-  cnt.textContent=list.length===DATA.length?`${DATA.length} פריטים`:`${list.length} מתוך ${DATA.length}`;
+  cnt.textContent=list.length===ITEMS.length?`${ITEMS.length} פריטים`:`${list.length} מתוך ${ITEMS.length}`;
 }
 q.addEventListener('input',()=>{
   const t=q.value.trim();
-  if(!t)return render(DATA);
+  if(!t)return render(ITEMS);
   const w=t.split(/\s+/);
-  render(DATA.filter(it=>{
+  render(ITEMS.filter(it=>{
     const hay=[it.n,it.t,it.k,it.f||'',it.o||'',it.s||'',it.p||''].join(' ');
     return w.every(x=>hay.includes(x));
   }));
 });
 // ── תיקיות ────────────────────────────────────────────────────────────────
 // /private/?f=<שם התיקייה>  → מציג רק את מה שבתוכה, נקי להצגה מול לקוח.
-const folder = new URLSearchParams(location.search).get('f');
+//
+// השיוך לתיקיות נשמר בשרת (Cloudflare KV) ונערך מתוך הדף — ראה "סדר תיקיות".
+// DATA הוא ברירת המחדל; מה שנשמר בשרת גובר עליו.
 
-if (folder && FOLDERS.includes(folder)) {
-  document.body.classList.add('present');
-  document.getElementById('title').textContent = folder;
-  document.getElementById('sub').textContent = '';
-  render(DATA.filter(it => (it.fo||[]).includes(folder)));
-} else {
+let STORE = { assign: {}, extra: [], order: [] };
+let ITEMS = [];
+
+function merge(){
+  ITEMS = DATA.map(it => {
+    const o = Object.assign({}, it);
+    if (Object.prototype.hasOwnProperty.call(STORE.assign, it.i))
+      o.fo = STORE.assign[it.i] ? [STORE.assign[it.i]] : [];
+    return o;
+  }).concat((STORE.extra||[]).map(e => ({
+    i:e.i, n:e.n, u:e.u, t:"דף באתר", z:"public", fo:e.fo?[e.fo]:[], k:e.n, x:1
+  })));
+}
+
+function folderList(){
+  const seen = [];
+  ITEMS.forEach(it => (it.fo||[]).forEach(n => { if(n && !seen.includes(n)) seen.push(n); }));
+  const ord = (STORE.order && STORE.order.length) ? STORE.order : FOLDERS;
+  return ord.filter(n => seen.includes(n)).concat(seen.filter(n => !ord.includes(n)));
+}
+
+const NEWF = "__new__";
+function fillSelect(sel, cur){
+  const list = folderList();
+  sel.innerHTML = `<option value="">— ללא תיקייה —</option>`
+    + list.map(n => `<option value="${n}"${n===cur?' selected':''}>${n}</option>`).join('')
+    + `<option value="${NEWF}">＋ תיקייה חדשה…</option>`;
+}
+
+const folder = new URLSearchParams(location.search).get('f');
+const state = document.getElementById('state');
+
+async function load(){
+  try {
+    const r = await fetch('/private/api', {cache:'no-store'});
+    if (r.ok) STORE = Object.assign({assign:{},extra:[],order:[]}, await r.json());
+  } catch(e){ /* אין חיבור — נציג את ברירת המחדל */ }
+  merge();
+  draw();
+}
+
+let saveTimer=null;
+function save(){
+  clearTimeout(saveTimer);
+  state.textContent='שומר…'; state.classList.remove('ok');
+  saveTimer = setTimeout(async ()=>{
+    try{
+      const r = await fetch('/private/api', {method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({assign:STORE.assign, extra:STORE.extra, order:folderList()})});
+      if(!r.ok) throw 0;
+      state.textContent='נשמר ✓'; state.classList.add('ok');
+      setTimeout(()=>{ state.textContent=''; state.classList.remove('ok'); }, 2500);
+    }catch(e){ state.textContent='השמירה נכשלה — נסה שוב'; state.classList.remove('ok'); }
+  }, 400);
+}
+
+function draw(){
+  if (folder) {
+    document.body.classList.add('present');
+    document.getElementById('title').textContent = folder;
+    document.getElementById('sub').textContent = '';
+    render(ITEMS.filter(it => (it.fo||[]).includes(folder)));
+    return;
+  }
   const nav = document.getElementById('folders');
-  FOLDERS.forEach(name => {
-    const n = DATA.filter(it => (it.fo||[]).includes(name)).length;
-    if (!n) return;
+  nav.innerHTML = '';
+  folderList().forEach(name => {
+    const n = ITEMS.filter(it => (it.fo||[]).includes(name)).length;
     const a = document.createElement('a');
-    a.className = 'folder';
-    a.href = '?f=' + encodeURIComponent(name);
+    a.className='folder'; a.href='?f='+encodeURIComponent(name);
     a.innerHTML = `<span class="ic">${ICONS[name]||'📁'}</span><span>${name}</span>`
                 + `<span class="cnt">${n}</span>`;
     nav.appendChild(a);
   });
-  render(DATA);
-  q.focus();
+  render(ITEMS);
+  document.querySelectorAll('.fsel[data-set]').forEach(sel=>{
+    const it = ITEMS.find(x=>x.i===sel.dataset.set);
+    fillSelect(sel, (it && it.fo && it.fo[0]) || '');
+  });
+}
+
+if (folder) { load(); }
+else {
+  const bEdit=document.getElementById('btnEdit'), bAdd=document.getElementById('btnAdd'),
+        bDone=document.getElementById('btnDone'), box=document.getElementById('addbox');
+
+  function mode(on){
+    document.body.classList.toggle('editing', on);
+    bEdit.style.display = on?'none':'';
+    bAdd.style.display  = on?'':'none';
+    bDone.style.display = on?'':'none';
+    if(!on) box.classList.remove('on');
+  }
+  bEdit.addEventListener('click', ()=>mode(true));
+  bDone.addEventListener('click', ()=>{ mode(false); draw(); });
+
+  // שינוי תיקייה של פריט
+  document.addEventListener('change', e=>{
+    const sel = e.target.closest('.fsel[data-set]'); if(!sel) return;
+    let val = sel.value;
+    if (val === NEWF){
+      val = (prompt('שם התיקייה החדשה:')||'').trim();
+      if(!val){ draw(); return; }
+    }
+    const id = sel.dataset.set;
+    const ex = (STORE.extra||[]).find(x=>x.i===id);
+    if (ex) ex.fo = val; else STORE.assign[id] = val;
+    merge(); save(); draw(); mode(true);
+  });
+
+  // הסרת דף שנוסף ידנית
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('.del'); if(!b) return;
+    STORE.extra = (STORE.extra||[]).filter(x=>x.i!==b.dataset.del);
+    merge(); save(); draw(); mode(true);
+  });
+
+  // הוספת דף מהאתר
+  bAdd.addEventListener('click', ()=>{
+    box.classList.add('on');
+    fillSelect(document.getElementById('aFolder'), '');
+    document.getElementById('aName').focus();
+  });
+  document.getElementById('aCancel').addEventListener('click', ()=>box.classList.remove('on'));
+  document.getElementById('aFolder').addEventListener('change', e=>{
+    if(e.target.value===NEWF){
+      const v=(prompt('שם התיקייה החדשה:')||'').trim();
+      if(v){ const o=document.createElement('option'); o.value=v; o.textContent=v;
+             e.target.insertBefore(o, e.target.lastElementChild); e.target.value=v; }
+      else e.target.value='';
+    }
+  });
+  document.getElementById('aSave').addEventListener('click', ()=>{
+    const n=document.getElementById('aName').value.trim();
+    const u=document.getElementById('aUrl').value.trim();
+    const fo=document.getElementById('aFolder').value;
+    if(!n||!/^https?:\/\//i.test(u)){ alert('צריך שם וגם כתובת שמתחילה ב-http'); return; }
+    STORE.extra = STORE.extra||[];
+    STORE.extra.push({i:'u'+Date.now().toString(36), n, u, fo: fo===NEWF?'':fo});
+    document.getElementById('aName').value=''; document.getElementById('aUrl').value='';
+    box.classList.remove('on');
+    merge(); save(); draw(); mode(true);
+  });
+
+  load().then(()=>q.focus());
 }
 </script>
 </body>
