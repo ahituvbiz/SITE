@@ -43,9 +43,15 @@
   .sets a{font-size:.86rem;font-weight:600;text-decoration:none;color:var(--brand);
     border:1.5px solid var(--brand);border-radius:999px;padding:6px 15px;transition:.13s}
   .sets a:hover{background:var(--brand);color:#fff}
+  /* מצב הצגה מול לקוח: רק שם הפריט. בלי מטא-דאטה פנימי, בלי נתיבים,
+     בלי תווית אזור — כלום שמרמז על מה שיש מעבר לסט. */
   body.present .searchbox,body.present .count,body.present .sets,
-  body.present footer{display:none}
+  body.present footer,body.present .meta,body.present .pathrow,
+  body.present .z{display:none}
   body.present .sub{margin-top:2px}
+  body.present .card{min-height:96px;justify-content:center}
+  body.present .nm{font-size:1.12rem}
+  body.present .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
   footer{margin-top:38px;color:var(--mut);font-size:.8rem;border-top:1px solid var(--line);padding-top:16px}
   @media(max-width:560px){.wrap{padding:26px 16px 60px}h1{font-size:1.45rem}}
 </style>
@@ -175,7 +181,7 @@
   <div class="grid" id="grid"></div>
   <p class="none" id="none" style="display:none">לא נמצא פריט מתאים</p>
 
-  <footer>13 פריטים · עודכן 25.08.2026 14:32 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
+  <footer>13 פריטים · עודכן 25.08.2026 14:35 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
 </div>
 
 <script>
