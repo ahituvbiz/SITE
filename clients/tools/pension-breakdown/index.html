@@ -643,14 +643,17 @@ tfoot tr{font-weight:700;background:#F1F1EE}
     const T = D.trend;
     document.getElementById('trendCard').hidden = false;
     document.getElementById('trendHint').textContent =
-      'צבירה במיליארדי ₪, נתון חודשי. ברירת המחדל מוסתרת כברירת מחדל כדי שהקטגוריות ' +
-      'האחרות יהיו קריאות — לחיצה על שם בתצוגה מוסיפה או מסירה קו.';
+      'נתח כל קטגוריה מסך נכסי המקיפה, באחוזים, נתון חודשי. ברירת המחדל מוסתרת ' +
+      'כברירת מחדל כדי שהקטגוריות האחרות יהיו קריאות — לחיצה על שם בתצוגה ' +
+      'מוסיפה או מסירה קו.';
+    const TOT = T.labels.map((_, i) => T.series.reduce((s, x) => s + (x.data[i] || 0), 0));
+    const share = (v, i) => TOT[i] ? +(v / TOT[i] * 100).toFixed(2) : 0;
     new Chart(document.getElementById('trendChart').getContext('2d'), {
       type: 'line',
       data: {
         labels: T.labels,
         datasets: T.series.map(s => ({
-          label: s.label, data: s.data,
+          label: s.label, data: s.data.map(share), raw: s.data,
           borderColor: s.color, backgroundColor: s.color,
           borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, tension: 0.25,
           hidden: s.label === 'ברירת מחדל'
@@ -665,13 +668,14 @@ tfoot tr{font-weight:700;background:#F1F1EE}
           y: { position: 'right', beginAtZero: true,
                grid: { color: 'rgba(0,0,0,.06)' },
                ticks: { font: { size: 11, family: 'Heebo' },
-                        callback: v => (v / 1000).toLocaleString('he-IL') } }
+                        callback: v => v + '%' } }
         },
         plugins: {
           legend: { position: 'bottom', rtl: true,
                     labels: { boxWidth: 13, padding: 10, font: { size: 12, family: 'Heebo' } } },
           tooltip: { rtl: true, bodyFont: { family: 'Heebo' }, titleFont: { family: 'Heebo' },
-                     callbacks: { label: c => ' ' + c.dataset.label + ': ' + fmt(c.parsed.y) + ' מיל′ ₪' } }
+                     callbacks: { label: c => ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(1) + '%  (' +
+                                              fmt(c.dataset.raw[c.dataIndex]) + ' מיל′ ₪)' } }
         }
       }
     });
