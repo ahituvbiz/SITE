@@ -39,28 +39,21 @@
   .copy:hover{border-color:var(--brand);background:var(--brand);color:#fff}
   .copy.ok{border-color:#0E7C66;color:#0E7C66;background:none}
   .none{text-align:center;color:var(--mut);padding:50px 0}
-  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
-  .btn{font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
-    border-radius:10px;padding:9px 18px;border:1.5px solid var(--brand);
-    background:none;color:var(--brand);transition:.13s}
-  .btn:hover{background:var(--brand);color:#fff}
-  .btn.solid{background:var(--brand);color:#fff}
-  .btn.solid:hover{background:#00648a}
-  .btn.ok{border-color:#0E7C66;background:#0E7C66;color:#fff}
-  .hint{font-size:.86rem;color:var(--mut)}
-  /* מצב בחירה */
-  body.picking .card{cursor:pointer;user-select:none}
-  body.picking a.card{pointer-events:auto}
-  .pick{position:absolute;inset-inline-start:14px;top:14px;width:26px;height:26px;
-    border-radius:50%;border:2px solid var(--line);background:#fff;color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800}
-  .card{position:relative}
-  .card.on .pick{background:var(--brand);border-color:var(--brand)}
-  .card.on{border-color:var(--brand);box-shadow:0 0 0 2px rgba(0,125,168,.18)}
-  body:not(.picking) .pick{display:none}
+  .folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:12px;margin:0 0 26px}
+  .folder{display:flex;align-items:center;gap:12px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;padding:18px 20px;
+    text-decoration:none;color:inherit;font-weight:700;font-size:1.05rem;transition:.13s}
+  .folder:hover{border-color:var(--brand);transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,125,168,.10)}
+  .folder .ic{flex:0 0 auto;font-size:1.5rem;line-height:1}
+  .folder .cnt{margin-inline-start:auto;font-size:.82rem;font-weight:600;color:var(--mut)}
+  .back{display:inline-block;margin:0 0 16px;font-size:.9rem;font-weight:600;
+    color:var(--brand);text-decoration:none}
+  .back:hover{text-decoration:underline}
   /* מצב הצגה מול לקוח: רק שם הפריט. בלי מטא-דאטה פנימי, בלי נתיבים,
      בלי תווית אזור — כלום שמרמז על מה שיש מעבר לסט. */
-  body.present .searchbox,body.present .count,body.present .bar,
+  body.present .searchbox,body.present .count,body.present .folders,
   body.present footer,body.present .meta,body.present .pathrow,
   body.present .z{display:none}
   body.present .sub{margin-top:2px}
@@ -187,12 +180,7 @@
     <p class="sub" id="sub">כל הכלים, הרכיבים וחומרי הגלם — במקום אחד</p>
   </header>
 
-  <div class="bar" id="bar">
-    <button class="btn" id="btnPick" type="button">בחר דפים להצגה</button>
-    <button class="btn solid" id="btnLink" type="button" style="display:none">צור קישור</button>
-    <button class="btn" id="btnCancel" type="button" style="display:none">ביטול</button>
-    <span class="hint" id="hint"></span>
-  </div>
+  <nav class="folders" id="folders"></nav>
 
   <div class="searchbox">
     <input type="search" id="q" placeholder="חפש: אקטוארי · מנורה · זרימה · סיעוד · עמלה…" autocomplete="off">
@@ -201,11 +189,13 @@
   <div class="grid" id="grid"></div>
   <p class="none" id="none" style="display:none">לא נמצא פריט מתאים</p>
 
-  <footer>13 פריטים · עודכן 25.08.2026 15:01 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
+  <footer>13 פריטים · עודכן 25.08.2026 15:03 · נבנה אוטומטית על ידי <code>private-sync.py</code></footer>
 </div>
 
 <script>
-const DATA = [{"i": "pension-flow", "n": "תרשים זרימת הכספים בפנסיה + איזונים אקטואריים", "t": "רכיב", "z": "private", "u": "/private/pension-flow.html", "f": "איזונים אקטואריים.xlsx", "o": "גרסה מקוצצת במצגת ההייטק (בלי מנורה משלימה)", "k": "זרימה כספים פנסיה איזון אקטוארי תרשים מנורה משלימה", "s": "זרימת הכספים בפנסיה + איזונים.html"}, {"i": "menora-index-tracks", "n": "מנורה — מסלול מחקה מדדי מניות", "t": "רכיב", "z": "private", "u": "/private/menora-index-tracks.html", "f": "indx.co.il (סקיל menora-dashboard-refresh)", "o": "", "k": "מנורה מדדי מניות מחקה מכפיל רווח טופ 20 פילוח מדינות דשבורד", "s": "מנורה מדדי מניות.html"}, {"i": "past-returns", "n": "תשואות עבר — בדיקה אמפירית", "t": "רכיב", "z": "private", "u": "/private/past-returns.html", "f": "פנסיה נט / גמל נט", "o": "", "k": "תשואות עבר אמפירי היסטוריה השוואה מסלולים", "s": "תשואות עבר - בדיקה אמפירית.html"}, {"i": "managers-to-pension", "n": "האם לנייד ממנהלים לפנסיה", "t": "כלי", "z": "private", "u": "/private/managers-to-pension.html", "f": "", "o": "", "k": "ניוד ביטוח מנהלים פנסיה מקדם המרה החלטה", "s": "האם לנייד ממנהלים לפנסיה - כלי עזר להחלטה.html"}, {"i": "ltc-benefit", "n": "חישוב קצבה סיעודית", "t": "כלי", "z": "private", "u": "/private/ltc-benefit.html", "f": "", "o": "", "k": "סיעוד סיעודית קצבה ביטוח", "s": "חישוב קצבה סיעודית.html"}, {"i": "golden-age", "n": "כספי גיל הזהב", "t": "כלי", "z": "private", "u": "/private/golden-age.html", "f": "", "o": "", "k": "גיל הזהב פרישה קצבה זקנה", "s": "כספי-גיל-הזהב.html"}, {"i": "fixed-fee", "n": "מחשבון עמלה קבועה", "t": "כלי", "z": "private", "u": "/private/fixed-fee.html", "f": "", "o": "", "k": "עמלה קבועה דמי ניהול מחשבון עלות", "s": "מחשבון-עמלה-קבועה.html"}, {"i": "x92fae1", "n": "אתר הרצאת ההייטק — חמש המצגות", "t": "מצגות", "z": "lecture", "u": "https://lecture.pensya.info", "p": "", "f": "", "o": "נבנה מהמקור ב-build-lecture.py", "k": "הרצאה הייטק מצגת יועץ פנסיוני השיא תשואות חוסכים בביטוחים להזיז את המחט", "st": []}, {"i": "xc91213", "n": "אזור הלקוחות", "t": "אזור", "z": "clients", "u": "https://pensya.info/clients/", "p": "", "f": "", "o": "", "k": "לקוחות פורטל תגיות CRM מחשבון יעדי חיסכון", "st": []}, {"i": "xe549a8", "n": "פילוח יתרות קרנות פנסיה מקיפות", "t": "רכיב", "z": "clients", "u": "https://pensya.info/clients/tools/pension-breakdown/", "p": "", "f": "פנסיה נט (משימה כל 6 שעות)", "o": "", "k": "פילוח קרנות פנסיה קטגוריות מסלולים יתרות מגמה", "st": []}, {"i": "xf2afb8", "n": "איזונים אקטואריים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\שיחת ייעוץ\\איזונים אקטואריים.xlsx", "f": "", "o": "מזין את תרשים זרימת הכספים", "k": "איזון אקטוארי אקסל נתונים מקור", "st": []}, {"i": "x61999c", "n": "מכפיל רווח TA-125.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\כלי עזר\\מכפיל רווח TA-125.xlsx", "f": "", "o": "", "k": "מכפיל רווח תא 125 מדד בורסה", "st": []}, {"i": "x7686ad", "n": "פנסיה_עדכני.xlsx · קרנות_פנסיה_מסלולים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\אתר\\חומר רקע", "f": "", "o": "נבנה אוטומטית מ-history.csv", "k": "פנסיה עדכני מסלולים קטגוריות אקסל חומר רקע", "st": []}];
+const DATA = [{"i": "pension-flow", "fo": "שיחת ייעוץ", "n": "תרשים זרימת הכספים בפנסיה + איזונים אקטואריים", "t": "רכיב", "z": "private", "u": "/private/pension-flow.html", "f": "איזונים אקטואריים.xlsx", "o": "גרסה מקוצצת במצגת ההייטק (בלי מנורה משלימה)", "k": "זרימה כספים פנסיה איזון אקטוארי תרשים מנורה משלימה", "s": "זרימת הכספים בפנסיה + איזונים.html"}, {"i": "menora-index-tracks", "fo": "שיחת ייעוץ", "n": "מנורה — מסלול מחקה מדדי מניות", "t": "רכיב", "z": "private", "u": "/private/menora-index-tracks.html", "f": "indx.co.il (סקיל menora-dashboard-refresh)", "o": "", "k": "מנורה מדדי מניות מחקה מכפיל רווח טופ 20 פילוח מדינות דשבורד", "s": "מנורה מדדי מניות.html"}, {"i": "past-returns", "fo": "שיחת ייעוץ", "n": "תשואות עבר — בדיקה אמפירית", "t": "רכיב", "z": "private", "u": "/private/past-returns.html", "f": "פנסיה נט / גמל נט", "o": "", "k": "תשואות עבר אמפירי היסטוריה השוואה מסלולים", "s": "תשואות עבר - בדיקה אמפירית.html"}, {"i": "managers-to-pension", "fo": "כלים", "n": "האם לנייד ממנהלים לפנסיה", "t": "כלי", "z": "private", "u": "/private/managers-to-pension.html", "f": "", "o": "", "k": "ניוד ביטוח מנהלים פנסיה מקדם המרה החלטה", "s": "האם לנייד ממנהלים לפנסיה - כלי עזר להחלטה.html"}, {"i": "ltc-benefit", "fo": "כלים", "n": "חישוב קצבה סיעודית", "t": "כלי", "z": "private", "u": "/private/ltc-benefit.html", "f": "", "o": "", "k": "סיעוד סיעודית קצבה ביטוח", "s": "חישוב קצבה סיעודית.html"}, {"i": "golden-age", "fo": "כלים", "n": "כספי גיל הזהב", "t": "כלי", "z": "private", "u": "/private/golden-age.html", "f": "", "o": "", "k": "גיל הזהב פרישה קצבה זקנה", "s": "כספי-גיל-הזהב.html"}, {"i": "fixed-fee", "fo": "כלים", "n": "מחשבון עמלה קבועה", "t": "כלי", "z": "private", "u": "/private/fixed-fee.html", "f": "", "o": "", "k": "עמלה קבועה דמי ניהול מחשבון עלות", "s": "מחשבון-עמלה-קבועה.html"}, {"i": "x92fae1", "fo": "מצגת ההייטק", "n": "אתר הרצאת ההייטק — חמש המצגות", "t": "מצגות", "z": "lecture", "u": "https://lecture.pensya.info", "p": "", "f": "", "o": "נבנה מהמקור ב-build-lecture.py", "k": "הרצאה הייטק מצגת יועץ פנסיוני השיא תשואות חוסכים בביטוחים להזיז את המחט", "st": []}, {"i": "xc91213", "fo": "לקוחות", "n": "אזור הלקוחות", "t": "אזור", "z": "clients", "u": "https://pensya.info/clients/", "p": "", "f": "", "o": "", "k": "לקוחות פורטל תגיות CRM מחשבון יעדי חיסכון", "st": []}, {"i": "xe549a8", "fo": "לקוחות", "n": "פילוח יתרות קרנות פנסיה מקיפות", "t": "רכיב", "z": "clients", "u": "https://pensya.info/clients/tools/pension-breakdown/", "p": "", "f": "פנסיה נט (משימה כל 6 שעות)", "o": "", "k": "פילוח קרנות פנסיה קטגוריות מסלולים יתרות מגמה", "st": []}, {"i": "xf2afb8", "fo": "חומרי גלם", "n": "איזונים אקטואריים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\שיחת ייעוץ\\איזונים אקטואריים.xlsx", "f": "", "o": "מזין את תרשים זרימת הכספים", "k": "איזון אקטוארי אקסל נתונים מקור", "st": []}, {"i": "x61999c", "fo": "חומרי גלם", "n": "מכפיל רווח TA-125.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\Documents\\אחיטוב תכנון פיננסי\\כלי עזר\\מכפיל רווח TA-125.xlsx", "f": "", "o": "", "k": "מכפיל רווח תא 125 מדד בורסה", "st": []}, {"i": "x7686ad", "fo": "חומרי גלם", "n": "פנסיה_עדכני.xlsx · קרנות_פנסיה_מסלולים.xlsx", "t": "חומר גלם", "z": "computer", "u": "", "p": "C:\\Users\\ahituv\\אתר\\חומר רקע", "f": "", "o": "נבנה אוטומטית מ-history.csv", "k": "פנסיה עדכני מסלולים קטגוריות אקסל חומר רקע", "st": []}];
+const FOLDERS = ["שיחת ייעוץ", "כלים", "מצגת ההייטק", "לקוחות", "חומרי גלם"];
+const ICONS = {"שיחת ייעוץ":"🗣️","כלים":"🧰","מצגת ההייטק":"📊","לקוחות":"👥","חומרי גלם":"📁"};
 const ZONES = {private:["שלך בלבד","#0E7C66"],lecture:["הרצאה","#9A6B12"],
                clients:["לקוחות","#2E5E8E"],computer:["במחשב","#6B7280"]};
 const grid=document.getElementById('grid'), none=document.getElementById('none'),
@@ -213,7 +203,7 @@ const grid=document.getElementById('grid'), none=document.getElementById('none')
 
 function card(it){
   const z=ZONES[it.z]||["","#666"];
-  const inner=`<span class="pick" data-id="${it.i}"></span><div class="top"><span class="z" style="background:${z[1]}">${z[0]}</span>
+  const inner=`<div class="top"><span class="z" style="background:${z[1]}">${z[0]}</span>
       <span class="ty">${it.t}</span></div>
     <div class="nm">${it.n}</div>`
     + (it.f?`<div class="meta"><b>מוזן מ:</b> ${it.f}</div>`:``)
@@ -255,75 +245,29 @@ q.addEventListener('input',()=>{
     return w.every(x=>hay.includes(x));
   }));
 });
-// ── מצב הצגה ──────────────────────────────────────────────────────────────
-// ?p=id1,id2,id3  → מציג רק את הדפים האלה, בסדר הזה, בלי שום דבר אחר.
-// הקישור הוא הסט. שומרים אותו כסימנייה — ואין מה לתחזק.
-const picked = (new URLSearchParams(location.search).get('p') || '')
-                 .split(',').map(x=>x.trim()).filter(Boolean);
+// ── תיקיות ────────────────────────────────────────────────────────────────
+// /private/?f=<שם התיקייה>  → מציג רק את מה שבתוכה, נקי להצגה מול לקוח.
+const folder = new URLSearchParams(location.search).get('f');
 
-if (picked.length) {
+if (folder && FOLDERS.includes(folder)) {
   document.body.classList.add('present');
-  document.getElementById('title').textContent = 'אחיטוב תכנון פיננסי';
+  document.getElementById('title').textContent = folder;
   document.getElementById('sub').textContent = '';
-  const by = Object.fromEntries(DATA.map(it=>[it.i,it]));
-  render(picked.map(id=>by[id]).filter(Boolean));
+  render(DATA.filter(it => it.fo === folder));
 } else {
+  const nav = document.getElementById('folders');
+  FOLDERS.forEach(name => {
+    const n = DATA.filter(it => it.fo === name).length;
+    if (!n) return;
+    const a = document.createElement('a');
+    a.className = 'folder';
+    a.href = '?f=' + encodeURIComponent(name);
+    a.innerHTML = `<span class="ic">${ICONS[name]||'📁'}</span><span>${name}</span>`
+                + `<span class="cnt">${n}</span>`;
+    nav.appendChild(a);
+  });
   render(DATA);
   q.focus();
-
-  // ── בחירת דפים ──────────────────────────────────────────────────────────
-  const bPick=document.getElementById('btnPick'), bLink=document.getElementById('btnLink'),
-        bCancel=document.getElementById('btnCancel'), hint=document.getElementById('hint');
-  let order = [];
-
-  function paint(){
-    document.querySelectorAll('.card').forEach(c=>{
-      const el=c.querySelector('.pick'); if(!el) return;
-      const k=order.indexOf(el.dataset.id);
-      c.classList.toggle('on', k>-1);
-      el.textContent = k>-1 ? (k+1) : '';
-    });
-    hint.textContent = order.length
-      ? order.length+' נבחרו — הסדר הוא סדר הלחיצה'
-      : 'לחץ על הדפים לפי הסדר שתציג אותם';
-  }
-  function mode(on){
-    document.body.classList.toggle('picking', on);
-    bPick.style.display   = on ? 'none' : '';
-    bLink.style.display   = on ? '' : 'none';
-    bCancel.style.display = on ? '' : 'none';
-    if(!on){ order=[]; }
-    hint.textContent = '';
-    paint();
-  }
-
-  bPick.addEventListener('click', ()=>mode(true));
-  bCancel.addEventListener('click', ()=>mode(false));
-
-  grid.addEventListener('click', e=>{
-    if(!document.body.classList.contains('picking')) return;
-    const c = e.target.closest('.card'); if(!c) return;
-    e.preventDefault();
-    const id = c.querySelector('.pick').dataset.id;
-    const k = order.indexOf(id);
-    if(k>-1) order.splice(k,1); else order.push(id);
-    paint();
-  }, true);
-
-  bLink.addEventListener('click', async ()=>{
-    if(!order.length){ hint.textContent='עוד לא בחרת דפים'; return; }
-    const url = location.origin + location.pathname + '?p=' + order.join(',');
-    const done = ()=>{ bLink.textContent='הקישור הועתק ✓'; bLink.classList.add('ok');
-      hint.textContent='שמור אותו כסימנייה — זה הסט שלך';
-      setTimeout(()=>{ bLink.textContent='צור קישור'; bLink.classList.remove('ok'); mode(false); }, 3500); };
-    try { await navigator.clipboard.writeText(url); done(); }
-    catch(err){
-      const ta=document.createElement('textarea'); ta.value=url;
-      document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); done(); }catch(_){ hint.textContent=url; }
-      document.body.removeChild(ta);
-    }
-  });
 }
 </script>
 </body>
