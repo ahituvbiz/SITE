@@ -516,6 +516,20 @@ textarea:focus-visible, [tabindex]:focus-visible {
         try { parent.postMessage({ pensyaEmbed: 'charts', height: hgt }, '*'); } catch(e){}
       }
     }
+    // מסגרות פנימיות (גרף 10 המדינות) — התאמת גובה לתוכן, בלי רווח לבן
+    function fixFrames(){
+      root.querySelectorAll('iframe').forEach(function(f){
+        try {
+          var doc = f.contentDocument;
+          if (!doc || !doc.body) return;
+          f.style.height = '60px';
+          var ih = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight) + 16;
+          f.style.height = ih + 'px';
+        } catch(e){}
+      });
+    }
+    [300, 1200, 3000].forEach(function(t){ setTimeout(function(){ fixFrames(); post(); }, t); });
+
     post(); setInterval(post, 600);
     window.addEventListener('resize', post);
     window.addEventListener('load', post);
