@@ -195,7 +195,7 @@ tfoot tr{font-weight:700;background:#F1F1EE}
   </div>
 
   <div class="card" id="trendCard" hidden>
-    <h2>מסלולי המניות לאורך זמן</h2>
+    <h2>מסלול מנייתי מנוהל ומסלול S&amp;P 500</h2>
     <p class="hint" id="trendHint"></p>
     <div class="trend-box"><canvas id="trendChart"></canvas></div>
   </div>
@@ -643,9 +643,9 @@ tfoot tr{font-weight:700;background:#F1F1EE}
         scales: {
           x: { reverse: false, grid: { display: false },
                ticks: { font: { size: 11, family: 'Heebo' }, maxRotation: 0, autoSkipPadding: 14 } },
-          y: { position: 'right', beginAtZero: true,
+          y: { position: 'right', beginAtZero: true, min: 0, max: 70,
                grid: { color: 'rgba(0,0,0,.06)' },
-               ticks: { font: { size: 11, family: 'Heebo' },
+               ticks: { stepSize: 10, font: { size: 11, family: 'Heebo' },
                         callback: v => v + '%' } }
         },
         plugins: {
