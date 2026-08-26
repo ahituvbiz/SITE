@@ -123,10 +123,18 @@
 
   <url>
     <loc>https://pensya.info/savings/keren-hishtalmut/</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <!-- קרן השתלמות -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/keren-hishtalmut-morim/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- קרן השתלמות לעובדי הוראה -->
   </url>
 
   <url>
