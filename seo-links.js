@@ -47,6 +47,10 @@ const KEYWORD_MAP = {
   // ── פילר 2: חיסכון ──
   // 'קרן השתלמות לשכיר': דף טרם נבנה — /savings/keren-hishtalmut-sakhir/
   // 'קרן השתלמות לעצמאי': דף טרם נבנה — /savings/keren-hishtalmut-atzmai/
+  'קרן השתלמות לעובדי הוראה':           '/savings/keren-hishtalmut-morim/',
+  'קרן השתלמות של עובדי הוראה':         '/savings/keren-hishtalmut-morim/',
+  'קרן השתלמות למורים':                 '/savings/keren-hishtalmut-morim/',
+  'שנת שבתון':                           '/savings/keren-hishtalmut-morim/',
   'קרן השתלמות אחרי 6 שנים':            '/savings/keren-hishtalmut/',
   'קרן השתלמות':                         '/savings/keren-hishtalmut/',
   'איך קונים קרן כספית':                '/savings/how-to-buy-keren-kaspit/',
