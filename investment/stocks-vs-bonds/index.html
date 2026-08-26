@@ -475,10 +475,6 @@ textarea:focus-visible, [tabindex]:focus-visible {
 .dc-kpi .sub { font-size:13px; color:var(--text-2); margin-top:4px; }
 .dc-kpi .val.s { color:#007DA8; } .dc-kpi .val.b { color:#8A6318; } .dc-kpi .val.neg { color:#C53030; }
 .dc-kpi b.b { color:#8A6318; }
-.dc-toggle { display:flex; gap:8px; margin:0 0 14px; flex-wrap:wrap; }
-.dc-toggle button { font-family:inherit; font-size:14px; padding:6px 14px; border-radius:999px; cursor:pointer;
-  border:1px solid var(--border); background:#fff; color:var(--text-2); }
-.dc-toggle button[aria-pressed="true"] { background:var(--primary-soft); border-color:var(--primary); color:var(--primary); font-weight:600; }
 .dc-chartwrap { direction:ltr; overflow-x:auto; }
 .dc-chartwrap svg { display:block; width:100%; height:auto; min-width:520px; }
 .dc-chartwrap svg text { font-family:'Heebo',system-ui,sans-serif; fill:#767676; font-size:11px; }
@@ -713,14 +709,10 @@ textarea:focus-visible, [tabindex]:focus-visible {
     </div>
 
     <h2 id="growth">הדרך, לא רק היעד</h2>
-    <p>הגרף הבא מציג את שוויו של ₪1 שהושקע בכל אחד משני המדדים ב-26 באוגוסט 2001. שימו לב לכפתור הסקאלה: בתצוגה הלוגריתמית מרחק אנכי זהה משמעו שיעור שינוי זהה, ולכן היא ההשוואה ההוגנת בין שני נכסים שהגיעו לסדרי גודל שונים לגמרי. בסקאלה הרגילה, לעומת זאת, קל יותר לראות עד כמה הפער נפתח דווקא בשנים האחרונות.</p>
+    <p>הגרף הבא מציג את שוויו של ₪1 שהושקע בכל אחד משני המדדים ב-26 באוגוסט 2001, בסקאלה רגילה. כך רואים בבירור עד כמה הפער בין שני האפיקים נפתח דווקא בשנים האחרונות — ועד כמה הוא היה צנוע בעשור הראשון.</p>
 
     <div class="chart-card">
       <h4>צמיחת ₪1 — ת"א-125 מול מדד אג"ח כללי, 2001–2026</h4>
-      <div class="dc-toggle">
-        <button id="btnLog" aria-pressed="true">סקאלה לוגריתמית</button>
-        <button id="btnLin" aria-pressed="false">סקאלה רגילה</button>
-      </div>
       <div class="chart-legend">
         <span class="legend-item"><span class="legend-dot" style="background:#007DA8"></span> ת"א-125</span>
         <span class="legend-item"><span class="legend-dot" style="background:#C08A2E"></span> אג"ח כללי</span>
@@ -923,7 +915,7 @@ const NS='http://www.w3.org/2000/svg';
 function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
 
 /* ---------- line chart ---------- */
-let logScale = true;
+const logScale = false;
 const S = DATA.series.map(r=>({d:new Date(r[0]), s:r[1], b:r[2]}));
 function drawLine(){
   const svg=document.getElementById('line'); if(!svg) return; svg.innerHTML='';
@@ -968,10 +960,6 @@ function drawLine(){
   });
   hit.addEventListener('mouseleave',()=>{ tip.style.display='none'; hover.setAttribute('opacity',0); d1.setAttribute('opacity',0); d2.setAttribute('opacity',0); });
 }
-function sync(){ document.getElementById('btnLog').setAttribute('aria-pressed',logScale);
-  document.getElementById('btnLin').setAttribute('aria-pressed',!logScale); drawLine(); }
-document.getElementById('btnLog').onclick=()=>{ logScale=true; sync(); };
-document.getElementById('btnLin').onclick=()=>{ logScale=false; sync(); };
 
 /* ---------- bars ---------- */
 function drawBars(){
