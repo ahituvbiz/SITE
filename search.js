@@ -242,37 +242,202 @@ const SITE_SEARCH_INDEX = [
     url: '/tools/tax-savings/',
     desc: 'כמה מס תחסוך מהפקדה לפנסיה ולקרן השתלמות — לשכיר ולעצמאי.',
     kw: 'מחשבון מס חיסכון פנסיה קרן השתלמות זיכוי ניכוי הטבת מס'
+  },
+  // ── דפי אשכול (Hub) ──
+  {
+    title: 'תכנון פיננסי אובייקטיבי — יועץ בעל רישיון',
+    url: '/financial-planning/',
+    desc: 'תכנון פיננסי הוליסטי שמחבר פנסיה, חיסכון, ביטוח ומשכנתא למבט אחד — בלי עמלות מהיצרניות.',
+    kw: 'תכנון פיננסי הוליסטי אובייקטיבי יועץ רישיון פנסיה חיסכון ביטוח משכנתא ניגוד עניינים'
+  },
+  {
+    title: 'שירותי ייעוץ פנסיוני ומשכנתאות',
+    url: '/services/',
+    desc: 'שישה שירותים במבט הוליסטי: תכנון פיננסי, משכנתאות, ביטוחים, פתיחת IRA, תיק השקעות וחיסכון בעמלות סילוק.',
+    kw: 'שירותים ייעוץ פנסיוני משכנתא ביטוח IRA תיק השקעות עמלות סילוק מחירון שירות'
+  },
+  {
+    title: 'חיסכון והשקעות — כל המדריכים',
+    url: '/savings/',
+    desc: 'קרן השתלמות, קרן כספית, גמל להשקעה, IRA ומדדי שוק ההון — כל מדריכי החיסכון במקום אחד.',
+    kw: 'חיסכון השקעות מדריכים קרן השתלמות קרן כספית גמל להשקעה IRA מדדים שוק ההון'
+  },
+  // ── הרצאות ──
+  {
+    title: 'הרצאות מומלצות בתכנון פיננסי — סיכומים',
+    url: '/articles/lectures/',
+    desc: 'סיכומי הרצאות נבחרות בתכנון פיננסי, השקעות ונדל"ן — מאוצרות ומוערכות בידי יועץ פנסיוני.',
+    kw: 'הרצאות הרצאה סיכום סיכומים וידאו יוטיוב תכנון פיננסי השקעות נדלן פודקאסט'
+  },
+  {
+    title: 'למות בלי שקל (Die with Zero) — ביל פרקינס',
+    url: '/articles/lectures/die-with-zero/',
+    desc: 'תשעה עקרונות, דיבידנד הזיכרון והחלקת צריכה — והתאמה למערכת הפנסיונית בישראל.',
+    kw: 'die with zero למות בלי שקל ביל פרקינס דיבידנד זיכרון החלקת צריכה פרישה בזבוז כסף חוויות הרצאה'
+  },
+  {
+    title: 'השקעה במדדים — ניתוח ביקורתי מלא (אסף נתן)',
+    url: '/articles/lectures/index-investing-deep-dive/',
+    desc: 'מה S&P 500 לא מספר לך: ריכוזיות, 5 מבחנים פסיכולוגיים ולמה רוב המשקיעים לא מצליחים.',
+    kw: 'השקעה במדדים מדד סנופי S&P 500 אסף נתן ריכוזיות פסיכולוגיה משקיעים הרצאה ניתוח ביקורתי פאסיבי'
+  },
+  {
+    title: 'שוק הדיור בישראל 2026 — ניתוח כלכלי (מתן שטרית)',
+    url: '/articles/lectures/israel-housing-2026/',
+    desc: 'מחירי דירות, כושר רכישה, ריבית ומשכנתאות, סיכוני קבלנים — ומה כדאי לעשות.',
+    kw: 'שוק הדיור דיור מחירי דירות דירה נדלן ריבית משכנתא קבלנים מתן שטרית הפניקס 2026 הרצאה'
+  },
+  {
+    title: 'הרצאה פיננסית לעובדי הייטק — ללא עלות לחברה',
+    url: '/services/hitech-lecture/',
+    desc: 'הרצאת רווחה פיננסית לחברות הייטק: מסלולי השקעה, דמי ניהול, כיסויים ביטוחיים ואיזון אקטוארי.',
+    kw: 'הרצאה הייטק היטק חברה רווחה פיננסית עובדים מסלולי השקעה דמי ניהול איזון אקטוארי ללא עלות מעסיק HR'
+  },
+  // ── מוצרי פנסיה / חיסכון (השלמות) ──
+  {
+    title: 'קרן השתלמות לעובדי הוראה — חייבים להישאר בקרן של המורים?',
+    url: '/savings/keren-hishtalmut-morim/',
+    desc: 'קרן ההשתלמות לעובדי הוראה היא ברירת מחדל, לא חובה. שבתון, מסלול מנייתי, תשואה, נטו ומשיכת 93%.',
+    kw: 'קרן השתלמות עובדי הוראה מורים מורה מורות גננת גננות מנהלי בתי ספר בית ספר חינוך משרד החינוך ארגון המורים הסתדרות המורים שבתון מסלול מנייתי תשואה משיכה 93 אחוז ניוד העברה קרן של המורים'
+  },
+  {
+    title: 'משיכת פנסיה בפטור ממס בזכות נכות במשפחה',
+    url: '/pension/meshichat-pensya-nechut/',
+    desc: 'נכות צמיתה או מצב סיעודי אצל קרוב משפחה עשויים לזכות במשיכת תגמולים בפטור מלא ממס.',
+    kw: 'משיכת פנסיה נכות צמיתה סיעודי פטור ממס תגמולים קרוב משפחה ילד נכה זכאות 1190'
+  },
+  {
+    title: 'כלכלת הלולאה של ה-AI — ריכוזיות שמדדים לא תופסים',
+    url: '/investment/ai-loop-economy/',
+    desc: '31% מה-S&P 500 שזורים בלולאה אחת של AI: Nvidia, OpenAI, גוגל, Anthropic — ריכוזיות שבירה.',
+    kw: 'AI בינה מלאכותית לולאה ריכוזיות S&P 500 סנופי nvidia openai anthropic גוגל בועה מדד HHI'
+  },
+  // ── מחשבונים (השלמות) ──
+  {
+    title: 'מחשבון פנסיה — כמה קצבה תקבלו בפרישה?',
+    url: '/tools/pension-calculator/',
+    desc: 'הזינו גיל, שכר וצבירה וגלו כמה כסף וקצבה חודשית יצטברו עד הפרישה — כולל עלויות הביטוח.',
+    kw: 'מחשבון פנסיה קצבה פרישה צבירה שכר גיל תחזית סימולטור עלות ביטוח חודשית'
+  },
+  {
+    title: 'מחשבון מקדם המרה לקצבת פנסיה',
+    url: '/tools/mekadem-hamara/',
+    desc: 'המקדם שבו מחלקים את היתרה הצבורה לקצבה חודשית — לפי מין, גיל פרישה, שנתון ומצב משפחתי.',
+    kw: 'מקדם המרה מקדם קצבה זקנה יתרה צבורה גיל פרישה שנתון תקופת הבטחה אלמן אלמנה מחשבון'
+  },
+  {
+    title: 'מחשבון יעדי חיסכון — כמה לחסוך בחודש לכל מטרה',
+    url: '/tools/savings-goals/',
+    desc: 'חתונה, בר מצווה, החלפת רכב — כמה לחסוך בחודש בכלי ארוך טווח וכמה בקצר, כולל אינפלציה ומס.',
+    kw: 'יעדי חיסכון מטרה חתונה בר מצווה רכב לימודים מחשבון חודשי אינפלציה מס רווחי הון קצר ארוך טווח'
+  },
+  // ── עזרה ותפעול ──
+  {
+    title: 'הורדת דוח קרן פנסיה — מדריך לכל הקרנות',
+    url: '/bedikat-pensya/guides/',
+    desc: 'הנחיות להורדת הדוח מהאזור האישי: הראל, מגדל, מנורה, מור, אינפיניטי, כלל, הפניקס, מיטב ואלטשולר.',
+    kw: 'הורדת דוח קרן פנסיה מדריך אזור אישי הראל מגדל מנורה מור אינפיניטי כלל הפניקס מיטב אלטשולר שחם דוח שנתי רבעוני'
+  },
+  {
+    title: 'הצהרת נגישות',
+    url: '/accessibility/',
+    desc: 'מחויבות להנגשת האתר לפי תקן ישראלי 5568 (WCAG 2.1 AA) ופרטי קשר לדיווח.',
+    kw: 'נגישות הצהרת נגישות תקן 5568 WCAG רכז נגישות'
   }
 ];
 
 (function () {
   'use strict';
 
+  var FINALS = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
+
+  /* מילים נרדפות — שאילתה שמכילה מפתח מקבלת גם את הערכים */
+  var SYNONYMS = {
+    'מורים': 'הוראה חינוך', 'מורה': 'הוראה חינוך', 'מורות': 'הוראה חינוך',
+    'הוראה': 'מורים חינוך', 'גננת': 'הוראה מורים', 'חינוך': 'הוראה מורים',
+    'השתלמות': 'הישתלמות', 'סנופי': 's&p 500 מדד', 'snp': 's&p 500',
+    'ספי': 's&p 500', 'עמלה': 'עמלות דמי ניהול', 'מחיר': 'עלות מחירון',
+    'עולה': 'מחיר עלות', 'הייטק': 'היטק', 'היטק': 'הייטק',
+    'נדלן': 'נדל"ן דירה', 'דירה': 'נדלן', 'קצבה': 'פנסיה מקדם',
+    'משכנתה': 'משכנתא', 'קופת': 'קופה גמל', 'ילדים': 'ילד',
+    'שבתון': 'הוראה מורים השתלמות'
+  };
+
   function normalize(str) {
     return (str || '').toLowerCase()
-      .replace(/[״""'']/g, '')
-      .replace(/[\-–—]/g, ' ');
+      .replace(/[֑-ׇ]/g, '')
+      .replace(/[״”“"'’‘׳]/g, '')
+      .replace(/[\-–—_/\\,.;:()\[\]]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /* מצמצם מילה עברית לגזע גס: אותיות סופיות, סיומות ריבוי/נקבה, אותיות שימוש */
+  function stem(w) {
+    w = w.replace(/[ךםןףץ]/g, function (c) { return FINALS[c]; });
+    if (w.length >= 4) w = w.replace(/(יות|ויות|ים|ות|יה|ה|ת|י)$/, '');
+    var guard = 0;
+    while (w.length >= 5 && /^[והבכלמש]/.test(w) && guard < 2) { w = w.slice(1); guard++; }
+    return w;
+  }
+
+  function tokens(str) {
+    var raw = normalize(str).split(' ').filter(Boolean);
+    var out = [];
+    raw.forEach(function (w) {
+      out.push(w);
+      var s = stem(w);
+      if (s && s !== w) out.push(s);
+    });
+    return out;
+  }
+
+  function expand(words) {
+    var out = words.slice();
+    words.forEach(function (w) {
+      if (SYNONYMS[w]) out = out.concat(normalize(SYNONYMS[w]).split(' '));
+    });
+    return out;
+  }
+
+  /* התאמה: זהות גזע, או שאחד הוא תחילית של השני (מ-3 תווים) */
+  function hits(qWord, bag) {
+    var q = stem(qWord);
+    if (q.length < 2) return false;
+    for (var i = 0; i < bag.length; i++) {
+      var t = bag[i];
+      if (t === q) return true;
+      if (q.length >= 3 && t.length >= 3 && (t.indexOf(q) === 0 || q.indexOf(t) === 0)) return true;
+    }
+    return false;
   }
 
   function searchPages(query) {
     if (!query || query.trim().length < 2) return [];
-    var q = normalize(query.trim());
-    var words = q.split(/\s+/);
-    var results = [];
+    var qWords = expand(normalize(query).split(' ').filter(function (w) { return w.length >= 2; }));
+    if (!qWords.length) return [];
 
+    var results = [];
     SITE_SEARCH_INDEX.forEach(function (page) {
-      var haystack = normalize(page.title + ' ' + page.desc + ' ' + page.kw);
-      var score = 0;
-      words.forEach(function (word) {
-        if (haystack.indexOf(word) !== -1) {
-          if (normalize(page.title).indexOf(word) !== -1) score += 3;
-          else score += 1;
-        }
+      if (!page._t) {
+        page._t = tokens(page.title);
+        page._b = tokens(page.title + ' ' + page.desc + ' ' + page.kw);
+      }
+      var score = 0, matched = 0;
+      qWords.forEach(function (w) {
+        if (hits(w, page._t)) { score += 3; matched++; }
+        else if (hits(w, page._b)) { score += 1; matched++; }
       });
-      if (score > 0) results.push({ page: page, score: score });
+      if (matched) {
+        if (matched === qWords.length && qWords.length > 1) score += 4;
+        results.push({ page: page, score: score, matched: matched });
+      }
     });
 
-    results.sort(function (a, b) { return b.score - a.score; });
+    results.sort(function (a, b) {
+      if (b.matched !== a.matched) return b.matched - a.matched;
+      return b.score - a.score;
+    });
     return results.slice(0, 7).map(function (r) { return r.page; });
   }
 
@@ -285,7 +450,10 @@ const SITE_SEARCH_INDEX = [
     if (!results.length) {
       var noRes = document.createElement('div');
       noRes.className = 'no-results';
-      noRes.textContent = 'לא נמצאו תוצאות עבור "' + query + '"';
+      noRes.innerHTML = 'לא נמצאו תוצאות עבור "' + escapeHtml(query) + '".' +
+        '<span style="display:block;font-size:12px;color:#777;margin-top:6px">' +
+        'אפשר לנסות מילה אחרת, או לעבור ל<a href="/articles/" style="text-decoration:underline">מרכז הידע</a> ' +
+        'ול<a href="/tools/" style="text-decoration:underline">מחשבונים</a>.</span>';
       container.appendChild(noRes);
     } else {
       results.forEach(function (page) {
@@ -328,9 +496,15 @@ const SITE_SEARCH_INDEX = [
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSearch);
-  } else {
-    initSearch();
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { searchPages: searchPages, stem: stem };
+  }
+
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSearch);
+    } else {
+      initSearch();
+    }
   }
 })();
