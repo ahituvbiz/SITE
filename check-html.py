@@ -31,6 +31,39 @@ BLOCK_TAGS = ["div", "section", "article", "details", "svg"]
 # דפים שמותר להם לא לכלול פוטר אחיד (אזור לקוחות + דאטה מוטמע)
 FOOTER_EXEMPT = ("clients/", "game/", "private/", "lecture/")   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
 
+# ---- דף ההרצאה המאוחד (lecture/) -------------------------------------------
+# הקובץ הזה הוא HTML יחיד שמכיל את כל דפי ההרצאה בבלוקי <script type="text/html">.
+# בדיקת המבנה הרגילה עיוורת אליו (strip_noise מסיר בלוקי script), ולכן יש לו
+# שער משלו שרץ אוטומטית בכל פריסה. אין מה להריץ ידנית.
+LECTURE_PAGES = ("advisor", "needle", "flow", "insurance", "returns")
+LECTURE_FORBIDDEN = ["מנורה משלימה", '"mash":true']
+
+def lecture_check(path):
+    fails = []
+    try:
+        t = open(path, encoding="utf-8").read()
+    except Exception as e:
+        return [f"לא ניתן לקרוא: {e}"]
+    for term in LECTURE_FORBIDDEN:                       # 1. תוכן חסוי — הקריטי
+        if term in t: fails.append(f'תוכן חסוי בקובץ: "{term}"')
+    n = len(re.findall(r'<script type="text/html" id="pg-(?:%s)">' % "|".join(LECTURE_PAGES), t))
+    if n != 5:                                           # 2. שלמות הקידוד
+        fails.append(f"נמצאו {n} בלוקי דפים במקום 5 (עריכה שברה את הקובץ?)")
+    for k in LECTURE_PAGES:                              # 3. כל דף שלם
+        m = re.search(r'<script type="text/html" id="pg-%s">(.*?)</script>\s*(?=\n\n<!-- =|\n<script>)' % k, t, re.S)
+        if not m: fails.append("חסר או שבור בלוק הדף: " + k); continue
+        b = m.group(1)
+        if 'class="lecnav"' not in b:  fails.append("אין סרגל ניווט בדף " + k)
+        if 'name="robots"' not in b:   fails.append("חסר noindex בדף " + k)
+        if len(b) < 5000:              fails.append(f"הדף {k} קצר בצורה חשודה ({len(b)} תווים)")
+    for bad, why in [("fonts.googleapis.com", "הפונט צריך להיות מוטמע"),
+                     ("cdnjs.cloudflare.com", "Chart.js צריך להיות מוטמע")]:
+        if bad in t: fails.append(f"נשארה תלות חיצונית ({bad}) — {why}")
+    if 'name="robots" content="noindex' not in t.split("<body>")[0]:
+        fails.append("חסר noindex במעטפת הקובץ")
+    return fails
+
+
 def all_html():
     try:
         out = subprocess.check_output(["git", "ls-files", "*.html"], text=True)
@@ -115,7 +148,16 @@ def main(argv):
     nbad = 0
     for f in files:
         # דפי אזור-לקוחות הם פרגמנטים מכוונים (תוכן מוזרק ב-JS) — בדיקת NUL/UTF8 בלבד
-        exempt = any(x in f.replace("\\","/") for x in FOOTER_EXEMPT)
+        rel = f.replace("\\","/")
+        if "lecture/" in rel:                    # דף ההרצאה המאוחד — שער ייעודי
+            fails = lecture_check(f)
+            if fails:
+                nbad += 1; print(f"\u274c {f}")
+                for e in fails: print(f"     FAIL: {e}")
+            else:
+                print(f"\u2705 {f}  (דף הרצאה מאוחד — שער ייעודי עבר)")
+            continue
+        exempt = any(x in rel for x in FOOTER_EXEMPT)
         if exempt:
             raw = open(f,"rb").read() if os.path.exists(f) else b""
             fails = ["בייטי NUL — קובץ פגום"] if b"\x00" in raw else []
