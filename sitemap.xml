@@ -430,4 +430,11 @@
     <priority>0.8</priority>
     <!-- הרצאה לעובדי הייטק -->
   </url>
+  <url>
+    <loc>https://pensya.info/investment/stocks-vs-bonds/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מניות מול אג"ח — 25 שנה של נתונים -->
+  </url>
 </urlset>
