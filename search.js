@@ -1,342 +1,254 @@
 /**
- * pensya.info — Site-wide search
- * Searches across all published pages via a static index.
- * Include this file once per page; it auto-attaches to #site-search / #search-results.
+ * pensya.info — חיפוש אתר-רחב (v3, 27.8.26)
+ *
+ * האינדקס נגזר אוטומטית מהדפים עצמם ע"י build-search-index.py בכל פריסה,
+ * ונטען בעצלתיים (/search-index.json) רק כשהמשתמש נוגע בתיבת החיפוש.
+ * הקובץ הזה מכיל את המנוע בלבד — אין בו רשימת דפים ואין מה לתחזק בו ידנית,
+ * פרט לטבלת המילים הנרדפות שלמטה.
+ *
+ * מייצא: window.PensyaSearch.query(str) -> [{title,url,desc,heading,score}]
  */
-
-const SITE_SEARCH_INDEX = [
-  {
-    title: 'דף הבית — תכנון פיננסי בלי קונפליקט אינטרסים',
-    url: '/',
-    desc: 'יועץ פנסיוני בעל רישיון משרד האוצר. אובייקטיבי לפי חוק. פנסיה, חיסכון, ביטוחים ומשכנתא.',
-    kw: 'תכנון פיננסי יועץ פנסיוני רישיון אובייקטיבי עמלות פנסיה'
-  },
-  // ── אודות ──
-  {
-    title: 'אודות איתן אחיטוב — יועץ פנסיוני',
-    url: '/about/',
-    desc: 'הסיפור שלי: פרשתי מהבנק כדי לעבוד בצד שלך. רישיון נדיר, 6 בחינות, ניסיון 15+ שנה.',
-    kw: 'איתן אחיטוב אודות יועץ פנסיוני ביוגרפיה רישיון'
-  },
-  {
-    title: 'יועץ פנסיוני מול מתכנן פיננסי וסוכן ביטוח',
-    url: '/about/advisor-vs-planner-vs-agent/',
-    desc: 'ההבדל בין יועץ פנסיוני, מתכנן פיננסי וסוכן ביטוח — לא ניואנס, אלא מאות אלפי שקלים.',
-    kw: 'יועץ פנסיוני מתכנן פיננסי סוכן ביטוח השוואה הבדל רישיון עמלות מסך עשן'
-  },
-  {
-    title: 'דוגמאות מתוך ייעוצים — סיפורי לקוחות',
-    url: '/about/case-studies/',
-    desc: 'מקרי בוחן אמיתיים: עצמאי שלא הפקיד, שכיר בכיר עם תיק מבולגן, ועוד.',
-    kw: 'סיפורי לקוחות מקרה בוחן ייעוץ פנסיוני דוגמאות'
-  },
-  {
-    title: 'רישיון יועץ פנסיוני — למה זה הנכס הכי חשוב שלך',
-    url: '/about/license/',
-    desc: 'מה זה רישיון יועץ פנסיוני ממשרד האוצר, איך זה מגן עליך, ולמה יש רק ~100 כאלה בישראל.',
-    kw: 'רישיון יועץ פנסיוני משרד האוצר עמלות אובייקטיבי פיקוח רשות שוק ההון'
-  },
-  {
-    title: 'יועץ פנסיוני מומלץ — איך לבחור',
-    url: '/about/recommended-advisor/',
-    desc: '8 שאלות לשאול לפני, איך לבדוק רישיון ברשות שוק ההון, ומה להיזהר ממנו.',
-    kw: 'יועץ פנסיוני מומלץ איך לבחור בדיקה רישיון שאלות'
-  },
-  {
-    title: 'המלצות מלקוחות',
-    url: '/about/testimonials/',
-    desc: 'המלצות אמיתיות מלקוחות על ייעוץ פנסיוני אובייקטיבי — שכירים בכירים, עצמאים וזוגות.',
-    kw: 'המלצות לקוחות ביקורות חוות דעת ייעוץ פנסיוני'
-  },
-  // ── רובייקטיבי ──
-  {
-    title: 'רובייקטיבי — בדיקת קרן פנסיה ב-60 שניות',
-    url: '/bedikat-pensya/',
-    desc: 'כלי AI חינמי לניתוח דוח קרן פנסיה: הפקדות, ביטוחים, דמי ניהול, מסלול השקעה.',
-    kw: 'רובייקטיבי AI בינה מלאכותית דוח פנסיה ניתוח בדיקה חינם 60 שניות'
-  },
-  // ── מאמרים ──
-  {
-    title: 'מרכז הידע הפיננסי',
-    url: '/articles/',
-    desc: 'מאמרים על פנסיה, ביטוחים, חיסכון ומשכנתאות — הכל בעברית, הכל אובייקטיבי.',
-    kw: 'מאמרים ידע פיננסי בלוג כדאי לדעת'
-  },
-  {
-    title: 'נדל"ן או שוק ההון — סימולציה ומסקנות',
-    url: '/articles/real-estate-vs-stocks/',
-    desc: 'ניתוח אובייקטיבי: תשואה היסטורית, עלויות נסתרות, מינוף, מס — ומה באמת עדיף.',
-    kw: 'נדלן שוק ההון השוואה השקעה דירה תיק השקעות תשואה'
-  },
-  {
-    title: 'על מה אתה באמת משלם בייעוץ פנסיוני חינם?',
-    url: '/articles/true-cost-free/',
-    desc: 'ייעוץ "חינם" מסוכן ביטוח לא באמת חינם — מישהו תמיד משלם. גלה מי, כמה ולמה.',
-    kw: 'ייעוץ חינם עלות נסתרת סוכן ביטוח עמלה קונפליקט אינטרסים'
-  },
-  {
-    title: 'למה כדאי לשלם על ייעוץ פנסיוני',
-    url: '/articles/why-pay/',
-    desc: 'ייעוץ בתשלום מול "חינם" — מה ההבדל, מתי זה כדאי, וכמה זה מחזיר את עצמו.',
-    kw: 'ייעוץ פנסיוני תשלום כדאיות למה לשלם ROI'
-  },
-  // ── קהל יעד ──
-  {
-    title: 'פנסיה לעצמאים — המדריך המלא 2026',
-    url: '/audiences/self-employed/',
-    desc: 'פנסיה לעצמאים: חוק החובה, כמה להפקיד, קרן השתלמות, הטבות מס, וטעויות נפוצות.',
-    kw: 'פנסיה עצמאי פרילנסר עצמאים חובת הפקדה מס קרן השתלמות'
-  },
-  {
-    title: 'תכנון פיננסי לשכירים בכירים',
-    url: '/audiences/senior-employees/',
-    desc: 'מיצוי הטבות מס, השוואת תנאי מעסיק, בניית עתודה לפרישה מוקדמת.',
-    kw: 'שכיר בכיר שכר גבוה היטק הייטק אופציות RSU מיצוי מס פרישה מוקדמת'
-  },
-  // ── ביטוחים ──
-  {
-    title: 'ביטול ביטוח סיעודי — שיקולים לפני שמבטלים',
-    url: '/insurance/cancel-siudi/',
-    desc: 'ביטול ביטוח סיעודי עלול לעלות ביוקר — לפעמים בלתי הפיך. מה לבדוק לפני.',
-    kw: 'ביטוח סיעודי ביטול אובדן ברות כיסוי סיעוד ביטוח בריאות'
-  },
-  // ── IRA / השקעות ──
-  {
-    title: 'IRA — קופת גמל והשתלמות בניהול אישי',
-    url: '/investment/ira/',
-    desc: 'שאלון התאמה אינטראקטיבי, המלצת ברוקר וחישוב עלויות שנתיות. שירות צירוף 890 ₪.',
-    kw: 'IRA ניהול אישי קופת גמל קרן השתלמות ברוקר גלובלנט פסגות IBI לאומי מזרחי 890'
-  },
-  {
-    title: 'IRA: למה להעדיף השתלמות, ולמה לא לגעת בפנסיה',
-    url: '/investment/ira-explained/',
-    desc: 'מדריך IRA מקיף: מתי כן ומתי לא, 5 סיבות לא לגעת בפנסיה, ומה עדיף.',
-    kw: 'IRA מדריך מאמר קרן השתלמות גמל פנסיה אסור אכע שאירים אגח מיועדות'
-  },
-  {
-    title: 'עמלות ברוקרים IRA — השוואה מלאה',
-    url: '/investment/ira-fees/',
-    desc: 'טבלת עמלות מלאה: פסגות, IBI, מזרחי, הבינלאומי, לאומי, הפועלים. ישראל וחו"ל.',
-    kw: 'עמלות IRA ברוקר פסגות IBI מזרחי הבינלאומי לאומי הפועלים גלובלנט'
-  },
-  {
-    title: 'כללי השקעה רגולטוריים ב-IRA',
-    url: '/investment/ira-investment-rules/',
-    desc: 'מה מותר ומה אסור ב-IRA לפי תקנות 2009 + טיוטת תקנות 2025 מהאוצר.',
-    kw: 'IRA כללי השקעה רגולציה תקנות 2025 מגבלות ריכוז כסף פנסיוני אסור'
-  },
-  {
-    title: 'יתרון דחיית המס ב-IRA',
-    url: '/investment/ira-tax-deferral/',
-    desc: 'איך ריבית דריבית על "כסף המס" יוצרת הפרש של 500,000 ₪ לאורך 30 שנה.',
-    kw: 'דחיית מס IRA ריבית דריבית רווחי הון מס מיסוי השקעות 500000'
-  },
-  {
-    title: 'מדד S&P 500: למה לא לשים עליו הכל',
-    url: '/investment/why-not-sp500/',
-    desc: 'ריכוזיות 10 החברות, הימור על מדינה ומטבע אחד, והעיוות של שקלול שווי שוק — למה פיזור רחב עדיף.',
-    kw: 'S&P 500 סנופי מדד מסלול מחקה פיזור מדד עולמי MSCI דולר מטח ריכוזיות משקל שווה'
-  },
-  // ── משכנתא ──
-  {
-    title: 'משכנתא ופנסיה — תכנון פיננסי הוליסטי',
-    url: '/mortgage/mortgage-and-pension/',
-    desc: 'למה משכנתא ופנסיה חייבים להיות מתוכננים יחד — ולא בנפרד. שילוב שני התיקים.',
-    kw: 'משכנתא פנסיה שילוב תכנון פיננסי הוליסטי בית דירה'
-  },
-  // ── מוצרי פנסיה ──
-  {
-    title: 'מוצרי פנסיה — המדריך המלא',
-    url: '/pension/',
-    desc: 'קרן פנסיה מקיפה ומשלימה, ביטוח מנהלים, קופת גמל — מה ההבדלים ומה עדיף.',
-    kw: 'פנסיה קרן פנסיה ביטוח מנהלים קופת גמל מוצרי פנסיה'
-  },
-  {
-    title: 'כמה להפקיד לפנסיה כשכיר?',
-    url: '/pension/contribution-employee/',
-    desc: 'חובת ההפקדה לפי חוק, המינימום שמשתלם (18.5%), הטבות המס ומתי כדאי להגדיל.',
-    kw: 'הפקדה פנסיה שכיר חובה 18.5% מינימום הטבות מס מעסיק עובד'
-  },
-  {
-    title: 'קרן פנסיה מקיפה — מה זה ולמי זה מתאים',
-    url: '/pension/keren-pensya-mekifa/',
-    desc: 'המוצר הפנסיוני המשתלם ביותר לרוב הציבור. המבנה, היתרונות, החסרונות.',
-    kw: 'קרן פנסיה מקיפה מסלולים אגח מיועדות כיסוי ביטוחי אכע שאירים'
-  },
-  {
-    title: 'קרן פנסיה מקיפה מול משלימה — איזו לבחור?',
-    url: '/pension/mekifa-vs-mashlima/',
-    desc: 'ההבדל המהותי, תקרות ההפקדה, מי חייב מקיפה ומתי משלימה הופכת רלוונטית.',
-    kw: 'קרן פנסיה מקיפה משלימה הבדל תקרה ביטוח מנהלים השוואה'
-  },
-  // ── חיסכון ──
-  {
-    title: 'גמל להשקעה — האם זה כדאי לך?',
-    url: '/savings/gamal-lehashkaa/',
-    desc: 'מה זה גמל להשקעה, למי זה מתאים, ומה ההבדל מחיסכון רגיל. מדריך מלא.',
-    kw: 'גמל להשקעה חיסכון קופת גמל השקעה תשואה מס פרישה'
-  },
-  {
-    title: 'חיסכון לכל ילד — המדריך המלא',
-    url: '/savings/hisachon-layeled/',
-    desc: 'ביטוח לאומי מפקיד 58 ₪ בחודש. בנק מול קופת גמל, הכפלה, ומה שווה פי 100 ממנו.',
-    kw: 'חיסכון לכל ילד ביטוח לאומי הכפלה קופת גמל בנק מענק גיל 18 21 58 שקל'
-  },
-  {
-    title: 'איך קונים קרן כספית בפועל',
-    url: '/savings/how-to-buy-keren-kaspit/',
-    desc: 'מדריך צעד אחר צעד: בחירת קרן, פתיחת חשבון מסחר בבנק, ביצוע הרכישה.',
-    kw: 'קרן כספית קניה בנק חשבון מסחר צעד צעד'
-  },
-  {
-    title: 'קרן השתלמות — המדריך השלם 2026',
-    url: '/savings/keren-hishtalmut/',
-    desc: 'האפיק היחיד הפטור ממס רווחי הון. מדריך לשכירים ועצמאים: הפקדה, תקרה, משיכה.',
-    kw: 'קרן השתלמות שכיר עצמאי פטור מס רווחי הון הפקדה תקרה משיכה 6 שנים'
-  },
-  {
-    title: 'קרן השתלמות לעובדי הוראה — חייבים להישאר?',
-    url: '/savings/keren-hishtalmut-morim/',
-    desc: 'מורים וגננות לא חייבים בקרן של עובדי ההוראה. שבתון, מסלול מנייתי, נטו ומשיכה של 93% — כולל מחשבון.',
-    kw: 'קרן השתלמות עובדי הוראה מורים גננות שבתון שנת שבתון מלגה ותק מסלול מנייתי 8.4% 4.2% 93% ניוד'
-  },
-  {
-    title: 'קרן כספית — המדריך השלם',
-    url: '/savings/keren-kaspit/',
-    desc: 'מה זה, יתרון מס ריאלי, 4 סוגי קרנות (שקלית, מט"חית, ללא קונצרני, מחלקת), איך קונים.',
-    kw: 'קרן כספית פיקדון ריבית מס ריאלי שקלית מטח קונצרני מחלקת תשואה'
-  },
-  {
-    title: 'להתחיל לחסוך לפנסיה מוקדם — כמה שווה כל שנה',
-    url: '/savings/start-saving-early/',
-    desc: 'ריבית דריבית היא הנשק של מי שמתחיל מוקדם. חישוב: התחלה בגיל 25 vs 35.',
-    kw: 'חיסכון מוקדם פנסיה גיל צעיר ריבית דריבית 25 35 חסכון מוקדם'
-  },
-  // ── מחשבונים ──
-  {
-    title: 'מחשבונים פיננסיים — מרכז הכלים',
-    url: '/tools/',
-    desc: '6 מחשבונים חינמיים: פנסיה לעצמאים, חיסכון במס, נדל"ן מול שוק, דמי ניהול ו-ROI.',
-    kw: 'מחשבון פיננסי כלים פנסיה עצמאי מס נדלן שוק ההון דמי ניהול ROI'
-  },
-  {
-    title: 'מחשבון עלות דמי ניהול',
-    url: '/tools/management-fees/',
-    desc: 'כמה עולה לך כל 0.1% בדמי ניהול — בריבית-דריבית על עשרות שנות צבירה.',
-    kw: 'דמי ניהול מחשבון עלות הפרש פנסיה קרן חיסכון 0.1%'
-  },
-  {
-    title: 'סימולטור מחיר למשתכן',
-    url: '/tools/mechir-lamishtaken/',
-    desc: 'הגרלה, זכאות, מחיר ריאלי ביחס לשוק — ומה קורה לכסף שחסכת אם תשקיע אותו.',
-    kw: 'מחיר למשתכן הגרלה זכאות דירה בהנחה סימולטור'
-  },
-  {
-    title: 'מחשבון פנסיה לעצמאים',
-    url: '/tools/pension-calc-self-employed/',
-    desc: 'חישוב הפקדה מומלצת, חיסכון במס ותחזית צבירה לפרישה — לעצמאי ופרילנסר.',
-    kw: 'מחשבון פנסיה עצמאי פרילנסר הפקדה מס צבירה פרישה סימולטור'
-  },
-  {
-    title: 'מחשבון נדל"ן מול שוק ההון',
-    url: '/tools/real-estate-vs-market/',
-    desc: 'סימולציית 5–40 שנה: דירה מול תיק השקעות. שכירות, מינוף, עליית ערך, מס.',
-    kw: 'מחשבון נדלן שוק ההון השקעה דירה תיק השקעות השוואה סימולטור'
-  },
-  {
-    title: 'מחשבון חיסכון במס',
-    url: '/tools/tax-savings/',
-    desc: 'כמה מס תחסוך מהפקדה לפנסיה ולקרן השתלמות — לשכיר ולעצמאי.',
-    kw: 'מחשבון מס חיסכון פנסיה קרן השתלמות זיכוי ניכוי הטבת מס'
-  }
-];
-
 (function () {
   'use strict';
 
+  var INDEX_URL = '/search-index.json';
+  var FINALS = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
+
+  /* מילים נרדפות — מה שהגולש מקליד מול מה שכתוב בדפים */
+  var SYNONYMS = {
+    'מורים': 'הוראה חינוך', 'מורה': 'הוראה חינוך', 'מורות': 'הוראה חינוך',
+    'הוראה': 'מורים חינוך', 'גננת': 'הוראה מורים', 'גננות': 'הוראה מורים',
+    'שבתון': 'הוראה מורים השתלמות',
+    'סנופי': 's&p 500 מדד', 'snp': 's&p 500', 'ספי': 's&p 500',
+    'עמלה': 'עמלות ניהול', 'מחיר': 'עלות מחירון', 'עולה': 'מחיר עלות',
+    'הייטק': 'היטק', 'היטק': 'הייטק',
+    'נדלן': 'דירה נדל"ן', 'דירה': 'נדלן', 'משכנתה': 'משכנתא',
+    'קצבה': 'פנסיה מקדם', 'ילדים': 'ילד', 'סיעוד': 'סיעודי',
+    'פנסיוני': 'פנסיה', 'חסכון': 'חיסכון', 'השתלמות': 'הישתלמות'
+  };
+
+  var STOP = ('של את על עם לא זה זו הוא היא הם הן אני אתה אנחנו מה מי יש אין אם כי גם ' +
+    'כל או אבל אז רק עוד כבר אחרי לפני בין תחת אצל כמו כדי מאוד יותר פחות אשר היה היו ' +
+    'להיות כן ולא וגם אך שלא שהוא בו בה בהם אותו אותה זאת אלה כאן שם עכשיו איך למה מתי כמה'
+  ).split(' ').reduce(function (a, w) { a[w] = 1; return a; }, {});
+
+  var DATA = null, LOADING = null;
+
+  function load() {
+    if (DATA) return Promise.resolve(DATA);
+    if (LOADING) return LOADING;
+    LOADING = fetch(INDEX_URL, { cache: 'default' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { DATA = j; return j; })
+      .catch(function (e) { LOADING = null; throw e; });
+    return LOADING;
+  }
+
   function normalize(str) {
-    return (str || '').toLowerCase()
-      .replace(/[״""'']/g, '')
-      .replace(/[\-–—]/g, ' ');
+    return (str || '')
+      .replace(/[֑-ׇ]/g, '')
+      .replace(/[״”“"'’‘׳]/g, '')
+      .replace(/[^0-9A-Za-z֐-׿&%]+/g, ' ')
+      .toLowerCase().trim();
   }
 
-  function searchPages(query) {
-    if (!query || query.trim().length < 2) return [];
-    var q = normalize(query.trim());
-    var words = q.split(/\s+/);
-    var results = [];
-
-    SITE_SEARCH_INDEX.forEach(function (page) {
-      var haystack = normalize(page.title + ' ' + page.desc + ' ' + page.kw);
-      var score = 0;
-      words.forEach(function (word) {
-        if (haystack.indexOf(word) !== -1) {
-          if (normalize(page.title).indexOf(word) !== -1) score += 3;
-          else score += 1;
-        }
-      });
-      if (score > 0) results.push({ page: page, score: score });
-    });
-
-    results.sort(function (a, b) { return b.score - a.score; });
-    return results.slice(0, 7).map(function (r) { return r.page; });
+  /* סדר הפעולות קריטי: קילוף הסיומת לפני נרמול האות הסופית, אחרת "מורים"
+     הופך ל-"מורימ" והסיומת "ים" כבר לא מזוהה. חייב להיות זהה ל-stem()
+     שב-build-search-index.py, אחרת האינדקס והשאילתה לא נפגשים. */
+  function stem(w) {
+    if (w.length >= 4) w = w.replace(/(ויות|יות|ים|ות|יה|ה|ת|י)$/, '');
+    w = w.replace(/[ךםןףץ]/g, function (c) { return FINALS[c]; });
+    var g = 0;
+    while (w.length >= 5 && 'והבכלמש'.indexOf(w[0]) !== -1 && g < 2) { w = w.slice(1); g++; }
+    return w;
   }
 
-  function escapeHtml(s) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  function renderResults(results, container, query) {
-    container.innerHTML = '';
-    if (!results.length) {
-      var noRes = document.createElement('div');
-      noRes.className = 'no-results';
-      noRes.textContent = 'לא נמצאו תוצאות עבור "' + query + '"';
-      container.appendChild(noRes);
-    } else {
-      results.forEach(function (page) {
-        var a = document.createElement('a');
-        a.href = page.url;
-        a.innerHTML =
-          '<strong>' + escapeHtml(page.title) + '</strong>' +
-          '<span style="display:block;font-size:12px;color:#777;margin-top:2px">' +
-          escapeHtml(page.desc) + '</span>';
-        container.appendChild(a);
-      });
+  function queryTerms(q) {
+    var words = normalize(q).split(' ').filter(function (w) { return w.length >= 2 && !STOP[w]; });
+    var out = [], seen = {};
+    function push(w, boost, noFuzzy) {
+      var s = stem(w);
+      if (s.length < 2 || seen[s]) return;
+      seen[s] = 1; out.push({ s: s, boost: boost, noFuzzy: !!noFuzzy });
     }
-    container.classList.add('open');
+    words.forEach(function (w) {
+      // למילה שיש לה נרדפות מפורשות אין טעם בתיקון-שגיאות: הוא רק מייצר רעש
+      push(w, 1, !!(SYNONYMS[w] || SYNONYMS[stem(w)]));
+    });
+    words.forEach(function (w) {
+      var syn = SYNONYMS[w] || SYNONYMS[stem(w)];
+      if (syn) normalize(syn).split(' ').forEach(function (x) { push(x, 0.9, true); });
+    });
+    return out;
+  }
+
+  /* מרחק דמראו-לוינשטיין <= 1 — החלפה, הוספה, השמטה או שיכול שתי אותיות
+     ("השתמלות" -> "השתלמות"), שהוא רוב שגיאות ההקלדה בעברית. */
+  function near(a, b) {
+    if (a === b) return true;
+    var la = a.length, lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+    var i = 0;
+    while (i < la && i < lb && a[i] === b[i]) i++;
+    if (i === la && i === lb) return true;
+    var ea = la - 1, eb = lb - 1;
+    while (ea >= i && eb >= i && a[ea] === b[eb]) { ea--; eb--; }
+    if (la === lb) {
+      if (ea === i && eb === i) return true;                       // החלפת אות
+      if (ea === i + 1 && eb === i + 1 &&
+          a[i] === b[i + 1] && a[i + 1] === b[i]) return true;     // שיכול
+      return false;
+    }
+    return (la > lb) ? (ea === i && eb === i - 1) : (eb === i && ea === i - 1);
+  }
+
+  function lookup(term, allowFuzzy) {
+    var idx = DATA.i, hit = idx[term];
+    if (hit) return [hit];
+    var out = [], k;
+    if (term.length >= 3) {
+      for (k in idx) if (k.length > term.length && k.indexOf(term) === 0) out.push(idx[k]);
+      if (out.length) return out;
+    }
+    if (allowFuzzy && term.length >= 4) {
+      for (k in idx) if (near(term, k)) out.push(idx[k]);
+    }
+    return out;
+  }
+
+  function query(q) {
+    if (!DATA || !q || normalize(q).length < 2) return [];
+    var terms = queryTerms(q);
+    if (!terms.length) return [];
+    var acc = {};
+    terms.forEach(function (t) {
+      var best = {};
+      lookup(t.s, !t.noFuzzy).forEach(function (entry) {
+        var idf = entry[0];
+        entry[1].forEach(function (pw) {
+          var v = pw[1] * idf * t.boost;
+          if (!(pw[0] in best) || v > best[pw[0]]) best[pw[0]] = v;
+        });
+      });
+      for (var pi in best) {
+        var a = acc[pi] || (acc[pi] = { s: 0, m: 0 });
+        a.s += best[pi];
+        if (t.boost === 1) a.m++;
+      }
+    });
+    var core = terms.filter(function (t) { return t.boost === 1; }).length;
+    var res = [];
+    for (var pi in acc) {
+      var page = DATA.p[pi], a = acc[pi];
+      if (core > 1 && a.m === core) a.s *= 1.6;
+      res.push({ title: page.t, url: page.u, desc: page.d,
+                 heading: matchHeading(page, terms), score: a.s, matched: a.m });
+    }
+    res.sort(function (x, y) { return y.matched - x.matched || y.score - x.score; });
+    return res;
+  }
+
+  /* אם מונח החיפוש יושב בכותרת פרק בתוך הדף — מציגים אותה כהקשר */
+  function matchHeading(page, terms) {
+    if (!page.h) return '';
+    for (var i = 0; i < page.h.length; i++) {
+      var hs = normalize(page.h[i]).split(' ').map(stem);
+      for (var j = 0; j < terms.length; j++) {
+        if (terms[j].boost < 1) continue;
+        for (var k = 0; k < hs.length; k++) {
+          if (hs[k] === terms[j].s || (terms[j].s.length >= 3 && hs[k].indexOf(terms[j].s) === 0)) return page.h[i];
+        }
+      }
+    }
+    return '';
+  }
+
+  function track(name, params) {
+    try { if (typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+  }
+
+  /* ── ממשק תיבת החיפוש בהדר ── */
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   function initSearch() {
     var input = document.getElementById('site-search');
     var container = document.getElementById('search-results');
     if (!input || !container) return;
-
     input.placeholder = 'חיפוש באתר...';
+    input.setAttribute('autocomplete', 'off');
 
-    var debounceTimer;
+    var warm = function () { load().catch(function () {}); };
+    input.addEventListener('focus', warm, { once: true });
     input.addEventListener('input', function () {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(function () {
+      warm();
+      clearTimeout(timer);
+      timer = setTimeout(run, 140);
+    });
+    var timer;
+
+    function run() {
+      var q = input.value.trim();
+      if (q.length < 2) { container.classList.remove('open'); return; }
+      load().then(function () { render(q); }).catch(function () {
+        container.innerHTML = '<div class="no-results">החיפוש אינו זמין כרגע. נסו לרענן את הדף.</div>';
+        container.classList.add('open');
+      });
+    }
+
+    function render(q) {
+      var all = query(q), res = all.slice(0, 7);
+      container.innerHTML = '';
+      if (!res.length) {
+        track('search_no_results', { search_term: q });
+        var no = document.createElement('div');
+        no.className = 'no-results';
+        no.innerHTML = 'לא נמצאו תוצאות עבור "' + escapeHtml(q) + '".' +
+          '<span style="display:block;font-size:12px;color:#777;margin-top:6px">' +
+          'אפשר לנסות מילה אחרת, או לעבור ל<a href="/articles/" style="text-decoration:underline">מרכז הידע</a>' +
+          ' ול<a href="/tools/" style="text-decoration:underline">מחשבונים</a>.</span>';
+        container.appendChild(no);
+      } else {
+        track('search', { search_term: q, results: all.length });
+        res.forEach(function (r) {
+          var a = document.createElement('a');
+          a.href = r.url;
+          a.innerHTML = '<strong>' + escapeHtml(r.title) + '</strong>' +
+            '<span style="display:block;font-size:12px;color:#777;margin-top:2px">' +
+            escapeHtml(r.heading ? '· ' + r.heading : r.desc) + '</span>';
+          container.appendChild(a);
+        });
+        if (all.length > res.length) {
+          var more = document.createElement('a');
+          more.href = '/search/?q=' + encodeURIComponent(q);
+          more.innerHTML = '<strong style="font-size:13px">כל ' + all.length + ' התוצאות ←</strong>';
+          container.appendChild(more);
+        }
+      }
+      container.classList.add('open');
+    }
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { container.classList.remove('open'); input.blur(); }
+      if (e.key === 'Enter') {
         var q = input.value.trim();
-        if (q.length < 2) { container.classList.remove('open'); return; }
-        renderResults(searchPages(q), container, q);
-      }, 160);
+        if (q.length >= 2) { e.preventDefault(); location.href = '/search/?q=' + encodeURIComponent(q); }
+      }
     });
 
     document.addEventListener('click', function (e) {
       var wrap = input.closest('.header-search');
       if (wrap && !wrap.contains(e.target)) container.classList.remove('open');
     });
-
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { container.classList.remove('open'); input.blur(); }
-    });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSearch);
-  } else {
-    initSearch();
+  window.PensyaSearch = { load: load, query: query, stem: stem, normalize: normalize, track: track };
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = window.PensyaSearch;
+
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSearch);
+    else initSearch();
   }
 })();

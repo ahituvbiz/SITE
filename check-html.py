@@ -149,7 +149,9 @@ def main(argv):
     for f in files:
         # דפי אזור-לקוחות הם פרגמנטים מכוונים (תוכן מוזרק ב-JS) — בדיקת NUL/UTF8 בלבד
         rel = f.replace("\\","/")
-        if "lecture/" in rel:                    # דף ההרצאה המאוחד — שער ייעודי
+        # שער דף ההרצאה המאוחד — רק על lecture/ בשורש. בלי העיגון הזה הוא נתפס
+        # גם על services/hitech-lecture/ וחסם כל פריסה שנגעה בו (תוקן 27.8.26).
+        if rel.startswith("lecture/") or "/lecture/" in rel:
             fails = lecture_check(f)
             if fails:
                 nbad += 1; print(f"\u274c {f}")

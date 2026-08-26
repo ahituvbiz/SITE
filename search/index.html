@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חיפוש באתר | איתן אחיטוב - יועץ פנסיוני</title>
+<meta name="description" content="חיפוש בכל תוכן האתר - מדריכי פנסיה, חיסכון, השקעות, ביטוח ומשכנתא, מחשבונים וסיכומי הרצאות.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://pensya.info/search/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
+  --cta: #D74E3C;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: clamp(28px, 4.5vw, 44px);
+}
+
+body {
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 17px;
+  overflow-x: hidden;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: var(--bg-white);
+  direction: rtl;
+}
+
+/* === נגישות: skip link === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0; left: 0;
+  background: var(--primary);
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus { top: 0; outline: 3px solid var(--cta); outline-offset: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 var(--s-md); }
+
+/* Header */
+.header {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px 0;
+}
+.header-inner { display: flex; align-items: center; gap: var(--s-md); }
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-1); font-weight: 700; font-size: 17px;
+  white-space: nowrap;
+}
+.logo-sub { font-size: 12px; font-weight: 400; color: var(--text-meta); display: block; }
+.nav { display: flex; gap: var(--s-sm); margin-right: auto; }
+.nav a { text-decoration: none; color: var(--text-2); font-size: 15px; padding: 4px 6px; border-radius: 4px; }
+.nav a:hover, .nav a.active { color: var(--primary); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text-1); margin: 5px 0; transition: .3s; }
+
+/* Page hero */
+.page-hero {
+  background: var(--primary-soft);
+  padding: var(--s-xl) 0;
+  border-bottom: 1px solid var(--border);
+}
+.page-hero h1 { font-size: clamp(26px, 4vw, 38px); color: var(--primary); margin-bottom: 12px; }
+.page-hero .subtitle { font-size: 18px; color: var(--text-2); }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--positive-soft); color: var(--positive);
+  padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600;
+  margin-bottom: var(--s-md);
+}
+
+/* Content */
+.content-section { padding: var(--s-xl) 0; }
+.content-section + .content-section { border-top: 1px solid var(--border); }
+
+h2 {
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: var(--s-md);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-soft);
+}
+h3 { font-size: 18px; color: var(--text-1); margin: var(--s-md) 0 8px; }
+
+p { margin-bottom: var(--s-sm); color: var(--text-2); }
+p:last-child { margin-bottom: 0; }
+
+ul, ol { margin: var(--s-sm) 0 var(--s-sm) var(--s-md); }
+li { margin-bottom: 8px; color: var(--text-2); }
+
+.info-box {
+  background: var(--primary-soft);
+  border-right: 4px solid var(--primary);
+  padding: var(--s-md);
+  border-radius: 0 8px 8px 0;
+  margin: var(--s-md) 0;
+}
+.info-box p { color: var(--text-1); margin: 0; }
+
+.contact-box {
+  background: var(--bg-cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: var(--s-lg);
+  margin: var(--s-md) 0;
+}
+.contact-box h3 { margin-top: 0; }
+.contact-box a { color: var(--primary); font-weight: 600; }
+
+.status-table { width: 100%; border-collapse: collapse; margin: var(--s-md) 0; font-size: 15px; }
+.status-table th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: right; }
+.status-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.status-table tr:nth-child(even) td { background: var(--bg-cream); }
+.status-ok { color: var(--positive); font-weight: 600; }
+.status-partial { color: #B8860B; font-weight: 600; }
+
+/* Footer */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-lg); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; text-decoration: none; }
+.footer a:hover { color: #fff; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: var(--s-sm); margin-top: var(--s-lg);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px; color: #9097A0; flex-wrap: wrap; gap: 8px;
+}
+.license-badge { display: flex; align-items: center; gap: 6px; }
+.footer-access { text-align: center; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 16px; }
+.footer-access a { color: #C9CDD3; font-size: 14px; text-decoration: none; }
+
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .hamburger { display: block; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+}
+</style>
+<link rel="stylesheet" href="/site-chrome.css?v=2">
+<style id="acc-search-css">
+.header-search{position:relative;margin-inline-start:12px;}
+.header-search input{width:180px;padding:8px 36px 8px 12px;border:1px solid #d9dee5;border-radius:8px;font-size:14px;background:#fff;color:#1a1a1a;outline:none;}
+.header-search input:focus{border-color:#007DA8;}
+.header-search-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#888;display:flex;}
+.header-search-icon svg{width:18px;height:18px;}
+.search-results{position:absolute;top:calc(100% + 6px);right:0;width:320px;max-width:80vw;background:#fff;border:1px solid #e5e5e5;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:none;z-index:100;max-height:60vh;overflow:auto;}
+.search-results.open{display:block;}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid #eee;color:#1a1a1a;font-size:14px;text-decoration:none;}
+.search-results a:last-child{border-bottom:none;}
+.search-results a:hover{background:#f7f5f0;}
+.search-results .no-results{padding:16px;color:#888;font-size:14px;text-align:center;}
+@media(max-width:768px){.header-search{display:none;}}
+</style>
+<style id="search-page-css">
+.sp-wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+.sp-form{display:flex;gap:10px;margin:0 0 8px;}
+.sp-form input{flex:1;padding:14px 16px;border:1px solid #d9dee5;border-radius:10px;font-size:17px;font-family:inherit;background:#fff;color:var(--text-1);outline:none;}
+.sp-form input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,125,168,.12);}
+.sp-form button{padding:14px 22px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-family:inherit;font-weight:600;cursor:pointer;}
+.sp-form button:hover{background:#00688c;}
+.sp-count{color:var(--text-meta);font-size:14px;margin:0 0 20px;}
+.sp-list{list-style:none;padding:0;margin:0;}
+.sp-list li{padding:18px 0;border-bottom:1px solid var(--border);}
+.sp-list li:last-child{border-bottom:none;}
+.sp-list a{color:var(--primary);font-size:19px;font-weight:600;text-decoration:none;line-height:1.4;}
+.sp-list a:hover{text-decoration:underline;}
+.sp-url{display:block;color:var(--positive);font-size:13px;margin-top:3px;direction:ltr;text-align:right;}
+.sp-desc{color:var(--text-2);font-size:15px;margin-top:6px;line-height:1.6;}
+.sp-desc mark{background:#FFF3BF;color:inherit;padding:0 2px;border-radius:2px;}
+.sp-in{display:inline-block;background:var(--primary-soft);color:#00688c;font-size:12px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:8px;}
+.sp-empty{background:var(--bg-cream);border:1px solid var(--border);border-radius:12px;padding:28px;text-align:center;color:var(--text-2);}
+.sp-empty h2{font-size:20px;color:var(--text-1);margin-bottom:8px;}
+.sp-sug{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;}
+.sp-sug a{background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:14px;color:var(--primary);text-decoration:none;}
+.sp-sug a:hover{border-color:var(--primary);}
+</style>
+<!--@CHROME:HEAD@-->
+</head>
+<body>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <section style="padding:40px 0 12px">
+    <div class="sp-wrap">
+      <h1 style="font-size:clamp(26px,4vw,34px);margin-bottom:18px">חיפוש באתר</h1>
+      <form class="sp-form" id="sp-form" role="search">
+        <input type="search" id="sp-q" name="q" placeholder="למשל: קרן השתלמות לעובדי הוראה" aria-label="חיפוש באתר" autocomplete="off">
+        <button type="submit">חיפוש</button>
+      </form>
+      <p class="sp-count" id="sp-count"></p>
+    </div>
+  </section>
+
+  <section style="padding:0 0 60px">
+    <div class="sp-wrap">
+      <ul class="sp-list" id="sp-list"></ul>
+    </div>
+  </section>
+
+</main>
+
+<script src="/search.js"></script>
+
+<script>
+(function(){
+  var form=document.getElementById('sp-form'),box=document.getElementById('sp-q'),
+      list=document.getElementById('sp-list'),count=document.getElementById('sp-count');
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function highlight(text,terms){
+    var out=esc(text);
+    terms.forEach(function(t){
+      if(t.length<2)return;
+      try{
+        out=out.replace(new RegExp('([\\u0590-\\u05FFa-zA-Z0-9]*'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[\\u0590-\\u05FFa-zA-Z0-9]*)','g'),'<mark>$1</mark>');
+      }catch(e){}
+    });
+    return out;
+  }
+
+  function param(){
+    var m=/[?&]q=([^&]*)/.exec(location.search);
+    return m?decodeURIComponent(m[1].replace(/\+/g,' ')):'';
+  }
+
+  function render(q){
+    var S=window.PensyaSearch;
+    var res=S.query(q);
+    var terms=S.normalize(q).split(' ').filter(function(w){return w.length>=2;})
+              .map(function(w){return S.stem(w);}).filter(function(w){return w.length>=2;});
+    list.innerHTML='';
+    if(!res.length){
+      count.textContent='';
+      S.track('search_no_results',{search_term:q,page:'search'});
+      var d=document.createElement('div');
+      d.className='sp-empty';
+      d.innerHTML='<h2>לא נמצאו תוצאות עבור "'+esc(q)+'"</h2>'+
+        '<p>אפשר לנסות ניסוח אחר, או להתחיל מאחד מאלה:</p>'+
+        '<div class="sp-sug">'+
+        '<a href="/pension/">מוצרי פנסיה</a><a href="/savings/">חיסכון והשקעות</a>'+
+        '<a href="/tools/">מחשבונים</a><a href="/articles/">מרכז הידע</a>'+
+        '<a href="/services/">שירותים</a><a href="/bedikat-pensya/">בדיקת קרן פנסיה</a></div>';
+      list.appendChild(d);
+      return;
+    }
+    S.track('search',{search_term:q,results:res.length,page:'search'});
+    count.textContent=res.length+' תוצאות עבור "'+q+'"';
+    res.forEach(function(r){
+      var li=document.createElement('li');
+      li.innerHTML='<a href="'+r.url+'">'+highlight(r.title,terms)+'</a>'+
+        '<span class="sp-url">pensya.info'+r.url+'</span>'+
+        '<div class="sp-desc">'+highlight(r.desc||'',terms)+'</div>'+
+        (r.heading?'<span class="sp-in">נמצא בפרק: '+esc(r.heading)+'</span>':'');
+      list.appendChild(li);
+    });
+  }
+
+  function run(q){
+    if(!q||q.trim().length<2){count.textContent='';list.innerHTML='';return;}
+    count.textContent='מחפש…';
+    window.PensyaSearch.load().then(function(){render(q.trim());})
+      .catch(function(){count.textContent='';list.innerHTML='<div class="sp-empty"><h2>החיפוש אינו זמין כרגע</h2><p>נסו לרענן את הדף.</p></div>';});
+  }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var q=box.value.trim();
+    history.replaceState(null,'','/search/'+(q?'?q='+encodeURIComponent(q):''));
+    run(q);
+  });
+
+  var q0=param();
+  box.value=q0;
+  if(q0)run(q0); else box.focus();
+})();
+</script>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>
