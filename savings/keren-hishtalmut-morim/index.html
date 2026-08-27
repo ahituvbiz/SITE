@@ -1198,7 +1198,7 @@ textarea:focus-visible,
               <span class="value"><span id="rt-out">9.56</span>%</span>
             </div>
             <input type="range" id="rt-range" min="0" max="18" step="0.02" value="9.56"
-              oninput="calcMorim()">
+              oninput="linkSlide('rt')">
           </div>
 
           <div class="calc-control">
@@ -1207,7 +1207,14 @@ textarea:focus-visible,
               <span class="value"><span id="rr-out">15.14</span>%</span>
             </div>
             <input type="range" id="rr-range" min="0" max="22" step="0.02" value="15.14"
-              oninput="calcMorim()">
+              oninput="linkSlide('rr')">
+          </div>
+
+          <div class="calc-control calc-toggle">
+            <label for="link-check">
+              <input type="checkbox" id="link-check" checked onchange="linkSlide('rr')">
+              <span>לקשור את שתי התשואות לפי היחס שנמדד בפועל (1 : 0.475)</span>
+            </label>
           </div>
 
           <div class="calc-control calc-toggle">
@@ -1264,6 +1271,15 @@ textarea:focus-visible,
           </div>
         </div>
 
+        <p class="calc-note">
+          <strong>קישור התשואות:</strong> כשהתיבה מסומנת, הזזת אחד הסליידרים מזיזה את השני
+          לפי היחס שנמדד ב-176 חלונות של שנה מתגלגלת בגמל-נט (2011&ndash;2026): כל 1% תשואה
+          במסלול מנייתי מתורגם ל-<strong>0.475%</strong> בקרן עובדי ההוראה, כי החשיפה המנייתית
+          שלה היא בערך מחצית. הקו מעוגן בנקודה שנמדדה בפועל בשש השנים האחרונות (15.14% מול
+          9.56%). זהו יחס ממוצע: בשנה בודדת הסטייה ממנו היא כ-2 נקודות אחוז לכל כיוון.
+          <a href="/savings/klali-mul-menayati/">המחקר המלא והגרף</a>.
+          ביטול הסימון מחזיר שליטה נפרדת בכל סליידר.
+        </p>
         <p class="calc-note">
           <strong>הנחות המחשבון:</strong> גידול שכר של <strong>2% בשנה</strong>;
           אינפלציה של <strong>2% בשנה</strong>; הפקדות חודשיות ותשואה בריבית דריבית
@@ -1416,6 +1432,32 @@ textarea:focus-visible,
 </section>
 
 <script>
+/* היחס בין תשואת מסלול מנייתי לתשואת קרן עובדי הוראה.
+   שיפוע 0.4751 מרגרסיה על 176 חלונות של 12 חודשים בגמל-נט, 1/2011–7/2026, R²=0.882.
+   הקו מעוגן בזוג שנמדד בפועל בשש השנים האחרונות: מנייתי 15.14% ↔ עובדי הוראה 9.56%. */
+var LINK_SLOPE = 0.4751, LINK_EQ0 = 15.14, LINK_T0 = 9.56;
+function eqToTeach(eq){ return LINK_T0 + LINK_SLOPE * (eq - LINK_EQ0); }
+function teachToEq(t){ return LINK_EQ0 + (t - LINK_T0) / LINK_SLOPE; }
+
+function linkSlide(which){
+  var rt = document.getElementById('rt-range'), rr = document.getElementById('rr-range');
+  var link = document.getElementById('link-check');
+  if (link && link.checked){
+    var lo, hi;
+    if (which === 'rr'){
+      lo = +rt.min; hi = +rt.max;
+      rt.value = Math.min(hi, Math.max(lo, eqToTeach(+rr.value))).toFixed(2);
+    } else {
+      lo = +rr.min; hi = +rr.max;
+      var eq = Math.min(hi, Math.max(lo, teachToEq(+rt.value)));
+      rr.value = eq.toFixed(2);
+      /* אם המנייתי נבלם בקצה הטווח, מחזירים את קרן ההוראה לערך העקבי איתו */
+      rt.value = Math.min(+rt.max, Math.max(+rt.min, eqToTeach(eq))).toFixed(2);
+    }
+  }
+  calcMorim();
+}
+
 function calcMorim(){
   var C = 15712, G = 0.02, INFL = 0.02, YEARS = 6, TAX = 0.25;
   var S0 = +document.getElementById('salary-range').value;
@@ -1494,7 +1536,7 @@ function calcMorim(){
   document.getElementById('delta-label').textContent =
     pos ? 'היתרון של הקרן הרגילה' : 'היתרון של קרן עובדי ההוראה';
 }
-calcMorim();
+linkSlide('rr');
 </script>
 
 <script>

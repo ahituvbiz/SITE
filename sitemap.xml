@@ -123,7 +123,7 @@
 
   <url>
     <loc>https://pensya.info/savings/keren-hishtalmut/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <!-- קרן השתלמות -->
@@ -131,10 +131,18 @@
 
   <url>
     <loc>https://pensya.info/savings/keren-hishtalmut-morim/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <!-- קרן השתלמות לעובדי הוראה -->
+  </url>
+
+  <url>
+    <loc>https://pensya.info/savings/klali-mul-menayati/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מסלול כללי מול מסלול מנייתי — מחקר גמל-נט -->
   </url>
 
   <url>
@@ -432,7 +440,7 @@
   </url>
   <url>
     <loc>https://pensya.info/investment/stocks-vs-bonds/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <!-- מניות מול אג"ח — 25 שנה של נתונים -->
