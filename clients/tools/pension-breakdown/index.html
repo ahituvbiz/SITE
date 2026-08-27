@@ -49,6 +49,52 @@ tfoot tr{font-weight:700;background:#F1F1EE}
 .refresh.done{background:var(--positive)}
     .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
 </style>
+<!-- ===== מצב EMBED לגרף =======================================================
+     /clients/tools/pension-breakdown/?embed=charts  מציג רק את הרכיבים המסומנים
+     ב-data-embed-chart (1 = גרף המגמה "מסלול מנייתי מנוהל ומסלול S&P 500").
+     משמש את דף ההרצאה דרך iframe — כך שכל עדכון בדף הזה מופיע בהרצאה מיד.
+     אין להסיר בלי לעדכן את דף ההרצאה.
+     ============================================================================ -->
+<script>
+(function(){
+  if (!/[?&]embed=charts(?:&|$)/.test(location.search)) return;
+  var d = document;
+  d.documentElement.classList.add('embed-charts');
+  var css = 'html.embed-charts,html.embed-charts body{background:#fff!important;margin:0!important;padding:0!important;overflow-x:hidden;}'
+          + 'html.embed-charts body>*{display:none!important;}'
+          + 'html.embed-charts body>#embed-root{display:block!important;}'
+          + 'html.embed-charts #embed-root{max-width:900px;margin:0 auto;padding:4px 14px 18px;}'
+          + 'html.embed-charts #embed-root>*{margin:0 0 26px!important;}'
+          + 'html.embed-charts #embed-root>*[hidden]{display:none!important;}'
+          + 'html.embed-charts #embed-root>*:last-child{margin-bottom:0!important;}';
+  var st = d.createElement('style'); st.textContent = css;
+  (d.head || d.documentElement).appendChild(st);
+
+  function build(){
+    var root = d.createElement('div'); root.id = 'embed-root';
+    var nodes = [].slice.call(d.querySelectorAll('[data-embed-chart]'));
+    nodes.sort(function(a,b){
+      return (+a.getAttribute('data-embed-chart')) - (+b.getAttribute('data-embed-chart'));
+    });
+    nodes.forEach(function(n){ n.removeAttribute('loading'); root.appendChild(n); });
+    d.body.appendChild(root);
+    // דיווח גובה למסגרת המארחת (דף ההרצאה) — כך אין גלילה פנימית
+    var last = 0;
+    function post(){
+      var hgt = Math.ceil(root.getBoundingClientRect().height) + 24;
+      if (Math.abs(hgt - last) > 4) {
+        last = hgt;
+        try { parent.postMessage({ pensyaEmbed: 'charts', height: hgt }, '*'); } catch(e){}
+      }
+    }
+    [300, 1200, 3000].forEach(function(t){ setTimeout(post, t); });
+    post(); setInterval(post, 600);
+    window.addEventListener('resize', post);
+    window.addEventListener('load', post);
+  }
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
 <!--@CHROME:HEAD@-->
 <!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
 <script>
@@ -163,7 +209,7 @@ tfoot tr{font-weight:700;background:#F1F1EE}
 <div class="wrap">
 
   <h1>פילוח יתרות קרנות פנסיה מקיפות</h1>
-  <p class="page-updated">עודכן: 26 באוגוסט 2026</p>
+  <p class="page-updated">עודכן: 27 באוגוסט 2026</p>
   <p class="sub">לפי קטגוריות מסלולי השקעה · מקור: פנסיה נט, רשות שוק ההון</p>
 
   <div class="badges">
@@ -194,7 +240,7 @@ tfoot tr{font-weight:700;background:#F1F1EE}
     </div>
   </div>
 
-  <div class="card" id="trendCard" hidden>
+  <div class="card" id="trendCard" data-embed-chart="1" hidden>
     <h2>מסלול מנייתי מנוהל ומסלול S&amp;P 500</h2>
     <p class="hint" id="trendHint"></p>
     <div class="trend-box"><canvas id="trendChart"></canvas></div>
