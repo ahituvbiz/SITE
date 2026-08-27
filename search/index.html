@@ -316,7 +316,7 @@ li { margin-bottom: 8px; color: var(--text-2); }
       list.appendChild(d);
       return;
     }
-    S.track('search',{search_term:q,results:res.length,page:'search'});
+    S.track('view_search_results',{search_term:q,results:res.length,page:'search'});
     count.textContent=res.length+' תוצאות עבור "'+q+'"';
     res.forEach(function(r){
       var li=document.createElement('li');

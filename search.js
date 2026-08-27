@@ -210,7 +210,7 @@
           ' ול<a href="/tools/" style="text-decoration:underline">מחשבונים</a>.</span>';
         container.appendChild(no);
       } else {
-        track('search', { search_term: q, results: all.length });
+        track('view_search_results', { search_term: q, results: all.length });
         res.forEach(function (r) {
           var a = document.createElement('a');
           a.href = r.url;
