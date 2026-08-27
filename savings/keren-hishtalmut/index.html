@@ -354,72 +354,6 @@ section { padding: var(--s-2xl) 0; }
 .audience-card li { font-size: 15px; margin: 6px 0; }
 @media (max-width: 700px) { .audience-grid { grid-template-columns: 1fr; } }
 
-/* Calculator section */
-.calc-section {
-  background: linear-gradient(135deg, var(--bg-cream) 0%, #FBF8F2 100%);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.calc-wrap { max-width: var(--article-width); margin: 0 auto; }
-.calc-eyebrow {
-  display: block; font-size: 13px; color: var(--cta);
-  font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
-}
-.calc-title { font-size: 30px; margin: 0 0 var(--s-sm); }
-.calc-lede { color: var(--text-2); font-size: 17px; margin-bottom: var(--s-lg); }
-.calc-card {
-  background: #fff; border: 1px solid var(--border);
-  border-radius: var(--radius-card); padding: var(--s-lg);
-  box-shadow: var(--shadow-card); margin-bottom: var(--s-md);
-}
-.calc-controls {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: var(--s-md); margin-bottom: var(--s-lg);
-  padding-bottom: var(--s-lg); border-bottom: 1px solid var(--border);
-}
-.calc-control { display: flex; flex-direction: column; gap: 6px; }
-.calc-control .label-row {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 14px; color: var(--text-2); font-weight: 600;
-}
-.calc-control .label-row .value { font-size: 18px; color: var(--primary); font-weight: 700; }
-.calc-control input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
-.calc-control input[type="number"] {
-  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
-  border-radius: var(--radius-btn); font-family: inherit; font-size: 16px;
-  background: var(--bg-cream); color: var(--text-1); outline: none;
-}
-.calc-control input[type="number"]:focus { border-color: var(--primary); background: #fff; }
-.calc-results {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md);
-}
-.calc-result {
-  background: linear-gradient(135deg, var(--primary-soft) 0%, #F0F6FA 100%);
-  border-radius: var(--radius-card); padding: var(--s-md); text-align: center;
-}
-.calc-result .age-label { font-size: 13px; color: var(--text-2); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-.calc-result .net-value { font-size: 30px; font-weight: 700; color: var(--primary); margin: 6px 0 2px; }
-.calc-result .sub-label { font-size: 13px; color: var(--text-meta); }
-.calc-breakdown {
-  margin-top: var(--s-md); padding-top: var(--s-md); border-top: 1px solid var(--border);
-  font-size: 14px; color: var(--text-2);
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
-}
-.calc-breakdown .row { display: flex; justify-content: space-between; padding: 2px 0; }
-.calc-breakdown .row .label { color: var(--text-2); }
-.calc-breakdown .row .val { color: var(--text-1); font-weight: 600; }
-.tax-saving-box {
-  background: var(--positive-soft); border: 1px solid var(--positive);
-  border-radius: var(--radius-card); padding: var(--s-md); text-align: center; margin-top: var(--s-md);
-}
-.tax-saving-box .ts-label { font-size: 13px; color: var(--positive); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-.tax-saving-box .ts-value { font-size: 26px; font-weight: 700; color: var(--positive); margin: 4px 0; }
-.tax-saving-box .ts-sub { font-size: 13px; color: var(--text-2); }
-@media (max-width: 700px) {
-  .calc-controls { grid-template-columns: 1fr; }
-  .calc-results { grid-template-columns: 1fr; }
-  .calc-breakdown { grid-template-columns: 1fr; }
-}
-
 /* FAQ */
 .faq-section { background: var(--bg-cream); padding: var(--s-3xl) 0; }
 .faq-list { max-width: var(--article-width); margin: 0 auto; }
@@ -923,7 +857,6 @@ textarea:focus-visible,
         <li><a href="#after6">מה לעשות אחרי 6 שנים</a></li>
         <li><a href="#mistakes">טעויות נפוצות שעולות ביוקר</a></li>
         <li><a href="#compare">השוואה לכלי חיסכון אחרים</a></li>
-        <li><a href="#calculator">מחשבון קרן השתלמות</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
       </ol>
     </nav>
@@ -1304,92 +1237,6 @@ textarea:focus-visible,
 
   </div>
 </article>
-
-<!-- CALCULATOR SECTION -->
-<section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-      <h2 class="calc-title">כמה תצבור בקרן ההשתלמות שלך?</h2>
-      <p class="calc-lede">
-        שנו את הנתונים - וראו את ההשפעה המיידית של מסלול ההשקעה, גודל ההפקדה, ותקופת
-        החיסכון. הכולל: חיסכון מס מצטבר.
-      </p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>הפקדה חודשית כוללת (₪)</span>
-              <span class="value">₪<span id="deposit-out">1,500</span></span>
-            </div>
-            <input type="range" id="deposit-range" min="200" max="6000" step="100" value="1500"
-              oninput="document.getElementById('deposit-out').textContent=this.value; calcHishtalmut()">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>תשואה שנתית צפויה</span>
-              <span class="value"><span id="return-out">7.0</span>%</span>
-            </div>
-            <input type="range" id="return-range" min="2" max="14" step="0.5" value="7"
-              oninput="document.getElementById('return-out').textContent=parseFloat(this.value).toFixed(1); calcHishtalmut()">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>שנות חיסכון</span>
-              <span class="value"><span id="years-out">20</span> שנים</span>
-            </div>
-            <input type="range" id="years-range" min="6" max="40" step="1" value="20"
-              oninput="document.getElementById('years-out').textContent=this.value; calcHishtalmut()">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>מדרגת מס שולית</span>
-              <span class="value"><span id="tax-out">30</span>%</span>
-            </div>
-            <input type="range" id="tax-range" min="10" max="50" step="1" value="30"
-              oninput="document.getElementById('tax-out').textContent=this.value; calcHishtalmut()">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result">
-            <div class="age-label">צבירה בקרן השתלמות</div>
-            <div class="net-value" id="result-keren">-</div>
-            <div class="sub-label">פטור ממס רווחי הון</div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">לעומת - תיק עצמאי (אחרי מס)</div>
-            <div class="net-value" id="result-atzmai">-</div>
-            <div class="sub-label">אחרי 25% מס על רווח ריאלי</div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row">
-            <span class="label">סה"כ הפקדות</span>
-            <span class="val" id="bd-deposits">-</span>
-          </div>
-          <div class="row">
-            <span class="label">רווח בשוק (ברוטו)</span>
-            <span class="val" id="bd-gain">-</span>
-          </div>
-          <div class="row">
-            <span class="label">מס חסוך (25% על רווח)</span>
-            <span class="val" id="bd-tax-saved">-</span>
-          </div>
-          <div class="row">
-            <span class="label">יתרון קרן מול תיק</span>
-            <span class="val" id="bd-advantage">-</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
 
 <section class="related-links-section" id="related">
   <div class="container">
