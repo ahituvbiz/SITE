@@ -492,6 +492,51 @@ textarea:focus-visible, [tabindex]:focus-visible {
 .dc-tip .s { color:#007DA8; } .dc-tip .b { color:#8A6318; }
 @media (max-width:700px){ .dc-kpi .val { font-size:24px; } }
 </style>
+<!-- ===== מצב EMBED לגרפים =====================================================
+     /investment/stocks-vs-bonds/?embed=charts  מציג רק את הרכיבים המסומנים
+     ב-data-embed-chart, לפי הסדר שבמספר (1 = רצועת המספרים, 2 = גרף צמיחת ₪1).
+     משמש את דף ההרצאה דרך iframe — כך שכל עדכון בדף הזה מופיע בהרצאה מיד,
+     בלי להעתיק תוכן. אין להסיר בלי לעדכן את דף ההרצאה.
+     ============================================================================ -->
+<script>
+(function(){
+  if (!/[?&]embed=charts(?:&|$)/.test(location.search)) return;
+  var d = document;
+  d.documentElement.classList.add('embed-charts');
+  var css = 'html.embed-charts,html.embed-charts body{background:#fff!important;margin:0!important;padding:0!important;overflow-x:hidden;}'
+          + 'html.embed-charts body>*{display:none!important;}'
+          + 'html.embed-charts body>#embed-root{display:block!important;}'
+          + 'html.embed-charts #embed-root{max-width:900px;margin:0 auto;padding:4px 14px 18px;}'
+          + 'html.embed-charts #embed-root>*{margin:0 0 26px!important;}'
+          + 'html.embed-charts #embed-root>*:last-child{margin-bottom:0!important;}';
+  var st = d.createElement('style'); st.textContent = css;
+  (d.head || d.documentElement).appendChild(st);
+
+  function build(){
+    var root = d.createElement('div'); root.id = 'embed-root';
+    var nodes = [].slice.call(d.querySelectorAll('[data-embed-chart]'));
+    nodes.sort(function(a,b){
+      return (+a.getAttribute('data-embed-chart')) - (+b.getAttribute('data-embed-chart'));
+    });
+    nodes.forEach(function(n){ n.removeAttribute('loading'); root.appendChild(n); });
+    d.body.appendChild(root);
+    // דיווח גובה למסגרת המארחת (דף ההרצאה) — כך אין גלילה פנימית
+    var last = 0;
+    function post(){
+      var hgt = Math.ceil(root.getBoundingClientRect().height) + 24;
+      if (Math.abs(hgt - last) > 4) {
+        last = hgt;
+        try { parent.postMessage({ pensyaEmbed: 'charts', height: hgt }, '*'); } catch(e){}
+      }
+    }
+    [300, 1200, 3000].forEach(function(t){ setTimeout(post, t); });
+    post(); setInterval(post, 600);
+    window.addEventListener('resize', post);
+    window.addEventListener('load', post);
+  }
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
   <link rel="stylesheet" href="/site-chrome.css?v=2">
 <!--@CHROME:HEAD@-->
 <!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
@@ -659,7 +704,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <h1>מניות מול אג"ח — <span class="accent">25 שנה של נתונים</span></h1>
     <p class="lede">מה קרה לשקל שהושקע במדד ת"א-125 לעומת שקל שהושקע במדד האג"ח הכללי, מאוגוסט 2001 ועד אוגוסט 2026. אותן 25 שנים בדיוק, שני עולמות שונים לגמרי — ולא רק ביעד, גם בדרך. הדף הזה לא בא לשכנע אתכם לעבור למסלול מנייתי; הוא בא להראות את הנתונים המלאים, כולל את המחיר.</p>
 
-    <div class="stats-strip">
+    <div class="stats-strip" data-embed-chart="1">
       <div class="stat-item">
         <div class="num">₪9.53</div>
         <div class="label">שוויו של ₪1 שהושקע בת"א-125 באוגוסט 2001</div>
@@ -710,7 +755,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
 
     <h2 id="growth">הדרך, לא רק היעד</h2>
 
-    <div class="chart-card">
+    <div class="chart-card" data-embed-chart="2">
       <h4>צמיחת ₪1 — ת"א-125 מול מדד אג"ח כללי, 2001–2026</h4>
       <div class="chart-legend">
         <span class="legend-item"><span class="legend-dot" style="background:#007DA8"></span> ת"א-125</span>
