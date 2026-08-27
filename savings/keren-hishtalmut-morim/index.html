@@ -186,6 +186,8 @@ section { padding: var(--s-2xl) 0; }
 .btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
 .btn-secondary { background: var(--primary); color: #fff; }
 .btn-secondary:hover { background: #006487; transform: translateY(-1px); }
+.btn-whatsapp { background: #25D366; color: #fff; }
+.btn-whatsapp:hover { background: #1ea354; transform: translateY(-1px); }
 
 /* Header */
 .header {
@@ -735,6 +737,12 @@ textarea:focus-visible,
 .calc-toggle label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; font-weight: 600; color: var(--text-1); }
 .calc-toggle input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; flex: none; }
 .calc-note { font-size: 13px; line-height: 1.7; color: var(--text-2); margin-top: var(--s-md); }
+.calc-notes { margin-top: var(--s-md); border-top: 1px solid var(--border); padding-top: var(--s-sm); }
+.calc-notes > summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text-2); list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.calc-notes > summary::-webkit-details-marker { display: none; }
+.calc-notes > summary::after { content: "+"; color: var(--primary); font-weight: 700; font-size: 20px; line-height: 1; flex: none; }
+.calc-notes[open] > summary::after { content: "−"; }
+.calc-notes .calc-note:first-of-type { margin-top: var(--s-sm); }
 .calc-breakdown .row-total { font-weight: 700; border-top: 2px solid var(--border); margin-top: 6px; padding-top: 10px; }
 .cta-box { background: var(--bg-cream); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--s-lg); margin: var(--s-lg) 0; text-align: center; }
 .cta-box p { margin-bottom: var(--s-md); }
@@ -1105,12 +1113,6 @@ textarea:focus-visible,
         בשנה של ירידות מסלול מנייתי יורד הרבה יותר חזק, ואת זה אפשר לראות
         <a href="/savings/klali-mul-menayati/">בגרף המלא של 187 החלונות השנתיים</a>.
       </p>
-      <p>
-        <strong>ונקודה שקל לפספס:</strong> קרן ההשתלמות של עובדי ההוראה גובה דמי ניהול
-        של <strong>0.12% בלבד</strong> - מהנמוכים בשוק - לעומת כ-0.55% בקרן רגילה.
-        ההפרש הזה מחזיר לה כ-0.43 נקודת אחוז בשנה, ומצמצם את הפער בכל אחת מהעמודות.
-        זה לא הופך את התמונה, אבל זה חלק ממנה.
-      </p>
     </div>
 
     <h2 id="neto">4. המשכורת נטו - למה מורה מקבל פחות לחשבון</h2>
@@ -1294,6 +1296,8 @@ textarea:focus-visible,
           </div>
         </div>
 
+        <details class="calc-notes">
+          <summary>הסברים והנחות החישוב</summary>
         <p class="calc-note">
           <strong>קישור התשואות:</strong> כשהתיבה מסומנת, הזזת אחד הסליידרים מזיזה את השני
           לפי הנוסחה שהתקבלה מרגרסיה על 176 חלונות של שנה מתגלגלת בגמל-נט
@@ -1333,6 +1337,7 @@ textarea:focus-visible,
           מושקעת באותה תשואה של הקרן הרגילה וחייבת במס רווחי הון ריאלי של 25% על כל
           הרווח. התוצאה היא הערכה בלבד ואינה תחליף לייעוץ אישי.
         </p>
+        </details>
       </div>
     </div>
   </div>
@@ -1444,10 +1449,10 @@ textarea:focus-visible,
     <div class="cta-box">
       <p>
         <strong>רוצים לבדוק מה מתאים לכם באופן אישי?</strong> אני מלווה עובדי הוראה
-        בבחירת קרן ההשתלמות כחלק מתכנון פיננסי מקיף.
+        בבחירת קרן ההשתלמות כחלק מתכנון פיננסי מקיף. שם נמצא הכסף הגדול.
       </p>
       <p>
-        <a class="btn btn-primary" href="/services/">דברו איתי ונעשה סדר</a>
+        <a class="btn btn-whatsapp" href="/services/">דברו איתי ונעשה סדר</a>
       </p>
     </div>
 
