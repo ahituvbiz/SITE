@@ -869,6 +869,51 @@ textarea:focus-visible,
 })();
 </script>
 <!--@/CHROME:HEAD@-->
+<!-- ===== מצב EMBED לגרפים =====================================================
+     /savings/klali-mul-menayati/?embed=charts  מציג רק את הרכיבים המסומנים
+     ב-data-embed-chart, לפי הסדר שבמספר (1 = גרף הפיזור כללי מול מנייתי).
+     משמש את דף ההרצאה דרך iframe — כך שכל עדכון בדף הזה מופיע בהרצאה מיד,
+     בלי להעתיק תוכן. אין להסיר בלי לעדכן את דף ההרצאה.
+     ============================================================================ -->
+<script>
+(function(){
+  if (!/[?&]embed=charts(?:&|$)/.test(location.search)) return;
+  var d = document;
+  d.documentElement.classList.add('embed-charts');
+  var css = 'html.embed-charts,html.embed-charts body{background:#fff!important;margin:0!important;padding:0!important;overflow-x:hidden;}'
+          + 'html.embed-charts body>*{display:none!important;}'
+          + 'html.embed-charts body>#embed-root{display:block!important;}'
+          + 'html.embed-charts #embed-root{max-width:900px;margin:0 auto;padding:4px 14px 18px;}'
+          + 'html.embed-charts #embed-root>*{margin:0 0 26px!important;}'
+          + 'html.embed-charts #embed-root>*:last-child{margin-bottom:0!important;}';
+  var st = d.createElement('style'); st.textContent = css;
+  (d.head || d.documentElement).appendChild(st);
+
+  function build(){
+    var root = d.createElement('div'); root.id = 'embed-root';
+    var nodes = [].slice.call(d.querySelectorAll('[data-embed-chart]'));
+    nodes.sort(function(a,b){
+      return (+a.getAttribute('data-embed-chart')) - (+b.getAttribute('data-embed-chart'));
+    });
+    nodes.forEach(function(n){ n.removeAttribute('loading'); root.appendChild(n); });
+    d.body.appendChild(root);
+    // דיווח גובה למסגרת המארחת (דף ההרצאה) — כך אין גלילה פנימית
+    var last = 0;
+    function post(){
+      var hgt = Math.ceil(root.getBoundingClientRect().height) + 24;
+      if (Math.abs(hgt - last) > 4) {
+        last = hgt;
+        try { parent.postMessage({ pensyaEmbed: 'charts', height: hgt }, '*'); } catch(e){}
+      }
+    }
+    [300, 1200, 3000].forEach(function(t){ setTimeout(post, t); });
+    post(); setInterval(post, 600);
+    window.addEventListener('resize', post);
+    window.addEventListener('load', post);
+  }
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
@@ -1057,7 +1102,7 @@ textarea:focus-visible,
       שבה שני המסלולים הניבו בדיוק אותו דבר.
     </p>
 
-    <div class="chart-card">
+    <div class="chart-card" data-embed-chart="1">
       <h4>תשואה שנתית חציונית — מסלול כללי מול מסלול מנייתי, 187 חלונות</h4>
       <div class="chart-controls">
         <label class="chart-check">
