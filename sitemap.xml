@@ -259,7 +259,7 @@
 
   <url>
     <loc>https://pensya.info/investment/why-not-sp500/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <!-- מדד S&amp;P 500 — למה לא לשים עליו הכל -->
@@ -444,5 +444,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <!-- מניות מול אג"ח — 25 שנה של נתונים -->
+  </url>
+  <url>
+    <loc>https://pensya.info/investment/growth-vs-returns/</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- צמיחה כלכלית ותשואת מניות - 24 מדינות -->
+  </url>
+  <url>
+    <loc>https://pensya.info/investment/sp500-lost-decade/</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- העשור האבוד של S&amp;P 500 -->
   </url>
 </urlset>
