@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-08-20",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["ייעוץ פנסיוני בתשלום", "מתכנן פיננסי", "יועץ ביטוח אובייקטיבי", "ROI ייעוץ פנסיוני"]
     },
@@ -883,7 +883,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>10 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 20 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">ייעוץ פנסיוני בתשלום</span>
     </div>
     <h1>
@@ -925,7 +925,6 @@ textarea:focus-visible,
       <ol>
         <li><a href="#what-you-get">מה אתה מקבל בתשלום - לעומת מה שמוסתר מהחינם</a></li>
         <li><a href="#not-flattery">למה זה לא מתחנף - ולמה הבקורת עצמי חשובה</a></li>
-        <li><a href="#roi">חישוב ה-ROI של הייעוץ - מחשבון אינטראקטיבי</a></li>
         <li><a href="#when-not">מקרים שבהם הייעוץ לא משתלם</a></li>
         <li><a href="#stories">סיפורי לקוחות שחסכו בעקבות הייעוץ</a></li>
         <li><a href="#vs-free">השוואה שקופה: ייעוץ בתשלום מול ייעוץ "בחינם"</a></li>
@@ -988,101 +987,6 @@ textarea:focus-visible,
       היא לך בלבד.
     </p>
 
-    <!-- SECTION 3: ROI CALCULATOR -->
-    <h2 id="roi">חישוב ה-ROI של הייעוץ - מחשבון אינטראקטיבי</h2>
-    <p>
-      במקום להסביר בעמודי טקסט - תחשב לבד. הכנס את הנתונים שלך וקבל הערכה של הכמה
-      הייעוץ עשוי לחסוך לך, מול מה שהוא עולה.
-    </p>
-  </div>
-</article>
-
-<!-- ROI CALCULATOR -->
-<section class="calc-section" id="roi-calculator">
-  <div class="calc-wrap">
-    <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-    <h2 class="calc-title">כמה ייעוץ פנסיוני בתשלום שווה לך</h2>
-    <p class="calc-lede">
-      הנח שמדובר בבדיקה ממוקדת. שחק עם הפרמטרים - ותראה את הפוטנציאל.
-    </p>
-
-    <div class="calc-card">
-      <div class="calc-controls">
-        <div class="calc-control">
-          <div class="label-row">
-            <span>צבירה כוללת (₪)</span>
-            <span class="value">₪<span id="acc-out">500,000</span></span>
-          </div>
-          <input type="range" id="acc" min="100000" max="3000000" step="50000" value="500000">
-        </div>
-
-        <div class="calc-control">
-          <div class="label-row">
-            <span>שנים עד פרישה</span>
-            <span class="value"><span id="years-out">20</span> שנה</span>
-          </div>
-          <input type="range" id="years" min="5" max="35" step="1" value="20">
-        </div>
-
-        <div class="calc-control">
-          <div class="label-row">
-            <span>חיסכון אפשרי בדמי ניהול (%)</span>
-            <span class="value"><span id="fee-save-out">0.20</span>%</span>
-          </div>
-          <input type="range" id="fee-save" min="0.05" max="0.60" step="0.05" value="0.20">
-        </div>
-
-        <div class="calc-control">
-          <div class="label-row">
-            <span>שיפור תשואה ממסלול מתאים (%)</span>
-            <span class="value"><span id="ret-save-out">1.0</span>%</span>
-          </div>
-          <input type="range" id="ret-save" min="0" max="3" step="0.25" value="1.0">
-        </div>
-      </div>
-
-      <div class="calc-results">
-        <div class="calc-result">
-          <div class="res-label">חיסכון שנתי ישיר</div>
-          <div class="res-value" id="annual-saving">-</div>
-          <div class="res-sub">מדמי ניהול בלבד</div>
-        </div>
-        <div class="calc-result highlight-result">
-          <div class="res-label">חיסכון מצטבר עד פרישה</div>
-          <div class="res-value" id="total-saving">-</div>
-          <div class="res-sub">ב<a href="/savings/start-saving-early/">ריבית דריבית</a></div>
-        </div>
-      </div>
-
-      <div class="calc-breakdown">
-        <div class="row">
-          <span class="label">חיסכון מדמי ניהול (מצטבר)</span>
-          <span class="val" id="bd-fee">-</span>
-        </div>
-        <div class="row">
-          <span class="label">חיסכון ממסלול השקעה טוב יותר</span>
-          <span class="val" id="bd-track">-</span>
-        </div>
-        <div class="row">
-          <span class="label">עלות ייעוץ (משוערת)</span>
-          <span class="val" id="bd-cost">-</span>
-        </div>
-        <div class="row">
-          <span class="label">ROI על הייעוץ</span>
-          <span class="val" id="bd-roi" style="color: var(--cta); font-size: 18px;">-</span>
-        </div>
-      </div>
-    </div>
-
-    <p style="font-size: 13px; color: var(--text-meta); margin-top: var(--s-sm); text-align: center;">
-      * המחשבון הוא כלי אינדיקטיבי בלבד. הנחת ריבית שנתית ממוצעת 6%. חיסכון בפועל תלוי בתנאים הספציפיים שלך.
-    </p>
-  </div>
-</section>
-
-<!-- BODY CONTINUED -->
-<article class="article-body">
-  <div class="article-container">
 
     <!-- SECTION 4: WHEN NOT -->
     <h2 id="when-not">מקרים שבהם הייעוץ לא משתלם</h2>

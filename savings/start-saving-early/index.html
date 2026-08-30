@@ -27,7 +27,7 @@
       "author": { "@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר", "url": "https://pensya.info/about/" },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-08-26",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["להתחיל לחסוך לפנסיה מוקדם", "ריבית דריבית", "חיסכון לטווח ארוך", "תכנון פנסיוני לצעירים"]
     },
@@ -950,7 +950,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>11 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 26 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">מדריך</span>
     </div>
     <h1>
@@ -993,7 +993,6 @@ textarea:focus-visible,
       <ol>
         <li><a href="#compound">כוח הריבית דריבית - ההסבר הפשוט שמשנה הכל</a></li>
         <li><a href="#comparison">החישוב: להתחיל ב-25 vs 35 vs 45</a></li>
-        <li><a href="#calculator">מחשבון ריבית דריבית אינטראקטיבי</a></li>
         <li><a href="#minimum">המינימום הסביר להתחיל בו</a></li>
         <li><a href="#mistakes">5 טעויות נפוצות בגיל צעיר</a></li>
         <li><a href="#stories">סיפורי הצלחה - מה שמשנה הכל במספרים</a></li>
@@ -1094,96 +1093,6 @@ textarea:focus-visible,
       </p>
     </div>
 
-  </div>
-</article>
-
-<!-- ══════════════════════════════════════
-     CALCULATOR SECTION
-═══════════════════════════════════════ -->
-<section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-      <h2 class="calc-title">כמה שווה לך כל שנה של דיחוי?</h2>
-      <p class="calc-lede">
-        שנו את הפרמטרים ותראו בזמן אמת איך גיל ההתחלה, גובה ההפקדה, והתשואה
-        משפיעים על הסכום שתקבלו בפרישה.
-      </p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>הפקדה חודשית</span>
-              <span class="value">₪<span id="c-deposit-out">1,500</span></span>
-            </div>
-            <input type="range" id="c-deposit" min="500" max="5000" step="100" value="1500">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>תשואה שנתית ממוצעת</span>
-              <span class="value"><span id="c-ret-out">7.0</span>%</span>
-            </div>
-            <input type="range" id="c-ret" min="3" max="12" step="0.5" value="7">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>גיל פרישה</span>
-              <span class="value">גיל <span id="c-retire-out">67</span></span>
-            </div>
-            <input type="range" id="c-retire" min="60" max="70" step="1" value="67">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>אינפלציה שנתית צפויה</span>
-              <span class="value"><span id="c-infl-out">2.5</span>%</span>
-            </div>
-            <input type="range" id="c-infl" min="0" max="6" step="0.5" value="2.5">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result highlight-good">
-            <div class="age-label">מתחיל גיל 25</div>
-            <div class="net-value" id="r-25">-</div>
-            <div class="diff-label">בערך היום: <span id="r-25-real">-</span></div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">מתחיל גיל 35</div>
-            <div class="net-value" id="r-35">-</div>
-            <div class="diff-label">בערך היום: <span id="r-35-real">-</span></div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">מתחיל גיל 45</div>
-            <div class="net-value" id="r-45">-</div>
-            <div class="diff-label">בערך היום: <span id="r-45-real">-</span></div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row"><span class="label">פער: 25 vs 35</span><span class="val" id="diff-25-35">-</span></div>
-          <div class="row"><span class="label">פער: 25 vs 45</span><span class="val" id="diff-25-45">-</span></div>
-          <div class="row"><span class="label">הפקדות מגיל 25</span><span class="val" id="dep-25">-</span></div>
-          <div class="row"><span class="label">הפקדות מגיל 35</span><span class="val" id="dep-35">-</span></div>
-        </div>
-      </div>
-
-      <p style="font-size:13px; color:var(--text-meta); text-align:center;">
-        החישוב מניח ריבית דריבית חודשית. הצבירות הן ברוטו לפני מס רווחי הון. תשואה בפועל
-        אינה מובטחת. לצורך הדמיה בלבד.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════
-     CONTINUE ARTICLE
-═══════════════════════════════════════ -->
-<article class="article-body" style="padding-top: var(--s-2xl);">
-  <div class="article-container">
 
     <!-- ══ 4. MINIMUM ══ -->
     <h2 id="minimum">המינימום הסביר להתחיל בו</h2>

@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-08-20",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["תכנון פיננסי לשכירים בכירים", "תכנון פיננסי אישי", "יועץ פנסיוני שכר", "פרישה מוקדמת", "הטבות מס"]
     },
@@ -932,7 +932,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>11 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 20 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">דף שירות</span>
     </div>
     <h1>
@@ -979,7 +979,6 @@ textarea:focus-visible,
         <li><a href="#advanced-tax">תכנון מס מתקדם</a></li>
         <li><a href="#early-retirement">בניית עתודה לפרישה מוקדמת</a></li>
         <li><a href="#mistakes">טעויות נפוצות אצל שכירים בכירים</a></li>
-        <li><a href="#calculator">מחשבון חיסכון מס שנתי</a></li>
         <li><a href="#case-study">מקרה בוחן - "עמי" מהייטק</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
       </ol>
@@ -1181,90 +1180,6 @@ textarea:focus-visible,
       בהוצאות החודשיות שלך - לכן התכנון הוא אישי, לא גנרי.
     </div>
 
-  </div>
-</article>
-
-<!-- CALCULATOR -->
-<section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון · 30 שניות</span>
-      <h2 class="calc-title">כמה מס אתה חוסך בשנה בהפקדות פנסיוניות</h2>
-      <p class="calc-lede">הכנס את נתוניך וראה מיד את חיסכון המס השנתי הפוטנציאלי - ואת ה-ROI על ייעוץ פנסיוני.</p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>שכר חודשי ברוטו</span>
-              <span class="value">₪<span id="sal-out">30,000</span></span>
-            </div>
-            <input type="range" id="salary" min="15000" max="80000" step="1000" value="30000">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>% הפקדת עובד לפנסיה</span>
-              <span class="value"><span id="emp-pct-out">7</span>%</span>
-            </div>
-            <input type="range" id="emp-pct" min="0" max="7" step="0.5" value="7">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>שכר קובע ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a></span>
-              <span class="value">₪<span id="hish-out">15,712</span></span>
-            </div>
-            <input type="range" id="hish-base" min="5000" max="15712" step="500" value="15712">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>% הפקדת עובד להשתלמות</span>
-              <span class="value"><span id="hish-pct-out">2.5</span>%</span>
-            </div>
-            <input type="range" id="hish-pct" min="0" max="2.5" step="0.5" value="2.5">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result">
-            <div class="age-label">חיסכון מס שנתי</div>
-            <div class="net-value" id="annual-tax-saving">₪-</div>
-            <div class="real-value">מהפקדות לפנסיה ולהשתלמות</div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">חיסכון מס ב-10 שנים</div>
-            <div class="net-value" id="decade-tax-saving">₪-</div>
-            <div class="real-value">ללא ריבית דריבית על הסכום שנחסך</div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row"><span class="label">הפקדה חודשית לפנסיה (עובד)</span><span class="val" id="pension-monthly">-</span></div>
-          <div class="row"><span class="label">הפקדה חודשית להשתלמות (עובד)</span><span class="val" id="hish-monthly">-</span></div>
-          <div class="row"><span class="label">שיעור מס שולי משוער</span><span class="val" id="marginal-rate">-</span></div>
-          <div class="row"><span class="label">חיסכון מס חודשי</span><span class="val" id="monthly-tax">-</span></div>
-        </div>
-
-        <div class="tax-savings-box" id="roi-box">
-          <div class="tax-label">ROI על ייעוץ פנסיוני (6,000 ₪)</div>
-          <div class="tax-val" id="roi-pct">-</div>
-          <div class="tax-note" id="roi-months">תוך כמה חודשים מחזיר את עצמו</div>
-        </div>
-      </div>
-
-      <p style="font-size:13px; color: var(--text-meta); margin-top: var(--s-md); text-align:center;">
-        המחשבון מחשב חיסכון מס על הפקדות עובד לפנסיה (זיכוי מס 35%) ול<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> (פטור מהכנסה עד תקרה).
-        שיעור המס השולי משוער לפי סולם המס הנוכחי. לתכנון מדויק - יש לשקלל גם ניכוי, זיכויים נוספים, וביטוח לאומי.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- BACK TO ARTICLE BODY -->
-<article class="article-body">
-  <div class="article-container">
 
     <!-- MISTAKES -->
     <h2 id="mistakes">טעויות נפוצות אצל שכירים בכירים</h2>

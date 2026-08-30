@@ -27,7 +27,7 @@
       "author": { "@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר", "url": "https://pensya.info/about/" },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-08-26",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["נדל\"ן או שוק ההון", "השקעה בנדל\"ן", "השקעה בבורסה", "תיק השקעות"]
     },
@@ -890,7 +890,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>12 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 26 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">ניתוח השוואתי</span>
     </div>
     <h1>
@@ -933,7 +933,6 @@ textarea:focus-visible,
         <li><a href="#hidden-costs">עלויות נסתרות בנדל"ן</a></li>
         <li><a href="#liquidity">יתרון הנזילות</a></li>
         <li><a href="#tax">המס בכל אפיק</a></li>
-        <li><a href="#simulator">סימולטור השוואה</a></li>
         <li><a href="#when">מתי כל אחד עדיף</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
       </ol>
@@ -1206,170 +1205,6 @@ textarea:focus-visible,
 
   </div>
 </article>
-
-<!-- SIMULATOR -->
-<section class="simulator-section" id="simulator">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">סימולטור</span>
-      <h2>השווה בעצמך - על פי הנתונים שלך</h2>
-      <p>שנה את ההנחות ועקוב אחרי התוצאה. כולל מינוף, עלויות, ומס.</p>
-    </div>
-
-    <div class="sim-card">
-
-      <div class="sim-shared">
-        <h4>פרמטרים משותפים</h4>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s-md);">
-          <div class="sim-control">
-            <div class="label-row">
-              <span>הון עצמי זמין</span>
-              <span class="val">₪<span id="equity-val">600,000</span></span>
-            </div>
-            <input type="range" id="equity" min="200000" max="2000000" step="50000" value="600000">
-          </div>
-          <div class="sim-control">
-            <div class="label-row">
-              <span>אופק השקעה (שנים)</span>
-              <span class="val"><span id="years-val">20</span> שנה</span>
-            </div>
-            <input type="range" id="years" min="5" max="40" step="1" value="20">
-          </div>
-        </div>
-      </div>
-
-      <div class="sim-grid">
-        <!-- NADLAN COLUMN -->
-        <div>
-          <div class="sim-col-title nadlan">🏠 נדל"ן</div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>אחוז מינוף (משכנתא)</span>
-              <span class="val"><span id="leverage-val">65</span>%</span>
-            </div>
-            <input type="range" id="leverage" min="0" max="75" step="5" value="65">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>עליית ערך שנתית צפויה</span>
-              <span class="val"><span id="nadlan-growth-val">5.5</span>%</span>
-            </div>
-            <input type="range" id="nadlan-growth" min="1" max="12" step="0.5" value="5.5">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>תשואת שכירות שנתית ברוטו</span>
-              <span class="val"><span id="rent-yield-val">3.0</span>%</span>
-            </div>
-            <input type="range" id="rent-yield" min="0" max="6" step="0.25" value="3.0">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>ריבית משכנתא שנתית</span>
-              <span class="val"><span id="mortgage-rate-val">4.5</span>%</span>
-            </div>
-            <input type="range" id="mortgage-rate" min="2" max="8" step="0.25" value="4.5">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>עלויות שוטפות שנתיות (% מערך)</span>
-              <span class="val"><span id="nadlan-costs-val">1.5</span>%</span>
-            </div>
-            <input type="range" id="nadlan-costs" min="0.5" max="4" step="0.25" value="1.5">
-          </div>
-        </div>
-
-        <!-- SHUK COLUMN -->
-        <div>
-          <div class="sim-col-title shuk">📈 שוק ההון</div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>תשואה שנתית צפויה (נומינלי)</span>
-              <span class="val"><span id="shuk-return-val">9.0</span>%</span>
-            </div>
-            <input type="range" id="shuk-return" min="3" max="15" step="0.5" value="9.0">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>דמי ניהול שנתיים</span>
-              <span class="val"><span id="shuk-fees-val">0.20</span>%</span>
-            </div>
-            <input type="range" id="shuk-fees" min="0.05" max="2" step="0.05" value="0.20">
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>מס רווחי הון בפדיון</span>
-              <span class="val"><span id="shuk-tax-val">25</span>%</span>
-            </div>
-            <input type="range" id="shuk-tax" min="0" max="25" step="5" value="25">
-            <div style="font-size:12px; color:var(--text-meta); margin-top:4px;">0% = <a href="/savings/keren-hishtalmut/">קרן השתלמות</a> פטורה</div>
-          </div>
-
-          <div class="sim-control">
-            <div class="label-row">
-              <span>הפקדה חודשית נוספת</span>
-              <span class="val">₪<span id="monthly-add-val">0</span></span>
-            </div>
-            <input type="range" id="monthly-add" min="0" max="10000" step="500" value="0">
-          </div>
-        </div>
-      </div>
-
-      <!-- RESULTS -->
-      <div class="sim-results">
-        <div class="sim-result-card nadlan">
-          <div class="res-label">שווי נטו נדל"ן</div>
-          <div class="res-value" id="nadlan-result">-</div>
-          <div class="res-sub">אחרי מס שבח ופירעון משכנתא</div>
-        </div>
-        <div class="sim-result-card shuk">
-          <div class="res-label">שווי נטו שוק ההון</div>
-          <div class="res-value" id="shuk-result">-</div>
-          <div class="res-sub">אחרי מס רווחי הון</div>
-        </div>
-      </div>
-
-      <div class="sim-winner" id="sim-winner">
-        <div class="winner-label">תוצאה</div>
-        <div class="winner-text" id="winner-text">מחשב...</div>
-      </div>
-
-      <div class="sim-breakdown">
-        <div>
-          <strong style="font-size:13px; color:#6B3F1E; display:block; margin-bottom:8px;">🏠 נדל"ן - פירוט</strong>
-          <div class="sim-bd-row"><span>שווי נכס סופי</span><span class="bd-val" id="bd-asset">-</span></div>
-          <div class="sim-bd-row"><span>יתרת משכנתא</span><span class="bd-val" id="bd-mortgage">-</span></div>
-          <div class="sim-bd-row"><span>הכנסות שכירות נצברות</span><span class="bd-val" id="bd-rent">-</span></div>
-          <div class="sim-bd-row"><span>עלויות שוטפות נצברות</span><span class="bd-val" id="bd-opex">-</span></div>
-          <div class="sim-bd-row"><span>מס שבח בפדיון</span><span class="bd-val" id="bd-shvach">-</span></div>
-        </div>
-        <div>
-          <strong style="font-size:13px; color:var(--primary); display:block; margin-bottom:8px;">📈 שוק ההון - פירוט</strong>
-          <div class="sim-bd-row"><span>קרן ראשונית</span><span class="bd-val" id="bd-principal">-</span></div>
-          <div class="sim-bd-row"><span>שווי ברוטו סופי</span><span class="bd-val" id="bd-gross">-</span></div>
-          <div class="sim-bd-row"><span>הפקדות חודשיות נצברות</span><span class="bd-val" id="bd-deposits">-</span></div>
-          <div class="sim-bd-row"><span>מס רווחי הון</span><span class="bd-val" id="bd-tax">-</span></div>
-          <div class="sim-bd-row"><span>דמי ניהול נצברו</span><span class="bd-val" id="bd-fees">-</span></div>
-        </div>
-      </div>
-
-      <div class="sim-disclaimer">
-        <strong>הסתייגות:</strong> הסימולטור מבוסס על הנחות קבועות ואינו מתחשב בתנודתיות, בשינויי
-        ריבית עתידיים, בצמיחת שכירות, או בהוצאות חד-פעמיות. התוצאות הן הערכה בלבד ואינן ייעוץ
-        השקעות. לפי הרישיון שלי - אני יועץ פנסיוני, לא יועץ נדל"ן ולא יועץ השקעות, והמידע כאן
-          נועד להשוואה כללית בלבד ואינו תחליף לבדיקה המותאמת אישית למצבך.
-        </div>
-      </div>
-    </div>
-  </section>
 
 <section class="related-links-section" id="related">
   <div class="container">

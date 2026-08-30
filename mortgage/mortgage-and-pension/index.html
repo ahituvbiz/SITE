@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-05-13",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["משכנתא ופנסיה", "תכנון פיננסי הוליסטי", "יועץ פנסיוני", "שילוב תיקים"]
     },
@@ -1013,7 +1013,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>11 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 13 במאי 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">תכנון הוליסטי</span>
     </div>
     <h1>
@@ -1056,7 +1056,6 @@ textarea:focus-visible,
         <li><a href="#mortgage-on-pension">איך משכנתא משפיעה על הפנסיה</a></li>
         <li><a href="#pension-on-mortgage">איך פנסיה משפיעה על המשכנתא</a></li>
         <li><a href="#strategies">אסטרטגיות לאופטימיזציה - מה עושים עם הידע הזה</a></li>
-        <li><a href="#calculator">מחשבון - השפעת המשכנתא על הצבירה הפנסיונית</a></li>
         <li><a href="#common-cases">מקרים נפוצים - כך זה נראה בשטח</a></li>
         <li><a href="#mistakes">טעויות יקרות שחוסכים עושים כשהם בוחרים ביועצים נפרדים</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
@@ -1247,105 +1246,6 @@ textarea:focus-visible,
     </div>
 
     <!-- CALCULATOR -->
-  </div>
-</article>
-
-<!-- CALCULATOR SECTION -->
-<section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-      <h2 class="calc-title">כמה עולה לך המשכנתא בצבירה הפנסיונית?</h2>
-      <p class="calc-lede">
-        שנו את הפרמטרים וראו כיצד גובה תשלום המשכנתא משפיע על הצבירה הפנסיונית שלכם -
-        ומה ייצור "שחרור" התשלום לאחר סיום המשכנתא.
-      </p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>גיל נוכחי</span>
-              <span class="value"><span id="age-out">35</span></span>
-            </div>
-            <input type="range" id="age-inp" min="25" max="55" step="1" value="35">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>גיל פרישה</span>
-              <span class="value"><span id="retire-out">67</span></span>
-            </div>
-            <input type="range" id="retire-inp" min="55" max="75" step="1" value="67">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>תשלום משכנתא חודשי</span>
-              <span class="value">₪<span id="mortgage-out">7,000</span></span>
-            </div>
-            <input type="range" id="mortgage-inp" min="2000" max="20000" step="500" value="7000">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>שנות משכנתא שנותרו</span>
-              <span class="value"><span id="years-out">20</span> שנים</span>
-            </div>
-            <input type="range" id="years-inp" min="1" max="30" step="1" value="20">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>% מהשחרור שמופנה לפנסיה</span>
-              <span class="value"><span id="pct-out">50</span>%</span>
-            </div>
-            <input type="range" id="pct-inp" min="10" max="100" step="5" value="50">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>תשואה שנתית צפויה</span>
-              <span class="value"><span id="return-out">6.5</span>%</span>
-            </div>
-            <input type="range" id="return-inp" min="3" max="12" step="0.5" value="6.5">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result">
-            <div class="age-label">ללא שחרור המשכנתא</div>
-            <div class="net-value" id="without-val">-</div>
-            <div class="real-value">צבירה בגיל פרישה (ריאלי)</div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">עם שחרור המשכנתא</div>
-            <div class="net-value" id="with-val" style="color: var(--positive);">-</div>
-            <div class="real-value">צבירה בגיל פרישה (ריאלי)</div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row"><span class="label">שנות תשלום משכנתא שנותרות</span><span class="val" id="bd-mort-years">-</span></div>
-          <div class="row"><span class="label">סיום משכנתא בגיל</span><span class="val" id="bd-end-age">-</span></div>
-          <div class="row"><span class="label">חיסכון חודשי אחרי שחרור</span><span class="val" id="bd-monthly">-</span></div>
-          <div class="row"><span class="label">שנות חיסכון נוסף לפרישה</span><span class="val" id="bd-extra-years">-</span></div>
-          <div class="row"><span class="label">הפרש פוטנציאלי בצבירה</span><span class="val" id="bd-diff" style="color: var(--positive); font-weight: 700;">-</span></div>
-        </div>
-
-        <p style="font-size:13px; color:var(--text-meta); margin-top: var(--s-md);">
-          <strong>הערה:</strong> המחשבון מחשב את הצבירה הנוספת הנוצרת מהפניית חלק מתשלום המשכנתא
-          שמשתחרר לחיסכון פנסיוני - לאחר סיום תשלומי המשכנתא. ההנחה: ריבית דריבית שנתית לאורך השנים
-          שנותרות עד הפרישה. אינו מחשב את הצבירה הפנסיונית הקיימת - רק את ה"תוספת" משחרור המשכנתא.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BACK TO ARTICLE BODY -->
-<article class="article-body">
-  <div class="article-container">
 
     <!-- COMMON CASES -->
     <h2 id="common-cases">מקרים נפוצים - כך זה נראה בשטח</h2>

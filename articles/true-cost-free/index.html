@@ -27,7 +27,7 @@
       "author": { "@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר", "url": "https://pensya.info/about/" },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-05-13",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["ייעוץ פנסיוני חינם", "סוכן פנסיוני", "סוכן ביטוח", "ניגוד אינטרסים", "עמלות"]
     },
@@ -915,7 +915,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>10 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 13 במאי 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">מדריך</span>
     </div>
     <h1>
@@ -953,7 +953,6 @@ textarea:focus-visible,
       <ol>
         <li><a href="#who-pays">מי משלם לסוכן הפנסיוני</a></li>
         <li><a href="#how-much">מה הסוכן מרוויח על הלקוח - מספרים</a></li>
-        <li><a href="#calculator">מחשבון: כמה עמלות יוצאות מהתיק שלך</a></li>
         <li><a href="#bias">למה זה משפיע על ההמלצות שלו</a></li>
         <li><a href="#stories">סיפורי לקוחות שגילו את האמת</a></li>
         <li><a href="#how-to-detect">איך לזהות הטיה בייעוץ</a></li>
@@ -1047,88 +1046,6 @@ textarea:focus-visible,
       לא עשה כלום מאז הצטרפת לקרן לפני 15 שנה.
     </div>
 
-  </div>
-</article>
-
-<!-- CALCULATOR SECTION -->
-<section class="calc-section" id="calculator">
-  <div class="container" style="padding: var(--s-2xl) var(--s-md);">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון · 30 שניות</span>
-      <h2 class="calc-title">כמה עמלות יוצאות מהתיק שלך?</h2>
-      <p class="calc-lede">
-        הזן את נתוני הפנסיה שלך. המחשבון מראה כמה אתה "תורם" לסוכן לאורך הדרך -
-        ומה זה עולה לך בפנסיה בגיל 67.
-      </p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>צבירה נוכחית</span>
-              <span class="value">₪<span id="val-savings">300,000</span></span>
-            </div>
-            <input type="range" id="calc-savings" min="50000" max="3000000" step="50000" value="300000">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>הפקדה חודשית</span>
-              <span class="value">₪<span id="val-monthly">2,000</span></span>
-            </div>
-            <input type="range" id="calc-monthly" min="500" max="10000" step="250" value="2000">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>שנים עד פרישה</span>
-              <span class="value"><span id="val-years">25</span> שנים</span>
-            </div>
-            <input type="range" id="calc-years" min="5" max="40" step="1" value="25">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>עמלת נפרעים שנתית לסוכן</span>
-              <span class="value"><span id="val-fee">0.20</span>%</span>
-            </div>
-            <input type="range" id="calc-fee" min="0.05" max="0.50" step="0.05" value="0.20">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result bad">
-            <div class="age-label">סה"כ עמלות לסוכן</div>
-            <div class="net-value" id="result-agent-total">-</div>
-            <div class="sub-label">נגרעות מהחיסכון שלך</div>
-          </div>
-          <div class="calc-result">
-            <div class="age-label">הפסד מצטבר בפנסיה</div>
-            <div class="net-value" id="result-pension-loss">-</div>
-            <div class="sub-label">כסף שהיה ממשיך לצבור ריבית-דריבית</div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row"><span class="label">צבירה צפויה בלי עמלות</span><span class="val" id="result-no-fee">-</span></div>
-          <div class="row"><span class="label">צבירה צפויה עם עמלות</span><span class="val red" id="result-with-fee">-</span></div>
-          <div class="row"><span class="label">עמלת היקף חד-פעמית (הערכה)</span><span class="val red" id="result-onetime">-</span></div>
-          <div class="row"><span class="label">תשואה שנתית הנחה</span><span class="val">7%</span></div>
-        </div>
-      </div>
-
-      <p style="font-size:13px; color: var(--text-meta); margin-top: var(--s-md);">
-        <strong>הערה:</strong> המחשבון משתמש בתשואה שנתית של 7% נומינלי. הנתונים הם הערכה
-        ולא ייעוץ. עמלות בפועל תלויות בהסכם הספציפי. עמלת ההיקף מחושבת כ-1.5% מהסכום
-        המנוייל בתחילת התקופה - מספר שמרני לצורך ההמחשה.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- BIAS SECTION -->
-<article class="article-body">
-  <div class="article-container">
 
     <h2 id="bias">למה זה משפיע על ההמלצות שלו</h2>
     <p>
