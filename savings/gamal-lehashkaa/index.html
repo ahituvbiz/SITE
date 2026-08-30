@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-05-13",
-      "dateModified": "2026-08-26",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["גמל להשקעה", "תכנון פיננסי", "חיסכון לטווח ארוך", "קופת גמל"]
     },
@@ -766,7 +766,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>10 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 26 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">מדריך</span>
     </div>
     <h1>
@@ -811,7 +811,6 @@ textarea:focus-visible,
         <li><a href="#when-yes">מתי גמל להשקעה כן מתאים</a></li>
         <li><a href="#when-no">מתי לא כדאי</a></li>
         <li><a href="#mistakes">טעויות נפוצות</a></li>
-        <li><a href="#calculator">מחשבון - כמה ייצבר לך בגיל פרישה</a></li>
         <li><a href="#faq">שאלות נפוצות</a></li>
       </ol>
     </nav>
@@ -1056,107 +1055,6 @@ textarea:focus-visible,
       </div>
     </div>
 
-  </div>
-</article>
-
-<!-- CALCULATOR -->
-<section class="calc-section" id="calculator">
-  <div class="container">
-    <div class="calc-wrap">
-      <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-      <h2 class="calc-title">כמה ייצבר לך בגמל להשקעה?</h2>
-      <p class="calc-lede">
-        הזיזו את המחוונים לפי המצב שלכם. המחשבון מציג את הצבירה הצפויה בגיל פרישה -
-        ואת חיסכון המס שתהנו ממנו לעומת תיק השקעות רגיל.
-      </p>
-
-      <div class="calc-card">
-        <div class="calc-controls">
-          <div class="calc-control">
-            <div class="label-row">
-              <span>הפקדה חודשית</span>
-              <span class="value">₪<span id="deposit-out">2,000</span></span>
-            </div>
-            <input type="range" id="deposit" min="200" max="6500" step="100" value="2000">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>גיל נוכחי</span>
-              <span class="value"><span id="age-out">38</span></span>
-            </div>
-            <input type="range" id="age" min="20" max="60" step="1" value="38">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>תשואה שנתית צפויה</span>
-              <span class="value"><span id="return-out">7.0</span>%</span>
-            </div>
-            <input type="range" id="return" min="2" max="12" step="0.5" value="7">
-          </div>
-
-          <div class="calc-control">
-            <div class="label-row">
-              <span>דמי ניהול שנתיים</span>
-              <span class="value"><span id="fee-out">0.50</span>%</span>
-            </div>
-            <input type="range" id="fee" min="0.1" max="1.5" step="0.05" value="0.5">
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result">
-            <div class="res-label">צבירה בגיל 67</div>
-            <div class="res-value" id="total-value">-</div>
-            <div class="res-sub">לפני מס (ברוטו)</div>
-          </div>
-          <div class="calc-result">
-            <div class="res-label">נטו כקצבה (פטור ממס)</div>
-            <div class="res-value" id="net-pension">-</div>
-            <div class="res-sub">אם תמשוך כקצבה בפרישה</div>
-          </div>
-        </div>
-
-        <div class="calc-breakdown">
-          <div class="row"><span class="lbl">שנות חיסכון</span><span class="val" id="years-saving">-</span></div>
-          <div class="row"><span class="lbl">סה"כ הפקדות</span><span class="val" id="total-deposits">-</span></div>
-          <div class="row"><span class="lbl">רווח נומינלי</span><span class="val" id="gross-gain">-</span></div>
-          <div class="row"><span class="lbl">נטו כהון (25% מס)</span><span class="val" id="net-capital">-</span></div>
-        </div>
-      </div>
-
-      <!-- Tax savings comparison -->
-      <div class="tax-savings-box">
-        <div class="ts-eyebrow">היתרון על תיק השקעות רגיל</div>
-        <h4>כמה תחסוך בגלל הפטור ממס?</h4>
-        <p>כאשר תמשוך כקצבה, לא תשלם 25% מס על הרווח. זה ההפרש.</p>
-        <div class="ts-nums">
-          <div class="ts-num">
-            <div class="ts-val" id="tax-saved">-</div>
-            <div class="ts-lbl">חיסכון מס (₪)</div>
-          </div>
-          <div class="ts-num">
-            <div class="ts-val" id="tax-saved-pct">-</div>
-            <div class="ts-lbl">% מהצבירה הכולל</div>
-          </div>
-          <div class="ts-num">
-            <div class="ts-val" id="monthly-pension">-</div>
-            <div class="ts-lbl">קצבה חודשית אפשרית*</div>
-          </div>
-        </div>
-      </div>
-
-      <p style="font-size:13px; color:var(--text-meta); margin-top:var(--s-md);">
-        * <em>קצבה חודשית מחושבת לפי חלוקה ל-240 (20 שנה מגיל 67). זו דוגמה להמחשה בלבד. תשואה בפועל אינה מובטחת.</em>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTINUE BODY -->
-<article class="article-body" style="padding-top: 0;">
-  <div class="article-container">
 
     <h2 id="vs-pension">גמל להשקעה מול קרן פנסיה - לא תחרות</h2>
     <p>
