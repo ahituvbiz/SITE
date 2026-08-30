@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-08-26",
-      "dateModified": "2026-08-27",
+      "dateModified": "2026-08-30",
       "inLanguage": "he-IL",
       "about": ["קרן השתלמות לעובדי הוראה", "קרן השתלמות למורים", "שנת שבתון", "קרן השתלמות מנייתית", "מורים וגננות"]
     },
@@ -932,7 +932,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>9 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 27 באוגוסט 2026</span>
+      <span>עודכן: 30 באוגוסט 2026</span>
       <span class="pill">מורים וגננות</span>
     </div>
     <h1>
@@ -1200,10 +1200,11 @@ textarea:focus-visible,
   <div class="container">
     <div class="calc-wrap">
       <span class="calc-eyebrow">מחשבון אינטראקטיבי</span>
-      <h2 class="calc-title">כמה זה שווה לכם בפועל - אחרי 6 שנים?</h2>
+      <h2 class="calc-title">כמה זה שווה לכם בפועל - אחרי <span id="calc-title-years">6</span> שנים?</h2>
       <p class="calc-lede">
-        הזינו את השכר החודשי ואת התשואות הצפויות, וראו כמה כסף נטו יעמוד לרשותכם בתום
-        6 שנים בכל אחת מהאפשרויות - וכמה יגדל הנטו החודשי שלכם אם תבחרו בקרן רגילה.
+        הזינו את השכר החודשי, את מועד המשיכה ואת התשואות הצפויות, וראו כמה כסף נטו
+        יעמוד לרשותכם בתום התקופה בכל אחת מהאפשרויות - וכמה יגדל הנטו החודשי שלכם אם
+        תבחרו בקרן רגילה. הקרן נזילה אחרי 6 שנים, ולכן זו נקודת הפתיחה.
       </p>
 
       <div class="calc-card">
@@ -1214,6 +1215,15 @@ textarea:focus-visible,
               <span class="value">₪<span id="salary-out">10,000</span></span>
             </div>
             <input type="range" id="salary-range" min="5000" max="30000" step="250" value="10000"
+              oninput="calcMorim()">
+          </div>
+
+          <div class="calc-control">
+            <div class="label-row">
+              <span>אחרי כמה שנים מושכים את הכסף</span>
+              <span class="value"><span id="years-out">6</span> שנים</span>
+            </div>
+            <input type="range" id="years-range" min="6" max="30" step="1" value="6"
               oninput="calcMorim()">
           </div>
 
@@ -1254,7 +1264,7 @@ textarea:focus-visible,
           <div class="calc-result">
             <div class="age-label">מסלול קרן עובדי הוראה</div>
             <div class="net-value" id="res-teach">-</div>
-            <div class="sub-label">סה"כ נטו בתום 6 שנים, בלי ה-0.9% שלא מתקבלים במשיכה</div>
+            <div class="sub-label" id="res-teach-sub">סה"כ נטו בתום 6 שנים, בלי ה-0.9% שלא מתקבלים במשיכה</div>
           </div>
           <div class="calc-result">
             <div class="age-label">מסלול קרן רגילה מנייתית</div>
@@ -1309,7 +1319,7 @@ textarea:focus-visible,
         </p>
         <p class="calc-note">
           <strong>למה ברירת המחדל היא 9.4% ולא התשואה של השנים האחרונות:</strong>
-          המחשבון מקרין שש שנים קדימה, ולכן ההנחה שלו צריכה להיות תשואה שאפשר לקיים לאורך
+          המחשבון מקרין שש שנים לפחות קדימה, ולכן ההנחה שלו צריכה להיות תשואה שאפשר לקיים לאורך
           זמן ולא תשואה של תקופה חריגה. 9.4% היא התשואה השנתית הממוצעת של המסלולים
           המנייתיים ב-15 השנים האחרונות, מאוגוסט 2011 ועד יולי 2026 &mdash; הטווח הארוך
           ביותר שהנתונים מאפשרים, ובקירוב אותה תקופה שממנה נגזר גם היחס שמקשר בין שני
@@ -1326,7 +1336,9 @@ textarea:focus-visible,
           אותו.
         </p>
         <p class="calc-note">
-          <strong>הנחות המחשבון:</strong> גידול שכר של <strong>2% בשנה</strong>;
+          <strong>הנחות המחשבון:</strong> ההפקדות נמשכות לאורך כל התקופה שנבחרה,
+          והמשיכה מבוצעת בתומה (6 שנים הן מועד הנזילות המוקדם ביותר של הקרן);
+          גידול שכר של <strong>2% בשנה</strong>;
           אינפלציה של <strong>2% בשנה</strong>; הפקדות חודשיות ותשואה בריבית דריבית
           חודשית; בקרן עובדי ההוראה מחושבים רק 11.7% (4.2% עובד + 7.5% מעסיק), משום
           שה-0.9% הנוספים אינם מתקבלים במשיכה; בקרן רגילה 10% (2.5% עובד + 7.5%
@@ -1505,7 +1517,8 @@ function linkSlide(which){
 }
 
 function calcMorim(){
-  var C = 15712, G = 0.02, INFL = 0.02, YEARS = 6, TAX = 0.25;
+  var C = 15712, G = 0.02, INFL = 0.02, TAX = 0.25;
+  var YEARS = +document.getElementById('years-range').value;
   var S0 = +document.getElementById('salary-range').value;
   var rt = +document.getElementById('rt-range').value / 100;
   var rr = +document.getElementById('rr-range').value / 100;
@@ -1513,6 +1526,8 @@ function calcMorim(){
   var fmt = function(n){ return '\u20aa' + Math.round(n).toLocaleString('he-IL'); };
 
   document.getElementById('salary-out').textContent = S0.toLocaleString('he-IL');
+  document.getElementById('years-out').textContent = YEARS;
+  document.getElementById('calc-title-years').textContent = YEARS;
   document.getElementById('rt-out').textContent = (+document.getElementById('rt-range').value).toFixed(2);
   document.getElementById('rr-out').textContent = (+document.getElementById('rr-range').value).toFixed(2);
 
@@ -1558,9 +1573,13 @@ function calcMorim(){
 
   document.getElementById('res-teach').textContent = fmt(netT);
   document.getElementById('res-reg').textContent = fmt(netR + sideValue);
+  document.getElementById('res-teach-sub').textContent =
+    'סה"כ נטו בתום ' + YEARS + ' שנים, בלי ה-0.9% שלא מתקבלים במשיכה';
   document.getElementById('res-reg-sub').textContent = useGemel
-    ? 'סה"כ נטו בתום 6 שנים, כולל תוספת הנטו בגמל להשקעה'
-    : 'סה"כ נטו בתום 6 שנים, כולל תוספת הנטו במזומן';
+    ? 'סה"כ נטו בתום ' + YEARS + ' שנים, כולל תוספת הנטו בגמל להשקעה'
+    : 'סה"כ נטו בתום ' + YEARS + ' שנים, כולל תוספת הנטו במזומן';
+  document.getElementById('delta-sub').textContent =
+    'הפרש בין שני המסלולים בתום ' + YEARS + ' שנים';
   document.getElementById('bd-monthly').textContent = fmt(firstMonthly);
   document.getElementById('bd-regonly').textContent = fmt(netR);
   document.getElementById('bd-netsum').textContent = fmt(sideValue);
