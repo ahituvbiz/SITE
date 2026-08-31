@@ -398,6 +398,13 @@
     <priority>0.7</priority>
     <!-- מחשבון חיסכון במס -->
   </url>
+  <url>
+    <loc>https://pensya.info/tools/uninsured-salary/</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון שכר לא מבוטח -->
+  </url>
 
   <url>
     <loc>https://pensya.info/tools/savings-goals/</loc>
