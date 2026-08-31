@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מחשבונים פיננסיים - מרכז הכלים | יועץ פנסיוני איתן אחיטוב</title>
-<meta name="description" content="10 מחשבונים פיננסיים חינמיים: מס רווחי הון ותשואה נטו, פנסיה לעצמאים, חיסכון במס, יעדי חיסכון, נדל״ן מול שוק ההון, דמי ניהול ומחיר למשתכן.">
+<meta name="description" content="12 מחשבונים פיננסיים חינמיים עם סינון לפי נושא: פנסיה, מס רווחי הון, חיסכון במס, שכר לא מבוטח, יעדי חיסכון, קרן השתלמות לעובדי הוראה ונדל״ן מול שוק ההון.">
 <meta property="og:title" content="מחשבונים פיננסיים - מרכז הכלים | איתן אחיטוב">
-<meta property="og:description" content="10 מחשבונים פיננסיים חינמיים שיראו לך כמה כסף אתה מפסיד - ואיך לתקן.">
+<meta property="og:description" content="12 מחשבונים פיננסיים חינמיים שיראו לך כמה כסף אתה מפסיד - ואיך לתקן.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="he_IL">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -139,6 +139,25 @@ a:hover { text-decoration:underline; }
 .tag-fees { background:#FFF5F5; color:#9B2C2C; }
 .tag-roi { background:#FAF5FF; color:#553C9A; }
 .tag-housing { background:#F0FFF4; color:#2C7A7B; }
+
+/* ── FILTER BAR ── */
+.filter-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.filter-chip {
+  font-family:inherit; font-size:14px; font-weight:600; line-height:1.4; color:var(--text-2);
+  background:#fff; border:1px solid var(--border); border-radius:999px;
+  padding:7px 16px; cursor:pointer; white-space:nowrap;
+  display:inline-flex; align-items:center; gap:7px;
+  transition:background .15s, border-color .15s, color .15s;
+}
+.filter-chip:hover { border-color:var(--primary); color:var(--primary); }
+.filter-chip .chip-count { font-size:12px; font-weight:700; color:var(--text-meta); background:var(--bg-cream); border-radius:999px; padding:1px 7px; }
+.filter-chip[aria-pressed="true"] { background:var(--primary); border-color:var(--primary); color:#fff; }
+.filter-chip[aria-pressed="true"] .chip-count { background:rgba(255,255,255,.22); color:#fff; }
+.calc-card[hidden] { display:none; }
+@media(max-width:560px) {
+  .filter-bar { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .filter-bar::-webkit-scrollbar { display:none; }
+}
 
 .calc-card h3 { font-size:18px; font-weight:700; margin:0; }
 .calc-card .calc-desc { font-size:14px; color:var(--text-2); line-height:1.6; flex:1; }
@@ -390,8 +409,9 @@ textarea:focus-visible,
 <!-- ── CALCULATORS GRID ── -->
 <section class="calcs-section">
   <div class="container">
-    <p class="section-label">11 מחשבונים</p>
-    <div class="calcs-grid">
+    <div class="filter-bar" id="calc-filters" role="group" aria-label="סינון המחשבונים לפי נושא" hidden></div>
+    <p class="section-label" id="calcs-count" aria-live="polite">12 מחשבונים</p>
+    <div class="calcs-grid" id="calcs-grid">
 
       <!-- מחשבון פנסיה -->
       <a class="calc-card" href="/tools/pension-calculator/">
@@ -592,6 +612,24 @@ textarea:focus-visible,
         </div>
       </a>
 
+      <!-- קרן השתלמות עובדי הוראה -->
+      <a class="calc-card" href="/savings/keren-hishtalmut-morim/#calculator">
+        <div class="calc-icon">🎓</div>
+        <span class="calc-tag tag-roi">חיסכון</span>
+        <h3>מחשבון קרן השתלמות לעובדי הוראה</h3>
+        <p class="calc-desc">
+          קרן ההשתלמות של עובדי ההוראה מול קרן רגילה במסלול מנייתי - כמה כסף נטו יישאר לכם בתום התקופה, וכמה יגדל הנטו החודשי אם תבחרו בקרן רגילה.
+        </p>
+        <div class="calc-stats">
+          <div class="calc-stat"><strong>כ-93%</strong>מהצבירה במשיכה</div>
+          <div class="calc-stat"><strong>6&ndash;30 שנים</strong>טווח החישוב</div>
+        </div>
+        <div class="calc-cta-row">
+          פתח מחשבון
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -620,6 +658,77 @@ textarea:focus-visible,
   btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
   if(overlay)overlay.addEventListener('click',function(){toggle(false);});
   nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script>
+/* סינון המחשבונים לפי נושא — התגיות והספירות נגזרות מהכרטיסים עצמם */
+(function(){
+  var grid=document.getElementById('calcs-grid');
+  var bar=document.getElementById('calc-filters');
+  var countEl=document.getElementById('calcs-count');
+  if(!grid||!bar)return;
+  var cards=[].slice.call(grid.querySelectorAll('.calc-card'));
+  if(!cards.length)return;
+
+  var cats=[], byKey={};
+  cards.forEach(function(card){
+    var tag=card.querySelector('.calc-tag');
+    if(!tag)return;
+    var key='';
+    tag.className.split(/\s+/).forEach(function(c){ if(c.indexOf('tag-')===0) key=c.slice(4); });
+    if(!key)return;
+    card.setAttribute('data-cat',key);
+    if(!byKey[key]){ byKey[key]={key:key,label:(tag.textContent||'').trim(),n:0,i:cats.length}; cats.push(byKey[key]); }
+    byKey[key].n++;
+  });
+  if(cats.length<2)return;
+  cats.sort(function(a,b){ return (b.n-a.n) || (a.i-b.i); });
+
+  function chip(key,label,n,pressed){
+    var b=document.createElement('button');
+    b.type='button';
+    b.className='filter-chip';
+    b.setAttribute('data-filter',key);
+    b.setAttribute('aria-pressed',pressed?'true':'false');
+    b.appendChild(document.createTextNode(label+' '));
+    var s=document.createElement('span');
+    s.className='chip-count';
+    s.textContent=String(n);
+    b.appendChild(s);
+    return b;
+  }
+
+  bar.appendChild(chip('all','הכל',cards.length,true));
+  cats.forEach(function(c){ bar.appendChild(chip(c.key,c.label,c.n,false)); });
+  bar.hidden=false;
+
+  function apply(key,pushUrl){
+    var shown=0;
+    cards.forEach(function(card){
+      var ok=(key==='all')||(card.getAttribute('data-cat')===key);
+      card.hidden=!ok;
+      if(ok)shown++;
+    });
+    [].forEach.call(bar.querySelectorAll('.filter-chip'),function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-filter')===key ? 'true' : 'false');
+    });
+    if(countEl) countEl.textContent = (shown===1 ? 'מחשבון אחד' : shown+' מחשבונים');
+    if(pushUrl && window.history && history.replaceState){
+      try{ history.replaceState(null,'', key==='all' ? location.pathname : location.pathname+'?cat='+encodeURIComponent(key)); }catch(e){}
+    }
+  }
+
+  bar.addEventListener('click',function(e){
+    var t=e.target, b=null;
+    while(t && t!==bar){ if(t.classList && t.classList.contains('filter-chip')){ b=t; break; } t=t.parentNode; }
+    if(!b)return;
+    apply(b.getAttribute('data-filter'),true);
+  });
+
+  var m=/[?&]cat=([^&]+)/.exec(location.search);
+  var init='all';
+  if(m){ try{ var d=decodeURIComponent(m[1]); if(byKey[d]) init=d; }catch(e){} }
+  apply(init,false);
 })();
 </script>
 <script src="/search.js"></script>
