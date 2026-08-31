@@ -334,7 +334,6 @@ section { padding: var(--s-2xl) 0; }
 }
 .nr-field select { direction: rtl; text-align: right; font-size: 15px; }
 .nr-field input:focus, .nr-field select:focus { outline: none; border-color: var(--primary); }
-.nr-regime { grid-column: 1 / -1; }
 
 /* Headline result */
 .nr-head {
@@ -908,8 +907,8 @@ textarea:focus-visible,
     <div class="calc-eyebrow">המחשבון</div>
     <h2 class="calc-title">מתשואה ברוטו לתשואה נטו</h2>
     <p class="calc-lede">
-      הזן את הנתונים שלך. החישוב מניח שהמס נגבה במימוש, על הרווח הריאלי, ושדמי הניהול נגבים
-      מהצבירה מדי חודש.
+      הזן את הנתונים שלך. החישוב מניח מס של 25% שנגבה במימוש ורק על הרווח הריאלי, ודמי ניהול
+      שנגבים מהצבירה מדי חודש.
     </p>
 
     <div class="nr-card">
@@ -943,14 +942,6 @@ textarea:focus-visible,
           <label for="nr-infl">אינפלציה שנתית (%)</label>
           <input type="number" id="nr-infl" value="2.5" min="0" max="15" step="0.25" inputmode="decimal">
           <span class="hint">קובעת כמה מהרווח בכלל חייב במס</span>
-        </div>
-        <div class="nr-field nr-regime">
-          <label for="nr-regime">משטר המס</label>
-          <select id="nr-regime">
-            <option value="25" selected>25% על הרווח הריאלי — מניות, קרנות סל, קרנות נאמנות, אג״ח צמודה</option>
-            <option value="30">30% על הרווח הריאלי — הכנסה שנתית מעל תקרת מס יסף</option>
-            <option value="15">15% על הרווח הנומינלי — פיקדון שקלי, אג״ח לא צמודה, מק״מ</option>
-          </select>
         </div>
       </div>
 
@@ -1099,7 +1090,8 @@ textarea:focus-visible,
       15% נשמע זול מ-25%, ולעיתים קרובות הוא לא. בפיקדון שקלי אתה משלם 15% על כל הריבית — כולל
       החלק שרק מחזיר לך את מה שהאינפלציה לקחה. פיקדון שנותן 4% בסביבת אינפלציה של 3% משאיר בידיים
       3.4% נומינלי, שהם 0.4% ריאלי. נכס צמוד שנותן אותם 4% ישלם מס רק על האחוז הריאלי — ויישאר עם
-      3.75%. בחר במחשבון את משטר המס הנומינלי כדי לראות את הפער על הנתונים שלך.
+      3.75%. המחשבון שלמעלה מחשב את המקרה הראשון, של 25% על הרווח הריאלי; במשטר הנומינלי המס
+      נגבה על כל הריבית, וככל שהאינפלציה גבוהה יותר כך הוא יקר יותר.
     </p>
 
     <h2 id="exempt">איפה המס פשוט לא קיים</h2>
@@ -1142,7 +1134,8 @@ textarea:focus-visible,
     <p>
       זה לא תרחיש שולי. שכיר בכיר שמימש אופציות, מי שמכר דירה, או מי שביצע מימוש גדול בתיק בשנה
       אחת — עלול לחצות את התקרה בדיוק בשנה שבה הוא משלם את המס. במקרים כאלה, פריסת המימוש על פני
-      שתי שנות מס יכולה לשנות את החשבון. במחשבון אפשר לבחור את משטר ה-30% ולראות את ההפרש.
+      שתי שנות מס יכולה לשנות את החשבון. המחשבון שלמעלה מניח 25%; מי שחוצה את התקרה יכול להוסיף
+      עוד חמישית בערך לסכום המס שמוצג.
     </p>
 
     <div class="callout-warn">
@@ -1328,15 +1321,13 @@ textarea:focus-visible,
     var gm = Math.pow(1 + inp.gross / 100, 1 / 12) - 1;
     var im = Math.pow(1 + inp.infl / 100, 1 / 12) - 1;
     var fm = (inp.fee / 100) / 12;
-    var rate = inp.regime / 100;
-    var nominalBasis = (inp.regime === 15);
+    var rate = 0.25;   /* מס רווחי הון ליחיד — 25% על הרווח הריאלי */
 
     var B = inp.p0, Bg = inp.p0, C = inp.p0, Cadj = inp.p0;
     var rows = [];
 
     function snap(y) {
-      var basis = nominalBasis ? C : Cadj;
-      var taxable = Math.max(0, B - basis);
+      var taxable = Math.max(0, B - Cadj);
       var tax = taxable * rate;
       var net = B - tax;
       rows.push({
@@ -1520,15 +1511,13 @@ textarea:focus-visible,
   function setText(id, s) { var el = document.getElementById(id); if (el) el.textContent = s; }
 
   function run() {
-    var regimeEl = document.getElementById('nr-regime');
     var inp = {
       p0: Math.max(0, num('nr-p0', 0)),
       mon: Math.max(0, num('nr-mon', 0)),
       years: Math.max(1, num('nr-years', 20)),
       gross: num('nr-gross', 8),
       fee: Math.max(0, num('nr-fee', 0)),
-      infl: Math.max(0, num('nr-infl', 0)),
-      regime: regimeEl ? parseFloat(regimeEl.value) : 25
+      infl: Math.max(0, num('nr-infl', 0))
     };
     var res = simulate(inp);
     lastRes = res;
@@ -1562,9 +1551,6 @@ textarea:focus-visible,
       var el = document.getElementById(id);
       if (el) { el.addEventListener('input', run); el.addEventListener('change', run); }
     });
-    var rg = document.getElementById('nr-regime');
-    if (rg) rg.addEventListener('change', run);
-
     var to = null;
     window.addEventListener('resize', function () {
       clearTimeout(to);
