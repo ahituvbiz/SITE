@@ -133,29 +133,38 @@ a:hover { text-decoration:underline; }
   border-radius:999px;
   width:fit-content;
 }
-.tag-pension { background:#E1F3FB; color:#007DA8; }
-.tag-tax { background:#FFF3E0; color:#B25C00; }
-.tag-realestate { background:#F0FFF4; color:#276749; }
-.tag-fees { background:#FFF5F5; color:#9B2C2C; }
-.tag-roi { background:#FAF5FF; color:#553C9A; }
-.tag-housing { background:#F0FFF4; color:#2C7A7B; }
-.tag-hishtalmut { background:#FDF2F8; color:#9D174D; }
-.tag-insurance { background:#F1F5F9; color:#475569; }
+/* כל תגית מגדירה זוג צבעים פעם אחת - הכרטיס ושורת הסינון שניהם קוראים ממנו */
+.tag-pension    { --tag-bg:#E1F3FB; --tag-fg:#007DA8; }
+.tag-tax        { --tag-bg:#FFF3E0; --tag-fg:#B25C00; }
+.tag-realestate { --tag-bg:#F0FFF4; --tag-fg:#276749; }
+.tag-fees       { --tag-bg:#FFF5F5; --tag-fg:#9B2C2C; }
+.tag-roi        { --tag-bg:#FAF5FF; --tag-fg:#553C9A; }
+.tag-housing    { --tag-bg:#F0FFF4; --tag-fg:#2C7A7B; }
+.tag-hishtalmut { --tag-bg:#FDF2F8; --tag-fg:#9D174D; }
+.tag-insurance  { --tag-bg:#F1F5F9; --tag-fg:#475569; }
+.calc-tag[class*="tag-"] { background:var(--tag-bg); color:var(--tag-fg); }
 .calc-tags { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
 
 /* ── FILTER BAR ── */
 .filter-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
 .filter-chip {
-  font-family:inherit; font-size:14px; font-weight:600; line-height:1.4; color:var(--text-2);
-  background:#fff; border:1px solid var(--border); border-radius:999px;
+  font-family:inherit; font-size:14px; font-weight:600; line-height:1.4;
+  color:var(--tag-fg, var(--text-2));
+  background:var(--tag-bg, #fff);
+  border:1px solid transparent; border-radius:999px;
   padding:7px 16px; cursor:pointer; white-space:nowrap;
   display:inline-flex; align-items:center; gap:7px;
-  transition:background .15s, border-color .15s, color .15s;
+  transition:background .15s, border-color .15s, color .15s, filter .15s;
 }
-.filter-chip:hover { border-color:var(--primary); color:var(--primary); }
-.filter-chip .chip-count { font-size:12px; font-weight:700; color:var(--text-meta); background:var(--bg-cream); border-radius:999px; padding:1px 7px; }
-.filter-chip[aria-pressed="true"] { background:var(--primary); border-color:var(--primary); color:#fff; }
-.filter-chip[aria-pressed="true"] .chip-count { background:rgba(255,255,255,.22); color:#fff; }
+.filter-chip[data-filter="all"] { border-color:var(--border); }
+.filter-chip:hover { filter:brightness(.94); }
+.filter-chip .chip-count { font-size:12px; font-weight:700; color:inherit; background:rgba(0,0,0,.07); border-radius:999px; padding:1px 7px; }
+.filter-chip[aria-pressed="true"] {
+  background:var(--tag-fg, var(--primary));
+  border-color:var(--tag-fg, var(--primary));
+  color:#fff;
+}
+.filter-chip[aria-pressed="true"] .chip-count { background:rgba(255,255,255,.25); color:#fff; }
 .calc-card[hidden] { display:none; }
 @media(max-width:560px) {
   .filter-bar { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
@@ -490,7 +499,7 @@ textarea:focus-visible,
         </p>
         <div class="calc-stats">
           <div class="calc-stat"><strong>11%</strong>ניכוי סעיף 47</div>
-          <div class="calc-stat"><strong>35%</strong>זיכוי סעיף 45א</div>
+          <div class="calc-stat"><strong>5%</strong>זיכוי סעיף 45א</div>
         </div>
         <div class="calc-cta-row">
           פתח מחשבון
@@ -519,10 +528,7 @@ textarea:focus-visible,
       <!-- 3 - נדלן vs שוק -->
       <a class="calc-card" href="/tools/real-estate-vs-market/">
         <div class="calc-icon">🏠</div>
-        <div class="calc-tags">
-          <span class="calc-tag tag-realestate">השקעות</span>
-          <span class="calc-tag tag-housing">נדל&quot;ן</span>
-        </div>
+        <span class="calc-tag tag-housing">נדל&quot;ן</span>
         <h3>נדל"ן מול שוק ההון</h3>
         <p class="calc-desc">
           סימולציה מורכבת הלוקחת בחשבון סטטוס מיסויי, עלויות מימון, עלויות נלוות, שכ"ד, תיקונים, תשואות שוק ההון, עליית ערך נכס ועוד.
@@ -712,7 +718,7 @@ textarea:focus-visible,
   function chip(key,label,n,pressed){
     var b=document.createElement('button');
     b.type='button';
-    b.className='filter-chip';
+    b.className='filter-chip' + (key==='all' ? '' : ' tag-'+key);
     b.setAttribute('data-filter',key);
     b.setAttribute('aria-pressed',pressed?'true':'false');
     b.appendChild(document.createTextNode(label+' '));
