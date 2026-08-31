@@ -97,6 +97,10 @@ const KEYWORD_MAP = {
   // ── פילר 7: כלים ──
   'מחשבון פנסיה לעצמאים':               '/tools/pension-calc-self-employed/',
   'מחשבון חיסכון במס':                   '/tools/tax-savings/',
+  'מחשבון מס רווחי הון':                 '/tools/net-return/',
+  'מס רווחי הון':                        '/tools/net-return/',
+  'תשואה נטו':                           '/tools/net-return/',
+  'רווח ריאלי':                          '/tools/net-return/',
   'מחשבון דמי ניהול':                    '/tools/management-fees/',
   'מחשבון נדל"ן':                        '/tools/real-estate-vs-market/',
   'מחשבונים פיננסיים':                   '/tools/',

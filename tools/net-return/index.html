@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון מס רווחי הון ותשואה נטו | איתן אחיטוב — יועץ פנסיוני</title>
+<meta name="description" content="מחשבון מס רווחי הון שמראה כמה מהתשואה באמת נשאר אצלך: אחרי 25% על הרווח הריאלי, אחרי דמי ניהול ואחרי אינפלציה. הזן נתונים וקבל את המספר האמיתי.">
+
+<meta property="og:title" content="מחשבון מס רווחי הון — כמה מהתשואה באמת נשאר אצלך">
+<meta property="og:description" content="8% ברוטו זה לא 8% בכיס. המחשבון מפרק את הפער בין התשואה שהתיק עשה לבין הסכום שנשאר בידיים — מס, דמי ניהול ואינפלציה.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pensya.info/tools/net-return/">
+<meta property="og:image" content="https://pensya.info/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="pensya.info">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="מחשבון מס רווחי הון — כמה מהתשואה באמת נשאר אצלך">
+<meta name="twitter:description" content="8% ברוטו זה לא 8% בכיס. המחשבון מפרק את הפער בין התשואה שהתיק עשה לבין הסכום שנשאר בידיים.">
+<meta name="twitter:image" content="https://pensya.info/assets/og-default.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "datePublished": "2026-08-31",
+      "dateModified": "2026-08-31",
+      "name": "מחשבון מס רווחי הון ותשואה נטו",
+      "description": "מחשבון אינטראקטיבי שמחשב את התשואה נטו על השקעה אחרי מס רווחי הון על הרווח הריאלי, דמי ניהול ואינפלציה, ומציג את הפער בין ברוטו לנטו לאורך שנות ההשקעה.",
+      "url": "https://pensya.info/tools/net-return/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "he-IL",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ILS" },
+      "author": {
+        "@type": "Person",
+        "name": "איתן אחיטוב",
+        "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר",
+        "url": "https://pensya.info/about/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/" },
+        { "@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "מחשבון מס רווחי הון", "item": "https://pensya.info/tools/net-return/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "כמה מס רווחי הון משלמים על השקעה בישראל?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "יחיד משלם 25% מס רווחי הון על הרווח הריאלי במניות, בקרנות סל, בקרנות נאמנות ובאיגרות חוב צמודות מדד. על פיקדון שקלי לא צמוד, אג\"ח שקלית לא צמודה ומק\"מ שיעור המס הוא 15% אבל הוא חל על הרווח הנומינלי כולו, כולל החלק שרק מפצה על האינפלציה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מה זה רווח ריאלי ואיך מחשבים אותו?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "הרווח הריאלי הוא הרווח שנשאר אחרי נטרול עליית מדד המחירים לצרכן לאורך תקופת ההחזקה. עלות הרכישה מוצמדת למדד ממועד ההשקעה ועד המכירה, והמס מחושב רק על ההפרש בין שווי המכירה לבין העלות המוצמדת. אם התשואה נמוכה מהאינפלציה אין רווח ריאלי ולכן אין מס."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מתי משלמים את מס רווחי ההון — כל שנה או רק במכירה?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "מס רווחי הון נגבה במימוש בלבד. כל עוד לא מכרת, הרווח על הנייר לא ממוסה והוא ממשיך לעבוד עבורך. זו הסיבה שהחלפת מסלול או מכירה ורכישה מחדש הן אירוע מס שמקטין את הבסיס להמשך הצמיחה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "האם המחשבון מתאים גם לקרן השתלמות?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בקרן השתלמות עד התקרה המוטבת אין מס רווחי הון כלל, ולכן קו הברוטו במחשבון הוא גם הנטו. מעל התקרה הרווח חייב במס במשיכה, ואז החישוב במחשבון רלוונטי — עם היתרון שהמס נדחה עד המשיכה במקום להיגבות בכל אירוע מכירה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "למה 15% מס על פיקדון זה לא בהכרח זול יותר מ-25%?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "כי שיעורי המס חלים על בסיסים שונים. 25% נגבים רק על הרווח הריאלי, כלומר על מה שנשאר אחרי האינפלציה, בעוד 15% נגבים על כל הריבית הנומינלית — כולל החלק שרק מחזיר את כוח הקנייה שהאינפלציה שחקה. ככל שהאינפלציה גבוהה יותר, המשטר הנומינלי יקר יותר."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "מה זה מס יסף ומתי הוא משפיע על רווחי הון?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "מס יסף הוא מס נוסף על הכנסה שנתית גבוהה, מעל תקרה של כ-721 אלף ש\"ח. שיעורו 3%, ומשנת 2025 נוספו עוד 2% על הכנסות מהון. בפועל, יחיד שחוצה את התקרה משלם על רווח הון הריאלי שלו כ-30% במקום 25%."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+
+:root {
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --s-2xl: clamp(28px, 4.5vw, 44px);
+  --s-3xl: clamp(32px, 6vw, 48px);
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+  --article-width: 820px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 18px;
+  overflow-x: hidden;
+  line-height: 1.75;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+.article-container { max-width: var(--article-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+h1 { font-size: 40px; font-weight: 700; }
+h2 { font-size: 28px; font-weight: 700; margin: var(--s-2xl) 0 var(--s-md); }
+h3 { font-size: 21px; font-weight: 600; margin: var(--s-lg) 0 var(--s-sm); }
+h4 { font-size: 18px; font-weight: 700; margin: var(--s-md) 0 var(--s-xs); }
+section { padding: var(--s-2xl) 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+  text-decoration: none !important;
+  font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
+
+/* ── Header ── */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; gap: var(--s-md);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 20px; color: var(--primary);
+  text-decoration: none !important;
+}
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+@media (max-width: 900px) { .nav {  } }
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+  background: var(--bg-cream); padding: 14px 0;
+  font-size: 14px; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--text-2); }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-meta); }
+.breadcrumb .current { color: var(--text-1); font-weight: 600; }
+
+/* ── Hero ── */
+.page-hero {
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  padding: var(--s-2xl) 0;
+}
+.page-hero .container { max-width: var(--article-width); }
+.article-meta {
+  display: flex; align-items: center; gap: var(--s-sm);
+  font-size: 14px; color: var(--text-2);
+  margin-bottom: var(--s-md); flex-wrap: wrap;
+}
+.article-meta .author {
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+}
+.article-meta .author::before {
+  content: 'א'; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--primary); color: #fff; font-size: 13px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.article-meta .pill {
+  display: inline-block; background: var(--primary-soft); color: var(--primary);
+  padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+}
+.article-meta .dot { color: var(--text-meta); }
+.page-hero h1 { font-size: 40px; margin-bottom: var(--s-md); }
+.page-hero h1 .accent { color: var(--primary); }
+.page-hero .lede { font-size: 19px; color: var(--text-2); line-height: 1.65; }
+@media (max-width: 700px) {
+  .page-hero h1 { font-size: 30px; }
+  .page-hero .lede { font-size: 17px; }
+}
+
+/* ── Article body ── */
+.article-body { padding: var(--s-xl) 0; }
+.article-body p {
+  margin: var(--s-sm) 0; font-size: 17px;
+  line-height: 1.75; color: var(--text-1);
+}
+.article-body ul, .article-body ol {
+  margin: var(--s-sm) 0 var(--s-md); padding-right: var(--s-md);
+}
+.article-body li { margin: 8px 0; font-size: 17px; }
+.article-body strong { font-weight: 700; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-right: 4px solid var(--primary); border-radius: var(--radius-btn);
+  padding: var(--s-md) var(--s-lg); margin: var(--s-lg) 0;
+}
+.toc h4 {
+  margin: 0 0 var(--s-sm); font-size: 14px; color: var(--text-meta);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.toc ol { margin: 0; padding-right: var(--s-md); list-style: decimal; list-style-position: outside; }
+.toc li { font-size: 16px; margin: 6px 0; }
+.toc a { color: var(--text-1); font-weight: 500; }
+
+/* ── Callout ── */
+.callout {
+  background: var(--primary-soft); border-right: 4px solid var(--primary);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: var(--s-md) 0; font-size: 16px; color: var(--text-1);
+}
+.callout strong { color: var(--primary); }
+.callout-warn {
+  background: var(--warning-soft); border-right: 4px solid var(--warning);
+  padding: var(--s-md); border-radius: var(--radius-btn);
+  margin: var(--s-md) 0; font-size: 16px;
+}
+.callout-warn strong { color: #B58E2A; }
+
+/* ── Calculator card ── */
+.calc-wrapper {
+  background: var(--bg-cream);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: var(--s-2xl) 0;
+}
+.calc-inner { max-width: 940px; margin: 0 auto; padding: 0 var(--s-md); }
+.calc-eyebrow {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--cta); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.calc-title { font-size: 30px; font-weight: 700; margin-bottom: var(--s-sm); }
+.calc-lede { color: var(--text-2); font-size: 17px; margin-bottom: var(--s-lg); }
+@media (max-width: 700px) { .calc-title { font-size: 24px; } }
+
+.nr-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  box-shadow: var(--shadow-card);
+}
+.nr-card + .nr-card { margin-top: var(--s-md); }
+
+/* Inputs */
+.nr-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-md); }
+@media (max-width: 820px) { .nr-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .nr-grid { grid-template-columns: 1fr; } }
+.nr-field { display: flex; flex-direction: column; gap: 6px; }
+.nr-field label { font-size: 15px; font-weight: 600; color: var(--text-1); }
+.nr-field .hint { font-size: 12px; color: var(--text-meta); }
+.nr-field input[type="number"], .nr-field select {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-btn);
+  font-family: inherit; font-size: 17px; font-weight: 600;
+  color: var(--text-1); background: #fff; direction: ltr; text-align: right;
+}
+.nr-field select { direction: rtl; text-align: right; font-size: 15px; }
+.nr-field input:focus, .nr-field select:focus { outline: none; border-color: var(--primary); }
+.nr-regime { grid-column: 1 / -1; }
+
+/* Headline result */
+.nr-head {
+  margin-top: var(--s-lg); padding: var(--s-lg);
+  background: linear-gradient(135deg, #FAFBFD 0%, var(--primary-soft) 100%);
+  border-radius: var(--radius-card); text-align: center;
+}
+.nr-head .lbl { font-size: 15px; color: var(--text-2); font-weight: 600; }
+.nr-head .big {
+  font-size: clamp(38px, 9vw, 58px); font-weight: 700; color: var(--primary);
+  line-height: 1.1; margin: 4px 0 2px; direction: ltr;
+}
+.nr-head .sub { font-size: 16px; color: var(--text-2); }
+.nr-head .sub b { color: var(--text-1); }
+
+/* Stat tiles */
+.nr-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: var(--s-md); }
+@media (max-width: 820px) { .nr-stats { grid-template-columns: 1fr 1fr; } }
+.nr-stat {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 12px; text-align: center;
+}
+.nr-stat .k { font-size: 13px; color: var(--text-2); font-weight: 600; line-height: 1.35; }
+.nr-stat .v { font-size: clamp(15px, 4.1vw, 21px); font-weight: 700; margin-top: 4px; direction: ltr; white-space: nowrap; }
+.nr-stat.is-gross .v { color: var(--text-1); }
+.nr-stat.is-net .v { color: var(--positive); }
+.nr-stat.is-tax .v { color: var(--negative); }
+.nr-stat.is-fee .v { color: #B58E2A; }
+
+.nr-line {
+  margin-top: var(--s-md); padding: 14px var(--s-md);
+  background: var(--primary-soft); border-right: 4px solid var(--primary);
+  border-radius: var(--radius-btn); font-size: 16px; line-height: 1.7;
+}
+.nr-line b { color: var(--primary); }
+
+/* Chart */
+.nr-charttitle { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+.nr-chartsub { font-size: 14px; color: var(--text-2); margin-bottom: var(--s-md); }
+.nr-chartbox { position: relative; }
+.nr-svg { display: block; width: 100%; height: auto; direction: ltr; }
+.nr-svg text { font-family: inherit; }
+.nr-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 14px; color: var(--text-2); }
+.nr-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.nr-legend i { width: 13px; height: 13px; border-radius: 3px; display: inline-block; }
+.nr-tip {
+  position: absolute; top: 0; left: 0;
+  background: rgba(26,26,26,.94); color: #fff; padding: 9px 12px;
+  border-radius: 8px; font-size: 13px; line-height: 1.55; pointer-events: none;
+  z-index: 5; direction: rtl; text-align: right;
+  box-shadow: 0 4px 14px rgba(0,0,0,.22); max-width: min(320px, 94%);
+}
+.nr-tip .tr span, .nr-tip .tr b { white-space: nowrap; }
+.nr-tip .tt { font-weight: 700; margin-bottom: 4px; }
+.nr-tip .tr { display: flex; align-items: center; gap: 7px; }
+.nr-tip .tr b { margin-inline-start: auto; direction: ltr; }
+.nr-tip .sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+.nr-tip .tg { margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,.22); font-size: 12.5px; color: #D9DCE1; }
+.nr-note { font-size: 13px; color: var(--text-meta); margin-top: var(--s-md); line-height: 1.7; }
+.nr-cta { margin-top: var(--s-lg); text-align: center; }
+.nr-cta p { font-size: 16px; color: var(--text-2); margin-bottom: 12px; }
+
+/* Comparison table inside article */
+.nr-table { width: 100%; border-collapse: collapse; margin: var(--s-md) 0; font-size: 15.5px; }
+.nr-table th, .nr-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); text-align: right; }
+.nr-table thead th { background: var(--bg-cream); font-weight: 700; font-size: 14px; color: var(--text-2); }
+.nr-table td.rate { font-weight: 700; color: var(--primary); direction: ltr; text-align: right; white-space: nowrap; }
+
+/* ── Info sections ── */
+.info-section { padding: var(--s-2xl) 0; }
+.info-section:nth-child(even) { background: var(--bg-cream); }
+.limits-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 15px; background: #fff;
+  border-radius: var(--radius-card); overflow: hidden;
+  border: 1px solid var(--border);
+  margin: var(--s-md) 0 var(--s-lg);
+}
+.limits-table th, .limits-table td {
+  padding: 12px 14px; text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+.limits-table thead th { background: var(--primary); color: #fff; font-weight: 700; }
+.limits-table tbody tr:last-child td { border-bottom: none; }
+.limits-table td:last-child { font-weight: 600; color: var(--positive); }
+.limits-table .head-row td { background: var(--bg-cream); font-weight: 700; color: var(--primary); }
+@media (max-width: 700px) {
+  .limits-table { font-size: 13px; }
+  .limits-table th, .limits-table td { padding: 8px; }
+}
+
+/* ── FAQ ── */
+.faq-section { background: var(--bg-cream); padding: var(--s-3xl) 0; }
+.faq-list { max-width: var(--article-width); margin: 0 auto; }
+.faq-list h2 { text-align: center; margin-bottom: var(--s-lg); }
+.faq-item {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.faq-item summary {
+  padding: var(--s-md); cursor: pointer;
+  font-size: 17px; font-weight: 600; color: var(--text-1);
+  list-style: none; display: flex;
+  justify-content: space-between; align-items: center; gap: var(--s-md);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--primary); }
+.faq-item summary::after {
+  content: ''; display: inline-block;
+  width: 12px; height: 12px;
+  border-right: 2px solid var(--primary); border-bottom: 2px solid var(--primary);
+  transform: rotate(45deg); transition: transform .2s;
+}
+.faq-item[open] summary::after { transform: rotate(-135deg); }
+.faq-item .faq-body {
+  padding: 0 var(--s-md) var(--s-md);
+  color: var(--text-2); font-size: 15px; line-height: 1.7;
+}
+
+/* ── Related ── */
+.related-section { background: #fff; padding: var(--s-2xl) 0; border-top: 1px solid var(--border); }
+.related-grid { max-width: var(--article-width); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-md); }
+.related-card {
+  background: var(--bg-cream); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: var(--s-lg);
+  transition: transform .15s, box-shadow .15s; display: block; text-decoration: none !important;
+}
+.related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.related-card .micro { font-size: 12px; color: var(--cta); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.related-card h4 { font-size: 18px; color: var(--primary); margin: 6px 0 8px; }
+.related-card p { font-size: 14px; color: var(--text-2); margin: 0; }
+@media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ── Contact CTA ── */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, #006487 100%);
+  color: #fff; padding: var(--s-3xl) 0; text-align: center;
+}
+.contact-section h2 { color: #fff; font-size: 32px; margin: 0 0 var(--s-sm); }
+.contact-section p {
+  font-size: 18px; color: rgba(255,255,255,0.85);
+  margin: 0 auto var(--s-lg); max-width: 600px;
+}
+.contact-actions { display: flex; gap: var(--s-sm); justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ── */
+.footer { background: #1A1A1A; color: #C9CDD3; padding: var(--s-2xl) 0 var(--s-md); font-size: 15px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--s-xl); margin-bottom: var(--s-xl); }
+.footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: var(--s-sm); text-transform: uppercase; letter-spacing: 1px; }
+.footer ul { list-style: none; padding: 0; }
+.footer li { margin-bottom: 8px; }
+.footer a { color: #C9CDD3; }
+.footer a:hover { color: #fff; text-decoration: none; }
+.footer-brand p { color: #9097A0; font-size: 14px; line-height: 1.6; margin-top: var(--s-sm); max-width: 320px; }
+.footer-bottom {
+  border-top: 1px solid #2A2D33; padding-top: var(--s-md);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; color: #6E747D; flex-wrap: wrap; gap: var(--s-sm);
+}
+.license-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #2A2D33; padding: 6px 12px; border-radius: 6px; color: #C9CDD3;
+}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-md); } }
+
+/* ── FAB WhatsApp ── */
+.fab-whatsapp {
+  position: fixed; bottom: 24px; left: 24px;
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4); z-index: 99; transition: transform .15s;
+}
+.fab-whatsapp:hover { transform: scale(1.06); text-decoration: none; }
+.fab-whatsapp svg { width: 28px; height: 28px; fill: #fff; }
+
+.related-links-section {
+  background: #F8F6F2;
+  border-top: 3px solid #007DA8;
+  padding: 2.5rem 2rem;
+  margin-top: 3rem;
+  direction: rtl;
+}
+.related-links-section .eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.related-links-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #007DA8;
+  margin: 0 0 1.25rem 0;
+}
+.related-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.related-link-card {
+  background: #fff;
+  border: 1px solid #dde4ee;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  color: #007DA8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.related-link-card:hover {
+  box-shadow: 0 2px 8px rgba(0,125,168,0.15);
+  border-color: #007DA8;
+  color: #007DA8;
+}
+.related-link-card::before {
+  content: "←";
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+
+/* ── Mobile hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--primary, #007DA8);
+  border-radius: 2px;
+  transition: all .25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0; right: 0;
+    width: min(280px, 85vw);
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    padding: 5rem 1.5rem 2rem;
+    gap: 0;
+    box-shadow: -4px 0 20px rgba(0,0,0,.15);
+    z-index: 150;
+    overflow-y: auto;
+  }
+  .nav.open { display: flex; }
+  .nav a {
+    padding: 1rem 0;
+    border-bottom: 1px solid #E1F3FB;
+    font-size: 1.05rem;
+  }
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: 140;
+  }
+  .nav-overlay.open { display: block; }
+}
+
+
+/* ── Header search ─────────────────────────────────── */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header-search input {
+  width: 220px;
+  height: 40px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-1);
+  background: var(--bg-cream);
+  transition: all .15s;
+  /* outline handled by :focus-visible */
+}
+.header-search input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0,125,168,0.1);
+  width: 260px;
+}
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  color: var(--text-meta);
+  display: flex;
+}
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.search-results.open { display: block; }
+.search-results a {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+  text-decoration: none;
+}
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results {
+  padding: 16px;
+  color: var(--text-meta);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #007DA8;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+    .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
+  </style>
+  <link rel="canonical" href="https://pensya.info/tools/net-return/" />
+<link rel="stylesheet" href="/site-chrome.css?v=2">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/tools/">מחשבונים</a>
+    <span class="sep">›</span>
+    <span class="current">מחשבון מס רווחי הון</span>
+  </div>
+</nav>
+
+<section class="page-hero" id="main-content">
+  <div class="container">
+    <div class="article-meta">
+      <span class="author">איתן אחיטוב</span>
+      <span class="dot">·</span>
+      <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
+      <span class="dot">·</span>
+      <span>עודכן: 31 באוגוסט 2026</span>
+      <span class="pill">מחשבון חינמי</span>
+    </div>
+    <h1>
+      <span class="accent">מחשבון מס רווחי הון</span><br>
+      כמה מהתשואה באמת נשאר אצלך
+    </h1>
+    <p class="lede">
+      התיק עשה 8% בשנה. זה מה שכתוב בדוח. בין המספר הזה לבין הסכום שבאמת נכנס לחשבון שלך
+      עומדים שלושה דברים: <strong>דמי ניהול</strong>, <strong>אינפלציה</strong>, ו<strong>מס רווחי הון</strong>.
+      המחשבון הזה מראה את המספר שנשאר בסוף — ואת הפער, בשקלים.
+    </p>
+  </div>
+</section>
+
+<section class="calc-wrapper" id="calculator">
+  <div class="calc-inner">
+    <div class="calc-eyebrow">המחשבון</div>
+    <h2 class="calc-title">מתשואה ברוטו לתשואה נטו</h2>
+    <p class="calc-lede">
+      הזן את הנתונים שלך. החישוב מניח שהמס נגבה במימוש, על הרווח הריאלי, ושדמי הניהול נגבים
+      מהצבירה מדי חודש.
+    </p>
+
+    <div class="nr-card">
+      <div class="nr-grid">
+        <div class="nr-field">
+          <label for="nr-p0">סכום התחלתי (₪)</label>
+          <input type="number" id="nr-p0" value="100000" min="0" step="1000" inputmode="numeric">
+          <span class="hint">מה שכבר צבור היום</span>
+        </div>
+        <div class="nr-field">
+          <label for="nr-mon">הפקדה חודשית (₪)</label>
+          <input type="number" id="nr-mon" value="2000" min="0" step="100" inputmode="numeric">
+          <span class="hint">0 אם אין הפקדה שוטפת</span>
+        </div>
+        <div class="nr-field">
+          <label for="nr-years">אופק ההשקעה (שנים)</label>
+          <input type="number" id="nr-years" value="20" min="1" max="50" step="1" inputmode="numeric">
+          <span class="hint">עד מתי הכסף נשאר בפנים</span>
+        </div>
+        <div class="nr-field">
+          <label for="nr-gross">תשואה שנתית ברוטו (%)</label>
+          <input type="number" id="nr-gross" value="8" min="-10" max="30" step="0.25" inputmode="decimal">
+          <span class="hint">לפני דמי ניהול ולפני מס</span>
+        </div>
+        <div class="nr-field">
+          <label for="nr-fee">דמי ניהול שנתיים (%)</label>
+          <input type="number" id="nr-fee" value="0.7" min="0" max="3" step="0.05" inputmode="decimal">
+          <span class="hint">מהצבירה, לא מההפקדה</span>
+        </div>
+        <div class="nr-field">
+          <label for="nr-infl">אינפלציה שנתית (%)</label>
+          <input type="number" id="nr-infl" value="2.5" min="0" max="15" step="0.25" inputmode="decimal">
+          <span class="hint">קובעת כמה מהרווח בכלל חייב במס</span>
+        </div>
+        <div class="nr-field nr-regime">
+          <label for="nr-regime">משטר המס</label>
+          <select id="nr-regime">
+            <option value="25" selected>25% על הרווח הריאלי — מניות, קרנות סל, קרנות נאמנות, אג״ח צמודה</option>
+            <option value="30">30% על הרווח הריאלי — הכנסה שנתית מעל תקרת מס יסף</option>
+            <option value="15">15% על הרווח הנומינלי — פיקדון שקלי, אג״ח לא צמודה, מק״מ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="nr-head">
+        <div class="lbl">התשואה השנתית שנשארה בידיים</div>
+        <div class="big" id="nr-net-annual">—</div>
+        <div class="sub">מתוך <b id="nr-gross-echo">8.00%</b> ברוטו · <span id="nr-real-annual">—</span> ריאלי, אחרי אינפלציה</div>
+      </div>
+
+      <div class="nr-stats">
+        <div class="nr-stat is-gross"><div class="k">שווי ברוטו<br>ללא מס ודמי ניהול</div><div class="v" id="nr-v-gross">—</div></div>
+        <div class="nr-stat is-net"><div class="k">שווי נטו<br>מה שנשאר בידיים</div><div class="v" id="nr-v-net">—</div></div>
+        <div class="nr-stat is-tax"><div class="k">מס רווחי הון<br>במימוש</div><div class="v" id="nr-v-tax">—</div></div>
+        <div class="nr-stat is-fee"><div class="k">דמי ניהול<br>כולל התשואה שאבדה</div><div class="v" id="nr-v-fee">—</div></div>
+      </div>
+
+      <div class="nr-line" id="nr-summary">—</div>
+    </div>
+
+    <div class="nr-card">
+      <div class="nr-charttitle">מאיפה מגיע הכסף — ומה לא מגיע אליך</div>
+      <p class="nr-chartsub">
+        כל שנה מפוצלת לשלוש שכבות: ההפקדות שלך, הרווח שנשאר אחרי מס ודמי ניהול, ומעליהן —
+        בשכבה המעומעמת — הפער בין הברוטו לנטו. העבר את העכבר על הגרף כדי לראות גם את הגידול של אותה שנה.
+      </p>
+      <div class="nr-chartbox">
+        <svg class="nr-svg" id="nr-svg" role="img" aria-label="גרף שכבות: הפקדות, רווח נטו אחרי מס רווחי הון ודמי ניהול, והפער בין התשואה ברוטו לנטו לאורך שנות ההשקעה"></svg>
+        <div class="nr-tip" id="nr-tip" hidden></div>
+      </div>
+      <div class="nr-legend">
+        <span><i style="background:#007DA8"></i>הפקדות</span>
+        <span><i style="background:#5C8D5A"></i>רווח נטו</span>
+        <span><i style="background:rgba(197,48,48,.22);border:1px dashed rgba(197,48,48,.65)"></i>מס ודמי ניהול</span>
+      </div>
+      <p class="nr-note">
+        המס מחושב כאילו מימשת את התיק באותה שנה: הרווח הריאלי הוא ההפרש בין השווי לבין ההפקדות
+        המוצמדות למדד ממועד ההפקדה. כל עוד לא מכרת — המס לא נגבה, והשכבה האדומה היא חוב עתידי, לא הוצאה שכבר שולמה.
+      </p>
+      <div class="nr-cta">
+        <p>המספרים האלה משתנים דרמטית לפי המוצר שבו הכסף יושב.</p>
+        <a class="btn btn-primary" href="/#contact">קבע שיחה כדי לראות את התמונה על התיק שלך ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<article class="article-body">
+  <div class="article-container">
+
+    <div class="toc">
+      <h4>בעמוד הזה</h4>
+      <ol>
+        <li><a href="#real">למה 25% מס זה כמעט אף פעם לא 25%</a></li>
+        <li><a href="#three">שלושה דברים אוכלים את התשואה — רק אחד מהם מדובר</a></li>
+        <li><a href="#rates">25% ריאלי מול 15% נומינלי: מתי כל אחד חל</a></li>
+        <li><a href="#exempt">איפה המס פשוט לא קיים</a></li>
+        <li><a href="#yesef">מס יסף: כשהמס האמיתי הוא 30%</a></li>
+        <li><a href="#do">מה עושים עם המספר הזה</a></li>
+      </ol>
+    </div>
+
+    <h2 id="real">למה 25% מס זה כמעט אף פעם לא 25%</h2>
+
+    <p>
+      מס רווחי הון בישראל עומד על 25% ליחיד — אבל לא על כל הרווח. הוא חל על <strong>הרווח הריאלי</strong>
+      בלבד: החלק שנשאר אחרי שמנטרלים את עליית מדד המחירים לצרכן לאורך תקופת ההחזקה. עלות הרכישה
+      מוצמדת למדד, והמס נגבה רק על ההפרש בין שווי המכירה לבין העלות המוצמדת.
+    </p>
+
+    <p>
+      דוגמה: השקעת 100,000 ₪, ואחרי עשור התיק שווה 180,000 ₪. הרווח הנומינלי הוא 80,000 ₪.
+      אילו המס היה חל עליו — 20,000 ₪. אבל אם המדד עלה ב-25% באותו עשור, נקודת ההתחלה שלך
+      "שווה" היום 125,000 ₪, הרווח הריאלי הוא 55,000 ₪, והמס הוא <strong>13,750 ₪</strong>.
+      שיעור המס האפקטיבי על הרווח בפועל: 17.2%, לא 25%.
+    </p>
+
+    <div class="callout">
+      <strong>וזה עובד גם לכיוון השני:</strong> אם התשואה שלך נמוכה מהאינפלציה — אין רווח ריאלי, ואין מס.
+      אבל אין גם "מס שלילי": הפרשי ההצמדה פטורים, הם לא יוצרים לך הפסד להזדכות עליו מול רווחים אחרים.
+      תשואה שלא מכה את המדד לא נענשת במס, אבל גם לא מזכה בכלום.
+    </div>
+
+    <h2 id="three">שלושה דברים אוכלים את התשואה — רק אחד מהם מדובר</h2>
+
+    <p>
+      כשמשווים מוצרים, מדברים כמעט תמיד על התשואה. שלושת הגורמים שמפרידים בין התשואה לבין הכסף
+      שנשאר אצלך פועלים בסדר שונה, ולכן משקלם שונה:
+    </p>
+
+    <ul>
+      <li>
+        <strong>דמי ניהול</strong> — נגבים מהצבירה, כל שנה, גם בשנה שבה התיק ירד. הם לא נוגעים ברווח בלבד
+        אלא בכל הסכום, ולכן ההשפעה שלהם לאורך עשורים גדולה ממה שנראה מהאחוז הבודד.
+        <a href="/tools/management-fees/">מחשבון דמי הניהול</a> מראה כמה שווה כל עשירית אחוז.
+      </li>
+      <li>
+        <strong>אינפלציה</strong> — לא לוקחת שקלים מהחשבון, לוקחת כוח קנייה. היא לא מופיעה בשום דוח,
+        ובדיוק בגללה שתי השקעות עם אותה תשואה נומינלית יכולות להיות שתי תוצאות שונות לגמרי.
+      </li>
+      <li>
+        <strong>מס רווחי הון</strong> — נגבה אחרון, רק במימוש, ורק על הרווח הריאלי. הוא הגורם היחיד מהשלושה
+        שאפשר <em>לדחות</em>, וזה הופך אותו לשונה מהותית מהשניים האחרים.
+      </li>
+    </ul>
+
+    <p>
+      הסדר הזה הוא הסיבה שחצי אחוז בדמי ניהול יקר לרוב יותר מחמישה אחוזים בשיעור המס: דמי הניהול
+      נגבים על הכל, כל שנה, ומקטינים את הבסיס שממשיך לצבור ריבית דריבית. המס נגבה פעם אחת, בסוף,
+      ורק על מה שהרווחת מעבר לאינפלציה. במחשבון למעלה שני הסכומים מוצגים זה לצד זה — נסה להוריד
+      את דמי הניהול ב-0.3% ולראות מה זה עושה לעומת שינוי בשיעור המס.
+    </p>
+
+    <h2 id="rates">25% ריאלי מול 15% נומינלי: מתי כל אחד חל</h2>
+
+    <p>
+      בישראל יש שני משטרי מס על רווחי השקעה, והם נבדלים לא רק בשיעור אלא ב<strong>בסיס</strong> שעליו
+      הם חלים. זה ההבדל שגורם לרוב הטעויות:
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="nr-table">
+        <thead>
+          <tr><th>סוג הנכס</th><th>שיעור המס</th><th>על מה נגבה</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>מניות, קרנות סל, קרנות נאמנות, אג״ח צמודת מדד, <a href="/savings/keren-kaspit/">קרן כספית</a></td>
+            <td class="rate">25%</td>
+            <td>הרווח הריאלי — אחרי נטרול המדד</td>
+          </tr>
+          <tr>
+            <td>פיקדון שקלי לא צמוד, אג״ח שקלית לא צמודה, מק״מ</td>
+            <td class="rate">15%</td>
+            <td>הרווח הנומינלי — כל הריבית</td>
+          </tr>
+          <tr>
+            <td>דיבידנד ליחיד שאינו בעל מניות מהותי</td>
+            <td class="rate">25%</td>
+            <td>הסכום ברוטו</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      15% נשמע זול מ-25%, ולעיתים קרובות הוא לא. בפיקדון שקלי אתה משלם 15% על כל הריבית — כולל
+      החלק שרק מחזיר לך את מה שהאינפלציה לקחה. פיקדון שנותן 4% בסביבת אינפלציה של 3% משאיר בידיים
+      3.4% נומינלי, שהם 0.4% ריאלי. נכס צמוד שנותן אותם 4% ישלם מס רק על האחוז הריאלי — ויישאר עם
+      3.75%. בחר במחשבון את משטר המס הנומינלי כדי לראות את הפער על הנתונים שלך.
+    </p>
+
+    <h2 id="exempt">איפה המס פשוט לא קיים</h2>
+
+    <p>
+      לפני שמתחילים לחשב איך למזער מס, שווה לזכור שיש מכשירים שבהם הוא לא קיים מלכתחילה:
+    </p>
+
+    <ul>
+      <li>
+        <strong><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> עד התקרה המוטבת</strong> — 0% מס רווחי הון.
+        זה המכשיר הפטור היחיד שנזיל אחרי שש שנים, ולכן הוא הראשון שצריך למלא.
+      </li>
+      <li>
+        <strong>קרן פנסיה</strong> — הצבירה לא ממוסה לאורך הדרך; המיסוי בפרישה הוא על הקצבה, במשטר אחר לגמרי.
+      </li>
+      <li>
+        <strong>מעל תקרת קרן ההשתלמות</strong> — לא פטור, אבל <a href="/investment/ira-tax-deferral/">דחיית מס</a>:
+        אפשר להחליף מסלול השקעה בלי אירוע מס, והכסף שהיה הולך למדינה ממשיך לעבוד עבורך.
+      </li>
+      <li>
+        <strong><a href="/savings/gamal-lehashkaa/">גמל להשקעה</a></strong> — נזיל בכל רגע עם מס של 25%, אבל
+        אם מושכים אותו כקצבה אחרי גיל 60, הקצבה פטורה ממס כולל על הרווח.
+      </li>
+    </ul>
+
+    <p>
+      ההשלכה המעשית פשוטה: אותה תשואה, באותה שנה, שווה סכומים שונים לגמרי לפי המכשיר שבו היא הושגה.
+      מי שמשווה תשואות ברוטו בין קרן השתלמות לתיק מנוהל פרטי משווה שני דברים שאינם ברי-השוואה.
+    </p>
+
+    <h2 id="yesef">מס יסף: כשהמס האמיתי הוא 30%</h2>
+
+    <p>
+      מעל תקרת הכנסה שנתית של כ-721 אלף ₪ חל מס יסף. עד 2024 שיעורו היה 3% על ההכנסה שמעל התקרה;
+      החל מ-2025 נוספו עליו עוד 2% על הכנסות מהון — ריבית, דיבידנד ורווח הון. התוצאה: יחיד שחוצה
+      את התקרה משלם על הרווח הריאלי שלו כ-30% ולא 25%.
+    </p>
+
+    <p>
+      זה לא תרחיש שולי. שכיר בכיר שמימש אופציות, מי שמכר דירה, או מי שביצע מימוש גדול בתיק בשנה
+      אחת — עלול לחצות את התקרה בדיוק בשנה שבה הוא משלם את המס. במקרים כאלה, פריסת המימוש על פני
+      שתי שנות מס יכולה לשנות את החשבון. במחשבון אפשר לבחור את משטר ה-30% ולראות את ההפרש.
+    </p>
+
+    <div class="callout-warn">
+      <strong>שים לב:</strong> אני יועץ פנסיוני בעל רישיון, לא יועץ מס ולא רואה חשבון. המחשבון והדף הזה
+      מסבירים את המנגנון ואת סדרי הגודל. לתכנון מימוש ספציפי, לפריסה בין שנות מס או לקיזוז הפסדים —
+      נדרשת בדיקה של רואה חשבון על הנתונים המלאים שלך.
+    </div>
+
+    <h2 id="do">מה עושים עם המספר הזה</h2>
+
+    <ul>
+      <li>
+        <strong>אל תשווה תשואות ברוטו בין מוצרים עם מיסוי שונה.</strong> קרן השתלמות ב-7% ותיק פרטי ב-8%
+        הם לא הפרש של אחוז — הם הפרש הרבה יותר גדול לטובת הראשונה.
+      </li>
+      <li>
+        <strong>מלא קודם את המכשירים הפטורים.</strong> שקל שנכנס לקרן השתלמות עד התקרה שווה יותר משקל
+        שנכנס לתיק חייב במס, לפני שדיברנו בכלל על תשואה.
+      </li>
+      <li>
+        <strong>מימוש הוא אירוע מס.</strong> כל מכירה מקטינה את הבסיס שממשיך לצבור. אם המניע למכירה הוא
+        "לעבור למשהו טוב יותר", כדאי לוודא שההפרש בתשואה מכסה גם את המס שנגבה בדרך.
+      </li>
+      <li>
+        <strong>דמי ניהול קודמים למס בסדר העדיפויות.</strong> אין לך שליטה על שיעור המס. על דמי הניהול —
+        יש. זו הנקודה שבה מו״מ אחד חוסך יותר מכל אופטימיזציית מס.
+      </li>
+    </ul>
+
+    <p>
+      <a href="/about/">קרא עוד על הגישה שלי</a> ועל הרישיון שמחייב אותי לאובייקטיביות —
+      אסור לי לקבל עמלות מאף גוף, ולכן אין לי אינטרס באיזה מוצר תבחר.
+    </p>
+
+  </div>
+</article>
+
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-list">
+      <h2>שאלות נפוצות</h2>
+
+      <details class="faq-item" open>
+        <summary>כמה מס רווחי הון משלמים על השקעה בישראל?</summary>
+        <div class="faq-body">
+          יחיד משלם <strong>25% על הרווח הריאלי</strong> במניות, בקרנות סל, בקרנות נאמנות ובאג״ח צמודת מדד.
+          על פיקדון שקלי לא צמוד, אג״ח שקלית לא צמודה ומק״מ שיעור המס הוא <strong>15%</strong> — אבל הוא חל על
+          הרווח הנומינלי כולו, כולל החלק שרק מפצה על האינפלציה.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מה זה רווח ריאלי ואיך מחשבים אותו?</summary>
+        <div class="faq-body">
+          הרווח הריאלי הוא מה שנשאר אחרי נטרול עליית מדד המחירים לצרכן לאורך תקופת ההחזקה. עלות הרכישה
+          מוצמדת למדד ממועד ההשקעה ועד המכירה, והמס מחושב רק על ההפרש בין שווי המכירה לבין העלות המוצמדת.
+          אם התשואה נמוכה מהאינפלציה — אין רווח ריאלי, ולכן אין מס.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מתי משלמים את המס — כל שנה או רק במכירה?</summary>
+        <div class="faq-body">
+          במימוש בלבד. כל עוד לא מכרת, הרווח על הנייר לא ממוסה והוא ממשיך לעבוד עבורך. זו הסיבה
+          שהחלפת מסלול או מכירה ורכישה מחדש הן <a href="/investment/ira-tax-deferral/">אירוע מס</a>
+          שמקטין את הבסיס להמשך הצמיחה. בגרף שלמעלה השכבה האדומה היא חוב עתידי, לא כסף שכבר יצא.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>האם המחשבון מתאים גם ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>?</summary>
+        <div class="faq-body">
+          בקרן השתלמות עד התקרה המוטבת אין מס רווחי הון כלל — קו הברוטו במחשבון הוא גם הנטו, והפער
+          היחיד שנשאר הוא דמי הניהול. מעל התקרה הרווח חייב במס במשיכה, ואז החישוב רלוונטי, עם
+          היתרון שהמס נדחה עד המשיכה במקום להיגבות בכל אירוע מכירה.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>למה 15% מס על פיקדון זה לא בהכרח זול יותר מ-25%?</summary>
+        <div class="faq-body">
+          כי השיעורים חלים על בסיסים שונים. 25% נגבים רק על הרווח הריאלי — מה שנשאר אחרי האינפלציה.
+          15% נגבים על כל הריבית הנומינלית, כולל החלק שרק מחזיר את כוח הקנייה שהמדד שחק. ככל
+          שהאינפלציה גבוהה יותר, המשטר הנומינלי יקר יותר בפועל.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>מה זה מס יסף ומתי הוא משפיע על רווחי הון?</summary>
+        <div class="faq-body">
+          מס יסף הוא מס נוסף על הכנסה שנתית גבוהה, מעל תקרה של כ-721 אלף ₪. שיעורו 3%, ומ-2025
+          נוספו עוד 2% על הכנסות מהון. בפועל, יחיד שחוצה את התקרה משלם על הרווח הריאלי כ-30%
+          במקום 25%.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section class="related-links-section" id="related">
+  <div class="container">
+    <div class="eyebrow">קריאה נוספת</div>
+    <h3>עוד מאיתן אחיטוב</h3>
+    <div class="related-links-grid">
+      <a class="related-link-card" href="/tools/">כל המחשבונים</a>
+      <a class="related-link-card" href="/tools/management-fees/">כמה עולים לך דמי הניהול</a>
+      <a class="related-link-card" href="/savings/keren-kaspit/">קרן כספית מול פיקדון</a>
+      <a class="related-link-card" href="/investment/ira-tax-deferral/">דחיית מס מעל התקרה</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>המספר נטו תלוי במוצר, לא רק בשוק</h2>
+    <p>
+      אותה תשואה, באותה שנה, שווה סכומים שונים לגמרי לפי המכשיר שבו הכסף יושב. בשיחת ייעוץ
+      אנחנו עוברים על התיק שלך — פנסיה, השתלמות, גמל והשקעות — ומסדרים את הכסף לפי מה שנשאר
+      בסוף, לא לפי מה שכתוב בדוח.
+    </p>
+    <div class="contact-actions">
+      <a class="btn btn-primary" href="/#contact">קבע שיחה כדי לשמוע יותר ←</a>
+      <a class="btn btn-secondary" href="/bedikat-pensya/">🤖 בדוק את קרן הפנסיה שלך</a>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ===========================================================
+   מחשבון מס רווחי הון ותשואה נטו — pensya.info
+   =========================================================== */
+(function () {
+  'use strict';
+
+  var IDS = ['nr-p0', 'nr-mon', 'nr-years', 'nr-gross', 'nr-fee', 'nr-infl'];
+  var SER = [
+    { k: 'dep',  name: 'הפקדות',        color: '#007DA8', op: '.95' },
+    { k: 'prof', name: 'רווח נטו',      color: '#5C8D5A', op: '.95' },
+    { k: 'gap',  name: 'מס ודמי ניהול', color: '#C53030', op: '.20' }
+  ];
+
+  function nis(n) {
+    if (!isFinite(n)) return '—';
+    return Math.round(n).toLocaleString('en-US') + ' ₪';
+  }
+  function pct(x, d) {
+    if (!isFinite(x)) return '—';
+    return (x * 100).toFixed(d == null ? 2 : d) + '%';
+  }
+  function num(id, dflt) {
+    var el = document.getElementById(id);
+    var v = parseFloat(String(el && el.value).replace(/,/g, ''));
+    return isFinite(v) ? v : (dflt || 0);
+  }
+  function tickFmt(top) {
+    if (top >= 1e6) return function (v) { return (Math.round(v / 1e4) / 100).toLocaleString('en-US') + 'M'; };
+    if (top >= 1e4) return function (v) { return (Math.round(v / 100) / 10).toLocaleString('en-US') + 'K'; };
+    return function (v) { return Math.round(v).toLocaleString('en-US'); };
+  }
+  function niceTop(v) {
+    if (!(v > 0)) return 1;
+    var e = Math.pow(10, Math.floor(Math.log(v) / Math.LN10)), f = v / e;
+    var n = f <= 1 ? 1 : f <= 1.5 ? 1.5 : f <= 2 ? 2 : f <= 2.5 ? 2.5
+          : f <= 3 ? 3 : f <= 4 ? 4 : f <= 5 ? 5 : f <= 7.5 ? 7.5 : 10;
+    return n * e;
+  }
+  function yrsTxt(y) {
+    if (y === 1) return 'שנה';
+    if (y === 2) return 'שנתיים';
+    return y + ' שנים';
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- מנוע החישוב ---------- */
+  function simulate(inp) {
+    var yrs = Math.max(1, Math.min(50, Math.round(inp.years)));
+    var n = yrs * 12;
+    var gm = Math.pow(1 + inp.gross / 100, 1 / 12) - 1;
+    var im = Math.pow(1 + inp.infl / 100, 1 / 12) - 1;
+    var fm = (inp.fee / 100) / 12;
+    var rate = inp.regime / 100;
+    var nominalBasis = (inp.regime === 15);
+
+    var B = inp.p0, Bg = inp.p0, C = inp.p0, Cadj = inp.p0;
+    var rows = [];
+
+    function snap(y) {
+      var basis = nominalBasis ? C : Cadj;
+      var taxable = Math.max(0, B - basis);
+      var tax = taxable * rate;
+      var net = B - tax;
+      rows.push({
+        y: y, gross: Bg, net: net, dep: C, tax: tax, fees: Math.max(0, Bg - B),
+        base: Math.min(C, net),
+        prof: Math.max(0, net - C),
+        gap: Math.max(0, Bg - net)
+      });
+    }
+    snap(0);
+    for (var m = 1; m <= n; m++) {
+      B = B * (1 + gm) * (1 - fm) + inp.mon;
+      Bg = Bg * (1 + gm) + inp.mon;
+      Cadj = Cadj * (1 + im) + inp.mon;
+      C += inp.mon;
+      if (m % 12 === 0) snap(m / 12);
+    }
+    var last = rows[rows.length - 1];
+
+    /* IRR חודשי: תזרים ההפקדות מול השווי נטו בסוף */
+    function npv(r) {
+      var v = -inp.p0, m;
+      for (m = 1; m <= n; m++) v -= inp.mon / Math.pow(1 + r, m);
+      return v + last.net / Math.pow(1 + r, n);
+    }
+    var netAnnual = NaN;
+    if (inp.p0 + inp.mon > 0) {
+      var lo = -0.5, hi = 0.5, i, mid;
+      if (npv(lo) * npv(hi) < 0) {
+        for (i = 0; i < 160; i++) {
+          mid = (lo + hi) / 2;
+          if (npv(lo) * npv(mid) <= 0) hi = mid; else lo = mid;
+        }
+        netAnnual = Math.pow(1 + (lo + hi) / 2, 12) - 1;
+      }
+    }
+    var realAnnual = isFinite(netAnnual) ? (1 + netAnnual) / (1 + inp.infl / 100) - 1 : NaN;
+    var grossProfit = last.gross - last.dep;
+    var netProfit = last.net - last.dep;
+    var kept = grossProfit > 0 ? netProfit / grossProfit : NaN;
+
+    return { rows: rows, last: last, years: yrs, netAnnual: netAnnual,
+             realAnnual: realAnnual, grossProfit: grossProfit,
+             netProfit: netProfit, kept: kept };
+  }
+
+  /* ---------- הגרף ---------- */
+  var lastRes = null;
+
+  function draw(res) {
+    var svg = document.getElementById('nr-svg');
+    var tip = document.getElementById('nr-tip');
+    if (!svg) return;
+
+    var W = Math.round((svg.parentNode && svg.parentNode.clientWidth) || 760);
+    if (!(W > 120)) W = 760;
+    if (W > 980) W = 980;
+    var narrow = W < 430;
+    var H = narrow ? 240 : 300;
+    var PL = 10, PR = narrow ? 46 : 64, PT = 14, PB = narrow ? 44 : 48;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('height', H);
+
+    var rows = res.rows, n = res.years;
+    var x0 = PL, x1 = W - PR, y0 = H - PB, y1 = PT;
+    var X = function (t) { return x0 + (t / n) * (x1 - x0); };
+
+    var c1 = [], c2 = [], c3 = [], mx = 0, t;
+    for (t = 0; t <= n; t++) {
+      c1[t] = rows[t].base;
+      c2[t] = rows[t].base + rows[t].prof;
+      c3[t] = rows[t].base + rows[t].prof + rows[t].gap;
+      if (c3[t] > mx) mx = c3[t];
+    }
+    var top = niceTop(mx * 1.07), fmtY = tickFmt(top);
+    var Y = function (v) { return y0 - (v / top) * (y0 - y1); };
+
+    function area(c) {
+      var d = 'M' + X(0).toFixed(1) + ' ' + Y(c[0]).toFixed(1), q;
+      for (q = 1; q <= n; q++) d += ' L' + X(q).toFixed(1) + ' ' + Y(c[q]).toFixed(1);
+      return d + ' L' + X(n).toFixed(1) + ' ' + Y(0).toFixed(1) +
+             ' L' + X(0).toFixed(1) + ' ' + Y(0).toFixed(1) + ' Z';
+    }
+    function lineTop(c) {
+      var d = 'M' + X(0).toFixed(1) + ' ' + Y(c[0]).toFixed(1), q;
+      for (q = 1; q <= n; q++) d += ' L' + X(q).toFixed(1) + ' ' + Y(c[q]).toFixed(1);
+      return d;
+    }
+
+    var g = '', i;
+    var steps = 4;
+    for (i = 0; i <= steps; i++) {
+      var v = top * i / steps, yy = Y(v).toFixed(1);
+      g += '<line x1="' + x0 + '" y1="' + yy + '" x2="' + x1 + '" y2="' + yy +
+           '" stroke="' + (i === 0 ? '#CFCCC6' : '#EFEDE9') + '" stroke-width="1"/>';
+      g += '<text x="' + (x1 + 7) + '" y="' + (Y(v) + 4).toFixed(1) + '" font-size="' + (narrow ? 10 : 11) +
+           '" fill="#999" text-anchor="start">' + (i === 0 ? '0' : fmtY(v)) + '</text>';
+    }
+
+    /* שכבות — מהעליונה לתחתונה */
+    g += '<path d="' + area(c3) + '" fill="' + SER[2].color + '" fill-opacity="' + SER[2].op + '"/>';
+    g += '<path d="' + lineTop(c3) + '" fill="none" stroke="' + SER[2].color +
+         '" stroke-width="1.4" stroke-dasharray="5 4" opacity=".62"/>';
+    g += '<path d="' + area(c2) + '" fill="' + SER[1].color + '" fill-opacity="' + SER[1].op + '"/>';
+    g += '<path d="' + area(c1) + '" fill="' + SER[0].color + '" fill-opacity="' + SER[0].op + '"/>';
+
+    /* ציר X */
+    var stepY = Math.max(1, Math.ceil(n / (narrow ? 5 : 10)));
+    for (var yv = 0; yv <= n; yv += stepY) {
+      g += '<line x1="' + X(yv).toFixed(1) + '" y1="' + y0 + '" x2="' + X(yv).toFixed(1) +
+           '" y2="' + (y0 + 4) + '" stroke="#CFCCC6" stroke-width="1"/>';
+      g += '<text x="' + X(yv).toFixed(1) + '" y="' + (y0 + 17) + '" font-size="' + (narrow ? 10 : 11) +
+           '" fill="#999" text-anchor="middle">' + (yv === 0 ? 'היום' : yv) + '</text>';
+    }
+    g += '<text x="' + X(n / 2).toFixed(1) + '" y="' + (y0 + (narrow ? 36 : 38)) +
+         '" font-size="10.5" fill="#BBB" text-anchor="middle">שנים מהיום</text>';
+
+    g += '<line id="nr-cur" x1="0" y1="' + y1 + '" x2="0" y2="' + y0 +
+         '" stroke="#1A1A1A" stroke-width="1" opacity="0" pointer-events="none"/>';
+    g += '<rect id="nr-hit" x="' + x0 + '" y="' + y1 + '" width="' + (x1 - x0) +
+         '" height="' + (y0 - y1) + '" fill="transparent" style="cursor:crosshair"/>';
+    svg.innerHTML = g;
+
+    var hit = document.getElementById('nr-hit');
+    var cur = document.getElementById('nr-cur');
+    if (!hit || !tip) return;
+
+    function at(ev) {
+      var r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      var cx = (ev.touches && ev.touches[0] ? ev.touches[0].clientX : ev.clientX) - r.left;
+      var vx = cx * (W / r.width);
+      var q = Math.round(((vx - x0) / (x1 - x0)) * n);
+      if (q < 0) q = 0;
+      if (q > n) q = n;
+      var row = rows[q], prev = rows[Math.max(0, q - 1)];
+      var html = '<div class="tt">' + (q === 0 ? 'היום' : 'בעוד ' + yrsTxt(q)) + '</div>';
+      var profit = row.net - row.dep;
+      html += '<div class="tr"><i class="sw" style="background:' + SER[0].color + '"></i>' +
+              '<span>הפקדות</span><b>' + nis(row.dep) + '</b></div>';
+      html += '<div class="tr"><i class="sw" style="background:' + SER[1].color + '"></i>' +
+              '<span>' + (profit < 0 ? 'הפסד נטו' : 'רווח נטו') + '</span><b>' + nis(profit) + '</b></div>';
+      html += '<div class="tr" style="margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.22)">' +
+              '<span>שווי נטו בידיים</span><b>' + nis(row.net) + '</b></div>';
+      html += '<div class="tr"><i class="sw" style="background:' + SER[2].color + ';opacity:.45"></i>' +
+              '<span>מס ודמי ניהול</span><b>' + nis(row.gap) + '</b></div>';
+      html += '<div class="tr"><span>סה״כ ברוטו</span><b>' + nis(row.gross) + '</b></div>';
+      if (q > 0) {
+        html += '<div class="tg">הגידול בשנה זו: הפקדות ' + nis(row.dep - prev.dep) +
+                ' · רווח נטו ' + nis(profit - (prev.net - prev.dep)) + '</div>';
+      }
+      tip.innerHTML = html;
+      tip.hidden = false;
+      var sc = r.width / W;
+      var boxW = (svg.parentNode && svg.parentNode.clientWidth) || r.width;
+      var px = X(q) * sc, py = Math.max(Y(c3[q]), y1 + 4) * sc;
+      var tw = tip.offsetWidth, th = tip.offsetHeight;
+      var tl = px - tw / 2;
+      if (tl < 2) tl = 2;
+      if (tl + tw > boxW - 2) tl = Math.max(2, boxW - tw - 2);
+      var tt = py - th - 10;
+      if (tt < 2) tt = Math.min(py + 14, (r.height || th) - th - 2);
+      if (tt < 2) tt = 2;
+      tip.style.left = tl + 'px';
+      tip.style.top = tt + 'px';
+      cur.setAttribute('x1', X(q).toFixed(1));
+      cur.setAttribute('x2', X(q).toFixed(1));
+      cur.setAttribute('opacity', '.35');
+    }
+    var hideT = null;
+    function off() { clearTimeout(hideT); tip.hidden = true; if (cur) cur.setAttribute('opacity', '0'); }
+    function offSoon() { clearTimeout(hideT); hideT = setTimeout(off, 2600); }
+    hit.addEventListener('mousemove', function (e) { clearTimeout(hideT); at(e); });
+    hit.addEventListener('mouseleave', off);
+    hit.addEventListener('touchstart', function (e) { clearTimeout(hideT); at(e); }, { passive: true });
+    hit.addEventListener('touchmove', function (e) { clearTimeout(hideT); at(e); }, { passive: true });
+    hit.addEventListener('touchend', offSoon);
+  }
+
+  /* ---------- חיווט ---------- */
+  function setText(id, s) { var el = document.getElementById(id); if (el) el.textContent = s; }
+
+  function run() {
+    var regimeEl = document.getElementById('nr-regime');
+    var inp = {
+      p0: Math.max(0, num('nr-p0', 0)),
+      mon: Math.max(0, num('nr-mon', 0)),
+      years: Math.max(1, num('nr-years', 20)),
+      gross: num('nr-gross', 8),
+      fee: Math.max(0, num('nr-fee', 0)),
+      infl: Math.max(0, num('nr-infl', 0)),
+      regime: regimeEl ? parseFloat(regimeEl.value) : 25
+    };
+    var res = simulate(inp);
+    lastRes = res;
+
+    setText('nr-net-annual', isFinite(res.netAnnual) ? pct(res.netAnnual) : '—');
+    setText('nr-gross-echo', inp.gross.toFixed(2) + '%');
+    setText('nr-real-annual', isFinite(res.realAnnual) ? pct(res.realAnnual) : '—');
+    setText('nr-v-gross', nis(res.last.gross));
+    setText('nr-v-net', nis(res.last.net));
+    setText('nr-v-tax', nis(res.last.tax));
+    setText('nr-v-fee', nis(res.last.fees));
+
+    var sum = document.getElementById('nr-summary');
+    if (sum) {
+      if (!(res.grossProfit > 0)) {
+        sum.innerHTML = 'בתשואה שהזנת אין רווח לחלק — נסה תשואה גבוהה מהאינפלציה כדי לראות את השפעת המס.';
+      } else {
+        var agorot = Math.round(res.kept * 100);
+        var lost = res.last.gross - res.last.net;
+        sum.innerHTML =
+          'מכל שקל רווח שהשוק ייצר, נשארו אצלך <b>' + agorot + ' אגורות</b>. ' +
+          'הפער בין הברוטו לנטו אחרי ' + yrsTxt(res.years) + ': <b>' + nis(lost) + '</b> — ' +
+          nis(res.last.tax) + ' מס ו-' + nis(res.last.fees) + ' דמי ניהול (כולל התשואה שדמי הניהול מנעו).';
+      }
+    }
+    draw(res);
+  }
+
+  function init() {
+    IDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) { el.addEventListener('input', run); el.addEventListener('change', run); }
+    });
+    var rg = document.getElementById('nr-regime');
+    if (rg) rg.addEventListener('change', run);
+
+    var to = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(to);
+      to = setTimeout(function () { if (lastRes) draw(lastRes); }, 150);
+    });
+    run();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav');
+  var overlay = document.getElementById('nav-overlay');
+  if (!btn || !nav) return;
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    if (overlay) overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+
+<script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>

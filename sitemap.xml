@@ -385,6 +385,13 @@
   </url>
 
   <url>
+    <loc>https://pensya.info/tools/net-return/</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- מחשבון מס רווחי הון ותשואה נטו -->
+  </url>
+  <url>
     <loc>https://pensya.info/tools/tax-savings/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
