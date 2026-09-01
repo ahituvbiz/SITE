@@ -69,6 +69,11 @@ h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-
 .trend-box{position:relative;width:100%;height:min(58vw,360px)}
 #chartCard{display:none}
 .chart-note{font-size:13px;color:var(--text-meta);margin-top:10px;line-height:1.6}
+.ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;font-size:14px;color:var(--text-2)}
+.ctl select{font-family:inherit;font-size:14px;color:var(--text-1);background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer}
+.ctl select:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(0,125,168,.12)}
+.ctl button{font-family:inherit;font-size:13px;color:var(--primary);background:var(--primary-soft);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+.ctl button:hover{background:#CFEAF6}
 .intro{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .intro p{margin-bottom:12px}
 .intro p:last-child{margin-bottom:0}
@@ -331,8 +336,13 @@ a:hover{text-decoration:underline}
 
   <!-- ===== תשואה שנתית לפי מועד כניסה ===== -->
   <section class="card" id="entryCard">
-    <h2 id="entTitle">מה הייתה התשואה השנתית הממוצעת של מי שהשקיע במדד ת"א 125 עד היום — לפי חודש הכניסה</h2>
+    <h2 id="entTitle">מה הייתה התשואה השנתית של מי שהשקיע במדד ת"א 125 עד היום — לפי חודש הכניסה</h2>
     <p class="hint" id="entHint"></p>
+    <div class="ctl">
+      <label for="entEnd">נקודת הסיום של המדידה:</label>
+      <select id="entEnd" aria-label="בחירת נקודת הסיום של המדידה"></select>
+      <button type="button" id="entReset" hidden>חזרה לתאריך העדכני</button>
+    </div>
     <div class="trend-box"><canvas id="entChart"></canvas></div>
     <p class="chart-note" id="entNote"></p>
   </section>
@@ -698,101 +708,182 @@ a:hover{text-decoration:underline}
 
   /* --- תשואה שנתית ממוצעת (גיאומטרית) לפי מועד הכניסה --- */
   var MIN_YEARS = 1;   // בלי מינימום החזקה, הקצה הימני הופך לרעש
-  var ent = [];
-  if (ih.length > 1) {
-    var end = ih[ih.length - 1], endT = new Date(end.d).getTime();
-    for (var k = 0; k < ih.length - 1; k++) {
-      var yrsK = (endT - new Date(ih[k].d).getTime()) / (365.2425 * 864e5);
-      if (yrsK < MIN_YEARS) continue;
-      ent.push({ d: ih[k].d, y: yrsK, c: (Math.pow(end.v / ih[k].v, 1 / yrsK) - 1) * 100 });
-    }
+  var MIN_HIST  = 24;  // כמה חודשים לפחות חייבים להיות לפני נקודת סיום נבחרת
+
+  function median(a) {
+    if (!a.length) return null;
+    var b = a.slice().sort(function (x, y) { return x - y; }), m = b.length >> 1;
+    return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2;
   }
 
-  if (ent.length > 2) {
+  /* קו החציון — קו ייחוס מקווקו ורצסיבי, לא מתחרה בקו הנתונים */
+  var medState = { v: null };
+  var medianLine = {
+    id: 'medianLine',
+    afterDatasetsDraw: function (c) {
+      var v = medState.v;
+      if (v === null || !c.scales.y) return;
+      var y = c.scales.y.getPixelForValue(v), a = c.chartArea, g = c.ctx;
+      if (y < a.top || y > a.bottom) return;
+      g.save();
+      g.setLineDash([5, 4]);
+      g.lineWidth = 1.5;
+      g.strokeStyle = 'rgba(26,26,26,.42)';
+      g.beginPath(); g.moveTo(a.left, y); g.lineTo(a.right, y); g.stroke();
+      g.setLineDash([]);
+      var txt = 'חציון ' + num(v, 1) + '%';
+      g.font = '600 12px Heebo, sans-serif';
+      var w = g.measureText(txt).width;
+      var bx = a.left + 6, by = Math.max(a.top + 2, y - 19);
+      g.fillStyle = 'rgba(255,255,255,.88)';
+      g.fillRect(bx - 4, by, w + 8, 17);
+      g.fillStyle = 'rgba(26,26,26,.72)';
+      g.textAlign = 'left'; g.textBaseline = 'top';
+      g.fillText(txt, bx, by + 2);
+      g.restore();
+    }
+  };
+
+  var entChart = null, ent = [];
+  var entSel = document.getElementById('entEnd');
+  var entReset = document.getElementById('entReset');
+  var entTitleDefault = document.getElementById('entTitle').textContent;
+
+  function buildEnt(endIdx) {
+    var e = ih[endIdx], eT = new Date(e.d).getTime(), out = [];
+    for (var k = 0; k < endIdx; k++) {
+      var y = (eT - new Date(ih[k].d).getTime()) / (365.2425 * 864e5);
+      if (y < MIN_YEARS) continue;
+      out.push({ d: ih[k].d, y: y, c: (Math.pow(e.v / ih[k].v, 1 / y) - 1) * 100 });
+    }
+    return out;
+  }
+
+  function renderEnt(endIdx) {
+    var e = ih[endIdx], isLast = (endIdx === ih.length - 1);
+    ent = buildEnt(endIdx);
+    if (ent.length < 3) return;
+
     var eMin = ent.reduce(function (a2, b2) { return b2.c < a2.c ? b2 : a2; });
     var eMax = ent.reduce(function (a2, b2) { return b2.c > a2.c ? b2 : a2; });
-    var neg = ent.filter(function (x) { return x.c < 0; }).length;
+    var neg  = ent.filter(function (x) { return x.c < 0; }).length;
+    var med  = median(ent.map(function (x) { return x.c; }));
+    medState.v = med;
+
+    /* עד כמה נקודת הסיום רחוקה מהשיא שקדם לה — קובע את אזהרת ההטיה */
+    var pk = ih[0].v;
+    for (var q = 1; q <= endIdx; q++) if (ih[q].v > pk) pk = ih[q].v;
+    var fromPeak = (e.v / pk - 1) * 100;
+
+    document.getElementById('entTitle').textContent = isLast
+      ? entTitleDefault
+      : 'מה הייתה התשואה השנתית של מי שהשקיע במדד ת"א 125 עד ' + heb(e.d) + ' — לפי חודש הכניסה';
 
     document.getElementById('entHint').textContent =
-      'לכל חודש בציר: התשואה השנתית הממוצעת שהניב מדד ת"א 125 למי שנכנס בסופו והחזיק עד ' +
-      heb(end.d) + '. מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית, ולא בממוצע חשבוני של תשואות שנתיות. ' +
-      'נכללים רק מועדי כניסה עם החזקה של שנה לפחות.';
+      'לכל חודש בציר: התשואה השנתית שהניב מדד ת"א 125 למי שנכנס בסופו והחזיק עד ' +
+      heb(e.d) + '. מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית, ולא בממוצע חשבוני של תשואות שנתיות. ' +
+      'נכללים רק מועדי כניסה עם החזקה של שנה לפחות. אפשר להזיז את נקודת הסיום ולראות כיצד התמונה משתנה.';
 
     document.getElementById('entNote').textContent =
-      'הטווח: מ-' + num(eMin.c, 1) + '% לשנה למי שנכנס ' + heb(eMin.d).replace(/^\d+ /, '') +
-      ' (החזקה של ' + num(eMin.y, 1) + ' שנים) ועד ' + num(eMax.c, 1) + '% לשנה למי שנכנס ' +
-      heb(eMax.d).replace(/^\d+ /, '') + ' (החזקה של ' + num(eMax.y, 1) + ' שנים). ' +
+      'החציון: ' + num(med, 1) + '% לשנה. הטווח: מ-' + num(eMin.c, 1) + '% לשנה למי שנכנס ' +
+      heb(eMin.d).replace(/^\d+ /, '') + ' (החזקה של ' + num(eMin.y, 1) + ' שנים) ועד ' +
+      num(eMax.c, 1) + '% לשנה למי שנכנס ' + heb(eMax.d).replace(/^\d+ /, '') +
+      ' (החזקה של ' + num(eMax.y, 1) + ' שנים). ' +
       (neg === 0
-        ? 'בכל מועדי הכניסה בתקופה הנמדדת התשואה השנתית הממוצעת הייתה חיובית. '
-        : 'ב-' + neg + ' ממועדי הכניסה התשואה השנתית הממוצעת הייתה שלילית. ') +
+        ? 'בכל ' + ent.length + ' מועדי הכניסה בתקופה הנמדדת התשואה הייתה חיובית. '
+        : 'ב-' + neg + ' מתוך ' + ent.length + ' מועדי הכניסה התשואה הייתה שלילית. ') +
       (eMin.d === ent[0].d
-        ? 'שימו לב שדווקא מי שהחזיק הכי הרבה זמן קיבל את התשואה הנמוכה ביותר: המדד סיים את התקופה סמוך לשיא, ולכן ככל שהכניסה מאוחרת יותר כך התשואה השנתית גבוהה יותר. '
+        ? 'שימו לב שדווקא מי שהחזיק הכי הרבה זמן קיבל את התשואה הנמוכה ביותר. '
         : 'שימו לב שהתשואה הנמוכה ביותר אינה דווקא של מי שהחזיק הכי הרבה זמן: מי שנכנס בתחילת התקופה, ' +
           heb(ent[0].d).replace(/^\d+ /, '') + ', קיבל ' + num(ent[0].c, 1) +
           '% לשנה — יותר ממי שנכנס ' + heb(eMin.d).replace(/^\d+ /, '') +
-          ' והחזיק ' + num(eMin.y, 1) + ' שנים. מועד הכניסה, ובעיקר רמת המחירים בו, משנה את התוצאה גם על פני שני עשורים. ') +
+          ' והחזיק ' + num(eMin.y, 1) + ' שנים. מועד הכניסה, ובעיקר רמת המחירים בו, משנה את התוצאה גם על פני ' + num(ent[0].y, 0) + ' שנים. ') +
       'החישוב מבוסס על רמת המדד, שהוא מדד תשואה כוללת ולכן כולל גם דיבידנדים. ' +
-      'התקופה מסתיימת בנקודה גבוהה, וזה מטה את כל התשואות שבגרף כלפי מעלה. תשואות עבר אינן מעידות על העתיד.';
+      (fromPeak > -10
+        ? 'התקופה מסתיימת סמוך לשיא, וזה מטה את כל התשואות שבגרף כלפי מעלה. '
+        : fromPeak < -25
+          ? 'התקופה מסתיימת ' + num(-fromPeak, 0) + '% מתחת לשיא שקדם לה, וזה מטה את כל התשואות שבגרף כלפי מטה. '
+          : 'התקופה מסתיימת ' + num(-fromPeak, 0) + '% מתחת לשיא שקדם לה. ') +
+      'תשואות עבר אינן מעידות על העתיד.';
 
-    if (window.Chart) {
-      new Chart(document.getElementById('entChart'), {
-        type: 'line',
-        data: {
-          labels: ent.map(function (p) { return p.d; }),
-          datasets: [{
-            label: 'תשואה שנתית',
-            data: ent.map(function (p) { return p.c; }),
-            borderColor: '#007DA8',
-            backgroundColor: 'rgba(0,125,168,.10)',
-            borderWidth: 2, fill: true, tension: .2,
-            pointRadius: 0, pointHoverRadius: 5,
-            pointHoverBackgroundColor: '#007DA8',
-            pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2
-          }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: 'rgba(26,26,26,.92)',
-              titleFont: { family: 'Heebo', size: 13 },
-              bodyFont: { family: 'Heebo', size: 14, weight: '600' },
-              padding: 10, displayColors: false, textDirection: 'rtl',
-              callbacks: {
-                title: function (it) { return 'כניסה ב-' + heb(ent[it[0].dataIndex].d); },
-                label: function (it) {
-                  var p = ent[it.dataIndex];
-                  return num(p.c, 1) + '% לשנה · החזקה ' + num(p.y, 1) + ' שנים';
-                }
+    if (entReset) entReset.hidden = isLast;
+    if (!window.Chart) return;
+    if (entChart) { entChart.destroy(); entChart = null; }
+
+    entChart = new Chart(document.getElementById('entChart'), {
+      type: 'line',
+      data: {
+        labels: ent.map(function (p) { return p.d; }),
+        datasets: [{
+          label: 'תשואה שנתית',
+          data: ent.map(function (p) { return p.c; }),
+          borderColor: '#007DA8',
+          backgroundColor: 'rgba(0,125,168,.10)',
+          borderWidth: 2, fill: true, tension: .2,
+          pointRadius: 0, pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#007DA8',
+          pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        animation: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(26,26,26,.92)',
+            titleFont: { family: 'Heebo', size: 13 },
+            bodyFont: { family: 'Heebo', size: 14, weight: '600' },
+            padding: 10, displayColors: false, textDirection: 'rtl',
+            callbacks: {
+              title: function (it) { return 'כניסה ב-' + heb(ent[it[0].dataIndex].d); },
+              label: function (it) {
+                var p = ent[it.dataIndex];
+                return num(p.c, 1) + '% לשנה · החזקה ' + num(p.y, 1) + ' שנים';
               }
-            }
-          },
-          scales: {
-            x: {
-              ticks: {
-                font: { family: 'Heebo', size: 11 }, color: '#999',
-                maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
-                callback: function (v, i) { return ent[i].d.slice(5, 7) + '/' + ent[i].d.slice(2, 4); }
-              },
-              grid: { display: false }, border: { color: '#E2E0DC' }
-            },
-            y: {
-              position: 'right', suggestedMin: 0,
-              ticks: {
-                font: { family: 'Heebo', size: 11 }, color: '#999',
-                callback: function (v) { return num(v, 0) + '%'; }
-              },
-              grid: { color: '#EEE' }, border: { display: false }
             }
           }
         },
-        plugins: [crosshair]
-      });
+        scales: {
+          x: {
+            ticks: {
+              font: { family: 'Heebo', size: 11 }, color: '#999',
+              maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
+              callback: function (v, i) { return ent[i].d.slice(5, 7) + '/' + ent[i].d.slice(2, 4); }
+            },
+            grid: { display: false }, border: { color: '#E2E0DC' }
+          },
+          y: {
+            position: 'right', suggestedMin: 0,
+            ticks: {
+              font: { family: 'Heebo', size: 11 }, color: '#999',
+              callback: function (v) { return num(v, 0) + '%'; }
+            },
+            grid: { color: '#EEE' }, border: { display: false }
+          }
+        }
+      },
+      plugins: [crosshair, medianLine]
+    });
+  }
+
+  if (ih.length > MIN_HIST + 2) {
+    /* אפשרויות נקודת הסיום — מהחדש לישן, כדי שברירת המחדל תהיה ראשונה */
+    for (var t = ih.length - 1; t >= MIN_HIST; t--) {
+      var o = document.createElement('option');
+      o.value = String(t);
+      o.textContent = heb(ih[t].d) + (t === ih.length - 1 ? ' (עדכני)' : '');
+      entSel.appendChild(o);
     }
+    entSel.value = String(ih.length - 1);
+    entSel.addEventListener('change', function () { renderEnt(+entSel.value); });
+    if (entReset) entReset.addEventListener('click', function () {
+      entSel.value = String(ih.length - 1); renderEnt(ih.length - 1);
+    });
+    renderEnt(ih.length - 1);
   } else {
-    document.getElementById('entCard').style.display = 'none';
+    document.getElementById('entryCard').style.display = 'none';
   }
 
   /* --- גרף: רק כשיש מספיק נקודות --- */
