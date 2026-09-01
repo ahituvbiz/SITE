@@ -53,6 +53,7 @@ h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-
 .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .card h2{font-size:18px;color:var(--text-1);margin-bottom:6px}
 .card .hint{color:var(--text-meta);font-size:13px;margin-bottom:14px}
+.card .entsub{color:var(--text-2);font-size:15px;margin:0 0 8px}
 
 /* answer block */
 .answer{background:#fff;border:2px solid var(--primary);border-radius:var(--radius);padding:22px;margin-bottom:18px}
@@ -346,7 +347,8 @@ a:hover{text-decoration:underline}
 
   <!-- ===== תשואה שנתית לפי מועד כניסה ===== -->
   <section class="card" id="entryCard">
-    <h2 id="entTitle">מה הייתה התשואה השנתית של מי שהשקיע במדד ת"א 125 עד היום — לפי חודש הכניסה</h2>
+    <h2 id="entTitle">מה היתה התשואה השנתית במדד ת"א 125</h2>
+    <p class="entsub">חישוב שנתי עבור נקודות התחלה וסיום שונות</p>
     <p class="hint" id="entHint"></p>
     <div class="trend-box"><canvas id="entChart"></canvas></div>
     <div class="ctl" id="entCtl">
@@ -764,7 +766,6 @@ a:hover{text-decoration:underline}
   var entChart = null, ent = [];
   var entSel = document.getElementById('entEnd');
   var entReset = document.getElementById('entReset');
-  var entTitleDefault = document.getElementById('entTitle').textContent;
 
   function buildEnt(endIdx) {
     var e = ih[endIdx], eT = new Date(e.d).getTime(), out = [];
@@ -792,14 +793,10 @@ a:hover{text-decoration:underline}
     for (var q = 1; q <= endIdx; q++) if (ih[q].v > pk) pk = ih[q].v;
     var fromPeak = (e.v / pk - 1) * 100;
 
-    document.getElementById('entTitle').textContent = isLast
-      ? entTitleDefault
-      : 'מה הייתה התשואה השנתית של מי שהשקיע במדד ת"א 125 עד ' + heb(e.d) + ' — לפי חודש הכניסה';
-
     document.getElementById('entHint').textContent =
       'לכל חודש בציר: התשואה השנתית שהניב מדד ת"א 125 למי שנכנס בסופו והחזיק עד ' +
       heb(e.d) + '. מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית, ולא בממוצע חשבוני של תשואות שנתיות. ' +
-      'נכללים רק מועדי כניסה עם החזקה של שנה לפחות. אפשר להזיז את נקודת הסיום ולראות כיצד התמונה משתנה.';
+      'נכללים רק מועדי כניסה עם החזקה של שנה לפחות.';
 
     document.getElementById('entNote').textContent =
       'החציון: ' + num(med, 1) + '% לשנה. הטווח: מ-' + num(eMin.c, 1) + '% לשנה למי שנכנס ' +
