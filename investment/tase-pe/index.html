@@ -69,11 +69,21 @@ h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-
 .trend-box{position:relative;width:100%;height:min(58vw,360px)}
 #chartCard{display:none}
 .chart-note{font-size:13px;color:var(--text-meta);margin-top:10px;line-height:1.6}
-.ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;font-size:14px;color:var(--text-2)}
-.ctl select{font-family:inherit;font-size:14px;color:var(--text-1);background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer}
-.ctl select:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(0,125,168,.12)}
-.ctl button{font-family:inherit;font-size:13px;color:var(--primary);background:var(--primary-soft);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+.ctl{margin:16px 0 0}
+.ctl-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--text-2);margin-bottom:6px}
+.ctl-head output{font-weight:700;color:var(--text-1);font-variant-numeric:tabular-nums}
+.ctl button{font-family:inherit;font-size:13px;color:var(--primary);background:var(--primary-soft);border:0;border-radius:999px;padding:5px 12px;cursor:pointer}
 .ctl button:hover{background:#CFEAF6}
+.ctl input[type=range]{direction:ltr;display:block;width:100%;height:22px;margin:0;padding:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:pan-y}
+.ctl input[type=range]:focus{outline:none}
+.ctl input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:var(--border)}
+.ctl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.ctl input[type=range]::-moz-range-track{height:4px;border-radius:999px;background:var(--border)}
+.ctl input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.ctl input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(0,125,168,.28)}
+.ctl input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(0,125,168,.28)}
+.ctl-track{transition:padding .15s}
+.ctl-scale{display:flex;justify-content:space-between;direction:ltr;font-size:12px;color:var(--text-meta);margin-top:1px}
 .intro{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .intro p{margin-bottom:12px}
 .intro p:last-child{margin-bottom:0}
@@ -338,12 +348,19 @@ a:hover{text-decoration:underline}
   <section class="card" id="entryCard">
     <h2 id="entTitle">מה הייתה התשואה השנתית של מי שהשקיע במדד ת"א 125 עד היום — לפי חודש הכניסה</h2>
     <p class="hint" id="entHint"></p>
-    <div class="ctl">
-      <label for="entEnd">נקודת הסיום של המדידה:</label>
-      <select id="entEnd" aria-label="בחירת נקודת הסיום של המדידה"></select>
-      <button type="button" id="entReset" hidden>חזרה לתאריך העדכני</button>
-    </div>
     <div class="trend-box"><canvas id="entChart"></canvas></div>
+    <div class="ctl" id="entCtl">
+      <div class="ctl-head">
+        <label for="entEnd">נקודת הסיום של המדידה:</label>
+        <output id="entEndVal" for="entEnd"></output>
+        <button type="button" id="entReset" hidden>חזרה לתאריך העדכני</button>
+      </div>
+      <div class="ctl-track" id="entTrack">
+        <input type="range" id="entEnd" min="0" max="1" step="1" value="1"
+               aria-label="הזזת נקודת הסיום של המדידה על ציר הזמן">
+        <div class="ctl-scale"><span id="entScaleMin"></span><span id="entScaleMax"></span></div>
+      </div>
+    </div>
     <p class="chart-note" id="entNote"></p>
   </section>
 
@@ -808,7 +825,13 @@ a:hover{text-decoration:underline}
 
     if (entReset) entReset.hidden = isLast;
     if (!window.Chart) return;
-    if (entChart) { entChart.destroy(); entChart = null; }
+
+    if (entChart) {
+      entChart.data.labels = ent.map(function (p) { return p.d; });
+      entChart.data.datasets[0].data = ent.map(function (p) { return p.c; });
+      entChart.update('none');
+      return;
+    }
 
     entChart = new Chart(document.getElementById('entChart'), {
       type: 'line',
@@ -869,19 +892,44 @@ a:hover{text-decoration:underline}
   }
 
   if (ih.length > MIN_HIST + 2) {
-    /* אפשרויות נקודת הסיום — מהחדש לישן, כדי שברירת המחדל תהיה ראשונה */
-    for (var t = ih.length - 1; t >= MIN_HIST; t--) {
-      var o = document.createElement('option');
-      o.value = String(t);
-      o.textContent = heb(ih[t].d) + (t === ih.length - 1 ? ' (עדכני)' : '');
-      entSel.appendChild(o);
+    var LAST = ih.length - 1;
+    var entOut = document.getElementById('entEndVal');
+
+    entSel.min = String(MIN_HIST);
+    entSel.max = String(LAST);
+    entSel.value = String(LAST);
+
+    /* הסמן זורם משמאל לימין כמו ציר הזמן של הגרף, גם בעמוד RTL */
+    document.getElementById('entScaleMin').textContent = ih[MIN_HIST].d.slice(0, 4);
+    document.getElementById('entScaleMax').textContent = ih[LAST].d.slice(0, 4);
+
+    var pending = null;
+    function apply(i) {
+      var lbl = heb(ih[i].d) + (i === LAST ? ' (עדכני)' : '');
+      entOut.textContent = lbl;
+      entSel.setAttribute('aria-valuetext', lbl);
+      if (pending) cancelAnimationFrame(pending);
+      pending = requestAnimationFrame(function () { pending = null; renderEnt(i); });
     }
-    entSel.value = String(ih.length - 1);
-    entSel.addEventListener('change', function () { renderEnt(+entSel.value); });
+    entSel.addEventListener('input', function () { apply(+entSel.value); });
     if (entReset) entReset.addEventListener('click', function () {
-      entSel.value = String(ih.length - 1); renderEnt(ih.length - 1);
+      entSel.value = String(LAST); apply(LAST); entSel.focus();
     });
-    renderEnt(ih.length - 1);
+
+    /* מיישרים את הסמן בדיוק לאזור הציור של הגרף — כך הוא נקרא כציר הזמן שלו */
+    var entTrack = document.getElementById('entTrack');
+    function alignTrack() {
+      if (!entChart || !entChart.chartArea || !entTrack) return;
+      var a = entChart.chartArea;
+      entTrack.style.paddingLeft  = Math.max(0, a.left) + 'px';
+      entTrack.style.paddingRight = Math.max(0, entChart.width - a.right) + 'px';
+    }
+    window.addEventListener('resize', function () { setTimeout(alignTrack, 120); });
+
+    entOut.textContent = heb(ih[LAST].d) + ' (עדכני)';
+    entSel.setAttribute('aria-valuetext', entOut.textContent);
+    renderEnt(LAST);
+    alignTrack();
   } else {
     document.getElementById('entryCard').style.display = 'none';
   }
