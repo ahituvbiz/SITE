@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכפיל הרווח של הבורסה בתל אביב — ת"א 125, ת"א 35 ות"א 90 | איתן אחיטוב</title>
+<meta name="description" content="מכפיל הרווח המצרפי של מדדי ת&quot;א 125, ת&quot;א 35 ות&quot;א 90, מחושב מחדש מדי שבוע מנתוני הבורסה ומדוחות החברות. הנתון העדכני, החציון, ומה שהפער ביניהם מגלה.">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://pensya.info/investment/tase-pe/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="מכפיל הרווח של הבורסה בתל אביב — ת&quot;א 125, ת&quot;א 35 ות&quot;א 90">
+<meta property="og:description" content="הנתון העדכני לשלושת המדדים, מחושב מחדש מדי שבוע. כולל חציון, והפער בין החברות הגדולות לבינוניות.">
+<meta property="og:url" content="https://pensya.info/investment/tase-pe/">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="pensya.info">
+<meta property="og:image" content="https://pensya.info/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="מכפיל הרווח של הבורסה בתל אביב — ת&quot;א 125, ת&quot;א 35 ות&quot;א 90">
+<meta name="twitter:description" content="הנתון העדכני לשלושת המדדים, מחושב מחדש מדי שבוע מנתוני הבורסה ומדוחות החברות.">
+<meta name="twitter:image" content="https://pensya.info/assets/og-default.jpg">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebPage","name":"מכפיל הרווח של הבורסה בתל אביב","url":"https://pensya.info/investment/tase-pe/","inLanguage":"he-IL","description":"מכפיל הרווח המצרפי של מדדי ת\"א 125, ת\"א 35 ות\"א 90, מחושב מחדש מדי שבוע.","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר","url":"https://pensya.info/about/"},"publisher":{"@type":"Person","name":"איתן אחיטוב","url":"https://pensya.info/"}},
+{"@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"בית","item":"https://pensya.info/"},
+{"@type":"ListItem","position":2,"name":"השקעות","item":"https://pensya.info/investment/why-not-sp500/"},
+{"@type":"ListItem","position":3,"name":"מכפיל הרווח של מדדי ת\"א"}]}
+]}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C;
+  --text-1:#1A1A1A; --text-2:#555; --text-meta:#999;
+  --bg:#fff; --bg-cream:#F8F6F2; --border:#E2E0DC;
+  --positive:#1a7f44; --negative:#C53030;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;color:var(--text-1);background:var(--bg-cream);line-height:1.65;font-size:16px;overflow-x:hidden}
+.wrap{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-align:center}
+.sub{color:var(--text-2);font-size:15px;margin-bottom:14px;text-align:center;max-width:640px;margin-inline:auto}
+.page-updated{font-size:13px;color:var(--text-meta);text-align:center;margin-bottom:24px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.card h2{font-size:18px;color:var(--text-1);margin-bottom:6px}
+.card .hint{color:var(--text-meta);font-size:13px;margin-bottom:14px}
+
+/* answer block */
+.answer{background:#fff;border:2px solid var(--primary);border-radius:var(--radius);padding:22px;margin-bottom:18px}
+.answer .asof{text-align:center;font-size:14px;color:var(--text-2);margin-bottom:16px}
+.answer .asof b{color:var(--text-1)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.num{text-align:center;background:var(--primary-soft);border-radius:12px;padding:16px 8px}
+.num .lbl{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px}
+.num .val{font-size:clamp(30px,7vw,42px);font-weight:800;color:var(--text-1);line-height:1.1}
+.num .med{font-size:13px;color:var(--text-2);margin-top:6px;font-variant-numeric:tabular-nums}
+.num .lvl{font-size:13px;color:var(--text-meta);margin-top:2px;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.nums{grid-template-columns:1fr;gap:10px}.num{padding:14px}.num .val{font-size:34px}}
+
+.trend-box{position:relative;width:100%;height:min(58vw,360px)}
+#chartCard{display:none}
+.chart-note{font-size:13px;color:var(--text-meta);margin-top:10px;line-height:1.6}
+.intro{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.intro p{margin-bottom:12px}
+.intro p:last-child{margin-bottom:0;font-weight:600;color:var(--primary)}
+.disclaimer{border-top:1px solid var(--border);margin-top:24px;padding-top:14px;font-size:13px;color:var(--text-meta);line-height:1.7;text-align:center}
+.disclaimer b{color:var(--text-2)}
+
+details.faq{background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
+details.faq summary{cursor:pointer;padding:13px 18px;font-weight:600;font-size:16px;list-style:none}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:'+';float:left;color:var(--primary);font-weight:800}
+details.faq[open] summary::after{content:'−'}
+details.faq .body{padding:0 18px 15px;color:var(--text-2);font-size:15px}
+
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.links a{background:var(--primary-soft);color:var(--primary);text-decoration:none;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px}
+.links a:hover{background:#CFEAF6}
+
+.definition{font-size:13px;color:var(--text-meta);text-align:center;margin-top:6px;line-height:1.6}
+.byline{font-size:14px;color:var(--text-2);text-align:center;margin-top:22px}
+.byline a{color:var(--primary)}
+.refresh{display:none;margin:22px auto 0;background:var(--cta);color:#fff;border:0;border-radius:10px;padding:11px 26px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.refresh:hover{filter:brightness(.92)}
+.refresh.done{background:var(--positive)}
+
+/* ===== chrome אתר: header / ניווט / breadcrumb ===== */
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:200;height:64px}
+.header-inner{display:flex;align-items:center;gap:20px;height:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;flex-shrink:0}
+.logo-sub{font-weight:400;font-size:12px;color:var(--text-2)}
+.nav{display:flex;gap:4px;margin-right:auto}
+.nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--primary-soft);color:var(--primary);text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px;z-index:200}
+.hamburger span{display:block;width:24px;height:2px;background:var(--primary);border-radius:2px;transition:.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{display:none}
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .nav{display:none;position:fixed;top:0;right:0;width:min(280px,85vw);height:100vh;background:#fff;flex-direction:column;padding:5rem 1.5rem 2rem;gap:0;box-shadow:-4px 0 20px rgba(0,0,0,.15);z-index:150;overflow-y:auto}
+  .nav.open{display:flex}
+  .nav a{padding:1rem 0;border-bottom:1px solid var(--primary-soft);font-size:1.05rem}
+  .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:140}
+  .nav-overlay.open{display:block}
+}
+.header-search{position:relative;display:flex;align-items:center}
+.header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,.1);width:260px}
+.header-search input::placeholder{color:var(--text-meta)}
+.header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
+.header-search-icon svg{width:18px;height:18px}
+.search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.12);max-height:320px;overflow-y:auto;z-index:10;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;text-decoration:none}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--bg-cream)}
+.search-results .no-results{padding:16px;color:var(--text-meta);font-size:14px;text-align:center}
+@media(max-width:900px){.header-search input{width:160px}.header-search input:focus{width:200px}}
+@media(max-width:600px){.header-search input{width:130px}}
+.breadcrumb{background:var(--bg-cream);border-bottom:1px solid var(--border);padding:10px 0;font-size:14px;color:var(--text-meta)}
+.breadcrumb .container{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb a{color:var(--text-2)}
+.breadcrumb a:hover{color:var(--primary)}
+.breadcrumb .sep{color:var(--border)}
+.breadcrumb .current{color:var(--text-2)}
+.skip-link{position:absolute;top:-48px;right:0;left:0;background:var(--primary);color:#fff !important;padding:12px 20px;text-align:center;z-index:99999;text-decoration:none;font-size:16px;font-weight:600;transition:top .2s ease;border-radius:0 0 8px 8px}
+.skip-link:focus{top:0;outline:3px solid var(--cta);outline-offset:2px}
+:focus-visible{outline:3px solid var(--primary) !important;outline-offset:2px !important}
+</style>
+<link rel="stylesheet" href="/site-chrome.css?v=2">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/investment/why-not-sp500/">השקעות</a>
+    <span class="sep">›</span>
+    <span class="current">מכפיל הרווח של מדדי ת"א</span>
+  </div>
+</nav>
+
+<div class="wrap" id="main-content">
+
+  <h1>מכפיל הרווח של הבורסה בתל אביב</h1>
+  <p class="sub">הנתון המצרפי לשלושת מדדי המניות המובילים — ת"א 125, ת"א 35 ות"א 90 — מחושב מחדש מדי שבוע מנתוני הבורסה ומדוחות החברות.</p>
+  <p class="page-updated" id="pageUpdated"></p>
+
+  <!-- ===== התשובה ===== -->
+  <section class="answer">
+    <p class="asof">נכון לנעילת <b id="asOf"></b></p>
+    <div class="nums" id="nums"></div>
+  </section>
+
+  <!-- ===== רקע ===== -->
+  <section class="intro">
+    <p>בחודש יוני 2024 נכנסה לתוקף רפורמה במסלולי ההשקעה של מוצרי הפנסיה והגמל. חודשים ספורים לאחר מכן חלה תפנית במלחמת חרבות ברזל – חיסול צמרת החמאס וצמרת חיזבאללה, מבצע הביפרים וכיבוש דרום לבנון, וכן ההתמודדות המוצלחת עם מטח טילים משמעותי מאיראן – מה ששיפר את תחושת הביטחון בארץ. מאז, הבורסה בתל אביב זינקה ונוצר ביקוש למסלולי השקעה שמתמחים במניות ישראליות.</p>
+    <p>חלק מהזינוק במחיר המניות נבע משיפור אמיתי ברווחיות של החברות וחלקו בעקבות התרחבות מכפילים.</p>
+    <p>חוסך ששוקל לבחור במסלול ישראלי צריך לשאול את עצמו האם המניות הישראליות עדיין אטרקטיביות. הדרך הפשוטה לבחון את זה היא דרך מכפיל הרווח, יחס פיננסי שמהווה כלל אצבע למדידת מידת היוקר של מניות.</p>
+    <p>דף זה נועד להנגיש את הנתון הפיננסי הזה לציבור החוסכים.</p>
+  </section>
+
+  <!-- ===== גרף המדד ===== -->
+  <section class="card">
+    <h2 id="idxTitle">מדד ת"א 125</h2>
+    <p class="hint" id="idxHint"></p>
+    <div class="trend-box"><canvas id="idxChart"></canvas></div>
+    <p class="chart-note" id="idxNote"></p>
+  </section>
+
+  <!-- ===== תשואה שנתית לפי מועד כניסה ===== -->
+  <section class="card" id="entryCard">
+    <h2 id="entTitle">מה הייתה התשואה השנתית הממוצעת של מי שהשקיע במדד ת"א 125 עד היום — לפי חודש הכניסה</h2>
+    <p class="hint" id="entHint"></p>
+    <div class="trend-box"><canvas id="entChart"></canvas></div>
+    <p class="chart-note" id="entNote"></p>
+  </section>
+
+  <!-- ===== גרף המכפיל (מוסתר עד שיצטברו מספיק נקודות) ===== -->
+  <section class="card" id="chartCard">
+    <h2>מכפיל הרווח של ת"א 125 לאורך זמן</h2>
+    <p class="hint">נמדד מדי שבוע בנעילת יום המסחר האחרון.</p>
+    <div class="trend-box"><canvas id="trend"></canvas></div>
+  </section>
+
+  <!-- ===== שאלות =====
+       ה-FAQ סטטי בכוונה — כדי שגוגל יקרא אותו גם בלי הרצת JavaScript.
+       המספרים יושבים ב-<span data-f="..."> ומתעדכנים מבלוק pe-data בטעינת הדף,
+       וסכימת ה-FAQPage למטה נבנית מחדש מתוך הטקסט המוצג — כך שהיא לעולם
+       לא סותרת את מה שהגולש רואה. -->
+  <section class="card">
+    <h2>שאלות נפוצות</h2>
+    <div id="faq">
+
+      <details class="faq">
+        <summary>מהו מכפיל הרווח של מדד ת"א 125?</summary>
+        <div class="body">נכון לנעילת <span data-f="date">28 באוגוסט 2026</span>, מכפיל הרווח המצרפי של מדד ת"א 125 עומד על <span data-f="pe125">18.1</span>. החציון של המדד — כלומר המכפיל של החברה האמצעית בו — עומד על <span data-f="med125">19.2</span>.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מהו מכפיל הרווח של מדד ת"א 35?</summary>
+        <div class="body">נכון לנעילת <span data-f="date">28 באוגוסט 2026</span>, מכפיל הרווח המצרפי של מדד ת"א 35 עומד על <span data-f="pe35">18.1</span>, והחציון על <span data-f="med35">20.1</span>.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מהו מכפיל הרווח של מדד ת"א 90?</summary>
+        <div class="body">נכון לנעילת <span data-f="date">28 באוגוסט 2026</span>, מכפיל הרווח המצרפי של מדד ת"א 90 עומד על <span data-f="pe90">17.7</span>, והחציון על <span data-f="med90">19.2</span>.</div>
+      </details>
+
+      <details class="faq">
+        <summary>כמה עלה מדד ת"א 125 מתחילת השנה?</summary>
+        <div class="body">מתחילת <span data-f="ytdYear">2026</span> ועד <span data-f="date">28 באוגוסט 2026</span> המדד <span data-f="ytdDir">עלה</span> ב-<span data-f="ytd">11.4%</span> — מ-<span data-f="ytdFrom">3,663.54</span> נקודות לסגירת <span data-f="ytdYear2">2025</span> ל-<span data-f="lastVal">4,081.95</span> נקודות.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה התשואה של מדד ת"א 125 בעשר השנים האחרונות?</summary>
+        <div class="body">בעשר השנים שהסתיימו ב-<span data-f="date">28 באוגוסט 2026</span> המדד <span data-f="r10Dir">עלה</span> ב-<span data-f="r10">221%</span>, שהם <span data-f="cagr10">12.4%</span> בשנה בממוצע (ממוצע גיאומטרי). מדדי הבורסה בתל אביב הם מדדי תשואה כוללת, ולכן הנתון משקף גם את הדיבידנדים שחולקו.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה התשואה של מדד ת"א 125 ב-20 השנים האחרונות?</summary>
+        <div class="body">בעשרים השנים שהסתיימו ב-<span data-f="date">28 באוגוסט 2026</span> המדד <span data-f="r20Dir">עלה</span> ב-<span data-f="r20">340%</span>, שהם <span data-f="cagr20">7.7%</span> בשנה בממוצע (ממוצע גיאומטרי). התקופה כוללת את משבר 2008 ואת הירידות של 2020 ו-2022, ולכן התשואה השנתית הממוצעת בה נמוכה מזו של עשר השנים האחרונות.</div>
+      </details>
+
+      <details class="faq">
+        <summary>היכן אפשר לראות גרף היסטורי של מדד ת"א 125?</summary>
+        <div class="body">בדף הזה. הגרף מציג את סגירת המדד בסוף כל חודש מ<span data-f="firstDate">ינואר 2016</span> ועד <span data-f="date">28 באוגוסט 2026</span> — <span data-f="nPoints">128</span> נקודות מדידה — והוא מתעדכן אחת לשבוע. הנתונים נלקחים ישירות מאתר הבורסה לניירות ערך בתל אביב. עד פברואר 2017 נקרא המדד ת"א-100, ורמתו נמשכת באותה סדרה.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה השיא של מדד ת"א 125 וכמה רחוק ממנו המדד היום?</summary>
+        <div class="body">השיא בתקופה הנמדדת בדף הוא <span data-f="peak">4,430</span> נקודות, בסגירת <span data-f="peakDate">29 במאי 2026</span>. נכון ל-<span data-f="date">28 באוגוסט 2026</span> המדד עומד על <span data-f="lastVal">4,081.95</span> נקודות, כלומר <span data-f="fromPeak">7.9%</span> מתחת לשיא.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה ההבדל בין המכפיל המשוקלל לחציון?</summary>
+        <div class="body">המכפיל המשוקלל מתייחס למדד כאל תיק אחד, ולכן חברה גדולה משפיעה עליו יותר מחברה קטנה. החציון מתייחס לכל חברה במשקל שווה ומראה את המכפיל של החברה האמצעית. כשהשניים רחוקים זה מזה, הפער עצמו הוא המידע: הוא מלמד עד כמה התמונה הכללית נשענת על מספר מצומצם של חברות גדולות.</div>
+      </details>
+
+      <details class="faq">
+        <summary>המכפיל הנוכחי — זה יקר או זול?</summary>
+        <div class="body">למספר בודד אין משמעות בלי נקודת ייחוס. מכפיל נעשה מובן רק בהשוואה לעצמו לאורך זמן, או בהשוואה לשווקים אחרים. הדף הזה נמדד מחדש מדי שבוע בדיוק כדי לבנות את נקודת הייחוס הזו. שימו לב גם שמכפיל מגיב לשני דברים שונים לגמרי — שינוי במחירי המניות ושינוי ברווחי החברות — ועלייה בו אינה בהכרח התייקרות.</div>
+      </details>
+
+      <details class="faq">
+        <summary>באיזו תדירות הנתון מתעדכן?</summary>
+        <div class="body">אחת לשבוע. הנתון מעוגן בנעילת יום המסחר האחרון של השבוע, ומחושב מחדש במלואו בכל עדכון — משקלים, שווי שוק, שערי חליפין ורווחי החברות העדכניים ביותר שדווחו.</div>
+      </details>
+
+    </div>
+  </section>
+
+  <script type="application/ld+json" id="faqSchema">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"מהו מכפיל הרווח של מדד ת\"א 125?","acceptedAnswer":{"@type":"Answer","text":"נכון לנעילת 28 באוגוסט 2026, מכפיל הרווח המצרפי של מדד ת\"א 125 עומד על 18.1. החציון של המדד — כלומר המכפיל של החברה האמצעית בו — עומד על 19.2."}},
+{"@type":"Question","name":"מהו מכפיל הרווח של מדד ת\"א 35?","acceptedAnswer":{"@type":"Answer","text":"נכון לנעילת 28 באוגוסט 2026, מכפיל הרווח המצרפי של מדד ת\"א 35 עומד על 18.1, והחציון על 20.1."}},
+{"@type":"Question","name":"מהו מכפיל הרווח של מדד ת\"א 90?","acceptedAnswer":{"@type":"Answer","text":"נכון לנעילת 28 באוגוסט 2026, מכפיל הרווח המצרפי של מדד ת\"א 90 עומד על 17.7, והחציון על 19.2."}},
+{"@type":"Question","name":"מה ההבדל בין המכפיל המשוקלל לחציון?","acceptedAnswer":{"@type":"Answer","text":"המכפיל המשוקלל מתייחס למדד כאל תיק אחד, ולכן חברה גדולה משפיעה עליו יותר מחברה קטנה. החציון מתייחס לכל חברה במשקל שווה ומראה את המכפיל של החברה האמצעית. כשהשניים רחוקים זה מזה, הפער עצמו הוא המידע: הוא מלמד עד כמה התמונה הכללית נשענת על מספר מצומצם של חברות גדולות."}},
+{"@type":"Question","name":"המכפיל הנוכחי — זה יקר או זול?","acceptedAnswer":{"@type":"Answer","text":"למספר בודד אין משמעות בלי נקודת ייחוס. מכפיל נעשה מובן רק בהשוואה לעצמו לאורך זמן, או בהשוואה לשווקים אחרים. הדף הזה נמדד מחדש מדי שבוע בדיוק כדי לבנות את נקודת הייחוס הזו. שימו לב גם שמכפיל מגיב לשני דברים שונים לגמרי — שינוי במחירי המניות ושינוי ברווחי החברות — ועלייה בו אינה בהכרח התייקרות."}},
+{"@type":"Question","name":"באיזו תדירות הנתון מתעדכן?","acceptedAnswer":{"@type":"Answer","text":"אחת לשבוע. הנתון מעוגן בנעילת יום המסחר האחרון של השבוע, ומחושב מחדש במלואו בכל עדכון — משקלים, שווי שוק, שערי חליפין ורווחי החברות העדכניים ביותר שדווחו."}}
+]}
+  </script>
+
+  <!-- ===== קישורים ===== -->
+  <section class="card">
+    <h2>להמשך קריאה</h2>
+    <div class="links">
+      <a href="/investment/stocks-vs-bonds/">מניות מול אג"ח בחיסכון ארוך טווח</a>
+      <a href="/investment/why-not-sp500/">למה מסלול S&amp;P 500 אינו פיזור</a>
+      <a href="/investment/sp500-lost-decade/">עשור אבוד במדד</a>
+      <a href="/investment/growth-vs-returns/">צמיחה מול תשואה</a>
+      <a href="/savings/keren-hishtalmut/">קרן השתלמות</a>
+    </div>
+  </section>
+
+  <p class="definition" id="definition"></p>
+
+  <p class="byline">
+    הנתונים נאספים ומחושבים על ידי <a href="/about/">איתן אחיטוב</a>, יועץ פנסיוני בעל רישיון.
+  </p>
+
+  <p class="disclaimer">
+    <b>הבהרה</b> – המידע בדף איננו מהווה ייעוץ פנסיוני. הסקת המסקנות וקבלת ההחלטות בעקבותיהן היא על אחריות הגולש בלבד.
+    אין באמור המלצה לרכישה או למכירה של נייר ערך כלשהו.
+  </p>
+
+  <button class="refresh" id="refreshBtn">עדכן נתונים</button>
+</div>
+
+<!-- ============================================================================
+     בלוק הנתונים — זה החלק היחיד שהסקיל tase-pe-update מחליף בכל ריצה.
+     אין לערוך אותו ביד. מקור האמת: "מכפיל רווח TA-125.xlsx", גיליון "סיכום".
+     ============================================================================ -->
+<script id="pe-data" type="application/json">
+{
+  "updated": "2026-09-01",
+  "dataDate": "2026-08-28",
+  "minPointsForChart": 12,
+  "indices": [
+    { "key": "ta125", "name": "ת\"א 125", "pe": 18.11, "median": 19.20, "level": 4081.95, "count": 126 },
+    { "key": "ta35",  "name": "ת\"א 35",  "pe": 18.06, "median": 20.09, "level": 4172.26, "count": 36  },
+    { "key": "ta90",  "name": "ת\"א 90",  "pe": 17.73, "median": 19.20, "level": 3799.35, "count": 90  }
+  ],
+  "indexHistory": [
+    ["2000-01-31",490.95],["2000-02-29",564.81],["2000-03-30",516.55],["2000-04-30",495.31],
+    ["2000-05-31",533.35],["2000-06-29",544.19],["2000-07-31",525.45],["2000-08-31",573.52],
+    ["2000-09-28",559.16],["2000-10-31",460.52],["2000-11-30",472.77],["2000-12-31",489.25],
+    ["2001-01-31",445.60],["2001-02-28",449.36],["2001-03-29",382.13],["2001-04-30",418.93],
+    ["2001-05-31",414.21],["2001-06-28",413.19],["2001-07-31",433.65],["2001-08-30",411.90],
+    ["2001-09-30",360.37],["2001-10-31",368.35],["2001-11-29",397.51],["2001-12-31",446.79],
+    ["2002-01-31",436.46],["2002-02-28",410.02],["2002-03-31",379.22],["2002-04-30",362.78],
+    ["2002-05-30",372.86],["2002-06-30",357.39],["2002-07-31",362.19],["2002-08-29",363.82],
+    ["2002-09-30",336.75],["2002-10-31",322.11],["2002-11-28",359.05],["2002-12-31",332.45],
+    ["2003-01-30",318.80],["2003-02-27",323.63],["2003-03-31",341.69],["2003-04-29",392.68],
+    ["2003-05-29",434.88],["2003-06-30",453.40],["2003-07-31",424.77],["2003-08-31",416.15],
+    ["2003-09-30",432.08],["2003-10-30",473.34],["2003-11-30",510.68],["2003-12-31",534.39],
+    ["2004-01-29",554.31],["2004-02-29",564.81],["2004-03-31",566.07],["2004-04-29",571.18],
+    ["2004-05-31",569.87],["2004-06-30",596.24],["2004-07-29",570.87],["2004-08-31",551.09],
+    ["2004-09-28",558.97],["2004-10-31",552.27],["2004-11-30",589.41],["2004-12-30",635.95],
+    ["2005-01-31",658.39],["2005-02-28",672.37],["2005-03-31",664.64],["2005-04-28",676.70],
+    ["2005-05-31",699.30],["2005-06-30",656.48],["2005-07-31",688.39],["2005-08-31",715.07],
+    ["2005-09-29",753.59],["2005-10-31",765.37],["2005-11-30",790.55],["2005-12-29",822.99],
+    ["2006-01-31",844.41],["2006-02-28",823.21],["2006-03-30",835.78],["2006-04-30",884.28],
+    ["2006-05-31",868.87],["2006-06-29",793.57],["2006-07-31",815.47],["2006-08-31",820],
+    ["2006-09-28",846.09],["2006-10-31",914.13],["2006-11-30",936.13],["2006-12-31",921.69],
+    ["2007-01-31",958.26],["2007-02-28",970.72],["2007-03-29",994.50],["2007-04-30",1066.56],
+    ["2007-05-31",1117.02],["2007-06-28",1102.19],["2007-07-31",1103.10],["2007-08-30",1034.67],
+    ["2007-09-30",1110.25],["2007-10-31",1189.04],["2007-11-29",1133.11],["2007-12-31",1154.59],
+    ["2008-01-31",1003.47],["2008-02-28",1034.01],["2008-03-31",928.06],["2008-04-30",996.17],
+    ["2008-05-29",1035.68],["2008-06-30",987.51],["2008-07-31",948.06],["2008-08-31",918.28],
+    ["2008-09-28",803.81],["2008-10-30",645.69],["2008-11-30",592.94],["2008-12-31",564.09],
+    ["2009-01-29",599.97],["2009-02-26",603.69],["2009-03-31",666.14],["2009-04-30",745.25],
+    ["2009-05-31",807.99],["2009-06-30",801.26],["2009-07-29",884.69],["2009-08-31",883.76],
+    ["2009-09-30",927.70],["2009-10-29",957.33],["2009-11-30",1003.55],["2009-12-31",1064.98],
+    ["2010-01-31",1057.32],["2010-02-25",1092.31],["2010-03-31",1155.42],["2010-04-29",1097.68],
+    ["2010-05-31",1009.40],["2010-06-30",990.34],["2010-07-29",1029.17],["2010-08-31",1046.42],
+    ["2010-09-28",1128.87],["2010-10-31",1175.30],["2010-11-30",1149.67],["2010-12-30",1224],
+    ["2011-01-31",1203.75],["2011-02-28",1189.96],["2011-03-31",1207.61],["2011-04-28",1195.33],
+    ["2011-05-31",1152.22],["2011-06-30",1113.38],["2011-07-31",1108.99],["2011-08-31",1013.47],
+    ["2011-09-27",969.77],["2011-10-31",1021.47],["2011-11-30",984.32],["2011-12-29",978.49],
+    ["2012-01-31",1013.70],["2012-02-29",990.06],["2012-03-29",1032.48],["2012-04-30",1066.49],
+    ["2012-05-31",981.28],["2012-06-28",969.86],["2012-07-31",996.72],["2012-08-30",999.59],
+    ["2012-09-27",1054.58],["2012-10-31",1076.41],["2012-11-29",1089.61],["2012-12-31",1049.06],
+    ["2013-01-31",1046.72],["2013-02-28",1090.67],["2013-03-28",1100.04],["2013-04-30",1082.95],
+    ["2013-05-30",1107.90],["2013-06-30",1071.45],["2013-07-31",1094.06],["2013-08-29",1081.68],
+    ["2013-09-30",1142.51],["2013-10-31",1161.77],["2013-11-28",1219.10],["2013-12-31",1207.69],
+    ["2014-01-30",1199.66],["2014-02-27",1256.53],["2014-03-31",1282.83],["2014-04-30",1251.12],
+    ["2014-05-29",1256.99],["2014-06-30",1252.95],["2014-07-31",1246.10],["2014-08-31",1264.84],
+    ["2014-09-30",1305.99],["2014-10-30",1276.87],["2014-11-30",1306.94],["2014-12-31",1288.93],
+    ["2015-01-29",1269.71],["2015-02-26",1343.78],["2015-03-31",1417.28],["2015-04-30",1430.15],
+    ["2015-05-31",1459.45],["2015-06-30",1418.31],["2015-07-30",1478.61],["2015-08-31",1386.63],
+    ["2015-09-30",1300.40],["2015-10-29",1365.58],["2015-11-30",1343.51],["2015-12-31",1315.08],
+    ["2016-01-31",1269.61],["2016-02-29",1240.46],["2016-03-31",1250.19],["2016-04-27",1246.04],
+    ["2016-05-31",1254.58],["2016-06-30",1211.21],["2016-07-31",1272.69],["2016-08-31",1271.53],
+    ["2016-09-29",1261.79],["2016-10-31",1231.09],["2016-11-30",1263.79],["2016-12-29",1282.37],
+    ["2017-01-31",1242.96],["2017-02-28",1265.61],["2017-03-30",1251.54],["2017-04-30",1265.22],
+    ["2017-05-29",1295.82],["2017-06-29",1288.88],["2017-07-31",1296.95],["2017-08-31",1271.11],
+    ["2017-09-28",1292.44],["2017-10-31",1315.21],["2017-11-30",1329.81],["2017-12-31",1364.36],
+    ["2018-01-31",1408.47],["2018-02-28",1361.99],["2018-03-29",1310.48],["2018-04-30",1327.95],
+    ["2018-05-31",1365.05],["2018-06-28",1362.60],["2018-07-31",1407.97],["2018-08-30",1492.97],
+    ["2018-09-27",1484.82],["2018-10-31",1436.97],["2018-11-29",1468.56],["2018-12-31",1333.18],
+    ["2019-01-31",1413.16],["2019-02-28",1431.31],["2019-03-31",1418.03],["2019-04-30",1468.61],
+    ["2019-05-30",1434.90],["2019-06-30",1485.16],["2019-07-31",1513.53],["2019-08-29",1480.50],
+    ["2019-09-26",1532.56],["2019-10-31",1577.97],["2019-11-28",1625.50],["2019-12-31",1616.70],
+    ["2020-01-30",1635.45],["2020-02-27",1542.55],["2020-03-31",1276.88],["2020-04-30",1407.20],
+    ["2020-05-31",1394.61],["2020-06-30",1325.23],["2020-07-29",1381.11],["2020-08-31",1423.09],
+    ["2020-09-30",1345.44],["2020-10-29",1373.94],["2020-11-30",1513.10],["2020-12-31",1568.09],
+    ["2021-01-31",1624.13],["2021-02-28",1604.78],["2021-03-31",1664.07],["2021-04-29",1714.68],
+    ["2021-05-31",1772.19],["2021-06-30",1764.58],["2021-07-29",1763.28],["2021-08-31",1818.53],
+    ["2021-09-30",1859.68],["2021-10-31",1927.65],["2021-11-30",1954.62],["2021-12-30",2056.51],
+    ["2022-01-31",2029.48],["2022-02-28",2054.92],["2022-03-31",2097.11],["2022-04-28",2109.19],
+    ["2022-05-31",1965.18],["2022-06-30",1883.81],["2022-07-31",2012.20],["2022-08-31",2072.30],
+    ["2022-09-29",1883.93],["2022-10-31",1958.68],["2022-11-30",1884.01],["2022-12-29",1813.35],
+    ["2023-01-31",1822.84],["2023-02-28",1731.99],["2023-03-30",1725.82],["2023-04-30",1754.06],
+    ["2023-05-31",1747.02],["2023-06-29",1775.65],["2023-07-31",1888.98],["2023-08-31",1873.76],
+    ["2023-09-28",1874.44],["2023-10-31",1657.98],["2023-11-30",1792.64],["2023-12-31",1887.08],
+    ["2024-01-31",1861.92],["2024-02-29",1981.13],["2024-03-31",2043.55],["2024-04-30",1970.73],
+    ["2024-05-30",1993.43],["2024-06-30",1953.89],["2024-07-31",1998.02],["2024-08-29",2081.68],
+    ["2024-09-30",2118.45],["2024-10-31",2213.64],["2024-11-28",2294.82],["2024-12-31",2426.90],
+    ["2025-01-30",2500.60],["2025-02-27",2542.52],["2025-03-31",2446.46],["2025-04-29",2557.21],
+    ["2025-05-29",2724.72],["2025-06-30",3022.50],["2025-07-31",3080.29],["2025-08-31",3115.09],
+    ["2025-09-30",3250.03],["2025-10-30",3338.77],["2025-11-30",3479.68],["2025-12-31",3663.54],
+    ["2026-01-30",3995.64],["2026-02-27",4074.84],["2026-03-31",4016.79],["2026-04-30",4313.88],
+    ["2026-05-29",4430.46],["2026-06-30",4010.85],["2026-07-31",4071.76],["2026-08-28",4081.95]
+  ],
+  "history": [
+    { "d": "2026-07-10", "pe": 17.82, "median": 21.13, "level": 4007.14 },
+    { "d": "2026-07-17", "pe": 18.12, "median": 21.42, "level": 4081.26 },
+    { "d": "2026-07-31", "pe": 18.16, "median": 20.38, "level": 4071.76 },
+    { "d": "2026-08-14", "pe": 18.53, "median": 19.06, "level": 4074.63 },
+    { "d": "2026-08-28", "pe": 18.11, "median": 19.20, "level": 4081.95 }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('pe-data').textContent);
+
+  var MONTHS = ['בינואר','בפברואר','במרץ','באפריל','במאי','ביוני','ביולי','באוגוסט','בספטמבר','באוקטובר','בנובמבר','בדצמבר'];
+  function heb(iso){ var p = iso.split('-'); return (+p[2]) + ' ' + MONTHS[(+p[1]) - 1] + ' ' + p[0]; }
+  function shortDate(iso){ var p = iso.split('-'); return (+p[2]) + '/' + (+p[1]); }
+  function num(x, d){ return x.toLocaleString('he-IL', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+  var byKey = {};
+  D.indices.forEach(function (i) { byKey[i.key] = i; });
+
+  document.getElementById('asOf').textContent = heb(D.dataDate);
+  document.getElementById('pageUpdated').textContent = 'עודכן: ' + heb(D.updated);
+
+  /* --- שלושת המספרים --- */
+  document.getElementById('nums').innerHTML = D.indices.map(function (i) {
+    return '<div class="num">' +
+             '<div class="lbl">' + i.name + '</div>' +
+             '<div class="val">' + num(i.pe, 1) + '</div>' +
+             '<div class="med">חציון ' + num(i.median, 1) + '</div>' +
+             '<div class="lvl">ערך המדד ' + num(i.level, 2) + '</div>' +
+           '</div>';
+  }).join('');
+
+  var big = byKey.ta35, mid = byKey.ta90, all = byKey.ta125;
+
+  /* --- גרף מדד ת"א 125 --- */
+  var crosshair = {
+    id: 'crosshair',
+    afterDatasetsDraw: function (c) {
+      var act = c.tooltip && c.tooltip.getActiveElements ? c.tooltip.getActiveElements() : [];
+      if (!act.length) return;
+      var x = act[0].element.x, a = c.chartArea, g = c.ctx;
+      g.save(); g.beginPath(); g.moveTo(x, a.top); g.lineTo(x, a.bottom);
+      g.lineWidth = 1; g.strokeStyle = 'rgba(0,125,168,.35)'; g.stroke(); g.restore();
+    }
+  };
+
+  /* הסדרה נשארת חודשית תמיד: המדידות השבועיות מגיליון הסיכום מתמזגות
+     לנקודה אחת לחודש (האחרונה בחודש), רק לחודשים שאחרי הבלוק החודשי. */
+  var ih = (D.indexHistory || []).map(function (p) { return { d: p[0], v: p[1] }; });
+  if (ih.length) {
+    var lastMonth = ih[ih.length - 1].d.slice(0, 7);
+    var extra = {};
+    (D.history || []).forEach(function (p) {
+      if (!p.level) return;
+      var m = p.d.slice(0, 7);
+      if (m <= lastMonth) return;
+      if (!extra[m] || extra[m].d < p.d) extra[m] = { d: p.d, v: p.level };
+    });
+    Object.keys(extra).sort().forEach(function (m) { ih.push(extra[m]); });
+  }
+
+  if (ih.length > 1) {
+    var first = ih[0], last = ih[ih.length - 1];
+    var chg = (last.v / first.v - 1) * 100;
+    var peak = ih.reduce(function (a, b) { return b.v > a.v ? b : a; });
+
+    document.getElementById('idxTitle').textContent =
+      'מדד ת"א 125 — ' + first.d.slice(0, 4) + ' עד ' + heb(last.d);
+    document.getElementById('idxHint').textContent =
+      'סגירה בסוף כל חודש. הנקודה האחרונה היא ' + heb(last.d) + '.';
+    document.getElementById('idxNote').textContent =
+      'מאז ' + heb(first.d) + ' המדד ' + (chg >= 0 ? 'עלה ' : 'ירד ') + num(Math.abs(chg), 0) + '%. ' +
+      'השיא בתקופה: ' + num(peak.v, 0) + ' נקודות ב-' + heb(peak.d) + '.';
+  }
+
+  if (ih.length > 1 && window.Chart) {
+    new Chart(document.getElementById('idxChart'), {
+      type: 'line',
+      data: {
+        labels: ih.map(function (p) { return p.d.slice(8, 10) + '/' + p.d.slice(5, 7) + '/' + p.d.slice(2, 4); }),
+        datasets: [{
+          label: 'ת"א 125',
+          data: ih.map(function (p) { return p.v; }),
+          borderColor: '#007DA8',
+          backgroundColor: 'rgba(0,125,168,.10)',
+          borderWidth: 2,
+          fill: true,
+          tension: .2,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#007DA8',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(26,26,26,.92)',
+            titleFont: { family: 'Heebo', size: 13 },
+            bodyFont: { family: 'Heebo', size: 14, weight: '600' },
+            padding: 10, displayColors: false, textDirection: 'rtl',
+            callbacks: {
+              title: function (it) { return heb(ih[it[0].dataIndex].d); },
+              label: function (it) { return num(it.parsed.y, 2) + ' נקודות'; }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: { family: 'Heebo', size: 11 }, color: '#999',
+              maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
+              callback: function (v, i) { return ih[i].d.slice(5, 7) + '/' + ih[i].d.slice(2, 4); }
+            },
+            grid: { display: false }, border: { color: '#E2E0DC' }
+          },
+          y: {
+            position: 'right',
+            ticks: {
+              font: { family: 'Heebo', size: 11 }, color: '#999',
+              callback: function (v) { return num(v, 0); }
+            },
+            grid: { color: '#EEE' }, border: { display: false }
+          }
+        }
+      },
+      plugins: [crosshair]
+    });
+  }
+
+  /* --- תשואה שנתית ממוצעת (גיאומטרית) לפי מועד הכניסה --- */
+  var MIN_YEARS = 1;   // בלי מינימום החזקה, הקצה הימני הופך לרעש
+  var ent = [];
+  if (ih.length > 1) {
+    var end = ih[ih.length - 1], endT = new Date(end.d).getTime();
+    for (var k = 0; k < ih.length - 1; k++) {
+      var yrsK = (endT - new Date(ih[k].d).getTime()) / (365.2425 * 864e5);
+      if (yrsK < MIN_YEARS) continue;
+      ent.push({ d: ih[k].d, y: yrsK, c: (Math.pow(end.v / ih[k].v, 1 / yrsK) - 1) * 100 });
+    }
+  }
+
+  if (ent.length > 2) {
+    var eMin = ent.reduce(function (a2, b2) { return b2.c < a2.c ? b2 : a2; });
+    var eMax = ent.reduce(function (a2, b2) { return b2.c > a2.c ? b2 : a2; });
+    var neg = ent.filter(function (x) { return x.c < 0; }).length;
+
+    document.getElementById('entHint').textContent =
+      'לכל חודש בציר: התשואה השנתית הממוצעת שהניב מדד ת"א 125 למי שנכנס בסופו והחזיק עד ' +
+      heb(end.d) + '. מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית, ולא בממוצע חשבוני של תשואות שנתיות. ' +
+      'נכללים רק מועדי כניסה עם החזקה של שנה לפחות.';
+
+    document.getElementById('entNote').textContent =
+      'הטווח: מ-' + num(eMin.c, 1) + '% לשנה למי שנכנס ' + heb(eMin.d).replace(/^\d+ /, '') +
+      ' (החזקה של ' + num(eMin.y, 1) + ' שנים) ועד ' + num(eMax.c, 1) + '% לשנה למי שנכנס ' +
+      heb(eMax.d).replace(/^\d+ /, '') + ' (החזקה של ' + num(eMax.y, 1) + ' שנים). ' +
+      (neg === 0
+        ? 'בכל מועדי הכניסה בתקופה הנמדדת התשואה השנתית הממוצעת הייתה חיובית. '
+        : 'ב-' + neg + ' ממועדי הכניסה התשואה השנתית הממוצעת הייתה שלילית. ') +
+      (eMin.d === ent[0].d
+        ? 'שימו לב שדווקא מי שהחזיק הכי הרבה זמן קיבל את התשואה הנמוכה ביותר: המדד סיים את התקופה סמוך לשיא, ולכן ככל שהכניסה מאוחרת יותר כך התשואה השנתית גבוהה יותר. '
+        : 'שימו לב שהתשואה הנמוכה ביותר אינה דווקא של מי שהחזיק הכי הרבה זמן: מי שנכנס בתחילת התקופה, ' +
+          heb(ent[0].d).replace(/^\d+ /, '') + ', קיבל ' + num(ent[0].c, 1) +
+          '% לשנה — יותר ממי שנכנס ' + heb(eMin.d).replace(/^\d+ /, '') +
+          ' והחזיק ' + num(eMin.y, 1) + ' שנים. מועד הכניסה, ובעיקר רמת המחירים בו, משנה את התוצאה גם על פני שני עשורים. ') +
+      'החישוב מבוסס על רמת המדד, שהוא מדד תשואה כוללת ולכן כולל גם דיבידנדים. ' +
+      'התקופה מסתיימת בנקודה גבוהה, וזה מטה את כל התשואות שבגרף כלפי מעלה. תשואות עבר אינן מעידות על העתיד.';
+
+    if (window.Chart) {
+      new Chart(document.getElementById('entChart'), {
+        type: 'line',
+        data: {
+          labels: ent.map(function (p) { return p.d; }),
+          datasets: [{
+            label: 'תשואה שנתית',
+            data: ent.map(function (p) { return p.c; }),
+            borderColor: '#007DA8',
+            backgroundColor: 'rgba(0,125,168,.10)',
+            borderWidth: 2, fill: true, tension: .2,
+            pointRadius: 0, pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#007DA8',
+            pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(26,26,26,.92)',
+              titleFont: { family: 'Heebo', size: 13 },
+              bodyFont: { family: 'Heebo', size: 14, weight: '600' },
+              padding: 10, displayColors: false, textDirection: 'rtl',
+              callbacks: {
+                title: function (it) { return 'כניסה ב-' + heb(ent[it[0].dataIndex].d); },
+                label: function (it) {
+                  var p = ent[it.dataIndex];
+                  return num(p.c, 1) + '% לשנה · החזקה ' + num(p.y, 1) + ' שנים';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                font: { family: 'Heebo', size: 11 }, color: '#999',
+                maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
+                callback: function (v, i) { return ent[i].d.slice(5, 7) + '/' + ent[i].d.slice(2, 4); }
+              },
+              grid: { display: false }, border: { color: '#E2E0DC' }
+            },
+            y: {
+              position: 'right', suggestedMin: 0,
+              ticks: {
+                font: { family: 'Heebo', size: 11 }, color: '#999',
+                callback: function (v) { return num(v, 0) + '%'; }
+              },
+              grid: { color: '#EEE' }, border: { display: false }
+            }
+          }
+        },
+        plugins: [crosshair]
+      });
+    }
+  } else {
+    document.getElementById('entCard').style.display = 'none';
+  }
+
+  /* --- גרף: רק כשיש מספיק נקודות --- */
+  var need = D.minPointsForChart || 12;
+  var h = D.history || [];
+  if (h.length >= need && window.Chart) {
+    document.getElementById('chartCard').style.display = 'block';
+    new Chart(document.getElementById('trend'), {
+      type: 'line',
+      data: {
+        labels: h.map(function (p) { return shortDate(p.d); }),
+        datasets: [
+          { label: 'מכפיל משוקלל', data: h.map(function (p) { return p.pe; }),
+            borderColor: '#007DA8', backgroundColor: 'rgba(0,125,168,.08)', fill: true, tension: .25, pointRadius: 2 },
+          { label: 'חציון', data: h.map(function (p) { return p.median; }),
+            borderColor: '#8A8A8A', borderDash: [5, 4], fill: false, tension: .25, pointRadius: 0 }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Heebo' } } } },
+        scales: {
+          x: { ticks: { font: { family: 'Heebo' } }, grid: { display: false } },
+          y: { ticks: { font: { family: 'Heebo' } }, grid: { color: '#EEE' } }
+        }
+      }
+    });
+  }
+
+  /* --- רענון המספרים בתוך ה-FAQ הסטטי --- */
+  var F = {
+    date:  heb(D.dataDate),
+    pe125: num(all.pe, 1), med125: num(all.median, 1),
+    pe35:  num(big.pe, 1), med35:  num(big.median, 1),
+    pe90:  num(mid.pe, 1), med90:  num(mid.median, 1)
+  };
+
+  /* --- נתוני המדד ל-FAQ, מחושבים מהסדרה עצמה --- */
+  if (ih.length > 1) {
+    var L = ih[ih.length - 1], S = ih[0];
+    var yr = L.d.slice(0, 4);
+
+    // מתחילת השנה: הנקודה האחרונה של דצמבר הקודם
+    var prevDec = null;
+    for (var a = 0; a < ih.length; a++) {
+      if (ih[a].d.slice(0, 7) === (yr - 1) + '-12') prevDec = ih[a];
+    }
+    if (prevDec) {
+      var ytd = (L.v / prevDec.v - 1) * 100;
+      F.ytdYear = yr; F.ytdYear2 = String(yr - 1);
+      F.ytdDir = ytd >= 0 ? 'עלה' : 'ירד';
+      F.ytd = num(Math.abs(ytd), 1) + '%';
+      F.ytdFrom = num(prevDec.v, 2);
+    }
+
+    // N שנים אחורה — הנקודה הקרובה ביותר לתאריך היעד
+    function backN(n) {
+      var t = new Date(L.d); t.setFullYear(t.getFullYear() - n);
+      var b = ih.reduce(function (b2, p) {
+        return Math.abs(new Date(p.d) - t) < Math.abs(new Date(b2.d) - t) ? p : b2;
+      }, ih[0]);
+      var y = (new Date(L.d) - new Date(b.d)) / (365.2425 * 864e5);
+      if (y < n * 0.9) return null;
+      return { yrs: y, chg: (L.v / b.v - 1) * 100, cagr: (Math.pow(L.v / b.v, 1 / y) - 1) * 100 };
+    }
+    [10, 20].forEach(function (n) {
+      var r = backN(n);
+      if (!r) return;
+      F['r' + n + 'Dir'] = r.chg >= 0 ? 'עלה' : 'ירד';
+      F['r' + n] = num(Math.abs(r.chg), 0) + '%';
+      F['cagr' + n] = num(r.cagr, 1) + '%';
+    });
+
+    var pk = ih.reduce(function (a2, b2) { return b2.v > a2.v ? b2 : a2; });
+    F.peak = num(pk.v, 0); F.peakDate = heb(pk.d);
+    F.fromPeak = num(Math.abs((L.v / pk.v - 1) * 100), 1) + '%';
+    F.lastVal = num(L.v, 2);
+    F.firstDate = MONTHS[+S.d.slice(5, 7) - 1].replace('ב', '') + ' ' + S.d.slice(0, 4);
+    F.nPoints = String(ih.length);
+  }
+  document.querySelectorAll('#faq [data-f]').forEach(function (el) {
+    var v = F[el.getAttribute('data-f')];
+    if (v !== undefined) el.textContent = v;
+  });
+
+  /* --- סכימת FAQPage נבנית מהטקסט המוצג בפועל, כדי שלא תסתור אותו --- */
+  var ld = document.getElementById('faqSchema');
+  if (ld) {
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': [...document.querySelectorAll('#faq details.faq')].map(function (d) {
+        return {
+          '@type': 'Question',
+          'name': d.querySelector('summary').textContent.trim(),
+          'acceptedAnswer': { '@type': 'Answer', 'text': d.querySelector('.body').textContent.replace(/\s+/g, ' ').trim() }
+        };
+      })
+    });
+  }
+
+  document.getElementById('definition').textContent =
+    'רווח נקי מיוחס לבעלי המניות ב-12 החודשים האחרונים המדווחים, משוקלל לפי משקל החברה במדד. ' +
+    'חברות הפסדיות נכללות בחישוב. נכון לנעילת ' + heb(D.dataDate) + '.';
+
+  /* --- כפתור עדכון --- */
+  var CMD = 'הרץ את הסקיל tase-pe-update — עדכן את דף מכפיל הרווח של מדדי ת"א באתר.';
+  /* כפתור העדכון הוא כלי פנימי — מוצג רק לבעל האתר (?draft=1) או בתצוגת המוקאפ */
+  var btn = document.getElementById('refreshBtn');
+  var owner = false;
+  try { owner = window.__pensyaOwner === true
+              || localStorage.getItem('pensyaDraftMode') === '1'
+              || location.protocol === 'file:'; } catch (e) { owner = location.protocol === 'file:'; }
+  if (owner) btn.style.display = 'block';
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(CMD).then(function () {
+      btn.textContent = '✓ הפקודה הועתקה — הדביקו בשיחה עם Claude';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'עדכן נתונים'; btn.classList.remove('done'); }, 4000);
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('hamburger');
+  var nav=document.querySelector('.nav');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!nav)return;
+  function toggle(open){btn.classList.toggle('open',open);nav.classList.toggle('open',open);if(overlay)overlay.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));}
+  btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
+  if(overlay)overlay.addEventListener('click',function(){toggle(false);});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>
