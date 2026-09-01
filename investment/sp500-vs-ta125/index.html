@@ -181,6 +181,24 @@ ul.caveats li:last-child{margin-bottom:0}
 ul.caveats li::before{content:'';position:absolute;inset-inline-start:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary)}
 ul.caveats li b{color:var(--text-1)}
 
+/* כותרת משנה + סמן נקודת הסיום (זהה לדף /investment/tase-pe/) */
+.card .entsub{color:var(--text-2);font-size:15px;margin:0 0 8px}
+.ctl{margin:16px 0 0}
+.ctl-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--text-2);margin-bottom:6px}
+.ctl-head output{font-weight:700;color:var(--text-1);font-variant-numeric:tabular-nums}
+.ctl button{font-family:inherit;font-size:13px;color:var(--primary);background:var(--primary-soft);border:0;border-radius:999px;padding:5px 12px;cursor:pointer}
+.ctl button:hover{background:#CFEAF6}
+.ctl input[type=range]{direction:ltr;display:block;width:100%;height:22px;margin:0;padding:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:pan-y}
+.ctl input[type=range]:focus{outline:none}
+.ctl input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:var(--border)}
+.ctl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.ctl input[type=range]::-moz-range-track{height:4px;border-radius:999px;background:var(--border)}
+.ctl input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.ctl input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(0,125,168,.28)}
+.ctl input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(0,125,168,.28)}
+.ctl-track{transition:padding .15s}
+.ctl-scale{display:flex;justify-content:space-between;direction:ltr;font-size:12px;color:var(--text-meta);margin-top:1px}
+
 .card p+p{margin-top:12px}
 .card p{color:var(--text-2)}
 .card h3{font-size:16px;margin:18px 0 6px;color:var(--text-1)}
@@ -370,16 +388,29 @@ ul.caveats li b{color:var(--text-1)}
 
   <!-- ===== גרף ראשי: תשואה לפי חודש כניסה ===== -->
   <section class="card" id="entryCard">
-    <h2>התשואה השנתית הממוצעת עד היום, לפי חודש הכניסה</h2>
+    <h2 id="entTitle">מה היתה התשואה של משקיע — S&amp;P 500 בשקלים מול ת"א 125</h2>
+    <p class="entsub">חישוב תשואה שנתית ממוצעת בהתאם לנקודות התחלה וסיום</p>
     <p class="hint" id="entHint"></p>
     <div class="trend-box"><canvas id="entChart"></canvas></div>
+    <div class="ctl" id="entCtl">
+      <div class="ctl-head">
+        <label for="entEnd">נקודת הסיום של המדידה:</label>
+        <output id="entEndVal" for="entEnd"></output>
+        <button type="button" id="entReset" hidden>חזרה לתאריך העדכני</button>
+      </div>
+      <div class="ctl-track" id="entTrack">
+        <input type="range" id="entEnd" min="0" max="1" step="1" value="1"
+               aria-label="הזזת נקודת הסיום של המדידה על ציר הזמן">
+        <div class="ctl-scale"><span id="entScaleMin"></span><span id="entScaleMax"></span></div>
+      </div>
+    </div>
     <p class="chart-note" id="entNote"></p>
   </section>
 
   <!-- ===== טבלת חלונות ===== -->
   <section class="card">
     <h2>אותה השוואה, חלונות שונים</h2>
-    <p class="hint">התשואה השנתית הממוצעת עד <span id="asOf2"></span>, לפי אורך ההחזקה.</p>
+    <p class="hint">התשואה השנתית הממוצעת עד <span id="asOf2"></span>, לפי אורך ההחזקה. הטבלה נעה יחד עם הסמן שבגרף למעלה.</p>
     <div class="tbl-wrap">
       <table class="win">
         <thead>
@@ -630,14 +661,23 @@ ul.caveats li b{color:var(--text-1)}
   function hebMY(iso){ var p = iso.split('-'); return MONTHS[(+p[1]) - 1].replace(/^ב/,'') + ' ' + p[0]; }
   function num(x, d){ return x.toLocaleString('he-IL', { minimumFractionDigits: d, maximumFractionDigits: d }); }
   function pct(x, d){ return num(x, d === undefined ? 1 : d) + '%'; }
+  function median(a) {
+    if (!a.length) return null;
+    var b = a.slice().sort(function (x, y) { return x - y; }), m = b.length >> 1;
+    return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2;
+  }
 
-  // ROWS: [date, spUsd(=100 base), spIls(=100 base), ta(=100 base), fx]
+  // ROWS: [date, spUsd(base 100), spIls(base 100), ta(base 100), fx]
   var S = ROWS.map(function (r) { return { d: r[0], su: r[1], si: r[2], ta: r[3], fx: r[4] }; });
-  var first = S[0], last = S[S.length - 1];
-  var DAY = 864e5, YR = 365.2425 * DAY;
+  var first = S[0], last = S[S.length - 1], LAST = S.length - 1;
+  var YR = 365.2425 * 864e5;
   function yrsBetween(a, b) { return (new Date(b).getTime() - new Date(a).getTime()) / YR; }
   function cagr(v0, v1, y) { return (Math.pow(v1 / v0, 1 / y) - 1) * 100; }
 
+  /* ============================================================
+     בלוק התשובה שבראש הדף מעוגן תמיד לנקודה העדכנית ומצהיר על כך
+     במפורש. הסמן שבגרף משנה רק את המדידות שסביבו.
+     ============================================================ */
   var fullY = yrsBetween(first.d, last.d);
   var cTaFull = cagr(first.ta, last.ta, fullY);
   var cSpIlsFull = cagr(first.si, last.si, fullY);
@@ -647,7 +687,6 @@ ul.caveats li b{color:var(--text-1)}
 
   document.getElementById('pageUpdated').textContent = 'עודכן: ' + heb(META.updated);
   document.getElementById('asOf').textContent = heb(last.d);
-  document.getElementById('asOf2').textContent = heb(last.d);
   document.getElementById('asOfYears').textContent = num(fullY, 1) + ' שנים';
   document.getElementById('nTa').textContent = pct(cTaFull);
   document.getElementById('nSpUsd').textContent = pct(cSpUsdFull);
@@ -656,111 +695,59 @@ ul.caveats li b{color:var(--text-1)}
   document.getElementById('nSpUsdMult').textContent = 'פי ' + num(last.su / 100, 1) + ' על הכסף';
   document.getElementById('nSpIlsMult').textContent = 'פי ' + num(last.si / 100, 1) + ' על הכסף';
 
-  /* ---------- חלונות ---------- */
-  var WINDOWS = [3, 5, 10, 15, 20, 25];
-  var win = [];
-  WINDOWS.forEach(function (w) {
-    var i = S.length - 1 - w * 12;
-    if (i < 0) return;
-    var p = S[i], y = yrsBetween(p.d, last.d);
-    win.push({ w: w, from: p.d, y: y, sp: cagr(p.si, last.si, y), ta: cagr(p.ta, last.ta, y) });
-  });
-  var W = {};
-  win.forEach(function (r) { W[r.w] = r; });
-
+  var W15 = (function () {
+    var i = LAST - 15 * 12;
+    if (i < 0) return null;
+    var y = yrsBetween(S[i].d, last.d);
+    return { sp: cagr(S[i].si, last.si, y), ta: cagr(S[i].ta, last.ta, y) };
+  })();
   document.getElementById('flipNote').innerHTML =
     'בדולרים שני המדדים הניבו כמעט אותו דבר. הפער השקלי כולו נוצר משער החליפין — ' +
     '<b>' + num(fxCost, 1) + ' נקודות אחוז בשנה</b>. ' +
-    (W[15] ? 'ובחלון קצר יותר התמונה מתהפכת: ב-15 השנים האחרונות ה-S&amp;P 500 בשקלים הניב <b>' +
-      pct(W[15].sp) + '</b> בשנה מול <b>' + pct(W[15].ta) + '</b> לת"א 125.' : '');
+    (W15 ? 'ובחלון קצר יותר התמונה מתהפכת: ב-15 השנים האחרונות ה-S&amp;P 500 בשקלים הניב <b>' +
+      pct(W15.sp) + '</b> בשנה מול <b>' + pct(W15.ta) + '</b> לת"א 125.' : '');
 
-  function gapCell(g) {
-    var who = g >= 0 ? 'ת"א 125 מוביל' : 'S&amp;P 500 מוביל';
-    return '<td class="gap"><span class="g"><span class="who">' + who + '</span>' +
-           '<span class="amt">+' + num(Math.abs(g), 1) + '</span></span></td>';
-  }
-  function winRow(label, ta, sp, cls) {
-    return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' +
-           '<td class="v-ta">' + pct(ta) + '</td>' +
-           '<td class="v-sp">' + pct(sp) + '</td>' + gapCell(ta - sp) + '</tr>';
-  }
-  var rowsHtml = win.map(function (r) {
-    return winRow(r.w === 1 ? 'שנה' : r.w + ' שנים', r.ta, r.sp);
-  }).join('');
-  rowsHtml += winRow(num(fullY, 1) + ' שנים (מ-2000)', cTaFull, cSpIlsFull, 'total');
-  document.getElementById('winBody').innerHTML = rowsHtml;
-
-  document.getElementById('winNote').textContent =
-    'כל שורה נמדדת עד אותו יום ומשתנה רק בנקודת הפתיחה. ההפרש בין השורות גדול מההפרש בין העמודות — ' +
-    'זו הסיבה שאותם נתונים בדיוק יכולים לשמש כראיה לשני הצדדים של הוויכוח. ' +
-    'החלונות הקצרים נשלטים על ידי העלייה החדה בבורסה בתל אביב מאז 2024, והארוכים על ידי העשור האמריקאי החזק שקדם לה.';
-
-  /* ---------- תשואה לפי חודש כניסה ---------- */
-  /* סף ההחזקה נקבע על חמש שנים: מתחת לזה "תשואה שנתית ממוצעת" היא בעצם תשואה של
-     שנה או שנתיים, והקצה הימני של הגרף מוחק ויזואלית את כל שני העשורים שלפניו. */
-  var MIN_YEARS = 5;
-  function entriesFrom(minY) {
-    var out = [];
-    for (var k = 0; k < S.length - 1; k++) {
-      var y = yrsBetween(S[k].d, last.d);
-      if (y < minY) continue;
-      out.push({ d: S[k].d, y: y, sp: cagr(S[k].si, last.si, y), ta: cagr(S[k].ta, last.ta, y) });
+  /* ============================================================
+     קווי החציון — אחד לכל סדרה. תוסף מקומי; אין תלות חיצונית.
+     ============================================================ */
+  var medState = { lines: [] };
+  var medianLine = {
+    id: 'medianLine',
+    afterDatasetsDraw: function (c) {
+      if (!c.scales.y) return;
+      var a = c.chartArea, g = c.ctx;
+      var items = medState.lines
+        .filter(function (L) { return L.v !== null && L.v !== undefined; })
+        .map(function (L) { return { L: L, y: c.scales.y.getPixelForValue(L.v) }; })
+        .filter(function (o) { return o.y >= a.top && o.y <= a.bottom; })
+        .sort(function (p, q) { return p.y - q.y; });
+      var used = [];
+      g.save();
+      items.forEach(function (o) {
+        g.setLineDash([5, 4]); g.lineWidth = 1.5; g.strokeStyle = o.L.color + '99';
+        g.beginPath(); g.moveTo(a.left, o.y); g.lineTo(a.right, o.y); g.stroke();
+        g.setLineDash([]);
+        /* התווית ממורכזת אנכית על הקו שלה עצמו. כששני קווים קרובים,
+           ההסטה היא אופקית ולא אנכית — אחרת התווית נודדת אל הקו השני. */
+        var txt = 'חציון ' + o.L.name + ' ' + num(o.L.v, 1) + '%';
+        g.font = '600 12px Heebo, sans-serif';
+        var w = g.measureText(txt).width + 10, h = 17;
+        var top = o.y - h / 2, x = a.left + 2;
+        used.forEach(function (u) {
+          if (top < u.bottom && top + h > u.top) x = Math.max(x, u.right + 8);
+        });
+        if (x + w > a.right) x = Math.max(a.left + 2, a.right - w);
+        used.push({ top: top, bottom: top + h, right: x + w });
+        g.fillStyle = 'rgba(255,255,255,.9)';
+        g.fillRect(x, top, w, h);
+        g.fillStyle = o.L.color;
+        g.textAlign = 'left'; g.textBaseline = 'middle';
+        g.fillText(txt, x + 5, o.y);
+      });
+      g.restore();
     }
-    return out;
-  }
-  function tally(list) {
-    var t = list.filter(function (p) { return p.ta > p.sp; }).length;
-    return { n: list.length, ta: t, sp: list.length - t };
-  }
-  var ent = entriesFrom(MIN_YEARS);
-  var cnt5 = tally(ent), cnt1 = tally(entriesFrom(1));
-  var taWins = cnt5.ta, spWins = cnt5.sp;
+  };
 
-  // גושים רצופים של הובלה
-  var runs = [], cur = null;
-  ent.forEach(function (p) {
-    var who = p.ta > p.sp ? 'ta' : 'sp';
-    if (cur && cur.who === who) { cur.to = p.d; cur.n++; }
-    else { if (cur) runs.push(cur); cur = { who: who, from: p.d, to: p.d, n: 1 }; }
-  });
-  if (cur) runs.push(cur);
-  var lastRunFrom = runs.length ? runs[runs.length - 1].from : null;
-  var bigRuns = runs.slice().sort(function (a, b) { return b.n - a.n; }).slice(0, 3)
-                    .sort(function (a, b) { return a.from < b.from ? -1 : 1; });
-
-  document.getElementById('entHint').textContent =
-    'לכל חודש בציר: התשואה השנתית הממוצעת שקיבל מי שנכנס בסופו והחזיק עד ' + heb(last.d) + '. ' +
-    'מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית. ' +
-    'נכללים מועדי כניסה עם החזקה של חמש שנים לפחות; מתחת לזה "תשואה שנתית ממוצעת" היא פשוט התשואה של השנה האחרונה.';
-
-  var runTxt = bigRuns.map(function (r) {
-    var name = r.who === 'ta' ? 'ת"א 125' : 'S&P 500 בשקלים';
-    return name + ' — כניסות מ' + hebMY(r.from) + (r.from === lastRunFrom ? ' ואילך' : ' עד ' + hebMY(r.to));
-  }).join('; ');
-
-  document.getElementById('entNote').textContent =
-    'מתוך ' + cnt5.n + ' חודשי הכניסה שבגרף, S&P 500 בשקלים הוביל ב-' + cnt5.sp + ' ות"א 125 ב-' + cnt5.ta + '. ' +
-    'הצורה חשובה מהספירה: ההובלה מתחלפת בגושים ארוכים ורצופים ולא באופן אקראי (' + runTxt + '), ' +
-    'ולכן השאלה המעשית היא פחות "איזה מדד" ויותר "באיזה עשור נכנסתם". ' +
-    'הספירה עצמה שברירית — אם מורידים את סף ההחזקה לשנה אחת היא מתהפכת, ' +
-    'ל-' + cnt1.ta + ' לת"א 125 מול ' + cnt1.sp + ' ל-S&P. ' +
-    'שתי הסדרות ברוטו, לפני דמי ניהול ומס. תשואות עבר אינן מעידות על העתיד.';
-
-  /* ---------- שיא ---------- */
-  var pkTa = S.reduce(function (a, b) { return b.ta > a.ta ? b : a; });
-  var pkSp = S.reduce(function (a, b) { return b.si > a.si ? b : a; });
-  var fromPkTa = (last.ta / pkTa.ta - 1) * 100;
-  var fromPkSp = (last.si / pkSp.si - 1) * 100;
-  document.getElementById('peakNote').textContent =
-    (Math.abs(fromPkSp) < 0.05
-      ? 'ה-S&P 500 בשקלים סוגר את התקופה בשיא שלו, '
-      : 'ה-S&P 500 בשקלים נמצא ' + pct(Math.abs(fromPkSp)) + ' מתחת לשיא שלו, ') +
-    (Math.abs(fromPkTa) < 0.05
-      ? 'וכך גם ת"א 125. '
-      : 'ות"א 125 נמצא ' + pct(Math.abs(fromPkTa)) + ' מתחת לשיא שלו מ' + hebMY(pkTa.d) + '. ') +
-    'יום סיום אחר היה מזיז את כל המספרים.';
-
-  /* ---------- גרפים ---------- */
   var crosshair = {
     id: 'crosshair',
     afterDatasetsDraw: function (c) {
@@ -771,10 +758,12 @@ ul.caveats li b{color:var(--text-1)}
       g.lineWidth = 1; g.strokeStyle = 'rgba(26,26,26,.3)'; g.stroke(); g.restore();
     }
   };
+
   var FONT = { family: 'Heebo', size: 12 };
-  function baseOpts(labels, yFmt, titleFn, labelFn, showLegend) {
+  function baseOpts(getLabels, yFmt, titleFn, labelFn, showLegend) {
     return {
       maintainAspectRatio: false,
+      animation: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: showLegend === false ? { display: false } : {
@@ -793,7 +782,7 @@ ul.caveats li b{color:var(--text-1)}
       scales: {
         x: {
           ticks: { font: FONT, color: '#999', maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
-                   callback: function (v, i) { return labels[i].slice(5, 7) + '/' + labels[i].slice(2, 4); } },
+                   callback: function (v, i) { var L = getLabels(); return L[i] ? L[i].slice(5, 7) + '/' + L[i].slice(2, 4) : ''; } },
           grid: { display: false }, border: { color: '#E2E0DC' }
         },
         y: {
@@ -811,22 +800,204 @@ ul.caveats li b{color:var(--text-1)}
              pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2 };
   }
 
-  if (window.Chart && ent.length > 2) {
-    var eLab = ent.map(function (p) { return p.d; });
-    new Chart(document.getElementById('entChart'), {
+  /* ============================================================
+     הגרף הראשי — תשואה לפי חודש כניסה, עם נקודת סיום נבחרת
+     ============================================================ */
+  var MIN_YEARS = 1;   // בלי מינימום החזקה הקצה הימני הופך לרעש
+  var MIN_HIST  = 24;  // כמה חודשים לפחות חייבים להיות לפני נקודת סיום נבחרת
+  var WITHHOLD  = Math.round((META.withholding || 0.15) * 100);
+
+  var entChart = null, ent = [];
+  var entSel = document.getElementById('entEnd');
+  var entReset = document.getElementById('entReset');
+  var entTrack = document.getElementById('entTrack');
+
+  function buildEnt(endIdx) {
+    var e = S[endIdx], out = [];
+    for (var k = 0; k < endIdx; k++) {
+      var y = yrsBetween(S[k].d, e.d);
+      if (y < MIN_YEARS) continue;
+      out.push({ d: S[k].d, y: y, sp: cagr(S[k].si, e.si, y), ta: cagr(S[k].ta, e.ta, y) });
+    }
+    return out;
+  }
+  function peakGap(key, endIdx) {
+    var pk = S[0][key];
+    for (var q = 1; q <= endIdx; q++) if (S[q][key] > pk) pk = S[q][key];
+    return (S[endIdx][key] / pk - 1) * 100;
+  }
+  function peakPhrase(g) {
+    return g > -0.05 ? 'בשיא שלה' : num(-g, 0) + '% מתחת לשיא שקדם לה';
+  }
+
+  /* ---- טבלת החלונות, נעה יחד עם נקודת הסיום ---- */
+  var WINDOWS = [3, 5, 10, 15, 20, 25];
+  function gapCell(g) {
+    var who = g >= 0 ? 'ת"א 125 מוביל' : 'S&amp;P 500 מוביל';
+    return '<td class="gap"><span class="g"><span class="who">' + who + '</span>' +
+           '<span class="amt">+' + num(Math.abs(g), 1) + '</span></span></td>';
+  }
+  function winRow(label, ta, sp, cls) {
+    return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' +
+           '<td class="v-ta">' + pct(ta) + '</td>' +
+           '<td class="v-sp">' + pct(sp) + '</td>' + gapCell(ta - sp) + '</tr>';
+  }
+  function renderTable(endIdx) {
+    var e = S[endIdx], html = '';
+    WINDOWS.forEach(function (w) {
+      var i = endIdx - w * 12;
+      if (i < 0) return;
+      var y = yrsBetween(S[i].d, e.d);
+      html += winRow(w + ' שנים', cagr(S[i].ta, e.ta, y), cagr(S[i].si, e.si, y));
+    });
+    var yF = yrsBetween(first.d, e.d);
+    html += winRow(num(yF, 1) + ' שנים (מ-2000)', cagr(first.ta, e.ta, yF), cagr(first.si, e.si, yF), 'total');
+    document.getElementById('winBody').innerHTML = html;
+    document.getElementById('asOf2').textContent = heb(e.d);
+  }
+
+  function renderEnd(endIdx) {
+    var e = S[endIdx], isLast = (endIdx === LAST);
+    ent = buildEnt(endIdx);
+    if (ent.length < 3) return;
+
+    var spArr = ent.map(function (p) { return p.sp; });
+    var taArr = ent.map(function (p) { return p.ta; });
+    var medSp = median(spArr), medTa = median(taArr);
+    medState.lines = [
+      { v: medTa, color: C_TA, name: 'ת"א 125' },
+      { v: medSp, color: C_SP, name: 'S&P 500 ₪' }
+    ];
+
+    var taWinArr = ent.filter(function (p) { return p.ta > p.sp; });
+    var spWinArr = ent.filter(function (p) { return p.ta <= p.sp; });
+    var taWins = taWinArr.length, spWins = spWinArr.length;
+    /* החציון וספירת החודשים יכולים להצביע לכיוונים מנוגדים. כשזה קורה,
+       ההסבר הוא אורך ההחזקה שבו מרוכזים הניצחונות — וזה נגזר מהנתונים. */
+    var medWinner = medTa > medSp ? 'ta' : 'sp';
+    var cntWinner = taWins > spWins ? 'ta' : 'sp';
+    var splitTxt = '';
+    if (medWinner !== cntWinner && taWinArr.length && spWinArr.length) {
+      var yTa = median(taWinArr.map(function (p) { return p.y; }));
+      var ySp = median(spWinArr.map(function (p) { return p.y; }));
+      splitTxt = 'שני המדדים האלה מצביעים לכיוונים מנוגדים, וזה עצמו המידע: ' +
+        (cntWinner === 'ta' ? 'ת"א 125' : 'ה-S&P') + ' מוביל ביותר חודשים, אבל ' +
+        (medWinner === 'ta' ? 'ת"א 125' : 'ה-S&P') + ' מוביל בחציון. ' +
+        'ההובלה בספירה מרוכזת בהחזקות קצרות יותר — חציון של ' +
+        num(cntWinner === 'ta' ? yTa : ySp, 1) + ' שנים, מול ' +
+        num(cntWinner === 'ta' ? ySp : yTa, 1) + ' שנים בצד השני. ';
+    }
+    var minTa = ent.reduce(function (a, b) { return b.ta < a.ta ? b : a; });
+    var maxTa = ent.reduce(function (a, b) { return b.ta > a.ta ? b : a; });
+    var minSp = ent.reduce(function (a, b) { return b.sp < a.sp ? b : a; });
+    var maxSp = ent.reduce(function (a, b) { return b.sp > a.sp ? b : a; });
+    var gapMed = medTa - medSp;
+
+    var gTa = peakGap('ta', endIdx), gSp = peakGap('si', endIdx);
+    var biasTxt =
+      (gTa > -10 && gSp > -10)
+        ? 'נקודת הסיום הנבחרת קרובה לשיא בשתי הסדרות (ת"א 125 ' + peakPhrase(gTa) + ', S&P 500 בשקלים ' + peakPhrase(gSp) + '), וזה מטה את כל התשואות שבגרף כלפי מעלה. '
+        : (gTa < -25 && gSp < -25)
+          ? 'נקודת הסיום הנבחרת נמוכה בהרבה מהשיא בשתי הסדרות (ת"א 125 ' + peakPhrase(gTa) + ', S&P 500 בשקלים ' + peakPhrase(gSp) + '), וזה מטה את כל התשואות שבגרף כלפי מטה. '
+          : 'בנקודת הסיום הנבחרת ת"א 125 ' + peakPhrase(gTa) + ', ו-S&P 500 בשקלים ' + peakPhrase(gSp) + '. ' +
+            (Math.abs(gTa - gSp) > 10
+              ? 'הפער בין השניים אינו סימטרי, ולכן נקודת הסיום עצמה מטיבה כאן עם ' + (gTa > gSp ? 'ת"א 125' : 'ה-S&P') + '. '
+              : '');
+
+    document.getElementById('entHint').textContent =
+      'לכל חודש בציר: התשואה השנתית הממוצעת שקיבל מי שנכנס בסופו והחזיק עד ' + heb(e.d) + '. ' +
+      'הזיזו את הסמן שמתחת לגרף כדי לבחור נקודת סיום אחרת. ' +
+      'נכללים מועדי כניסה עם החזקה של שנה לפחות.';
+
+    document.getElementById('entNote').textContent =
+      'החציון: ' + pct(medTa) + ' לשנה לת"א 125 מול ' + pct(medSp) + ' ל-S&P 500 בשקלים — פער של ' +
+      num(Math.abs(gapMed), 1) + ' נקודות אחוז לטובת ' + (gapMed >= 0 ? 'המדד הישראלי' : 'המדד האמריקאי') + '. ' +
+      'מתוך ' + ent.length + ' חודשי כניסה, ת"א 125 הוביל ב-' + taWins + ' ו-S&P 500 בשקלים ב-' + spWins + '. ' +
+      splitTxt +
+      'הטווח של ת"א 125: מ-' + pct(minTa.ta) + ' לשנה למי שנכנס ' + hebMY(minTa.d) +
+      ' (החזקה של ' + num(minTa.y, 1) + ' שנים) ועד ' + pct(maxTa.ta) + ' למי שנכנס ' + hebMY(maxTa.d) +
+      ' (' + num(maxTa.y, 1) + ' שנים). הטווח של S&P 500 בשקלים: מ-' + pct(minSp.sp) + ' למי שנכנס ' +
+      hebMY(minSp.d) + ' (' + num(minSp.y, 1) + ' שנים) ועד ' + pct(maxSp.sp) + ' למי שנכנס ' +
+      hebMY(maxSp.d) + ' (' + num(maxSp.y, 1) + ' שנים). ' +
+      biasTxt +
+      (isLast ? '' : 'המספרים שבראש הדף נשארים על נקודת הסיום העדכנית. ') +
+      'החישוב הוא ממוצע גיאומטרי. שני המדדים הם תשואה כוללת בשקלים; ה-S&P 500 מוצג בניכוי מס דיבידנד אמריקאי של ' +
+      WITHHOLD + '%, והוא סדרה משוחזרת לצורך ההשוואה ולא מדד רשמי שמתפרסם בשם הזה. ' +
+      'תשואות עבר אינן מעידות על העתיד.';
+
+    renderTable(endIdx);
+    if (entReset) entReset.hidden = isLast;
+    if (!window.Chart) return;
+
+    if (entChart) {
+      entChart.data.labels = ent.map(function (p) { return p.d; });
+      entChart.data.datasets[0].data = taArr;
+      entChart.data.datasets[1].data = spArr;
+      entChart.update('none');
+      return;
+    }
+
+    entChart = new Chart(document.getElementById('entChart'), {
       type: 'line',
-      data: { labels: eLab, datasets: [
-        lineSet('ת"א 125', ent.map(function (p) { return p.ta; }), C_TA),
-        lineSet('S&P 500 בשקלים', ent.map(function (p) { return p.sp; }), C_SP)
+      data: { labels: ent.map(function (p) { return p.d; }), datasets: [
+        lineSet('ת"א 125', taArr, C_TA),
+        lineSet('S&P 500 בשקלים', spArr, C_SP)
       ] },
-      options: baseOpts(eLab, function (v) { return num(v, 0) + '%'; },
-        function (it) { return 'כניסה בסוף ' + hebMY(ent[it[0].dataIndex].d) + ' · החזקה ' + num(ent[it[0].dataIndex].y, 1) + ' שנים'; },
+      options: baseOpts(function () { return ent.map(function (p) { return p.d; }); },
+        function (v) { return num(v, 0) + '%'; },
+        function (it) { var p = ent[it[0].dataIndex]; return 'כניסה בסוף ' + hebMY(p.d) + ' · החזקה ' + num(p.y, 1) + ' שנים'; },
         function (it) { return it.dataset.label + ': ' + pct(it.parsed.y); }),
-      plugins: [crosshair]
+      plugins: [crosshair, medianLine]
     });
   }
 
-  /* קו ייחוס ברמת ההשקעה המקורית — כדי שהתקופה שמתחת לה תהיה נראית */
+  /* ---- חיווט הסמן ---- */
+  if (S.length > MIN_HIST + 2) {
+    var entOut = document.getElementById('entEndVal');
+    entSel.min = String(MIN_HIST);
+    entSel.max = String(LAST);
+    entSel.value = String(LAST);
+    document.getElementById('entScaleMin').textContent = S[MIN_HIST].d.slice(0, 4);
+    document.getElementById('entScaleMax').textContent = S[LAST].d.slice(0, 4);
+
+    /* עדכון סינכרוני במכוון: rAF אינו רץ בלשונית שאינה מצוירת,
+       ואז התווית הייתה מתעדכנת בלי הגרף. העדכון עצמו זול. */
+    var apply = function (i) {
+      var lbl = heb(S[i].d) + (i === LAST ? ' (עדכני)' : '');
+      entOut.textContent = lbl;
+      entSel.setAttribute('aria-valuetext', lbl);
+      renderEnd(i);
+    };
+    entSel.addEventListener('input', function () { apply(+entSel.value); });
+    if (entReset) entReset.addEventListener('click', function () {
+      entSel.value = String(LAST); apply(LAST); entSel.focus();
+    });
+
+    /* מיישרים את הסמן בדיוק לאזור הציור של הגרף — כך הוא נקרא כציר הזמן שלו */
+    var alignTrack = function () {
+      if (!entChart || !entChart.chartArea || !entTrack) return;
+      var a = entChart.chartArea;
+      entTrack.style.paddingLeft  = Math.max(0, a.left) + 'px';
+      entTrack.style.paddingRight = Math.max(0, entChart.width - a.right) + 'px';
+    };
+    window.addEventListener('resize', function () { setTimeout(alignTrack, 120); });
+
+    entOut.textContent = heb(S[LAST].d) + ' (עדכני)';
+    entSel.setAttribute('aria-valuetext', entOut.textContent);
+    renderEnd(LAST);
+    alignTrack();
+  } else {
+    document.getElementById('entryCard').style.display = 'none';
+    renderTable(LAST);
+  }
+
+  document.getElementById('winNote').textContent =
+    'כל שורה נמדדת עד אותו יום ומשתנה רק בנקודת הפתיחה. ההפרש בין השורות גדול מההפרש בין העמודות — ' +
+    'זו הסיבה שאותם נתונים בדיוק יכולים לשמש כראיה לשני הצדדים של הוויכוח.';
+
+  /* ============================================================
+     שני הגרפים הבאים מוצגים תמיד על התקופה המלאה
+     ============================================================ */
   var baseLine = {
     id: 'baseLine',
     beforeDatasetsDraw: function (c) {
@@ -844,13 +1015,14 @@ ul.caveats li b{color:var(--text-1)}
 
   if (window.Chart) {
     var gLab = S.map(function (p) { return p.d; });
+    var allLabels = function () { return gLab; };
     new Chart(document.getElementById('growthChart'), {
       type: 'line',
       data: { labels: gLab, datasets: [
         lineSet('ת"א 125', S.map(function (p) { return p.ta; }), C_TA),
         lineSet('S&P 500 בשקלים', S.map(function (p) { return p.si; }), C_SP)
       ] },
-      options: baseOpts(gLab, function (v) { return num(v, 0); },
+      options: baseOpts(allLabels, function (v) { return num(v, 0); },
         function (it) { return hebMY(S[it[0].dataIndex].d); },
         function (it) { return it.dataset.label + ': ' + num(it.parsed.y, 0) + ' ₪'; }),
       plugins: [crosshair, baseLine]
@@ -858,10 +1030,8 @@ ul.caveats li b{color:var(--text-1)}
 
     new Chart(document.getElementById('fxChart'), {
       type: 'line',
-      data: { labels: gLab, datasets: [
-        lineSet('דולר / שקל', S.map(function (p) { return p.fx; }), '#6E6A64')
-      ] },
-      options: baseOpts(gLab, function (v) { return num(v, 2); },
+      data: { labels: gLab, datasets: [ lineSet('דולר / שקל', S.map(function (p) { return p.fx; }), '#6E6A64') ] },
+      options: baseOpts(allLabels, function (v) { return num(v, 2); },
         function (it) { return hebMY(S[it[0].dataIndex].d); },
         function (it) { return num(it.parsed.y, 3) + ' ₪ לדולר'; }, false),
       plugins: [crosshair]
@@ -874,7 +1044,8 @@ ul.caveats li b{color:var(--text-1)}
     'מ-' + num(first.fx, 3) + ' שקלים לדולר בסוף ינואר 2000 ל-' + num(last.fx, 3) + ' שקלים ב-' + heb(last.d) +
     ' — ירידה של ' + pct(Math.abs(fxChg)) + '. בדרך היו גם השיא, ' + num(fxMax.fx, 3) + ' שקלים ב' + hebMY(fxMax.d) +
     ', וגם השפל, ' + num(fxMin.fx, 3) + ' שקלים ב' + hebMY(fxMin.d) + '. ' +
-    'עבור חוסך שמחזיק מדד אמריקאי לא מגודר, זו לא שורה בדוח — זו ' + num(fxCost, 1) + ' נקודות אחוז בשנה, לאורך כל התקופה.';
+    'עבור חוסך שמחזיק מדד אמריקאי לא מגודר, זו לא שורה בדוח — זו ' + num(fxCost, 1) + ' נקודות אחוז בשנה, לאורך כל התקופה. ' +
+    'הגרף הזה מוצג תמיד על התקופה המלאה ואינו מושפע מהסמן שבגרף הראשון.';
 
   function recovered(key) {
     var lastBelow = null;
@@ -893,9 +1064,36 @@ ul.caveats li b{color:var(--text-1)}
         ', אחרי ' + num(recTa.yrs, 1) + ' שנים. '
       : '') +
     'מי שנכנס לשוק האמריקאי בשיא של תחילת 2000 חי עם החזקה שהייתה שווה פחות מהכסף שהכניס במשך למעלה מעשור, ' +
-    'וזה כשלעצמו סיכון שאין לו ביטוי בשורת התשואה הממוצעת.';
+    'וזה כשלעצמו סיכון שאין לו ביטוי בשורת התשואה הממוצעת. ' +
+    'גם הגרף הזה מוצג תמיד על התקופה המלאה.';
 
-  /* ---------- מילוי המספרים ב-FAQ ---------- */
+  /* ---- הסתייגות נקודת הסיום שבסעיף "מה הנתונים לא אומרים" ---- */
+  var pkTa = S.reduce(function (a, b) { return b.ta > a.ta ? b : a; });
+  var pkSp = S.reduce(function (a, b) { return b.si > a.si ? b : a; });
+  var fromPkTa = (last.ta / pkTa.ta - 1) * 100;
+  var fromPkSp = (last.si / pkSp.si - 1) * 100;
+  document.getElementById('peakNote').textContent =
+    (Math.abs(fromPkSp) < 0.05
+      ? 'ה-S&P 500 בשקלים סוגר את התקופה בשיא שלו, '
+      : 'ה-S&P 500 בשקלים נמצא ' + pct(Math.abs(fromPkSp)) + ' מתחת לשיא שלו, ') +
+    (Math.abs(fromPkTa) < 0.05
+      ? 'וכך גם ת"א 125. '
+      : 'ות"א 125 נמצא ' + pct(Math.abs(fromPkTa)) + ' מתחת לשיא שלו מ' + hebMY(pkTa.d) + '. ') +
+    'הסמן שמתחת לגרף הראשון מאפשר לבדוק בעצמכם איך נראית התמונה בנקודת סיום אחרת.';
+
+  /* ---- מספרים ב-FAQ (תמיד לפי הנקודה העדכנית) ---- */
+  var Wf = {};
+  [5, 10, 15, 20].forEach(function (w) {
+    var i = LAST - w * 12;
+    if (i < 0) return;
+    var y = yrsBetween(S[i].d, last.d);
+    Wf[w] = { sp: cagr(S[i].si, last.si, y), ta: cagr(S[i].ta, last.ta, y) };
+  });
+  var entLast = buildEnt(LAST);
+  var entLast5 = entLast.filter(function (p) { return p.y >= 5; });
+  function tally(a) { var t = a.filter(function (p) { return p.ta > p.sp; }).length; return { n: a.length, ta: t, sp: a.length - t }; }
+  var cnt1 = tally(entLast), cnt5 = tally(entLast5);
+
   var F = {
     date: heb(last.d),
     years: num(fullY, 1),
@@ -907,10 +1105,10 @@ ul.caveats li b{color:var(--text-1)}
     nEntries1: String(cnt1.n), taWins1: String(cnt1.ta), spWins1: String(cnt1.sp)
   };
   [5, 10, 15, 20].forEach(function (w) {
-    if (!W[w]) return;
-    F['cagrSp' + w] = pct(W[w].sp);
-    F['cagrTa' + w] = pct(W[w].ta);
-    F['gap' + w] = num(Math.abs(W[w].ta - W[w].sp), 1);
+    if (!Wf[w]) return;
+    F['cagrSp' + w] = pct(Wf[w].sp);
+    F['cagrTa' + w] = pct(Wf[w].ta);
+    F['gap' + w] = num(Math.abs(Wf[w].ta - Wf[w].sp), 1);
   });
   document.querySelectorAll('#faq [data-f]').forEach(function (el) {
     var v = F[el.getAttribute('data-f')];
@@ -934,7 +1132,7 @@ ul.caveats li b{color:var(--text-1)}
   }
 
   document.getElementById('definition').textContent =
-    'הנתונים: מדד ת"א 125 בשקלים, ו-S&P 500 בתשואה כוללת בניכוי מס דיבידנד אמריקאי של 15%, ' +
+    'הנתונים: מדד ת"א 125 בשקלים, ו-S&P 500 בתשואה כוללת בניכוי מס דיבידנד אמריקאי של ' + WITHHOLD + '%, ' +
     'מתורגם לשקלים לפי השער היציג של בנק ישראל. סגירה בסוף כל חודש, מסוף ינואר 2000 ועד ' + heb(last.d) + '. ' +
     'שתי הסדרות ברוטו — לפני דמי ניהול ולפני מס.';
 
