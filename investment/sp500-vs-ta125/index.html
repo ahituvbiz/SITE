@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&amp;P 500 בשקלים מול ת"א 125 — התשואה שקיבל משקיע ישראלי | איתן אחיטוב</title>
+<meta name="description" content="השוואת תשואות בין S&amp;P 500 מתורגם לשקלים לבין מדד ת&quot;א 125, לפי חודש הכניסה, מינואר 2000 ועד היום. שני המדדים באותו מטבע ושניהם כוללים דיבידנדים.">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://pensya.info/investment/sp500-vs-ta125/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="S&amp;P 500 בשקלים מול ת&quot;א 125 — התשואה שקיבל משקיע ישראלי">
+<meta property="og:description" content="בדולרים שני המדדים הניבו כמעט אותו דבר. בשקלים הפער נפתח. הנתונים לפי חודש הכניסה, מ-2000 ועד היום.">
+<meta property="og:url" content="https://pensya.info/investment/sp500-vs-ta125/">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="pensya.info">
+<meta property="og:image" content="https://pensya.info/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="S&amp;P 500 בשקלים מול ת&quot;א 125">
+<meta name="twitter:description" content="בדולרים שני המדדים הניבו כמעט אותו דבר. בשקלים הפער נפתח.">
+<meta name="twitter:image" content="https://pensya.info/assets/og-default.jpg">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebPage","name":"S&P 500 בשקלים מול ת\"א 125","url":"https://pensya.info/investment/sp500-vs-ta125/","inLanguage":"he-IL","description":"השוואת תשואות בין S&P 500 מתורגם לשקלים לבין מדד ת\"א 125, לפי חודש הכניסה, מינואר 2000 ועד היום.","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר","url":"https://pensya.info/about/"},"publisher":{"@type":"Person","name":"איתן אחיטוב","url":"https://pensya.info/"}},
+{"@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"בית","item":"https://pensya.info/"},
+{"@type":"ListItem","position":2,"name":"השקעות","item":"https://pensya.info/investment/why-not-sp500/"},
+{"@type":"ListItem","position":3,"name":"S&P 500 בשקלים מול ת\"א 125","item":"https://pensya.info/investment/sp500-vs-ta125/"}]}
+]}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C;
+  --text-1:#1A1A1A; --text-2:#555; --text-meta:#999;
+  --bg:#fff; --bg-cream:#F8F6F2; --border:#E2E0DC;
+  --positive:#1a7f44; --negative:#C53030;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;color:var(--text-1);background:var(--bg-cream);line-height:1.65;font-size:16px;overflow-x:hidden}
+.wrap{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:clamp(22px,3.5vw,30px);color:var(--primary);margin-bottom:6px;text-align:center}
+.sub{color:var(--text-2);font-size:15px;margin-bottom:14px;text-align:center;max-width:640px;margin-inline:auto}
+.page-updated{font-size:13px;color:var(--text-meta);text-align:center;margin-bottom:24px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.card h2{font-size:18px;color:var(--text-1);margin-bottom:6px}
+.card .hint{color:var(--text-meta);font-size:13px;margin-bottom:14px}
+
+/* answer block */
+.answer{background:#fff;border:2px solid var(--primary);border-radius:var(--radius);padding:22px;margin-bottom:18px}
+.answer .asof{text-align:center;font-size:14px;color:var(--text-2);margin-bottom:16px}
+.answer .asof b{color:var(--text-1)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.num{text-align:center;background:var(--primary-soft);border-radius:12px;padding:16px 8px}
+.num .lbl{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px}
+.num .val{font-size:clamp(30px,7vw,42px);font-weight:800;color:var(--text-1);line-height:1.1}
+.num .med{font-size:13px;color:var(--text-2);margin-top:6px;font-variant-numeric:tabular-nums}
+.num .lvl{font-size:13px;color:var(--text-meta);margin-top:2px;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.nums{grid-template-columns:1fr;gap:10px}.num{padding:14px}.num .val{font-size:34px}}
+
+.trend-box{position:relative;width:100%;height:min(58vw,360px)}
+#chartCard{display:none}
+.chart-note{font-size:13px;color:var(--text-meta);margin-top:10px;line-height:1.6}
+.intro{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.intro p{margin-bottom:12px}
+.intro p:last-child{margin-bottom:0;font-weight:600;color:var(--primary)}
+.disclaimer{border-top:1px solid var(--border);margin-top:24px;padding-top:14px;font-size:13px;color:var(--text-meta);line-height:1.7;text-align:center}
+.disclaimer b{color:var(--text-2)}
+
+details.faq{background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
+details.faq summary{cursor:pointer;padding:13px 18px;font-weight:600;font-size:16px;list-style:none}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:'+';float:left;color:var(--primary);font-weight:800}
+details.faq[open] summary::after{content:'−'}
+details.faq .body{padding:0 18px 15px;color:var(--text-2);font-size:15px}
+
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.links a{background:var(--primary-soft);color:var(--primary);text-decoration:none;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px}
+.links a:hover{background:#CFEAF6}
+
+.definition{font-size:13px;color:var(--text-meta);text-align:center;margin-top:6px;line-height:1.6}
+.byline{font-size:14px;color:var(--text-2);text-align:center;margin-top:22px}
+.byline a{color:var(--primary)}
+.refresh{display:none;margin:22px auto 0;background:var(--cta);color:#fff;border:0;border-radius:10px;padding:11px 26px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.refresh:hover{filter:brightness(.92)}
+.refresh.done{background:var(--positive)}
+
+/* ===== chrome אתר: header / ניווט / breadcrumb ===== */
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:200;height:64px}
+.header-inner{display:flex;align-items:center;gap:20px;height:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;flex-shrink:0}
+.logo-sub{font-weight:400;font-size:12px;color:var(--text-2)}
+.nav{display:flex;gap:4px;margin-right:auto}
+.nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--primary-soft);color:var(--primary);text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px;z-index:200}
+.hamburger span{display:block;width:24px;height:2px;background:var(--primary);border-radius:2px;transition:.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{display:none}
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .nav{display:none;position:fixed;top:0;right:0;width:min(280px,85vw);height:100vh;background:#fff;flex-direction:column;padding:5rem 1.5rem 2rem;gap:0;box-shadow:-4px 0 20px rgba(0,0,0,.15);z-index:150;overflow-y:auto}
+  .nav.open{display:flex}
+  .nav a{padding:1rem 0;border-bottom:1px solid var(--primary-soft);font-size:1.05rem}
+  .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:140}
+  .nav-overlay.open{display:block}
+}
+.header-search{position:relative;display:flex;align-items:center}
+.header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,.1);width:260px}
+.header-search input::placeholder{color:var(--text-meta)}
+.header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
+.header-search-icon svg{width:18px;height:18px}
+.search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.12);max-height:320px;overflow-y:auto;z-index:10;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;text-decoration:none}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--bg-cream)}
+.search-results .no-results{padding:16px;color:var(--text-meta);font-size:14px;text-align:center}
+@media(max-width:900px){.header-search input{width:160px}.header-search input:focus{width:200px}}
+@media(max-width:600px){.header-search input{width:130px}}
+.breadcrumb{background:var(--bg-cream);border-bottom:1px solid var(--border);padding:10px 0;font-size:14px;color:var(--text-meta)}
+.breadcrumb .container{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb a{color:var(--text-2)}
+.breadcrumb a:hover{color:var(--primary)}
+.breadcrumb .sep{color:var(--border)}
+.breadcrumb .current{color:var(--text-2)}
+.skip-link{position:absolute;top:-48px;right:0;left:0;background:var(--primary);color:#fff !important;padding:12px 20px;text-align:center;z-index:99999;text-decoration:none;font-size:16px;font-weight:600;transition:top .2s ease;border-radius:0 0 8px 8px}
+.skip-link:focus{top:0;outline:3px solid var(--cta);outline-offset:2px}
+:focus-visible{outline:3px solid var(--primary) !important;outline-offset:2px !important}
+</style>
+<style>
+:root{ --sp:#C77B1E; --sp-soft:#FBF0DF; }
+
+/* שני מספרי הכותרת */
+.nums.two{grid-template-columns:repeat(3,1fr)}
+.num.ta{background:var(--primary-soft)}
+.num.ta .lbl{color:var(--primary)}
+.num.sp{background:var(--sp-soft)}
+.num.sp .lbl{color:#8C5511}
+.num.usd{background:#F1F0EC}
+.num.usd .lbl{color:var(--text-2)}
+.answer .flip{margin-top:16px;font-size:14.5px;color:var(--text-2);text-align:center;line-height:1.7;border-top:1px solid var(--border);padding-top:14px}
+.answer .flip b{color:var(--text-1)}
+
+/* טבלת החלונות */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.win{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+table.win th,table.win td{padding:9px 10px;text-align:center;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+table.win th{font-size:13.5px;color:var(--text-2);font-weight:600;background:var(--bg-cream)}
+table.win th:first-child,table.win td:first-child{text-align:right;font-weight:600;white-space:nowrap}
+table.win td.v-sp{color:#8C5511;font-weight:700}
+table.win td.v-ta{color:var(--primary);font-weight:700}
+table.win td.gap{font-size:13.5px;color:var(--text-2);padding-inline:14px}
+table.win td.gap .g{display:flex;align-items:baseline;justify-content:space-between;gap:10px;direction:rtl}
+table.win td.gap .g .who{white-space:nowrap}
+table.win td.gap .g .amt{direction:ltr;unicode-bidi:isolate;font-weight:700;color:var(--text-1)}
+table.win tr.total td{background:var(--bg-cream);font-weight:700}
+table.win tr.total td.gap{font-weight:600}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-inline-start:6px;vertical-align:-1px}
+.sw-ta{background:var(--primary)}
+.sw-sp{background:var(--sp)}
+
+/* אזהרות והסתייגויות */
+ul.caveats{list-style:none;margin:0}
+ul.caveats li{position:relative;padding-inline-start:20px;margin-bottom:13px;color:var(--text-2);font-size:15px;line-height:1.7}
+ul.caveats li:last-child{margin-bottom:0}
+ul.caveats li::before{content:'';position:absolute;inset-inline-start:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--primary)}
+ul.caveats li b{color:var(--text-1)}
+
+.card p+p{margin-top:12px}
+.card p{color:var(--text-2)}
+.card h3{font-size:16px;margin:18px 0 6px;color:var(--text-1)}
+.leadin{font-size:16px;color:var(--text-1);font-weight:600}
+</style>
+
+<link rel="stylesheet" href="/site-chrome.css?v=2">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a>
+    <span class="sep">›</span>
+    <a href="/investment/why-not-sp500/">השקעות</a>
+    <span class="sep">›</span>
+    <span class="current">S&amp;P 500 בשקלים מול ת"א 125</span>
+  </div>
+</nav>
+
+<div class="wrap" id="main-content">
+
+  <h1>S&amp;P 500 בשקלים מול ת"א 125</h1>
+  <p class="sub">מה באמת קיבל חוסך ישראלי משתי החלופות — כששני המדדים נמדדים באותו מטבע, ושניהם כוללים דיבידנדים.</p>
+  <p class="page-updated" id="pageUpdated"></p>
+
+  <!-- ===== התשובה ===== -->
+  <section class="answer">
+    <p class="asof">תשואה שנתית ממוצעת מסוף ינואר 2000 ועד <b id="asOf"></b> — <span id="asOfYears"></span></p>
+    <div class="nums two">
+      <div class="num ta"><div class="lbl">ת"א 125</div><div class="val" id="nTa"></div><div class="med">בשקלים</div><div class="lvl" id="nTaMult"></div></div>
+      <div class="num sp"><div class="lbl">S&amp;P 500 בדולרים</div><div class="val" id="nSpUsd"></div><div class="med">לפני תרגום למטבע</div><div class="lvl" id="nSpUsdMult"></div></div>
+      <div class="num sp"><div class="lbl">S&amp;P 500 בשקלים</div><div class="val" id="nSpIls"></div><div class="med">מה שהגיע לחוסך בפועל</div><div class="lvl" id="nSpIlsMult"></div></div>
+    </div>
+    <p class="flip" id="flipNote"></p>
+  </section>
+
+  <!-- ===== רקע ===== -->
+  <section class="intro">
+    <p>כמעט כל השוואה בין S&amp;P 500 למדד הישראלי שתמצאו ברשת מציגה את המדד האמריקאי בדולרים. חוסך ישראלי לא חי בדולרים. הכסף שלו נצבר בשקלים, ההוצאות שלו בשקלים, והקצבה שיקבל תשולם בשקלים. כשמסלול S&amp;P 500 בקרן הפנסיה או בקרן ההשתלמות מציג תשואה, היא כבר מתורגמת לשקלים — כולל כל מה שקרה לדולר בדרך.</p>
+
+    <p>מאז תחילת שנת 2000 הדולר איבד קרוב לרבע מערכו מול השקל. זה לא ניואנס טכני: זו הפחתה של יותר מנקודת אחוז בשנה, כל שנה, מהתשואה שהמדד האמריקאי הניב.</p>
+
+    <p>הדף הזה מציג את שתי החלופות באותו מטבע ובאותה שיטת מדידה, כדי שאפשר יהיה להשוות ביניהן בכלל.</p>
+  </section>
+
+  <!-- ===== גרף ראשי: תשואה לפי חודש כניסה ===== -->
+  <section class="card" id="entryCard">
+    <h2>התשואה השנתית הממוצעת עד היום, לפי חודש הכניסה</h2>
+    <p class="hint" id="entHint"></p>
+    <div class="trend-box"><canvas id="entChart"></canvas></div>
+    <p class="chart-note" id="entNote"></p>
+  </section>
+
+  <!-- ===== טבלת חלונות ===== -->
+  <section class="card">
+    <h2>אותה השוואה, חלונות שונים</h2>
+    <p class="hint">התשואה השנתית הממוצעת עד <span id="asOf2"></span>, לפי אורך ההחזקה.</p>
+    <div class="tbl-wrap">
+      <table class="win">
+        <thead>
+          <tr>
+            <th scope="col">תקופת החזקה</th>
+            <th scope="col">ת"א 125<span class="swatch sw-ta"></span></th>
+            <th scope="col">S&amp;P 500 בשקלים<span class="swatch sw-sp"></span></th>
+            <th scope="col">הפרש (נק' אחוז לשנה)</th>
+          </tr>
+        </thead>
+        <tbody id="winBody"></tbody>
+      </table>
+    </div>
+    <p class="chart-note" id="winNote"></p>
+  </section>
+
+  <!-- ===== גרף 2: מסלול ההשקעה ===== -->
+  <section class="card">
+    <h2>מה קרה ל-100 שקלים שהושקעו בינואר 2000</h2>
+    <p class="hint">שתי הסדרות בשקלים, סגירה בסוף כל חודש.</p>
+    <div class="trend-box"><canvas id="growthChart"></canvas></div>
+    <p class="chart-note" id="growthNote"></p>
+  </section>
+
+  <!-- ===== גרף 3: המטבע ===== -->
+  <section class="card">
+    <h2>הגורם שאף השוואה דולרית לא מראה: שער הדולר</h2>
+    <p class="hint">שער הדולר היציג של בנק ישראל, בסוף כל חודש.</p>
+    <div class="trend-box"><canvas id="fxChart"></canvas></div>
+    <p class="chart-note" id="fxNote"></p>
+  </section>
+
+  <!-- ===== מה זה לא אומר ===== -->
+  <section class="card">
+    <h2>מה הנתונים האלה לא אומרים</h2>
+    <p class="leadin">התוצאה כאן מפתיעה חלק מהקוראים, ובדיוק לכן צריך לקרוא אותה בזהירות.</p>
+    <ul class="caveats">
+      <li><b>אין כאן מנצח.</b> יש חלונות שבהם המדד האמריקאי מוביל בפער ניכר, ויש חלונות שבהם המדד הישראלי מוביל בפער גדול עוד יותר. ההפרש בין החלונות גדול מההפרש בין המדדים. מי שמחפש בדף הזה אישור להחלטה שכבר קיבל — ימצא אותו, לכל כיוון.</li>
+      <li><b>נקודת הסיום מטה את כל התמונה.</b> שתי הסדרות מסתיימות אחרי עלייה חדה, וזה מרים את כל התשואות שבדף כלפי מעלה. <span id="peakNote"></span></li>
+      <li><b>שער החליפין הוא הסיפור — ולא תחזית.</b> הדולר נחלש מול השקל לאורך התקופה הנמדדת, וזה כל ההבדל בין שתי העמודות של ה-S&amp;P. אין שום דבר בנתונים האלה שמלמד לאן ילך הדולר מכאן. מגמת מטבע יכולה להימשך עשור, ויכולה להתהפך.</li>
+      <li><b>שני המדדים ברוטו.</b> אין כאן דמי ניהול ואין מס רווח הון. מסלול S&amp;P 500 ומסלול מנייתי ישראלי בקרן פנסיה או בקרן השתלמות גובים דמי ניהול דומים, ולכן ההשוואה <em>ביניהם</em> תקפה — אבל התשואה שתקבלו בפועל נמוכה מהמספרים שבדף.</li>
+      <li><b>בלי גידור מטבע.</b> כך בנויים בפועל מסלולי ה-S&amp;P 500 בגמל, בהשתלמות ובפנסיה: החשיפה לדולר תפורה לתוך המסלול ואי אפשר להתנתק ממנה. נטרול מטבעי אפשרי בעיקר בהשקעה עצמאית או ב-<a href="/investment/ira/">IRA</a>, והוא עולה כסף ושוחק תשואה לאורך זמן. הרחבה על כך יש ב<a href="/investment/why-not-sp500/">דף על הסיכונים במסלול S&amp;P 500</a>.</li>
+      <li><b>נתוני ה-S&amp;P 500 מוצגים בניכוי מס דיבידנד אמריקאי של 15%</b> — השיעור שחל על קרן סל אירית מסוג CSPX או VUAA, הדרך הזמינה ביותר למשקיע ישראלי להחזיק את המדד. זו סדרה משוחזרת לצורך ההשוואה, ולא מדד רשמי שמתפרסם בשם הזה. מדד ת"א 125 הוא מדד תשואה כוללת ולכן כולל ממילא את הדיבידנדים, ללא ניכוי מקביל.</li>
+      <li><b>תשואות עבר אינן מעידות על העתיד.</b> זה נכון לכל מספר בדף הזה.</li>
+    </ul>
+  </section>
+
+  <!-- ===== שאלות =====
+       ה-FAQ סטטי בכוונה — כדי שגוגל יקרא אותו גם בלי הרצת JavaScript.
+       המספרים יושבים ב-<span data-f="..."> ומתעדכנים מבלוק cmp-data בטעינת הדף,
+       וסכימת ה-FAQPage למטה נבנית מחדש מתוך הטקסט המוצג — כך שהיא לעולם
+       לא סותרת את מה שהגולש רואה. -->
+  <section class="card">
+    <h2>שאלות נפוצות</h2>
+    <div id="faq">
+
+      <details class="faq">
+        <summary>מה עדיף — S&amp;P 500 או ת"א 125?</summary>
+        <div class="body">אין תשובה אחת, והנתונים מראים בדיוק למה. מאז ינואר 2000 ועד <span data-f="date">31 באוגוסט 2026</span> מדד ת"א 125 הניב <span data-f="cagrTaFull">8.3%</span> בשנה בממוצע, מול <span data-f="cagrSpFull">7.0%</span> ל-S&amp;P 500 בשקלים. אבל בחלון של 15 שנה התמונה מתהפכת: <span data-f="cagrSp15">13.5%</span> ל-S&amp;P מול <span data-f="cagrTa15">9.7%</span> לת"א 125. מתוך <span data-f="nEntries">259</span> חודשי כניסה עם החזקה של חמש שנים לפחות, S&amp;P 500 בשקלים הוביל ב-<span data-f="spWins">137</span> ות"א 125 ב-<span data-f="taWins">122</span>. חשוב מזה: ההובלה אינה מתחלפת באקראי אלא בגושים ארוכים ורצופים, כך שהשאלה המעשית היא פחות "איזה מדד" ויותר "באיזה עשור נכנסתם".</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה הייתה תשואת S&amp;P 500 בשקלים?</summary>
+        <div class="body">מסוף ינואר 2000 ועד <span data-f="date">31 באוגוסט 2026</span>, <span data-f="years">26.6</span> שנים, המדד הניב <span data-f="cagrSpFull">7.0%</span> בשנה בממוצע במונחים שקליים — פי <span data-f="multSpIls">6.1</span> על הכסף. באותה תקופה המדד עצמו, בדולרים, הניב <span data-f="cagrSpUsd">8.3%</span> בשנה. את ההפרש אכל שער החליפין: הדולר ירד מ-<span data-f="fxStart">4.082</span> שקלים ל-<span data-f="fxEnd">2.988</span> שקלים, ירידה של <span data-f="fxChg">26.8%</span>, ששווה ל-<span data-f="fxCost">1.3</span> נקודות אחוז בשנה.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מה התשואה ההיסטורית של מדד תל אביב 125?</summary>
+        <div class="body">מסוף ינואר 2000 ועד <span data-f="date">31 באוגוסט 2026</span> הניב מדד ת"א 125 <span data-f="cagrTaFull">8.3%</span> בשנה בממוצע — פי <span data-f="multTa">8.3</span> על הכסף. מדדי הבורסה בתל אביב הם מדדי תשואה כוללת, כלומר הדיבידנדים שמחלקות החברות כלולים בנתון, ולכן אין צורך להוסיף אותם בנפרד. הנתון הוא בשקלים ולפני דמי ניהול ומס.</div>
+      </details>
+
+      <details class="faq">
+        <summary>כמה הניב S&amp;P 500 ב-10 שנים בשקלים?</summary>
+        <div class="body">בעשר השנים שהסתיימו ב-<span data-f="date">31 באוגוסט 2026</span> הניב S&amp;P 500 בשקלים <span data-f="cagrSp10">12.4%</span> בשנה בממוצע, ומדד ת"א 125 הניב <span data-f="cagrTa10">12.3%</span>. זהו החלון שבו שני המדדים הכי קרובים זה לזה — הפער ביניהם קטן מעשירית נקודת אחוז בשנה.</div>
+      </details>
+
+      <details class="faq">
+        <summary>כמה הניב S&amp;P 500 ב-20 שנה בשקלים?</summary>
+        <div class="body">בעשרים השנים שהסתיימו ב-<span data-f="date">31 באוגוסט 2026</span> הניב S&amp;P 500 בשקלים <span data-f="cagrSp20">9.0%</span> בשנה בממוצע, מול <span data-f="cagrTa20">8.3%</span> למדד ת"א 125. התקופה כוללת את משבר 2008, את הירידות של 2020 ו-2022 ואת מלחמת חרבות ברזל, ולכן התשואה השנתית בה נמוכה מזו של חלונות קצרים יותר.</div>
+      </details>
+
+      <details class="faq">
+        <summary>מסלול מנייתי ישראלי או אמריקאי — מה לבחור?</summary>
+        <div class="body">הנתונים בדף הזה לא מכריעים את השאלה, והם גם לא נועדו לכך. מה שהם כן מראים הוא ששלוש הנחות נפוצות אינן מדויקות: שהמדד האמריקאי מנצח תמיד, שהמדד הישראלי פיגר לאורך כל התקופה, ושאפשר להשוות ביניהם בלי לתרגם למטבע אחד. בפועל, ב-<span data-f="years">26.6</span> השנים הנמדדות שני המדדים הניבו כמעט אותו דבר בדולרים, וההפרש השקלי כולו נובע משער החליפין. הבחירה בין מסלולים היא החלטה שנוגעת לאופק החיסכון, לחשיפה למטבע שכבר קיימת בשאר הנכסים, ולרמת המחירים בשני השווקים בנקודת הזמן שבה מחליטים — ולא לשאלה איזה מדד ניצח בעבר.</div>
+      </details>
+
+      <details class="faq">
+        <summary>למה השוואות אחרות מראות תוצאה אחרת?</summary>
+        <div class="body">שלוש סיבות, וכולן טכניות. ראשית, רוב ההשוואות מציגות את ה-S&amp;P 500 בדולרים ואת ת"א 125 בשקלים — שתי יחידות מידה שונות. שנית, רבות מהן משתמשות ב-S&amp;P 500 ללא דיבידנדים אך משוות אותו לת"א 125 שכולל דיבידנדים, וזה פער של קרוב לשתי נקודות אחוז בשנה לרעת המדד האמריקאי. שלישית, החלון הנבחר משנה את המסקנה: בדף הזה אותם נתונים בדיוק מייצרים יתרון של <span data-f="gap15">3.8</span> נקודות ל-S&amp;P בחלון של 15 שנה, ויתרון של <span data-f="gap5">6.4</span> נקודות לת"א 125 בחלון של חמש שנים.</div>
+      </details>
+
+      <details class="faq">
+        <summary>האם המספרים כוללים דמי ניהול ומס?</summary>
+        <div class="body">לא. שתי הסדרות הן ברוטו — לפני דמי ניהול ולפני מס רווח הון. מסלול S&amp;P 500 ומסלול מנייתי ישראלי במוצרי החיסכון גובים דמי ניהול דומים, ולכן ההשוואה ביניהם נשארת תקפה, אבל התשואה שתתקבל בפועל נמוכה מהמספרים שבדף. נתוני ה-S&amp;P 500 כן מוצגים בניכוי מס הדיבידנד האמריקאי בשיעור 15%, שהוא השיעור שחל על קרן סל אירית — הדרך הזמינה ביותר למשקיע ישראלי להחזיק את המדד. משקיע שמחזיק את המדד דרך מוצר אחר עשוי לשלם שיעור שונה.</div>
+      </details>
+
+      <details class="faq">
+        <summary>איזה חלק מהפער בין המדדים נובע מהמטבע?</summary>
+        <div class="body">כמעט כולו, בתקופה הנמדדת. ב-<span data-f="years">26.6</span> השנים שנבדקו הניב S&amp;P 500 <span data-f="cagrSpUsd">8.3%</span> בשנה בדולרים ומדד ת"א 125 הניב <span data-f="cagrTaFull">8.3%</span> בשנה בשקלים — כמעט זהה. רק אחרי התרגום למטבע אחד נפתח פער של <span data-f="fxCost">1.3</span> נקודות אחוז בשנה. חשוב לזכור שהקִרבה הזו בין שני המדדים היא תוצאה של החלון המסוים הזה, ואינה כלל.</div>
+      </details>
+
+      <details class="faq">
+        <summary>עד כמה נכון להסתמך על "כמה פעמים כל מדד ניצח"?</summary>
+        <div class="body">פחות ממה שנדמה, משתי סיבות. הראשונה: <span data-f="nEntries">259</span> חודשי הכניסה שנבדקו אינם ניסויים עצמאיים — כולם מסתיימים באותו יום וחופפים כמעט לחלוטין זה לזה, ולכן חודשים סמוכים נותנים כמעט את אותה תשובה. השנייה: הספירה תלויה בהגדרה. עם סף החזקה של חמש שנים S&amp;P 500 בשקלים מוביל ב-<span data-f="spWins">137</span> מול <span data-f="taWins">122</span>; עם סף של שנה אחת התוצאה מתהפכת, <span data-f="taWins1">171</span> לת"א 125 מול <span data-f="spWins1">137</span> ל-S&amp;P. הנתון המעניין אינו האחוז אלא הצורה: ההובלה מתחלפת בגושים רצופים וארוכים, וזה מלמד שמדובר בתקופות שוק ארוכות ולא בהבדל קבוע בין שני המדדים.</div>
+      </details>
+
+    </div>
+  </section>
+
+  <script type="application/ld+json" id="faqSchema">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"מה עדיף — S&P 500 או ת\"א 125?","acceptedAnswer":{"@type":"Answer","text":"אין תשובה אחת, והנתונים מראים בדיוק למה. מאז ינואר 2000 ועד 31 באוגוסט 2026 מדד ת\"א 125 הניב 8.3% בשנה בממוצע, מול 7.0% ל-S&P 500 בשקלים. אבל בחלון של 15 שנה התמונה מתהפכת: 13.5% ל-S&P מול 9.7% לת\"א 125."}},
+{"@type":"Question","name":"מה הייתה תשואת S&P 500 בשקלים?","acceptedAnswer":{"@type":"Answer","text":"מסוף ינואר 2000 ועד 31 באוגוסט 2026 המדד הניב 7.0% בשנה בממוצע במונחים שקליים. באותה תקופה המדד עצמו, בדולרים, הניב 8.3% בשנה. את ההפרש אכל שער החליפין."}},
+{"@type":"Question","name":"מה התשואה ההיסטורית של מדד תל אביב 125?","acceptedAnswer":{"@type":"Answer","text":"מסוף ינואר 2000 ועד 31 באוגוסט 2026 הניב מדד ת\"א 125 8.3% בשנה בממוצע. מדדי הבורסה בתל אביב הם מדדי תשואה כוללת, כלומר הדיבידנדים כלולים בנתון."}}
+]}
+  </script>
+
+  <!-- ===== קישורים ===== -->
+  <section class="card">
+    <h2>להמשך קריאה</h2>
+    <div class="links">
+      <a href="/investment/why-not-sp500/">למה מסלול S&amp;P 500 אינו פיזור</a>
+      <a href="/investment/tase-pe/">מכפיל הרווח של מדדי ת"א</a>
+      <a href="/investment/sp500-lost-decade/">עשור אבוד במדד</a>
+      <a href="/investment/stocks-vs-bonds/">מניות מול אג"ח בחיסכון ארוך טווח</a>
+      <a href="/savings/klali-mul-menayati/">מסלול כללי מול מנייתי</a>
+      <a href="/tools/net-return/">מחשבון תשואה נטו</a>
+      <a href="/about/license/">רישיון יועץ פנסיוני</a>
+    </div>
+  </section>
+
+  <p class="definition" id="definition"></p>
+
+  <p class="byline">
+    הנתונים נאספים ומחושבים על ידי <a href="/about/">איתן אחיטוב</a>, יועץ פנסיוני בעל רישיון.
+  </p>
+
+  <p class="disclaimer">
+    <b>הבהרה</b> – המידע בדף איננו מהווה ייעוץ פנסיוני. הסקת המסקנות וקבלת ההחלטות בעקבותיהן היא על אחריות הגולש בלבד.
+    אין באמור המלצה לרכישה או למכירה של נייר ערך כלשהו.
+  </p>
+
+  <button class="refresh" id="refreshBtn">עדכן נתונים</button>
+</div>
+
+<!-- ============================================================================
+     בלוק הנתונים. סדרה חודשית 2000–היום, סגירה בסוף כל חודש.
+     שדות בכל שורה: [ תאריך, S&P 500 בדולרים (בסיס 100), S&P 500 בשקלים (בסיס 100),
+                      ת"א 125 (בסיס 100), שער דולר/שקל יציג ].
+     ============================================================================ -->
+<script id="cmp-meta" type="application/json">
+{"updated": "2026-09-01", "endDate": "2026-08-31", "withholding": 0.15, "fields": ["date", "spNtrUsd_base100", "spNtrIls_base100", "ta125_base100", "usdIls"]}
+</script>
+
+<script id="cmp-data" type="application/json">
+[
+["2000-01-31", 100.0, 100.0, 100.0, 4.082],["2000-02-29", 98.089, 96.888, 115.044, 4.032],["2000-03-31", 107.669, 106.192, 105.214, 4.026],["2000-04-28", 104.418, 103.216, 100.888, 4.035],
+["2000-05-31", 102.254, 104.408, 108.636, 4.168],["2000-06-30", 104.764, 104.815, 110.844, 4.084],["2000-07-31", 103.115, 103.191, 107.027, 4.085],["2000-08-31", 109.498, 107.405, 116.818, 4.004],
+["2000-09-29", 103.706, 102.232, 113.893, 4.024],["2000-10-31", 103.256, 104.648, 93.802, 4.137],["2000-11-30", 95.097, 95.353, 96.297, 4.093],["2000-12-29", 95.55, 94.59, 99.654, 4.041],
+["2001-01-31", 98.928, 100.261, 90.763, 4.137],["2001-02-28", 89.891, 90.552, 91.529, 4.112],["2001-03-30", 84.185, 86.454, 77.835, 4.192],["2001-04-30", 90.715, 91.982, 85.33, 4.139],
+["2001-05-31", 91.302, 92.442, 84.369, 4.133],["2001-06-29", 89.07, 90.881, 84.161, 4.165],["2001-07-31", 88.181, 90.925, 88.329, 4.209],["2001-08-31", 82.641, 86.285, 83.899, 4.262],
+["2001-09-28", 75.955, 81.035, 73.403, 4.355],["2001-10-31", 77.392, 81.165, 75.028, 4.281],["2001-11-30", 83.311, 86.393, 80.968, 4.233],["2001-12-31", 84.026, 90.902, 91.005, 4.416],
+["2002-01-31", 82.788, 93.334, 88.901, 4.602],["2002-02-28", 81.173, 91.931, 83.516, 4.623],["2002-03-28", 84.215, 96.305, 77.242, 4.668],["2002-04-30", 79.099, 94.814, 73.893, 4.893],
+["2002-05-31", 78.496, 94.534, 75.947, 4.916],["2002-06-28", 72.89, 85.158, 72.796, 4.769],["2002-07-31", 67.197, 77.189, 73.773, 4.689],["2002-08-30", 67.621, 77.196, 74.105, 4.66],
+["2002-09-30", 60.258, 71.905, 68.592, 4.871],["2002-10-31", 65.548, 76.515, 65.61, 4.765],["2002-11-29", 69.388, 78.925, 73.134, 4.643],["2002-12-31", 65.296, 75.773, 67.716, 4.737],
+["2003-01-31", 63.573, 74.973, 64.935, 4.814],["2003-02-28", 62.6, 73.765, 65.919, 4.81],["2003-03-31", 63.195, 72.562, 69.598, 4.687],["2003-04-30", 68.388, 75.743, 79.984, 4.521],
+["2003-05-30", 71.973, 77.104, 88.579, 4.373],["2003-06-30", 72.876, 76.982, 92.352, 4.312],["2003-07-31", 74.145, 80.448, 86.52, 4.429],["2003-08-29", 75.573, 82.256, 84.764, 4.443],
+["2003-09-30", 74.755, 81.33, 88.009, 4.441],["2003-10-31", 78.966, 86.898, 96.413, 4.492],["2003-11-28", 79.642, 86.782, 104.019, 4.448],["2003-12-31", 83.798, 89.895, 108.848, 4.379],
+["2004-01-30", 85.323, 93.704, 112.906, 4.483],["2004-02-27", 86.487, 95.025, 115.044, 4.485],["2004-03-31", 85.166, 94.471, 115.301, 4.528],["2004-04-30", 83.815, 94.204, 116.342, 4.588],
+["2004-05-28", 84.944, 94.787, 116.075, 4.555],["2004-06-30", 86.578, 95.38, 121.446, 4.497],["2004-07-30", 83.696, 92.595, 116.279, 4.516],["2004-08-31", 84.013, 93.151, 112.25, 4.526],
+["2004-09-30", 84.904, 93.224, 113.855, 4.482],["2004-10-29", 86.185, 94.335, 112.49, 4.468],["2004-11-30", 89.649, 95.82, 120.055, 4.363],["2004-12-31", 92.678, 97.809, 129.535, 4.308],
+["2005-01-31", 90.406, 97.072, 134.105, 4.383],["2005-02-28", 92.28, 98.496, 136.953, 4.357],["2005-03-31", 90.626, 96.82, 135.378, 4.361],["2005-04-29", 88.892, 95.142, 137.835, 4.369],
+["2005-05-31", 91.695, 99.198, 142.438, 4.416],["2005-06-30", 91.804, 102.869, 133.716, 4.574],["2005-07-29", 95.201, 105.556, 140.216, 4.526],["2005-08-31", 94.303, 104.999, 145.65, 4.545],
+["2005-09-30", 95.05, 107.065, 153.496, 4.598],["2005-10-31", 93.45, 106.133, 155.896, 4.636],["2005-11-30", 96.948, 110.747, 161.025, 4.663],["2005-12-30", 96.963, 109.338, 167.632, 4.603],
+["2006-01-31", 99.515, 113.558, 171.995, 4.658],["2006-02-28", 99.752, 115.0, 167.677, 4.706],["2006-03-31", 100.973, 115.395, 170.237, 4.665],["2006-04-28", 102.31, 112.861, 180.116, 4.503],
+["2006-05-31", 99.332, 109.942, 176.977, 4.518],["2006-06-30", 99.448, 108.17, 161.64, 4.44],["2006-07-31", 100.046, 107.668, 166.1, 4.393],["2006-08-31", 102.388, 109.462, 167.023, 4.364],
+["2006-09-29", 105.008, 110.668, 172.337, 4.302],["2006-10-31", 108.413, 113.884, 186.196, 4.288],["2006-11-30", 110.433, 114.897, 190.677, 4.247],["2006-12-29", 111.959, 115.881, 187.736, 4.225],
+["2007-01-31", 113.634, 118.589, 195.185, 4.26],["2007-02-28", 111.372, 114.892, 197.723, 4.211],["2007-03-30", 112.598, 114.612, 202.566, 4.155],["2007-04-30", 117.569, 115.898, 217.244, 4.024],
+["2007-05-31", 121.63, 120.17, 227.522, 4.033],["2007-06-29", 119.587, 124.48, 224.501, 4.249],["2007-07-31", 115.862, 122.191, 224.687, 4.305],["2007-08-31", 117.562, 118.771, 210.749, 4.124],
+["2007-09-28", 121.93, 119.869, 226.143, 4.013],["2007-10-31", 123.85, 120.33, 242.192, 3.966],["2007-11-30", 118.63, 111.307, 230.799, 3.83],["2007-12-31", 117.777, 110.968, 235.175, 3.846],
+["2008-01-31", 110.692, 98.299, 204.394, 3.625],["2008-02-29", 107.059, 95.335, 210.614, 3.635],["2008-03-31", 106.57, 92.759, 189.034, 3.553],["2008-04-30", 111.741, 93.866, 202.907, 3.429],
+["2008-05-30", 113.151, 89.617, 210.954, 3.233],["2008-06-30", 103.583, 85.059, 201.143, 3.352],["2008-07-31", 102.69, 87.294, 193.107, 3.47],["2008-08-29", 104.14, 91.639, 187.041, 3.592],
+["2008-09-30", 94.835, 79.478, 163.725, 3.421],["2008-10-31", 78.886, 73.108, 131.518, 3.783],["2008-11-28", 73.189, 70.285, 120.774, 3.92],["2008-12-31", 73.937, 68.866, 114.898, 3.802],
+["2009-01-30", 67.69, 67.408, 122.206, 4.065],["2009-02-27", 60.447, 61.632, 122.964, 4.162],["2009-03-31", 65.723, 67.429, 135.684, 4.188],["2009-04-30", 71.995, 73.424, 151.798, 4.163],
+["2009-05-29", 75.991, 73.683, 164.577, 3.958],["2009-06-30", 76.122, 73.082, 163.206, 3.919],["2009-07-31", 81.862, 76.006, 180.2, 3.79],["2009-08-31", 84.786, 79.157, 180.01, 3.811],
+["2009-09-30", 87.93, 80.951, 188.96, 3.758],["2009-10-30", 86.281, 79.179, 194.995, 3.746],["2009-11-30", 91.422, 84.927, 204.41, 3.792],["2009-12-31", 93.167, 86.16, 216.922, 3.775],
+["2010-01-29", 89.802, 81.926, 215.362, 3.724],["2010-02-26", 92.55, 86.066, 222.489, 3.796],["2010-03-31", 98.114, 89.245, 235.344, 3.713],["2010-04-30", 99.647, 90.713, 223.583, 3.716],
+["2010-05-28", 91.659, 85.978, 205.601, 3.829],["2010-06-30", 86.84, 82.436, 201.719, 3.875],["2010-07-30", 92.907, 86.011, 209.628, 3.779],["2010-08-31", 88.681, 82.924, 213.142, 3.817],
+["2010-09-30", 96.572, 86.707, 229.936, 3.665],["2010-10-29", 100.23, 89.279, 239.393, 3.636],["2010-11-30", 100.206, 90.411, 234.173, 3.683],["2010-12-31", 106.88, 92.924, 249.313, 3.549],
+["2011-01-31", 109.396, 99.427, 245.188, 3.71],["2011-02-28", 113.106, 100.36, 242.379, 3.622],["2011-03-31", 113.127, 96.471, 245.974, 3.481],["2011-04-29", 116.458, 96.858, 243.473, 3.395],
+["2011-05-31", 115.102, 96.914, 234.692, 3.437],["2011-06-30", 113.156, 94.666, 226.781, 3.415],["2011-07-29", 110.835, 93.132, 225.887, 3.43],["2011-08-31", 104.773, 91.324, 206.43, 3.558],
+["2011-09-30", 97.385, 88.558, 197.529, 3.712],["2011-10-31", 108.006, 95.358, 208.06, 3.604],["2011-11-30", 107.721, 100.094, 200.493, 3.793],["2011-12-30", 108.795, 101.839, 199.305, 3.821],
+["2012-01-31", 113.651, 103.934, 206.477, 3.733],["2012-02-29", 118.52, 109.345, 201.662, 3.766],["2012-03-30", 122.392, 111.388, 210.302, 3.715],["2012-04-30", 121.602, 111.712, 217.23, 3.75],
+["2012-05-31", 114.247, 108.621, 199.874, 3.881],["2012-06-29", 118.926, 114.294, 197.548, 3.923],["2012-07-31", 120.555, 118.044, 203.019, 3.997],["2012-08-31", 123.22, 121.59, 203.603, 4.028],
+["2012-09-28", 126.375, 121.112, 214.804, 3.912],["2012-10-31", 124.016, 117.818, 219.25, 3.878],["2012-11-30", 124.68, 116.372, 221.939, 3.81],["2012-12-31", 125.779, 115.025, 213.68, 3.733],
+["2013-01-31", 132.268, 120.797, 213.203, 3.728],["2013-02-28", 134.013, 121.735, 222.155, 3.708],["2013-03-28", 139.009, 124.229, 224.064, 3.648],["2013-04-30", 141.662, 124.727, 220.583, 3.594],
+["2013-05-31", 144.92, 130.755, 225.665, 3.683],["2013-06-28", 142.94, 126.692, 218.24, 3.618],["2013-07-31", 150.183, 131.199, 222.846, 3.566],["2013-08-30", 145.781, 129.067, 220.324, 3.614],
+["2013-09-30", 150.317, 130.248, 232.714, 3.537],["2013-10-31", 157.196, 135.515, 236.637, 3.519],["2013-11-29", 161.929, 139.754, 248.314, 3.523],["2013-12-31", 165.986, 141.141, 245.99, 3.471],
+["2014-01-31", 160.222, 137.299, 244.355, 3.498],["2014-02-28", 167.488, 143.444, 255.938, 3.496],["2014-03-31", 168.859, 144.246, 261.295, 3.487],["2014-04-30", 170.077, 144.411, 254.837, 3.466],
+["2014-05-30", 174.007, 148.132, 256.032, 3.475],["2014-06-30", 177.56, 149.547, 255.209, 3.438],["2014-07-31", 175.076, 147.069, 253.814, 3.429],["2014-08-29", 182.019, 159.099, 257.631, 3.568],
+["2014-09-30", 179.426, 162.415, 266.013, 3.695],["2014-10-31", 183.775, 170.359, 260.081, 3.784],["2014-11-28", 188.653, 179.733, 266.206, 3.889],["2014-12-31", 188.13, 179.235, 262.538, 3.889],
+["2015-01-30", 182.454, 175.392, 258.623, 3.924],["2015-02-27", 192.869, 187.388, 273.71, 3.966],["2015-03-31", 189.773, 185.031, 288.681, 3.98],["2015-04-30", 191.563, 181.192, 291.303, 3.861],
+["2015-05-29", 193.959, 184.17, 297.271, 3.876],["2015-06-30", 190.156, 175.575, 288.891, 3.769],["2015-07-31", 194.105, 179.887, 301.173, 3.783],["2015-08-31", 182.329, 175.539, 282.438, 3.93],
+["2015-09-30", 177.771, 170.846, 264.874, 3.923],["2015-10-30", 192.73, 182.579, 278.151, 3.867],["2015-11-30", 193.232, 183.528, 273.655, 3.877],["2015-12-31", 190.133, 181.749, 267.864, 3.902],
+["2016-01-29", 180.666, 174.868, 258.603, 3.951],["2016-02-29", 180.347, 172.748, 252.665, 3.91],["2016-03-31", 192.532, 177.627, 254.647, 3.766],["2016-04-29", 193.244, 178.048, 253.802, 3.761],
+["2016-05-31", 196.638, 185.462, 255.541, 3.85],["2016-06-30", 197.098, 185.703, 246.707, 3.846],["2016-07-29", 204.328, 191.613, 259.23, 3.828],["2016-08-31", 204.534, 189.703, 258.994, 3.786],
+["2016-09-30", 204.529, 188.295, 257.01, 3.758],["2016-10-31", 200.762, 189.302, 250.757, 3.849],["2016-11-30", 208.111, 195.722, 257.417, 3.839],["2016-12-30", 212.175, 199.857, 261.202, 3.845],
+["2017-01-31", 216.165, 199.59, 253.174, 3.769],["2017-02-28", 224.667, 201.386, 257.788, 3.659],["2017-03-31", 224.877, 200.086, 254.922, 3.632],["2017-04-28", 227.146, 201.382, 257.709, 3.619],
+["2017-05-31", 230.258, 200.869, 263.941, 3.561],["2017-06-30", 231.646, 198.391, 262.528, 3.496],["2017-07-31", 236.367, 206.025, 264.172, 3.558],["2017-08-31", 237.002, 208.784, 258.908, 3.596],
+["2017-09-29", 241.843, 209.08, 263.253, 3.529],["2017-10-31", 247.445, 213.438, 267.891, 3.521],["2017-11-30", 254.938, 218.527, 270.865, 3.499],["2017-12-29", 257.723, 218.894, 277.902, 3.467],
+["2018-01-31", 272.437, 227.254, 286.887, 3.405],["2018-02-28", 262.311, 223.948, 277.419, 3.485],["2018-03-29", 255.587, 220.022, 266.927, 3.514],["2018-04-30", 256.525, 225.48, 270.486, 3.588],
+["2018-05-31", 262.607, 229.411, 278.043, 3.566],["2018-06-29", 264.172, 236.214, 277.544, 3.65],["2018-07-31", 273.955, 245.902, 286.785, 3.664],["2018-08-31", 282.787, 249.672, 304.098, 3.604],
+["2018-09-28", 284.337, 252.643, 302.438, 3.627],["2018-10-31", 264.858, 241.434, 292.692, 3.721],["2018-11-30", 270.155, 244.939, 299.126, 3.701],["2018-12-31", 245.702, 225.598, 271.551, 3.748],
+["2019-01-31", 265.338, 236.737, 287.842, 3.642],["2019-02-28", 273.763, 241.706, 291.539, 3.604],["2019-03-29", 279.021, 248.261, 288.834, 3.632],["2019-04-30", 290.269, 256.563, 299.136, 3.608],
+["2019-05-31", 271.726, 241.904, 292.27, 3.634],["2019-06-28", 290.813, 254.052, 302.507, 3.566],["2019-07-31", 294.939, 252.815, 308.286, 3.499],["2019-08-30", 290.167, 251.284, 301.558, 3.535],
+["2019-09-30", 295.53, 252.091, 312.162, 3.482],["2019-10-31", 301.876, 260.98, 321.412, 3.529],["2019-11-29", 312.732, 266.305, 331.093, 3.476],["2019-12-31", 322.096, 272.701, 329.3, 3.456],
+["2020-01-31", 321.91, 271.912, 333.119, 3.448],["2020-02-28", 295.324, 250.83, 314.197, 3.467],["2020-03-31", 258.777, 226.002, 260.084, 3.565],["2020-04-30", 291.898, 250.28, 286.628, 3.5],
+["2020-05-29", 305.698, 262.262, 284.064, 3.502],["2020-06-30", 311.709, 264.67, 269.932, 3.466],["2020-07-31", 329.224, 274.864, 281.314, 3.408],["2020-08-31", 352.799, 290.571, 289.865, 3.362],
+["2020-09-30", 339.329, 286.044, 274.048, 3.441],["2020-10-30", 330.251, 276.854, 279.853, 3.422],["2020-11-30", 366.306, 296.85, 308.198, 3.308],["2020-12-31", 380.317, 299.539, 319.399, 3.215],
+["2021-01-29", 376.418, 303.477, 330.814, 3.291],["2021-02-26", 386.714, 310.735, 326.872, 3.28],["2021-03-31", 403.571, 329.62, 338.949, 3.334],["2021-04-30", 425.052, 338.105, 349.258, 3.247],
+["2021-05-28", 427.926, 341.02, 360.972, 3.253],["2021-06-30", 437.843, 349.674, 359.422, 3.26],["2021-07-30", 448.178, 354.963, 359.157, 3.233],["2021-08-31", 461.71, 362.74, 370.41, 3.207],
+["2021-09-30", 440.162, 348.183, 378.792, 3.229],["2021-10-29", 470.94, 364.338, 392.637, 3.158],["2021-11-30", 467.578, 362.195, 398.13, 3.162],["2021-12-31", 488.449, 372.14, 418.884, 3.11],
+["2022-01-31", 463.112, 362.48, 413.378, 3.195],["2022-02-28", 449.146, 356.28, 418.56, 3.238],["2022-03-31", 465.732, 362.363, 427.153, 3.176],["2022-04-29", 425.067, 345.406, 429.614, 3.317],
+["2022-05-31", 425.733, 348.137, 400.281, 3.338],["2022-06-30", 390.503, 334.826, 383.707, 3.5],["2022-07-29", 426.446, 354.257, 409.858, 3.391],["2022-08-31", 408.948, 334.713, 422.1, 3.341],
+["2022-09-30", 371.205, 322.19, 383.732, 3.543],["2022-10-31", 401.197, 346.944, 398.957, 3.53],["2022-11-30", 423.49, 356.989, 383.748, 3.441],["2022-12-30", 399.004, 343.972, 369.355, 3.519],
+["2023-01-31", 424.011, 360.96, 371.288, 3.475],["2023-02-28", 413.556, 371.613, 352.783, 3.668],["2023-03-31", 428.636, 379.598, 351.527, 3.615],["2023-04-28", 435.265, 388.241, 357.279, 3.641],
+["2023-05-31", 437.035, 397.742, 355.845, 3.715],["2023-06-30", 465.824, 422.231, 361.676, 3.7],["2023-07-31", 480.719, 434.908, 384.76, 3.693],["2023-08-31", 472.936, 440.38, 381.66, 3.801],
+["2023-09-29", 450.314, 421.852, 381.799, 3.824],["2023-10-31", 440.781, 433.762, 337.709, 4.017],["2023-11-30", 480.893, 437.54, 365.137, 3.714],["2023-12-29", 502.654, 446.626, 384.373, 3.627],
+["2024-01-31", 511.032, 455.071, 379.248, 3.635],["2024-02-29", 538.191, 472.532, 403.53, 3.584],["2024-03-28", 555.414, 500.852, 416.244, 3.681],["2024-04-30", 532.663, 488.166, 401.412, 3.741],
+["2024-05-31", 558.951, 509.108, 406.035, 3.718],["2024-06-28", 578.905, 533.098, 397.981, 3.759],["2024-07-31", 585.878, 540.667, 406.97, 3.767],["2024-08-30", 599.964, 537.352, 424.011, 3.656],
+["2024-09-30", 612.673, 556.839, 431.5, 3.71],["2024-10-31", 607.042, 552.316, 450.889, 3.714],["2024-11-29", 642.548, 573.445, 467.424, 3.643],["2024-12-31", 627.12, 560.29, 494.327, 3.647],
+["2025-01-31", 644.505, 564.771, 509.339, 3.577],["2025-02-28", 635.98, 559.326, 517.878, 3.59],["2025-03-31", 600.032, 546.526, 498.311, 3.718],["2025-04-30", 595.887, 530.926, 520.87, 3.637],
+["2025-05-30", 633.268, 545.771, 554.989, 3.518],["2025-06-30", 665.353, 549.625, 615.643, 3.372],["2025-07-31", 680.208, 564.563, 627.414, 3.388],["2025-08-29", 693.874, 566.386, 634.502, 3.332],
+["2025-09-30", 719.078, 582.379, 661.988, 3.306],["2025-10-31", 735.836, 584.595, 680.063, 3.243],["2025-11-28", 737.512, 589.54, 708.765, 3.263],["2025-12-31", 737.838, 576.605, 746.214, 3.19],
+["2026-01-30", 748.444, 567.475, 813.859, 3.095],["2026-02-27", 742.636, 567.984, 829.991, 3.122],["2026-03-31", 705.53, 547.036, 818.167, 3.165],["2026-04-30", 779.485, 563.513, 878.68, 2.951],
+["2026-05-29", 820.376, 564.938, 902.426, 2.811],["2026-06-30", 812.425, 592.7, 816.957, 2.978],["2026-07-31", 811.83, 607.977, 829.363, 3.057],["2026-08-31", 833.816, 610.348, 826.276, 2.988]
+]
+</script>
+
+<script>
+(function () {
+  var ROWS = JSON.parse(document.getElementById('cmp-data').textContent);
+  var META = JSON.parse(document.getElementById('cmp-meta').textContent);
+
+  var C_TA = '#007DA8', C_SP = '#C77B1E';
+  var MONTHS = ['בינואר','בפברואר','במרץ','באפריל','במאי','ביוני','ביולי','באוגוסט','בספטמבר','באוקטובר','בנובמבר','בדצמבר'];
+  function heb(iso){ var p = iso.split('-'); return (+p[2]) + ' ' + MONTHS[(+p[1]) - 1] + ' ' + p[0]; }
+  function hebMY(iso){ var p = iso.split('-'); return MONTHS[(+p[1]) - 1].replace(/^ב/,'') + ' ' + p[0]; }
+  function num(x, d){ return x.toLocaleString('he-IL', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function pct(x, d){ return num(x, d === undefined ? 1 : d) + '%'; }
+
+  // ROWS: [date, spUsd(=100 base), spIls(=100 base), ta(=100 base), fx]
+  var S = ROWS.map(function (r) { return { d: r[0], su: r[1], si: r[2], ta: r[3], fx: r[4] }; });
+  var first = S[0], last = S[S.length - 1];
+  var DAY = 864e5, YR = 365.2425 * DAY;
+  function yrsBetween(a, b) { return (new Date(b).getTime() - new Date(a).getTime()) / YR; }
+  function cagr(v0, v1, y) { return (Math.pow(v1 / v0, 1 / y) - 1) * 100; }
+
+  var fullY = yrsBetween(first.d, last.d);
+  var cTaFull = cagr(first.ta, last.ta, fullY);
+  var cSpIlsFull = cagr(first.si, last.si, fullY);
+  var cSpUsdFull = cagr(first.su, last.su, fullY);
+  var fxChg = (last.fx / first.fx - 1) * 100;
+  var fxCost = cSpUsdFull - cSpIlsFull;
+
+  document.getElementById('pageUpdated').textContent = 'עודכן: ' + heb(META.updated);
+  document.getElementById('asOf').textContent = heb(last.d);
+  document.getElementById('asOf2').textContent = heb(last.d);
+  document.getElementById('asOfYears').textContent = num(fullY, 1) + ' שנים';
+  document.getElementById('nTa').textContent = pct(cTaFull);
+  document.getElementById('nSpUsd').textContent = pct(cSpUsdFull);
+  document.getElementById('nSpIls').textContent = pct(cSpIlsFull);
+  document.getElementById('nTaMult').textContent = 'פי ' + num(last.ta / 100, 1) + ' על הכסף';
+  document.getElementById('nSpUsdMult').textContent = 'פי ' + num(last.su / 100, 1) + ' על הכסף';
+  document.getElementById('nSpIlsMult').textContent = 'פי ' + num(last.si / 100, 1) + ' על הכסף';
+
+  /* ---------- חלונות ---------- */
+  var WINDOWS = [3, 5, 10, 15, 20, 25];
+  var win = [];
+  WINDOWS.forEach(function (w) {
+    var i = S.length - 1 - w * 12;
+    if (i < 0) return;
+    var p = S[i], y = yrsBetween(p.d, last.d);
+    win.push({ w: w, from: p.d, y: y, sp: cagr(p.si, last.si, y), ta: cagr(p.ta, last.ta, y) });
+  });
+  var W = {};
+  win.forEach(function (r) { W[r.w] = r; });
+
+  document.getElementById('flipNote').innerHTML =
+    'בדולרים שני המדדים הניבו כמעט אותו דבר. הפער השקלי כולו נוצר משער החליפין — ' +
+    '<b>' + num(fxCost, 1) + ' נקודות אחוז בשנה</b>. ' +
+    (W[15] ? 'ובחלון קצר יותר התמונה מתהפכת: ב-15 השנים האחרונות ה-S&amp;P 500 בשקלים הניב <b>' +
+      pct(W[15].sp) + '</b> בשנה מול <b>' + pct(W[15].ta) + '</b> לת"א 125.' : '');
+
+  function gapCell(g) {
+    var who = g >= 0 ? 'ת"א 125 מוביל' : 'S&amp;P 500 מוביל';
+    return '<td class="gap"><span class="g"><span class="who">' + who + '</span>' +
+           '<span class="amt">+' + num(Math.abs(g), 1) + '</span></span></td>';
+  }
+  function winRow(label, ta, sp, cls) {
+    return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' +
+           '<td class="v-ta">' + pct(ta) + '</td>' +
+           '<td class="v-sp">' + pct(sp) + '</td>' + gapCell(ta - sp) + '</tr>';
+  }
+  var rowsHtml = win.map(function (r) {
+    return winRow(r.w === 1 ? 'שנה' : r.w + ' שנים', r.ta, r.sp);
+  }).join('');
+  rowsHtml += winRow(num(fullY, 1) + ' שנים (מ-2000)', cTaFull, cSpIlsFull, 'total');
+  document.getElementById('winBody').innerHTML = rowsHtml;
+
+  document.getElementById('winNote').textContent =
+    'כל שורה נמדדת עד אותו יום ומשתנה רק בנקודת הפתיחה. ההפרש בין השורות גדול מההפרש בין העמודות — ' +
+    'זו הסיבה שאותם נתונים בדיוק יכולים לשמש כראיה לשני הצדדים של הוויכוח. ' +
+    'החלונות הקצרים נשלטים על ידי העלייה החדה בבורסה בתל אביב מאז 2024, והארוכים על ידי העשור האמריקאי החזק שקדם לה.';
+
+  /* ---------- תשואה לפי חודש כניסה ---------- */
+  /* סף ההחזקה נקבע על חמש שנים: מתחת לזה "תשואה שנתית ממוצעת" היא בעצם תשואה של
+     שנה או שנתיים, והקצה הימני של הגרף מוחק ויזואלית את כל שני העשורים שלפניו. */
+  var MIN_YEARS = 5;
+  function entriesFrom(minY) {
+    var out = [];
+    for (var k = 0; k < S.length - 1; k++) {
+      var y = yrsBetween(S[k].d, last.d);
+      if (y < minY) continue;
+      out.push({ d: S[k].d, y: y, sp: cagr(S[k].si, last.si, y), ta: cagr(S[k].ta, last.ta, y) });
+    }
+    return out;
+  }
+  function tally(list) {
+    var t = list.filter(function (p) { return p.ta > p.sp; }).length;
+    return { n: list.length, ta: t, sp: list.length - t };
+  }
+  var ent = entriesFrom(MIN_YEARS);
+  var cnt5 = tally(ent), cnt1 = tally(entriesFrom(1));
+  var taWins = cnt5.ta, spWins = cnt5.sp;
+
+  // גושים רצופים של הובלה
+  var runs = [], cur = null;
+  ent.forEach(function (p) {
+    var who = p.ta > p.sp ? 'ta' : 'sp';
+    if (cur && cur.who === who) { cur.to = p.d; cur.n++; }
+    else { if (cur) runs.push(cur); cur = { who: who, from: p.d, to: p.d, n: 1 }; }
+  });
+  if (cur) runs.push(cur);
+  var lastRunFrom = runs.length ? runs[runs.length - 1].from : null;
+  var bigRuns = runs.slice().sort(function (a, b) { return b.n - a.n; }).slice(0, 3)
+                    .sort(function (a, b) { return a.from < b.from ? -1 : 1; });
+
+  document.getElementById('entHint').textContent =
+    'לכל חודש בציר: התשואה השנתית הממוצעת שקיבל מי שנכנס בסופו והחזיק עד ' + heb(last.d) + '. ' +
+    'מדובר בממוצע גיאומטרי — התשואה השנתית הקבועה שהייתה מביאה לאותה תוצאה סופית. ' +
+    'נכללים מועדי כניסה עם החזקה של חמש שנים לפחות; מתחת לזה "תשואה שנתית ממוצעת" היא פשוט התשואה של השנה האחרונה.';
+
+  var runTxt = bigRuns.map(function (r) {
+    var name = r.who === 'ta' ? 'ת"א 125' : 'S&P 500 בשקלים';
+    return name + ' — כניסות מ' + hebMY(r.from) + (r.from === lastRunFrom ? ' ואילך' : ' עד ' + hebMY(r.to));
+  }).join('; ');
+
+  document.getElementById('entNote').textContent =
+    'מתוך ' + cnt5.n + ' חודשי הכניסה שבגרף, S&P 500 בשקלים הוביל ב-' + cnt5.sp + ' ות"א 125 ב-' + cnt5.ta + '. ' +
+    'הצורה חשובה מהספירה: ההובלה מתחלפת בגושים ארוכים ורצופים ולא באופן אקראי (' + runTxt + '), ' +
+    'ולכן השאלה המעשית היא פחות "איזה מדד" ויותר "באיזה עשור נכנסתם". ' +
+    'הספירה עצמה שברירית — אם מורידים את סף ההחזקה לשנה אחת היא מתהפכת, ' +
+    'ל-' + cnt1.ta + ' לת"א 125 מול ' + cnt1.sp + ' ל-S&P. ' +
+    'שתי הסדרות ברוטו, לפני דמי ניהול ומס. תשואות עבר אינן מעידות על העתיד.';
+
+  /* ---------- שיא ---------- */
+  var pkTa = S.reduce(function (a, b) { return b.ta > a.ta ? b : a; });
+  var pkSp = S.reduce(function (a, b) { return b.si > a.si ? b : a; });
+  var fromPkTa = (last.ta / pkTa.ta - 1) * 100;
+  var fromPkSp = (last.si / pkSp.si - 1) * 100;
+  document.getElementById('peakNote').textContent =
+    (Math.abs(fromPkSp) < 0.05
+      ? 'ה-S&P 500 בשקלים סוגר את התקופה בשיא שלו, '
+      : 'ה-S&P 500 בשקלים נמצא ' + pct(Math.abs(fromPkSp)) + ' מתחת לשיא שלו, ') +
+    (Math.abs(fromPkTa) < 0.05
+      ? 'וכך גם ת"א 125. '
+      : 'ות"א 125 נמצא ' + pct(Math.abs(fromPkTa)) + ' מתחת לשיא שלו מ' + hebMY(pkTa.d) + '. ') +
+    'יום סיום אחר היה מזיז את כל המספרים.';
+
+  /* ---------- גרפים ---------- */
+  var crosshair = {
+    id: 'crosshair',
+    afterDatasetsDraw: function (c) {
+      var act = c.tooltip && c.tooltip.getActiveElements ? c.tooltip.getActiveElements() : [];
+      if (!act.length) return;
+      var x = act[0].element.x, a = c.chartArea, g = c.ctx;
+      g.save(); g.beginPath(); g.moveTo(x, a.top); g.lineTo(x, a.bottom);
+      g.lineWidth = 1; g.strokeStyle = 'rgba(26,26,26,.3)'; g.stroke(); g.restore();
+    }
+  };
+  var FONT = { family: 'Heebo', size: 12 };
+  function baseOpts(labels, yFmt, titleFn, labelFn, showLegend) {
+    return {
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: showLegend === false ? { display: false } : {
+          display: true, position: 'bottom',
+          labels: { font: { family: 'Heebo', size: 13 }, color: '#555', boxWidth: 12, boxHeight: 12, usePointStyle: true, pointStyle: 'rectRounded', padding: 18 }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(26,26,26,.92)',
+          titleFont: { family: 'Heebo', size: 13 },
+          bodyFont: { family: 'Heebo', size: 14, weight: '600' },
+          padding: 10, displayColors: true, boxWidth: 9, boxHeight: 9, usePointStyle: true,
+          textDirection: 'rtl', rtl: true,
+          callbacks: { title: titleFn, label: labelFn }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { font: FONT, color: '#999', maxRotation: 0, autoSkip: true, maxTicksLimit: 8,
+                   callback: function (v, i) { return labels[i].slice(5, 7) + '/' + labels[i].slice(2, 4); } },
+          grid: { display: false }, border: { color: '#E2E0DC' }
+        },
+        y: {
+          position: 'right',
+          ticks: { font: FONT, color: '#999', callback: yFmt },
+          grid: { color: '#EEE' }, border: { display: false }
+        }
+      }
+    };
+  }
+  function lineSet(label, data, color) {
+    return { label: label, data: data, borderColor: color, backgroundColor: color,
+             borderWidth: 2, fill: false, tension: .2, pointRadius: 0,
+             pointHoverRadius: 5, pointHoverBackgroundColor: color,
+             pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2 };
+  }
+
+  if (window.Chart && ent.length > 2) {
+    var eLab = ent.map(function (p) { return p.d; });
+    new Chart(document.getElementById('entChart'), {
+      type: 'line',
+      data: { labels: eLab, datasets: [
+        lineSet('ת"א 125', ent.map(function (p) { return p.ta; }), C_TA),
+        lineSet('S&P 500 בשקלים', ent.map(function (p) { return p.sp; }), C_SP)
+      ] },
+      options: baseOpts(eLab, function (v) { return num(v, 0) + '%'; },
+        function (it) { return 'כניסה בסוף ' + hebMY(ent[it[0].dataIndex].d) + ' · החזקה ' + num(ent[it[0].dataIndex].y, 1) + ' שנים'; },
+        function (it) { return it.dataset.label + ': ' + pct(it.parsed.y); }),
+      plugins: [crosshair]
+    });
+  }
+
+  /* קו ייחוס ברמת ההשקעה המקורית — כדי שהתקופה שמתחת לה תהיה נראית */
+  var baseLine = {
+    id: 'baseLine',
+    beforeDatasetsDraw: function (c) {
+      var y = c.scales.y.getPixelForValue(100), a = c.chartArea, g = c.ctx;
+      if (y < a.top || y > a.bottom) return;
+      g.save();
+      g.beginPath(); g.setLineDash([5, 4]); g.moveTo(a.left, y); g.lineTo(a.right, y);
+      g.lineWidth = 1; g.strokeStyle = '#B8B4AC'; g.stroke(); g.setLineDash([]);
+      g.font = '600 11px Heebo, sans-serif'; g.fillStyle = '#999';
+      g.textAlign = 'left'; g.textBaseline = 'bottom';
+      g.fillText('100 ₪ — סכום ההשקעה', a.left + 4, y - 3);
+      g.restore();
+    }
+  };
+
+  if (window.Chart) {
+    var gLab = S.map(function (p) { return p.d; });
+    new Chart(document.getElementById('growthChart'), {
+      type: 'line',
+      data: { labels: gLab, datasets: [
+        lineSet('ת"א 125', S.map(function (p) { return p.ta; }), C_TA),
+        lineSet('S&P 500 בשקלים', S.map(function (p) { return p.si; }), C_SP)
+      ] },
+      options: baseOpts(gLab, function (v) { return num(v, 0); },
+        function (it) { return hebMY(S[it[0].dataIndex].d); },
+        function (it) { return it.dataset.label + ': ' + num(it.parsed.y, 0) + ' ₪'; }),
+      plugins: [crosshair, baseLine]
+    });
+
+    new Chart(document.getElementById('fxChart'), {
+      type: 'line',
+      data: { labels: gLab, datasets: [
+        lineSet('דולר / שקל', S.map(function (p) { return p.fx; }), '#6E6A64')
+      ] },
+      options: baseOpts(gLab, function (v) { return num(v, 2); },
+        function (it) { return hebMY(S[it[0].dataIndex].d); },
+        function (it) { return num(it.parsed.y, 3) + ' ₪ לדולר'; }, false),
+      plugins: [crosshair]
+    });
+  }
+
+  var fxMax = S.reduce(function (a, b) { return b.fx > a.fx ? b : a; });
+  var fxMin = S.reduce(function (a, b) { return b.fx < a.fx ? b : a; });
+  document.getElementById('fxNote').textContent =
+    'מ-' + num(first.fx, 3) + ' שקלים לדולר בסוף ינואר 2000 ל-' + num(last.fx, 3) + ' שקלים ב-' + heb(last.d) +
+    ' — ירידה של ' + pct(Math.abs(fxChg)) + '. בדרך היו גם השיא, ' + num(fxMax.fx, 3) + ' שקלים ב' + hebMY(fxMax.d) +
+    ', וגם השפל, ' + num(fxMin.fx, 3) + ' שקלים ב' + hebMY(fxMin.d) + '. ' +
+    'עבור חוסך שמחזיק מדד אמריקאי לא מגודר, זו לא שורה בדוח — זו ' + num(fxCost, 1) + ' נקודות אחוז בשנה, לאורך כל התקופה.';
+
+  function recovered(key) {
+    var lastBelow = null;
+    S.forEach(function (p, i) { if (i > 0 && p[key] < 100) lastBelow = p; });
+    if (!lastBelow) return null;
+    var i = S.indexOf(lastBelow);
+    return { at: S[i + 1] ? S[i + 1].d : null, yrs: yrsBetween(first.d, S[i + 1] ? S[i + 1].d : lastBelow.d) };
+  }
+  var recSp = recovered('si'), recTa = recovered('ta');
+  document.getElementById('growthNote').textContent =
+    '100 שקלים שהושקעו בסוף ינואר 2000 הפכו ל-' + num(last.ta, 0) + ' שקלים בת"א 125 ול-' +
+    num(last.si, 0) + ' שקלים ב-S&P 500 בשקלים. אבל הצורה חשובה יותר מנקודת הסיום. ' +
+    (recSp && recTa
+      ? 'המדד האמריקאי, במונחים שקליים, חזר לרמת הפתיחה שלו לצמיתות רק ב' + hebMY(recSp.at) +
+        ' — ' + num(recSp.yrs, 1) + ' שנים של המתנה; ת"א 125 עשה זאת כבר ב' + hebMY(recTa.at) +
+        ', אחרי ' + num(recTa.yrs, 1) + ' שנים. '
+      : '') +
+    'מי שנכנס לשוק האמריקאי בשיא של תחילת 2000 חי עם החזקה שהייתה שווה פחות מהכסף שהכניס במשך למעלה מעשור, ' +
+    'וזה כשלעצמו סיכון שאין לו ביטוי בשורת התשואה הממוצעת.';
+
+  /* ---------- מילוי המספרים ב-FAQ ---------- */
+  var F = {
+    date: heb(last.d),
+    years: num(fullY, 1),
+    cagrTaFull: pct(cTaFull), cagrSpFull: pct(cSpIlsFull), cagrSpUsd: pct(cSpUsdFull),
+    multTa: num(last.ta / 100, 1), multSpIls: num(last.si / 100, 1), multSpUsd: num(last.su / 100, 1),
+    fxStart: num(first.fx, 3), fxEnd: num(last.fx, 3),
+    fxChg: pct(Math.abs(fxChg)), fxCost: num(fxCost, 1),
+    nEntries: String(cnt5.n), taWins: String(cnt5.ta), spWins: String(cnt5.sp),
+    nEntries1: String(cnt1.n), taWins1: String(cnt1.ta), spWins1: String(cnt1.sp)
+  };
+  [5, 10, 15, 20].forEach(function (w) {
+    if (!W[w]) return;
+    F['cagrSp' + w] = pct(W[w].sp);
+    F['cagrTa' + w] = pct(W[w].ta);
+    F['gap' + w] = num(Math.abs(W[w].ta - W[w].sp), 1);
+  });
+  document.querySelectorAll('#faq [data-f]').forEach(function (el) {
+    var v = F[el.getAttribute('data-f')];
+    if (v !== undefined) el.textContent = v;
+  });
+
+  /* --- סכימת FAQPage נבנית מהטקסט המוצג בפועל, כדי שלא תסתור אותו --- */
+  var ld = document.getElementById('faqSchema');
+  if (ld) {
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': [].slice.call(document.querySelectorAll('#faq details.faq')).map(function (d) {
+        return {
+          '@type': 'Question',
+          'name': d.querySelector('summary').textContent.trim(),
+          'acceptedAnswer': { '@type': 'Answer', 'text': d.querySelector('.body').textContent.replace(/\s+/g, ' ').trim() }
+        };
+      })
+    });
+  }
+
+  document.getElementById('definition').textContent =
+    'הנתונים: מדד ת"א 125 בשקלים, ו-S&P 500 בתשואה כוללת בניכוי מס דיבידנד אמריקאי של 15%, ' +
+    'מתורגם לשקלים לפי השער היציג של בנק ישראל. סגירה בסוף כל חודש, מסוף ינואר 2000 ועד ' + heb(last.d) + '. ' +
+    'שתי הסדרות ברוטו — לפני דמי ניהול ולפני מס.';
+
+  /* --- כפתור עדכון (כלי פנימי) --- */
+  var CMD = 'עדכן את דף ההשוואה S&P 500 בשקלים מול ת"א 125 באתר — משוך נתונים חדשים עד סוף החודש האחרון.';
+  var btn = document.getElementById('refreshBtn');
+  var owner = false;
+  try { owner = window.__pensyaOwner === true
+              || localStorage.getItem('pensyaDraftMode') === '1'
+              || location.protocol === 'file:'; } catch (e) { owner = location.protocol === 'file:'; }
+  if (owner) btn.style.display = 'block';
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(CMD).then(function () {
+      btn.textContent = '✓ הפקודה הועתקה — הדביקו בשיחה עם Claude';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'עדכן נתונים'; btn.classList.remove('done'); }, 4000);
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('hamburger');
+  var nav=document.querySelector('.nav');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!nav)return;
+  function toggle(open){btn.classList.toggle('open',open);nav.classList.toggle('open',open);if(overlay)overlay.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));}
+  btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
+  if(overlay)overlay.addEventListener('click',function(){toggle(false);});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script src="/search.js"></script>
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>

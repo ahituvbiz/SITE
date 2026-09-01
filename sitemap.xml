@@ -481,4 +481,11 @@
     <priority>0.7</priority>
     <!-- העשור האבוד של S&amp;P 500 -->
   </url>
+  <url>
+    <loc>https://pensya.info/investment/sp500-vs-ta125/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- S&amp;P 500 בשקלים מול ת"א 125 -->
+  </url>
 </urlset>
