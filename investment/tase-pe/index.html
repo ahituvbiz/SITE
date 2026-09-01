@@ -903,13 +903,13 @@ a:hover{text-decoration:underline}
     document.getElementById('entScaleMin').textContent = ih[MIN_HIST].d.slice(0, 4);
     document.getElementById('entScaleMax').textContent = ih[LAST].d.slice(0, 4);
 
-    var pending = null;
+    /* עדכון סינכרוני במכוון: rAF אינו רץ בלשונית שאינה מצוירת,
+       ואז התווית הייתה מתעדכנת בלי הגרף. העדכון עצמו זול. */
     function apply(i) {
       var lbl = heb(ih[i].d) + (i === LAST ? ' (עדכני)' : '');
       entOut.textContent = lbl;
       entSel.setAttribute('aria-valuetext', lbl);
-      if (pending) cancelAnimationFrame(pending);
-      pending = requestAnimationFrame(function () { pending = null; renderEnt(i); });
+      renderEnt(i);
     }
     entSel.addEventListener('input', function () { apply(+entSel.value); });
     if (entReset) entReset.addEventListener('click', function () {
