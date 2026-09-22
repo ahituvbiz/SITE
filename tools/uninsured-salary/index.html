@@ -470,13 +470,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <div class="form-group">
           <label for="us-points">נקודות זיכוי <span class="val-display" id="us-points-out">2.25</span></label>
           <span class="hint">2.25 לגבר תושב ישראל, 2.75 לאישה, ועוד לילדים ולזכאויות נוספות. מופיע בתלוש — וקובע כמה מס אתה משלם בפועל</span>
-          <input type="range" id="us-points" min="0" max="10" step="0.25" value="2.25" aria-describedby="us-points-out">
+          <input type="range" id="us-points" min="2.25" max="25" step="0.25" value="2.25" aria-describedby="us-points-out">
         </div>
 
         <div class="form-group">
-          <label for="us-other-cred">זיכויים אחרים שאתה מקבל <span class="val-display" id="us-other-cred-out">0 ₪</span></label>
-          <span class="hint">סכום הזיכוי השנתי בשקלים בגין תרומות (סעיף 46), ביטוח חיים וכל זיכוי אחר — לא סכום התרומה עצמה. הם מקטינים את המס שנותר לקזז</span>
-          <input type="range" id="us-other-cred" min="0" max="20000" step="250" value="0" aria-describedby="us-other-cred-out">
+          <label for="us-donation">תרומות שנתיות למוסד מוכר <span class="val-display" id="us-donation-out">0 ₪</span></label>
+          <span class="hint">סכום התרומה עצמה, למוסד בעל אישור לפי סעיף 46. המחשבון יחשב את הזיכוי (35%, מעל 207 ₪ ועד 30% מההכנסה החייבת)</span>
+          <input type="range" id="us-donation" min="0" max="60000" step="250" value="0" aria-describedby="us-donation-out">
+        </div>
+
+        <div class="form-group">
+          <label for="us-life">פרמיה שנתית לביטוח חיים <span class="val-display" id="us-life-out">0 ₪</span></label>
+          <span class="hint">רק מרכיב הסיכון (ריסק), בלי חיסכון. המחשבון יחשב את הזיכוי (25%) ואת התחרות שלו על אותה תקרה כמו ההפקדה לפנסיה</span>
+          <input type="range" id="us-life" min="0" max="20000" step="100" value="0" aria-describedby="us-life-out">
         </div>
 
         <label class="chk" for="us-age50">
@@ -545,8 +551,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
           <p class="disclaimer">
             החישוב לפי נתוני שנת המס 2026 ומבוסס על סעיפים 45א ו־47 לפקודת מס הכנסה. הוא מניח הכנסה
-            קבועה לאורך כל השנה ומתעלם מהשפעת ההפקדה על דמי ביטוח לאומי של עצמאי. זיכויים אחרים (תרומות
-            לפי סעיף 46, ביטוח חיים וכדומה) נלקחים בחשבון רק אם הזנת אותם — הם מקטינים את המס שנותר לקזז. שיעורי הניכוי המוגדלים לבני 50 ומעלה חלים, לפי התקנות, רק במסלול הרגיל של סעיף 47(ב) —
+            קבועה לאורך כל השנה ומתעלם מהשפעת ההפקדה על דמי ביטוח לאומי של עצמאי. תרומות לפי סעיף 46 וביטוח
+            חיים לפי סעיף 45א(א) נלקחים בחשבון רק אם הזנת אותם, והם מקטינים את המס שנותר לקזז; זיכויים אחרים
+            (שכר דירה, סיום תואר וכדומה) אינם מחושבים כאן. שיעורי הניכוי המוגדלים לבני 50 ומעלה חלים, לפי התקנות, רק במסלול הרגיל של סעיף 47(ב) —
             המחשבון בודק את שני המסלולים ומציג את המשתלם. מספרי השדות בדוח השנתי מצוינים לפי הדוח לשנת 2025 ומשתנים משנה לשנה. אינו מהווה ייעוץ מס,
             ייעוץ פנסיוני או תחליף לבדיקה פרטנית. <a href="#sources">המקורות שהחישוב נשען עליהם ←</a>
           </p>
@@ -807,6 +814,12 @@ var US = {
   ADDL      : 291000,  /* תקרת הכנסה נוספת, 47(א)(5)                    [24,250 לחודש] */
   MZ_CRED2  : 232800,  /* תקרת הזיכוי לעמית מוטב על הכנסה לא מבוטחת (פי 2), 45א(ה) */
   MOTAV     : 26436,   /* סף עמית מוטב, 47(א)(7) — 16% מהשכר השנתי הממוצע */
+  DON_MIN   : 207,     /* סכום תרומה מינימלי לזיכוי, 46(א) — לשנה */
+  DON_MAX   : 10354816,/* סכום תרומה מקסימלי לזיכוי, 46(א) — לשנה */
+  DON_RATE  : 0.35,    /* שיעור הזיכוי על תרומה, 46(א) */
+  DON_SHARE : 0.30,    /* תקרת התרומה: 30% מההכנסה החייבת */
+  LIFE_RATE : 0.25,    /* שיעור הזיכוי על ביטוח חיים, 45א(א)(1) */
+  LIFE_SHARE: 0.05,    /* תת-תקרה: ביטוח חיים ושאירים עד 5% מההכנסה המזכה, 45א(ד)/(ה) */
   POINT     : 2904,    /* נקודת זיכוי שנתית (242 לחודש) */
   LIMITS    : [84120,120720,228000,301200,560280,721560],
   RATES     : [0.10,0.14,0.20,0.31,0.35,0.47,0.50],
@@ -828,9 +841,21 @@ function usMarginal(taxable){
   for (var i=0;i<US.LIMITS.length;i++) if (taxable <= US.LIMITS[i]) return US.RATES[i];
   return US.RATES[US.RATES.length-1];
 }
-/* המס שנותר לקזז ממנו את ההטבה: אחרי נקודות הזיכוי ואחרי זיכויים אחרים (תרומות לפי סעיף 46,
-   ביטוח חיים לפי 45א(א) וכו'). זיכויים אלה אינם מוחזרים במזומן, ולכן הם מקטינים את התקרה. */
-function usTaxNet(b, taxable){ return Math.max(0, usTax(taxable, b.points) - (b.otherCred || 0)); }
+/* זיכוי תרומות לפי סעיף 46: 35% מהתרומה, רק מעל סכום מינימלי, ועד 30% מההכנסה החייבת */
+function usDonCredit(b){
+  if (b.donation < US.DON_MIN) return 0;
+  return US.DON_RATE * Math.min(b.donation, US.DON_SHARE * b.totalTaxable, US.DON_MAX);
+}
+/* זיכוי ביטוח חיים לפי 45א(א)(1): 25% מהפרמיה — אבל הפרמיה מתחרה על אותה תקרה של 7%
+   מההכנסה המזכה המבוטחת שבה יושב גם חלק העובד וגם ההפקדה העצמאית, ובנוסף כפופה לתת-תקרה
+   של 5% מאותה הכנסה. הפקדה לקצבה מזכה ב-35% מול 25%, ולכן היא קודמת בתקרה המשותפת. */
+function usLifeElig(b, s, pensionInIns){
+  if (!b.lifePrem) return 0;
+  return Math.max(0, Math.min(b.lifePrem, s.lifeCap, s.credRoomIns - (pensionInIns || 0)));
+}
+/* המס שנותר לקזז ממנו את הטבת ההפקדה: אחרי נקודות הזיכוי, זיכוי התרומות וזיכוי ביטוח החיים.
+   כל אלה אינם מוחזרים במזומן, ולכן הם מקטינים את התקרה של ההטבה. */
+function usTaxNet(b, taxable, otherCred){ return Math.max(0, usTax(taxable, b.points) - (otherCred || 0)); }
 function usFmt(n){ return Math.round(n).toLocaleString('en-US') + ' ₪'; }
 function usPct(n){ return (n*100).toFixed(1).replace(/\.0$/,'') + '%'; }
 
@@ -895,6 +920,7 @@ function usScenario(b, track, credRule){
   }
   s.credRoomIns   = Math.max(0, 0.07*s.credBaseIns - b.empOwn);
   s.credRoomUnins = 0.05*s.credBaseUnins;
+  s.lifeCap       = US.LIFE_SHARE * s.credBaseIns;
   /* 45א(ו) — זיכוי נוסף 0.5% מההכנסה מעסק, למי שלא ניכה ביטוח אובדן כושר עבודה */
   s.credBaseExtra = b.noAkw ? Math.max(0, Math.min(b.biz, US.MZ_CRED2 - b.insured)) : 0;
   s.credRoomExtra = 0.005*s.credBaseExtra;
@@ -904,18 +930,29 @@ function usScenario(b, track, credRule){
 
 /* ההטבה המרבית להפקדה נתונה בתרחיש — המפקיד בוחר כמה לדרוש כניכוי וכמה כזיכוי, ולכן סורקים */
 function usBestFor(b, s, deposit){
-  var best = null, N = 120, before = usTaxNet(b, b.totalTaxable);
+  var best = null, N = 120;
+  var don    = usDonCredit(b);
+  var life0  = usLifeElig(b, s, 0);                 /* זיכוי ביטוח החיים לפני ההפקדה */
+  var other0 = don + US.LIFE_RATE*life0;
+  var before = usTaxNet(b, b.totalTaxable, other0); /* המס שנותר לקזז ממנו את ההטבה */
   for (var i = 0; i <= N; i++){
     var reported = deposit * i / N;
     var ded   = usDedFor(b, s, deposit, reported);
-    var after = usTaxNet(b, b.totalTaxable - ded);
+    var after = usTaxNet(b, b.totalTaxable - ded, other0);
     var dedV  = Math.max(0, before - after);
     var left  = Math.max(0, deposit - ded);
-    var cred  = Math.min(s.credRoomIns + s.credRoomUnins, left);
-    var credX = Math.min(s.credRoomExtra, left - cred);
-    var credV = Math.min(0.35*(cred + credX), after);
+    var pIns  = Math.min(s.credRoomIns, left);
+    var pUn   = Math.min(s.credRoomUnins, left - pIns);
+    var credX = Math.min(s.credRoomExtra, left - pIns - pUn);
+    /* ההפקדה תופסת מקום בתקרה המשותפת ועשויה לדחוק זיכוי ביטוח חיים — ההפרש נספר כאן */
+    var life1 = usLifeElig(b, s, pIns);
+    var lost  = US.LIFE_RATE * (life0 - life1);
+    var taxA  = usTaxNet(b, b.totalTaxable - ded, don + US.LIFE_RATE*life1);
+    var credV = Math.min(0.35*(pIns + pUn + credX), taxA) - lost;
     var tot   = dedV + credV;
-    if (!best || tot > best.total + 0.5) best = { ded:ded, dedV:dedV, cred:cred, credX:credX, credV:credV, total:tot, before:before };
+    if (!best || tot > best.total + 0.5)
+      best = { ded:ded, dedV:dedV, cred:pIns+pUn, credX:credX, credV:credV, total:tot,
+               before:before, don:don, life:life1, lifeLost:life0-life1 };
   }
   return best;
 }
@@ -927,6 +964,9 @@ function usValue(b, s, deposit){
   s.credUsed  = r.cred;
   s.credExtraUsed = r.credX;
   s.taxBefore = r.before;
+  s.donCredit = r.don;
+  s.lifeElig  = r.life;
+  s.lifeLost  = r.lifeLost;
   s.dedValue  = r.dedV;
   s.credValue = r.credV;
   s.benefit   = r.total;
@@ -967,19 +1007,24 @@ function usBetter(cand, base){
 function usSplit(b, deposit){
   var motav = (b.empDep + deposit >= US.MOTAV);
   var cands = motav ? [usScenario(b,'B','E'), usScenario(b,'A','E')] : [usScenario(b,'A','D')];
-  var best = null, N = 120, before = usTaxNet(b, b.totalTaxable);
+  var best = null, N = 120, don = usDonCredit(b);
   cands.forEach(function(s){
+    var life0 = usLifeElig(b, s, 0), other0 = don + US.LIFE_RATE*life0;
+    var before = usTaxNet(b, b.totalTaxable, other0);
     for (var i = 0; i <= N; i++){
       var reported = deposit * i / N;
       var ded   = usDedFor(b, s, deposit, reported);
-      var after = usTaxNet(b, b.totalTaxable - ded);
+      var after = usTaxNet(b, b.totalTaxable - ded, other0);
       var dedV  = Math.max(0, before - after);
       var left  = Math.max(0, deposit - ded);
-      var cred  = Math.min(s.credRoomIns + s.credRoomUnins, left);
-      var credX = Math.min(s.credRoomExtra, left - cred);
-      var credV = Math.min(0.35*(cred + credX), after);
+      var pIns  = Math.min(s.credRoomIns, left);
+      var pUn   = Math.min(s.credRoomUnins, left - pIns);
+      var credX = Math.min(s.credRoomExtra, left - pIns - pUn);
+      var life1 = usLifeElig(b, s, pIns);
+      var taxA  = usTaxNet(b, b.totalTaxable - ded, don + US.LIFE_RATE*life1);
+      var credV = Math.min(0.35*(pIns + pUn + credX), taxA) - US.LIFE_RATE*(life0 - life1);
       var tot   = dedV + credV;
-      if (!best || tot > best.total + 0.5) best = { ded:ded, dedV:dedV, cred:cred+credX, credV:credV, total:tot, track:s.track };
+      if (!best || tot > best.total + 0.5) best = { ded:ded, dedV:dedV, cred:pIns+pUn+credX, credV:credV, total:tot, track:s.track };
     }
   });
   return best || { ded:0, dedV:0, cred:0, credV:0, total:0, track:'A' };
@@ -992,7 +1037,8 @@ function usEngine(p){
   b.biz     = p.biz;
   b.points  = p.points;
   b.age50   = !!p.age50;
-  b.otherCred = Math.max(0, p.otherCred || 0);
+  b.donation  = Math.max(0, p.donation || 0);
+  b.lifePrem  = Math.max(0, p.lifePrem || 0);
   b.noAkw   = !!p.noAkw && p.biz > 0;
   b.totalTaxable    = b.salary + b.biz;
   b.uninsuredSalary = Math.max(0, b.salary - b.insured);
@@ -1032,7 +1078,7 @@ function usEngine(p){
 }
 
 (function(){
-  var ids = ['us-salary','us-insured','us-emp','us-employer','us-biz','us-points','us-other-cred','us-paid'];
+  var ids = ['us-salary','us-insured','us-emp','us-employer','us-biz','us-points','us-donation','us-life','us-paid'];
   function v(id){ var e=document.getElementById(id); return e?parseFloat(e.value):0; }
   function on(id){ var e=document.getElementById(id); return !!(e && e.checked); }
   var DED_FIELD  = 'שדה הניכוי לעמית עצמאי — סעיף 53 בדוח 2025';
@@ -1048,7 +1094,8 @@ function usEngine(p){
     var bizM     = v('us-biz');
     var points   = v('us-points');
     var already  = on('us-already') ? v('us-paid') : 0;
-    var otherCred= v('us-other-cred');
+    var donation = v('us-donation');
+    var lifePrem = v('us-life');
     var age50    = on('us-age50');
     var noAkw    = on('us-no-akw');
 
@@ -1058,14 +1105,15 @@ function usEngine(p){
     document.getElementById('us-employer-out').textContent = v('us-employer').toFixed(2)+'%';
     document.getElementById('us-biz-out').textContent      = usFmt(bizM);
     document.getElementById('us-points-out').textContent   = points.toFixed(2);
-    document.getElementById('us-other-cred-out').textContent = usFmt(otherCred);
+    document.getElementById('us-donation-out').textContent = usFmt(donation);
+    document.getElementById('us-life-out').textContent     = usFmt(lifePrem);
     document.getElementById('us-paid-out').textContent     = usFmt(already);
     document.getElementById('us-already-wrap').style.display = on('us-already') ? '' : 'none';
     document.getElementById('us-no-akw-wrap').style.display  = bizM > 0 ? '' : 'none';
 
     var R = usEngine({ salary:salaryM*12, insured:insuredM*12, biz:bizM*12,
                        rEmp:v('us-emp')/100, rEmployer:v('us-employer')/100, points:points,
-                       age50:age50, noAkw:noAkw, otherCred:otherCred });
+                       age50:age50, noAkw:noAkw, donation:donation, lifePrem:lifePrem });
     var b = R.b, s = R.s, up = R.upgrade;
     var rW = usPct(s.rates.work), rB = usPct(s.rates.base), rT = usPct(s.rates.base + s.rates.extra);
 
@@ -1113,8 +1161,9 @@ function usEngine(p){
     }
     if (s.taxBefore <= 0){
 f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</strong> — ' +
-             (b.otherCred > 0 ? 'נקודות הזיכוי והזיכויים האחרים שהזנת (' + usFmt(b.otherCred) + ') מאפסים את חבות המס'
-                              : 'נקודות הזיכוי מאפסות את חבות המס') +
+             (s.donCredit + 0.25*s.lifeElig > 0
+                ? 'נקודות הזיכוי, זיכוי התרומות (' + usFmt(s.donCredit) + ') וזיכוי ביטוח החיים (' + usFmt(0.25*s.lifeElig) + ') מאפסים יחד את חבות המס'
+                : 'נקודות הזיכוי מאפסות את חבות המס') +
              ', ולכן הפקדה עצמאית לא תחזיר לך כלום. היא עדיין תגדיל את החיסכון הפנסיוני — אבל בלי הטבת מס, ' +
              'ובתמורה לנעילת הכסף עד גיל פרישה.</div>');
     } else if (s.taxCapped){
@@ -1152,9 +1201,32 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
       f.push('<div class="flag flag-warn"><strong>גיל 50 ומעלה:</strong> שיעורי הניכוי המוגדלים חלים רק במסלול הרגיל של סעיף 47(ב); ' +
              'במסלול עמית מוטב (47(ב1)) ובזיכוי לפי 45א אין הגדלה. המחשבון בדק את שני המסלולים — במקרה שלך מסלול עמית מוטב עדיין משתלם יותר, וזה מה שמוצג.</div>');
     }
+    if (b.donation > 0 && b.donation < US.DON_MIN){
+      f.push('<div class="flag flag-warn"><strong>התרומה קטנה מהסכום המינימלי לזיכוי</strong> — סעיף 46 מזכה רק מ־' +
+             usFmt(US.DON_MIN) + ' בשנה ומעלה, ולכן לא חושב עליה זיכוי.</div>');
+    }
+    if (b.donation >= US.DON_MIN && b.donation > US.DON_SHARE*b.totalTaxable){
+      f.push('<div class="flag flag-warn"><strong>התרומה חורגת מתקרת 30% מההכנסה החייבת:</strong> הזיכוי חושב על ' +
+             usFmt(US.DON_SHARE*b.totalTaxable) + ' בלבד. העודף ניתן לרוב להעביר לזיכוי בשלוש שנות המס הבאות.</div>');
+    }
+    if (b.lifePrem > 0 && s.lifeElig < b.lifePrem - 1){
+      f.push('<div class="flag flag-warn"><strong>' +
+             (s.lifeElig <= 1 ? 'ביטוח החיים שלך לא מזכה אותך כלל' : 'רק ' + usFmt(s.lifeElig) + ' מהפרמיה לביטוח החיים מזכים אותך') +
+             '</strong> — הזיכוי על ביטוח חיים יושב באותה תקרה של 7% מההכנסה המבוטחת שבה יושבות גם ההפקדות לקצבה' +
+             (s.credBaseIns > 0 ? ' (ועד 5% ממנה, כלומר ' + usFmt(s.lifeCap) + ')' : '') +
+             ', וחלק העובד בתלוש' + (s.lifeLost > 1 ? ' וההפקדה המומלצת ממלאים' : ' ממלא') + ' אותה. ' +
+             'הפקדה לקצבה מזכה ב־35% מול 25% לביטוח חיים, ולכן עדיף לנצל את התקרה לפנסיה.</div>');
+    }
     if (s.credRoomIns > 50){
       f.push('<div class="flag flag-ok"><strong>יש לך יתרת זיכוי גם על השכר המבוטח:</strong> ' +
              usFmt(s.credRoomIns) + ' בשנה. חלק העובד בתלוש נמוך מ־7% מההכנסה המבוטחת (עד התקרה), וההפרש עדיין זכאי לזיכוי של 35%.</div>');
+    }
+    if (s.benefit > 0 && s.deposit > 0 && s.benefit/s.deposit < US.UPGRADE_MIN_RETURN){
+      f.push('<div class="flag flag-warn"><strong>ההחזר כאן קטן ביחס להפקדה — ' + usPct(s.benefit/s.deposit) +
+             ' ממנה:</strong> ' + (s.lifeLost > 1
+               ? 'ההפקדה תופסת את מקום הזיכוי שקיבלת על ביטוח החיים, ולכן היא מוסיפה רק את ההפרש בין 35% ל־25%. '
+               : 'חבות המס שלך קטנה ביחס לתקרות. ') +
+             'הכסף נעול עד גיל פרישה — שווה לשקול אם ההטבה מצדיקה את זה.</div>');
     }
     if (up){
       f.push('<div class="flag flag-ok"><strong>שווה לשקול השלמה למעמד "עמית מוטב":</strong> בהפקדה של ' +
@@ -1185,7 +1257,11 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     if (s.credRoomIns > 0.5) row('זיכוי — יתרה על השכר המבוטח', usFmt(s.credBaseIns), 'עד 7%', usFmt(credIns));
     row('זיכוי — על ההכנסה הלא מבוטחת', usFmt(s.credBaseUnins), '5%', usFmt(credUn));
     if (s.credExtraUsed > 0.5) row('זיכוי נוסף — סעיף 45א(ו), ללא ניכוי אכ״ע', usFmt(s.credBaseExtra), '0.5%', usFmt(s.credExtraUsed));
-    row('סה״כ זיכוי', usFmt(s.credUsed + s.credExtraUsed), '35%', usFmt(s.credValue), 'total');
+    if (s.lifeLost > 0.5) row('בניכוי זיכוי ביטוח חיים שההפקדה דוחקת מהתקרה', usFmt(s.lifeLost), '25%', '−' + usFmt(0.25*s.lifeLost));
+    var credTot = s.credUsed + s.credExtraUsed;
+    row('סה״כ זיכוי על ההפקדה', usFmt(credTot), credTot > 0.5 ? usPct(s.credValue/credTot) : '35%', usFmt(s.credValue), 'total');
+    if (s.donCredit > 0.5) row('זיכוי תרומות — סעיף 46 (לא חלק מההפקדה)', usFmt(Math.min(b.donation, US.DON_SHARE*b.totalTaxable)), '35%', usFmt(s.donCredit));
+    if (s.lifeElig > 0.5)  row('זיכוי ביטוח חיים — 45א(א) (לא חלק מההפקדה)', usFmt(s.lifeElig), '25%', usFmt(0.25*s.lifeElig));
     row('סך ההחזר על הפקדה של ' + usFmt(s.deposit), '—', '—', usFmt(s.benefit), 'total');
     document.getElementById('us-tbody').innerHTML = rows;
 
@@ -1218,7 +1294,9 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
          (s.credRoomExtra > 0.5 ? ', ועוד ' + usFmt(s.credRoomExtra) + ' זיכוי נוסף לפי 45א(ו) על ההכנסה מהעסק' : '') +
          '. הזיכוי הוא 35% מהסכומים האלה.</p>';
     x += '<p><strong>6. שווי ההטבה:</strong> המס השולי שלך ' + usPct(b.marginal) + '. ' +
-         'המס שנותר לקזז אחרי נקודות הזיכוי' + (b.otherCred > 0 ? ' ואחרי זיכויים אחרים בסך ' + usFmt(b.otherCred) : '') +
+         'המס שנותר לקזז אחרי נקודות הזיכוי' +
+         (s.donCredit > 0.5 ? ', אחרי זיכוי התרומות (' + usFmt(s.donCredit) + ')' : '') +
+         (s.lifeElig > 0.5 ? ', ואחרי זיכוי ביטוח החיים (' + usFmt(0.25*s.lifeElig) + ')' : '') +
          ' הוא ' + usFmt(s.taxBefore) + '. ניכוי של ' + usFmt(s.ded) +
          ' שווה ' + usFmt(s.dedValue) + ', והזיכוי שווה ' + usFmt(s.credValue) + '. סך הכל ' + usFmt(s.benefit) +
          ' על הפקדה של ' + usFmt(s.deposit) + ' — ' + usPct(s.deposit > 0 ? s.benefit/s.deposit : 0) +
