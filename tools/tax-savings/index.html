@@ -23,7 +23,7 @@
     {
       "@type": "WebApplication",
       "datePublished": "2026-05-26",
-      "dateModified": "2026-05-26",
+      "dateModified": "2026-09-22",
       "name": "מחשבון חיסכון במס לעצמאים ושכירים",
       "description": "מחשבון אינטראקטיבי לחישוב הטבות מס מהפקדות לפנסיה, קרן השתלמות וקופת גמל - לשכירים ולעצמאים.",
       "applicationCategory": "FinanceApplication",
@@ -933,7 +933,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
-      <span>עודכן: 26 במאי 2026</span>
+      <span>עודכן: 22 בספטמבר 2026</span>
       <span class="pill">מחשבון חינמי</span>
     </div>
     <h1>
@@ -1224,121 +1224,6 @@ textarea:focus-visible,
 </script>
 </div>
 
-<script>
-const ids = ['profit', 'creditPoints', 'donations', 'lifeInsurance'];
-
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        el.addEventListener('input', (e) => {
-            if (id !== 'creditPoints') {
-                let val = e.target.value.replace(/,/g, '');
-                if (!isNaN(val) && val !== '') {
-                    e.target.value = Number(val).toLocaleString();
-                }
-            }
-            calculate();
-        });
-    });
-
-    function parse(id) {
-        return parseFloat(document.getElementById(id).value.replace(/,/g, '')) || 0;
-    }
-
-    function calcNI(income) {
-        const threshold = 92436;
-        const ceiling = 622920;
-        let taxable = Math.min(income, ceiling);
-        let ni = 0, health = 0;
-        if (taxable <= threshold) {
-            ni = taxable * 0.0447;
-            health = taxable * 0.0323;
-        } else {
-            ni = (threshold * 0.0447) + ((taxable - threshold) * 0.1283);
-            health = (threshold * 0.0323) + ((taxable - threshold) * 0.0517);
-        }
-        return { total: ni + health, niOnly: ni };
-    }
-
-    function calcIT(income, points, donations, lifeIns, annualProfit, pensionCredit = 0) {
-        const brackets = [
-            { limit: 84120, rate: 0.10 },
-            { limit: 84121, limitMax: 120720, rate: 0.14 },
-            { limit: 120721, limitMax: 228000, rate: 0.2 },
-            { limit: 228001, limitMax: 301200, rate: 0.31 },
-            { limit: 301201, limitMax: 560280, rate: 0.35 },
-            { limit: 560281, limitMax: 721560, rate: 0.47 },
-            { limit: 721561, limitMax: Infinity, rate: 0.50 }
-        ];
-        
-        // פונקציית עזר למדרגות
-        let tax = 0, remaining = Math.max(0, income);
-        const limits = [84120, 120720, 228000, 301200, 560280, 721560];
-        const rates = [0.10, 0.14, 0.20, 0.31, 0.35, 0.47, 0.50];
-        
-        let prevLimit = 0;
-        for (let i = 0; i < rates.length; i++) {
-            let limit = (i < limits.length) ? limits[i] : Infinity;
-            let width = limit - prevLimit;
-            if (remaining > width) {
-                tax += width * rates[i];
-                remaining -= width;
-                prevLimit = limit;
-            } else {
-                tax += remaining * rates[i];
-                remaining = 0;
-                break;
-            }
-        }
-
-        tax -= (points * 2904);
-        if (donations > 207) tax -= Math.min(donations * 0.35, annualProfit * 0.30);
-        tax -= (lifeIns * 0.25);
-        tax -= pensionCredit;
-        return Math.max(0, tax);
-    }
-
-    function calculate() {
-        const profit = parse('profit');
-        const points = parse('creditPoints');
-        const dons = parse('donations');
-        const life = parse('lifeInsurance');
-
-        // ללא הפקדות
-        const res1 = calcNI(profit);
-        const res2_it = calcIT(profit - (0.52 * res1.niOnly), points, dons, life, profit);
-
-        // הפקדות
-        const res3_pension = Math.min(profit * 0.165, 38412);
-        const res4_study = Math.min(profit * 0.045, 13203);
-
-        // עם הפקדות
-        const res5_ni_obj = calcNI(profit - (2/3 * res3_pension) - res4_study);
-        const taxableIT_6b = Math.max(0, (profit - (0.52 * res5_ni_obj.niOnly)) - (2/3 * res3_pension) - res4_study);
-        const res6_it = calcIT(taxableIT_6b, points, dons, life, profit, (1/3 * res3_pension));
-
-        const savings = Math.max(0, (res1.total + res2_it) - (res5_ni_obj.total + res6_it));
-        const deposits = res3_pension + res4_study;
-        const userNetCost = Math.max(0, deposits - savings);
-        
-        document.getElementById('results-text').innerHTML = `
-            <p>אם לא תפקיד לפנסיה ולהשתלמות תשלם לביטוח לאומי <span class="highlight">${Math.round(res1.total).toLocaleString()} ₪</span> ולמס הכנסה <span class="highlight">${Math.round(res2_it).toLocaleString()} ₪</span>.</p>
-            <p>בכדי ליצור חיסכון מקסימלי במיסים כדאי לך להפקיד השנה לפנסיה <span class="highlight">${Math.round(res3_pension).toLocaleString()} ₪</span> ולהשתלמות <span class="highlight">${Math.round(res4_study).toLocaleString()} ₪</span>.</p>
-            <p>הפקדה של סכומים אלו תחסוך לך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span> בתשלומי מס כך שבעצם אתה הפקדת רק <span class="highlight">${Math.round(userNetCost).toLocaleString()} ₪</span> והמדינה סבסדה הפקדות בסך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span>.</p>
-        `;
-
-        // לוגיקת גובה עמודות: הגבוהה תמיד 400 פיקסלים
-        const maxVal = Math.max(userNetCost, savings, 1);
-        const highBarPx = 400;
-
-        document.getElementById('user-bar').style.height = (userNetCost / maxVal * highBarPx) + 'px';
-        document.getElementById('state-bar').style.height = (savings / maxVal * highBarPx) + 'px';
-        
-        document.getElementById('user-val').innerText = Math.round(userNetCost).toLocaleString() + ' ₪';
-        document.getElementById('state-val').innerText = Math.round(savings).toLocaleString() + ' ₪';
-    }
-
-    calculate();
-</script>
 
 </section>
 
@@ -1617,6 +1502,14 @@ const ids = ['profit', 'creditPoints', 'donations', 'lifeInsurance'];
       <a class="related-link-card" href="/savings/keren-hishtalmut/">קרן השתלמות - הטבות מס</a>
       <a class="related-link-card" href="/audiences/self-employed/">פנסיה לעצמאים</a>
       <a class="related-link-card" href="/pension/contribution-employee/">כמה להפקיד לפנסיה?</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 2.5rem 2rem">
+  <div class="container">
+    <div class="callout" role="note" style="background:#FDECEA;border-right-color:var(--negative);max-width:820px;margin:0 auto">
+      <strong style="color:var(--negative)">אזהרה:</strong> השימוש במחשבון הוא על אחריות המשתמש בלבד ואיננו מהווה ייעוץ פנסיוני ו/או ייעוץ מס.
     </div>
   </div>
 </section>
