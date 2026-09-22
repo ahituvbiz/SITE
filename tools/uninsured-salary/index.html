@@ -990,6 +990,10 @@ function usEngine(p){
 
   function render(){
     var salaryM  = v('us-salary');
+    /* השכר המבוטח לא יכול לעלות על הברוטו — המחוון מוגבל אליו ומתכווץ יחד איתו */
+    var insEl = document.getElementById('us-insured');
+    insEl.max = salaryM;
+    if (parseFloat(insEl.value) > salaryM) insEl.value = salaryM;
     var insuredM = Math.min(v('us-insured'), salaryM);
     var bizM     = v('us-biz');
     var points   = v('us-points');
