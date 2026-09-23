@@ -1126,10 +1126,18 @@ textarea:focus-visible,
         return parseFloat(document.getElementById(id).value.replace(/,/g, '')) || 0;
     }
 
+    // ── קבועים לשנת המס 2026 ──
+    const P1 = 116400;          // הסכום בפסקה (1) להגדרת "הכנסה מזכה", סעיף 47(א)(1)
+    const CAP_MOTAV = 232800;   // פעמיים P1 — תקרת ההכנסה לזיכוי לעמית מוטב, 45א(ה)
+    const CAP_NON = 164400;     // הכנסה מזכה ליחיד שאין לו הכנסת עבודה (שאינו עמית מוטב), 47(א)(1)(2)
+    const MOTAV_MIN = 26436;    // 16% מהשכר הממוצע במשק (165,228) — סף "עמית מוטב", 47(א)(7)
+    const CREDIT_FLOOR = 1632;  // 45א(ד)(1)
+    const HISH_CAP = 13203;     // 4.5% מ-293,397 — ניכוי קרן השתלמות לעצמאי
+
     function calcNI(income) {
         const threshold = 92436;
         const ceiling = 622920;
-        let taxable = Math.min(income, ceiling);
+        let taxable = Math.min(Math.max(0, income), ceiling);
         let ni = 0, health = 0;
         if (taxable <= threshold) {
             ni = taxable * 0.0447;
@@ -1141,22 +1149,10 @@ textarea:focus-visible,
         return { total: ni + health, niOnly: ni };
     }
 
-    function calcIT(income, points, donations, lifeIns, annualProfit, pensionCredit = 0) {
-        const brackets = [
-            { limit: 84120, rate: 0.10 },
-            { limit: 84121, limitMax: 120720, rate: 0.14 },
-            { limit: 120721, limitMax: 228000, rate: 0.2 },
-            { limit: 228001, limitMax: 301200, rate: 0.31 },
-            { limit: 301201, limitMax: 560280, rate: 0.35 },
-            { limit: 560281, limitMax: 721560, rate: 0.47 },
-            { limit: 721561, limitMax: Infinity, rate: 0.50 }
-        ];
-        
-        // פונקציית עזר למדרגות
+    function calcIT(income, points, donations, lifeCredit, annualProfit, pensionCredit) {
         let tax = 0, remaining = Math.max(0, income);
         const limits = [84120, 120720, 228000, 301200, 560280, 721560];
         const rates = [0.10, 0.14, 0.20, 0.31, 0.35, 0.47, 0.50];
-        
         let prevLimit = 0;
         for (let i = 0; i < rates.length; i++) {
             let limit = (i < limits.length) ? limits[i] : Infinity;
@@ -1171,12 +1167,71 @@ textarea:focus-visible,
                 break;
             }
         }
-
         tax -= (points * 2904);
         if (donations > 207) tax -= 0.35 * Math.min(donations, annualProfit * 0.30, 10354816);
-        tax -= (lifeIns * 0.25);
+        tax -= lifeCredit;
         tax -= pensionCredit;
         return Math.max(0, tax);
+    }
+
+    /* חלוקת הפקדה D לפנסיה בין זיכוי (45א) לניכוי (47), והשפעתה על זיכוי ביטוח החיים L.
+       זיכוי: פנסיה וביטוח חיים חולקים תקרה אחת של 5% (45א(ד)/(ה)); הפנסיה (35%) קודמת לביטוח החיים (25%).
+       עוד 0.5% זיכוי לפנסיה בלבד לפי 45א(ו).
+       עמית מוטב (D ≥ 16% מהשכר הממוצע): ניכוי 11% לפי 47(ב1)(1), ועוד ניכוי על "הכנסה נוספת" לפי 47(ב1)(2) —
+       רק על סכומים שמעבר ל-16% מהשכר הממוצע, 7% ועוד 4% על החלק שמעל 12%.
+       שאינו עמית מוטב: ניכוי 7% ועוד 4% על החלק שמעל 12% מההכנסה המזכה, לפי 47(ב)(1). */
+    function pensionAlloc(I, D, L, dedFirst) {
+        const motav = D >= MOTAV_MIN;
+        const room5  = Math.max(CREDIT_FLOOR, 0.05 * Math.min(I, motav ? CAP_MOTAV : CAP_NON));
+        const room05 = 0.005 * Math.min(I, CAP_MOTAV);
+        const B = Math.min(I, CAP_NON);
+        let left = D, cred5 = 0, cred05 = 0, d1 = 0, ded = 0;
+        function takeCredit() {
+            cred5  = Math.min(left, room5);  left -= cred5;
+            cred05 = Math.min(left, room05); left -= cred05;
+        }
+        function takeDed() {
+            if (motav) { d1 = Math.min(left, 0.11 * Math.min(I, P1)); left -= d1; }
+            else { ded = Math.min(left, 0.07 * B + Math.min(0.04 * B, Math.max(0, D - 0.12 * B))); left -= ded; }
+        }
+        if (dedFirst) { takeDed(); takeCredit(); } else { takeCredit(); takeDed(); }
+        if (motav) {
+            const e2 = Math.max(0, D - Math.max(MOTAV_MIN, cred5 + cred05 + d1));
+            const hn = Math.min(Math.min(I, P1), Math.max(0, Math.min(I, 2.5 * P1) - P1));
+            const d2 = Math.min(e2, 0.07 * hn + Math.min(0.04 * hn, Math.max(0, (D - d1) - 0.12 * hn)));
+            ded = d1 + d2;
+        }
+        const lifeElig = Math.min(L, Math.max(0, room5 - cred5));
+        return { credit: 0.35 * (cred5 + cred05), ded: ded, lifeCredit: 0.25 * lifeElig, motav: motav };
+    }
+
+    function totals(I, D, H, points, dons, L, dedFirst) {
+        const a = pensionAlloc(I, D, L, dedFirst);
+        const niObj = calcNI(I - a.ded - H);
+        const taxable = Math.max(0, I - 0.52 * niObj.niOnly - a.ded - H);
+        const it = calcIT(taxable, points, dons, a.lifeCredit, I, a.credit);
+        return { ni: niObj.total, it: it, total: niObj.total + it };
+    }
+
+    /* ההפקדה לפנסיה שמביאה למקסימום הטבות המס: ההפקדה הנמוכה ביותר שבה החיסכון מגיע לשיאו */
+    function bestPension(I, H, points, dons, L) {
+        const base = totals(I, 0, 0, points, dons, L, false).total;
+        /* הנישום בוחר את החלוקה המיטיבה בין זיכוי לניכוי */
+        const sav = D => base - Math.min(totals(I, D, H, points, dons, L, false).total,
+                                         totals(I, D, H, points, dons, L, true).total);
+        const MAXD = 60000, STEP = 10;
+        const pts = [MOTAV_MIN - 1, MOTAV_MIN];
+        for (let D = 0; D <= MAXD; D += STEP) pts.push(D);
+        let best = -Infinity;
+        for (const D of pts) best = Math.max(best, sav(D));
+        let bestD = MAXD;
+        for (const D of pts.slice(2).concat([MOTAV_MIN - 1, MOTAV_MIN]).sort((x, y) => x - y)) {
+            if (sav(D) >= best - 0.01) { bestD = D; break; }
+        }
+        for (let D = bestD - 1; D > bestD - STEP && D >= 0; D--) {   /* דיוק לשקל */
+            if (sav(D) >= best - 0.01) bestD = D; else break;
+        }
+        return { D: bestD, savings: sav(bestD), base: totals(I, 0, 0, points, dons, L, false) };
     }
 
     function calculate() {
@@ -1185,20 +1240,14 @@ textarea:focus-visible,
         const dons = parse('donations');
         const life = parse('lifeInsurance');
 
-        // ללא הפקדות
-        const res1 = calcNI(profit);
-        const res2_it = calcIT(profit - (0.52 * res1.niOnly), points, dons, life, profit);
-
-        // הפקדות
-        const res3_pension = Math.min(profit * 0.165, 38412);
-        const res4_study = Math.min(profit * 0.045, 13203);
-
-        // עם הפקדות
-        const res5_ni_obj = calcNI(profit - (2/3 * res3_pension) - res4_study);
-        const taxableIT_6b = Math.max(0, (profit - (0.52 * res5_ni_obj.niOnly)) - (2/3 * res3_pension) - res4_study);
-        const res6_it = calcIT(taxableIT_6b, points, dons, life, profit, 0.35 * (1/3 * res3_pension)); // זיכוי 35% על חלק ה-5.5%
-
-        const savings = Math.max(0, (res1.total + res2_it) - (res5_ni_obj.total + res6_it));
+        // השתלמות: ניכוי 4.5% מההכנסה עד התקרה
+        const res4_study = Math.min(profit * 0.045, HISH_CAP);
+        // פנסיה: ההפקדה שמביאה למקסימום הטבות המס (סעיפים 45א ו-47)
+        const opt = bestPension(profit, res4_study, points, dons, life);
+        const res1 = { total: opt.base.ni };        // ביטוח לאומי ללא הפקדות
+        const res2_it = opt.base.it;                // מס הכנסה ללא הפקדות
+        const res3_pension = opt.D;
+        const savings = Math.max(0, opt.savings);
         const deposits = res3_pension + res4_study;
         const userNetCost = Math.max(0, deposits - savings);
         
@@ -1270,8 +1319,8 @@ textarea:focus-visible,
     </p>
 
     <div class="callout">
-      <strong>דוגמה - עצמאי עם הכנסה של 240,000 ₪ בשנה:</strong> הפקדה של כ-49,200 ₪ לפנסיה
-      ול<a href="/savings/keren-hishtalmut/">קרן השתלמות</a> חוסכת <strong>כ-18,000 ₪ במס הכנסה ובביטוח לאומי</strong> בשנה
+      <strong>דוגמה - עצמאי עם הכנסה של 240,000 ₪ בשנה:</strong> הפקדה של 39,240 ₪ לפנסיה ו-10,800 ₪ ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>
+      חוסכת <strong>כ-17,800 ₪ במס הכנסה ובביטוח לאומי</strong> בשנה
       (לפי 2.25 נקודות זיכוי ונתוני 2026). שמים את הכסף בצד לפרישה - ומשלמים הרבה פחות כבר היום.
     </div>
 
@@ -1305,6 +1354,12 @@ textarea:focus-visible,
           <td>35% × הפקדה</td>
         </tr>
         <tr>
+          <td>עמית מוטב - תנאי לתקרה המלאה</td>
+          <td>הפקדה מינימלית לפנסיה</td>
+          <td>26,436 ₪ (16% מהשכר הממוצע במשק)</td>
+          <td>-</td>
+        </tr>
+        <tr>
           <td><a href="/savings/keren-hishtalmut/">קרן השתלמות</a> עצמאי</td>
           <td>ניכוי</td>
           <td>4.5% מהכנסה של עד 293,397 ₪ / עד 13,203 ₪</td>
@@ -1322,6 +1377,9 @@ textarea:focus-visible,
     <div class="callout-warn">
       <strong>שים לב:</strong> הנתונים לעיל הם לשנת המס 2026. תקרות ההכנסה לפנסיה ולקרן השתלמות
       הוקפאו ולא עודכנו השנה - בדוק עדכניות לפני כל פעולה.
+      כדי לנצל את מלוא הניכוי והזיכוי (38,412 ₪) צריך להפקיד לפנסיה <strong>39,240 ₪</strong> בשנה:
+      הניכוי על ההכנסה שמעל 116,400 ₪ ניתן רק על הפקדות שמעבר ל-26,436 ₪ הראשונים (סעיף 47(ב1)(2)).
+      ביטוח חיים (ריסק) חולק עם הפנסיה את אותה תקרת זיכוי של 5%, ולכן הפקדה מלאה לפנסיה מבטלת את הזיכוי עליו.
     </div>
 
     <!-- ─── מה לעשות ─── -->
