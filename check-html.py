@@ -29,7 +29,8 @@ import sys, os, re, subprocess
 BLOCK_TAGS = ["div", "section", "article", "details", "svg"]
 
 # דפים שמותר להם לא לכלול פוטר אחיד (אזור לקוחות + דאטה מוטמע)
-FOOTER_EXEMPT = ("clients/", "game/", "private/", "lecture/")   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
+FOOTER_EXEMPT = ("clients/", "game/", "private/", "lecture/", "share/")   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
+# share/ — דפים יתומים לשיתוף בקישור בלבד: בלי header/footer, ו-noindex חובה (שער ייעודי ב-main) (6.10.26)
 
 # ---- דף ההרצאה המאוחד (lecture/) -------------------------------------------
 # הקובץ הזה הוא HTML יחיד שמכיל את כל דפי ההרצאה בבלוקי <script type="text/html">.
@@ -158,6 +159,20 @@ def main(argv):
                 for e in fails: print(f"     FAIL: {e}")
             else:
                 print(f"\u2705 {f}  (דף הרצאה מאוחד — שער ייעודי עבר)")
+            continue
+        # share/ — דף יתום לשיתוף בקישור: בדיקת NUL, ו-noindex חובה בראש הדף (6.10.26)
+        if rel.startswith("share/") or "/share/" in rel:
+            raw = open(f,"rb").read() if os.path.exists(f) else b""
+            head = raw.split(b"<body", 1)[0].decode("utf-8", "replace")
+            fails = []
+            if b"\x00" in raw: fails.append("בייטי NUL — קובץ פגום")
+            if not re.search(r'<meta[^>]+name=["\']robots["\'][^>]+noindex', head, re.I):
+                fails.append("חסר noindex בראש הדף — חובה לכל דף תחת share/")
+            if fails:
+                nbad += 1; print(f"\u274c {f}")
+                for e in fails: print(f"     FAIL: {e}")
+            else:
+                print(f"\u2705 {f}  (דף יתום לשיתוף — noindex קיים)")
             continue
         exempt = any(x in rel for x in FOOTER_EXEMPT)
         if exempt:
