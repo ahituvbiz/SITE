@@ -1,4 +1,5 @@
-// gate.js — v17 | tag-based personalized content + insurance / donations / child-savings tabs + pension & savings calculators (#11)
+// gate.js — v18 | tag-based personalized content + insurance / donations / child-savings tabs + pension & savings calculators (#11)
+// v18 (6.10.26): כניסה עמידה מול Apps Script — בקשות מקבילות (hedging), ניסיונות חוזרים והודעת "השרת איטי" (ראו fetchAuth)
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDTXhB6W_xNLW644t7hdzjGmMtU_7rsLoVNTxD9B_9No5OJ-QW3hXdzkutSxuYSI46/exec';
 const AUTH_TOKEN      = 'pensya-ira-2024';
@@ -63,11 +64,103 @@ const submitBtn      = document.getElementById('submit-btn');
 const btnText        = document.getElementById('btn-text');
 const errorDiv       = document.getElementById('error-msg');
 
-function showError(msg) { errorDiv.textContent = msg; errorDiv.style.display = 'block'; }
+function showError(msg) {
+  errorDiv.textContent = msg;
+  errorDiv.style.background = ''; errorDiv.style.borderColor = ''; errorDiv.style.color = '';   // חזרה לעיצוב השגיאה (אדום) מה-CSS
+  errorDiv.style.display = 'block';
+}
+// הודעת מצב ניטרלית (לא שגיאה) — באותה תיבה, בצבעים רגועים
+function showNotice(msg) {
+  errorDiv.textContent = msg;
+  errorDiv.style.background = '#eef4fb'; errorDiv.style.borderColor = '#c9d9ec'; errorDiv.style.color = '#1f4e79';
+  errorDiv.style.display = 'block';
+}
 function clearError()   { errorDiv.style.display = 'none'; }
 function setLoading(on) {
   submitBtn.disabled = on;
   btnText.innerHTML  = on ? '<span class="spinner"></span>' : 'כניסה';
+}
+
+// ====== כניסה: בקשה עמידה מול Apps Script ======
+// נצפה (6.10.26, אירוע של כשעתיים): ההרצה עצמה בשרת נמשכת 0.5–3 שניות, אבל השכבה של גוגל
+// שלפניה החזירה את ההפניה (302) רק אחרי 10–50 שניות, וכמחצית מההפניות ל-script.googleusercontent.com
+// נענו ב-404 למרות שההרצה הושלמה. אין לזה שליטה מצד הקוד בשרת. הבקשה היא GET אידמפוטנטי
+// (קריאה בלבד), ולכן בטוח לשלוח אותה יותר מפעם אחת:
+//   1. 404 מכתובת ה-echo (googleusercontent) — אותה כתובת חתומה נענית בניסיון חוזר ישיר,
+//      בלי להריץ את הסקריפט שוב (אומת: ניסיון חוזר על אותה כתובת החזיר 200 עם ה-JSON);
+//   2. אחרי AUTH_HEDGE_MS בלי תשובה נשלחת בקשה מקבילה נוספת — הראשונה שמצליחה מנצחת;
+//   3. כישלון (5xx / שגיאת רשת / פסק זמן / echo שנכשל שוב ושוב) מפעיל ניסיון נוסף, עד AUTH_MAX_ATTEMPTS;
+//   4. אחרי AUTH_SLOW_NOTICE_MS מוצגת ללקוח הודעה שהשרת איטי, כדי שלא יחשוב שהדף תקוע.
+// עלות: כל ניסיון = הרצת doGet קצרה אחת. במצב תקין (תשובה תוך 2–4 שניות) נשלחת בקשה אחת בלבד.
+var AUTH_HEDGE_MS            = [6000, 18000]; // מתי לשגר בקשות מקבילות נוספות (ממועד הלחיצה)
+var AUTH_ATTEMPT_TIMEOUT_MS  = 60000;         // פסק זמן לניסיון בודד (כולל ניסיונות ה-echo שלו)
+var AUTH_MAX_ATTEMPTS        = 5;             // סך כל הבקשות לשרת בניסיון כניסה אחד
+var AUTH_TOTAL_DEADLINE_MS   = 110000;        // אחרי זה מוותרים ומציגים שגיאה
+var AUTH_SLOW_NOTICE_MS      = 8000;          // מתי להציג "השרת איטי"
+var AUTH_ECHO_RETRIES        = 3;             // כמה פעמים לנסות שוב את כתובת ה-echo אחרי 404
+var AUTH_ECHO_RETRY_DELAY_MS = 1500;
+
+var ECHO_HOST_RE = /^https:\/\/script\.googleusercontent\.com\//;
+
+function retryEcho(echoUrl, signal, left) {
+  return new Promise(function(r) { setTimeout(r, AUTH_ECHO_RETRY_DELAY_MS); })
+    .then(function() { return fetch(echoUrl, { cache: 'no-store', signal: signal }); })
+    .then(function(res) {
+      if (res.ok) return res.json();
+      if (left > 1) return retryEcho(echoUrl, signal, left - 1);
+      throw new Error('echo_http_' + res.status);
+    });
+}
+
+function fetchAuthOnce(reqUrl, signal) {
+  return fetch(reqUrl, { redirect: 'follow', cache: 'no-store', signal: signal })
+    .then(function(res) {
+      if (res.ok) return res.json();
+      // ההרצה בשרת כבר הסתיימה; שרת ה-echo של גוגל רק "איבד" את התשובה לרגע
+      if (res.redirected && ECHO_HOST_RE.test(res.url)) return retryEcho(res.url, signal, AUTH_ECHO_RETRIES);
+      throw new Error('http_' + res.status);
+    });
+}
+
+function fetchAuth(url, onSlow) {
+  return new Promise(function(resolve, reject) {
+    var attempts = 0, inFlight = 0, done = false, lastErr = null;
+    var controllers = [], timers = [];
+    var started = Date.now();
+
+    function finish(fn, v) {
+      if (done) return;
+      done = true;
+      timers.forEach(clearTimeout);
+      controllers.forEach(function(c) { try { c.abort(); } catch (e) {} });   // מבטל בקשות שעדיין באוויר
+      fn(v);
+    }
+
+    function launch() {
+      if (done || attempts >= AUTH_MAX_ATTEMPTS) return;
+      attempts++; inFlight++;
+      var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
+      if (ctrl) controllers.push(ctrl);
+      var t = setTimeout(function() { if (ctrl) ctrl.abort(); }, AUTH_ATTEMPT_TIMEOUT_MS);
+      timers.push(t);
+      // פרמטר ייחודי לכל בקשה — שאף שכבת מטמון בדרך לא תאחד/תשמור תשובות
+      fetchAuthOnce(url + '&_r=' + attempts + '.' + Date.now(), ctrl ? ctrl.signal : undefined)
+        .then(function(data) { finish(resolve, data); })
+        .catch(function(err) { lastErr = err; })
+        .finally(function() {
+          clearTimeout(t);
+          inFlight--;
+          if (done) return;
+          if (attempts < AUTH_MAX_ATTEMPTS && (Date.now() - started) < AUTH_TOTAL_DEADLINE_MS) launch();   // כישלון → ניסיון נוסף מיד
+          else if (inFlight === 0) finish(reject, lastErr || new Error('exhausted'));
+        });
+    }
+
+    launch();
+    AUTH_HEDGE_MS.forEach(function(ms) { timers.push(setTimeout(launch, ms)); });
+    timers.push(setTimeout(function() { if (!done && onSlow) onSlow(); }, AUTH_SLOW_NOTICE_MS));
+    timers.push(setTimeout(function() { finish(reject, lastErr || new Error('deadline')); }, AUTH_TOTAL_DEADLINE_MS));
+  });
 }
 
 function buildUI(sections, name) {
@@ -621,12 +714,14 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
     '&phone=' + encodeURIComponent(phone) +
     '&token=' + encodeURIComponent(AUTH_TOKEN);
 
-  fetch(url, { redirect: 'follow' })
-    .then(function(res) {
-      if (!res.ok) throw new Error('network_error');
-      return res.json();
-    })
+  // fetchAuth מטפל בעצמו באיטיות של גוגל ובכישלונות חולפים (ראו ההערה מעליו)
+  var authAnswered = false;
+  fetchAuth(url, function onSlow() {
+    showNotice('השרת של גוגל מגיב לאט כרגע — ממשיכים לנסות ברקע. זה עשוי לקחת עד כשתי דקות.');
+  })
     .then(function(data) {
+      authAnswered = true;
+      clearError();   // מסיר את הודעת "השרת איטי" אם הוצגה
       if (!data.success) {
         showError('הפרטים לא זוהו. ודא שהמייל והטלפון זהים לאלו שמסרת בפתיחת החשבון.');
         return;
@@ -638,8 +733,13 @@ document.getElementById('auth-form').addEventListener('submit', function(e) {
         buildUI(sections, data.name);
       });
     })
-    .catch(function() {
-      showError('שגיאת תקשורת — נסה שוב עוד רגע.');
+    .catch(function(err) {
+      if (authAnswered) {   // הזיהוי הצליח, הכישלון הוא בבניית התוכן — לא בעיית תקשורת
+        try { console.error('clients: content build failed', err); } catch (e) {}
+        showError('הזיהוי הצליח אך טעינת התוכן נכשלה — רענן את הדף ונסה שוב.');
+        return;
+      }
+      showError('השרת לא הגיב גם אחרי כמה ניסיונות. זו תקלה זמנית בצד של גוגל — נסה שוב בעוד כמה דקות, או פנה לאיתן בוואטסאפ.');
     })
     .finally(function() {
       setLoading(false);
