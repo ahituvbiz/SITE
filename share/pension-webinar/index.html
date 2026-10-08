@@ -196,7 +196,7 @@ bdi{white-space:nowrap}
 .calc-card.pc-card{max-width:none;margin:0;padding:clamp(18px,2.4vw,28px)}
 .pc-calc-btn{align-self:end;width:100%;font-size:18px;padding:9px 12px;min-height:44px}
 @container (max-width:469px){.pc-calc-btn{grid-column:1/-1;margin-top:4px}}
-.pc-gapbox{background:var(--cta);color:#fff;border-radius:var(--radius-btn);padding:16px 18px;text-align:center;margin-top:16px;box-shadow:0 0 0 3px rgba(215,78,60,.18)}
+.pc-gapbox{background:var(--primary);color:#fff;border-radius:var(--radius-btn);padding:16px 18px;text-align:center;margin-top:16px;box-shadow:0 0 0 3px rgba(0,125,168,.18)}
 .pc-gapbox .g1{font-size:19px;font-weight:700;line-height:1.3}
 .pc-gapbox .g2{font-size:clamp(30px,3.6vw,38px);font-weight:800;line-height:1.15;margin:4px 0}
 .pc-gapbox .g2 small{font-size:20px;font-weight:700}
@@ -343,7 +343,7 @@ bdi{white-space:nowrap}
     <div class="container cols">
       <div class="calc-col">
         <h2 id="t-calc">להזיז את המחט</h2>
-        <p class="lede">תראה מה ייתן לך שיפור שנתי של 0.3% בפנסיה. זה אפשרי. <a href="#register"><b>בוא לשמוע איך!</b></a></p>
+        <p class="lede">הזן את נתוני הפנסיה, השכר והגיל שלך ותראה מה ייתן לך שיפור שנתי של 0.3% בפנסיה. זה אפשרי. <a href="#register"><b>בוא לשמוע איך!</b></a></p>
 <div class="calc-card pc-card">
       <div class="pc-grid">
         <div class="form-group"><label>תאריך לידה</label><input type="date" id="pc-bdate" oninput="pcShowAge();pcUpdateFactor()"><span class="pc-agehint" id="pc-agehint" style="display:block;margin-top:6px"></span></div>
@@ -579,7 +579,7 @@ var hh='<tr><th></th>';rs.forEach(function(r,i){hh+='<th class="'+(i===0?'pc-mid
 hh+='<tr><td class="pc-lbl">צבירה צפויה בגיל '+retAge+' (₪)</td>';res.forEach(function(x,i){hh+='<td class="'+(i===0?'pc-mid ':'')+'pc-big">'+pcFmt(x.final)+'</td>';});hh+='</tr>';
 document.getElementById('pc-tbl').innerHTML=hh;
 var d=Math.round((rs[1]-rs[0])*1000)/10;
-document.getElementById('pc-gapbox').innerHTML='<div class="g1">מה יתנו לך עוד '+d+'% בשנה</div><div class="g2">'+pcFmt(res[1].final-res[0].final)+' <small>₪</small></div><div class="g3">הפער בצבירה בגיל '+retAge+' בין תשואה של '+pct(rs[0])+' ל-'+pct(rs[1])+'</div>';
+document.getElementById('pc-gapbox').innerHTML='<div class="g1">שיפור של '+d+'% בשנה ייתן לך</div><div class="g2">'+pcFmt(res[1].final-res[0].final)+' <small>₪</small></div><div class="g3">זה הפער בצבירה בגיל '+retAge+' בין תשואה של '+pct(rs[0])+' ל-'+pct(rs[1])+'</div>';
 var yrsAxis=res[0].traj.map(function(t){return Math.round(t.age);}),colors=['#007DA8','#5C8D5A'];
 var ds=res.map(function(x,i){return {label:'תשואה שנתית '+pct(rs[i]),data:x.traj.map(function(t){return Math.round(t.bal);}),borderColor:colors[i],backgroundColor:colors[i],tension:.25,pointRadius:0,borderWidth:i===1?3:2};});
 if(pcChart)pcChart.destroy();
