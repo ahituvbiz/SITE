@@ -194,7 +194,13 @@ bdi{white-space:nowrap}
 .pc-note{background:var(--bg-cream);border-radius:11px;padding:14px 17px;font-size:15px;color:var(--text-2);margin-top:16px;line-height:1.7}
 #pc-chart{margin-top:18px}
 .calc-card.pc-card{max-width:none;margin:0;padding:clamp(18px,2.4vw,28px)}
-.pc-btn-big{width:100%;margin-top:4px}
+.pc-calc-btn{align-self:end;width:100%;font-size:18px;padding:9px 12px;min-height:44px}
+@container (max-width:469px){.pc-calc-btn{grid-column:1/-1;margin-top:4px}}
+.pc-gapbox{background:var(--cta);color:#fff;border-radius:var(--radius-btn);padding:16px 18px;text-align:center;margin-top:16px;box-shadow:0 0 0 3px rgba(215,78,60,.18)}
+.pc-gapbox .g1{font-size:19px;font-weight:700;line-height:1.3}
+.pc-gapbox .g2{font-size:clamp(30px,3.6vw,38px);font-weight:800;line-height:1.15;margin:4px 0}
+.pc-gapbox .g2 small{font-size:20px;font-weight:700}
+.pc-gapbox .g3{font-size:14.5px;opacity:.92}
 /* שדות צפופים: 3 בשורה כשיש מקום, 2 בנייד */
 .calc-card.pc-card{container-type:inline-size}
 .pc-card .pc-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 14px}
@@ -351,22 +357,19 @@ bdi{white-space:nowrap}
         <div class="pc-grid">
           <div class="form-group"><label>דמי ניהול מהפקדה (%)</label><input type="number" id="pc-feedep" value="1" step="0.1"></div>
           <div class="form-group"><label>דמי ניהול מצבירה (%)</label><input type="number" id="pc-feebal" value="0.2" step="0.01"></div>
+          <button type="button" class="btn btn-primary pc-calc-btn" onclick="pcRun()">חשב ←</button>
           <input type="hidden" id="pc-factor" value="200">
           <input type="hidden" id="pc-inflation" value="2">
         </div>
-        <input type="hidden" id="pc-r1" value="6.2"><input type="hidden" id="pc-r2" value="6.5"><input type="hidden" id="pc-r3" value="6.8">
+        <input type="hidden" id="pc-r2" value="6.5"><input type="hidden" id="pc-r3" value="6.8">
       </div>
-      <button type="button" class="btn btn-primary pc-btn-big" onclick="pcRun()">חשב את הפנסיה שלי ←</button>
+      
       <div class="pc-err" id="pc-err"></div>
       <div class="pc-results" id="pc-results">
-        <div class="pc-hero" hidden>
-          <div class="pc-hero-lbl" id="pc-heroLbl">הצבירה הצפויה בגיל 67</div>
-          <div class="pc-hero-val" id="pc-heroPension">-</div>
-          <div class="pc-hero-sc" id="pc-heroScn"></div>
-        </div>
         <table class="pc-tbl" id="pc-tbl"></table>
+        <div class="pc-gapbox" id="pc-gapbox" aria-live="polite"></div>
         <canvas id="pc-chart" height="130"></canvas>
-        <div class="pc-note" id="pc-assumptions" hidden></div>
+        
       </div>
 </div>
         <p class="calc-disc"><a href="/tools/pension-calculator/" target="_blank" rel="noopener">למחשבון מלא ולהנחות החישוב</a> · המחשה בלבד, לא תחזית: תשואות עתידיות אינן מובטחות.</p>
@@ -568,20 +571,17 @@ function pcUpdateFactor(){var by=pcBirthDec();var ra=parseFloat(document.getElem
 function pcSimulate(p,ar,retAge){var bal=p.balance,mret=Math.pow(1+ar,1/12)-1,mfee=p.feebal/12;var sm=Math.round(p.ageExact*12),em=Math.round(retAge*12),months=em-sm,traj=[];for(var m=0;m<months;m++){var a=Math.floor((sm+m)/12);var dep=p.salary*p.deprate,netDep=dep-dep*p.feedep;var disPrem=(0.75*p.salary+p.deprate*p.salary*0.94)*pcLookupAge(PC_RATES.disability,p.gender,a)/1000;var PV=0.60*p.salary*pcLookupCohort(PC_RATES.survivor_sar,p.gender,a,p.by)+0.40*p.salary*pcLookupAge(PC_RATES.orphan_sar,p.gender,a);var survPrem=Math.max(0,PV-bal)*pcLookupCohort(PC_RATES.survivor_prem,p.gender,a,p.by)/100000;bal+=(netDep-disPrem-survPrem);bal*=(1+mret);bal-=bal*mfee;if(m%12===0||m===months-1)traj.push({age:(sm+m)/12,bal:bal});}return {final:bal,traj:traj};}
 function pcFmt(n){return Math.round(n).toLocaleString('en-US');}
 function pcNv(id){return +String(document.getElementById(id).value).replace(/,/g,'')||0;}
-function pcRun(){var err=document.getElementById('pc-err');err.style.display='none';var bd=document.getElementById('pc-bdate').value;if(!bd){err.textContent='נא להזין תאריך לידה';err.style.display='block';return;}var bdate=new Date(bd),now=new Date();var ageExact=(now-bdate)/(365.25*24*3600*1000);var retAge=parseFloat(document.getElementById('pc-retage').value);if(ageExact<15||ageExact>=retAge){err.textContent='גיל הפרישה חייב להיות גדול מהגיל הנוכחי';err.style.display='block';return;}pcUpdateFactor();var p={ageExact:ageExact,by:bdate.getFullYear(),gender:document.getElementById('pc-gender').value,balance:pcNv('pc-balance'),salary:pcNv('pc-salary'),deprate:pcNv('pc-deprate')/100,feedep:pcNv('pc-feedep')/100,feebal:pcNv('pc-feebal')/100};var factor=pcNv('pc-factor')||200;var infl=pcNv('pc-inflation')/100;var yrs2ret=retAge-ageExact;var rs=[pcNv('pc-r1')/100,pcNv('pc-r2')/100,pcNv('pc-r3')/100],labels=['נמוך','בסיס','גבוה'];var res=rs.map(function(r){return pcSimulate(p,r,retAge);});
-var pension=function(i){return res[i].final/factor;};var adjP=function(i){return pension(i)/Math.pow(1+infl,yrs2ret);};
-document.getElementById('pc-heroLbl').textContent='הצבירה הצפויה בגיל '+retAge;
-document.getElementById('pc-heroPension').innerHTML=pcFmt(res[1].final)+' <small>₪</small>';
-document.getElementById('pc-heroScn').textContent='בתרחיש בסיס ('+(rs[1]*100).toFixed(1)+'% בשנה) · קצבה חודשית צפויה '+pcFmt(pension(1))+' ₪ · בערכי היום '+pcFmt(adjP(1))+' ₪';
-var hh='<tr><th>מדד</th>';labels.forEach(function(l,i){hh+='<th class="'+(i===1?'pc-mid':'')+'">תרחיש '+l+'<br>'+(rs[i]*100).toFixed(1)+'%</th>';});hh+='</tr>';
-function rowf(lbl,fn,cls){var r='<tr><td class="pc-lbl">'+lbl+'</td>';res.forEach(function(x,i){r+='<td class="'+(i===1?'pc-mid ':'')+(cls||'pc-big')+'">'+fn(i)+'</td>';});return r+'</tr>';}
-hh+=rowf('צבירה צפויה בגיל '+retAge+' (₪)',function(i){return pcFmt(res[i].final);});
-var d1=Math.round((rs[1]-rs[0])*1000)/10,d2=Math.round((rs[2]-rs[1])*1000)/10;var gr='<tr><td class="pc-lbl">'+(d1===d2&&d1>0?'מה יתנו לך עוד '+d1+'% בשנה':'מה יתנו לך עוד קצת תשואה בשנה')+'</td>';res.forEach(function(x,i){gr+='<td class="pc-gapcell">'+(i===0?'':'<span class="pc-gap"><span class="pc-gap-arr" dir="ltr">&#8592;</span>'+pcFmt(res[i].final-res[i-1].final)+'</span>')+'</td>';});hh+=gr+'</tr>';
+function pcRun(){var err=document.getElementById('pc-err');err.style.display='none';var bd=document.getElementById('pc-bdate').value;if(!bd){err.textContent='נא להזין תאריך לידה';err.style.display='block';return;}var bdate=new Date(bd),now=new Date();var ageExact=(now-bdate)/(365.25*24*3600*1000);var retAge=parseFloat(document.getElementById('pc-retage').value);if(ageExact<15||ageExact>=retAge){err.textContent='גיל הפרישה חייב להיות גדול מהגיל הנוכחי';err.style.display='block';return;}pcUpdateFactor();
+var p={ageExact:ageExact,by:bdate.getFullYear(),gender:document.getElementById('pc-gender').value,balance:pcNv('pc-balance'),salary:pcNv('pc-salary'),deprate:pcNv('pc-deprate')/100,feedep:pcNv('pc-feedep')/100,feebal:pcNv('pc-feebal')/100};
+var rs=[pcNv('pc-r2')/100,pcNv('pc-r3')/100];var res=rs.map(function(r){return pcSimulate(p,r,retAge);});
+var pct=function(r){return (Math.round(r*1000)/10)+'%';};
+var hh='<tr><th></th>';rs.forEach(function(r,i){hh+='<th class="'+(i===0?'pc-mid':'')+'">תשואה שנתית<br>'+pct(r)+'</th>';});hh+='</tr>';
+hh+='<tr><td class="pc-lbl">צבירה צפויה בגיל '+retAge+' (₪)</td>';res.forEach(function(x,i){hh+='<td class="'+(i===0?'pc-mid ':'')+'pc-big">'+pcFmt(x.final)+'</td>';});hh+='</tr>';
 document.getElementById('pc-tbl').innerHTML=hh;
-var gTxt=p.gender==='M'?'גבר':'אישה';
-document.getElementById('pc-assumptions').innerHTML='<strong>הנחות המחשבון:</strong> גיל פרישה '+retAge+'. שכר קבוע (ללא עליית שכר). מסלול ביטוח ברירת מחדל — שארים 100% ונכות 75%, ללא נכות מתפתחת ופרנצ\'יזה. הסכומים בשקלים נומינליים (לפני אינפלציה).';
-var yrsAxis=res[1].traj.map(function(t){return Math.round(t.age);}),colors=['#9fb3c8','#007DA8','#5C8D5A'];
-var ds=res.map(function(x,i){return {label:'תרחיש '+labels[i],data:x.traj.map(function(t){return Math.round(t.bal);}),borderColor:colors[i],backgroundColor:colors[i],tension:.25,pointRadius:0,borderWidth:i===1?3:2};});
+var d=Math.round((rs[1]-rs[0])*1000)/10;
+document.getElementById('pc-gapbox').innerHTML='<div class="g1">מה יתנו לך עוד '+d+'% בשנה</div><div class="g2">'+pcFmt(res[1].final-res[0].final)+' <small>₪</small></div><div class="g3">הפער בצבירה בגיל '+retAge+' בין תשואה של '+pct(rs[0])+' ל-'+pct(rs[1])+'</div>';
+var yrsAxis=res[0].traj.map(function(t){return Math.round(t.age);}),colors=['#007DA8','#5C8D5A'];
+var ds=res.map(function(x,i){return {label:'תשואה שנתית '+pct(rs[i]),data:x.traj.map(function(t){return Math.round(t.bal);}),borderColor:colors[i],backgroundColor:colors[i],tension:.25,pointRadius:0,borderWidth:i===1?3:2};});
 if(pcChart)pcChart.destroy();
 if(window.Chart)pcChart=new Chart(document.getElementById('pc-chart'),{type:'line',data:{labels:yrsAxis,datasets:ds},options:{responsive:true,plugins:{legend:{position:'top'},title:{display:true,text:'התפתחות הצבירה לפי גיל'}},scales:{x:{title:{display:true,text:'גיל'}},y:{title:{display:true,text:'צבירה (₪)'},ticks:{callback:function(v){return (v/1000).toLocaleString('en-US')+'K';}}}}}});
 document.getElementById('pc-results').style.display='block';}
