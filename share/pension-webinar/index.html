@@ -192,7 +192,18 @@ bdi{white-space:nowrap}
 #pc-chart{margin-top:18px}
 .calc-card.pc-card{max-width:none;margin:0;padding:clamp(18px,2.4vw,28px)}
 .pc-btn-big{width:100%;margin-top:4px}
-@media(min-width:561px){.pc-adv .pc-grid{grid-template-columns:1fr 1fr}}
+/* שדות צפופים: 3 בשורה כשיש מקום, 2 בנייד */
+.calc-card.pc-card{container-type:inline-size}
+.pc-card .pc-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 14px}
+@container (min-width:470px){.pc-card .pc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pc-card .form-group{margin-bottom:0}
+.pc-card .form-group label{font-size:14.5px;margin-bottom:4px;line-height:1.35}
+.pc-card input[type=date],.pc-card input[type=text],.pc-card input[type=number],.pc-card select{padding:9px 10px;font-size:16px}
+.pc-toggle button{padding:9px 6px;font-size:16px}
+.pc-agehint{margin-top:3px!important;font-size:13px}
+.pc-adv{margin:16px 0}.pc-adv .pc-grid{margin-top:12px}.pc-adv-lbl{margin:12px 0 4px}
+.pc-row3{gap:14px;margin-top:4px}
+.pc-results{margin-top:20px}
 .pc-tbl{font-size:15px}.pc-tbl th{font-size:14px}.pc-tbl td.pc-big{font-size:16px}
 .pc-tbl th,.pc-tbl td{padding:10px 6px}
 .pc-hero-val{font-size:clamp(34px,4vw,44px)}
@@ -205,6 +216,7 @@ bdi{white-space:nowrap}
 @media(max-width:340px){.pc-tbl td.pc-big,.pc-tbl td.pc-lbl{font-size:12px}.pc-tbl th{font-size:11.5px}.pc-gap{font-size:13px}}
 @media(min-width:941px){.side{position:sticky;top:20px}}
 .calc-disc{font-size:14px;color:var(--text-2);line-height:1.6;margin-top:12px}
+.calc-disc a{font-weight:600;font-size:15px}
 
 /* ---------- 3. מה תדע + הרשמה ---------- */
 .take-band .cols{grid-template-areas:"take reg"}
@@ -321,8 +333,8 @@ bdi{white-space:nowrap}
   <section class="calc-band" aria-label="מחשבון והסבר">
     <div class="container cols">
       <div class="calc-col">
-        <h2 id="t-calc">כמה תצבור עד הפרישה?</h2>
-        <p class="lede">מחשבון הפנסיה מהאתר, עם נתונים לדוגמה. שנו לנתונים שלכם ולחצו "חשב" — ושימו לב לפער בין התרחישים: זה מה שהפרש של 0.3% בתשואה עושה לאורך השנים.</p>
+        <h2 id="t-calc">להזיז את המחט</h2>
+        <p class="lede">תראה מה ייתן לך שיפור שנתי של 0.3% בפנסיה. <b>זה אפשרי!</b></p>
 <div class="calc-card pc-card">
       <div class="pc-grid">
         <div class="form-group"><label>תאריך לידה</label><input type="date" id="pc-bdate" oninput="pcShowAge();pcUpdateFactor()"><span class="pc-agehint" id="pc-agehint" style="display:block;margin-top:6px"></span></div>
@@ -332,34 +344,29 @@ bdi{white-space:nowrap}
         <div class="form-group"><label>שכר מבוטח חודשי (₪)</label><input type="text" inputmode="numeric" id="pc-salary" value="30,000" oninput="pcGrp(this)"></div>
         <div class="form-group"><label>שיעור הפקדה כולל (%)</label><input type="number" id="pc-deprate" value="20.83" step="0.1"></div>
       </div>
-      <details open class="pc-adv" id="s-adv"><summary>הגדרות מתקדמות (דמי ניהול, מקדם המרה, אינפלציה, תשואות)</summary>
+      <div class="pc-adv" id="s-adv">
         <div class="pc-grid">
           <div class="form-group"><label>דמי ניהול מהפקדה (%)</label><input type="number" id="pc-feedep" value="1" step="0.1"></div>
           <div class="form-group"><label>דמי ניהול מצבירה (%)</label><input type="number" id="pc-feebal" value="0.2" step="0.01"></div>
-          <div class="form-group"><label>מקדם המרה (מחושב) <a href="/tools/mekadem-hamara/" target="_blank" rel="noopener" style="font-weight:600">לחישוב מקדם מדויק</a></label><input type="number" id="pc-factor" value="200" step="0.1"></div>
-          <div class="form-group"><label>אינפלציה חזויה (%)</label><input type="number" id="pc-inflation" value="2" step="0.1"></div>
+          <input type="hidden" id="pc-factor" value="200">
+          <input type="hidden" id="pc-inflation" value="2">
         </div>
-        <label class="pc-adv-lbl">תרחישי תשואה שנתית (%)</label>
-        <div class="pc-row3">
-          <div class="form-group"><label>נמוך</label><input type="number" id="pc-r1" value="6.2" step="0.5"></div>
-          <div class="form-group"><label>בסיס</label><input type="number" id="pc-r2" value="6.5" step="0.5"></div>
-          <div class="form-group"><label>גבוה</label><input type="number" id="pc-r3" value="6.8" step="0.5"></div>
-        </div>
-      </details>
+        <input type="hidden" id="pc-r1" value="6.2"><input type="hidden" id="pc-r2" value="6.5"><input type="hidden" id="pc-r3" value="6.8">
+      </div>
       <button type="button" class="btn btn-primary pc-btn-big" onclick="pcRun()">חשב את הפנסיה שלי ←</button>
       <div class="pc-err" id="pc-err"></div>
       <div class="pc-results" id="pc-results">
-        <div class="pc-hero">
+        <div class="pc-hero" hidden>
           <div class="pc-hero-lbl" id="pc-heroLbl">הצבירה הצפויה בגיל 67</div>
           <div class="pc-hero-val" id="pc-heroPension">-</div>
           <div class="pc-hero-sc" id="pc-heroScn"></div>
         </div>
         <table class="pc-tbl" id="pc-tbl"></table>
         <canvas id="pc-chart" height="130"></canvas>
-        <div class="pc-note" id="pc-assumptions"></div>
+        <div class="pc-note" id="pc-assumptions" hidden></div>
       </div>
 </div>
-        <p class="calc-disc">המחשבון הוא המחשה, לא תחזית: תשואות עתידיות אינן ידועות ואינן מובטחות. <a href="/tools/pension-calculator/" target="_blank" rel="noopener">המחשבון המלא באתר</a></p>
+        <p class="calc-disc"><a href="/tools/pension-calculator/" target="_blank" rel="noopener">למחשבון מלא ולהנחות החישוב</a> · המחשה בלבד, לא תחזית: תשואות עתידיות אינן מובטחות.</p>
       </div>
 
       <div class="side">
@@ -566,10 +573,10 @@ document.getElementById('pc-heroScn').textContent='בתרחיש בסיס ('+(rs[
 var hh='<tr><th>מדד</th>';labels.forEach(function(l,i){hh+='<th class="'+(i===1?'pc-mid':'')+'">תרחיש '+l+'<br>'+(rs[i]*100).toFixed(1)+'%</th>';});hh+='</tr>';
 function rowf(lbl,fn,cls){var r='<tr><td class="pc-lbl">'+lbl+'</td>';res.forEach(function(x,i){r+='<td class="'+(i===1?'pc-mid ':'')+(cls||'pc-big')+'">'+fn(i)+'</td>';});return r+'</tr>';}
 hh+=rowf('צבירה צפויה בגיל '+retAge+' (₪)',function(i){return pcFmt(res[i].final);});
-var gr='<tr><td class="pc-lbl">פער בצבירה בין התרחישים (₪)</td>';res.forEach(function(x,i){gr+='<td class="pc-gapcell">'+(i===0?'':'<span class="pc-gap"><span class="pc-gap-arr" dir="ltr">&#8592;</span>'+pcFmt(res[i].final-res[i-1].final)+'</span>')+'</td>';});hh+=gr+'</tr>';
+var d1=Math.round((rs[1]-rs[0])*1000)/10,d2=Math.round((rs[2]-rs[1])*1000)/10;var gr='<tr><td class="pc-lbl">'+(d1===d2&&d1>0?'מה יתנו לך עוד '+d1+'% בשנה':'מה יתנו לך עוד קצת תשואה בשנה')+'</td>';res.forEach(function(x,i){gr+='<td class="pc-gapcell">'+(i===0?'':'<span class="pc-gap"><span class="pc-gap-arr" dir="ltr">&#8592;</span>'+pcFmt(res[i].final-res[i-1].final)+'</span>')+'</td>';});hh+=gr+'</tr>';
 document.getElementById('pc-tbl').innerHTML=hh;
 var gTxt=p.gender==='M'?'גבר':'אישה';
-document.getElementById('pc-assumptions').innerHTML='<strong>הנחות המחשבון:</strong> גיל פרישה '+retAge+'. שכר קבוע (ללא עליית שכר). מקדם המרה '+factor.toFixed(1)+' (שיעור קצבה מובטח לבן הזוג 60%, ללא הבטחת קצבאות, הבעל גדול מהאשה ב-1.7 שנים). קצבה בערכי היום לפי אינפלציה '+(infl*100).toFixed(1)+'%. מסלול ביטוח ברירת מחדל - שארים 100% + נכות 75%, ללא נכות מתפתחת ופרנצ\'יזה. הקצבה המוצגת היא לפני הורדת מס הכנסה.';
+document.getElementById('pc-assumptions').innerHTML='<strong>הנחות המחשבון:</strong> גיל פרישה '+retAge+'. שכר קבוע (ללא עליית שכר). מסלול ביטוח ברירת מחדל — שארים 100% ונכות 75%, ללא נכות מתפתחת ופרנצ\'יזה. הסכומים בשקלים נומינליים (לפני אינפלציה).';
 var yrsAxis=res[1].traj.map(function(t){return Math.round(t.age);}),colors=['#9fb3c8','#007DA8','#5C8D5A'];
 var ds=res.map(function(x,i){return {label:'תרחיש '+labels[i],data:x.traj.map(function(t){return Math.round(t.bal);}),borderColor:colors[i],backgroundColor:colors[i],tension:.25,pointRadius:0,borderWidth:i===1?3:2};});
 if(pcChart)pcChart.destroy();
