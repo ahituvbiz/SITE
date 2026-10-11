@@ -21,6 +21,35 @@
 <meta property="og:image:alt" content="הרצאה מקוונת על פנסיה לעובדי הייטק עם איתן אחיטוב, יועץ פנסיוני בעל רישיון">
 <meta name="twitter:card" content="summary_large_image">
 
+<!-- זיהוי בעל האתר (?notrack=1 / ?draft=1) — הביקורים שלו לא נספרים. זהה לשאר האתר -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — אותו נכס כמו שאר האתר; לא נטען עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
 <link rel="icon" href="/design-assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/design-assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -617,6 +646,34 @@ if(window.Chart)pcChart=new Chart(document.getElementById('pc-chart'),{type:'lin
 document.getElementById('pc-results').style.display='block';}
 (function(){var d=new Date();d.setFullYear(d.getFullYear()-30);var m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');document.getElementById('pc-bdate').value=d.getFullYear()+'-'+m+'-'+day;pcShowAge();pcUpdateFactor();})();
 try { pcRun(); } catch (e) {}
+</script>
+<!-- מדידה: מי שיחק עם המחשבון, מי לחץ "חשב", מי לחץ על וואטסאפ. רק פעולות של המשתמש (isTrusted) — החישוב האוטומטי בטעינה לא נספר -->
+<script>
+(function(){
+  function track(name, params){ try{ if(window.gtag) gtag('event', name, params || {}); }catch(e){} }
+  var played = false;
+  var calc = document.querySelector('.pc-card');
+  function onPlay(e){
+    if(!e.isTrusted || played) return;
+    if(e.target.closest('.pc-calc-btn')) return;
+    played = true;
+    track('calc_interact', { field: e.target.id || (e.target.getAttribute('data-v') ? 'pc-gender' : '') });
+  }
+  if(calc){
+    calc.addEventListener('input', onPlay, true);
+    calc.addEventListener('change', onPlay, true);
+    calc.addEventListener('click', function(e){ if(e.target.closest('#pc-genderToggle')) onPlay(e); }, true);
+  }
+  var btn = document.querySelector('.pc-calc-btn');
+  if(btn) btn.addEventListener('click', function(e){ if(e.isTrusted) track('calc_run'); });
+  function waWhere(a){ return a.id === 'wa-btn' ? 'card' : a.closest('#sticky') ? 'sticky' : a.closest('.foot') ? 'footer' : 'other'; }
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function(a){
+    a.addEventListener('click', function(e){ if(e.isTrusted) track('wa_click', { location: waWhere(a) }); });
+  });
+  document.querySelectorAll('a[href="#register"]').forEach(function(a){
+    a.addEventListener('click', function(e){ if(e.isTrusted) track('register_anchor_click', { location: a.id || (a.closest('.topbar') ? 'topbar' : 'calc') }); });
+  });
+})();
 </script>
 </body>
 </html>
