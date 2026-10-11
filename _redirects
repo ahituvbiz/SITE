@@ -82,3 +82,6 @@
 /כדאי-לדעת/                                            /articles/                          301
 /ייעוץ-פנסיוני-מסובסד                                  /services/                          301
 /ייעוץ-פנסיוני-מסובסד/                                 /services/                          301
+# דף ההרצאה לעובדי הייטק עבר לכתובת עם שם הקהל (11.10.26)
+/share/pension-webinar                                 /share/pension-webinar-hitech/      301
+/share/pension-webinar/*                               /share/pension-webinar-hitech/:splat 301
