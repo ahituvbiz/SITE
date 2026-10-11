@@ -70,6 +70,7 @@ bdi{white-space:nowrap}
 /* ---------- top bar ---------- */
 .topbar{background:#fff;border-bottom:1px solid var(--border)}
 .topbar .container{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+.logo-link{display:block;line-height:0}
 .topbar .tag{font-size:14.5px;color:var(--text-2);font-weight:600}
 
 /* ---------- 1. hero ---------- */
@@ -117,10 +118,9 @@ bdi{white-space:nowrap}
 .who-card p:last-child{margin-bottom:0}
 
 /* הרישיון */
-.lic{margin:0;background:#fff;border-radius:var(--radius-card);padding:12px;box-shadow:0 14px 34px rgba(0,40,60,.2)}
+.lic{margin:0;background:#fff;border-radius:var(--radius-card);padding:6px;box-shadow:0 14px 34px rgba(0,40,60,.2)}
 .lic a{display:block}
 .lic img{width:100%;height:auto;border-radius:6px}
-.lic figcaption{font-size:14px;color:var(--text-2);text-align:center;margin-top:8px;line-height:1.45}
 
 /* ---------- 2. מחשבון + אינטרסים ---------- */
 .calc-band .cols{grid-template-areas:"calc side"}
@@ -285,8 +285,7 @@ bdi{white-space:nowrap}
 
 <header class="topbar">
   <div class="container">
-    <img src="/design-assets/logo.svg" alt="אחיטוב — תכנון פיננסי אובייקטיבי" width="63" height="44">
-    <span class="tag">הרצאה מקוונת לעובדי הייטק</span>
+    <a class="logo-link" href="/" target="_blank" rel="noopener" aria-label="אחיטוב — תכנון פיננסי אובייקטיבי, לדף הבית של האתר"><img src="/design-assets/logo.svg" alt="" width="63" height="44"></a>
   </div>
 </header>
 
@@ -295,7 +294,6 @@ bdi{white-space:nowrap}
   <section class="hero" aria-labelledby="h1">
     <div class="container cols">
       <div class="hero-text">
-        <span class="eyebrow"><span class="dot" aria-hidden="true"></span><span data-state-label>לעובדי הייטק · <span data-f="dateShort">יום חמישי, 22.10</span> · <span data-f="time">21:00</span></span></span>
         <h1 id="h1"><span>דברים שמעטים יודעים</span><span class="l2">טעויות שרבים עושים</span></h1>
         <p class="sub">הרצאה על פנסיה לעובדי הייטק מיועץ פנסיוני אובייקטיבי</p>
         <p class="money">מידע ששווה לכם <b><u>המון</u></b> כסף</p>
@@ -333,8 +331,7 @@ bdi{white-space:nowrap}
       </ul>
 
       <figure class="lic">
-        <a href="/design-assets/license.jpg" target="_blank" rel="noopener"><img src="/design-assets/license-header.jpg" alt="רישיון יועץ פנסיוני מטעם רשות שוק ההון, ביטוח וחיסכון על שם איתן יעקב אחיטוב, מספר רישיון I-00133091" width="2061" height="808" loading="lazy"></a>
-        <figcaption>רישיון יועץ פנסיוני מרשות שוק ההון. <a href="/design-assets/license.jpg" target="_blank" rel="noopener">לרישיון המלא</a></figcaption>
+        <a href="/design-assets/license.jpg" target="_blank" rel="noopener"><img src="license.jpg" alt="רישיון יועץ פנסיוני מטעם רשות שוק ההון, ביטוח וחיסכון על שם איתן יעקב אחיטוב, מספר רישיון I-00133091" width="1400" height="617" loading="lazy"></a>
       </figure>
     </div>
   </section>
@@ -525,7 +522,6 @@ var LECTURE = {
     $('form-intro').textContent = 'רוצה לשמוע על המועד הבא? שלח הודעה ואעדכן אותך כשייקבע.';
     $('wa-label').textContent = 'עדכן אותי בוואטסאפ';
     $('privacy').textContent = 'המספר ישמש רק לעדכון על המועד הבא. לא אתקשר ולא אעביר אותו לאף אחד.';
-    document.querySelector('[data-state-label]').textContent = 'המועד הבא ייקבע בקרוב';
     var w = document.querySelector('[data-when]'); if (w) w.hidden = true;
     document.querySelector('.facts').style.gridTemplateColumns = 'repeat(2,minmax(0,1fr))';
     document.querySelectorAll('[data-wa]').forEach(function (a) { a.textContent = 'עדכן אותי בוואטסאפ'; });
