@@ -159,6 +159,8 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
 /* ---------- מחשבון ---------- */
 .calc{background:var(--bg-soft);border-block:1px solid var(--line)}
 .calc .lede a{font-weight:600}
+.calc-lede{max-width:none;font-size:clamp(19px,2vw,23px);line-height:1.6;color:var(--text)}
+.calc-lede span{display:block;text-wrap:balance}
 .calc-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,32px);align-items:start}
 @media(max-width:960px){.calc-grid{grid-template-columns:minmax(0,1fr)}}
 .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:clamp(20px,3vw,32px)}
@@ -347,7 +349,7 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
       <div class="sec-head">
         <span class="kicker">מחשבון</span>
         <h2 id="t-calc">להזיז את המחט</h2>
-        <p class="lede">הזן את נתוני הפנסיה, השכר והגיל שלך ותראה מה ייתן לך שיפור שנתי של 0.3% בפנסיה. זה אפשרי. <a href="#register">בוא לשמוע איך!</a></p>
+        <p class="lede calc-lede"><span>הזן את נתוני הפנסיה, השכר והגיל שלך ותראה מה ייתן לך שיפור שנתי של 0.3% בפנסיה.</span> <span>זה אפשרי. <a href="#register">בוא לשמוע איך!</a></span></p>
       </div>
       <div class="calc-grid">
         <div class="panel pc-card">
