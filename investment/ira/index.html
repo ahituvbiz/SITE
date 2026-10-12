@@ -994,6 +994,10 @@ section.tight { padding: var(--s-2xl) 0; }
   font-weight: 700;
   font-size: 18px;
 }
+.choice-item:has(input:focus-visible) {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
 .choice-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3134,6 +3138,22 @@ function restartWizard() {
     el.addEventListener('blur', function() {
       if (el.value === '' || isNaN(parseFloat(el.value))) el.value = '0';
     });
+  });
+  // סימון ויזואלי לבחירות: ה-checkbox/radio מוסתרים ב-CSS, והתווית מקבלת .selected
+  function syncChoice(input) {
+    var item = input.closest('.choice-item');
+    if (item) item.classList.toggle('selected', input.checked);
+  }
+  document.querySelectorAll('.choice-item input').forEach(function(input) {
+    input.addEventListener('change', function() {
+      if (input.type === 'radio') {
+        document.querySelectorAll('input[name="' + input.name + '"]').forEach(syncChoice);
+      } else {
+        syncChoice(input);
+      }
+      clearError();
+    });
+    syncChoice(input); // מצב התחלתי (דפדפן שמשחזר טופס אחרי רענון)
   });
   updateUI();
 })();
