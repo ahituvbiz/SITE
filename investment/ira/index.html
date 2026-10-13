@@ -2234,8 +2234,7 @@ textarea:focus-visible,
           <div class="choice-grid">
             <label class="choice-item"><input type="checkbox" name="securities" value="etf_il"> ETF / קרנות סל מקומיות (ת"א 35, S&P, נאסד"ק)</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_il"> מניות בודדות בישראל</label>
-            <label class="choice-item"><input type="checkbox" name="securities" value="stock_us"> מניות בודדות בארה"ב</label>
-            <label class="choice-item"><input type="checkbox" name="securities" value="etf_us"> ETF זרים (ארה"ב)</label>
+            <label class="choice-item"><input type="checkbox" name="securities" value="stock_us"> מניות / ETF בארה"ב</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_eu"> מניות / ETF באירופה</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_il"> אג"ח ישראליות (ממשלתי/קונצרני)</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_us"> אג"ח Corporate בחו"ל</label>
@@ -2809,11 +2808,12 @@ const BROKERS = {
 };
 
 // Map securities choice → fee key
+// stock_us מכסה גם ETF בארה"ב: האפשרות etf_us אוחדה לתוכו בטופס כי עמלת ETF ארה"ב זהה
+// לעמלת מניות ארה"ב בכל ששת הברוקרים (שורות etf_us בטבלאות נשארות לתיעוד בלבד).
 const SECURITY_TO_FEE_KEY = {
   etf_il:   'etf_il',
   stock_il: 'stock_il',
   stock_us: 'stock_us',
-  etf_us:   'etf_us',
   stock_eu: 'stock_eu',
   bond_il:  'bond_il',
   bond_us:  'bond_us',
@@ -2823,15 +2823,14 @@ const SECURITY_TO_FEE_KEY = {
 const SECURITY_LABELS = {
   etf_il: 'ETF מקומי',
   stock_il: 'מניות ישראל',
-  stock_us: 'מניות ארה"ב',
-  etf_us: 'ETF ארה"ב',
+  stock_us: 'מניות / ETF ארה"ב',
   stock_eu: 'מניות / ETF אירופה',
   bond_il: 'אג"ח ישראל',
   bond_us: 'אג"ח חו"ל',
   mutual: 'קרנות נאמנות'
 };
 
-const FOREIGN_SECURITIES = ['stock_us', 'etf_us', 'stock_eu', 'bond_us'];
+const FOREIGN_SECURITIES = ['stock_us', 'stock_eu', 'bond_us'];
 
 // ============================================================
 // WIZARD STATE
