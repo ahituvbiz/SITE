@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"מחשבון דמי ניהול","description":"מחשב את עלות דמי ניהול לאורך שנות הצבירה ואת ההפרש בין שני מסלולים.","url": "https://pensya.info/tools/management-fees/","applicationCategory":"FinanceApplication","operatingSystem":"Web","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"בית","item": "https://pensya.info/"},{"@type":"ListItem","position":2,"name":"מחשבונים","item": "https://pensya.info/tools/"},{"@type":"ListItem","position":3,"name":"מחשבון דמי ניהול","item": "https://pensya.info/tools/management-fees/"}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"מחשבון דמי ניהול","description":"מחשב את עלות דמי ניהול לאורך שנות הצבירה, את ההפרש בין שני מסלולים ואת נקודת החצייה - תוך כמה שנים המסלול הזול יותר היום הופך ליקר יותר.","url": "https://pensya.info/tools/management-fees/","applicationCategory":"FinanceApplication","operatingSystem":"Web","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"בית","item": "https://pensya.info/"},{"@type":"ListItem","position":2,"name":"מחשבונים","item": "https://pensya.info/tools/"},{"@type":"ListItem","position":3,"name":"מחשבון דמי ניהול","item": "https://pensya.info/tools/management-fees/"}]}]}
 </script>
 <style>
 :root {
@@ -187,6 +187,12 @@ textarea:focus-visible,
 .alt-box.alt-b{border-top:3px solid var(--primary)}
 .alt-box.alt-b .alt-title{color:var(--primary)}
 .res-big.bad{color:var(--negative)}
+/* נקודת החצייה */
+.res-cross{background:#fff;border-radius:8px;padding:12px 14px;margin-top:12px;border-right:4px solid var(--primary)}
+.res-cross.win-a{border-right-color:var(--cta)}
+.res-cross.none{border-right-color:var(--border)}
+.rc-val{font-size:18px;font-weight:700;color:var(--text-1);line-height:1.35}
+.rc-sub{font-size:12px;color:var(--text-2);margin-top:4px;line-height:1.5}
 .chart-wrap{margin-top:var(--s-lg);background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .chart-box{position:relative;height:340px}
 @media(max-width:520px){.alt-grid{grid-template-columns:1fr}.chart-box{height:260px}}
@@ -348,7 +354,7 @@ textarea:focus-visible,
 <section class="page-hero" id="main-content">
   <div class="container">
     <h1>כמה דמי הניהול <span class="accent">עולים לך?</span></h1>
-    <p class="page-updated">עודכן: 26 במאי 2026</p>
+    <p class="page-updated">עודכן: 13 באוקטובר 2026</p>
     <p class="lead">
       מבין הגורמים שמשפיעים על הפנסיה שלך, דמי הניהול הם השקופים ביותר. אם רצית לדעת מה תהיה ההשפעה של הוזלת דמי הניהול בקרן הפנסיה שלך, הסימולטור בעמוד הזה ייתן לך מענה.
     </p>
@@ -370,10 +376,13 @@ textarea:focus-visible,
           המחשבון שלפניכם מראה לכם בצורה פשוטה מה ההשלכות העתידיות של חלופות שונות של דמי ניהול בפנסיה.
         </p>
         <p>
+          הדילמה האמיתית נוצרת כשחלופה אחת זולה יותר מההפקדה והשנייה זולה יותר מהצבירה. בשנים הראשונות, כשהצבירה עדיין קטנה, דמי הניהול מההפקדה הם שמכריעים; ככל שהצבירה גדלה, דמי הניהול מהצבירה תופסים את הבכורה - וחלופה שזולה יותר היום עלולה להפוך ליקרה יותר בהמשך. לכן המחשבון מציג גם את נקודת החצייה: תוך כמה שנים החלופה שמובילה בגיל 67 עוקפת את השנייה.
+        </p>
+        <p>
           במידה ואתם מעוניינים בחישוב מדויק יותר מומלץ להשתמש ב<a href="/tools/pension-calculator/">מחשבון הפנסיה המלא</a>.
         </p>
         <div class="insight-box">
-          <strong>מה המחשבון מחשב:</strong> הצבירה הצפויה בגיל 67 בשתי חלופות של דמי ניהול, וההפרש ביניהן. החישוב הוא חודשי ומנכה את עלויות הביטוח (נכות ושאירים) לפי תקנון קרן פנסיה מקיפה - בדיוק כמו במחשבון הפנסיה המלא.
+          <strong>מה המחשבון מחשב:</strong> הצבירה הצפויה בגיל 67 בשתי חלופות של דמי ניהול, ההפרש ביניהן, ונקודת החצייה - הגיל שממנו החלופה הכדאית בגיל 67 צוברת יותר מהשנייה. החישוב הוא חודשי ומנכה את עלויות הביטוח (נכות ושאירים) לפי תקנון קרן פנסיה מקיפה - בדיוק כמו במחשבון הפנסיה המלא.
         </div>
         <div class="insight-box" style="margin-top:12px;border-color:var(--cta);background:#fff5f4">
           <strong>חשוב לדעת:</strong> כחלק מהייעוץ שאני מעניק אני מטפל כמובן גם בדמי הניהול, אם כי ההוזלה שלהם נלקחת בחשבון כחלק ממערך שיקולים רחב יותר של בחירת קרן עם מדיניות השקעה שנראית לי אופטימלית ואיזון אקטוארי משוער.
@@ -402,8 +411,8 @@ textarea:focus-visible,
           <div class="alt-box alt-a">
             <div class="alt-title">חלופה א'</div>
             <div class="form-group">
-              <label>מהפקדה <span class="val-display" id="mf-a-dep-out">2.00%</span></label>
-              <input type="range" id="mf-a-dep" min="0" max="6" step="0.05" value="2">
+              <label>מהפקדה <span class="val-display" id="mf-a-dep-out">1.00%</span></label>
+              <input type="range" id="mf-a-dep" min="0" max="6" step="0.05" value="1">
             </div>
             <div class="form-group" style="margin-bottom:0">
               <label>מהצבירה <span class="val-display" id="mf-a-bal-out">0.25%</span></label>
@@ -413,8 +422,8 @@ textarea:focus-visible,
           <div class="alt-box alt-b">
             <div class="alt-title">חלופה ב'</div>
             <div class="form-group">
-              <label>מהפקדה <span class="val-display" id="mf-b-dep-out">1.00%</span></label>
-              <input type="range" id="mf-b-dep" min="0" max="6" step="0.05" value="1">
+              <label>מהפקדה <span class="val-display" id="mf-b-dep-out">2.00%</span></label>
+              <input type="range" id="mf-b-dep" min="0" max="6" step="0.05" value="2">
             </div>
             <div class="form-group" style="margin-bottom:0">
               <label>מהצבירה <span class="val-display" id="mf-b-bal-out">0.15%</span></label>
@@ -436,6 +445,11 @@ textarea:focus-visible,
               <div class="ri-val" id="mf-b-final">-</div>
               <div class="ri-label">צבירה - חלופה ב'</div>
             </div>
+          </div>
+          <div class="res-cross" id="mf-cross">
+            <div class="res-title">מתי החלופה הכדאית עוקפת את השנייה</div>
+            <div class="rc-val" id="mf-cross-val">-</div>
+            <div class="rc-sub" id="mf-cross-sub"></div>
           </div>
         </div>
 
@@ -502,7 +516,7 @@ function mfByCohort(tbl,age,by){var g=tbl.M;age=Math.round(age);var ag=mfAges(g)
 
 function mfSim(p,feedep,feebal){
   var bal=p.balance, mret=Math.pow(1+MF_RETURN,1/12)-1, mfee=feebal/12;
-  var sm=p.age*12, em=MF_RET*12, months=em-sm, traj=[];
+  var sm=p.age*12, em=MF_RET*12, months=em-sm, traj=[], mon=[];
   for(var m=0;m<months;m++){
     var a=Math.floor((sm+m)/12);
     var netDep=p.deposit-p.deposit*feedep;
@@ -512,12 +526,52 @@ function mfSim(p,feedep,feebal){
     bal+=(netDep-disPrem-survPrem);
     bal*=(1+mret);
     bal-=bal*mfee;
+    mon.push(bal);
     if(m%12===0||m===months-1)traj.push({age:(sm+m)/12,bal:bal});
   }
-  return {final:bal,traj:traj};
+  return {final:bal,traj:traj,mon:mon};
 }
 
 function mfFmt(n){if(isNaN(n)||!isFinite(n))return'-';return Math.round(n).toLocaleString('en-US')+' ₪';}
+function mfYrs(y){return y===1?'שנה אחת':y===2?'שנתיים':y+' שנים';}
+function mfMos(m){return m===1?'חודש אחד':m===2?'חודשיים':m+' חודשים';}
+function mfSpan(months){var y=Math.floor(months/12),m=months%12;
+  if(y===0)return mfMos(m);if(m===0)return mfYrs(y);
+  return mfYrs(y)+' '+(m<=2?'ו'+mfMos(m):'ו-'+mfMos(m));}
+
+/* נקודת החצייה: החודש שממנו ואילך החלופה שמובילה בגיל 67 נשארת מובילה.
+   רלוונטי רק כשיש דילמה - חלופה אחת זולה יותר מההפקדה והשנייה זולה יותר מהצבירה. */
+function mfCross(A,B,diff,aDep,aBal,bDep,bBal,age){
+  if(aDep===bDep&&aBal===bBal)return {cls:'none',val:'החלופות זהות',sub:'דמי הניהול זהים בשתי החלופות - אין מה להשוות.',idx:null};
+  var W=diff>=0?B:A, L=diff>=0?A:B, wn=diff>=0?"ב'":"א'", ln=diff>=0?"א'":"ב'";
+  var wDep=diff>=0?bDep:aDep, wBal=diff>=0?bBal:aBal, lDep=diff>=0?aDep:bDep, lBal=diff>=0?aBal:bBal;
+  var tradeoff=(wDep>lDep&&wBal<lBal)||(wDep<lDep&&wBal>lBal);
+  if(!tradeoff)return {cls:'none',val:'אין נקודת חצייה',sub:"אין כאן דילמה: חלופה "+wn+" זולה יותר (או שווה) גם מההפקדה וגם מהצבירה, ולכן היא מובילה מהחודש הראשון ועד הפרישה.",idx:null};
+  var n=W.mon.length, last=-1;
+  for(var i=n-1;i>=0;i--){if(W.mon[i]<=L.mon[i]){last=i;break;}}
+  var cm=last+1, cls=diff>=0?'win-b':'win-a';
+  if(cm<=0){
+    if(wBal<lBal)return {cls:cls,val:'מהחודש הראשון',sub:"חלופה "+wn+" מובילה כבר מהחודש הראשון: כבר היום החיסכון בדמי הניהול מהצבירה (על הצבירה הקיימת) גדול מהתוספת בדמי הניהול מההפקדה.",idx:null};
+    return {cls:cls,val:'מהחודש הראשון ועד גיל 67',sub:"חלופה "+wn+" זולה יותר מההפקדה ומובילה לאורך כל התקופה. דמי הניהול הגבוהים יותר מהצבירה שבה לא מספיקים כדי להפוך את התמונה עד גיל 67 - בטווח ארוך יותר זה היה יכול להשתנות.",idx:null};
+  }
+  var ageAt=Math.round(age+cm/12);
+  return {cls:cls,val:'אחרי '+mfSpan(cm)+' (בגיל '+ageAt+')',sub:"עד אז חלופה "+ln+" צוברת יותר; מנקודה זו חלופה "+wn+" עוקפת אותה, ומכאן הפער לטובתה רק גדל.",idx:cm/12,label:'נקודת החצייה · גיל '+ageAt};
+}
+
+/* סימון נקודת החצייה על הגרף - קו אנכי מקווקו */
+var MF_CROSS_PLUGIN={id:'mfCross',afterDatasetsDraw:function(chart){
+  var o=chart.options.plugins.mfCross; if(!o||o.idx==null)return;
+  var area=chart.chartArea, x=chart.scales.x.getPixelForValue(o.idx);
+  if(!isFinite(x)||x<area.left||x>area.right)return;
+  var ctx=chart.ctx; ctx.save();
+  ctx.setLineDash([6,4]); ctx.strokeStyle='#555'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(x,area.top); ctx.lineTo(x,area.bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font='600 12px Heebo,sans-serif'; ctx.fillStyle='#555'; ctx.textAlign='center'; ctx.textBaseline='top';
+  var half=ctx.measureText(o.label).width/2+6, tx=Math.min(Math.max(x,area.left+half),area.right-half);
+  ctx.fillText(o.label,tx,area.top+6);
+  ctx.restore();
+}};
 function mfV(id){return parseFloat(document.getElementById(id).value);}
 
 function mfUpdate(){
@@ -543,18 +597,25 @@ function mfUpdate(){
   var pct=A.final>0?Math.abs(diff)/A.final*100:0;
   document.getElementById('mf-diff-sub').textContent=(diff>=0?"לטובת חלופה ב'":"לטובת חלופה א'")+' - '+pct.toFixed(1)+'% מהצבירה, מהפרש דמי הניהול בלבד';
 
-  document.getElementById('mf-assumptions').innerHTML='<strong>הנחות החישוב:</strong> גיל פרישה 67. גבר נשוי. שיעור הפקדה 20.83% מהשכר (6% עובד + 6.5% מעסיק + 8.33% פיצויים) - השכר המבוטח נגזר מההפקדה שהזנת ועומד על '+Math.round(p.salary).toLocaleString('en-US')+' ₪. תשואה שנתית 6.4676% נומינלי, השקולה ל-4.38% ריאלי בתוספת 2% אינפלציה. ההפקדה קבועה נומינלית לאורך כל התקופה (ללא עליית שכר). מנוכות עלויות ביטוח נכות ושאירים לפי תקנון קרן פנסיה מקיפה 2025 (שאירים 100% + נכות 75%, ללא נכות מתפתחת). הסכומים נומינליים - לא בערכי היום. מוצגת הצבירה בלבד, ללא המרה לקצבה. אינו ייעוץ פנסיוני או ייעוץ השקעות.';
+  var cross=mfCross(A,B,diff,aDep,aBal,bDep,bBal,age);
+  document.getElementById('mf-cross').className='res-cross '+cross.cls;
+  document.getElementById('mf-cross-val').textContent=cross.val;
+  document.getElementById('mf-cross-sub').textContent=cross.sub;
+
+  document.getElementById('mf-assumptions').innerHTML='<strong>הנחות החישוב:</strong> גיל פרישה 67. גבר נשוי. שיעור הפקדה 20.83% מהשכר (6% עובד + 6.5% מעסיק + 8.33% פיצויים) - השכר המבוטח נגזר מההפקדה שהזנת ועומד על '+Math.round(p.salary).toLocaleString('en-US')+' ₪. תשואה שנתית 6.4676% נומינלי, השקולה ל-4.38% ריאלי בתוספת 2% אינפלציה. ההפקדה קבועה נומינלית לאורך כל התקופה (ללא עליית שכר). מנוכות עלויות ביטוח נכות ושאירים לפי תקנון קרן פנסיה מקיפה 2025 (שאירים 100% + נכות 75%, ללא נכות מתפתחת). הסכומים נומינליים - לא בערכי היום. מוצגת הצבירה בלבד, ללא המרה לקצבה. נקודת החצייה היא החודש שממנו ואילך הצבירה בחלופה שמובילה בגיל 67 גבוהה מהצבירה בחלופה השנייה. אינו ייעוץ פנסיוני או ייעוץ השקעות.';
 
   var labels=A.traj.map(function(t){return Math.round(t.age);});
   var dsA=A.traj.map(function(t){return Math.round(t.bal);});
   var dsB=B.traj.map(function(t){return Math.round(t.bal);});
-  if(MF_CHART){MF_CHART.data.labels=labels;MF_CHART.data.datasets[0].data=dsA;MF_CHART.data.datasets[1].data=dsB;MF_CHART.update();return;}
+  var crossOpt={idx:cross.idx,label:cross.label||''};
+  if(MF_CHART){MF_CHART.data.labels=labels;MF_CHART.data.datasets[0].data=dsA;MF_CHART.data.datasets[1].data=dsB;MF_CHART.options.plugins.mfCross=crossOpt;MF_CHART.update();return;}
   if(typeof Chart==='undefined')return;
   MF_CHART=new Chart(document.getElementById('mf-chart'),{type:'line',
     data:{labels:labels,datasets:[
       {label:"חלופה א'",data:dsA,borderColor:'#D74E3C',backgroundColor:'#D74E3C',tension:.25,pointRadius:0,borderWidth:2},
       {label:"חלופה ב'",data:dsB,borderColor:'#007DA8',backgroundColor:'#007DA8',tension:.25,pointRadius:0,borderWidth:3}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},title:{display:true,text:'התפתחות הצבירה לפי גיל'}},
+    plugins:[MF_CROSS_PLUGIN],
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},title:{display:true,text:'התפתחות הצבירה לפי גיל'},mfCross:crossOpt},
       scales:{x:{title:{display:true,text:'גיל'}},y:{title:{display:true,text:'צבירה (₪)'},ticks:{callback:function(v){return (v/1000).toLocaleString('en-US')+'K';}}}}}});
 }
 
