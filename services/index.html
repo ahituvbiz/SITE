@@ -233,11 +233,15 @@ section { padding: var(--s-2xl) 0; }
 .service-card ul li::before { content: '✓'; color: var(--positive); font-weight: 700; position: absolute; right: 0; top: 7px; }
 .service-card .sc-price {
   margin: var(--s-sm) 0 0; padding-top: 10px; border-top: 1px dashed var(--border);
-  font-size: 12.5px; color: var(--text-2); line-height: 1.5;
+  font-size: 15px; color: var(--text-2); line-height: 1.5;
 }
-.service-card .sc-price strong { color: var(--text-1); font-weight: 700; }
+.service-card .sc-price strong { color: var(--text-1); font-weight: 700; font-size: 17px; }
 .service-card .sc-link { font-weight: 700; color: var(--cta); font-size: 15px; margin-top: auto; }
 .service-card .sc-link:hover { text-decoration: underline; }
+/* whole card clickable (stretched link) */
+.service-card { position: relative; }
+.service-card .sc-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.service-card:has(.sc-link):hover .sc-link { text-decoration: underline; }
 @media (max-width: 800px) { .service-grid { grid-template-columns: 1fr; } }
 
 /* Why me strip */
