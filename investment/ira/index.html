@@ -1210,6 +1210,19 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--primary);
 }
 
+.horizon-picker {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 var(--s-md); font-size: 14px; color: var(--text-2);
+}
+.horizon-picker button {
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--border); background: var(--bg-cream); color: var(--text-1);
+  border-radius: 999px; padding: 4px 14px; transition: all .15s;
+}
+.horizon-picker button:hover { border-color: var(--primary); }
+.horizon-picker button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.result-note { font-size: 14px; color: var(--text-2); margin: 0 0 var(--s-md); }
+.result-note strong { color: var(--text-1); }
 .result-disclaimer {
   background: var(--warning-soft);
   border-right: 4px solid var(--warning);
@@ -2196,7 +2209,7 @@ textarea:focus-visible,
   <div class="container">
     <div class="section-header">
       <h2>בדיקת התאמה + המלצה על הברוקר המתאים</h2>
-      <p>6 שאלות. כ-2 דקות. בסוף תקבל המלצה מותאמת עם פירוט עלויות שנתיות.</p>
+      <p>6 שאלות. כ-2 דקות. בסוף תקבל המלצה מותאמת עם פירוט עלויות - ראשוניות ושוטפות - לאופק ההחזקה שלך.</p>
     </div>
 
     <div class="wizard-card">
@@ -2308,15 +2321,24 @@ textarea:focus-visible,
         <p id="us-result-note" style="display:none; font-size:14px; color:var(--negative); margin:0 0 var(--s-md);"></p>
 
         <h3 style="margin-bottom: var(--s-md);">השוואת ברוקרים מלאה</h3>
+        <div class="horizon-picker" id="horizon-picker">
+          <span>אופק החזקה:</span>
+          <button type="button" onclick="setHorizon(3)">3 שנים</button>
+          <button type="button" onclick="setHorizon(6)">6 שנים</button>
+          <button type="button" onclick="setHorizon(10)">10 שנים</button>
+          <button type="button" onclick="setHorizon(20)">20 שנים</button>
+        </div>
+        <p class="result-note" id="breakeven-note" style="display:none;"></p>
+        <p class="result-note" id="globalnet-note"></p>
         <div style="overflow-x:auto;">
           <table class="broker-table" id="broker-table">
             <thead>
               <tr>
                 <th>ברוקר/בנק</th>
                 <th>זמינות</th>
-                <th><a href="/investment/ira-fees/">עמלות ברוקר</a>/בנק <small style="font-weight:400; color:var(--text-meta);">(משוער)</small></th>
-                <th>דמי ניהול גלובלנט/אקטיון</th>
-                <th>סה"כ שנתי</th>
+                <th>עלות ראשונית <small style="font-weight:400; color:var(--text-meta);">(קניית התיק)</small></th>
+                <th><a href="/investment/ira-fees/">עמלות</a> שוטפות <small style="font-weight:400; color:var(--text-meta);">(לשנה)</small></th>
+                <th>מצטבר ל-<span class="horizon-label">6</span> שנים</th>
                 <th>הערות</th>
               </tr>
             </thead>
@@ -2326,10 +2348,13 @@ textarea:focus-visible,
 
         <div class="result-disclaimer">
           <strong>סכום העמלות לברוקר/בנק הוא משוער</strong> וישתנה בהתאם למספר הפעולות בפועל,
-          ערך הפעולה הממוצע, וסוג ניירות הערך שתבחר לקנות. המחשבון מניח 12 רכישות בשנה הקשורות
-          להפקדה החודשית, ועוד פעולות לפי תדירות המסחר שבחרת (15/50/150 בשנה). דמי הניהול של
-          גלובלנט/אקטיון (0.23%-0.38% שנתי לפי גודל התיק) הם מדויקים יותר - הם נגבים אוטומטית כאחוז
-          מהצבירה.
+          ערך הפעולה הממוצע, וסוג ניירות הערך שתבחר לקנות. <strong>העלות הראשונית</strong> היא קניית התיק
+          המנויד - קנייה אחת לכל חשבון (גמל / השתלמות), מחולקת שווה בין סוגי ניירות הערך שבחרת.
+          <strong>העלות השוטפת</strong> היא 12 קניות בשנה של ההפקדה החודשית (פעולה אחת בחודש), ובניירות ערך
+          ישראליים גם פעולות נוספות לפי תדירות המסחר שבחרת; בניירות ערך זרים, שבהם עמלות המינימום
+          משמעותיות, המודל מניח לא יותר מפעולה אחת בחודש. <strong>המצטבר</strong> = ראשונית + שוטפת × שנים,
+          ללא תשואה וללא גידול התיק. דמי הניהול של גלובלנט/אקטיון (0.23%-0.38% שנתי לפי גודל התיק)
+          זהים בכל הברוקרים ונגבים אוטומטית כאחוז מהצבירה.
           <br><br>
           <strong>למה בכלל יש עמלות מסחר ב-IRA?</strong> בקופה רגילה הכסף מנוהל על ידי גוף מוסדי,
           ועלויות הקנייה והמכירה נגרעות ישירות מהתשואה - אתה לא רואה אותן בנפרד. הגוף המוסדי
@@ -2861,7 +2886,8 @@ const wizardData = {
   securities: [],
   frequency: null,
   usCitizen: null,
-  experience: null
+  experience: null,
+  horizon: 6   // אופק ההחזקה (שנים) שלפיו נבחר הברוקר המומלץ
 };
 
 // ============================================================
@@ -2893,31 +2919,34 @@ function singleTradeCostIls(feeConfig, isForeign, tradeValueIls) {
   }
 }
 
-// Compute yearly broker fees in ILS (excludes Globalnet fees)
-function brokerYearlyFeesIls(broker, securities, frequency, monthlyDeposit, portfolioValueIls) {
-  if (!broker) return 0;
-  if (!securities || securities.length === 0) return broker.annual_account_fee_ils || 0;
-
-  const tradesPerYear = (FREQ_TRADES[frequency] || 0) + (monthlyDeposit > 0 ? 12 : 0);
-  const tradesPerSecurity = tradesPerYear / securities.length;
-  let totalTradeFeesIls = 0;
-  securities.forEach(function(sec) {
-    const feeKey = SECURITY_TO_FEE_KEY[sec];
-    const feeConfig = broker.fees[feeKey];
+// עלויות ברוקר בש"ח: ראשונית (קניית התיק המנויד) + שוטפת לשנה. לא כולל גלובלנט.
+//  ראשונית: קנייה אחת לכל חשבון שיש בו כסף (גמל / השתלמות), הסכום מחולק שווה בין סוגי הני"ע.
+//  שוטפת:   ההפקדה החודשית = פעולה אחת בחודש (12 בשנה), מחולקת שווה בין סוגי הני"ע.
+//           פעולות נוספות לפי שאלת התדירות - בני"ע ישראליים (מינימומים זניחים) מעבר ל-12 של ההפקדה;
+//           בני"ע זרים (מינימומים משמעותיים) ההנחה היא לא יותר מפעולה אחת בחודש, כלומר בלי תוספת
+//           כשיש הפקדה חודשית, ועד 12 בשנה כשאין.
+function brokerCosts(broker, d) {
+  const secs = d.securities || [];
+  if (!broker) return { initial: 0, ongoing: 0 };
+  if (secs.length === 0) return { initial: 0, ongoing: broker.annual_account_fee_ils || 0 };
+  const n = secs.length;
+  const freqTrades = FREQ_TRADES[d.frequency] || 0;
+  let initial = 0, ongoing = 0;
+  secs.forEach(function(sec) {
+    const feeConfig = broker.fees[SECURITY_TO_FEE_KEY[sec]];
     const isForeign = FOREIGN_SECURITIES.includes(sec);
-    const tradeValueIls = isForeign ? AVG_TRADE_VALUE_USD * USD_TO_ILS : AVG_TRADE_VALUE_ILS;
-    const costPerTrade = singleTradeCostIls(feeConfig, isForeign, tradeValueIls);
-    totalTradeFeesIls += costPerTrade * tradesPerSecurity;
+    [d.gemel, d.keren].forEach(function(amount) {
+      if (amount > 0) initial += singleTradeCostIls(feeConfig, isForeign, amount / n);
+    });
+    if (d.monthly > 0) ongoing += (12 / n) * singleTradeCostIls(feeConfig, isForeign, d.monthly);
+    let extra;
+    if (isForeign) extra = d.monthly > 0 ? 0 : Math.min(freqTrades, 12);
+    else           extra = d.monthly > 0 ? Math.max(0, freqTrades - 12) : freqTrades;
+    const extraValue = isForeign ? AVG_TRADE_VALUE_USD * USD_TO_ILS : AVG_TRADE_VALUE_ILS;
+    ongoing += (extra / n) * singleTradeCostIls(feeConfig, isForeign, extraValue);
   });
-
-  let total = totalTradeFeesIls + (broker.annual_account_fee_ils || 0);
-
-  if (broker.all_inclusive_annual_pct) {
-    const cappedPortfolio = Math.min(portfolioValueIls, 1000000);
-    const allInclusive = cappedPortfolio * broker.all_inclusive_annual_pct;
-    if (allInclusive < total) total = allInclusive;
-  }
-  return total;
+  ongoing += broker.annual_account_fee_ils || 0;
+  return { initial: initial, ongoing: ongoing };
 }
 
 function brokerEligibility(broker, gemel, keren, usCitizen, securities) {
@@ -2946,22 +2975,30 @@ function brokerEligibility(broker, gemel, keren, usCitizen, securities) {
 function computeRecommendation() {
   const total = wizardData.gemel + wizardData.keren;
   wizardData.total = total;
+  const H = wizardData.horizon || 6;
+  const globalnetPct = getGlobalnetAnnualFeePct(total);
+  const globalnetFees = total * globalnetPct;
 
   const results = Object.keys(BROKERS).map(function(key) {
     const broker = BROKERS[key];
     const elig = brokerEligibility(broker, wizardData.gemel, wizardData.keren, wizardData.usCitizen, wizardData.securities);
-    const brokerFees = brokerYearlyFeesIls(broker, wizardData.securities, wizardData.frequency, wizardData.monthly, total);
-    const globalnetPct = getGlobalnetAnnualFeePct(total);
-    const globalnetFees = total * globalnetPct;
-    const totalFees = brokerFees + globalnetFees;
+    let costs = brokerCosts(broker, wizardData);
+    let allInclusive = false;
+    // מסלול "הכל כלול" (הבינלאומי): אחוז שנתי קבוע וכל הפעולות ללא עלות - נבחר אם זול יותר על פני האופק
+    if (broker.all_inclusive_annual_pct) {
+      const yearly = Math.min(total, 1000000) * broker.all_inclusive_annual_pct;
+      if (yearly * H < costs.initial + costs.ongoing * H) { costs = { initial: 0, ongoing: yearly }; allInclusive = true; }
+    }
+    const cumulative = costs.initial + costs.ongoing * H;
     return { key: key, broker: broker, eligible: elig.eligible, blockReasons: elig.reasons, conditional: elig.conditional,
-             brokerFees: brokerFees, globalnetFees: globalnetFees, globalnetPct: globalnetPct, totalFees: totalFees };
+             initial: costs.initial, ongoing: costs.ongoing, cumulative: cumulative, allInclusive: allInclusive,
+             globalnetFees: globalnetFees, globalnetPct: globalnetPct, totalAtHorizon: cumulative + globalnetFees * H };
   });
 
   results.sort(function(a, b) {
     if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
     if (!!a.conditional !== !!b.conditional) return a.conditional ? 1 : -1;  // מותנה אחרי זמין
-    return a.totalFees - b.totalFees;
+    return a.cumulative - b.cumulative;
   });
 
   let verdict;
@@ -2980,10 +3017,16 @@ function computeRecommendation() {
   } else {
     verdict = { type: 'good', label: '✓ מתאים לך',
       title: 'IRA מתאים - להלן הברוקרים והעלויות',
-      text: 'הסכום, הניסיון והגישה שלך מתאימים ל-IRA. למטה ההמלצה על הברוקר הזול ביותר עבורך.' };
+      text: 'הסכום, הניסיון והגישה שלך מתאימים ל-IRA. למטה ההמלצה על הברוקר הזול ביותר עבורך לאופק ההחזקה שבחרת.' };
   }
 
   renderResult(results, verdict);
+}
+
+// שינוי אופק ההחזקה מתוך מסך התוצאות - חישוב מחדש
+function setHorizon(years) {
+  wizardData.horizon = years;
+  if (document.getElementById('result-card').classList.contains('show')) computeRecommendation();
 }
 
 function formatIls(value) {
@@ -2993,27 +3036,56 @@ function formatIls(value) {
 function renderResult(results, verdict) {
   const card = document.getElementById('result-card');
   const verdictEl = document.getElementById('result-verdict');
+  const H = wizardData.horizon || 6;
+  const wasShown = card.classList.contains('show');
   document.getElementById('verdict-label').textContent = verdict.label;
   document.getElementById('verdict-title').textContent = verdict.title;
   document.getElementById('verdict-text').textContent = verdict.text;
   verdictEl.className = 'verdict ' + verdict.type;
 
+  document.querySelectorAll('.horizon-label').forEach(function(el) { el.textContent = H; });
+  document.querySelectorAll('#horizon-picker button').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.trim().indexOf(H + ' ') === 0);
+  });
+
   const topBox = document.getElementById('top-broker-box');
   const topEligible = results.find(function(r) { return r.eligible && !r.conditional; });
   if (topEligible && verdict.type !== 'bad') {
     topBox.innerHTML = '<div class="top-broker">' +
-      '<div class="micro">הברוקר המומלץ</div>' +
+      '<div class="micro">הברוקר המומלץ ל-' + H + ' שנים</div>' +
       '<h3>' + topEligible.broker.name + '</h3>' +
       '<div class="cost-split">' +
-        '<div class="cost-row"><span class="cost-label">עמלות ברוקר משוערות</span><span class="cost-value">' + formatIls(topEligible.brokerFees) + ' / שנה</span></div>' +
+        '<div class="cost-row"><span class="cost-label">עלות ראשונית - קניית התיק</span><span class="cost-value">' + formatIls(topEligible.initial) + '</span></div>' +
+        '<div class="cost-row"><span class="cost-label">עמלות שוטפות</span><span class="cost-value">' + formatIls(topEligible.ongoing) + ' / שנה</span></div>' +
         '<div class="cost-row"><span class="cost-label">דמי ניהול גלובלנט/אקטיון (' + (topEligible.globalnetPct*100).toFixed(2) + '%)</span><span class="cost-value">' + formatIls(topEligible.globalnetFees) + ' / שנה</span></div>' +
-        '<div class="cost-row total"><span class="cost-label">סה"כ עלות שנתית</span><span class="cost-value total">' + formatIls(topEligible.totalFees) + '</span></div>' +
+        '<div class="cost-row total"><span class="cost-label">סה"כ ל-' + H + ' שנים</span><span class="cost-value total">' + formatIls(topEligible.totalAtHorizon) + '</span></div>' +
       '</div>' +
-      '<div class="reason">' + topEligible.broker.notes + '</div>' +
+      '<div class="reason">' + (topEligible.allInclusive ? 'לפי מסלול "הכל כלול". ' : '') + topEligible.broker.notes + '</div>' +
     '</div>';
   } else {
     topBox.innerHTML = '';
   }
+
+  // נקודת איזון: הברוקר הזול בשנה הראשונה מול המומלץ לאופק
+  const beNote = document.getElementById('breakeven-note');
+  beNote.style.display = 'none';
+  if (topEligible && verdict.type !== 'bad') {
+    const open = results.filter(function(r) { return r.eligible && !r.conditional; });
+    const shortRun = open.slice().sort(function(a, b) { return (a.initial + a.ongoing) - (b.initial + b.ongoing); })[0];
+    if (shortRun && shortRun.key !== topEligible.key && shortRun.ongoing > topEligible.ongoing) {
+      const t = (topEligible.initial - shortRun.initial) / (shortRun.ongoing - topEligible.ongoing);
+      const yrs = Math.floor(t);
+      if (yrs >= 1) {
+        beNote.innerHTML = '<strong>' + shortRun.broker.name + '</strong> זולה יותר ' + (yrs === 1 ? 'בשנה הראשונה' : 'ב-' + yrs + ' השנים הראשונות') +
+          ' (ראשונית ' + formatIls(shortRun.initial) + ', שוטפת ' + formatIls(shortRun.ongoing) + ' לשנה); ' +
+          '<strong>' + topEligible.broker.name + '</strong> משתלמת יותר החל מהשנה ה-' + (yrs + 1) + '.';
+        beNote.style.display = 'block';
+      }
+    }
+  }
+  document.getElementById('globalnet-note').innerHTML = 'דמי ניהול גלובלנט/אקטיון: <strong>' +
+    formatIls(results[0].globalnetFees) + ' לשנה</strong> (' + (results[0].globalnetPct*100).toFixed(2) + '% מהצבירה) - זהים בכל הברוקרים ואינם כלולים בטבלה.';
+
   const usNote = document.getElementById('us-result-note');
   usNote.textContent = 'אזרח אמריקאי / בעל גרין קארד: קרנות שאינן אמריקאיות - קרנות סל, קרנות מחקות וקרנות נאמנות (ישראליות / אירופאיות) - מוגדרות PFIC לפי רשות המסים האמריקאית ואינן זמינות לרכישה. פסגות אינה מאפשרת לאזרחי ארה"ב / גרין קארד לרכוש ני"ע אמריקאיים.';
   usNote.style.display = wizardData.usCitizen ? 'block' : 'none';
@@ -3024,27 +3096,24 @@ function renderResult(results, verdict) {
     const availability = !r.eligible
       ? '<span class="status-badge badge-no">חסום</span>'
       : (r.conditional ? '<span class="status-badge badge-cond">מותנה</span>' : '<span class="status-badge badge-yes">זמין</span>');
-    const totalCell = r.eligible
-      ? '<span class="annual-cost total">' + formatIls(r.totalFees) + '</span>'
-      : '<span class="annual-cost">-</span>';
-    const brokerFeeCell = r.eligible ? '<span class="annual-cost">' + formatIls(r.brokerFees) + '</span>' : '-';
-    const globalnetCell = r.eligible ? '<span class="annual-cost">' + formatIls(r.globalnetFees) + '</span>' : '-';
-    const notes = !r.eligible
+    const money = function(v, total) { return r.eligible ? '<span class="annual-cost' + (total ? ' total' : '') + '">' + formatIls(v) + '</span>' : '<span class="annual-cost">-</span>'; };
+    let notes = !r.eligible
       ? '<strong style="color:var(--negative);">' + r.blockReasons.join(' · ') + '</strong>'
       : (r.conditional ? '<strong>' + r.conditional + '</strong> · ' + r.broker.notes : r.broker.notes);
+    if (r.eligible && r.allInclusive) notes = 'לפי מסלול "הכל כלול" (' + (r.broker.all_inclusive_annual_pct*100).toFixed(2) + '% לשנה). ' + notes;
     return '<tr class="' + cls + '">' +
       '<td>' + r.broker.name + '</td>' +
       '<td>' + availability + '</td>' +
-      '<td>' + brokerFeeCell + '</td>' +
-      '<td>' + globalnetCell + '</td>' +
-      '<td>' + totalCell + '</td>' +
+      '<td>' + money(r.initial) + '</td>' +
+      '<td>' + (r.eligible ? money(r.ongoing) + ' <small style="color:var(--text-meta);">/ שנה</small>' : money(0)) + '</td>' +
+      '<td>' + money(r.cumulative, true) + '</td>' +
       '<td style="font-size:13px; color:var(--text-2);">' + notes + '</td>' +
     '</tr>';
   }).join('');
 
   document.getElementById('wizard-steps').style.display = 'none';
   card.classList.add('show');
-  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!wasShown) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ============================================================
@@ -3143,7 +3212,7 @@ function prevStep() {
 
 function restartWizard() {
   currentStep = 1;
-  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, usCitizen:null, experience:null });
+  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, usCitizen:null, experience:null, horizon:6 });
   document.getElementById('amount-gemel').value = 0;
   document.getElementById('amount-keren').value = '';
   document.getElementById('monthly-deposit').value = '';
