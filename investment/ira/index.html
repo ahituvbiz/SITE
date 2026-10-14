@@ -2731,7 +2731,7 @@ const BROKERS = {
   mizrahi: {
     name: 'מזרחי טפחות',
     min_total_ils: 300000,
-    min_per_product_ils: 50000,
+    min_per_product_ils: 30000,
     requires_bank_client: 'mizrahi',
     physical_visit: true,
     annual_account_fee_ils: 0,
@@ -2770,11 +2770,11 @@ const BROKERS = {
   leumi: {
     name: 'לאומי',
     min_total_ils: 300000,
-    min_per_product_ils: 300000,
-    requires_bank_client: 'leumi',
+    min_per_product_ils: 30000,
+    requires_bank_client: null,  // אין צורך בחשבון בלאומי לפני פתיחת ה-IRA
     physical_visit: false,
     annual_account_fee_ils: 0,
-    notes: 'פתוח רק ללקוחות בנק לאומי. עמלות החו"ל יחסית גבוהות (0.15%)',
+    notes: 'אין צורך להיות לקוח הבנק מראש. עמלות החו"ל יחסית גבוהות (0.15%)',
     fees: {
       etf_il:    { pct: 0.0008, min_ils: 0 },
       stock_il:  { pct: 0.0008, min_ils: 0 },
