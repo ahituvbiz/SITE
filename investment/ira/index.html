@@ -2813,7 +2813,7 @@ const BROKERS = {
     requires_bank_client: null,  // אין צורך בחשבון בלאומי לפני פתיחת ה-IRA
     physical_visit: false,
     annual_account_fee_ils: 0,
-    notes: 'אין צורך להיות לקוח הבנק מראש. עמלות החו"ל יחסית גבוהות (0.15%)',
+    notes: 'אין צורך להיות לקוח הבנק מראש.',
     fees: {
       etf_il:    { pct: 0.0008, min_ils: 0 },
       stock_il:  { pct: 0.0008, min_ils: 0 },
@@ -2833,7 +2833,7 @@ const BROKERS = {
     conditional: 'לקוחות פלטינום של בנק הפועלים בלבד',  // מוצג כ"מותנה" ולא נבחר אוטומטית כמומלץ
     physical_visit: false,
     annual_account_fee_ils: 0,
-    notes: 'עמלות בארץ תחרותיות; בחו"ל מינ\' $10 / $25.',  // דרישת הפלטינום מוצגת דרך conditional
+    notes: 'עמלות בארץ תחרותיות.',  // דרישת הפלטינום מוצגת דרך conditional; עמלות חו"ל נגזרות מהטבלה
     fees: {
       etf_il:    { pct: 0.00065, min_ils: 0 },     // קרנות סל מנייתי/אג"ח 0.065%
       stock_il:  { pct: 0.00065, min_ils: 0 },     // מניות 0.065%
@@ -3029,6 +3029,27 @@ function setHorizon(years) {
   if (document.getElementById('result-card').classList.contains('show')) computeRecommendation();
 }
 
+// תקציר עמלות חו"ל של ברוקר לפי סוגי הני"ע הזרים שנבחרו - נגזר מטבלת העמלות, לא טקסט ידני.
+// דוגמאות: "עמלות חו"ל: 0.15% ללא עמלת מינימום" (לאומי), "עמלות חו"ל: עמלת מינימום $7.5 לפעולה" (IBI).
+function foreignFeeNote(broker, securities) {
+  function pctStr(p) { return parseFloat((p * 100).toFixed(3)) + '%'; }
+  const groups = [];
+  (securities || []).filter(function(s) { return FOREIGN_SECURITIES.includes(s); }).forEach(function(sec) {
+    const c = broker.fees[SECURITY_TO_FEE_KEY[sec]];
+    if (!c) return;
+    const minUsd = Math.max(c.min_usd || 0, c.flat_usd || 0);
+    let phrase;
+    if (!c.pct)        phrase = 'עמלת מינימום $' + minUsd + ' לפעולה';
+    else if (!minUsd)  phrase = pctStr(c.pct) + ' ללא עמלת מינימום';
+    else               phrase = pctStr(c.pct) + ', מינימום $' + minUsd + ' לפעולה';
+    const g = groups.find(function(x) { return x.phrase === phrase; });
+    if (g) g.labels.push(SECURITY_LABELS[sec] || sec); else groups.push({ phrase: phrase, labels: [SECURITY_LABELS[sec] || sec] });
+  });
+  if (!groups.length) return '';
+  if (groups.length === 1) return 'עמלות חו"ל: ' + groups[0].phrase;
+  return 'עמלות חו"ל: ' + groups.map(function(g) { return g.labels.join(' / ') + ' - ' + g.phrase; }).join('; ');
+}
+
 function formatIls(value) {
   return '₪' + Math.round(value).toLocaleString('he-IL');
 }
@@ -3060,7 +3081,9 @@ function renderResult(results, verdict) {
         '<div class="cost-row"><span class="cost-label">דמי ניהול גלובלנט/אקטיון (' + (topEligible.globalnetPct*100).toFixed(2) + '%)</span><span class="cost-value">' + formatIls(topEligible.globalnetFees) + ' / שנה</span></div>' +
         '<div class="cost-row total"><span class="cost-label">סה"כ ל-' + H + ' שנים</span><span class="cost-value total">' + formatIls(topEligible.totalAtHorizon) + '</span></div>' +
       '</div>' +
-      '<div class="reason">' + (topEligible.allInclusive ? 'לפי מסלול "הכל כלול". ' : '') + topEligible.broker.notes + '</div>' +
+      '<div class="reason">' + (topEligible.allInclusive ? 'לפי מסלול "הכל כלול". ' : '') +
+        (function() { const f = foreignFeeNote(topEligible.broker, wizardData.securities); return f ? '<strong>' + f + '</strong>. ' : ''; })() +
+        topEligible.broker.notes + '</div>' +
     '</div>';
   } else {
     topBox.innerHTML = '';
@@ -3097,9 +3120,10 @@ function renderResult(results, verdict) {
       ? '<span class="status-badge badge-no">חסום</span>'
       : (r.conditional ? '<span class="status-badge badge-cond">מותנה</span>' : '<span class="status-badge badge-yes">זמין</span>');
     const money = function(v, total) { return r.eligible ? '<span class="annual-cost' + (total ? ' total' : '') + '">' + formatIls(v) + '</span>' : '<span class="annual-cost">-</span>'; };
+    const feeNote = r.eligible ? foreignFeeNote(r.broker, wizardData.securities) : '';
     let notes = !r.eligible
       ? '<strong style="color:var(--negative);">' + r.blockReasons.join(' · ') + '</strong>'
-      : (r.conditional ? '<strong>' + r.conditional + '</strong> · ' + r.broker.notes : r.broker.notes);
+      : (feeNote ? '<strong>' + feeNote + '</strong> · ' : '') + (r.conditional ? '<strong>' + r.conditional + '</strong> · ' + r.broker.notes : r.broker.notes);
     if (r.eligible && r.allInclusive) notes = 'לפי מסלול "הכל כלול" (' + (r.broker.all_inclusive_annual_pct*100).toFixed(2) + '% לשנה). ' + notes;
     return '<tr class="' + cls + '">' +
       '<td>' + r.broker.name + '</td>' +
