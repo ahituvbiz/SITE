@@ -1506,13 +1506,14 @@ function renderResults(data) {
         + '💡 ' + escapeHtml(cta.gov_note) + '</div>';
     }
 
-    // CTA פיצוי - רק אם הבקאנד החזיר show_compensation=true
+    // CTA כספי פיצויים - הבקאנד מחזיר show_compensation=true כששכיר מפוצל בין מסלול
+    // ברירת מחדל למסלול אחר (סביר שכספי הפיצויים יושבים בברירת המחדל). הטפסים: דף GitHub Pages.
     if (cta.show_compensation && cta.compensation_form_url) {
-      ctaHtml += '<div class="result-callout warning" style="margin-bottom:16px; text-align:center;">'
-        + '<strong>⚠️ נמצאה פגיעה פוטנציאלית בזכויות</strong><br>'
-        + 'ייתכן שמגיע לך פיצוי על הפקדות חסרות. בדיקה ראשונית ללא עלות.'
+      ctaHtml += '<div class="result-callout" style="margin-bottom:16px; text-align:center; background:#EFF6FF; border-color:#3B82F6;">'
+        + '<strong>📋 כספי הפיצויים שלך כנראה במסלול ברירת המחדל</strong><br>'
+        + 'להעברתם למסלול ההשקעה שבחרת נדרש טופס של הקרן עם אישור המעסיק. הטפסים של כל הקרנות מרוכזים כאן:'
         + '<br><br><a href="' + escapeHtml(cta.compensation_form_url) + '" class="btn" target="_blank" rel="noopener"'
-        + ' style="background:var(--cta);color:#fff;">בדוק זכאות לפיצוי ←</a></div>';
+        + ' style="background:var(--cta);color:#fff;">להורדת טופס העברת פיצויים ←</a></div>';
     }
 
     ctaHtml += '<h3>הניתוח חשף נקודות לטיפול?</h3>'
