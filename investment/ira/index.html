@@ -2243,11 +2243,11 @@ textarea:focus-visible,
 
         <!-- Step 3: אזרחות אמריקאית -->
         <div class="wizard-step" data-step="3" style="display:none;">
-          <h3>3. האם אתה אזרח אמריקאי?</h3>
-          <p class="step-hint">אזרחות אמריקאית קובעת אילו ניירות ערך מותר לך לקנות (כללי רשות המסים האמריקאית) ואיזה ברוקר פתוח בפניך.</p>
+          <h3>3. האם אתה אזרח אמריקאי או בעל גרין קארד?</h3>
+          <p class="step-hint">אזרחות אמריקאית או גרין קארד קובעים אילו ניירות ערך מותר לך לקנות (כללי רשות המסים האמריקאית) ואיזה ברוקר פתוח בפניך.</p>
           <div class="choice-list">
             <label class="choice-item"><input type="radio" name="us_citizen" value="no"> לא</label>
-            <label class="choice-item"><input type="radio" name="us_citizen" value="yes"> כן, אזרח אמריקאי</label>
+            <label class="choice-item"><input type="radio" name="us_citizen" value="yes"> כן, אזרח אמריקאי / בעל גרין קארד</label>
           </div>
         </div>
 
@@ -2255,15 +2255,15 @@ textarea:focus-visible,
         <div class="wizard-step" data-step="4" style="display:none;">
           <h3>4. באילו ניירות ערך אתה מתכוון להשקיע?</h3>
           <p class="step-hint">בחר את כל מה שמתאים. זה משפיע על העמלות לכל ברוקר.</p>
-          <p class="step-hint us-only" style="display:none; color:var(--negative);">אזרח אמריקאי: רשות המסים האמריקאית חוסמת רכישת קרנות סל וקרנות מחקות שאינן אמריקאיות - ETF ישראליות ואירופאיות אינן זמינות לך. ETF אמריקאיות - כן.</p>
+          <p class="step-hint us-only" style="display:none; color:var(--negative);">אזרח אמריקאי / בעל גרין קארד: רשות המסים האמריקאית מגדירה קרנות שאינן אמריקאיות - קרנות סל, קרנות מחקות וגם קרנות נאמנות אקטיביות - כ-PFIC, ולכן ETF ישראליות ואירופאיות וקרנות נאמנות ישראליות אינן זמינות לך. ETF אמריקאיות - כן.</p>
           <div class="choice-grid">
-            <label class="choice-item"><input type="checkbox" name="securities" value="etf_il"> ETF / קרנות סל מקומיות (ת"א 35, S&P, נאסד"ק)<span class="choice-note us-only" style="display:none;">לא זמין לאזרחים אמריקאים</span></label>
+            <label class="choice-item"><input type="checkbox" name="securities" value="etf_il"> ETF / קרנות סל מקומיות (ת"א 35, S&P, נאסד"ק)<span class="choice-note us-only" style="display:none;">לא זמין לאזרחי ארה"ב / גרין קארד</span></label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_il"> מניות בודדות בישראל</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_us"> מניות / ETF בארה"ב</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_eu"> <span id="label-stock-eu">מניות / ETF באירופה</span></label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_il"> אג"ח ישראליות (ממשלתי/קונצרני)</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_us"> אג"ח Corporate בחו"ל</label>
-            <label class="choice-item"><input type="checkbox" name="securities" value="mutual"> קרנות נאמנות</label>
+            <label class="choice-item"><input type="checkbox" name="securities" value="mutual"> קרנות נאמנות<span class="choice-note us-only" style="display:none;">לא זמין לאזרחי ארה"ב / גרין קארד</span></label>
           </div>
         </div>
 
@@ -2935,7 +2935,7 @@ function brokerEligibility(broker, gemel, keren, usCitizen, securities) {
   // requires_bank_client אינו חוסם עוד (14.10.26): מי שאינו לקוח הבנק פותח חשבון ייעודי.
   if (usCitizen && broker.us_citizen_no_us_securities &&
       (securities || []).some(function(s) { return US_SECURITIES.includes(s); })) {
-    reasons.push('לא מאפשרת לאזרחים אמריקאים לרכוש ני"ע אמריקאיים');
+    reasons.push('לא מאפשרת לאזרחי ארה"ב / גרין קארד לרכוש ני"ע אמריקאיים');
   }
   return { eligible: reasons.length === 0, reasons: reasons, conditional: broker.conditional || null };
 }
@@ -3015,7 +3015,7 @@ function renderResult(results, verdict) {
     topBox.innerHTML = '';
   }
   const usNote = document.getElementById('us-result-note');
-  usNote.textContent = 'אזרח אמריקאי: קרנות סל וקרנות מחקות שאינן אמריקאיות (ישראליות / אירופאיות) אינן זמינות לרכישה לפי כללי רשות המסים האמריקאית. פסגות אינה מאפשרת לאזרחים אמריקאים לרכוש ני"ע אמריקאיים.';
+  usNote.textContent = 'אזרח אמריקאי / בעל גרין קארד: קרנות שאינן אמריקאיות - קרנות סל, קרנות מחקות וקרנות נאמנות (ישראליות / אירופאיות) - מוגדרות PFIC לפי רשות המסים האמריקאית ואינן זמינות לרכישה. פסגות אינה מאפשרת לאזרחי ארה"ב / גרין קארד לרכוש ני"ע אמריקאיים.';
   usNote.style.display = wizardData.usCitizen ? 'block' : 'none';
 
   const tbody = document.getElementById('broker-tbody');
@@ -3102,16 +3102,19 @@ function validateStep(step) {
   return true;
 }
 
-// אזרח אמריקאי: רשות המסים האמריקאית חוסמת קרנות סל/מחקות שאינן אמריקאיות -
-// ETF ישראליות מנוטרלות, ו-ETF אירופאיות יוצאות מהתווית של אירופה.
+// אזרח אמריקאי / גרין קארד: רשות המסים האמריקאית מגדירה קרנות שאינן אמריקאיות (סל, מחקות,
+// וגם נאמנות אקטיביות) כ-PFIC - הכפתורים שלהן מנוטרלים, ו-ETF אירופאיות יוצאות מהתווית של אירופה.
+const PFIC_SECURITIES = ['etf_il', 'mutual'];
 function applyUsCitizenRules() {
   const us = wizardData.usCitizen === true;
-  const etfIl = document.querySelector('input[name="securities"][value="etf_il"]');
-  const etfItem = etfIl.closest('.choice-item');
-  etfIl.disabled = us;
-  if (us && etfIl.checked) etfIl.checked = false;
-  etfItem.classList.toggle('disabled', us);
-  etfItem.classList.toggle('selected', etfIl.checked);
+  PFIC_SECURITIES.forEach(function(v) {
+    const input = document.querySelector('input[name="securities"][value="' + v + '"]');
+    const item = input.closest('.choice-item');
+    input.disabled = us;
+    if (us && input.checked) input.checked = false;
+    item.classList.toggle('disabled', us);
+    item.classList.toggle('selected', input.checked);
+  });
   document.querySelectorAll('.us-only').forEach(function(el) { el.style.display = us ? '' : 'none'; });
   document.getElementById('label-stock-eu').textContent = us ? 'מניות באירופה (ללא ETF)' : 'מניות / ETF באירופה';
 }
