@@ -994,6 +994,17 @@ section.tight { padding: var(--s-2xl) 0; }
   font-weight: 700;
   font-size: 18px;
 }
+.choice-item.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.choice-item .choice-note {
+  display: block;
+  font-size: 12px;
+  color: var(--negative);
+  margin-top: 2px;
+}
 .choice-item:has(input:focus-visible) {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
@@ -1177,6 +1188,8 @@ section.tight { padding: var(--s-2xl) 0; }
   color: var(--negative);
 }
 .broker-table tr.blocked .annual-cost { color: var(--text-meta); }
+.broker-table tr.conditional td { background: rgba(232,180,80,0.06); }
+.broker-table tr.conditional td:first-child { font-weight: 700; }
 .broker-table .status-badge {
   display: inline-block;
   padding: 2px 8px;
@@ -1186,6 +1199,7 @@ section.tight { padding: var(--s-2xl) 0; }
 }
 .broker-table .badge-yes { background: var(--positive-soft); color: var(--positive); }
 .broker-table .badge-no { background: var(--negative-soft); color: var(--negative); }
+.broker-table .badge-cond { background: var(--warning-soft); color: #8A6400; }
 .broker-table .annual-cost {
   font-weight: 600;
   color: var(--text-1);
@@ -2227,42 +2241,40 @@ textarea:focus-visible,
           </div>
         </div>
 
-        <!-- Step 3: סוגי ניירות ערך -->
+        <!-- Step 3: אזרחות אמריקאית -->
         <div class="wizard-step" data-step="3" style="display:none;">
-          <h3>3. באילו ניירות ערך אתה מתכוון להשקיע?</h3>
+          <h3>3. האם אתה אזרח אמריקאי?</h3>
+          <p class="step-hint">אזרחות אמריקאית קובעת אילו ניירות ערך מותר לך לקנות (כללי רשות המסים האמריקאית) ואיזה ברוקר פתוח בפניך.</p>
+          <div class="choice-list">
+            <label class="choice-item"><input type="radio" name="us_citizen" value="no"> לא</label>
+            <label class="choice-item"><input type="radio" name="us_citizen" value="yes"> כן, אזרח אמריקאי</label>
+          </div>
+        </div>
+
+        <!-- Step 4: סוגי ניירות ערך -->
+        <div class="wizard-step" data-step="4" style="display:none;">
+          <h3>4. באילו ניירות ערך אתה מתכוון להשקיע?</h3>
           <p class="step-hint">בחר את כל מה שמתאים. זה משפיע על העמלות לכל ברוקר.</p>
+          <p class="step-hint us-only" style="display:none; color:var(--negative);">אזרח אמריקאי: רשות המסים האמריקאית חוסמת רכישת קרנות סל וקרנות מחקות שאינן אמריקאיות - ETF ישראליות ואירופאיות אינן זמינות לך. ETF אמריקאיות - כן.</p>
           <div class="choice-grid">
-            <label class="choice-item"><input type="checkbox" name="securities" value="etf_il"> ETF / קרנות סל מקומיות (ת"א 35, S&P, נאסד"ק)</label>
+            <label class="choice-item"><input type="checkbox" name="securities" value="etf_il"> ETF / קרנות סל מקומיות (ת"א 35, S&P, נאסד"ק)<span class="choice-note us-only" style="display:none;">לא זמין לאזרחים אמריקאים</span></label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_il"> מניות בודדות בישראל</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="stock_us"> מניות / ETF בארה"ב</label>
-            <label class="choice-item"><input type="checkbox" name="securities" value="stock_eu"> מניות / ETF באירופה</label>
+            <label class="choice-item"><input type="checkbox" name="securities" value="stock_eu"> <span id="label-stock-eu">מניות / ETF באירופה</span></label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_il"> אג"ח ישראליות (ממשלתי/קונצרני)</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="bond_us"> אג"ח Corporate בחו"ל</label>
             <label class="choice-item"><input type="checkbox" name="securities" value="mutual"> קרנות נאמנות</label>
           </div>
         </div>
 
-        <!-- Step 4: תדירות פעולות -->
-        <div class="wizard-step" data-step="4" style="display:none;">
-          <h3>4. כמה פעולות בחודש אתה מתכנן לבצע?</h3>
+        <!-- Step 5: תדירות פעולות -->
+        <div class="wizard-step" data-step="5" style="display:none;">
+          <h3>5. כמה פעולות בחודש אתה מתכנן לבצע?</h3>
           <p class="step-hint">פעולה = קנייה או מכירה אחת. זה הפרמטר שמשפיע הכי הרבה על העמלות השנתיות שלך.</p>
           <div class="choice-list">
             <label class="choice-item"><input type="radio" name="frequency" value="low"> <strong>מינימלי</strong> - קנייה אחת בחודש, מכירה רק לעיתים רחוקות (~15 פעולות בשנה)</label>
             <label class="choice-item"><input type="radio" name="frequency" value="medium"> <strong>מתון</strong> - 3-5 פעולות בחודש (~50 פעולות בשנה)</label>
             <label class="choice-item"><input type="radio" name="frequency" value="high"> <strong>פעיל</strong> - מסחר תכוף, עשרות פעולות בחודש (~150+ פעולות בשנה)</label>
-          </div>
-        </div>
-
-        <!-- Step 5: לקוח בנק -->
-        <div class="wizard-step" data-step="5" style="display:none;">
-          <h3>5. האם אתה לקוח של אחד מהבנקים הבאים?</h3>
-          <p class="step-hint">חלק מהברוקרים פתוחים רק ללקוחות הבנק שלהם. בחר אחד.</p>
-          <div class="choice-list">
-            <label class="choice-item"><input type="radio" name="bank" value="none"> לא לקוח של אף אחד מהבנקים המוזכרים</label>
-            <label class="choice-item"><input type="radio" name="bank" value="leumi"> לקוח לאומי</label>
-            <label class="choice-item"><input type="radio" name="bank" value="mizrahi"> לקוח מזרחי טפחות</label>
-            <label class="choice-item"><input type="radio" name="bank" value="beinleumi"> לקוח הבינלאומי הראשון</label>
-            <label class="choice-item"><input type="radio" name="bank" value="hapoalim"> לקוח הפועלים (פלטינום)</label>
           </div>
         </div>
 
@@ -2293,6 +2305,7 @@ textarea:focus-visible,
         </div>
 
         <div id="top-broker-box"></div>
+        <p id="us-result-note" style="display:none; font-size:14px; color:var(--negative); margin:0 0 var(--s-md);"></p>
 
         <h3 style="margin-bottom: var(--s-md);">השוואת ברוקרים מלאה</h3>
         <div style="overflow-x:auto;">
@@ -2695,6 +2708,7 @@ const BROKERS = {
     min_total_ils: 75000,
     min_per_product_ils: 30000,
     requires_bank_client: null,
+    us_citizen_no_us_securities: true,  // פסגות לא מאפשרת לאזרחים אמריקאים לרכוש ני"ע אמריקאיים
     physical_visit: false,
     annual_account_fee_ils: 0,
     notes: 'נגיש יחסית, עמלות תחרותיות, ללא דמי ניהול חשבון. ⭐ <strong>מאפשרת רכישת קרנות נאמנות בהוראת קבע</strong> - <a href="#pisgot-standing-order" style="color:inherit; text-decoration:underline;">פרטים</a>',
@@ -2732,10 +2746,10 @@ const BROKERS = {
     name: 'מזרחי טפחות',
     min_total_ils: 300000,
     min_per_product_ils: 30000,
-    requires_bank_client: 'mizrahi',
+    requires_bank_client: null,  // מי שאינו לקוח הבנק פותח חשבון ייעודי
     physical_visit: true,
     annual_account_fee_ils: 0,
-    notes: 'עמלות הנמוכות ביותר בישראל; דורש לקוחות הבנק וביקור פיזי בסניף',
+    notes: 'עמלות הנמוכות ביותר בישראל; פתיחת החשבון בסניף (גם למי שאינו לקוח הבנק)',
     fees: {
       etf_il:    { pct: 0.0004, min_ils: 0 },
       stock_il:  { pct: 0.00055, min_ils: 0 },
@@ -2790,10 +2804,11 @@ const BROKERS = {
     name: 'הפועלים (פלטינום)',
     min_total_ils: 300000,
     min_per_product_ils: 300000,
-    requires_bank_client: 'hapoalim',
+    requires_bank_client: null,
+    conditional: 'לקוחות פלטינום של בנק הפועלים בלבד',  // מוצג כ"מותנה" ולא נבחר אוטומטית כמומלץ
     physical_visit: false,
     annual_account_fee_ils: 0,
-    notes: 'פתוח רק ללקוחות פלטינום של בנק הפועלים. עמלות בארץ תחרותיות; בחו"ל מינ\' $10 / $25.',
+    notes: 'עמלות בארץ תחרותיות; בחו"ל מינ\' $10 / $25.',  // דרישת הפלטינום מוצגת דרך conditional
     fees: {
       etf_il:    { pct: 0.00065, min_ils: 0 },     // קרנות סל מנייתי/אג"ח 0.065%
       stock_il:  { pct: 0.00065, min_ils: 0 },     // מניות 0.065%
@@ -2831,6 +2846,7 @@ const SECURITY_LABELS = {
 };
 
 const FOREIGN_SECURITIES = ['stock_us', 'stock_eu', 'bond_us'];
+const US_SECURITIES = ['stock_us', 'bond_us'];  // ני"ע אמריקאיים - רלוונטי לחסימת פסגות לאזרחים אמריקאים
 
 // ============================================================
 // WIZARD STATE
@@ -2844,7 +2860,7 @@ const wizardData = {
   monthly: 0,
   securities: [],
   frequency: null,
-  bank: null,
+  usCitizen: null,
   experience: null
 };
 
@@ -2904,7 +2920,7 @@ function brokerYearlyFeesIls(broker, securities, frequency, monthlyDeposit, port
   return total;
 }
 
-function brokerEligibility(broker, gemel, keren, bank) {
+function brokerEligibility(broker, gemel, keren, usCitizen, securities) {
   const reasons = [];
   const total = gemel + keren;
   if (total < broker.min_total_ils) {
@@ -2916,10 +2932,12 @@ function brokerEligibility(broker, gemel, keren, bank) {
   if (keren > 0 && keren < broker.min_per_product_ils) {
     reasons.push('מינימום ' + (broker.min_per_product_ils/1000).toFixed(0) + 'K ₪ בהשתלמות');
   }
-  if (broker.requires_bank_client && broker.requires_bank_client !== bank) {
-    reasons.push('דורש לקוח ' + broker.name);
+  // requires_bank_client אינו חוסם עוד (14.10.26): מי שאינו לקוח הבנק פותח חשבון ייעודי.
+  if (usCitizen && broker.us_citizen_no_us_securities &&
+      (securities || []).some(function(s) { return US_SECURITIES.includes(s); })) {
+    reasons.push('לא מאפשרת לאזרחים אמריקאים לרכוש ני"ע אמריקאיים');
   }
-  return { eligible: reasons.length === 0, reasons: reasons };
+  return { eligible: reasons.length === 0, reasons: reasons, conditional: broker.conditional || null };
 }
 
 // ============================================================
@@ -2931,17 +2949,18 @@ function computeRecommendation() {
 
   const results = Object.keys(BROKERS).map(function(key) {
     const broker = BROKERS[key];
-    const elig = brokerEligibility(broker, wizardData.gemel, wizardData.keren, wizardData.bank);
+    const elig = brokerEligibility(broker, wizardData.gemel, wizardData.keren, wizardData.usCitizen, wizardData.securities);
     const brokerFees = brokerYearlyFeesIls(broker, wizardData.securities, wizardData.frequency, wizardData.monthly, total);
     const globalnetPct = getGlobalnetAnnualFeePct(total);
     const globalnetFees = total * globalnetPct;
     const totalFees = brokerFees + globalnetFees;
-    return { key: key, broker: broker, eligible: elig.eligible, blockReasons: elig.reasons,
+    return { key: key, broker: broker, eligible: elig.eligible, blockReasons: elig.reasons, conditional: elig.conditional,
              brokerFees: brokerFees, globalnetFees: globalnetFees, globalnetPct: globalnetPct, totalFees: totalFees };
   });
 
   results.sort(function(a, b) {
     if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+    if (!!a.conditional !== !!b.conditional) return a.conditional ? 1 : -1;  // מותנה אחרי זמין
     return a.totalFees - b.totalFees;
   });
 
@@ -2980,7 +2999,7 @@ function renderResult(results, verdict) {
   verdictEl.className = 'verdict ' + verdict.type;
 
   const topBox = document.getElementById('top-broker-box');
-  const topEligible = results.find(function(r) { return r.eligible; });
+  const topEligible = results.find(function(r) { return r.eligible && !r.conditional; });
   if (topEligible && verdict.type !== 'bad') {
     topBox.innerHTML = '<div class="top-broker">' +
       '<div class="micro">הברוקר המומלץ</div>' +
@@ -2995,21 +3014,24 @@ function renderResult(results, verdict) {
   } else {
     topBox.innerHTML = '';
   }
+  const usNote = document.getElementById('us-result-note');
+  usNote.textContent = 'אזרח אמריקאי: קרנות סל וקרנות מחקות שאינן אמריקאיות (ישראליות / אירופאיות) אינן זמינות לרכישה לפי כללי רשות המסים האמריקאית. פסגות אינה מאפשרת לאזרחים אמריקאים לרכוש ני"ע אמריקאיים.';
+  usNote.style.display = wizardData.usCitizen ? 'block' : 'none';
 
   const tbody = document.getElementById('broker-tbody');
   tbody.innerHTML = results.map(function(r) {
-    const cls = r.eligible ? 'eligible' : 'blocked';
-    const availability = r.eligible
-      ? '<span class="status-badge badge-yes">זמין</span>'
-      : '<span class="status-badge badge-no">חסום</span>';
+    const cls = !r.eligible ? 'blocked' : (r.conditional ? 'conditional' : 'eligible');
+    const availability = !r.eligible
+      ? '<span class="status-badge badge-no">חסום</span>'
+      : (r.conditional ? '<span class="status-badge badge-cond">מותנה</span>' : '<span class="status-badge badge-yes">זמין</span>');
     const totalCell = r.eligible
       ? '<span class="annual-cost total">' + formatIls(r.totalFees) + '</span>'
       : '<span class="annual-cost">-</span>';
     const brokerFeeCell = r.eligible ? '<span class="annual-cost">' + formatIls(r.brokerFees) + '</span>' : '-';
     const globalnetCell = r.eligible ? '<span class="annual-cost">' + formatIls(r.globalnetFees) + '</span>' : '-';
-    const notes = r.eligible
-      ? r.broker.notes
-      : '<strong style="color:var(--negative);">' + r.blockReasons.join(' · ') + '</strong>';
+    const notes = !r.eligible
+      ? '<strong style="color:var(--negative);">' + r.blockReasons.join(' · ') + '</strong>'
+      : (r.conditional ? '<strong>' + r.conditional + '</strong> · ' + r.broker.notes : r.broker.notes);
     return '<tr class="' + cls + '">' +
       '<td>' + r.broker.name + '</td>' +
       '<td>' + availability + '</td>' +
@@ -3053,21 +3075,22 @@ function validateStep(step) {
     return true;
   }
   if (step === 3) {
+    const sel = document.querySelector('input[name="us_citizen"]:checked');
+    if (!sel) { showError('בחר כן או לא'); return false; }
+    wizardData.usCitizen = (sel.value === 'yes');
+    applyUsCitizenRules();
+    return true;
+  }
+  if (step === 4) {
     const checked = Array.from(document.querySelectorAll('input[name="securities"]:checked')).map(function(i){return i.value;});
     if (checked.length === 0) { showError('בחר לפחות סוג אחד של נייר ערך'); return false; }
     wizardData.securities = checked;
     return true;
   }
-  if (step === 4) {
+  if (step === 5) {
     const sel = document.querySelector('input[name="frequency"]:checked');
     if (!sel) { showError('בחר תדירות מסחר'); return false; }
     wizardData.frequency = sel.value;
-    return true;
-  }
-  if (step === 5) {
-    const sel = document.querySelector('input[name="bank"]:checked');
-    if (!sel) { showError('בחר אפשרות'); return false; }
-    wizardData.bank = sel.value;
     return true;
   }
   if (step === 6) {
@@ -3077,6 +3100,20 @@ function validateStep(step) {
     return true;
   }
   return true;
+}
+
+// אזרח אמריקאי: רשות המסים האמריקאית חוסמת קרנות סל/מחקות שאינן אמריקאיות -
+// ETF ישראליות מנוטרלות, ו-ETF אירופאיות יוצאות מהתווית של אירופה.
+function applyUsCitizenRules() {
+  const us = wizardData.usCitizen === true;
+  const etfIl = document.querySelector('input[name="securities"][value="etf_il"]');
+  const etfItem = etfIl.closest('.choice-item');
+  etfIl.disabled = us;
+  if (us && etfIl.checked) etfIl.checked = false;
+  etfItem.classList.toggle('disabled', us);
+  etfItem.classList.toggle('selected', etfIl.checked);
+  document.querySelectorAll('.us-only').forEach(function(el) { el.style.display = us ? '' : 'none'; });
+  document.getElementById('label-stock-eu').textContent = us ? 'מניות באירופה (ללא ETF)' : 'מניות / ETF באירופה';
 }
 
 function updateUI() {
@@ -3103,17 +3140,18 @@ function prevStep() {
 
 function restartWizard() {
   currentStep = 1;
-  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, bank:null, experience:null });
+  Object.assign(wizardData, { gemel:0, keren:0, total:0, monthly:0, securities:[], frequency:null, usCitizen:null, experience:null });
   document.getElementById('amount-gemel').value = 0;
   document.getElementById('amount-keren').value = '';
   document.getElementById('monthly-deposit').value = '';
   document.getElementById('total-display').textContent = 'סה"כ: ₪0';
   document.querySelectorAll('input[name="securities"]').forEach(function(i){ i.checked = false; });
-  document.querySelectorAll('input[name="frequency"], input[name="bank"], input[name="experience"]').forEach(function(i){ i.checked = false; });
+  document.querySelectorAll('input[name="frequency"], input[name="us_citizen"], input[name="experience"]').forEach(function(i){ i.checked = false; });
   document.querySelectorAll('.choice-item.selected').forEach(function(el){ el.classList.remove('selected'); });
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('wizard-steps').style.display = 'block';
   clearError();
+  applyUsCitizenRules();
   updateUI();
 }
 
