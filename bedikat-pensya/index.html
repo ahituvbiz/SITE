@@ -461,6 +461,24 @@ section.tight { padding: var(--s-2xl) 0; }
 .deposits-chart .bar .bar-label { position: absolute; bottom: -22px; right: 50%; transform: translateX(50%); font-size: 11px; color: var(--text-meta); white-space: nowrap; }
 .deposits-chart .bar .bar-value { position: absolute; top: -22px; right: 50%; transform: translateX(50%); font-size: 12px; font-weight: 700; color: var(--text-1); white-space: nowrap; }
 
+/* "אם תשפר את הפנסיה שלך ב-0.3%" — תחזית הרווח משיפור התשואה (הבקאנד מחשב) */
+.improvement-box {
+  margin-top: var(--s-xl);
+  padding: var(--s-lg) var(--s-md);
+  border-radius: var(--radius-card);
+  background: var(--positive-soft);
+  border: 2px solid var(--positive);
+  text-align: center;
+}
+.improvement-box .imp-lead { font-size: 18px; color: var(--text-1); line-height: 1.6; }
+.improvement-box .imp-gain { font-size: 40px; font-weight: 800; color: var(--primary); line-height: 1.2; margin: 8px 0 4px; }
+.improvement-box .imp-cta { font-size: 18px; font-weight: 800; color: var(--text-1); line-height: 1.6; margin-top: 16px; max-width: 560px; margin-inline: auto; }
+.improvement-box .btn { margin-top: 16px; background: var(--cta); color: #fff; }
+.improvement-box .btn:hover { background: var(--cta-hover); }
+@media (max-width: 768px) {
+  .improvement-box .imp-gain { font-size: 32px; }
+}
+
 /* Post-analysis CTA banner */
 .post-cta {
   background: linear-gradient(135deg, var(--primary) 0%, #2A6DA7 100%);
@@ -1221,6 +1239,9 @@ textarea:focus-visible,
           </div>
         </div>
 
+        <!-- "אם תשפר ב-0.3%" - מוצג אם הבקאנד מחזיר improvement -->
+        <div id="improvement-note" style="display:none;"></div>
+
         <!-- Post-analysis CTA -->
         <div class="post-cta">
           <h3>הניתוח חשף נקודות לטיפול?</h3>
@@ -1491,6 +1512,29 @@ function renderResults(data) {
         }
       });
       panel.innerHTML = html;
+    }
+  }
+
+  // "אם תשפר את הפנסיה שלך ב-0.3% בשנה תרוויח X ₪" - הבקאנד מחשב לפי מחשבון הפנסיה של האתר
+  // (improvement = null כשחסרים נתונים). מעל 250,000 ₪ הבקאנד מחזיר show_cta=true + משפט פנייה מודגש.
+  const impBox = document.getElementById('improvement-note');
+  if (impBox) {
+    const imp = data.improvement;
+    if (imp && imp.gain > 0 && imp.message) {
+      let impHtml = '<div class="improvement-box">'
+        + '<div class="imp-lead">💹 ' + escapeHtml(imp.message) + '</div>'
+        + '<div class="imp-gain">כ-' + escapeHtml(imp.gain_text || formatNum(imp.gain)) + ' ₪</div>';
+      if (imp.show_cta && imp.cta_text) {
+        impHtml += '<div class="imp-cta">' + escapeHtml(imp.cta_text) + '</div>'
+          + '<a href="https://wa.me/972527700599?text=' + encodeURIComponent('שלום, קיבלתי ברובייקטיבי המלצה לפנות לייעוץ לשיפור הפנסיה')
+          + '" class="btn" target="_blank" rel="noopener">לתיאום ייעוץ ←</a>';
+      }
+      impHtml += '</div>';
+      impBox.innerHTML = impHtml;
+      impBox.style.display = 'block';
+    } else {
+      impBox.innerHTML = '';
+      impBox.style.display = 'none';
     }
   }
 
