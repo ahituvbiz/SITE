@@ -497,6 +497,8 @@ section.tight { padding: var(--s-2xl) 0; }
 .post-cta .btn-whatsapp { background: #25D366; color: #fff; }
 .post-cta .btn-whatsapp:hover { background: #1ea354; }
 .post-cta .post-cta-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 12px; }
+/* תיבות (פיצויים / עובדי מדינה) שיושבות על הבאנר הכחול — טקסט כהה, לא לבן */
+.post-cta .result-callout { color: var(--text-1); }
 
 /* "What the bot doesn't do" - Bottom section per CONTEXT §7 rule */
 .limits-section { background: #fff; padding: var(--s-2xl) 0; }
@@ -1178,7 +1180,7 @@ textarea:focus-visible,
 
         <!-- Advisor-vs-bot comparison (shown only after analysis) -->
         <div class="advisor-compare-wrap">
-          <h3>מה הבוט נתן לך — ומה עוד אפשר לקבל</h3>
+          <h3>מה הבוט נתן לך — ומה ייתן לך ייעוץ פנסיוני אובייקטיבי</h3>
           <p class="compare-sub">רובייקטיבי ניתח את קרן הפנסיה המקיפה שלך ונתן תמונה ראשונית ואובייקטיבית. אבל פנסיה היא עולם רחב יותר — הנה מה שרק יועץ פנסיוני מורשה יכול לעשות עבורך:</p>
           <div class="advisor-compare-scroll">
             <table class="advisor-compare">
@@ -1504,14 +1506,15 @@ function renderResults(data) {
     const panel = document.querySelector('.results-panel[data-panel="investment"]');
     if (panel) {
       let html = '';
+      // הסדר נקבע בבקאנד (build_investment_messages). קישור "למה לא רק S&P 500" מגיע כהודעת link
+      // אחרי הערת ה-S&P. הודעות image לא מוצגות (התמונה הוסרה לבקשת איתן, 15.10.2026).
       (inv.messages || []).forEach(m => {
         if (m.type === 'text') {
           html += renderTextBlock(m.text);
-          if (m.text && m.text.includes('S&P')) {
-            html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6; margin-top:8px;">💡 <a href="https://pensya.info/investment/why-not-sp500/" target="_blank" rel="noopener" style="color:#1D4ED8; font-weight:600;">למה לא רק S&amp;P 500? קרא את ההסבר המלא ←</a></div>';
-          }
-        } else if (m.type === 'image' && m.url) {
-          html += `<img src="${escapeHtml(m.url)}" alt="" style="max-width:100%; border-radius:12px; margin:12px 0;">`;
+        } else if (m.type === 'link' && m.url) {
+          html += '<div class="result-callout positive" style="background:#EFF6FF; border-color:#3B82F6;">💡 <a href="'
+            + escapeHtml(m.url) + '" target="_blank" rel="noopener" style="color:#1D4ED8; font-weight:600;">'
+            + escapeHtml(m.label || 'קרא את ההסבר המלא ←') + '</a></div>';
         }
       });
       panel.innerHTML = html;
