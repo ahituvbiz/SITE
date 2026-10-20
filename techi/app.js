@@ -1092,7 +1092,7 @@
   }
 
   /* ---------- גוגל דרייב ---------- */
-  var GOOGLE_CLIENT_ID = '';
+  var GOOGLE_CLIENT_ID = '896508295853-hcu3bhobsog8dut3hu3r8gn1d063uufv.apps.googleusercontent.com';
   var SCOPES = 'https://www.googleapis.com/auth/drive.file openid email';
   var FOLDER_NAME = 'תחי';
   var MIME_FOLDER = 'application/vnd.google-apps.folder';
