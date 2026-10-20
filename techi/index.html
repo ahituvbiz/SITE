@@ -256,6 +256,33 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 .muted { color: var(--text-meta); font-size: 13px; }
 .badge { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 999px; background: var(--primary-soft); color: #005f80; }
 .hidden { display: none !important; }
+/* ── גוגל דרייב ── */
+.drivebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: var(--s-sm); background: #fff; }
+.drivebar .gicon { width: 22px; height: 22px; flex: none; }
+.drivebar .dstatus { font-size: 14px; color: var(--text-2); }
+.drivebar .dstatus b { color: var(--text-1); }
+.drivebar .dsync { font-size: 13px; color: var(--text-meta); }
+.drivebar .dsync.dirty { color: #A16207; }
+.drivebar .dsync.err { color: var(--negative); }
+.drivebar .spacer { flex: 1; }
+.drivebar.off { background: var(--bg-cream); }
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal { background: #fff; border-radius: 14px; max-width: 760px; width: 100%; max-height: 90vh; overflow: auto; padding: 18px 20px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+.modal h2 { font-size: 20px; margin: 0 0 8px; display: flex; align-items: center; gap: 10px; }
+.modal h2 .spacer { flex: 1; }
+.flist { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.frow { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 8px 12px; border-bottom: 1px solid #F0F0F0; font-size: 14px; }
+.frow:last-child { border-bottom: none; }
+.frow .fn { font-weight: 600; }
+.frow .fm { color: var(--text-meta); font-size: 12px; }
+.frow .tag { font-size: 12px; padding: 1px 8px; border-radius: 999px; background: #F3F3F3; color: var(--text-2); white-space: nowrap; }
+.frow .tag.new { background: var(--primary-soft); color: #005f80; }
+.frow .tag.newer { background: var(--warning-soft); color: #A16207; }
+.frow .tag.same { background: var(--positive-soft); color: #2F6B2E; }
+.doclinks { margin-top: 8px; font-size: 14px; }
+.doclinks li { margin: 3px 0; }
+.setup { background: var(--warning-soft); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.setup input { margin-top: 6px; direction: ltr; text-align: left; font-family: monospace; font-size: 13px; }
 @media print { .header, .site-footer, .topbar, .steps, .navrow, .dl, .skip-link { display: none !important; } }
 </style>
   <link rel="stylesheet" href="/site-chrome.css?v=2">
@@ -405,7 +432,9 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 <main id="main-content" class="techi">
   <div class="container">
     <h1>תח"י: תכנית חינוכית יחידנית</h1>
-    <p class="lede">מילוי רמזור, בניית פרופיל ותכנית עבודה, והפקת קובץ וורד. הנתונים נשמרים בדפדפן הזה בלבד ואינם נשלחים לשום שרת.</p>
+    <p class="lede">מילוי רמזור, בניית פרופיל ותכנית עבודה, והפקת תח"י. העבודה נשמרת בדפדפן, ואחרי התחברות לגוגל גם בתיקייה "תחי" בדרייב של החשבון המחובר.</p>
+
+    <div class="drivebar off" id="drivebar"></div>
 
     <div class="topbar" id="topbar">
       <label for="childSel" style="margin:0">ילד/ה:</label>
@@ -435,10 +464,11 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/techi/data.js?v=1"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/techi/data.js?v=2"></script>
 <script src="/techi/vendor/docx.min.js?v=1"></script>
 <script src="/techi/vendor/xlsx.mini.min.js?v=1"></script>
-<script src="/techi/app.js?v=1"></script>
+<script src="/techi/app.js?v=2"></script>
 
 <script>
 (function(){

@@ -83,15 +83,18 @@
     return s;
   }
   var saveTimer = null;
-  function save() {
+  function save(skipDrive) {
+    if (cur && !skipDrive) { cur.driveDirty = true; }
     clearTimeout(saveTimer);
     saveTimer = setTimeout(function () {
       try {
-        if (cur) { cur.updated = Date.now(); store.prefs = { gan: cur.info.gan, manager: cur.info.manager, teacher: cur.info.teacher, matya: cur.info.matya, partners: cur.info.partners }; }
+        if (cur) { cur.updated = Date.now(); Object.assign(store.prefs, { gan: cur.info.gan, manager: cur.info.manager, teacher: cur.info.teacher, matya: cur.info.matya, partners: cur.info.partners }); }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
         var d = new Date();
-        status('נשמר ' + pad(d.getHours()) + ':' + pad(d.getMinutes()));
+        status('נשמר בדפדפן ' + pad(d.getHours()) + ':' + pad(d.getMinutes()));
       } catch (e) { status('שגיאת שמירה (אין מקום בדפדפן?)'); }
+      if (!skipDrive) scheduleDriveSave(cur);
+      renderDriveBar();
     }, 250);
   }
   function newChild() {
@@ -864,11 +867,24 @@
     var ul = h('ul', { class: 'checks', style: 'padding-inline-start:18px' });
     checklist().forEach(function (c) { ul.appendChild(h('li', { class: c.ok ? 'ok' : 'bad' }, (c.ok ? '✓ ' : '✗ ') + c.t)); });
     card.appendChild(ul);
+    var connected = driveConnected();
+    card.appendChild(h('h3', null, 'שמירה בגוגל דרייב', connected ? null : h('span', { class: 'muted', style: 'font-weight:400;margin-inline-start:8px' }, '(יש להתחבר לגוגל דרייב בסרגל שלמעלה)')));
     card.appendChild(h('div', { class: 'dl' },
-      h('button', { class: 'btn btn-primary', type: 'button', onclick: function () { downloadDocx().catch(function (e) { console.error(e); toast('שגיאה ביצירת הקובץ: ' + e.message); }); } }, 'הורדת תח"י כקובץ וורד'),
-      h('button', { class: 'btn btn-secondary', type: 'button', onclick: function () { try { downloadXlsx(); } catch (e) { console.error(e); toast('שגיאה ביצירת האקסל: ' + e.message); } } }, 'הורדת הרמזור כאקסל'),
-      h('button', { class: 'btn btn-ghost', type: 'button', onclick: exportChild }, 'ייצוא נתוני הילד/ה (גיבוי)')));
-    card.appendChild(h('div', { class: 'note' }, 'את קובץ הוורד אפשר להעלות לגוגל דרייב ולפתוח כגוגל דוקס (לחיצה ימנית על הקובץ בדרייב: "פתח באמצעות" > "Google Docs").'));
+      h('button', { class: 'btn btn-primary', type: 'button', disabled: !connected, onclick: function () { saveProductToDrive('doc'); } }, 'שמור את התח"י כגוגל דוקס'),
+      h('button', { class: 'btn btn-secondary', type: 'button', disabled: !connected, onclick: function () { saveProductToDrive('sheet'); } }, 'שמור את הרמזור כגוגל שיטס'),
+      h('button', { class: 'btn btn-ghost', type: 'button', disabled: !connected, onclick: function () { clearTimeout(driveTimers[cur.id]); saveChildToDrive(cur, false).then(function () { toast('נתוני העבודה נשמרו בדרייב'); }).catch(function (e) { if (e && e.code !== 'conflict') toast(e.message); }); } }, 'שמור את נתוני העבודה בדרייב')));
+    if (cur.docs && cur.docs.length) {
+      var ul2 = h('ul', { class: 'doclinks', style: 'padding-inline-start:18px' });
+      cur.docs.slice(0, 8).forEach(function (d) {
+        ul2.appendChild(h('li', null, h('a', { href: d.link || '#', target: '_blank', rel: 'noopener' }, d.name || (d.kind === 'doc' ? 'גוגל דוקס' : 'גוגל שיטס')), ' ', h('span', { class: 'muted' }, fmtTime(d.at))));
+      });
+      card.appendChild(h('div', null, h('div', { class: 'muted' }, 'מסמכים שנשמרו בדרייב לילד/ה הזה:'), ul2));
+    }
+    card.appendChild(h('h3', null, 'הורדה למחשב'));
+    card.appendChild(h('div', { class: 'dl' },
+      h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { downloadDocx().catch(function (e) { console.error(e); toast('שגיאה ביצירת הקובץ: ' + e.message); }); } }, 'הורדת תח"י כקובץ וורד'),
+      h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { try { downloadXlsx(); } catch (e) { console.error(e); toast('שגיאה ביצירת האקסל: ' + e.message); } } }, 'הורדת הרמזור כאקסל'),
+      h('button', { class: 'btn btn-ghost', type: 'button', onclick: exportChild }, 'ייצוא נתוני הילד/ה (קובץ גיבוי)')));
     root.appendChild(card);
     var pv = h('div', { class: 'card' }, h('h2', null, 'תצוגה מקדימה'), renderPreview());
     root.appendChild(pv);
@@ -909,7 +925,11 @@
   }
 
   /* ---------- ייצוא וורד ---------- */
+  function docName() { return 'תחי ' + (cur.info.name || 'ללא שם'); }
   function downloadDocx() {
+    return buildDocxBlob().then(function (blob) { saveBlob(blob, docName() + '.docx'); toast('קובץ הוורד נוצר'); });
+  }
+  function buildDocxBlob() {
     var dx = window.docx;
     if (!dx) return Promise.reject(new Error('ספריית הוורד לא נטענה'));
     var Document = dx.Document, Packer = dx.Packer, Paragraph = dx.Paragraph, TextRun = dx.TextRun, Table = dx.Table, TableRow = dx.TableRow, TableCell = dx.TableCell, WidthType = dx.WidthType, AlignmentType = dx.AlignmentType, PageOrientation = dx.PageOrientation, Footer = dx.Footer, PageNumber = dx.PageNumber, ImageRun = dx.ImageRun, BorderStyle = dx.BorderStyle, VerticalAlign = dx.VerticalAlign;
@@ -1006,10 +1026,7 @@
         children: children
       }]
     });
-    return Packer.toBlob(doc).then(function (blob) {
-      saveBlob(blob, 'תחי ' + (info.name || 'ללא שם') + '.docx');
-      toast('קובץ הוורד נוצר');
-    });
+    return Packer.toBlob(doc);
   }
   function saveBlob(blob, name) {
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
@@ -1017,8 +1034,19 @@
   }
 
   /* ---------- ייצוא אקסל ---------- */
+  function xlsxName() { return 'רמזור ' + (cur.info.name || 'ללא שם'); }
   function downloadXlsx() {
     var X = window.XLSX; if (!X) throw new Error('ספריית האקסל לא נטענה');
+    X.writeFile(buildWorkbook(), xlsxName() + '.xlsx');
+    toast('קובץ האקסל נוצר');
+  }
+  function buildXlsxBlob() {
+    var X = window.XLSX; if (!X) throw new Error('ספריית האקסל לא נטענה');
+    var arr = X.write(buildWorkbook(), { bookType: 'xlsx', type: 'array' });
+    return new Blob([arr], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+  function buildWorkbook() {
+    var X = window.XLSX;
     var rows = [['תחום', 'פרמטר (מיומנות)', 'ציון (נורמלי/בינוני/נמוך)', 'הערות/דוגמה ספציפית']];
     var lastSec = null;
     D.sections.forEach(function (sec) {
@@ -1041,8 +1069,7 @@
     var wb = X.utils.book_new();
     wb.Workbook = { Views: [{ RTL: true }] };
     X.utils.book_append_sheet(wb, ws, 'רמזור');
-    X.writeFile(wb, 'רמזור ' + (cur.info.name || 'ללא שם') + '.xlsx');
-    toast('קובץ האקסל נוצר');
+    return wb;
   }
 
   /* ---------- ייצוא/ייבוא נתונים ---------- */
@@ -1064,6 +1091,317 @@
     fr.readAsText(file);
   }
 
+  /* ---------- גוגל דרייב ---------- */
+  var GOOGLE_CLIENT_ID = '';
+  var SCOPES = 'https://www.googleapis.com/auth/drive.file openid email';
+  var FOLDER_NAME = 'תחי';
+  var MIME_FOLDER = 'application/vnd.google-apps.folder';
+  var MIME_DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  var MIME_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  var drive = { token: null, expiresAt: 0, email: '', folderId: null, tokenClient: null, tokenClientId: '', lastErr: '', conflict: null, saving: false };
+  var driveTimers = {};
+  function clientId() { return GOOGLE_CLIENT_ID || (store.prefs && store.prefs.clientId) || ''; }
+  function driveConnected() { return !!(drive.token && Date.now() < drive.expiresAt - 30000); }
+  function loadSession() {
+    try {
+      var s = JSON.parse(sessionStorage.getItem('techi.gtoken') || 'null');
+      if (s && s.token && Date.now() < s.expiresAt - 30000) { drive.token = s.token; drive.expiresAt = s.expiresAt; drive.email = s.email || ''; }
+    } catch (e) { /* אין סשן */ }
+    drive.folderId = store.prefs.folderId || null;
+  }
+  function saveSession() { try { sessionStorage.setItem('techi.gtoken', JSON.stringify({ token: drive.token, expiresAt: drive.expiresAt, email: drive.email })); } catch (e) { /* התעלם */ } }
+  function gisReady() { return !!(window.google && window.google.accounts && window.google.accounts.oauth2); }
+  function connectDrive(interactive) {
+    return new Promise(function (resolve, reject) {
+      if (!clientId()) { reject(new Error('לא הוגדר מזהה לקוח של גוגל')); return; }
+      if (!gisReady()) { reject(new Error('ספריית ההתחברות של גוגל לא נטענה (אין חיבור לאינטרנט?)')); return; }
+      if (!drive.tokenClient || drive.tokenClientId !== clientId()) {
+        drive.tokenClient = window.google.accounts.oauth2.initTokenClient({ client_id: clientId(), scope: SCOPES, callback: function () {}, error_callback: function () {} });
+        drive.tokenClientId = clientId();
+      }
+      drive.tokenClient.callback = function (resp) {
+        if (!resp || resp.error) { reject(new Error((resp && (resp.error_description || resp.error)) || 'ההתחברות נכשלה')); return; }
+        drive.token = resp.access_token;
+        drive.expiresAt = Date.now() + (parseInt(resp.expires_in, 10) || 3600) * 1000;
+        drive.lastErr = '';
+        saveSession();
+        fetchEmail().then(function () { saveSession(); renderDriveBar(); resolve(); }, function () { renderDriveBar(); resolve(); });
+      };
+      drive.tokenClient.error_callback = function (err) {
+        var t = err && err.type;
+        reject(new Error(t === 'popup_closed' ? 'ההתחברות בוטלה' : (t === 'popup_failed_to_open' ? 'הדפדפן חסם את חלון ההתחברות; יש לאפשר חלונות קופצים לאתר' : 'ההתחברות לגוגל נכשלה')));
+      };
+      drive.tokenClient.requestAccessToken({ prompt: interactive ? 'select_account' : '' });
+    });
+  }
+  function disconnectDrive() {
+    var t = drive.token;
+    drive.token = null; drive.expiresAt = 0; drive.email = ''; drive.conflict = null;
+    try { sessionStorage.removeItem('techi.gtoken'); } catch (e) { /* התעלם */ }
+    if (t && gisReady()) { try { window.google.accounts.oauth2.revoke(t, function () {}); } catch (e) { /* התעלם */ } }
+    renderDriveBar();
+  }
+  function fetchEmail() {
+    return gapi('https://www.googleapis.com/oauth2/v3/userinfo').then(function (u) { drive.email = (u && u.email) || ''; });
+  }
+  function gapi(url, opts) {
+    opts = opts || {};
+    var headers = Object.assign({ Authorization: 'Bearer ' + drive.token }, opts.headers || {});
+    return fetch(url, { method: opts.method || 'GET', headers: headers, body: opts.body }).then(function (r) {
+      if (r.status === 401) { drive.token = null; saveSession(); renderDriveBar(); throw new Error('פג תוקף החיבור לגוגל, יש להתחבר מחדש'); }
+      if (!r.ok) {
+        return r.text().then(function (t) {
+          var msg = t; try { msg = JSON.parse(t).error.message; } catch (e) { /* טקסט גולמי */ }
+          var err = new Error('גוגל דרייב: ' + msg); err.status = r.status; throw err;
+        });
+      }
+      if (opts.raw) return r;
+      var ct = r.headers.get('content-type') || '';
+      return ct.indexOf('json') >= 0 ? r.json() : r.text();
+    });
+  }
+  function ensureToken() { return driveConnected() ? Promise.resolve() : connectDrive(false); }
+  function ensureFolder() {
+    if (drive.folderId) return Promise.resolve(drive.folderId);
+    var q = "name='" + FOLDER_NAME + "' and mimeType='" + MIME_FOLDER + "' and trashed=false";
+    return gapi('https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name)&pageSize=10').then(function (res) {
+      if (res.files && res.files.length) { setFolder(res.files[0].id); return drive.folderId; }
+      return gapi('https://www.googleapis.com/drive/v3/files?fields=id', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: FOLDER_NAME, mimeType: MIME_FOLDER }) })
+        .then(function (f) { setFolder(f.id); return drive.folderId; });
+    });
+  }
+  function setFolder(id) { drive.folderId = id; store.prefs.folderId = id; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); } catch (e) { /* התעלם */ } }
+  function multipart(meta, content, contentType) {
+    var boundary = 'techi' + Math.random().toString(36).slice(2);
+    var head = '--' + boundary + '\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(meta) + '\r\n--' + boundary + '\r\nContent-Type: ' + contentType + '\r\n\r\n';
+    var tail = '\r\n--' + boundary + '--';
+    return { body: new Blob([head, content, tail]), type: 'multipart/related; boundary=' + boundary };
+  }
+  function isNotFound(e) { return e && (e.status === 404 || e.code === 'gone'); }
+  function childFileName(c) { return 'תחי - ' + ((c.info.name || '').trim() || 'ללא שם') + '.json'; }
+  function childPayload(c) {
+    var copy = JSON.parse(JSON.stringify(c));
+    delete copy.drive; delete copy.driveDirty;
+    if (copy.plan && copy.plan.goals) copy.plan.goals.forEach(function (g) { delete g.pickerOpen; delete g.pickerTab; });
+    return JSON.stringify({ techi: 1, savedAt: new Date().toISOString(), child: copy });
+  }
+  function saveChildToDrive(c, force) {
+    drive.saving = true; renderDriveBar();
+    return ensureToken().then(ensureFolder).then(function (folderId) {
+      var payload = childPayload(c);
+      var meta = { name: childFileName(c), appProperties: { techi: 'child', childId: c.id } };
+      if (c.drive && c.drive.fileId) {
+        var pre = force ? Promise.resolve() : gapi('https://www.googleapis.com/drive/v3/files/' + c.drive.fileId + '?fields=id,modifiedTime,trashed').then(function (m) {
+          if (m.trashed) { var g = new Error('gone'); g.code = 'gone'; throw g; }
+          if (c.drive.modifiedTime && m.modifiedTime !== c.drive.modifiedTime) { var e = new Error('conflict'); e.code = 'conflict'; e.remote = m; throw e; }
+        });
+        return pre.then(function () {
+          var mp = multipart(meta, payload, 'application/json');
+          return gapi('https://www.googleapis.com/upload/drive/v3/files/' + c.drive.fileId + '?uploadType=multipart&fields=id,modifiedTime', { method: 'PATCH', headers: { 'Content-Type': mp.type }, body: mp.body });
+        }).catch(function (e) {
+          if (isNotFound(e)) { c.drive = null; return createChildFile(c, meta, payload, folderId); }
+          throw e;
+        });
+      }
+      return createChildFile(c, meta, payload, folderId);
+    }).then(function (f) {
+      c.drive = { fileId: f.id, modifiedTime: f.modifiedTime, savedAt: Date.now() };
+      c.driveDirty = false; drive.lastErr = ''; drive.saving = false;
+      if (drive.conflict && drive.conflict.childId === c.id) drive.conflict = null;
+      save(true);
+      renderDriveBar();
+      return f;
+    }, function (e) {
+      drive.saving = false;
+      if (e && e.code === 'conflict') { drive.conflict = { childId: c.id, remote: e.remote }; }
+      else { drive.lastErr = e.message || String(e); }
+      renderDriveBar();
+      throw e;
+    });
+  }
+  function createChildFile(c, meta, payload, folderId) {
+    var m2 = Object.assign({}, meta, { parents: [folderId] });
+    var mp = multipart(m2, payload, 'application/json');
+    return gapi('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime', { method: 'POST', headers: { 'Content-Type': mp.type }, body: mp.body })
+      .catch(function (e) {
+        if (isNotFound(e) && drive.folderId) { setFolder(null); return ensureFolder().then(function (fid) { return createChildFile(c, meta, payload, fid); }); }
+        throw e;
+      });
+  }
+  function listDriveChildren() {
+    return ensureToken().then(ensureFolder).then(function (folderId) {
+      var q = "'" + folderId + "' in parents and trashed=false and appProperties has { key='techi' and value='child' }";
+      return gapi('https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name,modifiedTime,appProperties)&orderBy=modifiedTime%20desc&pageSize=200');
+    }).then(function (r) { return r.files || []; });
+  }
+  function loadChildFromDrive(fileId) {
+    return ensureToken().then(function () { return gapi('https://www.googleapis.com/drive/v3/files/' + fileId + '?alt=media'); }).then(function (j) {
+      if (typeof j === 'string') j = JSON.parse(j);
+      var c = j && (j.child || j);
+      if (!c || !c.info) throw new Error('הקובץ בדרייב אינו קובץ תח"י תקין');
+      return gapi('https://www.googleapis.com/drive/v3/files/' + fileId + '?fields=id,modifiedTime').then(function (m) {
+        c.drive = { fileId: fileId, modifiedTime: m.modifiedTime, savedAt: Date.now() };
+        c.driveDirty = false;
+        return c;
+      });
+    });
+  }
+  function trashDriveFile(fileId) {
+    return ensureToken().then(function () { return gapi('https://www.googleapis.com/drive/v3/files/' + fileId + '?fields=id', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ trashed: true }) }); });
+  }
+  function uploadConverted(blob, name, srcMime, targetMime) {
+    return ensureToken().then(ensureFolder).then(function (folderId) {
+      var mp = multipart({ name: name, mimeType: targetMime, parents: [folderId] }, blob, srcMime);
+      return gapi('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink', { method: 'POST', headers: { 'Content-Type': mp.type }, body: mp.body });
+    });
+  }
+  function scheduleDriveSave(c) {
+    if (!c || !driveConnected() || !clientId()) return;
+    if (!(c.info.name || '').trim() && !c.drive) return; /* לא יוצרים קובץ לרשומה בלי שם */
+    clearTimeout(driveTimers[c.id]);
+    driveTimers[c.id] = setTimeout(function () { delete driveTimers[c.id]; if (c.driveDirty) saveChildToDrive(c, false).catch(function () { /* מוצג בסרגל */ }); }, 6000);
+  }
+  function flushDriveSave(c) {
+    if (!c || !driveTimers[c.id]) return Promise.resolve();
+    clearTimeout(driveTimers[c.id]); delete driveTimers[c.id];
+    return c.driveDirty && driveConnected() ? saveChildToDrive(c, false).catch(function () { /* מוצג בסרגל */ }) : Promise.resolve();
+  }
+  function adoptChild(c) {
+    /* מכניס רשומה מהדרייב לאחסון המקומי (מחליף רשומה עם אותו מזהה) */
+    if (!c.id) c.id = uid();
+    if (!store.children[c.id]) store.order.push(c.id);
+    store.children[c.id] = c;
+    store.current = c.id; cur = c;
+    save(true);
+  }
+  function fmtTime(iso) { if (!iso) return ''; var d = new Date(iso); if (isNaN(d.getTime())) return ''; return d.toLocaleDateString('he-IL') + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+
+  /* ---------- סרגל הדרייב ---------- */
+  var GICON = '<svg class="gicon" viewBox="0 0 87.3 78" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>';
+  function renderDriveBar() {
+    var bar = $('#drivebar'); if (!bar) return;
+    if (!clientId() && bar.querySelector('.setup')) return; /* לא לדרוס תיבת הגדרה שמקלידים בה */
+    bar.innerHTML = '';
+    bar.classList.toggle('off', !driveConnected());
+    if (!clientId()) {
+      var inp = h('input', { type: 'text', placeholder: 'xxxxxxxx.apps.googleusercontent.com', value: store.prefs.clientId || '' });
+      bar.appendChild(h('div', { class: 'setup', style: 'flex:1' },
+        h('div', null, h('b', null, 'שמירה בגוגל דרייב עדיין לא הופעלה.'), ' נדרש מזהה לקוח OAuth של גוגל (מוגדר פעם אחת בקוד הדף). לבדיקה זמנית אפשר להדביק אותו כאן:'),
+        inp,
+        h('div', { style: 'margin-top:6px' }, h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: function () { store.prefs.clientId = inp.value.trim(); save(true); renderDriveBar(); } }, 'שמור מזהה'))));
+      return;
+    }
+    bar.insertAdjacentHTML('beforeend', GICON);
+    if (!driveConnected()) {
+      bar.appendChild(h('span', { class: 'dstatus' }, 'לא מחובר לגוגל דרייב. העבודה נשמרת בינתיים רק בדפדפן הזה.'));
+      bar.appendChild(h('span', { class: 'spacer' }));
+      bar.appendChild(h('button', { class: 'btn btn-secondary btn-small', type: 'button', onclick: function () {
+        connectDrive(true).then(function () { toast('מחובר לגוגל דרייב'); return afterConnect(); }).catch(function (e) { drive.lastErr = e.message; renderDriveBar(); });
+      } }, 'התחברות לגוגל דרייב'));
+      if (drive.lastErr) bar.appendChild(h('div', { class: 'dsync err', style: 'width:100%' }, drive.lastErr));
+      return;
+    }
+    bar.appendChild(h('span', { class: 'dstatus' }, 'מחובר: ', h('b', null, drive.email || 'חשבון גוגל'), ' · תיקייה "' + FOLDER_NAME + '"'));
+    var syncEl = h('span', { class: 'dsync' });
+    if (cur) {
+      if (drive.saving) { syncEl.textContent = 'שומר בדרייב...'; }
+      else if (drive.conflict && drive.conflict.childId === cur.id) { syncEl.textContent = 'התנגשות: הקובץ בדרייב עודכן ממחשב אחר'; syncEl.classList.add('err'); }
+      else if (cur.driveDirty || !cur.drive) { syncEl.textContent = cur.drive ? 'שינויים טרם נשמרו בדרייב' : ((cur.info.name || '').trim() ? 'עדיין לא נשמר בדרייב' : 'ייווצר קובץ בדרייב כשיוזן שם'); syncEl.classList.add('dirty'); }
+      else { syncEl.textContent = 'נשמר בדרייב ' + fmtTime(new Date(cur.drive.savedAt).toISOString()); }
+    }
+    bar.appendChild(syncEl);
+    bar.appendChild(h('span', { class: 'spacer' }));
+    if (drive.conflict && cur && drive.conflict.childId === cur.id) {
+      bar.appendChild(h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: function () {
+        loadChildFromDrive(cur.drive.fileId).then(function (c) { adoptChild(c); drive.conflict = null; boot(); toast('נטענה הגרסה מהדרייב'); }).catch(function (e) { drive.lastErr = e.message; renderDriveBar(); });
+      } }, 'טען את הגרסה מהדרייב'));
+      bar.appendChild(h('button', { class: 'btn btn-primary btn-small', type: 'button', onclick: function () { saveChildToDrive(cur, true).then(function () { toast('נשמר בדרייב'); }).catch(function () {}); } }, 'דרוס עם הגרסה שלי'));
+    } else {
+      bar.appendChild(h('button', { class: 'btn btn-secondary btn-small', type: 'button', disabled: !cur || drive.saving, onclick: function () {
+        clearTimeout(driveTimers[cur.id]);
+        saveChildToDrive(cur, false).then(function () { toast('נשמר בדרייב'); }).catch(function (e) { if (e && e.code !== 'conflict') toast(e.message); });
+      } }, 'שמור עכשיו'));
+    }
+    bar.appendChild(h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: openDriveDialog }, 'ילדים בדרייב'));
+    bar.appendChild(h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: function () { if (confirm('להתנתק מגוגל דרייב בדפדפן הזה? העבודה תמשיך להישמר בדפדפן בלבד.')) disconnectDrive(); } }, 'התנתק'));
+    if (drive.lastErr) bar.appendChild(h('div', { class: 'dsync err', style: 'width:100%' }, drive.lastErr));
+  }
+  function afterConnect() {
+    /* אחרי התחברות: אם יש בדרייב רשומות ובמחשב הזה רק רשומה ריקה, פותחים את הרשימה */
+    return listDriveChildren().then(function (files) {
+      var localEmpty = store.order.every(function (id) { var c = store.children[id]; return c && !(c.info.name || '').trim() && !Object.keys(c.ratings || {}).some(function (k) { return c.ratings[k] && c.ratings[k].level; }); });
+      if (files.length && (localEmpty || !store.order.some(function (id) { return store.children[id] && store.children[id].drive; }))) openDriveDialog();
+      else scheduleDriveSave(cur);
+    }).catch(function (e) { drive.lastErr = e.message; renderDriveBar(); });
+  }
+  function closeModal() { var m = $('#modal'); if (m) m.remove(); }
+  function openDriveDialog() {
+    closeModal();
+    var body = h('div', null, h('div', { class: 'muted' }, 'טוען רשימה מהדרייב...'));
+    var modal = h('div', { class: 'modal-bg', id: 'modal', onclick: function (e) { if (e.target === this) closeModal(); } },
+      h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
+        h('h2', null, 'ילדים בתיקייה "' + FOLDER_NAME + '" בדרייב', h('span', { class: 'spacer' }), h('button', { class: 'iconbtn', type: 'button', 'aria-label': 'סגור', onclick: closeModal }, '✕')),
+        body));
+    document.body.appendChild(modal);
+    listDriveChildren().then(function (files) {
+      body.innerHTML = '';
+      var byChildId = {}; files.forEach(function (f) { var cid = f.appProperties && f.appProperties.childId; if (cid) byChildId[cid] = f; });
+      var localByFile = {}; store.order.forEach(function (id) { var c = store.children[id]; if (c && c.drive && c.drive.fileId) localByFile[c.drive.fileId] = c; });
+      if (!files.length) body.appendChild(h('div', { class: 'note' }, 'אין עדיין קבצים של ילדים בדרייב. רשומות עם שם נשמרות אוטומטית כשמחוברים.'));
+      var list = h('div', { class: 'flist' });
+      files.forEach(function (f) {
+        var local = localByFile[f.id] || (f.appProperties && store.children[f.appProperties.childId]) || null;
+        var tag;
+        if (!local) tag = h('span', { class: 'tag new' }, 'לא במחשב זה');
+        else if (local.driveDirty) tag = h('span', { class: 'tag newer' }, 'שינויים מקומיים טרם נשמרו');
+        else if (local.drive && local.drive.modifiedTime && local.drive.modifiedTime !== f.modifiedTime) tag = h('span', { class: 'tag newer' }, 'גרסה חדשה יותר בדרייב');
+        else tag = h('span', { class: 'tag same' }, 'מסונכרן');
+        var btns = h('div', { style: 'display:flex;gap:4px' },
+          h('button', { class: 'btn btn-secondary btn-small', type: 'button', onclick: function () {
+            if (local && local.driveDirty && !confirm('לרשומה הזו יש שינויים במחשב שטרם נשמרו בדרייב. לטעון בכל זאת ולדרוס אותם?')) return;
+            loadChildFromDrive(f.id).then(function (c) { adoptChild(c); closeModal(); boot(); toast('נטען מהדרייב: ' + (c.info.name || '')); }).catch(function (e) { alert(e.message); });
+          } }, local ? 'טען מחדש' : 'טען'),
+          h('button', { class: 'iconbtn del', type: 'button', title: 'העבר לאשפה בדרייב', onclick: function () {
+            if (!confirm('להעביר את "' + f.name + '" לאשפה בדרייב? הרשומה במחשב הזה (אם קיימת) לא תימחק.')) return;
+            trashDriveFile(f.id).then(function () { if (local) { local.drive = null; save(true); } openDriveDialog(); }).catch(function (e) { alert(e.message); });
+          } }, '✕'));
+        list.appendChild(h('div', { class: 'frow' }, h('div', null, h('div', { class: 'fn' }, f.name.replace(/\.json$/, '')), h('div', { class: 'fm' }, 'עודכן בדרייב: ' + fmtTime(f.modifiedTime))), tag, btns));
+      });
+      if (files.length) body.appendChild(list);
+      /* רשומות מקומיות שאינן בדרייב */
+      var onlyLocal = store.order.map(function (id) { return store.children[id]; }).filter(function (c) { return c && (!c.drive || !c.drive.fileId) && (c.info.name || '').trim(); });
+      if (onlyLocal.length) {
+        body.appendChild(h('h3', { style: 'margin-top:14px' }, 'רשומות במחשב זה שעדיין לא בדרייב'));
+        var l2 = h('div', { class: 'flist' });
+        onlyLocal.forEach(function (c) {
+          l2.appendChild(h('div', { class: 'frow' }, h('div', null, h('div', { class: 'fn' }, c.info.name), h('div', { class: 'fm' }, 'עודכן במחשב: ' + fmtTime(new Date(c.updated || c.created).toISOString()))), h('span', { class: 'tag' }, 'מקומי בלבד'),
+            h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: function () { saveChildToDrive(c, false).then(function () { openDriveDialog(); toast('נשמר בדרייב'); }).catch(function (e) { alert(e.message); }); } }, 'שמור בדרייב')));
+        });
+        body.appendChild(l2);
+        body.appendChild(h('div', { style: 'margin-top:8px' }, h('button', { class: 'btn btn-secondary btn-small', type: 'button', onclick: function () {
+          var p = Promise.resolve(); onlyLocal.forEach(function (c) { p = p.then(function () { return saveChildToDrive(c, false); }); });
+          p.then(function () { openDriveDialog(); toast('כל הרשומות נשמרו בדרייב'); }).catch(function (e) { alert(e.message); });
+        } }, 'שמור את כולן בדרייב')));
+      }
+      body.appendChild(h('div', { class: 'muted', style: 'margin-top:10px' }, 'הקבצים נשמרים בתיקייה "' + FOLDER_NAME + '" בדרייב של ' + (drive.email || 'החשבון המחובר') + '. הכלי רואה רק קבצים שהוא עצמו יצר.'));
+    }).catch(function (e) { body.innerHTML = ''; body.appendChild(h('div', { class: 'note warn' }, 'טעינת הרשימה נכשלה: ' + e.message)); });
+  }
+  function saveProductToDrive(kind) {
+    if (!driveConnected()) { toast('יש להתחבר לגוגל דרייב תחילה'); return Promise.resolve(); }
+    var dateTag = fmtDate(cur.info.date || todayISO()).replace(/\//g, '.');
+    var p = kind === 'doc'
+      ? buildDocxBlob().then(function (b) { return uploadConverted(b, docName() + ' ' + dateTag, MIME_DOCX, 'application/vnd.google-apps.document'); })
+      : Promise.resolve().then(function () { return uploadConverted(buildXlsxBlob(), xlsxName() + ' ' + dateTag, MIME_XLSX, 'application/vnd.google-apps.spreadsheet'); });
+    return p.then(function (f) {
+      cur.docs = cur.docs || [];
+      cur.docs.unshift({ kind: kind, id: f.id, name: f.name, link: f.webViewLink, at: new Date().toISOString() });
+      save();
+      toast(kind === 'doc' ? 'התח"י נשמר כגוגל דוקס' : 'הרמזור נשמר כגוגל שיטס');
+      if (f.webViewLink) window.open(f.webViewLink, '_blank', 'noopener');
+      renderStep4();
+    }).catch(function (e) { drive.lastErr = e.message; renderDriveBar(); alert('השמירה בדרייב נכשלה: ' + e.message); });
+  }
+
   /* ---------- אתחול ---------- */
   function renderChildSelect() {
     var sel = $('#childSel'); sel.innerHTML = '';
@@ -1077,15 +1415,31 @@
     cur = store.children[store.current];
     derivedDirty = false;
     renderChildSelect();
+    renderDriveBar();
     showStep(cur.step || 1);
   }
-  $('#childSel').addEventListener('change', function () { store.current = this.value; cur = store.children[store.current]; save(); boot(); });
-  $('#btnNew').addEventListener('click', function () { addChild(newChild()); boot(); toast('נפתחה רשומה חדשה'); });
-  $('#btnDup').addEventListener('click', function () { var c = JSON.parse(JSON.stringify(cur)); c.id = uid(); c.created = Date.now(); c.info.name = (c.info.name || '') + ' (עותק)'; addChild(c); boot(); });
+  function switchChild(id) {
+    var prev = cur;
+    if (prev && prev.id !== id) flushDriveSave(prev);
+    store.current = id; cur = store.children[id];
+    save(true); boot();
+  }
+  $('#childSel').addEventListener('change', function () { switchChild(this.value); });
+  $('#btnNew').addEventListener('click', function () { if (cur) flushDriveSave(cur); addChild(newChild()); boot(); toast('נפתחה רשומה חדשה'); });
+  $('#btnDup').addEventListener('click', function () { var c = JSON.parse(JSON.stringify(cur)); c.id = uid(); c.created = Date.now(); c.info.name = (c.info.name || '') + ' (עותק)'; c.drive = null; c.docs = []; c.driveDirty = true; addChild(c); boot(); });
   $('#btnDel').addEventListener('click', function () {
-    if (!confirm('למחוק את הרשומה של "' + (cur.info.name || 'ללא שם') + '" מהדפדפן? אי אפשר לשחזר (אלא מקובץ ייצוא).')) return;
-    delete store.children[cur.id]; store.order = store.order.filter(function (id) { return id !== cur.id; }); store.current = store.order[0] || null; save(); boot();
+    var hasDrive = cur.drive && cur.drive.fileId;
+    var msg = 'למחוק את הרשומה של "' + (cur.info.name || 'ללא שם') + '" מהדפדפן?' + (hasDrive ? ' (הקובץ בדרייב יישאר; אפשר למחוק אותו מרשימת "ילדים בדרייב")' : ' אי אפשר לשחזר (אלא מקובץ ייצוא).');
+    if (!confirm(msg)) return;
+    clearTimeout(driveTimers[cur.id]);
+    delete store.children[cur.id]; store.order = store.order.filter(function (id) { return id !== cur.id; }); store.current = store.order[0] || null; save(true); boot();
   });
+  window.addEventListener('beforeunload', function (e) {
+    if (!driveConnected()) return;
+    var pending = store.order.some(function (id) { var c = store.children[id]; return c && c.driveDirty && c.drive; });
+    if (pending) { e.preventDefault(); e.returnValue = ''; }
+  });
+  loadSession();
   $('#btnExport').addEventListener('click', exportChild);
   $('#btnImport').addEventListener('click', function () { $('#fileImport').click(); });
   $('#fileImport').addEventListener('change', function () { if (this.files[0]) importFile(this.files[0]); this.value = ''; });
