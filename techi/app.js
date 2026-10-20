@@ -1093,12 +1093,14 @@
 
   /* ---------- גוגל דרייב ---------- */
   var GOOGLE_CLIENT_ID = '896508295853-hcu3bhobsog8dut3hu3r8gn1d063uufv.apps.googleusercontent.com';
-  var SCOPES = 'https://www.googleapis.com/auth/drive.file openid email';
+  var SCOPE_DRIVE = 'https://www.googleapis.com/auth/drive.file';
+  var SCOPES = SCOPE_DRIVE + ' openid email';
+  var SCOPE_MSG = 'ההרשאה לגוגל דרייב לא סומנה בחלון של גוגל. יש ללחוץ שוב על ההתחברות, ובמסך האישור לסמן את התיבה "לראות, לערוך, ליצור ולמחוק רק את קובצי Google Drive הספציפיים שבהם משתמשים באפליקציה הזו" לפני "המשך".';
   var FOLDER_NAME = 'תחי';
   var MIME_FOLDER = 'application/vnd.google-apps.folder';
   var MIME_DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   var MIME_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-  var drive = { token: null, expiresAt: 0, email: '', folderId: null, tokenClient: null, tokenClientId: '', lastErr: '', conflict: null, saving: false };
+  var drive = { token: null, expiresAt: 0, email: '', folderId: null, tokenClient: null, tokenClientId: '', lastErr: '', conflict: null, saving: false, needScope: false };
   var driveTimers = {};
   function clientId() { return GOOGLE_CLIENT_ID || (store.prefs && store.prefs.clientId) || ''; }
   function driveConnected() { return !!(drive.token && Date.now() < drive.expiresAt - 30000); }
@@ -1121,6 +1123,13 @@
       }
       drive.tokenClient.callback = function (resp) {
         if (!resp || resp.error) { reject(new Error((resp && (resp.error_description || resp.error)) || 'ההתחברות נכשלה')); return; }
+        /* גוגל מציג את ההרשאה לדרייב כתיבת סימון נפרדת; בלי סימון מתקבל אסימון בלי גישה לדרייב */
+        if (typeof resp.scope === 'string' && resp.scope && resp.scope.split(/\s+/).indexOf(SCOPE_DRIVE) < 0) {
+          drive.needScope = true;
+          reject(new Error(SCOPE_MSG));
+          return;
+        }
+        drive.needScope = false;
         drive.token = resp.access_token;
         drive.expiresAt = Date.now() + (parseInt(resp.expires_in, 10) || 3600) * 1000;
         drive.lastErr = '';
@@ -1131,7 +1140,7 @@
         var t = err && err.type;
         reject(new Error(t === 'popup_closed' ? 'ההתחברות בוטלה' : (t === 'popup_failed_to_open' ? 'הדפדפן חסם את חלון ההתחברות; יש לאפשר חלונות קופצים לאתר' : 'ההתחברות לגוגל נכשלה')));
       };
-      drive.tokenClient.requestAccessToken({ prompt: interactive ? 'select_account' : '' });
+      drive.tokenClient.requestAccessToken({ prompt: drive.needScope ? 'consent' : (interactive ? 'select_account' : '') });
     });
   }
   function disconnectDrive() {
@@ -1152,6 +1161,11 @@
       if (!r.ok) {
         return r.text().then(function (t) {
           var msg = t; try { msg = JSON.parse(t).error.message; } catch (e) { /* טקסט גולמי */ }
+          if (r.status === 403 && /insufficient/i.test(msg)) {
+            /* אסימון בלי הרשאת דרייב (התיבה לא סומנה): מנתקים ומסבירים */
+            drive.needScope = true; drive.token = null; drive.lastErr = SCOPE_MSG; saveSession(); renderDriveBar();
+            var se = new Error(SCOPE_MSG); se.status = 403; throw se;
+          }
           var err = new Error('גוגל דרייב: ' + msg); err.status = r.status; throw err;
         });
       }
@@ -1299,6 +1313,7 @@
         connectDrive(true).then(function () { toast('מחובר לגוגל דרייב'); return afterConnect(); }).catch(function (e) { drive.lastErr = e.message; renderDriveBar(); });
       } }, 'התחברות לגוגל דרייב'));
       if (drive.lastErr) bar.appendChild(h('div', { class: 'dsync err', style: 'width:100%' }, drive.lastErr));
+      else bar.appendChild(h('div', { class: 'dsync', style: 'width:100%' }, 'בחלון של גוגל: לבחור חשבון, לסמן את תיבת ההרשאה לגוגל דרייב וללחוץ "המשך".'));
       return;
     }
     bar.appendChild(h('span', { class: 'dstatus' }, 'מחובר: ', h('b', null, drive.email || 'חשבון גוגל'), ' · תיקייה "' + FOLDER_NAME + '"'));
