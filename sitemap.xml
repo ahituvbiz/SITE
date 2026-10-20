@@ -444,6 +444,13 @@
     <priority>0.6</priority>
     <!-- מדריכי בדיקת פנסיה -->
   </url>
+  <url>
+    <loc>https://pensya.info/bedikat-pensya/pitzuim/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- טפסי אישור מעסיק לכספי פיצויים -->
+  </url>
 
   <url>
     <loc>https://pensya.info/investment/ai-loop-economy/</loc>

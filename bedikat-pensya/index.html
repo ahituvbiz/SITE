@@ -1558,12 +1558,14 @@ function renderResults(data) {
     }
 
     // CTA כספי פיצויים - הבקאנד מחזיר show_compensation=true כששכיר מפוצל בין מסלול
-    // ברירת מחדל למסלול אחר (סביר שכספי הפיצויים יושבים בברירת המחדל). הטפסים: דף GitHub Pages.
-    if (cta.show_compensation && cta.compensation_form_url) {
+    // ברירת מחדל למסלול אחר (סביר שכספי הפיצויים יושבים בברירת המחדל).
+    // הטפסים עברו לאתר (20.10.26): הקישור קבוע ואינו תלוי ב-URL שהשרת מחזיר.
+    var COMPENSATION_FORMS_URL = '/bedikat-pensya/pitzuim/';
+    if (cta.show_compensation) {
       ctaHtml += '<div class="result-callout" style="margin-bottom:16px; text-align:center; background:#EFF6FF; border-color:#3B82F6;">'
         + '<strong>📋 כספי הפיצויים שלך כנראה במסלול ברירת המחדל</strong><br>'
         + 'להעברתם למסלול ההשקעה שבחרת נדרש טופס של הקרן עם אישור המעסיק. הטפסים של כל הקרנות מרוכזים כאן:'
-        + '<br><br><a href="' + escapeHtml(cta.compensation_form_url) + '" class="btn" target="_blank" rel="noopener"'
+        + '<br><br><a href="' + COMPENSATION_FORMS_URL + '" class="btn" target="_blank" rel="noopener"'
         + ' style="background:var(--cta);color:#fff;">להורדת טופס העברת פיצויים ←</a></div>';
     }
 
