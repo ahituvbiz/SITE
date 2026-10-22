@@ -209,7 +209,7 @@ tfoot tr{font-weight:700;background:#F1F1EE}
 <div class="wrap">
 
   <h1>פילוח יתרות קרנות פנסיה מקיפות</h1>
-  <p class="page-updated">עודכן: 22 בספטמבר 2026</p>
+  <p class="page-updated" id="pageUpdated">עודכן: 22 באוקטובר 2026</p>
   <p class="sub">לפי קטגוריות מסלולי השקעה · מקור: פנסיה נט, רשות שוק ההון</p>
 
   <div class="badges">
@@ -640,6 +640,12 @@ tfoot tr{font-weight:700;background:#F1F1EE}
   document.getElementById('thPrev').textContent = D.prev.label + ' (מיל′ ₪)';
   document.getElementById('thCur').textContent  = D.cur.label  + ' (מיל′ ₪)';
   document.getElementById('updated').textContent = D.updated;
+  (function () {
+    const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(D.updated || '');
+    if (!m) return;
+    const HE = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+    document.getElementById('pageUpdated').textContent = 'עודכן: ' + (+m[1]) + ' ב' + HE[+m[2] - 1] + ' ' + m[3];
+  })();
 
   document.getElementById('tbody').innerHTML = cats.map(c =>
     '<tr><td><span class="swatch" style="background:' + c.color + '"></span>' + c.label + '</td>' +
