@@ -7,6 +7,12 @@
   var PMAP = new Map(PARAMS.map(function (p) { return [String(p.id), p]; }));
   var LIT = D.literacy.items;
   var LMAP = new Map(LIT.map(function (i) { return [i.id, i]; }));
+  var MAPI = (D.mapping && D.mapping.items) || [];
+  var MMAP = new Map(MAPI.map(function (i) { return [i.id, i]; }));
+  var MGMAP = new Map(((D.mapping && D.mapping.groups) || []).map(function (g) { return [g.id, g]; }));
+  /* פריטי מיפוי לפי פרמטר/פריט מבדק שקול: פריט מיפוי חלש מפעיל את אותם יעדים */
+  var EQ = {};
+  MAPI.forEach(function (it) { (it.eq || []).forEach(function (t) { (EQ[String(t)] = EQ[String(t)] || []).push(it); }); });
   var LEVELS = D.levels;
   var LVMAP = new Map(LEVELS.map(function (l) { return [l.id, l]; }));
   var DOMS = D.domains;
@@ -102,7 +108,7 @@
     return {
       id: uid(), created: Date.now(), updated: Date.now(), step: 1,
       info: { name: '', gender: 'f', birth: '', year: '1', kupa: '', gan: p.gan || '', manager: p.manager || '', teacher: p.teacher || 'רחל אחיטוב', date: todayISO(), partners: p.partners || 'מנהלת גן, גננת שילוב, והורים', treatments: '', matya: p.matya || 'מתי"א שלהבת' },
-      ratings: {}, literacy: {},
+      ratings: {}, literacy: {}, mapping: {},
       narrative: { picks: {}, free: '', text: '', manual: false },
       profile: null, plan: null
     };
@@ -122,8 +128,10 @@
   /* ---------- משקלים ---------- */
   var WEAK_W = { low: 2, lowmid: 1.5, mid: 0.5, midnorm: 0, norm: 0 };
   function midDecision(pid) { return (cur.profile && cur.profile.mid && cur.profile.mid[String(pid)]) || ''; }
-  function weakWeight(trig) {
-    trig = String(trig);
+  function mapStatus(id) { var m = cur.mapping && cur.mapping[id]; return (m && m.status) || ''; }
+  function mapWeight(id) { var s = mapStatus(id); return s === 'no' ? 2 : (s === 'part' ? 1 : 0); }
+  function isMapTrig(t) { return MMAP.has(String(t)); }
+  function ownWeakWeight(trig) {
     if (isParamTrig(trig)) {
       var r = cur.ratings[trig]; if (!r || !r.level) return 0;
       if (r.level === 'mid') { var d = midDecision(trig); return d === 'w' ? 1 : (d === 's' ? 0 : 0.5); }
@@ -132,9 +140,19 @@
     var l = cur.literacy[trig]; if (!l || !l.status) return 0;
     return l.status === 'no' ? 2 : (l.status === 'part' ? 1 : 0);
   }
+  function weakWeight(trig) {
+    trig = String(trig);
+    if (isMapTrig(trig)) return mapWeight(trig);
+    /* פריט מיפוי שקול שנמצא חלש מפעיל את אותם יעדים (המקסימום, לא הסכום) */
+    var w = ownWeakWeight(trig);
+    (EQ[trig] || []).forEach(function (it) { w = Math.max(w, mapWeight(it.id)); });
+    return w;
+  }
+  function mapWeakFor(trig) { return (EQ[String(trig)] || []).some(function (it) { return mapWeight(it.id) >= 1; }); }
   function isWeak(trig) { return weakWeight(trig) >= 1; }
   function isStrong(trig) {
     trig = String(trig);
+    if (isMapTrig(trig)) return mapStatus(trig) === 'yes';
     if (isParamTrig(trig)) {
       var r = cur.ratings[trig]; if (!r || !r.level) return false;
       if (r.level === 'norm' || r.level === 'midnorm') return true;
@@ -142,6 +160,15 @@
       return false;
     }
     var l = cur.literacy[trig]; return !!(l && l.status === 'yes');
+  }
+  /* סיכום קבוצתי במיפוי: לפחות 3 פריטים סומנו, אף אחד לא "לא קיים", ולפחות 75% "קיים באופן עקבי" */
+  function mapGroupSummaryOk(gid) {
+    var its = MAPI.filter(function (i) { return i.group === gid; });
+    var rated = its.filter(function (i) { return mapStatus(i.id); });
+    if (rated.length < 3) return false;
+    if (rated.some(function (i) { return mapStatus(i.id) === 'no'; })) return false;
+    var yes = rated.filter(function (i) { return mapStatus(i.id) === 'yes'; }).length;
+    return yes / rated.length >= 0.75;
   }
   function ratedCount() { return Object.keys(cur.ratings).filter(function (k) { return cur.ratings[k] && cur.ratings[k].level; }).length; }
 
@@ -161,6 +188,8 @@
   function itemText(item, pol) {
     if (item.k === 'p') { var p = PMAP.get(String(item.id)); return p ? (pol === 'w' ? p.w : p.s) : ''; }
     if (item.k === 'l') { var it = LMAP.get(item.id); return it ? litText(it, pol) : ''; }
+    if (item.k === 'm') { var mi = MMAP.get(item.id); return mi ? G(pol === 'w' ? mi.w : mi.s) : ''; }
+    if (item.k === 'mg') { var mg = MGMAP.get(item.id); return mg && pol === 's' ? mg.summary : ''; }
     if (item.k === 'b') { var b = BMAP.get(item.id); return b ? bankText(b) : ''; }
     return item.text || '';
   }
@@ -176,7 +205,7 @@
       var pid = String(p.id), r = cur.ratings[pid]; if (!r || !r.level) return;
       var dW = p.domW || p.dom;
       if (r.level === 'low' || r.level === 'lowmid') cells[dW].w.push({ k: 'p', id: pid });
-      else if (r.level === 'norm' || r.level === 'midnorm') cands[p.dom].push(p);
+      else if (r.level === 'norm' || r.level === 'midnorm') { if (!mapWeakFor(pid)) cands[p.dom].push(p); } /* המיפוי מצא קושי בפריט שקול: לא מציבים כמוקד כוח אוטומטית */
       else if (r.level === 'mid') {
         var d = mid[pid];
         if (d === 'w') cells[dW].w.push({ k: 'p', id: pid });
@@ -195,6 +224,25 @@
       var l = cur.literacy[it.id]; if (!l || !l.status) return;
       if (l.status === 'yes') cells.cog.s.push({ k: 'l', id: it.id });
       else cells.cog.w.push({ k: 'l', id: it.id });
+    });
+    /* מיפוי פרופיל הילד: "לא קיים" ו"קיים לעיתים" -> מוקדי חיזוק; "קיים" -> סיכום קבוצתי כשהקבוצה תקינה ברובה,
+       אחרת עד 3 פריטים לקבוצה (השאר בהצעות). פריט "קיים" שפרמטר שקול לו ברמזור חלש לא מוצב אוטומטית. */
+    (D.mapping ? D.mapping.groups : []).forEach(function (g) {
+      var its = MAPI.filter(function (i) { return i.group === g.id; });
+      var yes = [];
+      its.forEach(function (it) {
+        var s = mapStatus(it.id); if (!s) return;
+        if (s === 'yes') yes.push(it);
+        else cells[g.dom].w.push({ k: 'm', id: it.id });
+      });
+      if (!yes.length) return;
+      if (mapGroupSummaryOk(g.id)) { cells[g.dom].s.push({ k: 'mg', id: g.id }); return; }
+      var n = 0;
+      yes.forEach(function (it) {
+        if (n >= 3) return;
+        if ((it.eq || []).some(function (t) { return ownWeakWeight(String(t)) >= 1; })) return;
+        cells[g.dom].s.push({ k: 'm', id: it.id }); n++;
+      });
     });
     /* היגד בנק ראשי אחד לכל פרמטר/פריט חלש */
     var trigs = PARAMS.map(function (p) { return String(p.id); }).concat(LIT.map(function (i) { return i.id; }));
@@ -461,6 +509,9 @@
     });
     root.appendChild(rz);
 
+    /* מיפוי פרופיל הילד (ערכת האבחון של מתי"א יחדיו, גיל 5) */
+    root.appendChild(renderMapping());
+
     /* אוריינות וחשבון */
     var lit = h('div', { class: 'card' });
     lit.appendChild(h('h2', null, 'ממצאי המבדק: חשיבה חשבונית, אוריינות ומושגי יסוד', h('span', { class: 'hint' }, 'מזין את הפרופיל הלימודי ואת המטרה הלימודית')));
@@ -492,6 +543,55 @@
     root.appendChild(lit);
     root.appendChild(navRow(null, 2));
     updProg();
+  }
+  function renderMapping() {
+    var MP = D.mapping;
+    cur.mapping = cur.mapping || {};
+    var card = h('div', { class: 'card mapping' });
+    var prog = h('span', { class: 'hint' });
+    card.appendChild(h('h2', null, MP.title, prog));
+    card.appendChild(h('div', { class: 'note' }, MP.source + ' לכל פרמטר: רמת תפקוד אחת, ואפשר להוסיף הערה. פריט שלא נבדק משאירים ריק. לחיצה על "מטלה" מציגה את הבדיקה מהערכה. התוצאות מזינות את הפרופיל ואת תכנית העבודה.'));
+    function updProg() {
+      var n = MAPI.filter(function (it) { var m = cur.mapping[it.id]; return m && m.status; }).length;
+      prog.textContent = 'סומנו ' + n + ' מתוך ' + MAPI.length;
+      MP.groups.forEach(function (g) {
+        var its = MAPI.filter(function (i) { return i.group === g.id; });
+        var r = its.filter(function (i) { return cur.mapping[i.id] && cur.mapping[i.id].status; }).length;
+        var el = $('#mapprog-' + g.id); if (el) el.textContent = r + '/' + its.length;
+      });
+    }
+    MP.groups.forEach(function (g, gi) {
+      var its = MAPI.filter(function (i) { return i.group === g.id; });
+      var table = h('table', { class: 'ptable' });
+      its.forEach(function (it) {
+        var m = cur.mapping[it.id] || (cur.mapping[it.id] = { status: '', note: '' });
+        var tr = h('tr', { class: m.status ? 'rated' : '' });
+        var chips = h('div', { class: 'chips' });
+        MP.statuses.forEach(function (st) {
+          var lv = LVMAP.get(st.level) || {};
+          var b = h('button', { type: 'button', class: 'lv' + (m.status === st.id ? ' on' : ''), style: '--lvc:' + lv.color + ';--lvbg:' + lv.bg, onclick: function () {
+            m.status = (m.status === st.id) ? '' : st.id;
+            chips.querySelectorAll('.lv').forEach(function (x) { x.classList.toggle('on', x.dataset.st === m.status); });
+            tr.classList.toggle('rated', !!m.status);
+            invalidateDerived();
+            save(); updProg();
+          } }, st.label);
+          b.dataset.st = st.id;
+          chips.appendChild(b);
+        });
+        var taskEl = h('div', { class: 'task hidden' }, it.task);
+        var taskBtn = h('button', { type: 'button', class: 'linkbtn', 'aria-expanded': 'false', onclick: function () { var open = taskEl.classList.toggle('hidden'); taskBtn.setAttribute('aria-expanded', String(!open)); } }, 'מטלה');
+        var note = h('input', { type: 'text', value: m.note || '', placeholder: 'הערה / דוגמה', oninput: function () { m.note = note.value; save(); } });
+        tr.appendChild(h('td', { class: 'pname' }, h('span', { class: 'num' }, it.num), ' ', it.label, ' ', taskBtn, taskEl));
+        tr.appendChild(h('td', null, chips));
+        tr.appendChild(h('td', { class: 'pnote' }, note));
+        table.appendChild(tr);
+      });
+      var det = h('details', { class: 'sec', open: gi === 0 }, h('summary', null, g.num + '. ' + g.title, h('span', { class: 'prog', id: 'mapprog-' + g.id })), h('div', { style: 'padding:0 8px 8px' }, table));
+      card.appendChild(det);
+    });
+    setTimeout(updProg, 0);
+    return card;
   }
   var derivedDirty = false;
   function invalidateDerived() { if (cur && (cur.profile || cur.plan)) derivedDirty = true; }
@@ -563,7 +663,7 @@
     /* תחומים */
     var prof = h('div', { class: 'card' });
     prof.appendChild(h('h2', null, 'פרופיל: מוקדי כוח ומוקדי חיזוק', h('span', { class: 'hint' }, 'לחיצה על × מסירה; לחיצה על הצעה מוסיפה')));
-    prof.appendChild(h('div', { class: 'note' }, 'כחול = פרמטר מהרמזור · צהבהב = ממצא אוריינות/חשבון · אפור = היגד מהבנק · ירקרק = טקסט חופשי. היגדים המסומנים בקו רציף נגזרים ישירות מהדירוג.'));
+    prof.appendChild(h('div', { class: 'note' }, 'כחול = פרמטר מהרמזור · צהבהב = ממצא אוריינות/חשבון · סגלגל = ממצא מיפוי · אפור = היגד מהבנק · ירקרק = טקסט חופשי. היגדים המסומנים בקו רציף נגזרים ישירות מהדירוג.'));
     DOMS.forEach(function (d) { prof.appendChild(renderDomain(d)); });
     root.appendChild(prof);
     root.appendChild(navRow(1, 3, h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { if (confirm('לבנות מחדש את הפרופיל מהרמזור? הבחירות הידניות בפרופיל יימחקו.')) { genProfile(true); derivedDirty = false; save(); renderStep2(); } } }, 'חשב מחדש מהרמזור')));
@@ -585,7 +685,7 @@
     var sel = h('div', { class: 'sel' });
     function redraw() { var card = col.closest('.dom-card'); var fresh = renderDomain(d); card.replaceWith(fresh); }
     list.forEach(function (it, idx) {
-      var chip = h('span', { class: 'item k-' + it.k, title: it.k === 'b' ? 'היגד מהבנק' : (it.k === 'p' ? 'פרמטר מהרמזור' : (it.k === 'l' ? 'ממצא מבדק' : 'טקסט חופשי')) }, itemText(it, pol),
+      var chip = h('span', { class: 'item k-' + it.k, title: it.k === 'b' ? 'היגד מהבנק' : (it.k === 'p' ? 'פרמטר מהרמזור' : (it.k === 'l' ? 'ממצא מבדק' : (it.k === 'm' || it.k === 'mg' ? 'ממצא מיפוי' : 'טקסט חופשי'))) }, itemText(it, pol),
         h('button', { type: 'button', class: 'x', 'aria-label': 'הסר', onclick: function () { list.splice(idx, 1); save(); redraw(); } }, '×'));
       sel.appendChild(chip);
     });
@@ -657,6 +757,17 @@
         out.push({ item: item, text: litText(it, pol), strong: true });
       });
     }
+    (D.mapping ? D.mapping.groups : []).forEach(function (g) {
+      if (g.dom !== domId) return;
+      if (pol === 's' && mapGroupSummaryOk(g.id)) { var gi = { k: 'mg', id: g.id }; if (!selectedHas(domId, pol, gi)) out.push({ item: gi, text: g.summary, strong: true }); }
+      MAPI.filter(function (i) { return i.group === g.id; }).forEach(function (it) {
+        var ok = pol === 'w' ? isWeak(it.id) : isStrong(it.id);
+        if (!ok) return;
+        var item = { k: 'm', id: it.id };
+        if (selectedHas(domId, pol, item)) return;
+        out.push({ item: item, text: itemText(item, pol), strong: true });
+      });
+    });
     BANK.forEach(function (b) {
       if (b.dom !== domId || b.pol !== pol || !b.generic || b.low) return;
       var ok = b.params.some(function (t) { return pol === 'w' ? isWeak(t) : isStrong(t); });
@@ -680,6 +791,16 @@
     });
     var lits = [];
     if (domId === 'cog') LIT.forEach(function (it) { var item = { k: 'l', id: it.id }; if (selectedHas(domId, pol, item)) return; var t = litText(it, pol); if (!match(t + ' ' + it.label)) return; lits.push({ item: item, text: t }); });
+    var maps = [];
+    (D.mapping ? D.mapping.groups : []).forEach(function (g) {
+      if (g.dom !== domId) return;
+      if (pol === 's') { var gi = { k: 'mg', id: g.id }; if (!selectedHas(domId, pol, gi) && match(g.summary)) maps.push({ item: gi, text: g.summary }); }
+      MAPI.filter(function (i) { return i.group === g.id; }).forEach(function (it) {
+        var item = { k: 'm', id: it.id }; if (selectedHas(domId, pol, item)) return;
+        var t = itemText(item, pol); if (!match(t + ' ' + it.label + ' ' + it.num)) return;
+        maps.push({ item: item, text: t });
+      });
+    });
     var gen = [], spec = [], low = [];
     BANK.forEach(function (b) {
       if (b.dom !== domId || b.pol !== pol) return;
@@ -691,6 +812,7 @@
     return [
       { title: 'פרמטרים מהרמזור', items: params, open: true },
       { title: 'ממצאי מבדק', items: lits, open: false },
+      { title: 'מיפוי פרופיל הילד', items: maps, open: false },
       { title: 'היגדים כלליים מהבנק', items: gen, open: false },
       { title: 'היגדים ספציפיים מהבנק', items: spec, open: false },
       { title: 'היגדים לתפקוד נמוך', items: low, open: false }
@@ -846,10 +968,13 @@
     /* שורות לתא בטבלת הפרופיל: פרמטרים בשורה אחת, ממצאי מבדק לפי קבוצות, היגדים בשורות נפרדות */
     var items = cur.profile ? cur.profile.cells[domId][pol] : [];
     var params = [], lit = { num: [], lit: [], con: [] }, rest = [];
+    var MAP_LABEL = { lang: 'שפה: ', cogn: 'חשיבה: ', perc: 'תפיסה וזיכרון: ', math: 'חשיבה חשבונית: ', fine: 'מוטוריקה עדינה: ', gross: 'מוטוריקה גסה: ' };
+    var maps = {};
     items.forEach(function (it) {
       var t = itemText(it, pol); if (!t) return;
       if (it.k === 'p') params.push(t);
       else if (it.k === 'l') { var li = LMAP.get(it.id); lit[li ? li.group : 'con'].push(t); }
+      else if (it.k === 'm') { var mi = MMAP.get(it.id); var gk = mi ? mi.group : 'cogn'; if (gk === 'math') lit.num.push(t); else (maps[gk] = maps[gk] || []).push(t); }
       else rest.push(t);
     });
     var lines = [];
@@ -857,6 +982,7 @@
     if (lit.con.length) lines.push({ text: lit.con.join(', ') + '.' });
     if (lit.num.length) lines.push({ label: 'חשיבה חשבונית: ', text: lit.num.join(', ') + '.' });
     if (lit.lit.length) lines.push({ label: 'אוריינות: ', text: lit.lit.join(', ') + '.' });
+    Object.keys(MAP_LABEL).forEach(function (gk) { if (maps[gk] && maps[gk].length) lines.push({ label: MAP_LABEL[gk], text: maps[gk].join(', ') + '.' }); });
     rest.forEach(function (t) { lines.push({ text: t + (/[.!?]$/.test(t) ? '' : '.') }); });
     return lines;
   }
@@ -871,7 +997,7 @@
     card.appendChild(h('h3', null, 'שמירה בגוגל דרייב', connected ? null : h('span', { class: 'muted', style: 'font-weight:400;margin-inline-start:8px' }, '(יש להתחבר לגוגל דרייב בסרגל שלמעלה)')));
     card.appendChild(h('div', { class: 'dl' },
       h('button', { class: 'btn btn-primary', type: 'button', disabled: !connected, onclick: function () { saveProductToDrive('doc'); } }, 'שמור את התח"י כגוגל דוקס'),
-      h('button', { class: 'btn btn-secondary', type: 'button', disabled: !connected, onclick: function () { saveProductToDrive('sheet'); } }, 'שמור את הרמזור כגוגל שיטס'),
+      h('button', { class: 'btn btn-secondary', type: 'button', disabled: !connected, onclick: function () { saveProductToDrive('sheet'); } }, 'שמור את הרמזור והמיפוי כגוגל שיטס'),
       h('button', { class: 'btn btn-ghost', type: 'button', disabled: !connected, onclick: function () { clearTimeout(driveTimers[cur.id]); saveChildToDrive(cur, false).then(function () { toast('נתוני העבודה נשמרו בדרייב'); }).catch(function (e) { if (e && e.code !== 'conflict') toast(e.message); }); } }, 'שמור את נתוני העבודה בדרייב')));
     if (cur.docs && cur.docs.length) {
       var ul2 = h('ul', { class: 'doclinks', style: 'padding-inline-start:18px' });
@@ -883,7 +1009,7 @@
     card.appendChild(h('h3', null, 'הורדה למחשב'));
     card.appendChild(h('div', { class: 'dl' },
       h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { downloadDocx().catch(function (e) { console.error(e); toast('שגיאה ביצירת הקובץ: ' + e.message); }); } }, 'הורדת תח"י כקובץ וורד'),
-      h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { try { downloadXlsx(); } catch (e) { console.error(e); toast('שגיאה ביצירת האקסל: ' + e.message); } } }, 'הורדת הרמזור כאקסל'),
+      h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { try { downloadXlsx(); } catch (e) { console.error(e); toast('שגיאה ביצירת האקסל: ' + e.message); } } }, 'הורדת הרמזור והמיפוי כאקסל'),
       h('button', { class: 'btn btn-ghost', type: 'button', onclick: exportChild }, 'ייצוא נתוני הילד/ה (קובץ גיבוי)')));
     root.appendChild(card);
     var pv = h('div', { class: 'card' }, h('h2', null, 'תצוגה מקדימה'), renderPreview());
@@ -1069,6 +1195,22 @@
     var wb = X.utils.book_new();
     wb.Workbook = { Views: [{ RTL: true }] };
     X.utils.book_append_sheet(wb, ws, 'רמזור');
+    /* גיליון שני: מיפוי פרופיל הילד (גיל 5) */
+    if (D.mapping) {
+      var mrows = [['תחום', 'פרמטר', 'רמת תפקוד (קיים באופן עקבי / קיים לעיתים / לא קיים)', 'הערה']];
+      var lastG = null;
+      D.mapping.groups.forEach(function (g) {
+        MAPI.filter(function (i) { return i.group === g.id; }).forEach(function (it) {
+          var m = (cur.mapping || {})[it.id] || {};
+          var st = m.status ? { yes: 'קיים באופן עקבי', part: 'קיים לעיתים', no: 'לא קיים' }[m.status] : '';
+          mrows.push([lastG !== g.id ? g.title : '', it.num + ' ' + it.label, st, m.note || '']);
+          lastG = g.id;
+        });
+      });
+      var ws2 = X.utils.aoa_to_sheet(mrows);
+      ws2['!cols'] = [{ wch: 22 }, { wch: 44 }, { wch: 26 }, { wch: 40 }];
+      X.utils.book_append_sheet(wb, ws2, 'מיפוי');
+    }
     return wb;
   }
 
@@ -1428,6 +1570,7 @@
     if (!store.order.length) { addChild(newChild()); }
     if (!store.current || !store.children[store.current]) store.current = store.order[0];
     cur = store.children[store.current];
+    if (!cur.mapping) cur.mapping = {}; /* רשומות מלפני הוספת המיפוי */
     derivedDirty = false;
     renderChildSelect();
     renderDriveBar();

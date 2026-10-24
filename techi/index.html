@@ -164,6 +164,11 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 .lv.on { background: var(--lvbg); border-color: var(--lvc); color: var(--lvc); font-weight: 700; }
 .lv.clear { border-style: dashed; color: var(--text-meta); }
 .ptable tr.rated td.pname { font-weight: 600; }
+.mapping .pname .num { color: var(--text-meta); font-size: 13px; font-variant-numeric: tabular-nums; }
+.linkbtn { background: none; border: none; padding: 0 4px; color: var(--primary); font-family: inherit; font-size: 13px; cursor: pointer; text-decoration: underline dotted; }
+.linkbtn[aria-expanded="true"] { font-weight: 700; }
+.mapping .task { font-size: 13px; color: var(--text-2); background: var(--bg-cream); border-radius: 8px; padding: 6px 10px; margin-top: 6px; font-weight: 400; line-height: 1.5; }
+.mapping .task.hidden { display: none; }
 .lit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 8px 18px; }
 .lit-item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid #F0F0F0; }
 .lit-item .lbl { font-size: 15px; }
@@ -190,6 +195,7 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 .item.k-l { border-color: #D6C9A3; background: #FFFBEF; }
 .item.k-b { border-color: #CFCFCF; background: #F6F6F6; }
 .item.k-c { border-color: #C9DCC9; background: #F3FAF3; }
+.item.k-m, .item.k-mg { border-color: #CBB8DD; background: #F8F3FC; }
 .item .x { border: none; background: none; cursor: pointer; color: var(--text-meta); font-size: 15px; line-height: 1; padding: 0 2px; font-family: inherit; }
 .item .x:hover { color: var(--negative); }
 .sug { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -465,10 +471,10 @@ details.sec > summary .prog { margin-inline-start: auto; font-size: 13px; color:
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="/techi/data.js?v=2"></script>
+<script src="/techi/data.js?v=3"></script>
 <script src="/techi/vendor/docx.min.js?v=1"></script>
 <script src="/techi/vendor/xlsx.mini.min.js?v=1"></script>
-<script src="/techi/app.js?v=4"></script>
+<script src="/techi/app.js?v=5"></script>
 
 <script>
 (function(){
