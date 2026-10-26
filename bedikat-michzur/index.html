@@ -148,6 +148,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .answer .box { border-radius: 12px; padding: 14px 16px; background: var(--bg-cream); }
 .answer .box .lbl { font-size: 14px; color: var(--text-2); }
 .answer .box .val { font-size: 26px; font-weight: 700; }
+.answer .box .bargain { margin-top: 6px; font-size: 13.5px; color: var(--text-2); }
 .pos { color: #2F6B2E; }
 .neg { color: var(--negative); }
 .partial-note { margin-top: 14px; background: var(--primary-soft); border: 2px solid var(--primary); border-radius: 12px; padding: 14px 16px; }
@@ -600,7 +601,7 @@ function render(){
     var T = d.totals[mode];
     var plbl = T.n_refi + ' מסלולים עכשיו' + (T.n_wait ? ', ועוד ' + T.n_wait + ' במועד עדכון הריבית' : '');
     ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + plbl + ')</div><div class="val">' + ((T.n_refi || T.n_wait) ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div></div>';
-    ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div></div>';
+    ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div><div class="sub bargain">במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.</div></div>';
   } else {
     ans += '<div class="box" style="grid-column:1/-1"><div class="lbl">השוואה לשוק</div><div class="val" style="font-size:18px">טבלת ריביות השוק אינה עדכנית כרגע, ולכן מוצגים רק נתוני המסלולים, בלי המלצה.</div></div>';
   }
@@ -651,7 +652,7 @@ function render(){
     document.querySelectorAll('#scope-wrap button').forEach(function(b){ b.classList.toggle('sel', b.dataset.scope === sc); });
     $('scope-help').textContent = sc === 'partial'
       ? 'מיחזור חלקי: ממחזרים עכשיו את המסלולים שקיבלו "למחזר", ומסלולים שקיבלו "לחכות" ממחזרים במועד עדכון הריבית שלהם. שאר המסלולים נשארים כמו שהם, באותו החזר חודשי, ולכן הרווח או ההפסד בהם 0.'
-      : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק.';
+      : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק. במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.';
     $('rf-sub').textContent = 'ריביות השוק נכונות ל-' + d.market.as_of + '.' + (d.anchors_as_of ? ' עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '.' : '') + ' הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
     var colName = mode === 'reduce' ? 'החזר חדש' : 'קיצור';
     var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + colName + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
@@ -666,8 +667,8 @@ function render(){
         r += head + '<td colspan="3" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="פסיקה"><span class="vd none">אין השוואה</span></td></tr>';
         return;
       }
-      var M = t.modes[mode];
-      var mk = pct(t.market_rate);
+      var M = (sc === 'full' && t.modes_full) ? t.modes_full[mode] : t.modes[mode];
+      var mk = pct((sc === 'full' && t.market_rate_full != null) ? t.market_rate_full : t.market_rate);
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
       var touched = sc === 'full' || v.code === 'refi';
       var extra, saving;
