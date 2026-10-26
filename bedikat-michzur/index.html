@@ -150,6 +150,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .answer .box .val { font-size: 26px; font-weight: 700; }
 .pos { color: #2F6B2E; }
 .neg { color: var(--negative); }
+.partial-note { margin-top: 14px; background: var(--primary-soft); border: 2px solid var(--primary); border-radius: 12px; padding: 14px 16px; }
+.partial-note .pn-head { font-size: 19px; font-weight: 700; color: #005F80; margin-bottom: 4px; }
+.partial-note p { font-size: 16px; }
+.partial-note ul { margin: 8px 0 0; padding-inline-start: 20px; font-size: 15.5px; }
+.partial-note li { margin: 3px 0; }
 .verify { margin-top: 12px; font-size: 15px; color: #2F6B2E; display: flex; gap: 8px; align-items: center; }
 .toggle { display: inline-flex; border: 1px solid var(--primary); border-radius: 999px; overflow: hidden; margin-top: 14px; }
 .toggle button { border: 0; background: #fff; color: var(--primary); padding: 8px 16px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
@@ -423,6 +428,7 @@ table.t td:last-child { min-width: 120px; }
     <section class="card" aria-labelledby="ans-h">
       <h2 id="ans-h">התשובה בקצרה</h2>
       <div class="answer" id="answer"></div>
+      <div class="partial-note hidden" id="partial-note" role="note"></div>
       <div class="verify" id="verify"></div>
       <div id="toggle-wrap">
         <div class="toggle" role="group" aria-label="שיטת המיחזור">
@@ -576,6 +582,26 @@ function render(){
     ans += '<div class="box" style="grid-column:1/-1"><div class="lbl">השוואה לשוק</div><div class="val" style="font-size:18px">טבלת ריביות השוק אינה עדכנית כרגע, ולכן מוצגים רק נתוני המסלולים, בלי המלצה.</div></div>';
   }
   $('answer').innerHTML = ans;
+
+  // partial refinance is allowed: say it loudly whenever only some tracks get "למחזר"
+  var pn = $('partial-note');
+  if (hasM) {
+    var cmp = d.tracks.filter(function(t){ return t.modes; });
+    var go = cmp.filter(function(t){ return verdictOf(t).code === 'refi'; });
+    var rest = d.tracks.filter(function(t){ return verdictOf(t).code !== 'refi'; });
+    if (go.length && rest.length) {
+      var lbl = function(t){ return esc(t.type) + ' ' + pct(t.rate); };
+      var restTxt = rest.map(function(t){
+        var v = verdictOf(t);
+        return lbl(t) + (v.code === 'wait' ? ' (' + esc(v.text) + ')' : '');
+      }).join(' · ');
+      pn.innerHTML = '<div class="pn-head">לא חייבים למחזר את כל המשכנתא</div>'
+        + '<p>הבנק מאפשר מיחזור חלקי: למחזר מסלול אחד או כמה מסלולים, ולהשאיר את שאר המסלולים בדיוק כמו שהם. מיחזור הוא לא "הכול או כלום".</p>'
+        + '<ul><li><b>למחזר:</b> ' + go.map(lbl).join(' · ') + '</li>'
+        + '<li><b>להשאיר כמו שהם:</b> ' + restTxt + '</li></ul>';
+      show('partial-note', true);
+    } else { show('partial-note', false); }
+  } else { show('partial-note', false); }
   $('verify').innerHTML = '<span aria-hidden="true">✓</span><span>' + (d.verification === 'approx'
       ? 'היתרות וההחזרים תואמים לדוח הבנק. בבנק הפועלים הדוח מאחד מרכיבים, והפיצול ביניהם משוחזר בחישוב מקורב.'
       : 'היתרה הכוללת, העמלות והתקופות תואמים לדוח הבנק.') + '</span>';
@@ -596,7 +622,7 @@ function render(){
   show('refi-card', hasM);
   if (hasM) {
     $('rf-sub').textContent = 'ריבית השוק לפי הצעות שהבנקים נתנו עד ' + d.market.as_of + '.' + (d.anchors_as_of ? ' עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '.' : '') + ' הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
-    var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>החיסכון מחושב לפי ריבית</th><th>' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
+    var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
     d.tracks.forEach(function(t){
       var v = verdictOf(t);
       var flags = (t.flags || []).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
@@ -608,9 +634,9 @@ function render(){
       var M = t.modes[mode];
       var extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
                 : (M.months_saved != null ? (M.months_saved >= 0 ? Math.round(M.months_saved) + ' חודשים' : 'הארכה ב-' + Math.round(-M.months_saved) + ' חודשים') : '');
-      var mk = pct(t.market_rate) + '<div class="sub">' + esc(t.market_label || '') + (t.market_n ? ', ' + t.market_n + ' הצעות' : '') + '</div>';
+      var mk = pct(t.market_rate);
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
-      r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td class="n" data-l="החיסכון מחושב לפי ריבית">' + mk + '</td><td class="n" data-l="' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + signed(M.saving) + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
+      r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + signed(M.saving) + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
     });
     r += '</tbody><tfoot><tr><td colspan="4">סה"כ, מיחזור מלא</td><td class="n" data-l="סה&quot;כ, מיחזור מלא">' + signed(d.totals[mode].full) + '</td><td></td></tr></tfoot>';
     $('refi-tbl').innerHTML = r;
