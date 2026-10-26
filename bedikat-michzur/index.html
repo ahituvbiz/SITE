@@ -191,6 +191,10 @@ table.t td:last-child { min-width: 120px; }
 .fineprint li { margin: 4px 0; }
 .disclaimer { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: var(--s-md); font-size: 15px; color: var(--text-2); }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: var(--s-md); }
+.consult-cta { margin-top: var(--s-md); text-align: center; }
+.btn-wa { display: inline-block; background: #25D366; color: #fff !important; font-weight: 700; font-size: 18px; padding: 14px 28px; border-radius: 999px; text-decoration: none !important; box-shadow: 0 2px 6px rgba(0,0,0,.12); transition: background .15s, transform .15s; }
+.btn-wa:hover { background: #1EBE5A; transform: translateY(-1px); }
+@media (max-width: 600px) { .btn-wa { display: block; font-size: 15px; padding: 13px 10px; } }
 .hidden { display: none !important; }
 @media (max-width: 680px) {
   .card { padding: 16px; }
@@ -210,7 +214,7 @@ table.t td:last-child { min-width: 120px; }
   .answer .box .val { font-size: 22px; }
 }
 @media print {
-  .header, .site-footer, .skip-link, .upload-card, .actions, .toggle, .toggle-help, .mz .ai-note { display: none !important; }
+  .header, .site-footer, .skip-link, .upload-card, .actions, .consult-cta, .toggle, .toggle-help, .mz .ai-note { display: none !important; }
   .mz { background: #fff; padding: 0; }
   .card { box-shadow: none; border: 0; padding: 0; }
   table.t { min-width: 0; font-size: 11px; }
@@ -439,6 +443,8 @@ table.t td:last-child { min-width: 120px; }
       </div>
     </section>
 
+    <div class="consult-cta"><a class="btn-wa" href="https://pay.grow.link/70bd635ea6f32e700aace057ec21543a-MzIyNDIyNw" target="_blank" rel="noopener">לקביעת שיחת ייעוץ ממוקדת (בתשלום) לחץ כאן</a></div>
+
     <section class="card" aria-labelledby="tr-h">
       <h2 id="tr-h">המסלולים שלכם</h2>
       <p class="sub" id="tr-sub"></p>
@@ -457,6 +463,8 @@ table.t td:last-child { min-width: 120px; }
       <div id="pvf"></div>
       <div id="ai-notes"></div>
     </section>
+
+    <div class="consult-cta"><a class="btn-wa" href="https://pay.grow.link/70bd635ea6f32e700aace057ec21543a-MzIyNDIyNw" target="_blank" rel="noopener">לקביעת שיחת ייעוץ ממוקדת (בתשלום) לחץ כאן</a></div>
 
     <section class="card" aria-labelledby="nc-h">
       <h2 id="nc-h">מה לא נבדק</h2>
