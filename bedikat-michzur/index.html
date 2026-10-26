@@ -634,7 +634,8 @@ function render(){
       }
       var M = t.modes[mode];
       var extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
-                : (M.months_saved != null ? (M.months_saved >= 0 ? Math.round(M.months_saved) + ' חודשים' : 'הארכה ב-' + Math.round(-M.months_saved) + ' חודשים') : '');
+                : (M.capped ? 'אין קיצור<div class="sub">ההחזר עולה ל-' + ils0(M.new_monthly) + '</div>'
+                   : (M.months_saved != null ? Math.round(M.months_saved) + ' חודשים' : ''));
       var mk = pct(t.market_rate);
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
       r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + signed(M.saving) + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
