@@ -115,7 +115,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .mz { padding: var(--s-lg) 0 var(--s-xl); background: var(--bg-cream); min-height: 70vh; }
 .mz .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
 .mz h1 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 10px; }
-.mz .lede { font-size: 18px; color: var(--text-2); max-width: 760px; }
+.mz .lede { font-size: 18px; color: var(--text-2); }
+.page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
 .mz .ai-note { margin-top: 14px; display: inline-flex; gap: 8px; align-items: flex-start; background: var(--warning-soft); color: #7A5A12; border-radius: 10px; padding: 10px 14px; font-size: 15px; }
 .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: var(--s-md); margin-top: var(--s-md); }
 .card h2 { font-size: 21px; margin-bottom: 10px; }
@@ -397,7 +398,8 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כדקה השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
+  <p class="page-updated">עודכן: 26 באוקטובר 2026</p>
+  <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
   <!-- 1. העלאה -->
@@ -438,7 +440,7 @@ table.t td:last-child { min-width: 120px; }
   <!-- 2. עיבוד -->
   <section class="card hidden" id="progress-card" aria-live="polite">
     <h2>מנתחים את הדוח</h2>
-    <p class="sub">בדרך כלל לוקח בין חצי דקה לדקה וחצי. אל תסגרו את הדף.</p>
+    <p class="sub">לוקח כ-60 שניות. אל תסגרו את הדף.</p>
     <ol class="steps" id="steps">
       <li data-s="0"><span class="dot"></span>קריאת הדוח</li>
       <li data-s="1"><span class="dot"></span>הצלבה מול הסכומים שהבנק הדפיס</li>
