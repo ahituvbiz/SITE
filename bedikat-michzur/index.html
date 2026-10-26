@@ -163,14 +163,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .tbl-wrap { overflow-x: auto; margin-top: 8px; -webkit-overflow-scrolling: touch; }
 table.t { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 640px; }
 table.t th, table.t td { padding: 8px 8px; border-bottom: 1px solid var(--border); text-align: right; vertical-align: top; }
-table.t th { background: var(--bg-cream); font-weight: 600; font-size: 13.5px; color: var(--text-2); white-space: nowrap; }
+table.t th { background: var(--bg-cream); font-weight: 600; font-size: 13.5px; color: var(--text-2); white-space: normal; max-width: 130px; }
 table.t td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 table.t td .v { display: block; }
-table.t td.n .sub { white-space: nowrap; }
+table.t td.n .sub { white-space: normal; max-width: 170px; }
+.pay3 div:first-child { white-space: nowrap; }
+.pay3 b { font-weight: 700; }
+table.t tfoot .pay3 .sub { font-weight: 400; }
 table.t tfoot td { font-weight: 700; border-top: 2px solid var(--text-1); }
 .vd { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 600; white-space: normal; min-width: 64px; }
 .vd .sub { font-weight: 400; }
-table.t td:first-child { min-width: 170px; }
+table.t td:first-child { min-width: 150px; }
 table.t td:last-child { min-width: 120px; }
 .vd.refi { background: var(--positive-soft); color: #2F6B2E; }
 .vd.keep { background: #ECEFF3; color: #3A4250; }
@@ -596,7 +599,8 @@ function render(){
   var ans = '';
   if (hasM) {
     var T = d.totals[mode];
-    ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + T.n_refi + ' המסלולים שקיבלו "למחזר")</div><div class="val">' + (T.n_refi ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div></div>';
+    var plbl = T.n_refi + ' מסלולים עכשיו' + (T.n_wait ? ', ועוד ' + T.n_wait + ' במועד עדכון הריבית' : '');
+    ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + plbl + ')</div><div class="val">' + ((T.n_refi || T.n_wait) ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div></div>';
     ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div></div>';
   } else {
     ans += '<div class="box" style="grid-column:1/-1"><div class="lbl">השוואה לשוק</div><div class="val" style="font-size:18px">טבלת ריביות השוק אינה עדכנית כרגע, ולכן מוצגים רק נתוני המסלולים, בלי המלצה.</div></div>';
@@ -608,17 +612,15 @@ function render(){
   if (hasM) {
     var cmp = d.tracks.filter(function(t){ return t.modes; });
     var go = cmp.filter(function(t){ return verdictOf(t).code === 'refi'; });
-    var rest = d.tracks.filter(function(t){ return verdictOf(t).code !== 'refi'; });
-    if (go.length && rest.length) {
+    var waitT = cmp.filter(function(t){ return verdictOf(t).code === 'wait'; });
+    var rest = d.tracks.filter(function(t){ var c = verdictOf(t).code; return c !== 'refi' && c !== 'wait'; });
+    if (go.length && (rest.length || waitT.length)) {
       var lbl = function(t){ return esc(t.type) + ' ' + pct(t.rate); };
-      var restTxt = rest.map(function(t){
-        var v = verdictOf(t);
-        return lbl(t) + (v.code === 'wait' ? ' (' + esc(v.text) + ')' : '');
-      }).join(' · ');
       pn.innerHTML = '<div class="pn-head">לא חייבים למחזר את כל המשכנתא</div>'
         + '<p>הבנק מאפשר מיחזור חלקי: למחזר מסלול אחד או כמה מסלולים, ולהשאיר את שאר המסלולים בדיוק כמו שהם. מיחזור הוא לא "הכול או כלום".</p>'
-        + '<ul><li><b>למחזר:</b> ' + go.map(lbl).join(' · ') + '</li>'
-        + '<li><b>להשאיר כמו שהם:</b> ' + restTxt + '</li></ul>';
+        + '<ul><li><b>למחזר עכשיו:</b> ' + go.map(lbl).join(' · ') + '</li>'
+        + (waitT.length ? '<li><b>למחזר במועד עדכון הריבית:</b> ' + waitT.map(function(t){ return lbl(t) + ' (' + t.next_change + ')'; }).join(' · ') + '</li>' : '')
+        + (rest.length ? '<li><b>להשאיר כמו שהם:</b> ' + rest.map(lbl).join(' · ') + '</li>' : '') + '</ul>';
       show('partial-note', true);
     } else { show('partial-note', false); }
   } else { show('partial-note', false); }
@@ -649,7 +651,7 @@ function render(){
     var sc = mixed ? scope : 'full';
     document.querySelectorAll('#scope-wrap button').forEach(function(b){ b.classList.toggle('sel', b.dataset.scope === sc); });
     $('scope-help').textContent = sc === 'partial'
-      ? 'מיחזור חלקי: ממחזרים רק את המסלולים שקיבלו "למחזר". שאר המסלולים נשארים כמו שהם, באותו החזר חודשי, ולכן הרווח או ההפסד בהם 0.'
+      ? 'מיחזור חלקי: ממחזרים עכשיו את המסלולים שקיבלו "למחזר", ומסלולים שקיבלו "לחכות" ממחזרים במועד עדכון הריבית שלהם. שאר המסלולים נשארים כמו שהם, באותו החזר חודשי, ולכן הרווח או ההפסד בהם 0.'
       : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק.';
     $('rf-sub').textContent = 'ריבית השוק לפי הצעות שהבנקים נתנו עד ' + d.market.as_of + '.' + (d.anchors_as_of ? ' עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '.' : '') + ' הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
     var colName = mode === 'reduce' ? 'החזר חדש' : 'קיצור';
@@ -670,7 +672,16 @@ function render(){
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
       var touched = sc === 'full' || v.code === 'refi';
       var extra, saving;
-      if (!touched) {
+      if (sc === 'partial' && v.code === 'wait' && t.at_change) {
+        var A = t.at_change, aPay = A[mode + '_monthly'];
+        extra = '<div class="pay3"><div><b>' + ils0(aPay) + '</b> אחרי מיחזור</div>'
+              + '<div class="sub">' + ils0(A.monthly_without_refi) + ' בלי מיחזור, מ-' + t.next_change + '</div>'
+              + '<div class="sub">' + ils0(t.monthly) + ' היום</div></div>';
+        saving = signed(A[mode]) + '<div class="sub">במיחזור ב-' + t.next_change + '</div>';
+        vt = v.text;
+        sumSaving += A[mode];
+        newTot += aPay;
+      } else if (!touched) {
         extra = 'ללא שינוי<div class="sub">החזר ' + ils0(t.monthly) + '</div>';
         saving = '<span class="sub">0 ₪, לא ממחזרים</span>';
         newTot += t.monthly;
@@ -685,7 +696,12 @@ function render(){
       r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + colName + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + saving + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
     });
     var footLbl = sc === 'partial' ? 'סה"כ, מיחזור חלקי' : 'סה"כ, מיחזור מלא';
-    var footPay = 'החזר ' + ils0(newTot) + '<div class="sub">במקום ' + ils0(d.total_monthly) + '</div>';
+    var predTot = d.tracks.reduce(function(a,t){ return a + ((t.modes && t.modes.monthly_after_change) || t.monthly); }, 0);
+    var hasRise = Math.round(predTot) !== Math.round(d.total_monthly);
+    var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && t.at_change; });
+    var footPay = '<div class="pay3"><div><b>' + ils0(newTot) + '</b> אחרי מיחזור</div>'
+                + '<div class="sub">' + ils0(d.total_monthly) + ' היום</div>'
+                + (hasRise ? '<div class="sub">' + ils0(predTot) + ' בלי מיחזור, אחרי עליית הריבית</div>' : '') + '</div>';
     r += '</tbody><tfoot><tr><td colspan="3">' + footLbl + '</td><td class="n" data-l="החזר חודשי כולל">' + footPay + '</td><td class="n" data-l="' + footLbl + '">' + signed(sumSaving) + '</td><td></td></tr></tfoot>';
     $('refi-tbl').innerHTML = r;
   }
