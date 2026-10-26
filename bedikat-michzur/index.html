@@ -127,6 +127,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .banks button.on { background: var(--primary-soft); border-color: var(--primary); }
 .banks button.on::after { content: '▴'; }
 .banks b { display: block; font-size: 14px; color: var(--primary); }
+.banks button { display: flex; align-items: center; gap: 12px; }
+.banks .bank-logo { width: 72px; height: 36px; object-fit: contain; flex: none; }
+.banks .bank-txt { display: block; }
 .bank-how { grid-column: 1 / -1; margin: 2px 0 4px; background: var(--primary-soft); border: 1px solid var(--primary); border-radius: 12px; padding: 12px 16px; font-size: 15.5px; }
 .bank-how .bh-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
 .bank-how .bh-head a { font-size: 14px; font-weight: 600; white-space: nowrap; }
@@ -395,13 +398,13 @@ table.t td:last-child { min-width: 120px; }
     <h2 id="up-h">איזה מסמך להעלות</h2>
     <p>את דוח היתרות לסילוק מורידים מאזור המשכנתא באתר הבנק. לחצו על הבנק שלכם כדי לראות איך מוציאים את הדוח:</p>
     <div class="banks" id="banks">
-      <button type="button" data-bank="leumi" aria-expanded="false"><b>לאומי</b>פירוט יתרות ועמלות פירעון מוקדם</button>
-      <button type="button" data-bank="poalim" aria-expanded="false"><b>הפועלים</b>פרטי משכנתאות (כולל יתרה לסילוק)</button>
-      <button type="button" data-bank="mizrahi" aria-expanded="false"><b>מזרחי-טפחות</b>נתונים לסילוק מלא של הלוואה</button>
-      <button type="button" data-bank="discount" aria-expanded="false"><b>דיסקונט</b>פרטי משכנתא כולל יתרה לסילוק</button>
-      <button type="button" data-bank="fibi" aria-expanded="false"><b>הבינלאומי, מסד, פאג"י</b>אישור פרטי הלוואה/ות</button>
-      <button type="button" data-bank="otsar" aria-expanded="false"><b>אוצר החייל</b>אישור פרטי הלוואה/ות</button>
-      <button type="button" data-bank="jerusalem" aria-expanded="false"><b>בנק ירושלים</b>פירוט סילוקית בתיק</button>
+      <button type="button" data-bank="leumi" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/leumi.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>לאומי</b>פירוט יתרות ועמלות פירעון מוקדם</span></button>
+      <button type="button" data-bank="poalim" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/poalim.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>הפועלים</b>פרטי משכנתאות (כולל יתרה לסילוק)</span></button>
+      <button type="button" data-bank="mizrahi" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/mizrahi.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>מזרחי-טפחות</b>נתונים לסילוק מלא של הלוואה</span></button>
+      <button type="button" data-bank="discount" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/discount.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>דיסקונט</b>פרטי משכנתא כולל יתרה לסילוק</span></button>
+      <button type="button" data-bank="fibi" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/fibi.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>הבינלאומי, מסד, פאג"י</b>אישור פרטי הלוואה/ות</span></button>
+      <button type="button" data-bank="otsar" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/otsar.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>אוצר החייל</b>אישור פרטי הלוואה/ות</span></button>
+      <button type="button" data-bank="jerusalem" aria-expanded="false"><img class="bank-logo" src="/bedikat-michzur/logos/jerusalem.png?v=1" alt="" width="72" height="36"><span class="bank-txt"><b>בנק ירושלים</b>פירוט סילוקית בתיק</span></button>
       <div class="bank-how hidden" id="bank-how" aria-live="polite"></div>
     </div>
     <ul class="rules">
