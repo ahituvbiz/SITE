@@ -732,7 +732,8 @@ function render(){
   $('ai-notes').innerHTML = (n.notes && n.notes.length) ? '<div class="ai-notes"><div class="tag">הערות שהמודל הוסיף (לא חלק מהחישוב)</div><ul>' + n.notes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
 
   // 5. not checked
-  $('not-checked').innerHTML = (d.not_checked || []).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+  $('not-checked').innerHTML = '<li><b>האם כדאי לעבור בין מסלולי משכנתא: כדאיות מעבר בין מסלולים תלויה בציפיות האינפלציה ובצפי לגבי שינויי ריבית עתידיים. כדי להימנע מספק, בדיקת הכדאיות נעשתה אך ורק כ"השוואת תפוחים לתפוחים".</b></li>'
+    + (d.not_checked || []).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
 }
 })();
 </script>
