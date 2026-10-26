@@ -121,8 +121,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .card h2 { font-size: 21px; margin-bottom: 10px; }
 .card h3 { font-size: 17px; margin: 14px 0 6px; }
 .banks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 18px; margin: 10px 0 4px; font-size: 15px; }
-.banks div { padding: 8px 10px; background: var(--bg-cream); border-radius: 8px; }
+.banks button { padding: 8px 10px 8px 28px; background: var(--bg-cream); border: 1px solid transparent; border-radius: 8px; font: inherit; font-size: 15px; color: var(--text-1); text-align: right; cursor: pointer; position: relative; transition: border-color .15s, background .15s; }
+.banks button::after { content: '▾'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 14px; }
+.banks button:hover { border-color: #9BCDE0; }
+.banks button.on { background: var(--primary-soft); border-color: var(--primary); }
+.banks button.on::after { content: '▴'; }
 .banks b { display: block; font-size: 14px; color: var(--primary); }
+.bank-how { grid-column: 1 / -1; margin: 2px 0 4px; background: var(--primary-soft); border: 1px solid var(--primary); border-radius: 12px; padding: 12px 16px; font-size: 15.5px; }
+.bank-how .bh-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+.bank-how .bh-head a { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.bank-how ol { padding-inline-start: 22px; }
+.bank-how li { margin: 3px 0; }
+.bank-how .bh-note { margin-top: 6px; font-size: 14px; color: var(--text-2); }
 .rules { margin: 12px 0 0; padding-inline-start: 20px; color: var(--text-2); font-size: 15px; }
 .rules li { margin: 3px 0; }
 .drop { display: block; margin-top: 16px; border: 2px dashed #9BCDE0; border-radius: 14px; padding: 28px 16px; text-align: center; cursor: pointer; background: #FAFDFF; transition: background .15s, border-color .15s; }
@@ -383,14 +393,16 @@ table.t td:last-child { min-width: 120px; }
   <!-- 1. העלאה -->
   <section class="card upload-card" id="upload-card" aria-labelledby="up-h">
     <h2 id="up-h">איזה מסמך להעלות</h2>
-    <p>את דוח היתרות לסילוק מורידים מאזור המשכנתא באתר הבנק. שם המסמך בכל בנק:</p>
-    <div class="banks">
-      <div><b>לאומי</b>פירוט יתרות ועמלות פירעון מוקדם</div>
-      <div><b>הפועלים</b>פרטי משכנתאות (כולל יתרה לסילוק)</div>
-      <div><b>מזרחי-טפחות</b>נתונים לסילוק מלא של הלוואה</div>
-      <div><b>דיסקונט</b>פרטי משכנתא כולל יתרה לסילוק</div>
-      <div><b>הבינלאומי, אוצר החייל, מסד, פאג"י</b>אישור פרטי הלוואה/ות</div>
-      <div><b>בנק ירושלים</b>פירוט סילוקית בתיק</div>
+    <p>את דוח היתרות לסילוק מורידים מאזור המשכנתא באתר הבנק. לחצו על הבנק שלכם כדי לראות איך מוציאים את הדוח:</p>
+    <div class="banks" id="banks">
+      <button type="button" data-bank="leumi" aria-expanded="false"><b>לאומי</b>פירוט יתרות ועמלות פירעון מוקדם</button>
+      <button type="button" data-bank="poalim" aria-expanded="false"><b>הפועלים</b>פרטי משכנתאות (כולל יתרה לסילוק)</button>
+      <button type="button" data-bank="mizrahi" aria-expanded="false"><b>מזרחי-טפחות</b>נתונים לסילוק מלא של הלוואה</button>
+      <button type="button" data-bank="discount" aria-expanded="false"><b>דיסקונט</b>פרטי משכנתא כולל יתרה לסילוק</button>
+      <button type="button" data-bank="fibi" aria-expanded="false"><b>הבינלאומי, מסד, פאג"י</b>אישור פרטי הלוואה/ות</button>
+      <button type="button" data-bank="otsar" aria-expanded="false"><b>אוצר החייל</b>אישור פרטי הלוואה/ות</button>
+      <button type="button" data-bank="jerusalem" aria-expanded="false"><b>בנק ירושלים</b>פירוט סילוקית בתיק</button>
+      <div class="bank-how hidden" id="bank-how" aria-live="polite"></div>
     </div>
     <ul class="rules">
       <li>רק קובץ PDF מקורי שהורד מאתר הבנק. סריקה, צילום מסך או צילום טלפון לא ייקראו.</li>
@@ -517,6 +529,64 @@ function ils0(v){ return Math.round(v).toLocaleString('he-IL') + ' ₪'; }
 function pct(v){ return (v*100).toFixed(2) + '%'; }
 function signed(v){ var c = v > 0 ? 'pos' : (v < 0 ? 'neg' : ''); var t = v > 0 ? 'רווח ' + ils(v) : (v < 0 ? 'הפסד ' + ils(-v) : '0 ₪'); return '<span class="' + c + '">' + t + '</span>'; }
 function show(id, on){ $(id).classList.toggle('hidden', !on); }
+
+/* --- how to get the report, per bank --- */
+var BANKS = {
+  leumi: {name: 'לאומי', site: 'https://www.leumi.co.il', steps: [
+    'היכנסו לאתר הבנק, לאזור האישי.',
+    'היכנסו ל"הלוואות ומשכנתאות" ובחרו את המשכנתא שלכם.',
+    'בחרו "הזמנת מסמכי משכנתא".',
+    'במסך שנפתח הזמינו את המסמך "אישור יתרות לסילוק".',
+    'המסמך יגיע ביום שלמחרת לתא הדואר באתר הבנק.',
+    'לחלופין, אפשר להזמין במוקד לאומי, *6062.']},
+  poalim: {name: 'הפועלים', site: 'https://www.bankhapoalim.co.il', steps: [
+    'היכנסו לאתר בנק הפועלים.',
+    'לחצו על הלשונית "הלוואות ומשכנתא".',
+    'לחצו על "ההלוואות והמשכנתא שלי".',
+    'בתחתית העמוד לחצו על "דוח פרטי משכנתאות".',
+    'הדוח מתקבל מיד.',
+    'לחלופין, אפשר להזמין במוקד הפועלים, *2401.']},
+  mizrahi: {name: 'מזרחי-טפחות', site: 'https://www.mizrahi-tefahot.co.il', steps: [
+    'היכנסו לאתר הבנק והתחברו לחשבון.',
+    'אם יש לכם בבנק רק משכנתא: לחצו "כניסה ללקוחות טפחות", והכניסה היא עם קוד חד-פעמי.',
+    'לחצו על "הלוואות ומשכנתאות".',
+    'בחרו "בקשות וטפסים" או "טפסים ואישורים", ובדף שנפתח בחרו "הפקת יתרות לסילוק".',
+    'לחלופין, אפשר לפנות למוקד, *8860.']},
+  discount: {name: 'דיסקונט', site: 'https://www.discountbank.co.il', steps: [
+    'היכנסו לאתר בנק דיסקונט.',
+    'בתפריט שבצד ימין בחרו "משכנתאות".',
+    'לחצו על "פירוט המשכנתא המלא כולל יתרה לסילוק".',
+    'הדוח מתקבל מיד.',
+    'לחלופין, אפשר להזמין במוקד דיסקונט, *2009.']},
+  fibi: {name: 'הבינלאומי, מסד, פאג"י', site: 'https://www.fibi.co.il', steps: [
+    'היכנסו לאתר הבנק, לאזור המשכנתאות.',
+    'לחצו על כפתור ההדפסה.',
+    'בחרו "שמירה כ-PDF".',
+    'לחלופין, אפשר להזמין במוקד הבינלאומי, *3533 (א׳ עד ה׳, 08:00 עד 15:30).']},
+  otsar: {name: 'אוצר החייל', site: 'https://www.bankotsar.co.il/private', steps: [
+    'היכנסו לאתר בנק אוצר החייל, לאזור המשכנתאות.',
+    'לחצו על כפתור ההדפסה.',
+    'בחרו "שמירה כ-PDF".',
+    'לחלופין, אפשר להזמין במוקד הבנק, 1700-700-185 (א׳ עד ה׳, 08:00 עד 18:00).']},
+  jerusalem: {name: 'בנק ירושלים', site: 'https://www.bankjerusalem.co.il', steps: [
+    'היכנסו לאתר בנק ירושלים.',
+    'הורידו את דוח יתרת המשכנתא ("פירוט סילוקית בתיק").',
+    'לחלופין, אפשר להזמין במוקד הבנק, 076-8095115.']}
+};
+document.getElementById('banks').addEventListener('click', function(e){
+  var btn = e.target.closest('button[data-bank]'); if (!btn) return;
+  var open = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('#banks button').forEach(function(b){ b.setAttribute('aria-expanded', 'false'); b.classList.remove('on'); });
+  var box = document.getElementById('bank-how');
+  if (open) { box.classList.add('hidden'); return; }
+  var B = BANKS[btn.dataset.bank];
+  btn.setAttribute('aria-expanded', 'true'); btn.classList.add('on');
+  box.innerHTML = '<div class="bh-head"><b>איך מוציאים את הדוח ב' + esc(B.name) + '</b><a href="' + B.site + '" target="_blank" rel="noopener">לאתר הבנק</a></div>'
+    + '<ol>' + B.steps.map(function(x){ return '<li>' + esc(x).replace(/\*(\d{4})/g, '<span dir="ltr">*$1</span>').replace(/(\d[\d-]{8,}\d)/g, '<span dir="ltr">$1</span>') + '</li>'; }).join('') + '</ol>'
+    + '<p class="bh-note">שמרו את הקובץ כמו שהוא והעלו אותו כאן למטה.</p>';
+  btn.insertAdjacentElement('afterend', box);   // right under the tapped bank, also on phones
+  box.classList.remove('hidden');
+});
 
 /* --- upload --- */
 var drop = $('drop'), inp = $('file');
