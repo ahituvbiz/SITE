@@ -115,7 +115,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .mz { padding: var(--s-lg) 0 var(--s-xl); background: var(--bg-cream); min-height: 70vh; }
 .mz .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
 .mz h1 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 10px; }
-.mz .lede { font-size: 18px; color: var(--text-2); }
+.mz .lede { font-size: 18px; color: var(--text-2); max-width: 760px; }
 .mz .ai-note { margin-top: 14px; display: inline-flex; gap: 8px; align-items: flex-start; background: var(--warning-soft); color: #7A5A12; border-radius: 10px; padding: 10px 14px; font-size: 15px; }
 .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: var(--s-md); margin-top: var(--s-md); }
 .card h2 { font-size: 21px; margin-bottom: 10px; }
@@ -212,6 +212,13 @@ table.t td:last-child { min-width: 120px; }
 #scope-wrap .toggle { margin-top: 0; }
 .goal-card .goal-q { font-size: 20px; margin-bottom: 4px; }
 .goal-card .toggle { margin-top: 6px; }
+.rate-box { display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
+.rate-in { width: 76px; padding: 5px 6px; border: 1px solid #9BCDE0; border-radius: 6px; font: inherit; font-size: 15px; text-align: center; background: #fff; }
+.rate-in:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+.ov-note { color: #7A5A12 !important; }
+.ov-note a { font-size: 12.5px; }
+.ov-help { background: var(--warning-soft); border-radius: 10px; padding: 10px 14px; font-size: 15px; margin: 6px 0 10px; }
+@media print { .rate-in { border: 0; width: auto; } .ov-help { display: none; } }
 .consult-cta { margin-top: var(--s-md); text-align: center; }
 .btn-wa { display: inline-block; background: #25D366; color: #fff !important; font-weight: 700; font-size: 18px; padding: 14px 28px; border-radius: 999px; text-decoration: none !important; box-shadow: 0 2px 6px rgba(0,0,0,.12); transition: background .15s, transform .15s; }
 .btn-wa:hover { background: #1EBE5A; transform: translateY(-1px); }
@@ -241,7 +248,6 @@ table.t td:last-child { min-width: 120px; }
   table.t { min-width: 0; font-size: 11px; }
 }
 
-    .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
 </style>
   <link rel="stylesheet" href="/site-chrome.css?v=2">
 <!--@CHROME:HEAD@-->
@@ -363,7 +369,7 @@ table.t td:last-child { min-width: 120px; }
     </a>
     <nav class="nav" aria-label="ראשי">
       <a href="/">בית</a>
-      <a href="/robyectivi/" class="active" aria-current="page">🤖 רובייקטיבי</a>
+      <a href="/robyectivi/">🤖 רובייקטיבי</a>
       <a href="/investment/ira/">IRA</a>
       <a href="/services/">שירותים</a>
       <a href="/tools/">מחשבונים</a>
@@ -391,8 +397,7 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="page-updated">עודכן: 26 באוקטובר 2026</p>
-  <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
+  <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כדקה השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
   <!-- 1. העלאה -->
@@ -433,7 +438,7 @@ table.t td:last-child { min-width: 120px; }
   <!-- 2. עיבוד -->
   <section class="card hidden" id="progress-card" aria-live="polite">
     <h2>מנתחים את הדוח</h2>
-    <p class="sub">לוקח כ-60 שניות. אל תסגרו את הדף.</p>
+    <p class="sub">בדרך כלל לוקח בין חצי דקה לדקה וחצי. אל תסגרו את הדף.</p>
     <ol class="steps" id="steps">
       <li data-s="0"><span class="dot"></span>קריאת הדוח</li>
       <li data-s="1"><span class="dot"></span>הצלבה מול הסכומים שהבנק הדפיס</li>
@@ -489,6 +494,7 @@ table.t td:last-child { min-width: 120px; }
         </div>
         <p class="toggle-help" id="scope-help"></p>
       </div>
+      <p class="ov-help"><b>קיבלתם הצעת ריבית מהבנק?</b> הקלידו אותה בעמודה "הריבית אותה ניתן לקבל היום" במסלול המתאים, והחישוב, ההחזר החודשי וההמלצה יתעדכנו לפי הריבית שלכם.</p>
       <p class="sub" id="rf-sub"></p>
       <div class="tbl-wrap"><table class="t" id="refi-tbl"></table></div>
     </section>
@@ -627,7 +633,7 @@ $('go').addEventListener('click', function(){
     .then(function(j){
       timers.forEach(clearTimeout);
       if (j.status !== 'ok') { reject(j); return; }
-      stepTo(4); data = j; mode = 'shorten'; scope = 'partial'; render();
+      stepTo(4); data = j; mode = 'shorten'; scope = 'partial'; ov = {}; effCache = {}; render();
     })
     .catch(function(){ timers.forEach(clearTimeout); reject({code:'network'}); });
 });
@@ -655,7 +661,25 @@ function reject(j){
   $('reject-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
+document.addEventListener('change', function(e){
+  var inp = e.target.closest && e.target.closest('.rate-in'); if (!inp || !data) return;
+  var idx = +inp.dataset.idx, v = parseFloat(String(inp.value).replace(',', '.'));
+  var t = data.tracks.filter(function(x){ return x.idx === idx; })[0];
+  var def = t ? ((t.market_rate != null) ? t.market_rate : null) : null;
+  if (isFinite(v) && v >= 0.5 && v <= 15) {
+    var r = Math.round(v * 100) / 10000;
+    if (def != null && Math.abs(r - def) < 1e-9 && scope !== 'full') delete ov[idx]; else ov[idx] = r;
+  } else { delete ov[idx]; }
+  var next = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.idx : null;
+  render();
+  if (next != null) { var el = document.querySelector('.rate-in[data-idx="' + next + '"]'); if (el) el.focus(); }
+});
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('rate-in')) e.target.blur();
+});
 document.addEventListener('click', function(e){
+  var rs = e.target.closest('[data-reset]');
+  if (rs && data) { e.preventDefault(); delete ov[+rs.dataset.reset]; render(); return; }
   var a = e.target.closest('[data-act]');
   if (a) {
     if (a.dataset.act === 'print') window.print();
@@ -669,7 +693,77 @@ document.addEventListener('click', function(e){
 });
 
 /* --- result --- */
-function verdictOf(t){ return (t.verdicts && t.verdicts[mode]) || {code: t.verdict_code || 'none', text: t.verdict || 'אין השוואה'}; }
+/* --- the visitor's own rate offer: same math as the server (engine.py), run here --- */
+var ov = {};   // track idx -> annual rate (fraction) typed by the visitor
+function pmtF(rA, n, P){ if (n <= 0) return P; var r = rA / 12; if (Math.abs(r) < 1e-12) return P / n; return P * r / (1 - Math.pow(1 + r, -n)); }
+function nperF(rA, pay, P){ var r = rA / 12; if (pay <= 0) return null; if (Math.abs(r) < 1e-12) return P / pay; var x = 1 - P * r / pay; if (x <= 0) return null; return -Math.log(x) / Math.log(1 + r); }
+function balAfter(rA, pay, P, k){ var r = rA / 12; if (Math.abs(r) < 1e-12) return P - pay * k; var g = Math.pow(1 + r, k); return P * g - pay * (g - 1) / r; }
+function scen(t, rm){
+  var n = t.months_left, P = t.balance, H = t.monthly, r0 = t.rate, fee = t.fee || 0;
+  var k = t.months_to_change, ra = t.rate_after_change, H2 = null, existing;
+  if (k && k > 0 && k < n && ra != null) {
+    var Bk = Math.max(balAfter(r0, H, P, k), 0); H2 = pmtF(ra, n - k, Bk); existing = H * k + H2 * (n - k);
+  } else { existing = H * n; }
+  var nP = P + fee, np = pmtF(rm, n, nP);
+  var reduce = {saving: existing - np * n, new_monthly: np};
+  var m = nperF(rm, H, nP);
+  var shorten = (m != null && m <= n) ? {saving: existing - H * m, new_months: m, months_saved: n - m, capped: false}
+                                      : {saving: reduce.saving, new_months: n, months_saved: 0, capped: true, new_monthly: np};
+  return {shorten: shorten, reduce: reduce, monthly_after_change: H2};
+}
+function atChange(t, rm){
+  var n = t.months_left, P = t.balance, H = t.monthly, k = t.months_to_change, ra = t.rate_after_change, left = n - k;
+  var Bk = Math.max(balAfter(t.rate, H, P, k), 0), H2 = pmtF(ra, left, Bk), existing = H2 * left;
+  var red = pmtF(rm, left, Bk), rd = existing - red * left, m = nperF(rm, H, Bk), sh, shp;
+  if (m != null && m <= left) { sh = existing - H * m; shp = H; } else { sh = rd; shp = red; }
+  return {shorten: sh, reduce: rd, shorten_monthly: shp, reduce_monthly: red, monthly_without_refi: H2};
+}
+var effCache = {};
+function eff(t){
+  if (ov[t.idx] == null) return t;
+  var key = t.idx + ':' + ov[t.idx];
+  if (effCache[key]) return effCache[key];
+  var rm = ov[t.idx], e = {};
+  for (var kk in t) e[kk] = t[kk];
+  e.modes = scen(t, rm); e.modes_full = null; e.market_rate = rm; e.market_rate_full = null; e.overridden = true;
+  var k = t.months_to_change, ra = t.rate_after_change;
+  var wait = k && k > 0 && k <= 12 && ra != null && t.rate <= rm && rm < ra;
+  e.at_change = wait ? atChange(t, rm) : null;
+  e.verdicts = {};
+  ['shorten', 'reduce'].forEach(function(md){
+    e.verdicts[md] = wait ? {code: 'wait', text: 'לחכות עד ' + t.next_change}
+                   : (e.modes[md].saving > 0 ? {code: 'refi', text: 'למחזר'} : {code: 'keep', text: 'לא לגעת'});
+  });
+  effCache[key] = e; return e;
+}
+function canOverride(t){ return t.monthly >= 0.5 && t.months_left > 0; }
+function verdictOf(t){ var e = eff(t); return (e.verdicts && e.verdicts[mode]) || {code: e.verdict_code || 'none', text: e.verdict || 'אין השוואה'}; }
+function totalsOf(md){
+  var T = {partial: 0, full: 0, n_refi: 0, n_wait: 0};
+  data.tracks.forEach(function(t){
+    var e = eff(t); if (!e.modes) return;
+    var c = verdictOf(t).code;
+    if (c === 'refi') { T.partial += e.modes[md].saving; T.n_refi++; }
+    if (c === 'wait' && e.at_change) { T.partial += e.at_change[md]; T.n_wait++; }
+    T.full += (e.modes_full || e.modes)[md].saving;
+  });
+  return T;
+}
+
+function rateInput(t, def){
+  var cur = ov[t.idx] != null ? ov[t.idx] : def;
+  var val = cur != null ? (cur * 100).toFixed(2) : '';
+  return '<span class="rate-box"><input type="number" class="rate-in" data-idx="' + t.idx + '" step="0.01" min="0.5" max="15" inputmode="decimal" value="' + val + '" aria-label="ריבית למסלול ' + esc(t.type) + '"><span>%</span></span>'
+    + (ov[t.idx] != null ? '<div class="sub ov-note">הריבית שהזנתם · <a href="#" data-reset="' + t.idx + '">חזרה לברירת המחדל</a></div>' : '');
+}
+function ovText(e){
+  var M = e.modes[mode], v = e.verdicts[mode];
+  var s = 'חישוב לפי הריבית שהזנתם, ' + pct(e.market_rate) + ', מול ריבית של ' + pct(e.rate) + ' היום. ';
+  if (v.code === 'wait') return s + 'עד ' + e.next_change + ' המסלול זול מהריבית שהזנתם, ואחרי העדכון הריבית המשוערת היא ' + pct(e.rate_after_change) + '. מיחזור במועד העדכון: ' + (e.at_change[mode] >= 0 ? 'רווח ' : 'הפסד ') + ils(Math.abs(e.at_change[mode])) + '.';
+  var pay = mode === 'reduce' ? ' ההחזר החודשי יהיה ' + ils0(M.new_monthly) + ' במקום ' + ils0(e.monthly) + '.'
+          : (M.capped ? ' אין קיצור תקופה: ההחזר עולה ל-' + ils0(M.new_monthly) + '.' : (M.months_saved < 0.5 ? ' התקופה מתקצרת בפחות מחודש, באותו החזר.' : ' התקופה מתקצרת ב-' + Math.round(M.months_saved) + ' חודשים, באותו החזר.'));
+  return s + (M.saving >= 0 ? 'מיחזור בריבית הזו מביא לרווח של ' : 'מיחזור בריבית הזו מביא להפסד של ') + ils(Math.abs(M.saving)) + '.' + pay;
+}
 
 function render(){
   var d = data, hasM = d.mode === 'full';
@@ -679,7 +773,7 @@ function render(){
   // 1. answer line
   var ans = '';
   if (hasM) {
-    var T = d.totals[mode];
+    var T = totalsOf(mode);
     var plbl = T.n_refi + ' מסלולים עכשיו' + (T.n_wait ? ', ועוד ' + T.n_wait + ' במועד עדכון הריבית' : '');
     ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + plbl + ')</div><div class="val">' + ((T.n_refi || T.n_wait) ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div></div>';
     ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div><div class="sub bargain">במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.</div></div>';
@@ -691,7 +785,7 @@ function render(){
   // partial refinance is allowed: say it loudly whenever only some tracks get "למחזר"
   var pn = $('partial-note');
   if (hasM) {
-    var cmp = d.tracks.filter(function(t){ return t.modes; });
+    var cmp = d.tracks.filter(function(t){ return eff(t).modes; });
     var go = cmp.filter(function(t){ return verdictOf(t).code === 'refi'; });
     var waitT = cmp.filter(function(t){ return verdictOf(t).code === 'wait'; });
     var rest = d.tracks.filter(function(t){ var c = verdictOf(t).code; return c !== 'refi' && c !== 'wait'; });
@@ -738,18 +832,20 @@ function render(){
     var colName = mode === 'reduce' ? 'החזר חדש' : 'קיצור';
     var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + colName + '</th><th>רווח או הפסד</th><th>המלצה</th></tr></thead><tbody>';
     var sumSaving = 0, newTot = 0;
-    d.tracks.forEach(function(t){
-      var v = verdictOf(t);
-      var flags = (t.flags || []).filter(function(f){ return f.code !== 'indicative'; }).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
+    d.tracks.forEach(function(t0){
+      var t = eff(t0);
+      var v = verdictOf(t0);
+      var flags = (t.flags || []).filter(function(f){ return f.code !== 'indicative' && !(t.overridden && f.code === 'cheap'); }).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
       var rate = pct(t.rate) + (t.rate_after_change != null ? '<div class="sub">משוערת אחרי העדכון: ' + pct(t.rate_after_change) + '</div>' : '');
       var head = '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td>';
       if (!t.modes) {
         newTot += t.monthly;
-        r += head + '<td colspan="3" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="המלצה"><span class="vd none">אין השוואה</span></td></tr>';
+        var inp0 = canOverride(t) ? rateInput(t, null) : '';
+        r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + inp0 + '</td><td colspan="2" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="המלצה"><span class="vd none">אין השוואה</span></td></tr>';
         return;
       }
       var M = (sc === 'full' && t.modes_full) ? t.modes_full[mode] : t.modes[mode];
-      var mk = pct((sc === 'full' && t.market_rate_full != null) ? t.market_rate_full : t.market_rate);
+      var mk = rateInput(t, (sc === 'full' && t.market_rate_full != null) ? t.market_rate_full : t.market_rate);
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
       var touched = sc === 'full' || v.code === 'refi';
       var extra, saving;
@@ -769,7 +865,7 @@ function render(){
       } else {
         extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
               : (M.capped ? 'אין קיצור<div class="sub">ההחזר עולה ל-' + ils0(M.new_monthly) + '</div>'
-                 : (M.months_saved != null ? Math.round(M.months_saved) + ' חודשים' : ''));
+                 : (M.months_saved != null ? (M.months_saved < 0.5 ? 'פחות מחודש' : Math.round(M.months_saved) + ' חודשים') : ''));
         saving = signed(M.saving);
         sumSaving += M.saving;
         newTot += (mode === 'reduce' || M.capped) ? M.new_monthly : t.monthly;
@@ -777,9 +873,9 @@ function render(){
       r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + colName + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + saving + '</td><td data-l="המלצה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
     });
     var footLbl = sc === 'partial' ? 'סה"כ, מיחזור חלקי' : 'סה"כ, מיחזור מלא';
-    var predTot = d.tracks.reduce(function(a,t){ return a + ((t.modes && t.modes.monthly_after_change) || t.monthly); }, 0);
+    var predTot = d.tracks.reduce(function(a,t){ var e = eff(t); return a + ((e.modes && e.modes.monthly_after_change) || t.monthly); }, 0);
     var hasRise = Math.round(predTot) !== Math.round(d.total_monthly);
-    var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && t.at_change; });
+    var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && eff(t).at_change; });
     var footPay = '<div class="pay3"><div><b>' + ils0(newTot) + '</b> אחרי מיחזור</div>'
                 + '<div class="sub">' + ils0(d.total_monthly) + ' היום</div>'
                 + (hasRise ? '<div class="sub">' + ils0(predTot) + ' משוער בלי מיחזור, אחרי עליית הריבית</div>' : '') + '</div>';
@@ -798,7 +894,7 @@ function render(){
   var c = '';
   d.tracks.forEach(function(t, i){
     var v = verdictOf(t);
-    var txt = (n.tracks[String(t.idx)] || {})[mode] || '';
+    var txt = ov[t.idx] != null ? ovText(eff(t)) : ((n.tracks[String(t.idx)] || {})[mode] || '');
     c += '<div class="concl ' + v.code + '"><h3>' + esc(t.type) + ', ' + pct(t.rate) + ': ' + esc(v.text) + '</h3><p>' + esc(txt) + '</p></div>';
   });
   $('conclusions').innerHTML = c;
