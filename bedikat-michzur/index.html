@@ -661,16 +661,16 @@ function render(){
       : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק. במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.';
     $('rf-sub').textContent = (d.anchors_as_of ? 'עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '. ' : '') + 'הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
     var colName = mode === 'reduce' ? 'החזר חדש' : 'קיצור';
-    var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + colName + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
+    var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + colName + '</th><th>רווח או הפסד</th><th>המלצה</th></tr></thead><tbody>';
     var sumSaving = 0, newTot = 0;
     d.tracks.forEach(function(t){
       var v = verdictOf(t);
       var flags = (t.flags || []).filter(function(f){ return f.code !== 'indicative'; }).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
-      var rate = pct(t.rate) + (t.rate_after_change != null ? '<div class="sub">אחרי העדכון: ' + pct(t.rate_after_change) + '</div>' : '');
+      var rate = pct(t.rate) + (t.rate_after_change != null ? '<div class="sub">משוערת אחרי העדכון: ' + pct(t.rate_after_change) + '</div>' : '');
       var head = '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td>';
       if (!t.modes) {
         newTot += t.monthly;
-        r += head + '<td colspan="3" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="פסיקה"><span class="vd none">אין השוואה</span></td></tr>';
+        r += head + '<td colspan="3" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="המלצה"><span class="vd none">אין השוואה</span></td></tr>';
         return;
       }
       var M = (sc === 'full' && t.modes_full) ? t.modes_full[mode] : t.modes[mode];
@@ -681,7 +681,7 @@ function render(){
       if (sc === 'partial' && v.code === 'wait' && t.at_change) {
         var A = t.at_change, aPay = A[mode + '_monthly'];
         extra = '<div class="pay3"><div><b>' + ils0(aPay) + '</b> אחרי מיחזור</div>'
-              + '<div class="sub">' + ils0(A.monthly_without_refi) + ' בלי מיחזור, מ-' + t.next_change + '</div>'
+              + '<div class="sub">' + ils0(A.monthly_without_refi) + ' משוער בלי מיחזור, מ-' + t.next_change + '</div>'
               + '<div class="sub">' + ils0(t.monthly) + ' היום</div></div>';
         saving = signed(A[mode]) + '<div class="sub">במיחזור ב-' + t.next_change + '</div>';
         vt = v.text;
@@ -699,7 +699,7 @@ function render(){
         sumSaving += M.saving;
         newTot += (mode === 'reduce' || M.capped) ? M.new_monthly : t.monthly;
       }
-      r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + colName + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + saving + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
+      r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + colName + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + saving + '</td><td data-l="המלצה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
     });
     var footLbl = sc === 'partial' ? 'סה"כ, מיחזור חלקי' : 'סה"כ, מיחזור מלא';
     var predTot = d.tracks.reduce(function(a,t){ return a + ((t.modes && t.modes.monthly_after_change) || t.monthly); }, 0);
@@ -707,7 +707,7 @@ function render(){
     var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && t.at_change; });
     var footPay = '<div class="pay3"><div><b>' + ils0(newTot) + '</b> אחרי מיחזור</div>'
                 + '<div class="sub">' + ils0(d.total_monthly) + ' היום</div>'
-                + (hasRise ? '<div class="sub">' + ils0(predTot) + ' בלי מיחזור, אחרי עליית הריבית</div>' : '') + '</div>';
+                + (hasRise ? '<div class="sub">' + ils0(predTot) + ' משוער בלי מיחזור, אחרי עליית הריבית</div>' : '') + '</div>';
     r += '</tbody><tfoot><tr><td colspan="3">' + footLbl + '</td><td class="n" data-l="החזר חודשי כולל">' + footPay + '</td><td class="n" data-l="' + footLbl + '">' + signed(sumSaving) + '</td><td></td></tr></tfoot>';
     $('refi-tbl').innerHTML = r;
   }
