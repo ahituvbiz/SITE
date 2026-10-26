@@ -166,7 +166,7 @@ table.t th, table.t td { padding: 8px 8px; border-bottom: 1px solid var(--border
 table.t th { background: var(--bg-cream); font-weight: 600; font-size: 13.5px; color: var(--text-2); white-space: nowrap; }
 table.t td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 table.t td .v { display: block; }
-table.t td.n .sub { white-space: normal; }
+table.t td.n .sub { white-space: nowrap; }
 table.t tfoot td { font-weight: 700; border-top: 2px solid var(--text-1); }
 .vd { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 600; white-space: normal; min-width: 64px; }
 .vd .sub { font-weight: 400; }
@@ -639,7 +639,11 @@ function render(){
       var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
       r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + signed(M.saving) + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
     });
-    r += '</tbody><tfoot><tr><td colspan="4">סה"כ, מיחזור מלא</td><td class="n" data-l="סה&quot;כ, מיחזור מלא">' + signed(d.totals[mode].full) + '</td><td></td></tr></tfoot>';
+    var cmpT = d.tracks.filter(function(t){ return t.modes; });
+    var newTot = cmpT.reduce(function(a,t){ return a + t.modes.reduce.new_monthly; }, 0);
+    var oldTot = cmpT.reduce(function(a,t){ return a + t.monthly; }, 0);
+    var footExtra = mode === 'reduce' ? ils0(newTot) + '<div class="sub">במקום ' + ils0(oldTot) + '</div>' : '';
+    r += '</tbody><tfoot><tr><td colspan="3">סה"כ, מיחזור מלא</td><td class="n" data-l="החזר חדש">' + footExtra + '</td><td class="n" data-l="סה&quot;כ, מיחזור מלא">' + signed(d.totals[mode].full) + '</td><td></td></tr></tfoot>';
     $('refi-tbl').innerHTML = r;
   }
 
