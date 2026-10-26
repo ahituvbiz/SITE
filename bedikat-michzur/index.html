@@ -659,13 +659,13 @@ function render(){
     $('scope-help').textContent = sc === 'partial'
       ? 'מיחזור חלקי: ממחזרים עכשיו את המסלולים שקיבלו "למחזר", ומסלולים שקיבלו "לחכות" ממחזרים במועד עדכון הריבית שלהם. שאר המסלולים נשארים כמו שהם, באותו החזר חודשי, ולכן הרווח או ההפסד בהם 0.'
       : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק. במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.';
-    $('rf-sub').textContent = 'ריביות השוק נכונות ל-' + d.market.as_of + '.' + (d.anchors_as_of ? ' עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '.' : '') + ' הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
+    $('rf-sub').textContent = (d.anchors_as_of ? 'עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '. ' : '') + 'הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
     var colName = mode === 'reduce' ? 'החזר חדש' : 'קיצור';
     var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>הריבית אותה ניתן לקבל היום</th><th>' + colName + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
     var sumSaving = 0, newTot = 0;
     d.tracks.forEach(function(t){
       var v = verdictOf(t);
-      var flags = (t.flags || []).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
+      var flags = (t.flags || []).filter(function(f){ return f.code !== 'indicative'; }).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
       var rate = pct(t.rate) + (t.rate_after_change != null ? '<div class="sub">אחרי העדכון: ' + pct(t.rate_after_change) + '</div>' : '');
       var head = '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td>';
       if (!t.modes) {
