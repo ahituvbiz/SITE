@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות לסילוק</title>
+<meta name="description" content="מעלים דוח יתרות לסילוק מאתר הבנק ומקבלים ניתוח AI: טבלת מסלולים מוצלבת, השוואה לריביות השוק ורווח או הפסד ממיחזור בכל מסלול.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #007DA8;
+  --primary-soft: #E1F3FB;
+  --cta: #D74E3C;
+  --cta-hover: #B83E2E;
+  --text-1: #1A1A1A;
+  --text-2: #555555;
+  --text-meta: #999999;
+  --bg-white: #FFFFFF;
+  --bg-cream: #F8F6F2;
+  --border: #E5E7EB;
+  --positive: #5C8D5A;
+  --positive-soft: #D5E8D4;
+  --warning: #E8B450;
+  --warning-soft: #FFF2CC;
+  --negative: #C53030;
+  --negative-soft: #F8CECC;
+  --s-xs: 8px;
+  --s-sm: 16px;
+  --s-md: 24px;
+  --s-lg: 32px;
+  --s-xl: 48px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 17px;
+  overflow-x: hidden;
+  line-height: 1.6;
+  color: var(--text-1);
+  background: var(--bg-white);
+  font-weight: 400;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; display: block; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s-md); }
+h1, h2, h3, h4 { line-height: 1.3; color: var(--text-1); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-xs);
+  padding: 10px 20px; border-radius: var(--radius-btn);
+  font-size: 16px; font-weight: 600; border: none; cursor: pointer;
+  transition: background .15s, transform .15s; text-decoration: none !important; font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: #fff; }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: var(--primary); color: #fff; }
+.btn-secondary:hover { background: #006487; transform: translateY(-1px); }
+.btn-ghost { background: #fff; color: var(--primary); border: 1px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-soft); }
+.btn-small { padding: 6px 12px; font-size: 14px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* ── Header (זהה לשאר דפי האתר) ── */
+.header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: var(--s-md); }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--primary); text-decoration: none !important; }
+.logo svg { width: 36px; height: 36px; }
+.logo .logo-sub { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); }
+.nav { display: flex; align-items: center; gap: var(--s-md); }
+.nav a { color: var(--text-1); font-weight: 600; font-size: 15px; padding: 8px 4px; transition: color .15s; }
+.nav a:hover { color: var(--primary); text-decoration: none; }
+.nav a.active { color: var(--primary); border-bottom: 2px solid var(--cta); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--primary, #007DA8); border-radius: 2px; transition: all .25s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav { display: none; position: fixed; top: 0; right: 0; width: min(280px, 85vw); height: 100vh; background: #fff; flex-direction: column; padding: 5rem 1.5rem 2rem; gap: 0; box-shadow: -4px 0 20px rgba(0,0,0,.15); z-index: 150; overflow-y: auto; }
+  .nav.open { display: flex; }
+  .nav a { padding: 1rem 0; border-bottom: 1px solid #E1F3FB; font-size: 1.05rem; }
+  .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 140; }
+  .nav-overlay.open { display: block; }
+}
+.header-search { position: relative; display: flex; align-items: center; }
+.header-search input { width: 220px; height: 40px; padding: 0 40px 0 16px; border: 1px solid var(--border); border-radius: 999px; font-family: inherit; font-size: 14px; color: var(--text-1); background: var(--bg-cream); transition: all .15s; }
+.header-search input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(0,125,168,0.1); width: 260px; }
+.header-search input::placeholder { color: var(--text-meta); }
+.header-search-icon { position: absolute; left: 12px; pointer-events: none; color: var(--text-meta); display: flex; }
+.header-search-icon svg { width: 18px; height: 18px; }
+.search-results { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12); max-height: 320px; overflow-y: auto; z-index: 10; display: none; }
+.search-results.open { display: block; }
+.search-results a { display: block; padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-1); font-size: 14px; text-decoration: none; }
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover { background: var(--bg-cream); text-decoration: none; }
+.search-results .no-results { padding: 16px; color: var(--text-meta); font-size: 14px; text-align: center; }
+@media (max-width: 900px) { .header-search { display: none; } }
+.skip-link { position: absolute; top: -48px; right: 0; left: 0; background: #007DA8; color: #fff !important; padding: 12px 20px; text-align: center; z-index: 99999; text-decoration: none; font-size: 16px; font-weight: 600; transition: top 0.2s ease; border-radius: 0 0 8px 8px; }
+.skip-link:focus { top: 0; outline: 3px solid #D74E3C; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #007DA8 !important; outline-offset: 2px !important; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid #007DA8 !important; outline-offset: 2px !important; border-radius: 2px; }
+
+/* ── בדיקת מיחזור ── */
+.mz { padding: var(--s-lg) 0 var(--s-xl); background: var(--bg-cream); min-height: 70vh; }
+.mz .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+.mz h1 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 10px; }
+.mz .lede { font-size: 18px; color: var(--text-2); max-width: 760px; }
+.mz .ai-note { margin-top: 14px; display: inline-flex; gap: 8px; align-items: flex-start; background: var(--warning-soft); color: #7A5A12; border-radius: 10px; padding: 10px 14px; font-size: 15px; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: var(--s-md); margin-top: var(--s-md); }
+.card h2 { font-size: 21px; margin-bottom: 10px; }
+.card h3 { font-size: 17px; margin: 14px 0 6px; }
+.banks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 18px; margin: 10px 0 4px; font-size: 15px; }
+.banks div { padding: 8px 10px; background: var(--bg-cream); border-radius: 8px; }
+.banks b { display: block; font-size: 14px; color: var(--primary); }
+.rules { margin: 12px 0 0; padding-inline-start: 20px; color: var(--text-2); font-size: 15px; }
+.rules li { margin: 3px 0; }
+.drop { display: block; margin-top: 16px; border: 2px dashed #9BCDE0; border-radius: 14px; padding: 28px 16px; text-align: center; cursor: pointer; background: #FAFDFF; transition: background .15s, border-color .15s; }
+.drop:hover, .drop.over { background: var(--primary-soft); border-color: var(--primary); }
+.drop input { display: none; }
+.drop .big { font-size: 18px; font-weight: 600; }
+.drop .small { font-size: 14px; color: var(--text-meta); }
+.drop .fname { margin-top: 8px; font-weight: 600; color: var(--primary); word-break: break-all; }
+.consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 15px; }
+.consent input { margin-top: 5px; width: 18px; height: 18px; flex: none; }
+.go { margin-top: 16px; }
+.steps { list-style: none; margin-top: 8px; }
+.steps li { display: flex; gap: 10px; align-items: center; padding: 8px 0; color: var(--text-meta); }
+.steps li .dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex: none; display: grid; place-items: center; font-size: 13px; }
+.steps li.on { color: var(--text-1); font-weight: 600; }
+.steps li.on .dot { border-color: var(--primary); border-top-color: transparent; animation: spin 0.9s linear infinite; }
+.steps li.done { color: var(--text-2); }
+.steps li.done .dot { background: var(--positive); border-color: var(--positive); color: #fff; animation: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.msg-bad { background: var(--negative-soft); color: #7B1E1E; border-radius: 12px; padding: 16px; }
+.msg-bad h2 { color: #7B1E1E; }
+.answer { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 6px; }
+.answer .box { border-radius: 12px; padding: 14px 16px; background: var(--bg-cream); }
+.answer .box .lbl { font-size: 14px; color: var(--text-2); }
+.answer .box .val { font-size: 26px; font-weight: 700; }
+.pos { color: #2F6B2E; }
+.neg { color: var(--negative); }
+.verify { margin-top: 12px; font-size: 15px; color: #2F6B2E; display: flex; gap: 8px; align-items: center; }
+.toggle { display: inline-flex; border: 1px solid var(--primary); border-radius: 999px; overflow: hidden; margin-top: 14px; }
+.toggle button { border: 0; background: #fff; color: var(--primary); padding: 8px 16px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+.toggle button.sel { background: var(--primary); color: #fff; }
+.toggle-help { font-size: 14px; color: var(--text-meta); margin-top: 6px; }
+.tbl-wrap { overflow-x: auto; margin-top: 8px; -webkit-overflow-scrolling: touch; }
+table.t { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 640px; }
+table.t th, table.t td { padding: 8px 8px; border-bottom: 1px solid var(--border); text-align: right; vertical-align: top; }
+table.t th { background: var(--bg-cream); font-weight: 600; font-size: 13.5px; color: var(--text-2); white-space: nowrap; }
+table.t td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.t td .v { display: block; }
+table.t td.n .sub { white-space: normal; }
+table.t tfoot td { font-weight: 700; border-top: 2px solid var(--text-1); }
+.vd { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 600; white-space: normal; min-width: 64px; }
+.vd .sub { font-weight: 400; }
+table.t td:first-child { min-width: 170px; }
+table.t td:last-child { min-width: 120px; }
+.vd.refi { background: var(--positive-soft); color: #2F6B2E; }
+.vd.keep { background: #ECEFF3; color: #3A4250; }
+.vd.wait { background: var(--warning-soft); color: #7A5A12; }
+.vd.none { background: #F2F2F2; color: var(--text-meta); }
+.flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.flag { font-size: 12px; line-height: 1.5; background: var(--primary-soft); color: #005F80; padding: 1px 8px; border-radius: 6px; }
+.sub { font-size: 13px; color: var(--text-meta); }
+.concl { border-inline-start: 4px solid var(--border); padding: 4px 14px; margin: 14px 0; }
+.concl.refi { border-color: var(--positive); }
+.concl.wait { border-color: var(--warning); }
+.concl.keep { border-color: #9AA3AF; }
+.concl h3 { margin: 0 0 4px; font-size: 17px; }
+.concl p { color: var(--text-1); }
+.ai-notes { background: #F4F1FB; border-radius: 12px; padding: 12px 16px; margin-top: 12px; }
+.ai-notes .tag { font-size: 12.5px; color: #5B3FA0; font-weight: 600; }
+.fineprint { font-size: 14.5px; color: var(--text-2); }
+.fineprint li { margin: 4px 0; }
+.disclaimer { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: var(--s-md); font-size: 15px; color: var(--text-2); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: var(--s-md); }
+.hidden { display: none !important; }
+@media (max-width: 680px) {
+  .card { padding: 16px; }
+  table.t { min-width: 0; }
+  table.t thead { display: none; }
+  table.t, table.t tbody, table.t tfoot, table.t tr, table.t td { display: block; width: 100%; }
+  table.t tr { border: 1px solid var(--border); border-radius: 12px; padding: 6px 12px; margin-bottom: 10px; background: #fff; }
+  table.t td { border: 0; padding: 5px 0; min-width: 0 !important; display: flex; justify-content: space-between; gap: 12px; text-align: left; }
+  table.t td::before { content: attr(data-l); font-weight: 600; color: var(--text-2); font-size: 13.5px; text-align: right; flex: none; max-width: 45%; }
+  table.t td:first-child { display: block; text-align: right; font-weight: 700; font-size: 15.5px; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 4px; }
+  table.t td:first-child::before { content: none; }
+  table.t td .v { text-align: left; }
+  table.t td:first-child .v { text-align: right; }
+  table.t td:empty, table.t tfoot td:not([data-l]) { display: none; }
+  table.t tfoot tr { border: 2px solid var(--text-1); }
+  table.t tfoot td { border: 0; }
+  .answer .box .val { font-size: 22px; }
+}
+@media print {
+  .header, .site-footer, .skip-link, .upload-card, .actions, .toggle, .toggle-help, .mz .ai-note { display: none !important; }
+  .mz { background: #fff; padding: 0; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+  table.t { min-width: 0; font-size: 11px; }
+}
+
+</style>
+  <link rel="stylesheet" href="/site-chrome.css?v=2">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/bedikat-pensya/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content" class="mz">
+<div class="wrap">
+
+  <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
+  <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כדקה טבלת מסלולים שהוצלבה מול סכומי הבנק, השוואה לריביות שהבנקים מציעים היום, וחישוב של הרווח או ההפסד ממיחזור בכל מסלול.</p>
+  <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
+
+  <!-- 1. העלאה -->
+  <section class="card upload-card" id="upload-card" aria-labelledby="up-h">
+    <h2 id="up-h">איזה מסמך להעלות</h2>
+    <p>את דוח היתרות לסילוק מורידים מאזור המשכנתא באתר הבנק. שם המסמך בכל בנק:</p>
+    <div class="banks">
+      <div><b>לאומי</b>פירוט יתרות ועמלות פירעון מוקדם</div>
+      <div><b>הפועלים</b>פרטי משכנתאות (כולל יתרה לסילוק)</div>
+      <div><b>מזרחי-טפחות</b>נתונים לסילוק מלא של הלוואה</div>
+      <div><b>דיסקונט</b>פרטי משכנתא כולל יתרה לסילוק</div>
+      <div><b>הבינלאומי, אוצר החייל, מסד, פאג"י</b>אישור פרטי הלוואה/ות</div>
+      <div><b>בנק ירושלים</b>פירוט סילוקית בתיק</div>
+    </div>
+    <ul class="rules">
+      <li>רק קובץ PDF מקורי שהורד מאתר הבנק. סריקה, צילום מסך או צילום טלפון לא ייקראו.</li>
+      <li>הדוח צריך להיות מהחודש האחרון. ריביות ויתרות משתנות, ודוח ישן ייתן תוצאה לא נכונה.</li>
+      <li>הקובץ נמחק מיד בסיום העיבוד ולא נשמר בשום מקום.</li>
+    </ul>
+
+    <label class="drop" id="drop" for="file">
+      <input type="file" id="file" accept="application/pdf,.pdf">
+      <div class="big">גררו לכאן את הקובץ או לחצו לבחירה</div>
+      <div class="small">PDF בלבד</div>
+      <div class="fname" id="fname"></div>
+    </label>
+
+    <label class="consent">
+      <input type="checkbox" id="agree">
+      <span>הבנתי שזה ניתוח AI אוטומטי, שהוא עלול לטעות, ושהאחריות על השימוש בו עלי.</span>
+    </label>
+
+    <div class="go"><button class="btn btn-primary" id="go" disabled>נתחו את הדוח</button></div>
+  </section>
+
+  <!-- 2. עיבוד -->
+  <section class="card hidden" id="progress-card" aria-live="polite">
+    <h2>מנתחים את הדוח</h2>
+    <p class="sub">בדרך כלל לוקח בין חצי דקה לדקה וחצי. אל תסגרו את הדף.</p>
+    <ol class="steps" id="steps">
+      <li data-s="0"><span class="dot"></span>קריאת הדוח</li>
+      <li data-s="1"><span class="dot"></span>הצלבה מול הסכומים שהבנק הדפיס</li>
+      <li data-s="2"><span class="dot"></span>השוואה לריביות השוק ולעוגני בנק ישראל</li>
+      <li data-s="3"><span class="dot"></span>ניסוח המסקנות</li>
+    </ol>
+  </section>
+
+  <!-- דחייה -->
+  <section class="card hidden" id="reject-card">
+    <div class="msg-bad">
+      <h2 id="reject-title">לא ניתן לנתח את הקובץ</h2>
+      <p id="reject-text"></p>
+    </div>
+    <div class="actions"><button class="btn btn-ghost" data-act="again">להעלות קובץ אחר</button></div>
+  </section>
+
+  <!-- 3. תוצאה -->
+  <div id="result" class="hidden">
+
+    <section class="card" aria-labelledby="ans-h">
+      <h2 id="ans-h">התשובה בקצרה</h2>
+      <div class="answer" id="answer"></div>
+      <div class="verify" id="verify"></div>
+      <div id="toggle-wrap">
+        <div class="toggle" role="group" aria-label="שיטת המיחזור">
+          <button type="button" data-mode="shorten" class="sel">קיצור תקופה</button>
+          <button type="button" data-mode="reduce">הפחתת החזר</button>
+        </div>
+        <p class="toggle-help" id="toggle-help"></p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="tr-h">
+      <h2 id="tr-h">המסלולים שלכם</h2>
+      <p class="sub" id="tr-sub"></p>
+      <div class="tbl-wrap"><table class="t" id="tracks-tbl"></table></div>
+    </section>
+
+    <section class="card" id="refi-card" aria-labelledby="rf-h">
+      <h2 id="rf-h">רווח או הפסד ממיחזור, לפי מסלול</h2>
+      <p class="sub" id="rf-sub"></p>
+      <div class="tbl-wrap"><table class="t" id="refi-tbl"></table></div>
+    </section>
+
+    <section class="card" aria-labelledby="cn-h">
+      <h2 id="cn-h">מסקנה לכל מסלול</h2>
+      <div id="conclusions"></div>
+      <div id="pvf"></div>
+      <div id="ai-notes"></div>
+    </section>
+
+    <section class="card" aria-labelledby="nc-h">
+      <h2 id="nc-h">מה לא נבדק</h2>
+      <ul class="fineprint" id="not-checked"></ul>
+    </section>
+
+    <p class="disclaimer"><b>הסתייגות:</b> זה ניתוח AI אוטומטי ואינו ייעוץ. הוא עלול לטעות, וכל ההחלטות והאחריות על השימוש בו הן שלכם. לפני מיחזור כדאי לקבל מהבנק הצעה כתובה ולבדוק אותה.</p>
+
+    <div class="actions">
+      <button class="btn btn-secondary" data-act="print">שמירה כ-PDF / הדפסה</button>
+      <button class="btn btn-ghost" data-act="again">לבדוק דוח אחר</button>
+    </div>
+  </div>
+
+  <!-- הצעת השיחה: טקסט קבוע של איתן, מחוץ לאלגוריתם הניתוח. ממלאים כאן כשהניסוח מוכן. -->
+
+</div>
+</main>
+
+<script>
+(function(){
+'use strict';
+var API = 'https://robjectivi-api-1096093657640.europe-west1.run.app';
+var $ = function(id){ return document.getElementById(id); };
+var file = null, data = null, mode = 'shorten', timers = [];
+
+try { fetch(API + '/mortgage/health', {cache:'no-store'}).catch(function(){}); } catch(e) {}
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function ils(v){ var r = Math.round(v/100)*100; return (r < 0 ? '-' : '') + Math.abs(r).toLocaleString('he-IL') + ' ₪'; }
+function ils0(v){ return Math.round(v).toLocaleString('he-IL') + ' ₪'; }
+function pct(v){ return (v*100).toFixed(2) + '%'; }
+function signed(v){ var c = v > 0 ? 'pos' : (v < 0 ? 'neg' : ''); var t = v > 0 ? 'רווח ' + ils(v) : (v < 0 ? 'הפסד ' + ils(-v) : '0 ₪'); return '<span class="' + c + '">' + t + '</span>'; }
+function show(id, on){ $(id).classList.toggle('hidden', !on); }
+
+/* --- upload --- */
+var drop = $('drop'), inp = $('file');
+function setFile(f){
+  file = f || null;
+  $('fname').textContent = file ? file.name : '';
+  $('go').disabled = !(file && $('agree').checked);
+}
+inp.addEventListener('change', function(){ setFile(inp.files[0]); });
+$('agree').addEventListener('change', function(){ setFile(file); });
+['dragover','dragenter'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+['dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+drop.addEventListener('drop', function(e){ if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+
+function stepTo(n){
+  var lis = document.querySelectorAll('#steps li');
+  for (var i = 0; i < lis.length; i++) {
+    lis[i].classList.toggle('done', i < n);
+    lis[i].classList.toggle('on', i === n);
+    lis[i].querySelector('.dot').textContent = i < n ? '✓' : '';
+  }
+}
+
+$('go').addEventListener('click', function(){
+  if (!file) return;
+  if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf') { reject({code:'not_pdf'}); return; }
+  show('upload-card', false); show('reject-card', false); show('result', false); show('progress-card', true);
+  stepTo(0);
+  timers = [setTimeout(function(){ stepTo(1); }, 4000), setTimeout(function(){ stepTo(2); }, 9000), setTimeout(function(){ stepTo(3); }, 16000)];
+  var fd = new FormData(); fd.append('file', file);
+  fetch(API + '/mortgage/analyze', {method:'POST', body: fd})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      timers.forEach(clearTimeout);
+      if (j.status !== 'ok') { reject(j); return; }
+      stepTo(4); data = j; render();
+    })
+    .catch(function(){ timers.forEach(clearTimeout); reject({code:'network'}); });
+});
+
+var REJECT = {
+  scan: ['הקובץ הוא סריקה או צילום', 'אנחנו קוראים רק קובץ PDF מקורי שהורד מאתר הבנק, כי רק בו אפשר לקרוא את המספרים בוודאות. היכנסו לאזור המשכנתא באתר הבנק, הורידו את דוח היתרות לסילוק כ-PDF והעלו אותו כמו שהוא, בלי להדפיס ולסרוק.'],
+  too_old: ['הדוח ישן מדי', 'הדוח הופק לפני יותר מחודש. ריביות, יתרות ועמלות משתנות, ולכן צריך דוח עדכני. בקשו מהבנק (או הורידו מאתר הבנק) דוח יתרות לסילוק חדש והעלו אותו.'],
+  no_date: ['לא נמצא תאריך הפקה בדוח', 'בלי תאריך אי אפשר לוודא שהדוח עדכני. הורידו מאתר הבנק את דוח היתרות לסילוק המלא, מהחודש האחרון.'],
+  unknown_bank: ['המסמך לא זוהה', 'זה לא נראה כמו דוח יתרות לסילוק של אחד הבנקים שהכלי מכיר. בדקו שהעליתם את המסמך שמופיע ברשימה למעלה עבור הבנק שלכם.'],
+  mismatch: ['הסכומים לא הצטלבו', 'הכלי מציג תוצאה רק אם סכום המסלולים שקרא שווה בדיוק לסכומים שהבנק עצמו הדפיס בדוח. בדוח הזה זה לא קרה, ולכן לא מוצג שום מספר. נסו להוריד את הדוח מחדש מאתר הבנק.'],
+  unreadable: ['הדוח לא נקרא', 'לא הצלחנו לקרוא את כל נתוני המסלולים בדוח. ודאו שזה דוח היתרות לסילוק המלא ולא אישור יתרה מקוצר.'],
+  not_pdf: ['הקובץ אינו PDF', 'העלו את דוח היתרות לסילוק כקובץ PDF, כפי שהורד מאתר הבנק.'],
+  too_big: ['הקובץ גדול מדי', 'דוח יתרות רגיל שוקל פחות ממגה אחד. ודאו שהעליתם את הקובץ הנכון.'],
+  rate: ['הגעתם למכסת הבדיקות', 'אפשר לבדוק כמה דוחות ביום. נסו שוב מחר.'],
+  network: ['אין חיבור לשרת', 'החיבור נכשל. בדקו את החיבור לאינטרנט ונסו שוב בעוד דקה.'],
+  error: ['אירעה תקלה', 'אירעה תקלה בעיבוד. נסו שוב בעוד כמה דקות.']
+};
+function reject(j){
+  var m = REJECT[j.code] || REJECT.error;
+  var txt = m[1];
+  if (j.code === 'too_old' && j.calc_date) txt = 'הדוח הופק ב-' + j.calc_date + ', לפני יותר מחודש. ' + txt.split('. ').slice(1).join('. ');
+  $('reject-title').textContent = m[0];
+  $('reject-text').textContent = txt;
+  show('progress-card', false); show('reject-card', true);
+  $('reject-card').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.addEventListener('click', function(e){
+  var a = e.target.closest('[data-act]');
+  if (a) {
+    if (a.dataset.act === 'print') window.print();
+    if (a.dataset.act === 'again') { show('result', false); show('reject-card', false); show('upload-card', true); inp.value = ''; setFile(null); window.scrollTo({top:0, behavior:'smooth'}); }
+  }
+  var b = e.target.closest('.toggle button');
+  if (b && data) { mode = b.dataset.mode; render(); }
+});
+
+/* --- result --- */
+function verdictOf(t){ return (t.verdicts && t.verdicts[mode]) || {code: t.verdict_code || 'none', text: t.verdict || 'אין השוואה'}; }
+
+function render(){
+  var d = data, hasM = d.mode === 'full';
+  show('progress-card', false); show('result', true);
+  document.querySelectorAll('.toggle button').forEach(function(b){ b.classList.toggle('sel', b.dataset.mode === mode); });
+
+  // 1. answer line
+  var ans = '';
+  if (hasM) {
+    var T = d.totals[mode];
+    ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + T.n_refi + ' המסלולים שקיבלו "למחזר")</div><div class="val">' + (T.n_refi ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div></div>';
+    ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div></div>';
+  } else {
+    ans += '<div class="box" style="grid-column:1/-1"><div class="lbl">השוואה לשוק</div><div class="val" style="font-size:18px">טבלת ריביות השוק אינה עדכנית כרגע, ולכן מוצגים רק נתוני המסלולים, בלי המלצה.</div></div>';
+  }
+  $('answer').innerHTML = ans;
+  $('verify').innerHTML = '<span aria-hidden="true">✓</span><span>' + (d.verification === 'approx'
+      ? 'היתרות וההחזרים תואמים לדוח הבנק. בבנק הפועלים הדוח מאחד מרכיבים, והפיצול ביניהם משוחזר בחישוב מקורב.'
+      : 'היתרה הכוללת, העמלות והתקופות תואמים לדוח הבנק.') + '</span>';
+  show('toggle-wrap', hasM);
+  $('toggle-help').textContent = mode === 'shorten'
+    ? 'קיצור תקופה: ההחזר החודשי נשאר כמו היום והמשכנתא נגמרת מוקדם יותר. הרווח הוא התשלומים שנחסכים.'
+    : 'הפחתת החזר: התקופה נשארת כמו היום וההחזר החודשי יורד. הרווח הוא הפרש ההחזר כפול מספר התשלומים.';
+
+  // 2. tracks table
+  $('tr-sub').textContent = d.bank + ' · דוח מתאריך ' + d.calc_date + ' · יתרה כוללת ' + ils0(d.total_balance) + ' · החזר חודשי ' + ils0(d.total_monthly);
+  var h = '<thead><tr><th>מסלול</th><th>ריבית</th><th>יתרה</th><th>החזר חודשי</th><th>תשלומים שנותרו</th><th>עדכון ריבית</th></tr></thead><tbody>';
+  d.tracks.forEach(function(t){
+    h += '<tr><td data-l="מסלול">' + esc(t.type) + '</td><td class="n" data-l="ריבית">' + pct(t.rate) + '</td><td class="n" data-l="יתרה">' + ils0(t.balance) + '</td><td class="n" data-l="החזר חודשי">' + ils0(t.monthly) + '</td><td class="n" data-l="תשלומים שנותרו">' + t.months_left + '</td><td class="n" data-l="עדכון ריבית">' + (t.next_change || '') + '</td></tr>';
+  });
+  $('tracks-tbl').innerHTML = h + '</tbody>';
+
+  // 3. refi table
+  show('refi-card', hasM);
+  if (hasM) {
+    $('rf-sub').textContent = 'ריבית השוק לפי הצעות שהבנקים נתנו עד ' + d.market.as_of + '.' + (d.anchors_as_of ? ' עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '.' : '') + ' הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
+    var r = '<thead><tr><th>מסלול</th><th>ריבית היום</th><th>החיסכון מחושב לפי ריבית</th><th>' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '</th><th>רווח או הפסד</th><th>פסיקה</th></tr></thead><tbody>';
+    d.tracks.forEach(function(t){
+      var v = verdictOf(t);
+      var flags = (t.flags || []).map(function(f){ return '<span class="flag">' + esc(f.text) + '</span>'; }).join('');
+      var rate = pct(t.rate) + (t.rate_after_change != null ? '<div class="sub">אחרי העדכון: ' + pct(t.rate_after_change) + '</div>' : '');
+      if (!t.modes) {
+        r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td colspan="3" class="sub" data-l="השוואה">' + esc(t.compare_note || 'אין ריבית השוואה') + '</td><td data-l="פסיקה"><span class="vd none">אין השוואה</span></td></tr>';
+        return;
+      }
+      var M = t.modes[mode];
+      var extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
+                : (M.months_saved != null ? (M.months_saved >= 0 ? Math.round(M.months_saved) + ' חודשים' : 'הארכה ב-' + Math.round(-M.months_saved) + ' חודשים') : '');
+      var mk = pct(t.market_rate) + '<div class="sub">' + esc(t.market_label || '') + (t.market_n ? ', ' + t.market_n + ' הצעות' : '') + '</div>';
+      var vt = v.text + (t.at_change && v.code === 'wait' ? '<div class="sub">מיחזור במועד העדכון: ' + signed(t.at_change[mode]) + '</div>' : '');
+      r += '<tr><td data-l="מסלול">' + esc(t.type) + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</td><td class="n" data-l="ריבית היום">' + rate + '</td><td class="n" data-l="החיסכון מחושב לפי ריבית">' + mk + '</td><td class="n" data-l="' + (mode === 'reduce' ? 'החזר חדש' : 'קיצור') + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + signed(M.saving) + '</td><td data-l="פסיקה"><span class="vd ' + v.code + '">' + vt + '</span></td></tr>';
+    });
+    r += '</tbody><tfoot><tr><td colspan="4">סה"כ, מיחזור מלא</td><td class="n" data-l="סה&quot;כ, מיחזור מלא">' + signed(d.totals[mode].full) + '</td><td></td></tr></tfoot>';
+    $('refi-tbl').innerHTML = r;
+  }
+
+  // mobile stacked view: one value block per cell
+  document.querySelectorAll('table.t td').forEach(function(td){
+    if (td.firstElementChild && td.firstElementChild.className === 'v') return;
+    td.innerHTML = '<span class="v">' + td.innerHTML + '</span>';
+  });
+
+  // 4. conclusions
+  var n = d.narrative || {tracks:{}};
+  var c = '';
+  d.tracks.forEach(function(t, i){
+    var v = verdictOf(t);
+    var txt = (n.tracks[String(t.idx)] || {})[mode] || '';
+    c += '<div class="concl ' + v.code + '"><h3>' + esc(t.type) + ', ' + pct(t.rate) + ': ' + esc(v.text) + '</h3><p>' + esc(txt) + '</p></div>';
+  });
+  $('conclusions').innerHTML = c;
+  var pvf = (n.partial_vs_full || {})[mode];
+  $('pvf').innerHTML = hasM && pvf ? '<h3>מיחזור חלקי או מלא</h3><p>' + esc(pvf) + '</p>' : '';
+  $('ai-notes').innerHTML = (n.notes && n.notes.length) ? '<div class="ai-notes"><div class="tag">הערות שהמודל הוסיף (לא חלק מהחישוב)</div><ul>' + n.notes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
+
+  // 5. not checked
+  $('not-checked').innerHTML = (d.not_checked || []).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+}
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav');
+  var overlay = document.getElementById('nav-overlay');
+  if (!btn || !nav) return;
+  function toggle(open) {
+    btn.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    if (overlay) overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(){ toggle(!btn.classList.contains('open')); });
+  if (overlay) overlay.addEventListener('click', function(){ toggle(false); });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+})();
+</script>
+
+<script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>
