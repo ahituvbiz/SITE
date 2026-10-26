@@ -197,6 +197,8 @@ table.t td:last-child { min-width: 120px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: var(--s-md); }
 #scope-wrap { margin: 4px 0 10px; }
 #scope-wrap .toggle { margin-top: 0; }
+.goal-card .goal-q { font-size: 20px; margin-bottom: 4px; }
+.goal-card .toggle { margin-top: 6px; }
 .consult-cta { margin-top: var(--s-md); text-align: center; }
 .btn-wa { display: inline-block; background: #25D366; color: #fff !important; font-weight: 700; font-size: 18px; padding: 14px 28px; border-radius: 999px; text-decoration: none !important; box-shadow: 0 2px 6px rgba(0,0,0,.12); transition: background .15s, transform .15s; }
 .btn-wa:hover { background: #1EBE5A; transform: translateY(-1px); }
@@ -443,18 +445,22 @@ table.t td:last-child { min-width: 120px; }
 
     <div class="consult-cta"><a class="btn-wa" href="https://pay.grow.link/70bd635ea6f32e700aace057ec21543a-MzIyNDIyNw" target="_blank" rel="noopener">לקביעת שיחת ייעוץ ממוקדת (בתשלום) לחץ כאן</a></div>
 
-    <section class="card" aria-labelledby="ans-h">
-      <h2 id="ans-h">התשובה בקצרה</h2>
-      <div class="answer" id="answer"></div>
-      <div class="partial-note hidden" id="partial-note" role="note"></div>
-      <div class="verify" id="verify"></div>
-      <div id="toggle-wrap">
+    <section class="card goal-card" id="goal-card" aria-label="מטרת המיחזור">
+        <div id="toggle-wrap">
+        <h2 class="goal-q">מהי מטרת המיחזור?</h2>
         <div class="toggle" role="group" aria-label="שיטת המיחזור">
           <button type="button" data-mode="shorten" class="sel">קיצור תקופה</button>
           <button type="button" data-mode="reduce">הפחתת החזר</button>
         </div>
         <p class="toggle-help" id="toggle-help"></p>
       </div>
+    </section>
+
+    <section class="card" aria-labelledby="ans-h">
+      <h2 id="ans-h">התשובה בקצרה</h2>
+      <div class="answer" id="answer"></div>
+      <div class="partial-note hidden" id="partial-note" role="note"></div>
+      <div class="verify" id="verify"></div>
     </section>
 
     <section class="card" id="refi-card" aria-labelledby="rf-h">
@@ -627,7 +633,7 @@ function render(){
   $('verify').innerHTML = '<span aria-hidden="true">✓</span><span>' + (d.verification === 'approx'
       ? 'היתרות וההחזרים תואמים לדוח הבנק. בבנק הפועלים הדוח מאחד מרכיבים, והפיצול ביניהם משוחזר בחישוב מקורב.'
       : 'היתרה הכוללת, העמלות והתקופות תואמים לדוח הבנק.') + '</span>';
-  show('toggle-wrap', hasM);
+  show('goal-card', hasM);
   $('toggle-help').textContent = mode === 'shorten'
     ? 'קיצור תקופה: ההחזר החודשי נשאר כמו היום והמשכנתא נגמרת מוקדם יותר. הרווח הוא התשלומים שנחסכים.'
     : 'הפחתת החזר: התקופה נשארת כמו היום וההחזר החודשי יורד. הרווח הוא הפרש ההחזר כפול מספר התשלומים.';
