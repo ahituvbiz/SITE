@@ -8,6 +8,7 @@ Disallow: /clients/
 Disallow: /proof/
 
 # סורקי AI — חסומים לאיסוף תוכן
+# Google-Extended נפתח ב-26.10.26 (grounding ב-Gemini)
 User-agent: Amazonbot
 Disallow: /
 
@@ -24,9 +25,6 @@ User-agent: ClaudeBot
 Disallow: /
 
 User-agent: CloudflareBrowserRenderingCrawler
-Disallow: /
-
-User-agent: Google-Extended
 Disallow: /
 
 User-agent: GPTBot
