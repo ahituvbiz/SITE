@@ -616,7 +616,8 @@ function render(){
   d.tracks.forEach(function(t){
     h += '<tr><td data-l="מסלול">' + esc(t.type) + '</td><td class="n" data-l="ריבית">' + pct(t.rate) + '</td><td class="n" data-l="יתרה">' + ils0(t.balance) + '</td><td class="n" data-l="החזר חודשי">' + ils0(t.monthly) + '</td><td class="n" data-l="תשלומים שנותרו">' + t.months_left + '</td><td class="n" data-l="עדכון ריבית">' + (t.next_change || '') + '</td></tr>';
   });
-  $('tracks-tbl').innerHTML = h + '</tbody>';
+  h += '</tbody><tfoot><tr><td data-l="סה&quot;כ">סה"כ</td><td></td><td class="n" data-l="יתרה">' + ils0(d.total_balance) + '</td><td class="n" data-l="החזר חודשי">' + ils0(d.total_monthly) + '</td><td></td><td></td></tr></tfoot>';
+  $('tracks-tbl').innerHTML = h;
 
   // 3. refi table
   show('refi-card', hasM);
