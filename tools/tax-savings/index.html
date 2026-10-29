@@ -23,7 +23,7 @@
     {
       "@type": "WebApplication",
       "datePublished": "2026-05-26",
-      "dateModified": "2026-09-24",
+      "dateModified": "2026-10-29",
       "name": "מחשבון חיסכון במס לעצמאים",
       "description": "מחשבון אינטראקטיבי לחישוב הטבות מס מהפקדות לפנסיה, קרן השתלמות וקופת גמל - לעצמאים.",
       "applicationCategory": "FinanceApplication",
@@ -981,7 +981,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
-      <span>עודכן: 24 בספטמבר 2026</span>
+      <span>עודכן: 29 באוקטובר 2026</span>
       <span class="pill">מחשבון חינמי</span>
     </div>
     <h1>
@@ -1182,18 +1182,24 @@ textarea:focus-visible,
     const CREDIT_FLOOR = 1632;  // 45א(ד)(1)
     const HISH_CAP = 13203;     // 4.5% מ-293,397 — ניכוי קרן השתלמות לעצמאי
 
+    /* דמי ביטוח לאומי ובריאות לעצמאי — סעיף 345 לחוק הביטוח הלאומי:
+       ההכנסה לצורך דמי ביטוח היא ההכנסה בניכוי 52% מדמי הביטוח הלאומי עצמם (ללא דמי בריאות).
+       לכן הבסיס x מקיים: x + 0.52 × דמי_ביטוח_לאומי(x) = ההכנסה. פותרים בחיפוש בינארי
+       (שקול לנוסחה הסגורה של המוסד לביטוח לאומי, עם המחלק 1 + 0.52 × 12.83%). */
     function calcNI(income) {
         const threshold = 92436;
         const ceiling = 622920;
-        let taxable = Math.min(Math.max(0, income), ceiling);
-        let ni = 0, health = 0;
-        if (taxable <= threshold) {
-            ni = taxable * 0.0447;
-            health = taxable * 0.0323;
-        } else {
-            ni = (threshold * 0.0447) + ((taxable - threshold) * 0.1283);
-            health = (threshold * 0.0323) + ((taxable - threshold) * 0.0517);
+        const y = Math.max(0, income);
+        const niOf = x => { x = Math.min(x, ceiling);
+            return x <= threshold ? x * 0.0447 : threshold * 0.0447 + (x - threshold) * 0.1283; };
+        const healthOf = x => { x = Math.min(x, ceiling);
+            return x <= threshold ? x * 0.0323 : threshold * 0.0323 + (x - threshold) * 0.0517; };
+        let lo = 0, hi = y;
+        for (let i = 0; i < 60; i++) {
+            const mid = (lo + hi) / 2;
+            if (mid + 0.52 * niOf(mid) < y) lo = mid; else hi = mid;
         }
+        const ni = niOf(lo), health = healthOf(lo);
         return { total: ni + health, niOnly: ni };
     }
 
@@ -1368,7 +1374,7 @@ textarea:focus-visible,
 
     <div class="callout">
       <strong>דוגמה - עצמאי עם הכנסה של 240,000 ₪ בשנה:</strong> הפקדה של 39,240 ₪ לפנסיה ו-10,800 ₪ ל<a href="/savings/keren-hishtalmut/">קרן השתלמות</a>
-      חוסכת <strong>כ-17,800 ₪ במס הכנסה ובביטוח לאומי</strong> בשנה
+      חוסכת <strong>כ-17,500 ₪ במס הכנסה ובביטוח לאומי</strong> בשנה
       (לפי 2.25 נקודות זיכוי ונתוני 2026). שמים את הכסף בצד לפרישה - ומשלמים הרבה פחות כבר היום.
     </div>
 
