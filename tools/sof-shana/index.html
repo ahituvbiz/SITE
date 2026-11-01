@@ -669,6 +669,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     {id:'sold',     who:['emp','self','both'], label:'מכרתי השנה ניירות ערך ברווח, בתיק השקעות רגיל'},
     {id:'cash',     who:['emp','self','both'], label:'יש לי כסף פנוי שיושב בעו"ש או בפיקדון'},
     {id:'patur',    who:['self','both'],       label:'אני עוסק פטור'},
+    {id:'mortgage', who:['emp','self','both'], label:'יש לי משכנתא'},
+    {id:'usPerson', who:['emp','self','both'], label:'אני אזרח אמריקאי או בעל גרין קארד'},
     {id:'lowInc',   who:['emp','self','both'], label:'עבדתי ב-2024 או ב-2025 והרווחתי מעט', sub:'אולי מגיע לך מענק עבודה'},
     {id:'none',     who:['emp','self','both'], label:'אף אחד מאלה', none:true}
   ];
@@ -692,8 +694,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
     { id:'workGrant', lvl:'hard', title:'מענק עבודה על 2024 (ועל 2025)',
       when:function(s){return s.ev.lowInc;},
-      body:'<p>מי שעבד והרוויח מעט זכאי למענק עבודה (מס הכנסה שלילי). התביעה המקוונת פתוחה כרגע לשנים 2024 ו-2025. החלון של 2024 נסגר בסוף 2026, ולכן היא הדחופה.</p>'+
-           '<p>על 2025 אפשר להגיש גם בשנה הבאה, אבל אם אתה כבר נכנס להגיש על 2024 ועבדת גם ב-2025, תגיש על שתי השנים באותה הזדמנות.</p>',
+      body:'<p>מי שעבד והרוויח מעט זכאי למענק עבודה (מס הכנסה שלילי). התביעה המקוונת פתוחה כרגע לשנים 2024 ו-2025, והחלון של 2024 נסגר בסוף 2026.</p>'+
+           '<p>עבדת גם ב-2025? תגיש על שתי השנים עכשיו, באותה כניסה.</p>',
       links:[L('https://www.kolzchut.org.il/he/%D7%94%D7%92%D7%A9%D7%AA_%D7%AA%D7%91%D7%99%D7%A2%D7%94_%D7%9C%D7%9E%D7%A2%D7%A0%D7%A7_%D7%A2%D7%91%D7%95%D7%93%D7%94_(%D7%9E%D7%A2%D7%A0%D7%A7_%D7%94%D7%9B%D7%A0%D7%A1%D7%94,_%D7%9E%D7%A1_%D7%94%D7%9B%D7%A0%D7%A1%D7%94_%D7%A9%D7%9C%D7%99%D7%9C%D7%99)_%D7%91%D7%90%D7%99%D7%97%D7%95%D7%A8','זכאות והגשה, בכל זכות','ext')] },
 
     { id:'selfPension', lvl:'soft', title:'השלמת ההפקדה לפנסיה (עצמאי)',
@@ -728,10 +730,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       body:'<p>תרומות של יותר מ-<span class="num">207 ₪</span> בשנה (בסך הכול) למוסד עם אישור לפי סעיף 46 מחזירות <span class="num">35%</span> מהן כזיכוי ממס, עד 30% מההכנסה החייבת. מה שנתרם עד 31.12 נספר ל-2026. מ-2026 המוסדות מדווחים את התרומות למערכת דיגיטלית של רשות המסים, אבל כדאי לשמור את הקבלה ולוודא שהתרומה דווחה.</p>',
       links:[L('https://www.kolzchut.org.il/he/%D7%96%D7%99%D7%9B%D7%95%D7%99_%D7%9E%D7%9E%D7%A1_%D7%94%D7%9B%D7%A0%D7%A1%D7%94_%D7%91%D7%A9%D7%9C_%D7%AA%D7%A8%D7%95%D7%9E%D7%94_(%D7%A1%D7%A2%D7%99%D7%A3_46)','זיכוי על תרומה, בכל זכות','ext')] },
 
+    { id:'pfic', lvl:'soft', title:'אזרח אמריקאי: למכור את ה-PFIC לפני סוף השנה',
+      when:function(s){return s.ev.usPerson;},
+      body:'<p>אצל רשויות המס בארה"ב, קרנות נאמנות, קרנות מחקות (קרנות סל) וקרנות כספיות ישראליות מוגדרות כ-PFIC. המיסוי שלהן שם עונשי, והדיווח עליהן מסובך ויקר. אם יש לך כאלה, מכור אותן לפני 31.12, כדי לא להיכנס איתן לשנה נוספת.</p>'+
+           '<p>לפני המכירה כדאי לעבור על התיק עם רואה חשבון שמכיר מיסוי אמריקאי, כי גם המכירה עצמה מדווחת בארה"ב, ובישראל היא מחייבת מס רווחי הון.</p>',
+      links:[L('/investment/ira/','איך משקיעים בלי PFIC: IRA בניהול אישי','pri')] },
+
     { id:'gemelCap', lvl:'soft', title:'ניצול תקרת הגמל להשקעה של 2026',
       when:function(s){return s.ev.cash;},
       body:'<p>תקרת ההפקדה לגמל להשקעה היא <span class="num">79,006 ₪</span> לאדם ב-2026, והיא שנתית: מה שלא הופקד עד 31.12 לא עובר לשנה הבאה. בני זוג מקבלים כל אחד תקרה משלו. אם הכסף מיועד לטווח ארוך, הפקדה עכשיו שומרת את מכסת השנה. בגיל 60 אפשר למשוך כקצבה בפטור ממס רווחי הון.</p>',
-      links:[L('/savings/gamal-lehashkaa/','גמל להשקעה: האם זה מתאים לך','pri'), L('/savings/keren-kaspit/','ולכסף לטווח קצר: קרן כספית')] },
+      links:[L('/savings/gamal-lehashkaa/','גמל להשקעה: האם זה מתאים לך','pri')] },
 
     { id:'taxLoss', lvl:'soft', title:'קיזוז הפסדים מול הרווחים של השנה',
       when:function(s){return s.ev.sold;},
@@ -753,6 +761,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       when:function(s){return s.ev.family;},
       body:'<p>נולד ילד? ביטוח לאומי פותח לו חיסכון ומפקיד בו כל חודש. מי שלא בחר, נכנס לברירת מחדל. הבחירה בין בנק לקופת גמל ובין מסלולי ההשקעה משנה הרבה עד גיל 18.</p>',
       links:[L('/savings/hisachon-layeled/','המדריך לבחירה בחיסכון לכל ילד','pri')] },
+
+    { id:'refi', lvl:'calm', title:'בדיקת כדאיות מיחזור המשכנתא',
+      when:function(s){return s.ev.mortgage;},
+      body:'<p>הריביות, המדד והיתרות שלך זזו מאז שלקחת את המשכנתא, ותמהיל שהתאים אז לא בהכרח מתאים היום. בדיקת מיחזור מתחילה בדוח יתרות לסילוק מהאזור האישי באתר הבנק, ומראה אם יש מה לחסוך ובאילו מסלולים.</p>',
+      links:[L('/bedikat-michzur/','🤖 בדיקת מיחזור מדוח היתרות','pri'), L('/mortgage/mortgage-and-pension/','משכנתא ופנסיה: התמונה המלאה')] },
 
     { id:'feesCheck', lvl:'calm', title:'בדיקת דמי הניהול והמסלול בפנסיה',
       when:function(){return true;},
