@@ -93,3 +93,7 @@
 # שער רובייקטיבי: הכתובת הזמנית עם J מופנית לכתובת הקבועה (26.10.26)
 /robjectivi    /robyectivi/    301
 /robjectivi/   /robyectivi/    301
+
+# דף הוובינר הועבר מ-share/ לכתובת ציבורית מאונדקסת (1.11.26)
+/share/pension-webinar-hitech/*   /services/pension-webinar/:splat   301
+/share/pension-webinar-hitech     /services/pension-webinar/         301
