@@ -491,10 +491,10 @@ var IRA_COMPARISON_TABLE =
   '<tr><td class="highlight">מדינות</td><td><span class="cross">1</span></td><td><span class="check">47</span></td><td><span class="check">כ-47</span></td></tr>' +
   '<tr><td class="highlight">מטבעות</td><td><span class="cross">דולר בלבד</span></td><td><span class="check">סל מטבעות גלובלי</span></td><td><span class="check">כ-50% דולר, היתר מגודר לשקל</span></td></tr>' +
   '<tr><td class="highlight">משקל 9 החברות הגדולות</td><td><span class="cross">כ-39%</span></td><td>כ-25%</td><td><span class="check">כ-8%</span></td></tr>' +
-  '<tr><td class="highlight">מכפיל רווח (P/E)</td><td><span class="cross">כ-25</span></td><td>כ-21</td><td><span class="check">כ-18</span></td></tr>' +
+  '<tr><td class="highlight">מכפיל רווח (P/E)</td><td><span class="cross">כ-24</span></td><td>כ-20</td><td><span class="check">כ-19</span></td></tr>' +
   '<tr><td class="highlight">אם ארה"ב מדשדשת עשור</td><td><span class="cross">כל החיסכון מדשדש איתה</span></td><td><span class="check">המשקל מתעדכן אוטומטית לטובת מי שמוביל</span></td><td><span class="check">מתעדכן אוטומטית, ופחות תלות בקומץ ענקיות</span></td></tr>' +
   '</tbody></table></div>' +
-  '<p style="font-size:12px;color:#999;margin:0 0 6px;">נתונים נכונים לאוקטובר 2026. מקורות: Slickcharts, stockanalysis.com. מכפיל רווח (P/E): S&amp;P 500 לפי VOO (~25), ACWI (~21).</p>';
+  '<p style="font-size:12px;color:#999;margin:0 0 6px;">נתונים נכונים לנובמבר 2026. מקורות: Slickcharts, stockanalysis.com. מכפיל רווח (P/E): S&amp;P 500 לפי VOO (~24), ACWI (~20).</p>';
 
 function buildIraPromo(hasTag11) {
   var discount = hasTag11
