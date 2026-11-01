@@ -669,7 +669,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     {id:'sold',     who:['emp','self','both'], label:'מכרתי השנה ניירות ערך ברווח, בתיק השקעות רגיל'},
     {id:'cash',     who:['emp','self','both'], label:'יש לי כסף פנוי שיושב בעו"ש או בפיקדון'},
     {id:'patur',    who:['self','both'],       label:'אני עוסק פטור'},
-    {id:'lowInc',   who:['emp','self','both'], label:'ההכנסה שלי ב-2024 הייתה נמוכה', sub:'אולי מגיע לך מענק עבודה'},
+    {id:'lowInc',   who:['emp','self','both'], label:'עבדתי ב-2024 או ב-2025 והרווחתי מעט', sub:'אולי מגיע לך מענק עבודה'},
     {id:'none',     who:['emp','self','both'], label:'אף אחד מאלה', none:true}
   ];
 
@@ -690,9 +690,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
            '<p>שים לב: זה לא אותו דבר כמו החזר מס הכנסה. זו בקשה נפרדת, לגוף אחר, עם תקופה אחרת.</p>',
       links:[L('https://www.gov.il/he/service/coordinationofnationalinsurancecontributions','תיאום והחזר דמי ביטוח, באתר הממשלה','ext')] },
 
-    { id:'workGrant', lvl:'hard', title:'מענק עבודה על 2024',
+    { id:'workGrant', lvl:'hard', title:'מענק עבודה על 2024 (ועל 2025)',
       when:function(s){return s.ev.lowInc;},
-      body:'<p>מי שעבד והרוויח מעט זכאי למענק עבודה (מס הכנסה שלילי). התביעה המקוונת פתוחה כרגע לשנים 2024 ו-2025, והחלון של 2024 נסגר בסוף 2026.</p>',
+      body:'<p>מי שעבד והרוויח מעט זכאי למענק עבודה (מס הכנסה שלילי). התביעה המקוונת פתוחה כרגע לשנים 2024 ו-2025. החלון של 2024 נסגר בסוף 2026, ולכן היא הדחופה.</p>'+
+           '<p>על 2025 אפשר להגיש גם בשנה הבאה, אבל אם אתה כבר נכנס להגיש על 2024 ועבדת גם ב-2025, תגיש על שתי השנים באותה הזדמנות.</p>',
       links:[L('https://www.kolzchut.org.il/he/%D7%94%D7%92%D7%A9%D7%AA_%D7%AA%D7%91%D7%99%D7%A2%D7%94_%D7%9C%D7%9E%D7%A2%D7%A0%D7%A7_%D7%A2%D7%91%D7%95%D7%93%D7%94_(%D7%9E%D7%A2%D7%A0%D7%A7_%D7%94%D7%9B%D7%A0%D7%A1%D7%94,_%D7%9E%D7%A1_%D7%94%D7%9B%D7%A0%D7%A1%D7%94_%D7%A9%D7%9C%D7%99%D7%9C%D7%99)_%D7%91%D7%90%D7%99%D7%97%D7%95%D7%A8','זכאות והגשה, בכל זכות','ext')] },
 
     { id:'selfPension', lvl:'soft', title:'השלמת ההפקדה לפנסיה (עצמאי)',
