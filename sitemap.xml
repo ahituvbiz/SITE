@@ -474,6 +474,13 @@
     <priority>0.8</priority>
     <!-- הרצאה לעובדי הייטק -->
   </url>
+
+  <url>
+    <loc>https://pensya.info/share/pension-webinar-hitech/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://pensya.info/investment/stocks-vs-bonds/</loc>
     <lastmod>2026-08-27</lastmod>
