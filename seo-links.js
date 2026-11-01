@@ -97,6 +97,9 @@ const KEYWORD_MAP = {
   // ── פילר 7: כלים ──
   'מחשבון פנסיה לעצמאים':               '/tools/pension-calc-self-employed/',
   'מחשבון חיסכון במס':                   '/tools/tax-savings/',
+  'שכר לא מבוטח':                        '/tools/uninsured-salary/',
+  'הכנסה לא מבוטחת':                     '/tools/uninsured-salary/',
+  'משכורת לא מבוטחת':                    '/tools/uninsured-salary/',
   'מחשבון מס רווחי הון':                 '/tools/net-return/',
   'מס רווחי הון':                        '/tools/net-return/',
   'תשואה נטו':                           '/tools/net-return/',
@@ -104,6 +107,9 @@ const KEYWORD_MAP = {
   'מחשבון דמי ניהול':                    '/tools/management-fees/',
   'מחשבון נדל"ן':                        '/tools/real-estate-vs-market/',
   'מחשבונים פיננסיים':                   '/tools/',
+  'משימות לפני סוף השנה':                '/tools/sof-shana/',
+  'לפני סוף שנת המס':                    '/tools/sof-shana/',
+  'סוף שנת המס':                         '/tools/sof-shana/',
 
   // ── פילר 8: אודות ──
   'יועץ פנסיוני מומלץ':                  '/about/recommended-advisor/',

@@ -502,4 +502,10 @@
     <priority>0.8</priority>
     <!-- S&amp;P 500 בשקלים מול ת"א 125 -->
   </url>
+  <url>
+    <loc>https://pensya.info/tools/sof-shana/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

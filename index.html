@@ -1299,6 +1299,32 @@ textarea:focus-visible,
   </div>
 </header>
 
+<!-- באנר עונתי: מוצג אוטומטית רק בין 1.11 ל-31.12 בכל שנה -->
+<style>
+.ye-strip{background:#1A1A1A;color:#fff}
+.ye-strip[hidden]{display:none}
+.ye-strip a{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:11px 20px;color:#fff;text-decoration:none;font-size:15px;line-height:1.4;text-align:center}
+.ye-strip a:hover{text-decoration:none;background:#2a2a2a}
+.ye-strip b{font-weight:700}
+.ye-strip .ye-go{background:#D74E3C;border-radius:999px;padding:4px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+</style>
+<div class="ye-strip" id="ye-strip" hidden>
+  <a href="/tools/sof-shana/">
+    <span>⏳ <b id="ye-strip-days">נשארו ימים ספורים</b> לסוף שנת המס. מה שלא תסגור עד 31.12, הולך.</span>
+    <span class="ye-go">למשימות שלך לפני סוף השנה ←</span>
+  </a>
+</div>
+<script>
+(function(){
+  var now=new Date(), y=now.getFullYear();
+  if(now<new Date(y,10,1)) return;
+  var end=new Date(y,11,31,23,59,59), d=Math.ceil((end-now)/86400000);
+  if(d<1) return;
+  document.getElementById('ye-strip-days').textContent = d===1 ? 'נשאר יום אחד' : 'נשארו '+d+' ימים';
+  document.getElementById('ye-strip').hidden=false;
+})();
+</script>
+
 <!-- =========================================================
      HERO
      ========================================================= -->
