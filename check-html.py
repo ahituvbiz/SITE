@@ -29,7 +29,7 @@ import sys, os, re, subprocess
 BLOCK_TAGS = ["div", "section", "article", "details", "svg"]
 
 # דפים שמותר להם לא לכלול פוטר אחיד (אזור לקוחות + דאטה מוטמע)
-FOOTER_EXEMPT = ("clients/", "game/", "private/", "lecture/", "share/")   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
+FOOTER_EXEMPT = ("clients/", "game/", "private/", "lecture/", "share/", "services/pension-webinar/")   # pension-webinar: דף נחיתה עצמאי עם פוטר משלו, הועבר מ-share/ (1.11.26)   # private/ — האזור האישי, ללא chrome ציבורי (25.8.26)
 # share/ — דפים יתומים לשיתוף בקישור בלבד: בלי header/footer, ו-noindex חובה (שער ייעודי ב-main) (6.10.26)
 
 # ---- דף ההרצאה המאוחד (lecture/) -------------------------------------------
