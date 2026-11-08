@@ -106,9 +106,6 @@ details.faq .body{padding:0 18px 15px;color:var(--text-2);font-size:15px}
 .definition{font-size:13px;color:var(--text-meta);text-align:center;margin-top:6px;line-height:1.6}
 .byline{font-size:14px;color:var(--text-2);text-align:center;margin-top:22px}
 .byline a{color:var(--primary)}
-.refresh{display:none;margin:22px auto 0;background:var(--cta);color:#fff;border:0;border-radius:10px;padding:11px 26px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
-.refresh:hover{filter:brightness(.92)}
-.refresh.done{background:var(--positive)}
 
 /* ===== chrome אתר: header / ניווט / breadcrumb ===== */
 a{color:var(--primary);text-decoration:none}
@@ -478,11 +475,10 @@ a:hover{text-decoration:underline}
     אין באמור המלצה לרכישה או למכירה של נייר ערך כלשהו.
   </p>
 
-  <button class="refresh" id="refreshBtn">עדכן נתונים</button>
 </div>
 
 <!-- ============================================================================
-     בלוק הנתונים — זה החלק היחיד שהסקיל tase-pe-update מחליף בכל ריצה.
+     בלוק הנתונים — זה החלק היחיד שהמשימה המתוזמנת "מכפיל רווח מדדי ת"א — עדכון שבועי" מחליפה בכל ריצה.
      אין לערוך אותו ביד. מקור האמת: "מכפיל רווח TA-125.xlsx", גיליון "סיכום".
      ============================================================================ -->
 <script id="pe-data" type="application/json">
@@ -1141,23 +1137,6 @@ a:hover{text-decoration:underline}
   document.getElementById('definition').textContent =
     'רווח נקי מיוחס לבעלי המניות ב-12 החודשים האחרונים המדווחים, משוקלל לפי משקל החברה במדד. ' +
     'חברות הפסדיות נכללות בחישוב. נכון לנעילת ' + heb(D.dataDate) + '.';
-
-  /* --- כפתור עדכון --- */
-  var CMD = 'הרץ את הסקיל tase-pe-update — עדכן את דף מכפיל הרווח של מדדי ת"א באתר.';
-  /* כפתור העדכון הוא כלי פנימי — מוצג רק לבעל האתר (?draft=1) או בתצוגת המוקאפ */
-  var btn = document.getElementById('refreshBtn');
-  var owner = false;
-  try { owner = window.__pensyaOwner === true
-              || localStorage.getItem('pensyaDraftMode') === '1'
-              || location.protocol === 'file:'; } catch (e) { owner = location.protocol === 'file:'; }
-  if (owner) btn.style.display = 'block';
-  btn.addEventListener('click', function () {
-    navigator.clipboard.writeText(CMD).then(function () {
-      btn.textContent = '✓ הפקודה הועתקה — הדביקו בשיחה עם Claude';
-      btn.classList.add('done');
-      setTimeout(function () { btn.textContent = 'עדכן נתונים'; btn.classList.remove('done'); }, 4000);
-    });
-  });
 })();
 </script>
 
