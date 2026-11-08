@@ -744,10 +744,12 @@ function chgInfo(t){
   var Bk = Math.max(balAfter(t.rate, t.monthly, t.balance, k), 0), H2 = pmtF(ra, n - k, Bk);
   return Math.abs(H2 - t.monthly) >= 0.5 ? {H2: H2, drop: H2 < t.monthly} : null;
 }
+// מסלול שהריבית בו צפויה לרדת: התגית "הריבית צפויה לרדת" מחליפה את "עדכון ריבית ב-" של השרת.
+// (מסלול בלי ריבית משוערת כבר מקבל מהשרת את התגית after_unknown)
 function flagsFor(t){
-  var f = (t.flags || []).filter(function(x){ return x.code !== 'drop' && x.code !== 'nochange'; }), ci = chgInfo(t);
-  if (ci && ci.drop) f.push({code: 'drop', text: 'הריבית צפויה לרדת ב-' + t.next_change});
-  else if (!ci && t.next_change && t.rate_after_change == null) f.push({code: 'nochange', text: 'עדכון הריבית ב-' + t.next_change + ' לא נכלל בחישוב'});
+  var ci = chgInfo(t), dn = !!(ci && ci.drop);
+  var f = (t.flags || []).filter(function(x){ return x.code !== 'drop' && !(dn && x.code === 'update_soon'); });
+  if (dn) f.push({code: 'drop', text: 'הריבית צפויה לרדת ב-' + t.next_change});
   return f;
 }
 // השרת (engine.py) עדיין מחשב "קיצור תקופה" בשיטה הישנה. במסלול שההחזר בו ישתנה במועד העדכון
@@ -755,13 +757,19 @@ function flagsFor(t){
 function fixed(t){
   var key = t.idx + ':fix';
   if (effCache[key]) return effCache[key];
-  var ci = (t.modes && t.market_rate != null) ? chgInfo(t) : null;
+  var ci = (t.modes && t.market_rate != null) ? chgInfo(t) : null, s = null, ac = null;
+  if (ci) {
+    s = scen(t, t.market_rate);
+    if (t.at_change) ac = atChange(t, t.market_rate);
+    // השרת כבר מחשב בשיטה המתוקנת: משאירים את התוצאות ואת טקסט ה-AI שלו
+    if (Math.abs(s.shorten.saving - t.modes.shorten.saving) < 1 && (!ac || Math.abs(ac.shorten - t.at_change.shorten) < 1)) { s = null; ac = null; }
+  }
   var f = t.modes ? flagsFor(t) : (t.flags || []);
-  if (!ci && f.length === (t.flags || []).length) { effCache[key] = t; return t; }
+  var same = f.length === (t.flags || []).length && f.every(function(x, i){ return x === t.flags[i]; });
+  if (!s && same) { effCache[key] = t; return t; }
   var e = {}; for (var kk in t) e[kk] = t[kk];
   e.flags = f;
-  if (ci) {
-    var s = scen(t, t.market_rate);
+  if (s) {
     e.modes = {shorten: s.shorten, reduce: t.modes.reduce, monthly_after_change: s.monthly_after_change};
     if (t.modes_full) {
       e.modes_full = t.market_rate_full != null
@@ -772,9 +780,9 @@ function fixed(t){
     e.verdicts = {reduce: vs.reduce || one};
     if (sv.code === 'wait') {
       e.verdicts.shorten = sv;
-      if (t.at_change) {
+      if (t.at_change && ac) {
         var a = {}; for (var x in t.at_change) a[x] = t.at_change[x];
-        var ac = atChange(t, t.market_rate); a.shorten = ac.shorten; a.shorten_monthly = ac.shorten_monthly;
+        a.shorten = ac.shorten; a.shorten_monthly = ac.shorten_monthly;
         e.at_change = a;
       }
     } else if (sv.code === 'refi' || sv.code === 'keep') {
@@ -990,8 +998,14 @@ function render(){
   var c = '';
   d.tracks.forEach(function(t, i){
     var v = verdictOf(t);
-    var et = eff(t);
-    var txt = ov[t.idx] != null ? ovText(et) : ((et.recalc && mode === 'shorten') ? calcText(et, false) : ((n.tracks[String(t.idx)] || {})[mode] || ''));
+    var et = eff(t), txt;
+    if (ov[t.idx] != null) txt = ovText(et);
+    else if (et.recalc && mode === 'shorten') txt = calcText(et, false);
+    else {
+      txt = (n.tracks[String(t.idx)] || {})[mode] || '';
+      // טקסט ה-AI על מסלול שהריבית בו תשתנה בעדכון: אותה הבהרה על העוגן
+      if (txt && et.modes && chgInfo(et) && txt.indexOf('עוגן') < 0) txt += ' ' + ANCHOR_CAVEAT.trim();
+    }
     c += '<div class="concl ' + v.code + '"><h3>' + esc(t.type) + ', ' + pct(t.rate) + ': ' + esc(v.text) + '</h3><p>' + esc(txt) + '</p></div>';
   });
   $('conclusions').innerHTML = c;
