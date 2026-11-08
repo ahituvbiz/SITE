@@ -398,7 +398,7 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="page-updated">עודכן: 26 באוקטובר 2026</p>
+  <p class="page-updated">עודכן: 8 בנובמבר 2026</p>
   <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
@@ -702,27 +702,90 @@ function nperF(rA, pay, P){ var r = rA / 12; if (pay <= 0) return null; if (Math
 function balAfter(rA, pay, P, k){ var r = rA / 12; if (Math.abs(r) < 1e-12) return P - pay * k; var g = Math.pow(1 + r, k); return P * g - pay * (g - 1) / r; }
 function scen(t, rm){
   var n = t.months_left, P = t.balance, H = t.monthly, r0 = t.rate, fee = t.fee || 0;
-  var k = t.months_to_change, ra = t.rate_after_change, H2 = null, existing;
-  if (k && k > 0 && k < n && ra != null) {
-    var Bk = Math.max(balAfter(r0, H, P, k), 0); H2 = pmtF(ra, n - k, Bk); existing = H * k + H2 * (n - k);
+  var k = t.months_to_change, ra = t.rate_after_change, H2 = null, Bk = 0, existing;
+  var chg = !!(k && k > 0 && k < n && ra != null);
+  if (chg) {
+    Bk = Math.max(balAfter(r0, H, P, k), 0); H2 = pmtF(ra, n - k, Bk); existing = H * k + H2 * (n - k);
   } else { existing = H * n; }
   var nP = P + fee, np = pmtF(rm, n, nP);
   var reduce = {saving: existing - np * n, new_monthly: np};
-  var m = nperF(rm, H, nP);
-  var shorten = (m != null && m <= n) ? {saving: existing - H * m, new_months: m, months_saved: n - m, capped: false}
-                                      : {saving: reduce.saving, new_months: n, months_saved: 0, capped: true, new_monthly: np};
+  // קיצור תקופה: עם מיחזור ובלי מיחזור משלמים בכל חודש אותו החזר. עד מועד עדכון הריבית ההחזר של היום,
+  // ואחריו ההחזר של היום או ההחזר שהמסלול הקיים יחייב, הגבוה מביניהם. אחרת החלופה שמשלמת יותר
+  // גומרת מוקדם ונראית זולה, גם בלי שום יתרון בריבית.
+  var S2 = chg ? Math.max(H, H2) : H;
+  var paid = function(T){ return chg ? H * Math.min(T, k) + S2 * Math.max(T - k, 0) : H * T; };
+  var base = n;
+  if (chg && H2 < H) { var me = nperF(ra, H, Bk); if (me != null) base = k + me; }
+  var m0 = nperF(rm, H, nP), mr = null;   // כמו קודם: אם ההחזר של היום לא נושא את ההלוואה החדשה בתוך התקופה, אין קיצור
+  if (m0 != null && m0 <= n) {
+    if (chg) { var Bk2 = balAfter(rm, H, nP, k); if (Bk2 <= 0) mr = m0; else { var m2 = nperF(rm, S2, Bk2); if (m2 != null) mr = k + m2; } }
+    else mr = m0;
+  }
+  var shorten = (mr != null && mr <= n) ? {saving: paid(base) - paid(mr), new_months: mr, months_saved: base - mr, base_months: base, capped: false}
+                                        : {saving: reduce.saving, new_months: n, months_saved: 0, base_months: base, capped: true, new_monthly: np};
   return {shorten: shorten, reduce: reduce, monthly_after_change: H2};
 }
 function atChange(t, rm){
   var n = t.months_left, P = t.balance, H = t.monthly, k = t.months_to_change, ra = t.rate_after_change, left = n - k;
   var Bk = Math.max(balAfter(t.rate, H, P, k), 0), H2 = pmtF(ra, left, Bk), existing = H2 * left;
-  var red = pmtF(rm, left, Bk), rd = existing - red * left, m = nperF(rm, H, Bk), sh, shp;
-  if (m != null && m <= left) { sh = existing - H * m; shp = H; } else { sh = rd; shp = red; }
+  var red = pmtF(rm, left, Bk), rd = existing - red * left, sh, shp;
+  // קיצור תקופה במועד העדכון: אותו החזר בשתי החלופות, כמו ב-scen
+  var S = Math.max(H, H2), base = left;
+  if (H2 < H) { var me = nperF(ra, H, Bk); if (me != null) base = me; }
+  var m = nperF(rm, S, Bk);
+  if (m != null && m <= left) { sh = S * (base - m); shp = S; } else { sh = rd; shp = red; }
   return {shorten: sh, reduce: rd, shorten_monthly: shp, reduce_monthly: red, monthly_without_refi: H2};
 }
 var effCache = {};
+// מסלול שההחזר בו ישתנה במועד עדכון הריבית (לפי הריבית המשוערת שהשרת החזיר)
+function chgInfo(t){
+  var n = t.months_left, k = t.months_to_change, ra = t.rate_after_change;
+  if (!(k && k > 0 && k < n && ra != null) || !(t.monthly > 0)) return null;
+  var Bk = Math.max(balAfter(t.rate, t.monthly, t.balance, k), 0), H2 = pmtF(ra, n - k, Bk);
+  return Math.abs(H2 - t.monthly) >= 0.5 ? {H2: H2, drop: H2 < t.monthly} : null;
+}
+function flagsFor(t){
+  var f = (t.flags || []).filter(function(x){ return x.code !== 'drop' && x.code !== 'nochange'; }), ci = chgInfo(t);
+  if (ci && ci.drop) f.push({code: 'drop', text: 'הריבית צפויה לרדת ב-' + t.next_change});
+  else if (!ci && t.next_change && t.rate_after_change == null) f.push({code: 'nochange', text: 'עדכון הריבית ב-' + t.next_change + ' לא נכלל בחישוב'});
+  return f;
+}
+// השרת (engine.py) עדיין מחשב "קיצור תקופה" בשיטה הישנה. במסלול שההחזר בו ישתנה במועד העדכון
+// מחשבים כאן מחדש את קיצור התקופה מאותם נתונים. הפחתת החזר ושאר התוצאות נשארות של השרת.
+function fixed(t){
+  var key = t.idx + ':fix';
+  if (effCache[key]) return effCache[key];
+  var ci = (t.modes && t.market_rate != null) ? chgInfo(t) : null;
+  var f = t.modes ? flagsFor(t) : (t.flags || []);
+  if (!ci && f.length === (t.flags || []).length) { effCache[key] = t; return t; }
+  var e = {}; for (var kk in t) e[kk] = t[kk];
+  e.flags = f;
+  if (ci) {
+    var s = scen(t, t.market_rate);
+    e.modes = {shorten: s.shorten, reduce: t.modes.reduce, monthly_after_change: s.monthly_after_change};
+    if (t.modes_full) {
+      e.modes_full = t.market_rate_full != null
+        ? {shorten: scen(t, t.market_rate_full).shorten, reduce: t.modes_full.reduce, monthly_after_change: s.monthly_after_change} : null;
+    }
+    var vs = t.verdicts || {}, one = {code: t.verdict_code || 'none', text: t.verdict || 'אין השוואה'};
+    var sv = vs.shorten || one;
+    e.verdicts = {reduce: vs.reduce || one};
+    if (sv.code === 'wait') {
+      e.verdicts.shorten = sv;
+      if (t.at_change) {
+        var a = {}; for (var x in t.at_change) a[x] = t.at_change[x];
+        var ac = atChange(t, t.market_rate); a.shorten = ac.shorten; a.shorten_monthly = ac.shorten_monthly;
+        e.at_change = a;
+      }
+    } else if (sv.code === 'refi' || sv.code === 'keep') {
+      e.verdicts.shorten = e.modes.shorten.saving > 0 ? {code: 'refi', text: 'למחזר'} : {code: 'keep', text: 'לא לגעת'};
+    } else { e.verdicts.shorten = sv; }
+    e.recalc = true;
+  }
+  effCache[key] = e; return e;
+}
 function eff(t){
-  if (ov[t.idx] == null) return t;
+  if (ov[t.idx] == null) return fixed(t);
   var key = t.idx + ':' + ov[t.idx];
   if (effCache[key]) return effCache[key];
   var rm = ov[t.idx], e = {};
@@ -736,6 +799,7 @@ function eff(t){
     e.verdicts[md] = wait ? {code: 'wait', text: 'לחכות עד ' + t.next_change}
                    : (e.modes[md].saving > 0 ? {code: 'refi', text: 'למחזר'} : {code: 'keep', text: 'לא לגעת'});
   });
+  e.flags = flagsFor(t);
   effCache[key] = e; return e;
 }
 function canOverride(t){ return t.monthly >= 0.5 && t.months_left > 0; }
@@ -758,14 +822,43 @@ function rateInput(t, def){
   return '<span class="rate-box"><input type="number" class="rate-in" data-idx="' + t.idx + '" step="0.01" min="0.5" max="15" inputmode="decimal" value="' + val + '" aria-label="ריבית למסלול ' + esc(t.type) + '"><span>%</span></span>'
     + (ov[t.idx] != null ? '<div class="sub ov-note">הריבית שהזנתם · <a href="#" data-reset="' + t.idx + '">חזרה לברירת המחדל</a></div>' : '');
 }
-function ovText(e){
-  var M = e.modes[mode], v = e.verdicts[mode];
-  var s = 'חישוב לפי הריבית שהזנתם, ' + pct(e.market_rate) + ', מול ריבית של ' + pct(e.rate) + ' היום. ';
-  if (v.code === 'wait') return s + 'עד ' + e.next_change + ' המסלול זול מהריבית שהזנתם, ואחרי העדכון הריבית המשוערת היא ' + pct(e.rate_after_change) + '. מיחזור במועד העדכון: ' + (e.at_change[mode] >= 0 ? 'רווח ' : 'הפסד ') + ils(Math.abs(e.at_change[mode])) + '.';
-  var pay = mode === 'reduce' ? ' ההחזר החודשי יהיה ' + ils0(M.new_monthly) + ' במקום ' + ils0(e.monthly) + '.'
-          : (M.capped ? ' אין קיצור תקופה: ההחזר עולה ל-' + ils0(M.new_monthly) + '.' : (M.months_saved < 0.5 ? ' התקופה מתקצרת בפחות מחודש, באותו החזר.' : ' התקופה מתקצרת ב-' + Math.round(M.months_saved) + ' חודשים, באותו החזר.'));
-  return s + (M.saving >= 0 ? 'מיחזור בריבית הזו מביא לרווח של ' : 'מיחזור בריבית הזו מביא להפסד של ') + ils(Math.abs(M.saving)) + '.' + pay;
+var ANCHOR_CAVEAT = 'זו הערכה לפי העוגן של היום: עד מועד העדכון העוגן עשוי לעלות או לרדת, והריבית בפועל עשויה להיות אחרת. ';
+function monthsTxt(ms){
+  return ms >= 0.5 ? Math.round(ms) + ' חודשים מוקדם יותר' : (ms <= -0.5 ? Math.round(-ms) + ' חודשים מאוחר יותר' : 'בערך באותו מועד');
 }
+// הסבר מחושב: לריבית שהגולש הזין, ולמסלול שקיצור התקופה בו חושב מחדש בדף
+function calcText(e, typed){
+  var M = e.modes[mode], v = e.verdicts[mode];
+  var ref = typed ? 'מהריבית שהזנתם' : 'מהריבית שניתן לקבל היום';
+  var s = typed ? 'חישוב לפי הריבית שהזנתם, ' + pct(e.market_rate) + ', מול ריבית של ' + pct(e.rate) + ' היום. '
+                : 'הריבית שניתן לקבל היום במסלול כזה היא ' + pct(e.market_rate) + ', מול ' + pct(e.rate) + ' היום. ';
+  if (v.code === 'wait') return s + 'עד ' + e.next_change + ' המסלול זול ' + ref + ', ואחרי העדכון הריבית המשוערת היא ' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT + 'מיחזור במועד העדכון: ' + (e.at_change[mode] >= 0 ? 'רווח ' : 'הפסד ') + ils(Math.abs(e.at_change[mode])) + '.';
+  var ci = chgInfo(e), d = '';
+  if (ci && ci.drop) {
+    d = 'ב-' + e.next_change + ' הריבית במסלול הקיים צפויה לרדת ל-' + pct(e.rate_after_change) + ' בלי לעשות דבר. ';
+    if (e.rate_after_change < e.market_rate) d += 'זה נמוך ' + ref + ', ולכן מיחזור עכשיו מוזיל רק עד מועד העדכון, ומשם ועד סוף ההלוואה המסלול הקיים זול יותר. ';
+    d += ANCHOR_CAVEAT;
+    if (e.rate_after_change < e.market_rate) d += 'שתי ההלוואות מתעדכנות לפי אותו עוגן, ולכן ההפרש שנשאר ביניהן לאורך זמן הוא המרווח שהבנק מוסיף. ';
+  } else if (ci) {
+    d = 'ב-' + e.next_change + ' הריבית במסלול הקיים צפויה לעלות ל-' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT;
+  }
+  var res = (M.saving >= 0 ? 'מיחזור בריבית הזו מביא לרווח של ' : 'מיחזור בריבית הזו מביא להפסד של ') + ils(Math.abs(M.saving)) + '.';
+  var pay;
+  if (mode === 'reduce') {
+    pay = ' ההחזר החודשי יהיה ' + ils0(M.new_monthly) + ' במקום ' + ils0(e.monthly)
+        + (ci ? ', ובלי מיחזור הוא צפוי להיות ' + ils0(ci.H2) + ' מ-' + e.next_change : '') + '.';
+  } else if (M.capped) {
+    pay = ' אין קיצור תקופה: ההחזר עולה ל-' + ils0(M.new_monthly) + '.';
+  } else if (ci && ci.drop) {
+    pay = ' ההשוואה מניחה שגם בלי מיחזור ממשיכים לשלם אחרי העדכון את ההחזר של היום, ולכן גם אז המשכנתא מתקצרת. באותו החזר, עם מיחזור היא תסתיים ' + monthsTxt(M.months_saved) + '.';
+  } else if (ci) {
+    pay = ' מ-' + e.next_change + ' ההחזר עולה ל-' + ils0(ci.H2) + ' בכל מקרה, וההשוואה מניחה אותו החזר גם עם מיחזור. באותו החזר, עם מיחזור המשכנתא תסתיים ' + monthsTxt(M.months_saved) + '.';
+  } else {
+    pay = ' באותו החזר, המשכנתא תסתיים ' + monthsTxt(M.months_saved) + '.';
+  }
+  return s + d + res + pay;
+}
+function ovText(e){ return calcText(e, true); }
 
 function render(){
   var d = data, hasM = d.mode === 'full';
@@ -806,7 +899,7 @@ function render(){
       : 'היתרה הכוללת, העמלות והתקופות תואמים לדוח הבנק.') + '</span>';
   show('goal-card', hasM);
   $('toggle-help').textContent = mode === 'shorten'
-    ? 'קיצור תקופה: ההחזר החודשי נשאר כמו היום והמשכנתא נגמרת מוקדם יותר. הרווח הוא התשלומים שנחסכים.'
+    ? 'קיצור תקופה: משלמים אותו החזר חודשי עם מיחזור ובלי מיחזור, והמשכנתא נגמרת מוקדם יותר. הרווח הוא התשלומים שנחסכים.'
     : 'הפחתת החזר: התקופה נשארת כמו היום וההחזר החודשי יורד. הרווח הוא הפרש ההחזר כפול מספר התשלומים.';
 
   // 2. tracks table
@@ -867,7 +960,8 @@ function render(){
       } else {
         extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
               : (M.capped ? 'אין קיצור<div class="sub">ההחזר עולה ל-' + ils0(M.new_monthly) + '</div>'
-                 : (M.months_saved != null ? (M.months_saved < 0.5 ? 'פחות מחודש' : Math.round(M.months_saved) + ' חודשים') : ''));
+                 : (M.months_saved != null ? (M.months_saved < 0 ? 'אין קיצור<div class="sub">' + (M.months_saved <= -0.5 ? 'מסתיים ' + Math.round(-M.months_saved) + ' חודשים אחרי המסלול הקיים, באותו החזר' : 'מסתיים בערך עם המסלול הקיים, באותו החזר') + '</div>'
+                    : (M.months_saved < 0.5 ? 'פחות מחודש' : Math.round(M.months_saved) + ' חודשים')) : ''));
         saving = signed(M.saving);
         sumSaving += M.saving;
         newTot += (mode === 'reduce' || M.capped) ? M.new_monthly : t.monthly;
@@ -880,7 +974,7 @@ function render(){
     var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && eff(t).at_change; });
     var footPay = '<div class="pay3"><div><b>' + ils0(newTot) + '</b> אחרי מיחזור</div>'
                 + '<div class="sub">' + ils0(d.total_monthly) + ' היום</div>'
-                + (hasRise ? '<div class="sub">' + ils0(predTot) + ' משוער בלי מיחזור, אחרי עליית הריבית</div>' : '') + '</div>';
+                + (hasRise ? '<div class="sub">' + ils0(predTot) + ' משוער בלי מיחזור, אחרי עדכון הריבית</div>' : '') + '</div>';
     r += '</tbody><tfoot><tr><td colspan="3">' + footLbl + '</td><td class="n" data-l="החזר חודשי כולל">' + footPay + '</td><td class="n" data-l="' + footLbl + '">' + signed(sumSaving) + '</td><td></td></tr></tfoot>';
     $('refi-tbl').innerHTML = r;
   }
@@ -896,16 +990,20 @@ function render(){
   var c = '';
   d.tracks.forEach(function(t, i){
     var v = verdictOf(t);
-    var txt = ov[t.idx] != null ? ovText(eff(t)) : ((n.tracks[String(t.idx)] || {})[mode] || '');
+    var et = eff(t);
+    var txt = ov[t.idx] != null ? ovText(et) : ((et.recalc && mode === 'shorten') ? calcText(et, false) : ((n.tracks[String(t.idx)] || {})[mode] || ''));
     c += '<div class="concl ' + v.code + '"><h3>' + esc(t.type) + ', ' + pct(t.rate) + ': ' + esc(v.text) + '</h3><p>' + esc(txt) + '</p></div>';
   });
   $('conclusions').innerHTML = c;
   var pvf = (n.partial_vs_full || {})[mode];
+  if (mode === 'shorten' && d.tracks.some(function(t){ return eff(t).recalc; })) pvf = '';   // הטקסט של השרת מבוסס על החישוב הישן
   $('pvf').innerHTML = hasM && pvf ? '<h3>מיחזור חלקי או מלא</h3><p>' + esc(pvf) + '</p>' : '';
   $('ai-notes').innerHTML = (n.notes && n.notes.length) ? '<div class="ai-notes"><div class="tag">הערות שהמודל הוסיף (לא חלק מהחישוב)</div><ul>' + n.notes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
 
   // 5. not checked
   $('not-checked').innerHTML = '<li><b>האם כדאי לעבור בין מסלולי משכנתא: כדאיות מעבר בין מסלולים תלויה בציפיות האינפלציה ובצפי לגבי שינויי ריבית עתידיים. כדי להימנע מספק, בדיקת הכדאיות נעשתה אך ורק כ"השוואת תפוחים לתפוחים".</b></li>'
+    + (d.tracks.some(function(t){ return t.rate_after_change != null; })
+       ? '<li>הריבית המשוערת אחרי מועד עדכון הריבית מחושבת לפי העוגן של היום. עד מועד העדכון העוגן עשוי לעלות או לרדת, ולכן הריבית בפועל, וגם הרווח או ההפסד ממיחזור, עשויים להיות שונים.</li>' : '')
     + (d.not_checked || []).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
 }
 })();
