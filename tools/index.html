@@ -499,7 +499,7 @@ textarea:focus-visible,
         <div class="calc-icon">💸</div>
         <div class="calc-tags">
           <span class="calc-tag tag-tax">מיסוי</span>
-          <span class="calc-tag tag-roi">פנסיה</span>
+          <span class="calc-tag tag-pension">פנסיה</span>
         </div>
         <h3>מחשבון משיכת פיצויים</h3>
         <p class="calc-desc">
@@ -812,12 +812,22 @@ textarea:focus-visible,
   var cards=[].slice.call(grid.querySelectorAll('.calc-card'));
   if(!cards.length)return;
 
+  /* כלל קבוע: כל תגית מקבלת תמיד אותו צבע לפי הטקסט שלה. הטקסט קובע, לא המחלקה ב-HTML.
+     תגית חדשה: להוסיף כאן + מחלקת tag-* ב-CSS. */
+  var KEY_BY_LABEL={'פנסיה':'pension','מיסוי':'tax','חיסכון':'roi','קרן השתלמות':'hishtalmut',
+                    'ביטוח':'insurance','נדל"ן':'housing','דמי ניהול':'fees'};
   var cats=[], byKey={};
   cards.forEach(function(card){
     var keys=[];
     [].forEach.call(card.querySelectorAll('.calc-tag'),function(tag){
       var key='';
       tag.className.split(/\s+/).forEach(function(c){ if(c.indexOf('tag-')===0) key=c.slice(4); });
+      var canon=KEY_BY_LABEL[(tag.textContent||'').trim()];
+      if(canon && canon!==key){
+        if(window.console) console.warn('calc-tag: "'+(tag.textContent||'').trim()+'" סומנה tag-'+key+', תוקן ל-tag-'+canon);
+        tag.className=tag.className.replace(/(^|\s)tag-\S+/g,' ').trim()+' tag-'+canon;
+        key=canon;
+      }
       if(!key || keys.indexOf(key)>=0) return;
       keys.push(key);
       if(!byKey[key]){ byKey[key]={key:key,label:(tag.textContent||'').trim(),n:0,i:cats.length}; cats.push(byKey[key]); }
