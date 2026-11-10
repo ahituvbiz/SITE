@@ -398,7 +398,7 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="page-updated">עודכן: 8 בנובמבר 2026</p>
+  <p class="page-updated">עודכן: 10 בנובמבר 2026</p>
   <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
@@ -744,12 +744,12 @@ function chgInfo(t){
   var Bk = Math.max(balAfter(t.rate, t.monthly, t.balance, k), 0), H2 = pmtF(ra, n - k, Bk);
   return Math.abs(H2 - t.monthly) >= 0.5 ? {H2: H2, drop: H2 < t.monthly} : null;
 }
-// מסלול שהריבית בו צפויה לרדת: התגית "הריבית צפויה לרדת" מחליפה את "עדכון ריבית ב-" של השרת.
+// מסלול שהריבית המשוערת בו אחרי העדכון נמוכה מהיום: התגית "ירידת ריבית משוערת" מחליפה את "עדכון ריבית ב-" של השרת.
 // (מסלול בלי ריבית משוערת כבר מקבל מהשרת את התגית after_unknown)
 function flagsFor(t){
   var ci = chgInfo(t), dn = !!(ci && ci.drop);
   var f = (t.flags || []).filter(function(x){ return x.code !== 'drop' && !(dn && x.code === 'update_soon'); });
-  if (dn) f.push({code: 'drop', text: 'הריבית צפויה לרדת ב-' + t.next_change});
+  if (dn) f.push({code: 'drop', text: 'ירידת ריבית משוערת ב-' + t.next_change});
   return f;
 }
 // השרת (engine.py) עדיין מחשב "קיצור תקופה" בשיטה הישנה. במסלול שההחזר בו ישתנה במועד העדכון
@@ -843,18 +843,18 @@ function calcText(e, typed){
   if (v.code === 'wait') return s + 'עד ' + e.next_change + ' המסלול זול ' + ref + ', ואחרי העדכון הריבית המשוערת היא ' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT + 'מיחזור במועד העדכון: ' + (e.at_change[mode] >= 0 ? 'רווח ' : 'הפסד ') + ils(Math.abs(e.at_change[mode])) + '.';
   var ci = chgInfo(e), d = '';
   if (ci && ci.drop) {
-    d = 'ב-' + e.next_change + ' הריבית במסלול הקיים צפויה לרדת ל-' + pct(e.rate_after_change) + ' בלי לעשות דבר. ';
+    d = 'הריבית המשוערת במסלול הקיים אחרי העדכון ב-' + e.next_change + ' היא ' + pct(e.rate_after_change) + ', בלי לעשות דבר. ';
     if (e.rate_after_change < e.market_rate) d += 'זה נמוך ' + ref + ', ולכן מיחזור עכשיו מוזיל רק עד מועד העדכון, ומשם ועד סוף ההלוואה המסלול הקיים זול יותר. ';
     d += ANCHOR_CAVEAT;
     if (e.rate_after_change < e.market_rate) d += 'שתי ההלוואות מתעדכנות לפי אותו עוגן, ולכן ההפרש שנשאר ביניהן לאורך זמן הוא המרווח שהבנק מוסיף. ';
   } else if (ci) {
-    d = 'ב-' + e.next_change + ' הריבית במסלול הקיים צפויה לעלות ל-' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT;
+    d = 'הריבית המשוערת במסלול הקיים אחרי העדכון ב-' + e.next_change + ' היא ' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT;
   }
   var res = (M.saving >= 0 ? 'מיחזור בריבית הזו מביא לרווח של ' : 'מיחזור בריבית הזו מביא להפסד של ') + ils(Math.abs(M.saving)) + '.';
   var pay;
   if (mode === 'reduce') {
     pay = ' ההחזר החודשי יהיה ' + ils0(M.new_monthly) + ' במקום ' + ils0(e.monthly)
-        + (ci ? ', ובלי מיחזור הוא צפוי להיות ' + ils0(ci.H2) + ' מ-' + e.next_change : '') + '.';
+        + (ci ? ', ובלי מיחזור ההחזר המשוער מ-' + e.next_change + ' הוא ' + ils0(ci.H2) : '') + '.';
   } else if (M.capped) {
     pay = ' אין קיצור תקופה: ההחזר עולה ל-' + ils0(M.new_monthly) + '.';
   } else if (ci && ci.drop) {
