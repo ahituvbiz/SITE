@@ -19,6 +19,10 @@ check-html.py — בדיקת תקינות קבצי HTML לפני פריסה ל-p
      והוא חייב להיות בראש ה-body ולא "בלוע" בתוך אלמנט תוכן שלא נסגר.
      (זו בדיוק התקלה שגרמה לפוטר להיראות שונה בדפים שונים.)
 
+  6. עיצוב ה-header: דף שמכיל את ה-header האחיד חייב לכלול ב-<style> שלו את כללי ה-CSS
+     של ה-header ושל תיבת החיפוש. ה-HTML של ה-header מוזרק מרכזית, אבל ה-CSS שלו יושב
+     בכל דף בנפרד - דף בלי הכללים מציג זכוכית מגדלת ענקית במקום תיבת חיפוש (תקלת 10.11.26).
+
 בדיקה (WARN = לא חוסם):
   4. הקובץ אינו נגמר ב-</html>       — חלק מהדפים נגמרים ב-</footer> בכוונה (קונבנציה)
 
@@ -89,6 +93,29 @@ def block_balance(text, tag):
     c = len(re.findall(r"</" + tag + r">", text, re.I))
     return o, c
 
+# ---- שער עיצוב ה-header (10.11.26) ------------------------------------------
+# כל כלל כאן חייב להופיע ב-CSS של כל דף שיש בו ה-header האחיד.
+HEADER_CSS_REQUIRED = [
+    (".header",                    r"(?<![\w-])\.header\s*\{"),
+    (".header-inner",              r"\.header-inner\s*\{"),
+    (".nav",                       r"(?<![\w-])\.nav\s*\{"),
+    (".hamburger",                 r"\.hamburger\s*\{"),
+    (".header-search input",       r"\.header-search\s+input\s*\{"),
+    (".header-search-icon",        r"\.header-search-icon\s*\{"),
+    (".header-search-icon svg",    r"\.header-search-icon\s+svg\s*\{"),
+    (".search-results.open",       r"\.search-results\.open\s*\{"),
+]
+def header_css_check(path, t):
+    rel = path.replace("\\", "/")
+    if any(x in rel for x in FOOTER_EXEMPT): return []
+    if '<header class="header"' not in t or 'class="header-search-icon"' not in t: return []
+    css = " ".join(re.findall(r"<style\b[^>]*>(.*?)</style>", t, flags=re.S | re.I))
+    miss = [name for name, rx in HEADER_CSS_REQUIRED if not re.search(rx, css)]
+    if miss:
+        return ["חסר CSS של ה-header בדף (זכוכית מגדלת ענקית / תפריט שבור): " + ", ".join(miss) +
+                " - להעתיק את בלוק ה-header וה-Header search מ-tools/index.html"]
+    return []
+
 def check_file(path):
     fails, warns = [], []
     try:
@@ -106,6 +133,7 @@ def check_file(path):
         o, c = block_balance(clean, tag)
         if o != c:
             fails.append(f"חוסר איזון <{tag}>: {o} נפתחות / {c} נסגרות (קטיעה?)")
+    fails += header_css_check(path, t)
     if not t.rstrip().endswith("</html>"):
         warns.append("לא נגמר ב-</html>")
     return fails, warns
