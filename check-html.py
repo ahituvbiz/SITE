@@ -23,6 +23,9 @@ check-html.py — בדיקת תקינות קבצי HTML לפני פריסה ל-p
      של ה-header ושל תיבת החיפוש. ה-HTML של ה-header מוזרק מרכזית, אבל ה-CSS שלו יושב
      בכל דף בנפרד - דף בלי הכללים מציג זכוכית מגדלת ענקית במקום תיבת חיפוש (תקלת 10.11.26).
 
+  7. התפריט הנייד: דף עם כפתור המבורגר חייב לקשר ל-/site-chrome.js ול-/site-chrome.css,
+     ושני הקבצים חייבים להימצא בשורש הריפו עם כללי התפריט (רץ תמיד).
+
 בדיקה (WARN = לא חוסם):
   4. הקובץ אינו נגמר ב-</html>       — חלק מהדפים נגמרים ב-</footer> בכוונה (קונבנציה)
 
@@ -111,10 +114,28 @@ def header_css_check(path, t):
     if '<header class="header"' not in t or 'class="header-search-icon"' not in t: return []
     css = " ".join(re.findall(r"<style\b[^>]*>(.*?)</style>", t, flags=re.S | re.I))
     miss = [name for name, rx in HEADER_CSS_REQUIRED if not re.search(rx, css)]
+    out = []
+    # התפריט הנייד מגיע מהקבצים המשותפים - כל דף עם המבורגר חייב לקשר אליהם (10.11.26)
+    if 'class="hamburger"' in t:
+        if "/site-chrome.js" not in t: out.append("חסר קישור ל-/site-chrome.js - התפריט הנייד לא ייפתח (build.py לא רץ על הדף?)")
+        if "/site-chrome.css" not in t: out.append("חסר קישור ל-/site-chrome.css - התפריט הנייד לא ייפתח (build.py לא רץ על הדף?)")
+    if out: return out
     if miss:
         return ["חסר CSS של ה-header בדף (זכוכית מגדלת ענקית / תפריט שבור): " + ", ".join(miss) +
                 " - להעתיק את בלוק ה-header וה-Header search מ-tools/index.html"]
     return []
+
+def chrome_assets_audit():
+    """הקבצים המשותפים של התפריט הנייד חייבים להיות בשורש הריפו ולהכיל את הכללים (10.11.26)."""
+    root = os.path.dirname(os.path.abspath(__file__)); probs = []
+    for fn, needles in (("site-chrome.css", ["header.header .nav.chrome-nav.open"]),
+                        ("site-chrome.js",  ["hamburger", "classList.toggle('open'"])):
+        p = os.path.join(root, fn)
+        if not os.path.exists(p): probs.append((fn, "הקובץ חסר - התפריט הנייד לא יעבוד באף דף")); continue
+        c = open(p, encoding="utf-8", errors="replace").read()
+        for n in needles:
+            if n not in c: probs.append((fn, f"חסר בו '{n}' - התפריט הנייד לא יעבוד"))
+    return probs
 
 def check_file(path):
     fails, warns = [], []
@@ -230,6 +251,8 @@ def main(argv):
         for path, why in fp:
             print(f"❌ {path}\n     FAIL: {why}")
         nbad += len(fp)
+    for path, why in chrome_assets_audit():
+        print(f"❌ {path}\n     FAIL: {why}"); nbad += 1
     print()
     if nbad:
         print(f"check-html: {nbad} כשלים — הפריסה נחסמה. תקן ודחוף מחדש.")
