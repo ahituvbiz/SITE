@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון משיכת פיצויים - כמה זה יעלה לכם בפנסיה? | איתן אחיטוב</title>
+<meta name="description" content="מחשבון משיכת פיצויים: בדקו בכמה תקטן קצבת הפנסיה נטו אם תמשכו את הפיצויים היום - כולל הפגיעה בפטור ממס על הקצבה לפי נוסחת השילוב. חשבו עכשיו.">
+<meta property="og:title" content="מחשבון משיכת פיצויים | איתן אחיטוב">
+<meta property="og:description" content="בדקו בכמה תקטן קצבת הפנסיה נטו אם תמשכו את הפיצויים היום - כולל הפגיעה בפטור ממס על הקצבה.">
+<meta property="og:url" content="https://pensya.info/tools/meshichat-pitzuim/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "מחשבון משיכת פיצויים", "description": "מחשבון שמציג את השפעת משיכת פיצויים על קצבת הפנסיה נטו: ירידה בצבירה ופגיעה בפטור ממס על הקצבה לפי נוסחת השילוב.", "url": "https://pensya.info/tools/meshichat-pitzuim/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "author": {"@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ILS"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/"}, {"@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/tools/"}, {"@type": "ListItem", "position": 3, "name": "מחשבון משיכת פיצויים", "item": "https://pensya.info/tools/meshichat-pitzuim/"}]}]}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "בכמה משיכת פיצויים מקטינה את הפנסיה?", "acceptedAnswer": {"@type": "Answer", "text": "המשיכה פוגעת בפנסיה בשתי דרכים: הצבירה קטנה ולכן הקצבה ברוטו קטנה, ובנוסף הסכום שנמשך בפטור ממס נגרע מסל הפטור על הקצבה ולכן משלמים יותר מס הכנסה בפרישה. המחשבון מציג את שתי ההשפעות בנפרד, בערכי היום."}}, {"@type": "Question", "name": "מהי נוסחת השילוב?", "acceptedAnswer": {"@type": "Answer", "text": "נוסחת השילוב קובעת שכל שקל של פיצויים שנמשך בפטור ממס מקטין את ההון הפטור על הקצבה ב-1.35 שקלים, בתוספת הצמדה למדד. את ההון הפטור שנותר מחלקים ב-180 כדי לקבל את הקצבה החודשית הפטורה ממס."}}, {"@type": "Question", "name": "האם כל משיכת פיצויים פוגעת בפטור על הקצבה?", "acceptedAnswer": {"@type": "Answer", "text": "לא. נוסחת השילוב מתייחסת רק לפיצויים פטורים ששולמו בגין 32 שנות העבודה שקדמו לגיל הזכאות. מי שצפוי לעבוד כשכיר יותר מ-32 שנים נוספות עד הפרישה לא ייפגע בסל הפטור בגלל משיכה שנעשית היום, אבל הצבירה שלו עדיין תקטן."}}, {"@type": "Question", "name": "האם המשיכה יכולה לאפס את הפטור על הקצבה?", "acceptedAnswer": {"@type": "Answer", "text": "לא. המשיכה נגרעת רק מהחלק הבסיסי של הפטור (35% מתקרת הקצבה המזכה). הפטור הנוסף (32% מתקרת הקצבה המזכה החל מ-2028) אינו נפגע ממשיכות פיצויים."}}, {"@type": "Question", "name": "למה התוצאות מוצגות בערכי היום?", "acceptedAnswer": {"@type": "Answer", "text": "כי מה שחשוב הוא כוח הקנייה ולא מספר השקלים. תקרת הקצבה המזכה, מדרגות המס ונקודות הזיכוי מתעדכנות לפי המדד, וגם הסכום שנגרע מסל הפטור מוצמד למדד, ולכן חישוב ריאלי נותן תמונה נכונה של המס בפרישה."}}]}
+</script>
+<style>
+:root {
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C; --cta-hover:#B83E2E;
+  --text-1:#1A1A1A; --text-2:#555; --text-meta:#999;
+  --bg:#fff; --bg-cream:#F8F6F2; --border:#E2E0DC;
+  --positive:#5C8D5A; --warning:#C9A227; --negative:#C53030;
+  --s-sm:12px; --s-md:20px; --s-lg:32px; --s-xl:48px; --s-2xl: clamp(28px, 4.5vw, 44px); --s-3xl: clamp(32px, 6vw, 48px);
+  --radius:14px; --container:1120px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;overflow-x: hidden;
+  color:var(--text-1);background:var(--bg);line-height:1.65;font-size:17px}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+
+/* HEADER */
+.header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:200;height:64px}
+.header-inner{display:flex;align-items:center;gap:20px;height:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;flex-shrink:0}
+.logo-sub{font-weight:400;font-size:12px;color:var(--text-2)}
+.nav{display:flex;gap:4px;margin-right:auto}
+.nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--primary-soft);color:var(--primary);text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px}
+.hamburger span{display:block;height:2px;background:var(--text-1);border-radius:2px;transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){.nav{display:none}.hamburger{display:flex}}
+/* Header search */
+.header-search{position:relative;display:flex;align-items:center}
+.header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,0.1);width:260px}
+.header-search input::placeholder{color:var(--text-meta)}
+.header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
+.header-search-icon svg{width:18px;height:18px}
+.search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.12);max-height:320px;overflow-y:auto;z-index:10;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;text-decoration:none}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--bg-cream)}
+.search-results .no-results{padding:16px;color:var(--text-meta);font-size:14px;text-align:center}
+@media(max-width:900px){.header-search input{width:160px}.header-search input:focus{width:200px}}
+@media(max-width:600px){.header-search input{width:130px}}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--bg-cream);border-bottom:1px solid var(--border);padding:10px 0;font-size: 14px;color:var(--text-meta)}
+.breadcrumb .container{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb .sep{color:var(--border)}
+.breadcrumb .current{color:var(--text-2)}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#fafbfd 0%,var(--primary-soft) 100%);padding:var(--s-2xl) 0 var(--s-xl)}
+.page-hero h1{font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px}
+.page-hero h1 .accent{color:var(--primary)}
+.page-hero .lead{font-size:18px;color:var(--text-2);line-height:1.7}
+.stats-strip{display:flex;gap:32px;flex-wrap:wrap;margin-top:var(--s-lg);padding-top:var(--s-lg);border-top:1px solid var(--border)}
+.stat-item .stat-val{font-size:32px;font-weight:700;color:var(--primary)}
+.stat-item .stat-label{font-size:13px;color:var(--text-2);margin-top:4px}
+
+/* CALCULATOR SECTION */
+.calc-wrap{padding:var(--s-2xl) 0}
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:768px){.calc-layout{grid-template-columns:1fr}}
+.calc-intro h2{font-size:26px;font-weight:700;margin-bottom:16px}
+.calc-intro p{color:var(--text-2);line-height:1.7;margin-bottom:16px}
+.insight-box{background:var(--primary-soft);border-right:4px solid var(--primary);border-radius:10px;padding:16px 20px;font-size:15px;margin-top:16px}
+.calc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
+.calc-card h3{font-size:18px;font-weight:700;margin-bottom:20px}
+.form-group{margin-bottom:20px}
+.form-group label{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-2)}
+.val-display{font-weight:700;color:var(--primary)}
+.form-group input[type=range]{width:100%;accent-color:var(--primary)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc-results{background:var(--bg-cream);border-radius:10px;padding:20px;margin-top:20px}
+.res-title{font-size:13px;font-weight:600;color:var(--text-meta);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.res-big{font-size:36px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.res-big.good{color:var(--positive)}
+.res-sub{font-size:13px;color:var(--text-2);margin-bottom:16px}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.res-item{background:#fff;border-radius:8px;padding:12px}
+.ri-val{font-size:18px;font-weight:700;color:var(--primary)}
+.ri-label{font-size:12px;color:var(--text-meta);margin-top:2px}
+.res-note{font-size:12px;color:var(--text-meta);margin-top:12px;line-height:1.5}
+
+/* CTA SECTION */
+.cta-section{background:var(--primary);color:#fff;padding:var(--s-2xl) 0;text-align:center}
+.cta-section h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.cta-section p{font-size:16px;opacity:.85;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s}
+.btn-primary{background:var(--cta);color:#fff}.btn-primary:hover{background:var(--cta-hover);text-decoration:none}
+.btn-light{background:#fff;color:var(--primary)}.btn-light:hover{background:var(--primary-soft);text-decoration:none}
+
+/* RELATED */
+.related-section{padding:var(--s-xl) 0;background:var(--bg-cream);border-top:1px solid var(--border)}
+.related-section h3{font-size:18px;font-weight:700;margin-bottom:16px}
+.related-links{display:flex;gap:12px;flex-wrap:wrap}
+.related-link-card{padding:10px 18px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--primary);text-decoration:none}
+.related-link-card:hover{border-color:var(--primary);text-decoration:none}
+
+/* FOOTER */
+footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 0}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}
+.footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+.footer-tagline{font-size:13px;line-height:1.6;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:8px;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:20px;font-size:12px;opacity:.6;text-align:center}
+
+/* FAB */
+.fab-whatsapp{position:fixed;bottom:24px;left:24px;z-index:300;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:.2s}
+.fab-whatsapp:hover{transform:scale(1.08)}
+.fab-whatsapp svg{width:28px;height:28px;fill:#fff}
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #007DA8;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+    .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
+/* PENSION CALCULATOR WIDGET */
+.calc-card.pc-card{max-width:820px;margin:0 auto;font-size:17px}
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.pc-grid{grid-template-columns:1fr}}
+.pc-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:6px}
+.pc-card .form-group label{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:600;color:var(--text-2);margin-bottom:8px}
+.pc-toggle{display:flex;border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.pc-toggle button{flex:1;padding:12px;border:0;background:#fff;font-family:inherit;font-size:17px;cursor:pointer;color:var(--text-2)}
+.pc-toggle button.on{background:var(--primary);color:#fff;font-weight:700}
+.pc-card input[type=date],.pc-card input[type=text],.pc-card input[type=number],.pc-card select{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:9px;font-size:17px;font-family:inherit;background:#fff;color:var(--text-1)}
+.pc-agehint{font-weight:700;color:var(--primary);font-size:14px}
+.pc-adv{margin:18px 0;border-top:1px dashed var(--border);padding-top:14px}
+.pc-adv>summary{cursor:pointer;font-weight:700;color:var(--primary);font-size:16px}
+.pc-adv .pc-grid{margin-top:16px}
+.pc-adv-lbl{display:block;font-size:15px;font-weight:600;color:var(--text-2);margin:16px 0 2px}
+.pc-btn-big{font-size:19px;padding:16px}
+.pc-err{color:var(--negative);font-weight:600;margin-top:14px;display:none;font-size:16px}
+.pc-results{display:none;margin-top:26px}
+.pc-hero{background:linear-gradient(135deg,var(--primary),#0a6b91);color:#fff;border-radius:14px;padding:26px 22px;text-align:center;margin-bottom:18px}
+.pc-hero-lbl{font-size:16px;opacity:.92}
+.pc-hero-val{font-size:46px;font-weight:800;line-height:1.1}
+.pc-hero-val small{font-size:19px;font-weight:600}
+.pc-hero-sc{font-size:14px;opacity:.9;margin-top:7px}
+.pc-tbl{width:100%;border-collapse:collapse;font-size:17px;margin-top:4px}
+.pc-tbl th,.pc-tbl td{padding:13px 10px;text-align:center;border-bottom:1px solid var(--border)}
+.pc-tbl th{background:var(--bg-cream);color:var(--primary);font-weight:700;font-size:16px}
+.pc-tbl td.pc-lbl{text-align:right;font-weight:600;color:var(--text-2);font-size:16px}
+.pc-tbl .pc-mid{background:var(--primary-soft)}
+.pc-tbl td.pc-big{font-weight:800;color:var(--primary);font-size:18px}
+.pc-tbl td.pc-adj{font-weight:700;color:var(--positive);font-size:16px}
+.pc-note{background:var(--bg-cream);border-radius:11px;padding:14px 17px;font-size:15px;color:var(--text-2);margin-top:16px;line-height:1.7}
+#pc-chart{margin-top:18px}
+/* ARTICLE */
+.pc-article{padding:var(--s-xl) 0;background:#fff}
+.pc-article .container{max-width:820px}
+.pc-article h2{font-size:24px;font-weight:700;margin:30px 0 12px;color:var(--text-1)}
+.pc-article p{color:var(--text-2);line-height:1.85;margin-bottom:14px}
+.pc-article ul{margin:0 0 14px;padding-right:22px;color:var(--text-2);line-height:1.85}
+.pc-article li{margin-bottom:6px}
+.pc-faq h3{font-size:17px;font-weight:700;margin:20px 0 6px;color:var(--text-1)}
+.pc-faq p{margin-bottom:8px}
+/* SEVERANCE WITHDRAWAL CALCULATOR */
+.pw-switch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-cream);border:1px solid var(--border);border-radius:11px;padding:14px 16px;margin:4px 0 6px}
+.pw-switch-txt{font-size:16px;font-weight:600;color:var(--text-1);line-height:1.5}
+.pw-switch-hint{display:block;font-size:14px;font-weight:400;color:var(--text-2);margin-top:4px}
+.pw-switch-ctl{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.pw-switch-state{font-size:16px;font-weight:700;color:var(--primary);min-width:22px;text-align:center}
+.pw-switch{position:relative;display:inline-block;width:56px;height:32px}
+.pw-switch input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer;z-index:2}
+.pw-switch input:disabled{cursor:not-allowed}
+.pw-slider{position:absolute;inset:0;background:#c9c6c0;border-radius:999px;transition:.2s}
+.pw-slider::before{content:"";position:absolute;top:3px;right:3px;width:26px;height:26px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.pw-switch input:checked + .pw-slider{background:var(--primary)}
+.pw-switch input:checked + .pw-slider::before{transform:translateX(-24px)}
+.pw-switch input:disabled + .pw-slider{opacity:.5}
+.pw-switch input:focus-visible + .pw-slider{outline:3px solid #007DA8;outline-offset:2px}
+.pw-hero{background:linear-gradient(135deg,#B83E2E,var(--cta));color:#fff;border-radius:14px;padding:26px 22px;text-align:center;margin-bottom:18px}
+.pw-hero.pw-zero{background:linear-gradient(135deg,var(--primary),#0a6b91)}
+.pw-hero-lbl{font-size:17px;opacity:.95}
+.pw-hero-val{font-size:46px;font-weight:800;line-height:1.15;direction:ltr;unicode-bidi:isolate}
+.pw-hero-val small{font-size:19px;font-weight:600}
+.pw-hero-sub{font-size:15px;opacity:.95;margin-top:8px;line-height:1.6}
+.pw-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+@media(max-width:560px){.pw-split{grid-template-columns:1fr}}
+.pw-split-item{background:var(--bg-cream);border-radius:11px;padding:14px 16px}
+.pw-split-val{font-size:24px;font-weight:800;color:var(--negative)}
+.pw-split-lbl{font-size:15px;color:var(--text-2);line-height:1.5;margin-top:2px}
+.pw-tblwrap{overflow-x:auto}
+.pw-tbl td.pw-neg{color:var(--negative);font-weight:700}
+.pw-tbl tr.pw-net td{border-top:2px solid var(--primary);background:var(--primary-soft)}
+.pw-tbl tr.pw-net td.pc-big{font-size:21px}
+.pw-tbl td.pw-num{font-weight:600;color:var(--text-1)}
+.pw-withdraw input{border:2px solid var(--primary) !important}
+@media(max-width:560px){.pw-tbl{font-size:14px}.pw-tbl th,.pw-tbl td{padding:10px 3px}.pw-tbl th,.pw-tbl td.pc-lbl{font-size:14px}.pw-tbl tr.pw-net td.pc-big{font-size:16px}.pw-hero-val{font-size:38px}}
+  </style>
+  <link rel="canonical" href="https://pensya.info/tools/meshichat-pitzuim/" />
+<link rel="stylesheet" href="/site-chrome.css?v=2">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/robyectivi/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a><span class="sep">›</span>
+    <a href="/tools/">מחשבונים</a><span class="sep">›</span>
+    <span class="current">מחשבון משיכת פיצויים</span>
+  </div>
+</nav>
+
+<section class="page-hero" id="main-content">
+  <div class="container">
+    <h1>מחשבון משיכת פיצויים - <span class="accent">כמה זה יעלה לכם בפנסיה?</span></h1>
+    <p class="page-updated">עודכן: 10 בנובמבר 2026</p>
+    <p class="lead">
+      משיכת פיצויים פוגעת בפנסיה פעמיים: הצבירה קטנה, וגם הפטור ממס על הקצבה נשחק. הזינו את הנתונים שלכם ואת הסכומים שאתם שוקלים למשוך, וקבלו את הקצבה החודשית נטו ממס עם המשיכה ובלעדיה - בערכי היום.
+    </p>
+  </div>
+</section>
+
+<section class="calc-wrap">
+  <div class="container">
+    <div class="calc-card pc-card">
+      <h3>מלאו את הפרטים שלכם</h3>
+      <div class="pc-grid">
+        <div class="form-group"><label for="pc-bdate">תאריך לידה</label><input type="date" id="pc-bdate" oninput="pcShowAge();pcUpdateFactor();pwSync32()"><span class="pc-agehint" id="pc-agehint" style="display:block;margin-top:6px"></span></div>
+        <div class="form-group"><label>מין</label><div class="pc-toggle" id="pc-genderToggle"><button type="button" class="on" data-v="M" onclick="pcSetGender('M');pwSync32()">גבר</button><button type="button" data-v="F" onclick="pcSetGender('F');pwSync32()">אישה</button></div><input type="hidden" id="pc-gender" value="M"></div>
+        <div class="form-group"><label for="pc-retage">גיל פרישה</label><select id="pc-retage" onchange="pcUpdateFactor();pwSync32()"><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67" selected>67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option></select></div>
+        <div class="form-group"><label for="pc-balance">צבירה קיימת (₪)</label><input type="text" inputmode="numeric" id="pc-balance" value="150,000" oninput="pcGrp(this)"></div>
+        <div class="form-group"><label for="pc-salary">שכר מבוטח חודשי (₪)</label><input type="text" inputmode="numeric" id="pc-salary" value="12,000" oninput="pcGrp(this)"></div>
+        <div class="form-group"><label for="pc-deprate">שיעור הפקדה כולל (%)</label><input type="number" id="pc-deprate" value="20.83" step="0.1"></div>
+        <div class="form-group pw-withdraw"><label for="pw-withdraw">משיכת פיצויים פטורים ממס (₪)</label><input type="text" inputmode="numeric" id="pw-withdraw" value="50,000" oninput="pcGrp(this)"></div>
+        <div class="form-group pw-withdraw"><label for="pw-withdraw-tax">משיכת פיצויים חייבים במס (₪)</label><input type="text" inputmode="numeric" id="pw-withdraw-tax" value="0" oninput="pcGrp(this)"></div>
+      </div>
+      <div class="pw-switch-row" id="pw-32row">
+        <div class="pw-switch-txt" id="pw-32lbl">צפוי שתהיו שכירים יותר מ-32 שנים עד הפרישה?
+          <span class="pw-switch-hint" id="pw-32hint"></span>
+        </div>
+        <div class="pw-switch-ctl">
+          <span class="pw-switch-state" id="pw-32state">לא</span>
+          <label class="pw-switch"><input type="checkbox" role="switch" id="pw-long32" aria-labelledby="pw-32lbl" onchange="pwTouched=true;pwSync32();pwRerun()"><span class="pw-slider"></span></label>
+        </div>
+      </div>
+      <details class="pc-adv"><summary>הגדרות מתקדמות (תשואה, אינפלציה, דמי ניהול, מקדם המרה)</summary>
+        <div class="pc-grid">
+          <div class="form-group"><label for="pw-return">תשואה שנתית (%)</label><input type="number" id="pw-return" value="6.5" step="0.5"></div>
+          <div class="form-group"><label for="pc-inflation">אינפלציה חזויה (%)</label><input type="number" id="pc-inflation" value="2" step="0.1"></div>
+          <div class="form-group"><label for="pc-feedep">דמי ניהול מהפקדה (%)</label><input type="number" id="pc-feedep" value="1" step="0.1"></div>
+          <div class="form-group"><label for="pc-feebal">דמי ניהול מצבירה (%)</label><input type="number" id="pc-feebal" value="0.2" step="0.01"></div>
+          <div class="form-group"><label for="pc-factor">מקדם המרה (מחושב) <a href="/tools/mekadem-hamara/" style="font-weight:600">לחישוב מקדם מדויק</a></label><input type="number" id="pc-factor" value="200" step="0.1"></div>
+        </div>
+      </details>
+      <a href="javascript:void(0)" class="btn btn-primary pc-btn-big" style="width:100%;justify-content:center" onclick="pwRun()">חשב את השפעת המשיכה ←</a>
+      <div class="pc-err" id="pc-err" role="alert"></div>
+      <div class="pc-results" id="pc-results" aria-live="polite">
+        <div class="pw-hero" id="pw-hero">
+          <div class="pw-hero-lbl" id="pw-heroLbl"></div>
+          <div class="pw-hero-val" id="pw-heroVal">-</div>
+          <div class="pw-hero-sub" id="pw-heroSub"></div>
+        </div>
+        <div class="pw-split" id="pw-split"></div>
+        <div class="pw-tblwrap"><table class="pc-tbl pw-tbl" id="pw-tbl"></table></div>
+        <div class="pc-note" id="pw-basket"></div>
+        <div class="pc-note" id="pc-assumptions"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pc-article" style="padding-top:var(--s-sm)">
+  <div class="container">
+    <h2>מה קורה לפנסיה כשמושכים פיצויים?</h2>
+    <p>כספי הפיצויים הם חלק מהצבירה הפנסיונית, ובדרך כלל כשליש ממנה. כשמושכים אותם בעזיבת עבודה, הפנסיה נפגעת בשתי דרכים שונות, ורוב החוסכים מכירים רק את הראשונה:</p>
+    <ul>
+      <li>הצבירה קטנה. הכסף שנמשך מפסיק לצבור תשואה עד הפרישה, ולכן הקצבה ברוטו תהיה נמוכה יותר.</li>
+      <li>סל הפטור נשחק. פיצויים שנמשכים בפטור ממס נגרעים מהפטור ממס על הקצבה, ולכן על אותה קצבה משלמים יותר מס הכנסה.</li>
+    </ul>
+    <p>המחשבון מחבר את שתי ההשפעות ומציג את השורה התחתונה: בכמה שקלים בחודש תקטן הקצבה נטו, לכל החיים.</p>
+
+    <h2>נוסחת השילוב: כל שקל שנמשך עולה 1.35 שקלים מהפטור</h2>
+    <p>מגיל הפרישה כל חוסך זכאי לפטור ממס על חלק מהקצבה. החל מ-2028 הפטור יעמוד על 67% מתקרת הקצבה המזכה (9,430 ₪ לחודש), כלומר כ-6,318 ₪ בחודש פטורים ממס. ב-2026 שיעור הפטור הוא 57.5% וב-2027 הוא 62.5%.</p>
+    <p>מי שמשך בעבר פיצויים בפטור ממס מקבל פטור קטן יותר. לפי נוסחת השילוב, הסכום שנמשך מוצמד למדד, מוכפל ב-1.35 ונגרע מההון הפטור. את מה שנשאר מחלקים ב-180 ומקבלים את הקצבה החודשית הפטורה. במילים פשוטות: משיכה של 100,000 ₪ מקטינה את הקצבה הפטורה ב-750 ₪ בחודש.</p>
+    <p>הפגיעה מוגבלת לחלק הבסיסי של הפטור (35% מתקרת הקצבה המזכה). הפטור הנוסף, שיעמוד על 32% מהתקרה החל מ-2028, אינו נפגע ממשיכת פיצויים.</p>
+
+    <h2>כלל 32 השנים</h2>
+    <p>נוסחת השילוב מתחשבת רק בפיצויים פטורים ששולמו בגין 32 שנות העבודה שקדמו לגיל הזכאות. לכן מי שמושך פיצויים בגיל צעיר, וצפוי לעבוד כשכיר יותר מ-32 שנים נוספות עד הפרישה, לא ייפגע בסל הפטור. הספירה היא של שנות עבודה כשכיר ולא של שנים קלנדריות: שנים כעצמאי או שנים ללא עבודה אינן נספרות.</p>
+    <p>גם במקרה כזה המשיכה אינה חינם: הצבירה קטנה, והקצבה ברוטו קטנה איתה. המחשבון מראה כמה.</p>
+
+    <h2>מה המחשבון מניח?</h2>
+    <ul>
+      <li>רק פיצויים שנמשכו בפטור ממס נגרעים מסל הפטור (הפטור הוא עד 13,750 ₪ לכל שנת עבודה). פיצויים שחויבו במס במשיכה מקטינים את הצבירה אך אינם פוגעים בסל הפטור, ולכן הם מוזנים בשדה נפרד.</li>
+      <li>המחשבון מציג את ההשפעה על הקצבה בלבד, ואינו מחשב את המס שמשולם על המשיכה עצמה.</li>
+      <li>אין משיכות פיצויים פטורות נוספות, בעבר או בעתיד.</li>
+      <li>הקצבה מקרן הפנסיה היא ההכנסה החייבת היחידה בפרישה. קצבת הזקנה מביטוח לאומי פטורה ממס ואינה משפיעה על החישוב.</li>
+      <li>תקרת הקצבה המזכה, מדרגות המס ושווי נקודת הזיכוי יתעדכנו בעתיד לפי המדד, ולכן החישוב בערכי היום נעשה לפי הנתונים של 2026.</li>
+      <li>נקודות זיכוי: 2.25 לגבר ו-2.75 לאישה.</li>
+    </ul>
+    <p>רוצים לראות את התמונה המלאה של החיסכון, בשלושה תרחישי תשואה? עברו ל<a href="/tools/pension-calculator/">מחשבון הפנסיה</a>.</p>
+
+    <div class="pc-faq">
+      <h2>שאלות נפוצות על משיכת פיצויים</h2>
+      <h3>בכמה משיכת פיצויים מקטינה את הפנסיה?</h3>
+      <p>המשיכה פוגעת בפנסיה בשתי דרכים: הצבירה קטנה ולכן הקצבה ברוטו קטנה, ובנוסף הסכום שנמשך בפטור ממס נגרע מסל הפטור על הקצבה ולכן משלמים יותר מס הכנסה בפרישה. המחשבון מציג את שתי ההשפעות בנפרד, בערכי היום.</p>
+      <h3>מהי נוסחת השילוב?</h3>
+      <p>נוסחת השילוב קובעת שכל שקל של פיצויים שנמשך בפטור ממס מקטין את ההון הפטור על הקצבה ב-1.35 שקלים, בתוספת הצמדה למדד. את ההון הפטור שנותר מחלקים ב-180 כדי לקבל את הקצבה החודשית הפטורה ממס.</p>
+      <h3>האם כל משיכת פיצויים פוגעת בפטור על הקצבה?</h3>
+      <p>לא. נוסחת השילוב מתייחסת רק לפיצויים פטורים ששולמו בגין 32 שנות העבודה שקדמו לגיל הזכאות. מי שצפוי לעבוד כשכיר יותר מ-32 שנים נוספות עד הפרישה לא ייפגע בסל הפטור בגלל משיכה שנעשית היום, אבל הצבירה שלו עדיין תקטן.</p>
+      <h3>האם המשיכה יכולה לאפס את הפטור על הקצבה?</h3>
+      <p>לא. המשיכה נגרעת רק מהחלק הבסיסי של הפטור (35% מתקרת הקצבה המזכה). הפטור הנוסף (32% מתקרת הקצבה המזכה החל מ-2028) אינו נפגע ממשיכות פיצויים.</p>
+      <h3>למה התוצאות מוצגות בערכי היום?</h3>
+      <p>כי מה שחשוב הוא כוח הקנייה ולא מספר השקלים. תקרת הקצבה המזכה, מדרגות המס ונקודות הזיכוי מתעדכנות לפי המדד, וגם הסכום שנגרע מסל הפטור מוצמד למדד, ולכן חישוב ריאלי נותן תמונה נכונה של המס בפרישה.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>שוקלים למשוך את הפיצויים?</h2>
+    <p>לפעמים המשיכה מוצדקת ולפעמים היא טעות יקרה, ויש גם דרכי ביניים. לפני שחותמים על טופס 161 שווה לבדוק את זה עם יועץ אובייקטיבי שלא מרוויח מההחלטה שלכם.</p>
+    <a href="/#contact" class="btn btn-light">לייעוץ פנסיוני - דברו איתי ←</a>
+  </div>
+</section>
+
+<section class="related-section">
+  <div class="container">
+    <h3>עוד מחשבונים וכלים</h3>
+    <div class="related-links">
+      <a class="related-link-card" href="/tools/pension-calculator/">מחשבון פנסיה</a>
+      <a class="related-link-card" href="/tools/mekadem-hamara/">מחשבון מקדם המרה</a>
+      <a class="related-link-card" href="/tools/management-fees/">מחשבון דמי ניהול</a>
+      <a class="related-link-card" href="/financial-planning/">תכנון פיננסי מלא</a>
+      <a class="related-link-card" href="/tools/">כל המחשבונים</a>
+    </div>
+  </div>
+</section>
+
+
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/></svg>
+</a>
+
+<script>
+var PC_RATES={"meta": {"source": "תקנון קרן פנסיה מקיפה", "calc_year": 2025, "disability_variant": "ללא נכות מתפתחת, ללא הכפלה, גיל פרישה 67", "orphan_variant": "ללא ויתור כיסוי בן/בת זוג (מבוטח נשוי)", "formulas": {"disability_premium": "(0.75*salary + deposit_rate*salary*0.94) * disCoef(age,gender) / 1000", "survivor_sum_at_risk": "max(0, (0.60*salary*spouseCoef) + (0.40*salary*orphanCoef) - balance)", "survivor_premium": "sum_at_risk * mortCoef(age,birthyear,gender) / 100000"}}, "disability": {"M": {"18": 2.7957, "19": 2.7158, "20": 2.6835, "21": 2.6948, "22": 2.7462, "23": 2.8343, "24": 2.9802, "25": 3.1595, "26": 3.3437, "27": 3.555, "28": 3.7916, "29": 4.0523, "30": 4.4028, "31": 4.7139, "32": 5.0484, "33": 5.4066, "34": 5.7898, "35": 6.1495, "36": 6.6395, "37": 7.169, "38": 7.7422, "39": 8.3637, "40": 8.6994, "41": 9.4838, "42": 10.2617, "43": 11.1099, "44": 12.0347, "45": 13.0421, "46": 14.2082, "47": 15.4719, "48": 16.97, "49": 18.589, "50": 18.9496, "51": 20.711, "52": 22.3958, "53": 24.132, "54": 25.6843, "55": 27.186, "56": 28.8804, "57": 30.4592, "58": 31.8353, "59": 32.8964, "60": 33.0908, "61": 33.0676, "62": 32.18, "63": 30.1056, "64": 26.4173, "65": 17.496, "66": 3.7912}, "F": {"18": 1.0016, "19": 1.1262, "20": 1.2663, "21": 1.4239, "22": 1.601, "23": 1.8002, "24": 2.0103, "25": 2.4176, "26": 2.8683, "27": 3.3455, "28": 3.7931, "29": 4.2477, "30": 4.7437, "31": 5.2066, "32": 5.7542, "33": 6.3167, "34": 6.7919, "35": 7.2642, "36": 7.9197, "37": 8.6023, "38": 9.3138, "39": 9.9803, "40": 10.8316, "41": 11.5517, "42": 12.3958, "43": 13.2838, "44": 14.2195, "45": 15.088, "46": 16.2021, "47": 17.3754, "48": 18.6069, "49": 19.8929, "50": 21.2268, "51": 22.5979, "52": 23.9905, "53": 25.3824, "54": 26.7441, "55": 28.0367, "56": 29.2763, "57": 30.369, "58": 31.2394, "59": 31.7917, "60": 31.7702, "61": 26.6275, "62": 18.3534, "63": 11.91, "64": 9.5522, "65": 6.7678, "66": 3.3999}}, "survivor_sar": {"M": {"18": {"2005": 294.46}, "19": {"2005": 294.53}, "20": {"2005": 294.6}, "21": {"2005": 294.66, "2000": 294.32}, "22": {"2005": 293.87, "2000": 293.52}, "23": {"2005": 293.05, "2000": 292.7}, "24": {"2005": 292.2, "2000": 291.83}, "25": {"2005": 291.31, "2000": 290.93}, "26": {"2005": 290.38, "2000": 290.0, "1995": 289.58}, "27": {"2005": 289.42, "2000": 289.02, "1995": 288.6}, "28": {"2005": 288.42, "2000": 288.01, "1995": 287.58}, "29": {"2005": 287.39, "2000": 286.97, "1995": 286.52}, "30": {"2005": 286.31, "2000": 285.88, "1995": 285.41}, "31": {"2005": 285.19, "2000": 284.75, "1995": 284.27, "1990": 283.76}, "32": {"2005": 284.03, "2000": 283.58, "1995": 283.08, "1990": 282.56}, "33": {"2005": 282.83, "2000": 282.36, "1995": 281.86, "1990": 281.31}, "34": {"2005": 281.59, "2000": 281.1, "1995": 280.58, "1990": 280.02}, "35": {"2005": 280.3, "2000": 279.8, "1995": 279.26, "1990": 278.69}, "36": {"2005": 278.96, "2000": 278.45, "1995": 277.89, "1990": 277.3, "1985": 276.67}, "37": {"2005": 277.58, "2000": 277.05, "1995": 276.48, "1990": 275.87, "1985": 275.22}, "38": {"2005": 276.14, "2000": 275.59, "1995": 275.01, "1990": 274.39, "1985": 273.72}, "39": {"2005": 274.66, "2000": 274.09, "1995": 273.49, "1990": 272.85, "1985": 272.16}, "40": {"2005": 273.12, "2000": 272.54, "1995": 271.92, "1990": 271.26, "1985": 270.56}, "41": {"2005": 271.53, "2000": 270.93, "1995": 270.3, "1990": 269.62, "1985": 268.89, "1980": 268.11}, "42": {"2005": 269.88, "2000": 269.27, "1995": 268.62, "1990": 267.92, "1985": 267.18, "1980": 266.38}, "43": {"2005": 268.18, "2000": 267.55, "1995": 266.88, "1990": 266.17, "1985": 265.41, "1980": 264.59}, "44": {"2005": 266.42, "2000": 265.78, "1995": 265.09, "1990": 264.36, "1985": 263.58, "1980": 262.74}, "45": {"2005": 264.61, "2000": 263.94, "1995": 263.24, "1990": 262.49, "1985": 261.69, "1980": 260.84}, "46": {"2005": 262.73, "2000": 262.05, "1995": 261.33, "1990": 260.56, "1985": 259.75, "1980": 258.87, "1975": 257.92}, "47": {"2005": 260.8, "2000": 260.1, "1995": 259.36, "1990": 258.58, "1985": 257.74, "1980": 256.85, "1975": 255.89}, "48": {"2005": 258.8, "2000": 258.09, "1995": 257.33, "1990": 256.53, "1985": 255.68, "1980": 254.77, "1975": 253.79}, "49": {"2005": 256.75, "2000": 256.02, "1995": 255.25, "1990": 254.43, "1985": 253.56, "1980": 252.63, "1975": 251.64}, "50": {"2005": 254.63, "2000": 253.88, "1995": 253.1, "1990": 252.26, "1985": 251.38, "1980": 250.43, "1975": 249.42}, "51": {"2005": 252.44, "2000": 251.68, "1995": 250.88, "1990": 250.03, "1985": 249.13, "1980": 248.17, "1975": 247.15, "1970": 246.03}, "52": {"2005": 250.19, "2000": 249.42, "1995": 248.61, "1990": 247.74, "1985": 246.83, "1980": 245.85, "1975": 244.82, "1970": 243.69}, "53": {"2005": 247.87, "2000": 247.09, "1995": 246.26, "1990": 245.39, "1985": 244.46, "1980": 243.47, "1975": 242.42, "1970": 241.29}, "54": {"2005": 245.49, "2000": 244.7, "1995": 243.86, "1990": 242.97, "1985": 242.03, "1980": 241.03, "1975": 239.97, "1970": 238.83}, "55": {"2005": 243.03, "2000": 242.23, "1995": 241.38, "1990": 240.48, "1985": 239.53, "1980": 238.53, "1975": 237.46, "1970": 236.31}, "56": {"2005": 240.51, "2000": 239.7, "1995": 238.84, "1990": 237.93, "1985": 236.97, "1980": 235.96, "1975": 234.88, "1970": 233.73, "1965": 232.46}, "57": {"2005": 237.91, "2000": 237.1, "1995": 236.23, "1990": 235.32, "1985": 234.35, "1980": 233.33, "1975": 232.25, "1970": 231.09, "1965": 229.82}, "58": {"2005": 235.25, "2000": 234.42, "1995": 233.55, "1990": 232.63, "1985": 231.66, "1980": 230.64, "1975": 229.56, "1970": 228.4, "1965": 227.14}, "59": {"2005": 232.52, "2000": 231.69, "1995": 230.82, "1990": 229.9, "1985": 228.93, "1980": 227.9, "1975": 226.82, "1970": 225.66, "1965": 224.41}, "60": {"2005": 229.71, "2000": 228.89, "1995": 228.02, "1990": 227.1, "1985": 226.13, "1980": 225.11, "1975": 224.03, "1970": 222.88, "1965": 221.64}, "61": {"2005": 226.85, "2000": 226.02, "1995": 225.16, "1990": 224.24, "1985": 223.27, "1980": 222.26, "1975": 221.19, "1970": 220.05, "1965": 218.83, "1960": 217.46}, "62": {"2005": 223.91, "2000": 223.09, "1995": 222.23, "1990": 221.32, "1985": 220.36, "1980": 219.36, "1975": 218.3, "1970": 217.17, "1965": 215.97, "1960": 214.64}, "63": {"2005": 220.9, "2000": 220.09, "1995": 219.24, "1990": 218.34, "1985": 217.4, "1980": 216.4, "1975": 215.36, "1970": 214.26, "1965": 213.08, "1960": 211.78}, "64": {"2005": 217.82, "2000": 217.03, "1995": 216.19, "1990": 215.31, "1985": 214.38, "1980": 213.4, "1975": 212.38, "1970": 211.3, "1965": 210.15, "1960": 208.9}, "65": {"2005": 214.69, "2000": 213.91, "1995": 213.09, "1990": 212.23, "1985": 211.32, "1980": 210.36, "1975": 209.37, "1970": 208.32, "1965": 207.2, "1960": 205.99}, "66": {"2005": 211.49, "2000": 210.74, "1995": 209.94, "1990": 209.1, "1985": 208.22, "1980": 207.3, "1975": 206.33, "1970": 205.31, "1965": 204.24, "1960": 203.08, "1955": 201.8}}, "F": {"18": {"2005": 288.12}, "19": {"2005": 287.12}, "20": {"2005": 286.09}, "21": {"2005": 285.01, "2000": 284.47}, "22": {"2005": 283.89, "2000": 283.34}, "23": {"2005": 282.72, "2000": 282.16}, "24": {"2005": 281.5, "2000": 280.93}, "25": {"2005": 280.24, "2000": 279.66}, "26": {"2005": 278.93, "2000": 278.33, "1995": 277.69}, "27": {"2005": 277.57, "2000": 276.95, "1995": 276.3}, "28": {"2005": 276.16, "2000": 275.53, "1995": 274.85}, "29": {"2005": 274.7, "2000": 274.05, "1995": 273.36}, "30": {"2005": 273.18, "2000": 272.51, "1995": 271.8}, "31": {"2005": 271.61, "2000": 270.92, "1995": 270.2, "1990": 269.42}, "32": {"2005": 269.99, "2000": 269.28, "1995": 268.53, "1990": 267.73}, "33": {"2005": 268.31, "2000": 267.58, "1995": 266.81, "1990": 265.99}, "34": {"2005": 266.57, "2000": 265.82, "1995": 265.03, "1990": 264.2}, "35": {"2005": 264.77, "2000": 264.0, "1995": 263.19, "1990": 262.34}, "36": {"2005": 262.92, "2000": 262.13, "1995": 261.3, "1990": 260.42, "1985": 259.48}, "37": {"2005": 261.0, "2000": 260.19, "1995": 259.34, "1990": 258.44, "1985": 257.48}, "38": {"2005": 259.04, "2000": 258.2, "1995": 257.33, "1990": 256.41, "1985": 255.43}, "39": {"2005": 257.02, "2000": 256.16, "1995": 255.27, "1990": 254.33, "1985": 253.34}, "40": {"2005": 254.95, "2000": 254.08, "1995": 253.16, "1990": 252.21, "1985": 251.19}, "41": {"2005": 252.83, "2000": 251.94, "1995": 251.01, "1990": 250.03, "1985": 249.0, "1980": 247.88}, "42": {"2005": 250.65, "2000": 249.75, "1995": 248.8, "1990": 247.81, "1985": 246.76, "1980": 245.63}, "43": {"2005": 248.43, "2000": 247.51, "1995": 246.54, "1990": 245.54, "1985": 244.47, "1980": 243.33}, "44": {"2005": 246.15, "2000": 245.21, "1995": 244.24, "1990": 243.21, "1985": 242.14, "1980": 240.99}, "45": {"2005": 243.82, "2000": 242.87, "1995": 241.88, "1990": 240.84, "1985": 239.76, "1980": 238.6}, "46": {"2005": 241.43, "2000": 240.47, "1995": 239.47, "1990": 238.43, "1985": 237.33, "1980": 236.16, "1975": 234.89}, "47": {"2005": 238.99, "2000": 238.02, "1995": 237.01, "1990": 235.96, "1985": 234.85, "1980": 233.68, "1975": 232.41}, "48": {"2005": 236.5, "2000": 235.52, "1995": 234.5, "1990": 233.44, "1985": 232.33, "1980": 231.16, "1975": 229.88}, "49": {"2005": 233.95, "2000": 232.97, "1995": 231.94, "1990": 230.87, "1985": 229.76, "1980": 228.59, "1975": 227.32}, "50": {"2005": 231.35, "2000": 230.36, "1995": 229.33, "1990": 228.26, "1985": 227.15, "1980": 225.98, "1975": 224.72}, "51": {"2005": 228.69, "2000": 227.7, "1995": 226.67, "1990": 225.6, "1985": 224.49, "1980": 223.33, "1975": 222.07, "1970": 220.68}, "52": {"2005": 225.98, "2000": 224.99, "1995": 223.97, "1990": 222.9, "1985": 221.79, "1980": 220.64, "1975": 219.4, "1970": 218.02}, "53": {"2005": 223.22, "2000": 222.24, "1995": 221.22, "1990": 220.16, "1985": 219.06, "1980": 217.91, "1975": 216.69, "1970": 215.34}, "54": {"2005": 220.41, "2000": 219.44, "1995": 218.42, "1990": 217.37, "1985": 216.29, "1980": 215.15, "1975": 213.95, "1970": 212.64}, "55": {"2005": 217.56, "2000": 216.59, "1995": 215.59, "1990": 214.55, "1985": 213.48, "1980": 212.37, "1975": 211.19, "1970": 209.91}, "56": {"2005": 214.66, "2000": 213.71, "1995": 212.72, "1990": 211.7, "1985": 210.65, "1980": 209.56, "1975": 208.41, "1970": 207.17, "1965": 205.75}, "57": {"2005": 211.72, "2000": 210.79, "1995": 209.82, "1990": 208.83, "1985": 207.8, "1980": 206.73, "1975": 205.61, "1970": 204.41, "1965": 203.06}, "58": {"2005": 208.83, "2000": 207.92, "1995": 206.99, "1990": 206.02, "1985": 205.02, "1980": 204.0, "1975": 202.92, "1970": 201.77, "1965": 200.49}, "59": {"2005": 205.89, "2000": 205.02, "1995": 204.12, "1990": 203.19, "1985": 202.23, "1980": 201.24, "1975": 200.21, "1970": 199.12, "1965": 197.92}, "60": {"2005": 202.94, "2000": 202.1, "1995": 201.24, "1990": 200.34, "1985": 199.43, "1980": 198.48, "1975": 197.51, "1970": 196.47, "1965": 195.35}, "61": {"2005": 199.97, "2000": 199.17, "1995": 198.35, "1990": 197.5, "1985": 196.63, "1980": 195.74, "1975": 194.81, "1970": 193.84, "1965": 192.8, "1960": 191.63}, "62": {"2005": 197.0, "2000": 196.25, "1995": 195.48, "1990": 194.68, "1985": 193.86, "1980": 193.02, "1975": 192.15, "1970": 191.25, "1965": 190.28, "1960": 189.21}, "63": {"2005": 194.07, "2000": 193.37, "1995": 192.64, "1990": 191.9, "1985": 191.13, "1980": 190.35, "1975": 189.54, "1970": 188.71, "1965": 187.82, "1960": 186.85}, "64": {"2005": 191.18, "2000": 190.53, "1995": 189.86, "1990": 189.18, "1985": 188.47, "1980": 187.75, "1975": 187.01, "1970": 186.25, "1965": 185.44, "1960": 184.56}, "65": {"2005": 186.66, "2000": 186.0, "1995": 185.31, "1990": 184.61, "1985": 183.89, "1980": 183.15, "1975": 182.4, "1970": 181.62, "1965": 180.8, "1960": 179.91}, "66": {"2005": 181.83, "2000": 181.14, "1995": 180.44, "1990": 179.72, "1985": 178.97, "1980": 178.21, "1975": 177.43, "1970": 176.63, "1965": 175.79, "1960": 174.88, "1955": 173.89}}}, "survivor_prem": {"M": {"18": {"2005": 1.8035}, "19": {"2005": 1.6603}, "20": {"2005": 1.526}, "21": {"2005": 1.4496, "2000": 1.6379}, "22": {"2005": 1.3884, "2000": 1.5977}, "23": {"2005": 1.3277, "2000": 1.5275}, "24": {"2005": 1.2681, "2000": 1.4311}, "25": {"2005": 1.2102, "2000": 1.3393}, "26": {"2005": 1.1702, "2000": 1.2822, "1995": 1.4488}, "27": {"2005": 1.1325, "2000": 1.2407, "1995": 1.4277}, "28": {"2005": 1.1093, "2000": 1.2153, "1995": 1.3982}, "29": {"2005": 1.0897, "2000": 1.1937, "1995": 1.3471}, "30": {"2005": 1.065, "2000": 1.1662, "1995": 1.2906}, "31": {"2005": 1.0285, "2000": 1.1253, "1995": 1.233, "1990": 1.3931}, "32": {"2005": 1.0032, "2000": 1.096, "1995": 1.2008, "1990": 1.3817}, "33": {"2005": 0.9906, "2000": 1.0797, "1995": 1.1828, "1990": 1.3608}, "34": {"2005": 0.992, "2000": 1.0777, "1995": 1.1805, "1990": 1.3323}, "35": {"2005": 1.0187, "2000": 1.1025, "1995": 1.2073, "1990": 1.336}, "36": {"2005": 1.0508, "2000": 1.1328, "1995": 1.2394, "1990": 1.358, "1985": 1.5343}, "37": {"2005": 1.1015, "2000": 1.183, "1995": 1.2924, "1990": 1.416, "1985": 1.6293}, "38": {"2005": 1.1614, "2000": 1.2432, "1995": 1.355, "1990": 1.4844, "1985": 1.7078}, "39": {"2005": 1.2414, "2000": 1.3257, "1995": 1.4402, "1990": 1.5777, "1985": 1.7805}, "40": {"2005": 1.33, "2000": 1.4181, "1995": 1.5348, "1990": 1.6806, "1985": 1.8599}, "41": {"2005": 1.439, "2000": 1.533, "1995": 1.6525, "1990": 1.8082, "1985": 1.981, "1980": 2.2383}, "42": {"2005": 1.5844, "2000": 1.6872, "1995": 1.8119, "1990": 1.9795, "1985": 2.1687, "1980": 2.4954}, "43": {"2005": 1.7377, "2000": 1.8503, "1995": 1.9806, "1990": 2.1586, "1985": 2.3647, "1980": 2.7205}, "44": {"2005": 1.9317, "2000": 2.057, "1995": 2.1965, "1990": 2.386, "1985": 2.614, "1980": 2.9497}, "45": {"2005": 2.1652, "2000": 2.3055, "1995": 2.4582, "1990": 2.6605, "1985": 2.9134, "1980": 3.2238}, "46": {"2005": 2.4083, "2000": 2.5645, "1995": 2.7315, "1990": 2.9447, "1985": 3.2219, "1980": 3.5296, "1975": 3.9806}, "47": {"2005": 2.6784, "2000": 2.8523, "1995": 3.037, "1990": 3.2619, "1985": 3.563, "1980": 3.9033, "1975": 4.4781}, "48": {"2005": 2.961, "2000": 3.1531, "1995": 3.3578, "1990": 3.594, "1985": 3.9169, "1980": 4.2906, "1975": 4.9204}, "49": {"2005": 3.2525, "2000": 3.4631, "1995": 3.6879, "1990": 3.938, "1985": 4.2778, "1980": 4.6861, "1975": 5.2726}, "50": {"2005": 3.583, "2000": 3.8151, "1995": 4.0621, "1990": 4.3312, "1985": 4.6869, "1980": 5.1321, "1975": 5.6644}, "51": {"2005": 3.9366, "2000": 4.1915, "1995": 4.4634, "1990": 4.7543, "1985": 5.1245, "1980": 5.6067, "1975": 6.128, "1970": 6.9184}, "52": {"2005": 4.359, "2000": 4.6413, "1995": 4.9422, "1990": 5.2622, "1985": 5.6509, "1980": 6.1723, "1975": 6.7482, "1970": 7.7659}, "53": {"2005": 4.8635, "2000": 5.1785, "1995": 5.5138, "1990": 5.8714, "1985": 6.2845, "1980": 6.8477, "1975": 7.4879, "1970": 8.6206}, "54": {"2005": 5.4112, "2000": 5.7619, "1995": 6.1344, "1990": 6.5317, "1985": 6.9746, "1980": 7.5752, "1975": 8.2855, "1970": 9.3544}, "55": {"2005": 6.0041, "2000": 6.3928, "1995": 6.8078, "1990": 7.2479, "1985": 7.7266, "1980": 8.3611, "1975": 9.1441, "1970": 10.1204}, "56": {"2005": 6.6466, "2000": 7.0777, "1995": 7.535, "1990": 8.0232, "1985": 8.5458, "1980": 9.2096, "1975": 10.0672, "1970": 11.0284, "1965": 12.5479}, "57": {"2005": 7.3412, "2000": 7.8158, "1995": 8.322, "1990": 8.8605, "1985": 9.4335, "1980": 10.1288, "1975": 11.0576, "1970": 12.1107, "1965": 14.061}, "58": {"2005": 8.0126, "2000": 8.5317, "1995": 9.0835, "1990": 9.6704, "1985": 10.2961, "1980": 11.0184, "1975": 12.0037, "1970": 13.1432, "1965": 15.2625}, "59": {"2005": 8.7333, "2000": 9.2981, "1995": 9.8981, "1990": 10.5386, "1985": 11.2203, "1980": 11.9794, "1975": 13.0093, "1970": 14.2429, "1965": 16.2063}, "60": {"2005": 9.4115, "2000": 10.0194, "1995": 10.6676, "1990": 11.3572, "1985": 12.0917, "1980": 12.8892, "1975": 13.9436, "1970": 15.2598, "1965": 17.0104}, "61": {"2005": 10.2306, "2000": 10.8909, "1995": 11.5955, "1990": 12.3435, "1985": 13.141, "1980": 13.9953, "1975": 15.0807, "1970": 16.4921, "1965": 18.182, "1960": 20.6344}, "62": {"2005": 11.1077, "2000": 11.8244, "1995": 12.5887, "1990": 13.4017, "1985": 14.2667, "1980": 15.1896, "1975": 16.3049, "1970": 17.804, "1965": 19.6077, "1960": 22.6456}, "63": {"2005": 12.0468, "2000": 12.8244, "1995": 13.654, "1990": 14.5345, "1985": 15.4733, "1980": 16.4716, "1975": 17.6262, "1970": 19.1987, "1965": 21.1234, "1960": 24.3701}, "64": {"2005": 12.9295, "2000": 13.763, "1995": 14.6529, "1990": 15.5978, "1985": 16.6031, "1980": 17.6742, "1975": 18.8661, "1970": 20.4848, "1965": 22.5156, "1960": 25.4818}, "65": {"2005": 13.7195, "2000": 14.6037, "1995": 15.5466, "1990": 16.5499, "1985": 17.6148, "1980": 18.7515, "1975": 19.983, "1970": 21.6149, "1965": 23.7261, "1960": 26.3296}, "66": {"2005": 14.5341, "2000": 15.4715, "1995": 16.4686, "1990": 17.5301, "1985": 18.6589, "1980": 19.8613, "1975": 21.1479, "1970": 22.7853, "1965": 24.9664, "1960": 27.4293, "1955": 30.6336}}, "F": {"18": {"2005": 0.5595}, "19": {"2005": 0.5158}, "20": {"2005": 0.4767}, "21": {"2005": 0.4277, "2000": 0.4861}, "22": {"2005": 0.385, "2000": 0.4464}, "23": {"2005": 0.3691, "2000": 0.4281}, "24": {"2005": 0.3565, "2000": 0.4056}, "25": {"2005": 0.3456, "2000": 0.3856}, "26": {"2005": 0.3333, "2000": 0.3682, "1995": 0.4184}, "27": {"2005": 0.3252, "2000": 0.3592, "1995": 0.4164}, "28": {"2005": 0.323, "2000": 0.3567, "1995": 0.4138}, "29": {"2005": 0.3342, "2000": 0.3691, "1995": 0.4199}, "30": {"2005": 0.354, "2000": 0.3909, "1995": 0.4361}, "31": {"2005": 0.3772, "2000": 0.4162, "1995": 0.4598, "1990": 0.5224}, "32": {"2005": 0.3999, "2000": 0.4407, "1995": 0.4868, "1990": 0.5643}, "33": {"2005": 0.4272, "2000": 0.4698, "1995": 0.5189, "1990": 0.6019}, "34": {"2005": 0.4572, "2000": 0.5014, "1995": 0.5538, "1990": 0.6301}, "35": {"2005": 0.4875, "2000": 0.5331, "1995": 0.5885, "1990": 0.6567}, "36": {"2005": 0.5146, "2000": 0.5608, "1995": 0.6187, "1990": 0.6834, "1985": 0.7766}, "37": {"2005": 0.5534, "2000": 0.6011, "1995": 0.6623, "1990": 0.7315, "1985": 0.8481}, "38": {"2005": 0.6057, "2000": 0.656, "1995": 0.7214, "1990": 0.7968, "1985": 0.9243}, "39": {"2005": 0.6604, "2000": 0.7139, "1995": 0.783, "1990": 0.8648, "1985": 0.984}, "40": {"2005": 0.7171, "2000": 0.7741, "1995": 0.8464, "1990": 0.9345, "1985": 1.0427}, "41": {"2005": 0.7752, "2000": 0.8363, "1995": 0.9112, "1990": 1.0054, "1985": 1.1106, "1980": 1.262}, "42": {"2005": 0.8343, "2000": 0.8998, "1995": 0.9773, "1990": 1.077, "1985": 1.1896, "1980": 1.379}, "43": {"2005": 0.8945, "2000": 0.9647, "1995": 1.045, "1990": 1.1492, "1985": 1.2693, "1980": 1.4722}, "44": {"2005": 0.9556, "2000": 1.0306, "1995": 1.1142, "1990": 1.2219, "1985": 1.3496, "1980": 1.5355}, "45": {"2005": 1.0189, "2000": 1.0988, "1995": 1.1862, "1990": 1.2969, "1985": 1.432, "1980": 1.5976}, "46": {"2005": 1.0848, "2000": 1.1698, "1995": 1.262, "1990": 1.3751, "1985": 1.5172, "1980": 1.6757, "1975": 1.9011}, "47": {"2005": 1.1537, "2000": 1.2442, "1995": 1.342, "1990": 1.4575, "1985": 1.606, "1980": 1.7738, "1975": 2.0503}, "48": {"2005": 1.2389, "2000": 1.336, "1995": 1.4409, "1990": 1.5608, "1985": 1.7162, "1980": 1.8955, "1975": 2.1918}, "49": {"2005": 1.3309, "2000": 1.4353, "1995": 1.5479, "1990": 1.6734, "1985": 1.8351, "1980": 2.0268, "1975": 2.2996}, "50": {"2005": 1.4317, "2000": 1.5441, "1995": 1.6651, "1990": 1.7976, "1985": 1.9653, "1980": 2.1698, "1975": 2.4145}, "51": {"2005": 1.5434, "2000": 1.6644, "1995": 1.7948, "1990": 1.9363, "1985": 2.1096, "1980": 2.3276, "1975": 2.565, "1970": 2.9094}, "52": {"2005": 1.6843, "2000": 1.8165, "1995": 1.9589, "1990": 2.1128, "1985": 2.2946, "1980": 2.5281, "1975": 2.787, "1970": 3.2261}, "53": {"2005": 1.8274, "2000": 1.9706, "1995": 2.1252, "1990": 2.2917, "1985": 2.4824, "1980": 2.7296, "1975": 3.0098, "1970": 3.488}, "54": {"2005": 1.9633, "2000": 2.1174, "1995": 2.2834, "1990": 2.4624, "1985": 2.6616, "1980": 2.9189, "1975": 3.2189, "1970": 3.6593}, "55": {"2005": 2.1197, "2000": 2.2857, "1995": 2.4649, "1990": 2.6582, "1985": 2.8696, "1980": 3.1365, "1975": 3.4596, "1970": 3.8558}, "56": {"2005": 2.2893, "2000": 2.4688, "1995": 2.6623, "1990": 2.8709, "1985": 3.097, "1980": 3.3742, "1975": 3.7196, "1970": 4.1039, "1965": 4.6864}, "57": {"2005": 2.4856, "2000": 2.6806, "1995": 2.8903, "1990": 3.1171, "1985": 3.3615, "1980": 3.6509, "1975": 4.0202, "1970": 4.435, "1965": 5.1723}, "58": {"2005": 2.7137, "2000": 2.9259, "1995": 3.1553, "1990": 3.4023, "1985": 3.6689, "1980": 3.9744, "1975": 4.3684, "1970": 4.8195, "1965": 5.6227}, "59": {"2005": 2.9767, "2000": 3.2095, "1995": 3.4618, "1990": 3.7326, "1985": 4.0248, "1980": 4.3505, "1975": 4.7702, "1970": 5.2626, "1965": 6.0185}, "60": {"2005": 3.2799, "2000": 3.5369, "1995": 3.8143, "1990": 4.1134, "1985": 4.435, "1980": 4.7877, "1975": 5.2325, "1970": 5.7719, "1965": 6.4687}, "61": {"2005": 3.6288, "2000": 3.9134, "1995": 4.2201, "1990": 4.5499, "1985": 4.9058, "1980": 5.2921, "1975": 5.7649, "1970": 6.3557, "1965": 7.0467, "1960": 8.0062}, "62": {"2005": 4.0692, "2000": 4.3875, "1995": 4.7316, "1990": 5.1012, "1985": 5.5013, "1980": 5.9318, "1975": 6.4414, "1970": 7.0938, "1965": 7.8589, "1960": 9.0923}, "63": {"2005": 4.5762, "2000": 4.9341, "1995": 5.3211, "1990": 5.737, "1985": 6.186, "1980": 6.6697, "1975": 7.2233, "1970": 7.9403, "1965": 8.7907, "1960": 10.1637}, "64": {"2005": 5.1554, "2000": 5.5591, "1995": 5.9942, "1990": 6.4628, "1985": 6.9685, "1980": 7.5138, "1975": 8.1203, "1970": 8.9031, "1965": 9.8498, "1960": 11.1772}, "65": {"2005": 5.8167, "2000": 6.2711, "1995": 6.7625, "1990": 7.2909, "1985": 7.8616, "1980": 8.4767, "1975": 9.1489, "1970": 9.9972, "1965": 11.0526, "1960": 12.3036}, "66": {"2005": 6.5665, "2000": 7.0795, "1995": 7.6332, "1990": 8.2306, "1985": 8.8747, "1980": 9.5672, "1975": 10.3187, "1970": 11.2389, "1965": 12.4099, "1960": 13.6813, "1955": 15.337}}}, "orphan_sar": {"M": {"18": 0.035, "19": 0.483, "20": 2.176, "21": 5.267, "22": 9.184, "23": 15.204, "24": 22.81, "25": 29.923, "26": 37.515, "27": 45.781, "28": 56.008, "29": 65.362, "30": 77.033, "31": 87.095, "32": 96.237, "33": 103.259, "34": 109.272, "35": 114.506, "36": 117.174, "37": 118.735, "38": 123.881, "39": 124.329, "40": 123.138, "41": 121.721, "42": 119.654, "43": 115.739, "44": 112.089, "45": 107.963, "46": 102.35, "47": 96.876, "48": 90.771, "49": 84.304, "50": 76.759, "51": 70.135, "52": 62.277, "53": 54.981, "54": 47.646, "55": 41.018, "56": 34.449, "57": 28.5, "58": 23.191, "59": 18.757, "60": 13.901, "61": 11.052, "62": 8.69, "63": 7.189, "64": 5.777, "65": 4.614, "66": 3.863}, "F": {"18": 1.394, "19": 4.475, "20": 10.621, "21": 20.233, "22": 30.331, "23": 41.156, "24": 49.836, "25": 59.177, "26": 68.705, "27": 78.214, "28": 87.451, "29": 98.169, "30": 106.058, "31": 113.612, "32": 118.252, "33": 121.587, "34": 124.064, "35": 125.1, "36": 124.298, "37": 123.41, "38": 125.774, "39": 123.821, "40": 119.859, "41": 115.329, "42": 110.196, "43": 105.053, "44": 97.314, "45": 89.906, "46": 82.064, "47": 74.398, "48": 65.639, "49": 57.092, "50": 49.011, "51": 41.798, "52": 34.491, "53": 27.347, "54": 21.906, "55": 16.271, "56": 12.764, "57": 9.401, "58": 6.892, "59": 4.952, "60": 3.238, "61": 2.221, "62": 1.55, "63": 1.113, "64": 0.761, "65": 0.549, "66": 0.378}}};
+var PC_FACTOR={"tables": {"עם|60|0": {"גבר": {"60": {"1965": 215.1, "1970": 216.23, "1975": 217.25, "1980": 218.19, "1985": 219.07, "1990": 219.91, "1995": 220.69, "2000": 221.44, "2005": 222.14}, "61": {"1965": 211.91, "1970": 213.07, "1975": 214.1, "1980": 215.06, "1985": 215.97, "1990": 216.82, "1995": 217.63, "2000": 218.39, "2005": 219.11}, "62": {"1965": 208.61, "1970": 209.78, "1975": 210.84, "1980": 211.82, "1985": 212.75, "1990": 213.62, "1995": 214.45, "2000": 215.23, "2005": 215.97}, "63": {"1965": 205.19, "1970": 206.38, "1975": 207.46, "1980": 208.46, "1985": 209.41, "1990": 210.31, "1995": 211.16, "2000": 211.96, "2005": 212.71}, "64": {"1960": 200.28, "1965": 201.65, "1970": 202.86, "1975": 203.96, "1980": 204.98, "1985": 205.96, "1990": 206.87, "1995": 207.74, "2000": 208.56, "2005": 209.34}, "65": {"1960": 196.61, "1965": 197.99, "1970": 199.22, "1975": 200.33, "1980": 201.38, "1985": 202.38, "1990": 203.32, "1995": 204.21, "2000": 205.04, "2005": 205.84}, "66": {"1960": 192.8, "1965": 194.21, "1970": 195.45, "1975": 196.59, "1980": 197.66, "1985": 198.67, "1990": 199.63, "1995": 200.54, "2000": 201.4, "2005": 202.21}, "67": {"1960": 188.88, "1965": 190.3, "1970": 191.56, "1975": 192.72, "1980": 193.81, "1985": 194.85, "1990": 195.83, "1995": 196.75, "2000": 197.63, "2005": 198.46}, "68": {"1960": 184.84, "1965": 186.27, "1970": 187.54, "1975": 188.72, "1980": 189.84, "1985": 190.89, "1990": 191.89, "1995": 192.84, "2000": 193.73, "2005": 194.57}, "69": {"1960": 180.68, "1965": 182.12, "1970": 183.4, "1975": 184.6, "1980": 185.73, "1985": 186.81, "1990": 187.83, "1995": 188.79, "2000": 189.7, "2005": 190.56}, "70": {"1960": 176.39, "1965": 177.84, "1970": 179.14, "1975": 180.35, "1980": 181.5, "1985": 182.6, "1990": 183.63, "1995": 184.61, "2000": 185.53, "2005": 186.4}, "71": {"1960": 171.99, "1965": 173.44, "1970": 174.74, "1975": 175.97, "1980": 177.14, "1985": 178.25, "1990": 179.3, "1995": 180.29, "2000": 181.23, "2005": 182.11}, "72": {"1960": 167.46, "1965": 168.91, "1970": 170.23, "1975": 171.47, "1980": 172.66, "1985": 173.78, "1990": 174.84, "1995": 175.84, "2000": 176.79, "2005": 177.69}, "73": {"1960": 162.82, "1965": 164.26, "1970": 165.59, "1975": 166.85, "1980": 168.04, "1985": 169.17, "1990": 170.24, "1995": 171.26, "2000": 172.21, "2005": 173.12}, "74": {"1960": 158.06, "1965": 159.5, "1970": 160.83, "1975": 162.1, "1980": 163.3, "1985": 164.44, "1990": 165.52, "1995": 166.54, "2000": 167.5, "2005": 168.41}, "75": {"1960": 153.19, "1965": 154.63, "1970": 155.96, "1975": 157.23, "1980": 158.43, "1985": 159.58, "1990": 160.66, "1995": 161.68, "2000": 162.65, "2005": 163.57}}, "אישה": {"60": {"1965": 214.22, "1970": 215.31, "1975": 216.29, "1980": 217.19, "1985": 218.04, "1990": 218.84, "1995": 219.58, "2000": 220.28, "2005": 220.93}, "61": {"1965": 210.89, "1970": 212.0, "1975": 213.01, "1980": 213.94, "1985": 214.81, "1990": 215.63, "1995": 216.39, "2000": 217.11, "2005": 217.78}, "62": {"1965": 207.44, "1970": 208.57, "1975": 209.6, "1980": 210.56, "1985": 211.46, "1990": 212.3, "1995": 213.09, "2000": 213.82, "2005": 214.52}, "63": {"1965": 203.87, "1970": 205.03, "1975": 206.08, "1980": 207.06, "1985": 207.99, "1990": 208.85, "1995": 209.66, "2000": 210.42, "2005": 211.13}, "64": {"1960": 198.85, "1965": 200.18, "1970": 201.36, "1975": 202.44, "1980": 203.45, "1985": 204.39, "1990": 205.28, "1995": 206.11, "2000": 206.89, "2005": 207.62}, "65": {"1960": 195.02, "1965": 196.36, "1970": 197.57, "1975": 198.67, "1980": 199.7, "1985": 200.67, "1990": 201.58, "1995": 202.43, "2000": 203.23, "2005": 203.98}, "66": {"1960": 191.05, "1965": 192.42, "1970": 193.65, "1975": 194.77, "1980": 195.82, "1985": 196.81, "1990": 197.75, "1995": 198.62, "2000": 199.44, "2005": 200.2}, "67": {"1960": 186.96, "1965": 188.35, "1970": 189.59, "1975": 190.74, "1980": 191.82, "1985": 192.83, "1990": 193.78, "1995": 194.67, "2000": 195.51, "2005": 196.29}, "68": {"1960": 182.74, "1965": 184.15, "1970": 185.41, "1975": 186.58, "1980": 187.68, "1985": 188.71, "1990": 189.68, "1995": 190.59, "2000": 191.45, "2005": 192.25}, "69": {"1960": 178.4, "1965": 179.82, "1970": 181.1, "1975": 182.29, "1980": 183.4, "1985": 184.46, "1990": 185.44, "1995": 186.37, "2000": 187.24, "2005": 188.06}, "70": {"1960": 173.93, "1965": 175.36, "1970": 176.65, "1975": 177.85, "1980": 178.99, "1985": 180.06, "1990": 181.07, "1995": 182.01, "2000": 182.89, "2005": 183.72}, "71": {"1960": 169.32, "1965": 170.76, "1970": 172.06, "1975": 173.28, "1980": 174.44, "1985": 175.52, "1990": 176.54, "1995": 177.5, "2000": 178.4, "2005": 179.24}, "72": {"1960": 164.58, "1965": 166.02, "1970": 167.33, "1975": 168.57, "1980": 169.74, "1985": 170.83, "1990": 171.87, "1995": 172.84, "2000": 173.75, "2005": 174.6}, "73": {"1960": 159.7, "1965": 161.15, "1970": 162.47, "1975": 163.72, "1980": 164.89, "1985": 166.0, "1990": 167.04, "1995": 168.02, "2000": 168.94, "2005": 169.81}, "74": {"1960": 154.7, "1965": 156.14, "1970": 157.47, "1975": 158.72, "1980": 159.91, "1985": 161.02, "1990": 162.07, "1995": 163.06, "2000": 163.98, "2005": 164.85}, "75": {"1960": 149.57, "1965": 151.0, "1970": 152.33, "1975": 153.59, "1980": 154.78, "1985": 155.89, "1990": 156.95, "1995": 157.94, "2000": 158.87, "2005": 159.74}}}}, "adj": {"60|0": {"אישה": {"1": 100.9, "-20": 115.3, "2": 100.4, "-18": 113.9, "3": 100.0, "-16": 112.5, "4": 99.6, "-14": 111.1, "5": 99.2, "-12": 109.6, "6": 98.9, "-10": 108.1, "7": 98.5, "-9": 107.3, "8": 98.3, "-8": 106.6, "9": 98.0, "-7": 105.9, "10": 97.8, "-6": 105.2, "12": 97.4, "-5": 104.5, "14": 97.1, "-4": 103.8, "16": 96.8, "-3": 103.2, "18": 96.7, "-2": 102.6, "20": 96.5, "-1": 102.0, "0": 101.4}, "גבר": {"1": 96.9, "-20": 113.2, "2": 96.3, "-18": 111.9, "3": 95.6, "-16": 110.5, "4": 95.0, "-14": 109.0, "5": 94.4, "-12": 107.4, "6": 93.8, "-10": 105.8, "7": 93.3, "-9": 105.0, "8": 92.8, "-8": 104.1, "9": 92.3, "-7": 103.3, "10": 91.9, "-6": 102.5, "12": 91.2, "-5": 101.6, "14": 90.6, "-4": 100.8, "16": 90.2, "-3": 100.0, "18": 89.8, "-2": 99.2, "20": 89.5, "-1": 98.4, "0": 97.7}}}};
+function pcShowAge(){var el=document.getElementById('pc-agehint'),bd=document.getElementById('pc-bdate').value;if(!bd){el.textContent='';return;}var b=new Date(bd),n=new Date(),y=n.getFullYear()-b.getFullYear();var md=(n.getMonth()-b.getMonth())||(n.getDate()-b.getDate());if(md<0)y--;el.textContent=(y>=0&&y<120)?('גיל '+y):'';}
+function pcGrp(el){var v=el.value.replace(/[^\d]/g,'');el.value=v?(+v).toLocaleString('en-US'):'';}
+function pcSetGender(v){document.getElementById('pc-gender').value=v;var bs=document.querySelectorAll('#pc-genderToggle button');for(var i=0;i<bs.length;i++)bs[i].classList.toggle('on',bs[i].getAttribute('data-v')===v);pcUpdateFactor();}
+function pcLerp(a,b,t){return a+(b-a)*t;}
+function pcAges(g){return Object.keys(g).map(Number).sort(function(a,b){return a-b;});}
+function pcLookupAge(tbl,gender,age){var g=tbl[gender];age=Math.round(age);if(g[age]!=null)return g[age];var ag=pcAges(g);if(age<ag[0])return g[ag[0]];if(age>ag[ag.length-1])return g[ag[ag.length-1]];var lo=ag[0];for(var i=0;i<ag.length;i++){if(ag[i]<=age)lo=ag[i];}return g[lo];}
+function pcLookupCohort(tbl,gender,age,by){var g=tbl[gender];age=Math.round(age);var ag=pcAges(g);age=Math.max(ag[0],Math.min(ag[ag.length-1],age));var row=g[age];var yrs=Object.keys(row).map(Number).sort(function(a,b){return a-b;});if(by<=yrs[0])return row[yrs[0]];if(by>=yrs[yrs.length-1])return row[yrs[yrs.length-1]];var lo=yrs[0],hi=yrs[yrs.length-1];for(var i=0;i<yrs.length;i++){if(yrs[i]<=by)lo=yrs[i];}for(var j=yrs.length-1;j>=0;j--){if(yrs[j]>=by)hi=yrs[j];}if(lo===hi)return row[lo];return pcLerp(row[lo],row[hi],(by-lo)/(hi-lo));}
+/* conversion factor (from mekadem-hamara tables: married, 60% survivor, 0 guarantee, age gap 1.7) */
+function pcFI(x,x0,x1,y0,y1){return x1===x0?y0:y0+(y1-y0)*(x-x0)/(x1-x0);}
+function pcBL(a,x){var r=a[0];for(var i=0;i<a.length;i++)if(a[i]<=x)r=a[i];return r;}
+function pcBH(a,x){for(var i=0;i<a.length;i++)if(a[i]>=x)return a[i];return a[a.length-1];}
+function pcLookupBase(gHe,age,year){var t=PC_FACTOR.tables['עם|60|0'][gHe];var ags=Object.keys(t).map(Number).sort(function(a,b){return a-b;});var A=Math.max(ags[0],Math.min(ags[ags.length-1],age));var a0=pcBL(ags,A),a1=pcBH(ags,A);function atAge(aa){var row=t[aa];var yrs=Object.keys(row).map(Number).sort(function(a,b){return a-b;});var Y=Math.max(yrs[0],Math.min(yrs[yrs.length-1],year));var y0=pcBL(yrs,Y),y1=pcBH(yrs,Y);return pcFI(Y,y0,y1,row[y0],row[y1]);}return pcFI(A,a0,a1,atAge(a0),atAge(a1));}
+function pcLookupAdj(gHe,diff){var g=PC_FACTOR.adj['60|0'][gHe];var ds=Object.keys(g).map(Number).sort(function(a,b){return a-b;});var Dd=Math.max(ds[0],Math.min(ds[ds.length-1],diff));var d0=pcBL(ds,Dd),d1=pcBH(ds,Dd);return pcFI(Dd,d0,d1,g[d0],g[d1]);}
+function pcBirthDec(){var bd=document.getElementById('pc-bdate').value;if(!bd)return null;var d=new Date(bd);return d.getFullYear()+d.getMonth()/12;}
+function pcComputeFactor(gHe,retAge,by){var diff=(gHe==='גבר')?-1.7:1.7;return pcLookupBase(gHe,retAge,by)*pcLookupAdj(gHe,diff)/100;}
+function pcUpdateFactor(){var by=pcBirthDec();var ra=parseFloat(document.getElementById('pc-retage').value);if(by==null||isNaN(ra))return;var gHe=document.getElementById('pc-gender').value==='M'?'גבר':'אישה';document.getElementById('pc-factor').value=pcComputeFactor(gHe,ra,by).toFixed(1);}
+function pcSimulate(p,ar,retAge){var bal=p.balance,mret=Math.pow(1+ar,1/12)-1,mfee=p.feebal/12;var sm=Math.round(p.ageExact*12),em=Math.round(retAge*12),months=em-sm,traj=[];for(var m=0;m<months;m++){var a=Math.floor((sm+m)/12);var dep=p.salary*p.deprate,netDep=dep-dep*p.feedep;var disPrem=(0.75*p.salary+p.deprate*p.salary*0.94)*pcLookupAge(PC_RATES.disability,p.gender,a)/1000;var PV=0.60*p.salary*pcLookupCohort(PC_RATES.survivor_sar,p.gender,a,p.by)+0.40*p.salary*pcLookupAge(PC_RATES.orphan_sar,p.gender,a);var survPrem=Math.max(0,PV-bal)*pcLookupCohort(PC_RATES.survivor_prem,p.gender,a,p.by)/100000;bal+=(netDep-disPrem-survPrem);bal*=(1+mret);bal-=bal*mfee;if(m%12===0||m===months-1)traj.push({age:(sm+m)/12,bal:bal});}return {final:bal,traj:traj};}
+function pcFmt(n){return Math.round(n).toLocaleString('en-US');}
+function pcNv(id){return +String(document.getElementById(id).value).replace(/,/g,'')||0;}
+/* ===== Severance withdrawal engine ===== */
+var PW={
+  dataYear:2026,
+  ceiling:9430,            /* תקרת הקצבה המזכה, לחודש */
+  capMult:180,             /* מכפיל ההמרה להון */
+  baseRate:0.35,           /* הפטור הבסיסי - החלק שנוסחת השילוב גורעת ממנו */
+  penalty:1.35,            /* מקדם נוסחת השילוב */
+  window32:32,
+  hideSwitchAge:38,       /* מגיל זה המתג לא מוצג והחישוב מניח פגיעה בסל הפטור */
+  creditPoint:242,
+  points:{M:2.25,F:2.75},
+  legalAge:{M:67,F:65},
+  brackets:[[7010,0.10],[10060,0.14],[19000,0.20],[25100,0.31],[46690,0.35],[60130,0.47],[Infinity,0.50]],
+  addRate:function(y){return y<=2026?0.225:(y===2027?0.275:0.32);}   /* הפטור הנוסף לפי שנת מס */
+};
+var pwTouched=false,pwHasRun=false;
+function pwTax(taxable,points){var t=0,prev=0;for(var i=0;i<PW.brackets.length;i++){var top=PW.brackets[i][0];if(taxable>prev)t+=(Math.min(taxable,top)-prev)*PW.brackets[i][1];prev=top;}return Math.max(0,t-points*PW.creditPoint);}
+function pwNet(gross,exemptMax,points){var ex=Math.min(gross,exemptMax),tax=pwTax(gross-ex,points);return {gross:gross,exempt:ex,tax:tax,net:gross-tax};}
+/* קצבה חודשית פטורה (בערכי היום) אחרי גריעת מענקים פטורים שנמשכו */
+function pwExempt(countedGrant,retYear){
+  var baseCap=PW.baseRate*PW.ceiling*PW.capMult;
+  var deducted=Math.min(baseCap,countedGrant*PW.penalty);
+  var add=PW.addRate(retYear)*PW.ceiling;
+  return {baseCap:baseCap,deducted:deducted,monthly:(baseCap-deducted)/PW.capMult+add,full:baseCap/PW.capMult+add,rate:PW.baseRate+PW.addRate(retYear)};
+}
+function pwCompute(p){
+  var yrs=p.retAge-p.ageExact,defl=Math.pow(1+p.infl,yrs);
+  var a=pcSimulate(p,p.ret,p.retAge);
+  var q={};for(var k in p)q[k]=p[k];q.balance=p.balance-p.withdraw-p.withdrawTax;
+  var b=pcSimulate(q,p.ret,p.retAge);
+  var retYear=Math.max(PW.dataYear,Math.floor(p.byDec+p.retAge));
+  var e0=pwExempt(0,retYear),e1=pwExempt(p.long32?0:p.withdraw,retYear);
+  var pts=PW.points[p.gender];
+  var g0=a.final/p.factor/defl,g1=b.final/p.factor/defl;
+  var n0=pwNet(g0,e0.monthly,pts),n1=pwNet(g1,e1.monthly,pts),mid=pwNet(g1,e0.monthly,pts);
+  return {bal0:a.final/defl,bal1:b.final/defl,no:n0,wd:n1,
+          lossTotal:n0.net-n1.net,lossAccum:n0.net-mid.net,lossTax:mid.net-n1.net,
+          e0:e0,e1:e1,retYear:retYear,points:pts,yrs:yrs};
+}
+function pwEl(id){return document.getElementById(id);}
+function pwAge(){var bd=pwEl('pc-bdate').value;if(!bd)return null;return (new Date()-new Date(bd))/(365.25*24*3600*1000);}
+function pwSync32(){
+  var age=pwAge(),cb=pwEl('pw-long32'),hint=pwEl('pw-32hint');if(age==null)return;
+  var g=pwEl('pc-gender').value,ra=parseFloat(pwEl('pc-retage').value);
+  var elig=Math.max(ra,PW.legalAge[g]),left=elig-age;
+  var show=age<PW.hideSwitchAge;
+  pwEl('pw-32row').style.display=show?'':'none';
+  if(!show){cb.checked=false;return;}
+  if(!pwTouched)cb.checked=age<35;
+  hint.textContent=cb.checked?'אם כן, הפיצויים שנמשכים היום נמצאים מחוץ ל-32 שנות העבודה האחרונות ולא ייגרעו מסל הפטור על הקצבה.':'אם לא, הפיצויים הפטורים שנמשכים ייגרעו מסל הפטור על הקצבה בתוספת 35% והצמדה למדד.';
+  if(cb.checked&&left<=PW.window32)hint.textContent+=' שימו לב: זה אפשרי רק אם תעבדו כשכירים עד גיל '+(Math.floor(age)+PW.window32)+' לפחות, מאוחר מגיל הפרישה שנבחר.';
+  pwEl('pw-32state').textContent=cb.checked?'כן':'לא';
+}
+function pwRerun(){if(pwHasRun)pwRun();}
+function pwRun(){
+  var err=pwEl('pc-err');err.style.display='none';
+  function fail(m){err.textContent=m;err.style.display='block';pwEl('pc-results').style.display='none';}
+  var bd=pwEl('pc-bdate').value;if(!bd)return fail('נא להזין תאריך לידה');
+  var bdate=new Date(bd),ageExact=pwAge(),retAge=parseFloat(pwEl('pc-retage').value);
+  if(ageExact<15||ageExact>=retAge)return fail('גיל הפרישה חייב להיות גדול מהגיל הנוכחי');
+  var balance=pcNv('pc-balance'),withdraw=pcNv('pw-withdraw'),withdrawTax=pcNv('pw-withdraw-tax'),total=withdraw+withdrawTax;
+  if(total<=0)return fail('נא להזין את סכום הפיצויים למשיכה');
+  if(total>balance)return fail('סכום המשיכה גדול מהצבירה הקיימת');
+  pcUpdateFactor();pwSync32();
+  var p={ageExact:ageExact,by:bdate.getFullYear(),byDec:bdate.getFullYear()+bdate.getMonth()/12,gender:pwEl('pc-gender').value,
+    balance:balance,withdraw:withdraw,withdrawTax:withdrawTax,salary:pcNv('pc-salary'),deprate:pcNv('pc-deprate')/100,feedep:pcNv('pc-feedep')/100,feebal:pcNv('pc-feebal')/100,
+    factor:pcNv('pc-factor')||200,infl:pcNv('pc-inflation')/100,ret:pcNv('pw-return')/100,retAge:retAge,long32:pwEl('pw-long32').checked};
+  var r=pwCompute(p),F=pcFmt;
+  var hero=pwEl('pw-hero');
+  pwEl('pw-heroLbl').textContent='משיכה של '+F(total)+' ₪ היום תקטין את הקצבה החודשית נטו ב-';
+  pwEl('pw-heroVal').innerHTML=F(r.lossTotal)+' <small>₪ לחודש</small>';
+  hero.classList.toggle('pw-zero',Math.round(r.lossTotal)<=0);
+  var pct=r.no.net>0?(r.lossTotal/r.no.net*100):0;
+  pwEl('pw-heroSub').innerHTML='קצבה נטו בגיל '+retAge+': <strong>'+F(r.wd.net)+' ₪</strong> במקום <strong>'+F(r.no.net)+' ₪</strong> ('+pct.toFixed(1)+'% פחות) · בערכי היום<br>על פני 20 שנות פנסיה מדובר בכ-'+F(r.lossTotal*240)+' ₪';
+  pwEl('pw-split').innerHTML=
+    '<div class="pw-split-item"><div class="pw-split-val">'+F(r.lossAccum)+' ₪</div><div class="pw-split-lbl">בגלל צבירה קטנה יותר (נטו ממס)</div></div>'+
+    '<div class="pw-split-item"><div class="pw-split-val">'+F(r.lossTax)+' ₪</div><div class="pw-split-lbl">'+(withdraw<=0?'בגלל פגיעה בסל הפטור - אין פגיעה, כי הסכום שנמשך חייב במס':p.long32?'בגלל פגיעה בסל הפטור - אין פגיעה, לפי כלל 32 השנים':'בגלל תוספת מס הכנסה עקב הפגיעה בסל הפטור')+'</div></div>';
+  function row(lbl,a,b,cls,trc){var d=b-a,dc=Math.round(d)===0?'':' pw-neg';var ds=Math.round(d)===0?'0':((d<0?'-':'+')+F(Math.abs(d)));
+    return '<tr'+(trc?' class="'+trc+'"':'')+'><td class="pc-lbl">'+lbl+'</td><td class="'+cls+'">'+F(a)+'</td><td class="'+cls+'">'+F(b)+'</td><td class="pw-num'+dc+'" style="direction:ltr">'+ds+'</td></tr>';}
+  var h='<tr><th>בערכי היום (₪)</th><th>בלי משיכה</th><th>עם משיכה</th><th>הפרש</th></tr>';
+  h+=row('צבירה בגיל '+retAge,r.bal0,r.bal1,'pw-num');
+  h+=row('קצבה חודשית ברוטו',r.no.gross,r.wd.gross,'pw-num');
+  h+=row('מתוכה פטור ממס',r.no.exempt,r.wd.exempt,'pw-num');
+  h+=row('מס הכנסה',r.no.tax,r.wd.tax,'pw-num');
+  h+=row('קצבה חודשית נטו',r.no.net,r.wd.net,'pc-big','pw-net');
+  pwEl('pw-tbl').innerHTML=h;
+  var b='<strong>סל הפטור:</strong> שיעור הפטור בשנת הפרישה ('+r.retYear+') הוא '+(r.e0.rate*100).toFixed(1)+'% מתקרת הקצבה המזכה ('+F(PW.ceiling)+' ₪), כלומר קצבה פטורה של עד '+F(r.e0.full)+' ₪ לחודש. ';
+  if(withdraw<=0){b+='פיצויים שחויבו במס במשיכה אינם נגרעים מסל הפטור.';}
+  else if(p.long32){b+='לפי התשובה שלכם, המשיכה נמצאת מחוץ ל-32 שנות העבודה שקודמות לפרישה ולכן אינה נגרעת מסל הפטור.';}
+  else{b+='משיכת הפיצויים הפטורים גורעת מההון הפטור '+F(withdraw)+' × 1.35 = '+F(withdraw*PW.penalty)+' ₪ (צמוד למדד)';
+    if(r.e1.deducted<withdraw*PW.penalty-0.5)b+=', אך לא יותר מהחלק הבסיסי של הפטור ('+F(r.e1.baseCap)+' ₪)';
+    if(withdrawTax>0)b+='. הפיצויים שחויבו במס ('+F(withdrawTax)+' ₪) אינם נגרעים מסל הפטור';
+    b+='. הקצבה הפטורה יורדת ב-'+F(r.e0.monthly-r.e1.monthly)+' ₪ לחודש, ל-'+F(r.e1.monthly)+' ₪.';
+    if(Math.round(r.lossTax)===0&&Math.round(r.wd.tax)===0)b+=' במקרה שלכם הקצבה נמוכה מספיק כך שגם אחרי הפגיעה בפטור לא משולם מס הכנסה.';}
+  pwEl('pw-basket').innerHTML=b;
+  var legal=PW.legalAge[p.gender];
+  var as='<strong>הנחות המחשבון:</strong> כל הסכומים בערכי היום (אינפלציה '+(p.infl*100).toFixed(1)+'%). תשואה שנתית '+(p.ret*100).toFixed(1)+'%. גיל פרישה '+retAge+'. שכר קבוע (ללא עליית שכר). מקדם המרה '+p.factor.toFixed(1)+'. '+r.points+' נקודות זיכוי, מדרגות מס ושווי נקודת זיכוי של '+PW.dataYear+'. אין משיכות פיצויים פטורות נוספות, בעבר או בעתיד. המס שמשולם על המשיכה עצמה אינו חלק מהחישוב. הקצבה מקרן הפנסיה היא ההכנסה החייבת היחידה בפרישה. מסלול ביטוח ברירת מחדל - שארים 100% + נכות 75%.';
+  if(retAge<legal)as+=' שימו לב: הפטור על הקצבה ניתן רק מגיל '+legal+', ולכן עד אז המס בפועל יהיה גבוה יותר מהמוצג.';
+  as+=' המחשבון הוא אומדן ואינו מהווה ייעוץ פנסיוני או ייעוץ מס.';
+  pwEl('pc-assumptions').innerHTML=as;
+  pwEl('pc-results').style.display='block';pwHasRun=true;
+}
+(function(){var d=new Date();d.setFullYear(d.getFullYear()-40);var m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');document.getElementById('pc-bdate').value=d.getFullYear()+'-'+m+'-'+day;pcShowAge();pcUpdateFactor();pwSync32();})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('hamburger');
+  var nav=document.querySelector('.nav');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!nav)return;
+  function toggle(open){btn.classList.toggle('open',open);nav.classList.toggle('open',open);if(overlay)overlay.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));}
+  btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
+  if(overlay)overlay.addEventListener('click',function(){toggle(false);});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>
