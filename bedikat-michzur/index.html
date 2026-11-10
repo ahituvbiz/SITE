@@ -749,11 +749,20 @@ function chgInfo(t){
 function flagsFor(t){
   var ci = chgInfo(t), dn = !!(ci && ci.drop);
   var f = (t.flags || []).filter(function(x){ return x.code !== 'drop' && !(dn && x.code === 'update_soon'); });
-  if (dn) f.push({code: 'drop', text: 'ירידת ריבית משוערת ב-' + t.next_change});
+  if (dn) f.unshift({code: 'drop', text: 'ירידת ריבית משוערת ב-' + t.next_change});
   return f;
 }
 // השרת (engine.py) עדיין מחשב "קיצור תקופה" בשיטה הישנה. במסלול שההחזר בו ישתנה במועד העדכון
 // מחשבים כאן מחדש את קיצור התקופה מאותם נתונים. הפחתת החזר ושאר התוצאות נשארות של השרת.
+// מלכודת המרווח: מיחזור מוריד את ההחזר עכשיו, אבל אחרי העדכון המסלול הקיים זול יותר (העוגן ירד והמרווח
+// במסלול נמוך מבהלוואה חדשה), ולאורך כל התקופה מיחזור מפסיד. אותו תנאי כמו בשרת (engine.py).
+function trapAt(t, rm, modes){
+  var ra = t.rate_after_change, k = t.months_to_change;
+  if (ra == null || !(k > 0 && k < t.months_left) || !(ra < rm)) return null;
+  if (modes.shorten.saving > 0 || modes.reduce.saving > 0) return null;
+  var np = pmtF(rm, t.months_left, t.balance + (t.fee || 0));
+  return np < t.monthly - 0.5 ? {rate: rm, monthly_refi_now: np} : null;
+}
 function fixed(t){
   var key = t.idx + ':fix';
   if (effCache[key]) return effCache[key];
@@ -807,7 +816,9 @@ function eff(t){
     e.verdicts[md] = wait ? {code: 'wait', text: 'לחכות עד ' + t.next_change}
                    : (e.modes[md].saving > 0 ? {code: 'refi', text: 'למחזר'} : {code: 'keep', text: 'לא לגעת'});
   });
-  e.flags = flagsFor(t);
+  e.flags = flagsFor(t).filter(function(x){ return x.code !== 'trap'; });
+  e.trap = trapAt(t, rm, e.modes);
+  if (e.trap) e.flags.push({code: 'trap', text: 'חיסכון מדומה במיחזור עכשיו'});
   effCache[key] = e; return e;
 }
 function canOverride(t){ return t.monthly >= 0.5 && t.months_left > 0; }
@@ -842,9 +853,16 @@ function calcText(e, typed){
                 : 'הריבית שניתן לקבל היום במסלול כזה היא ' + pct(e.market_rate) + ', מול ' + pct(e.rate) + ' היום. ';
   if (v.code === 'wait') return s + 'עד ' + e.next_change + ' המסלול זול ' + ref + ', ואחרי העדכון הריבית המשוערת היא ' + pct(e.rate_after_change) + '. ' + ANCHOR_CAVEAT + 'מיחזור במועד העדכון: ' + (e.at_change[mode] >= 0 ? 'רווח ' : 'הפסד ') + ils(Math.abs(e.at_change[mode])) + '.';
   var ci = chgInfo(e), d = '';
-  if (ci && ci.drop) {
+  if (ci && ci.drop && e.trap && typed) {
+    d = 'מיחזור עכשיו מוריד את ההחזר מ-' + ils0(e.monthly) + ' ל-' + ils0(e.trap.monthly_refi_now) + ', אבל רק עד ' + e.next_change
+      + ', וזה חיסכון מדומה: הריבית במסלול הקיים תרד בעדכון מעצמה, בהערכה, ל-' + pct(e.rate_after_change) + ', נמוך ' + ref
+      + ', כי המרווח שלכם נמוך מהמרווח בהלוואה חדשה. כל עוד העוגן לא משתנה, מיחזור עכשיו מחליף את המרווח הנמוך במרווח גבוה יותר לכל שאר התקופה. '
+      + ANCHOR_CAVEAT;
+  } else if (ci && ci.drop) {
     d = 'הריבית המשוערת במסלול הקיים אחרי העדכון ב-' + e.next_change + ' היא ' + pct(e.rate_after_change) + ', בלי לעשות דבר. ';
-    if (e.rate_after_change < e.market_rate) d += 'זה נמוך ' + ref + ', ולכן מיחזור עכשיו מוזיל רק עד מועד העדכון, ומשם ועד סוף ההלוואה המסלול הקיים זול יותר. ';
+    if (e.rate_after_change < e.market_rate) d += 'זה נמוך ' + ref + (e.market_rate < e.rate
+        ? ', ולכן מיחזור עכשיו מוזיל רק עד מועד העדכון, ומשם ועד סוף ההלוואה המסלול הקיים זול יותר. '
+        : ', ולכן המסלול הקיים זול יותר גם עכשיו וגם אחרי העדכון. ');
     d += ANCHOR_CAVEAT;
     if (e.rate_after_change < e.market_rate) d += 'שתי ההלוואות מתעדכנות לפי אותו עוגן, ולכן ההפרש שנשאר ביניהן לאורך זמן הוא המרווח שהבנק מוסיף. ';
   } else if (ci) {
@@ -966,7 +984,9 @@ function render(){
         saving = '<span class="sub">0 ₪, לא ממחזרים</span>';
         newTot += t.monthly;
       } else {
+        var ciT = chgInfo(t);
         extra = mode === 'reduce' ? ils0(M.new_monthly) + '<div class="sub">במקום ' + ils0(t.monthly) + '</div>'
+              + (ciT ? '<div class="sub">' + ils0(ciT.H2) + ' משוער בלי מיחזור, מ-' + t.next_change + '</div>' : '')
               : (M.capped ? 'אין קיצור<div class="sub">ההחזר עולה ל-' + ils0(M.new_monthly) + '</div>'
                  : (M.months_saved != null ? (M.months_saved < 0 ? 'אין קיצור<div class="sub">' + (M.months_saved <= -0.5 ? 'מסתיים ' + Math.round(-M.months_saved) + ' חודשים אחרי המסלול הקיים, באותו החזר' : 'מסתיים בערך עם המסלול הקיים, באותו החזר') + '</div>'
                     : (M.months_saved < 0.5 ? 'פחות מחודש' : Math.round(M.months_saved) + ' חודשים')) : ''));
