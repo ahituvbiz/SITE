@@ -701,7 +701,7 @@ function pmtF(rA, n, P){ if (n <= 0) return P; var r = rA / 12; if (Math.abs(r) 
 function nperF(rA, pay, P){ var r = rA / 12; if (pay <= 0) return null; if (Math.abs(r) < 1e-12) return P / pay; var x = 1 - P * r / pay; if (x <= 0) return null; return -Math.log(x) / Math.log(1 + r); }
 function balAfter(rA, pay, P, k){ var r = rA / 12; if (Math.abs(r) < 1e-12) return P - pay * k; var g = Math.pow(1 + r, k); return P * g - pay * (g - 1) / r; }
 function scen(t, rm){
-  var n = t.months_left, P = t.balance, H = t.monthly, r0 = t.rate, fee = t.fee || 0;
+  var n = t.months_left, P = t.balance - (t.accrued || 0), H = t.monthly, r0 = t.rate, fee = t.fee || 0;
   var k = t.months_to_change, ra = t.rate_after_change, H2 = null, Bk = 0, existing;
   var chg = !!(k && k > 0 && k < n && ra != null);
   if (chg) {
@@ -726,7 +726,7 @@ function scen(t, rm){
   return {shorten: shorten, reduce: reduce, monthly_after_change: H2};
 }
 function atChange(t, rm){
-  var n = t.months_left, P = t.balance, H = t.monthly, k = t.months_to_change, ra = t.rate_after_change, left = n - k;
+  var n = t.months_left, P = t.balance - (t.accrued || 0), H = t.monthly, k = t.months_to_change, ra = t.rate_after_change, left = n - k;
   var Bk = Math.max(balAfter(t.rate, H, P, k), 0), H2 = pmtF(ra, left, Bk), existing = H2 * left;
   var red = pmtF(rm, left, Bk), rd = existing - red * left, sh, shp;
   // קיצור תקופה במועד העדכון: אותו החזר בשתי החלופות, כמו ב-scen
@@ -741,7 +741,7 @@ var effCache = {};
 function chgInfo(t){
   var n = t.months_left, k = t.months_to_change, ra = t.rate_after_change;
   if (!(k && k > 0 && k < n && ra != null) || !(t.monthly > 0)) return null;
-  var Bk = Math.max(balAfter(t.rate, t.monthly, t.balance, k), 0), H2 = pmtF(ra, n - k, Bk);
+  var Bk = Math.max(balAfter(t.rate, t.monthly, t.balance - (t.accrued || 0), k), 0), H2 = pmtF(ra, n - k, Bk);
   return Math.abs(H2 - t.monthly) >= 0.5 ? {H2: H2, drop: H2 < t.monthly} : null;
 }
 // מסלול שהריבית המשוערת בו אחרי העדכון נמוכה מהיום: התגית "ירידת ריבית משוערת" מחליפה את "עדכון ריבית ב-" של השרת.
@@ -760,7 +760,7 @@ function trapAt(t, rm, modes){
   var ra = t.rate_after_change, k = t.months_to_change;
   if (ra == null || !(k > 0 && k < t.months_left) || !(ra < rm)) return null;
   if (modes.shorten.saving > 0 || modes.reduce.saving > 0) return null;
-  var np = pmtF(rm, t.months_left, t.balance + (t.fee || 0));
+  var np = pmtF(rm, t.months_left, t.balance - (t.accrued || 0) + (t.fee || 0));
   return np < t.monthly - 0.5 ? {rate: rm, monthly_refi_now: np} : null;
 }
 function fixed(t){
