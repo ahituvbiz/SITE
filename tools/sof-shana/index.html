@@ -215,6 +215,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .lnk.pri:hover{background:#00668a}
 .lnk.ext{color:var(--text-2)}
 .lnk.ext::after{content:"↗";font-size:12px;opacity:.7}
+.webinar-cta{background:var(--primary-soft);border:2px solid var(--primary);border-radius:14px;padding:18px 20px;margin:4px 0 18px}
+.webinar-cta h3{font-size:18px;font-weight:700;margin:0 0 6px;color:var(--primary)}
+.webinar-cta p{font-size:15px;color:var(--text-1);margin:0 0 14px;max-width:none}
+.webinar-cta .wc-btns{display:flex;flex-wrap:wrap;gap:10px}
+.webinar-cta .btn{padding:11px 20px;font-size:15px}
+.item .webinar-cta{margin:12px 32px 0 0;padding:14px 16px}
+.item .webinar-cta h3{font-size:16px}
 @media(max-width:560px){.item-body,.item-links{margin-right:0}}
 .empty-note{background:var(--bg-cream);border-radius:10px;padding:16px;color:var(--text-2);font-size:15px}
 
@@ -663,6 +670,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
   /* ---------- מצבי חיים (שאלה 2) ---------- */
   var EVENTS = [
+    {id:'hitech',   who:['emp','both'],        label:'אני עובד בחברת הייטק'},
     {id:'twoEmp',   who:['emp','both'],        label:'עבדתי השנה אצל שני מעסיקים או יותר', sub:'במקביל, או אחד אחרי השני'},
     {id:'family',   who:['emp','self','both'], label:'נולד לי ילד, התגרשתי, או עברתי לגור ביישוב מזכה'},
     {id:'degree',   who:['emp','both'],        label:'סיימתי תואר אקדמי או שירות צבאי / לאומי בשנים האחרונות'},
@@ -764,6 +772,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
            (s.ev.soldRE ? '<p><strong>מכרת השנה נדל"ן ושילמת, או תשלם, מס שבח?</strong> אם יש לך ניירות ערך בהפסד, שקול לממש אותם עד 31.12. ההפסד מתקזז מול השבח ומקטין את המס עליו. אם אתה עדיין מאמין בהשקעה, אפשר לקנות את הניירות מחדש מיד. זה חשוב במיוחד אם בגלל המכירה ההכנסה החייבת שלך השנה עוברת את תקרת מס היסף, כי אז הקיזוז חוסך גם את מס היסף, ולא רק דוחה מס. הקיזוז לא קורה מעצמו בבנק. צריך לדרוש אותו בדיווח למס, ולכן בדוק את זה עם רואה החשבון שטיפל במכירה לפני שאתה מוכר.</p>' : ''); },
       links:[L('/tools/net-return/','כמה מהתשואה נשאר אחרי מס','pri')] },
 
+    { id:'rsu', lvl:'soft', title:'מניות מהעבודה (RSU / ESPP): לפני שמוכרים בסוף השנה', cta:true,
+      when:function(s){return s.work!=='self' && s.ev.hitech;},
+      body:'<p><strong>איך ממוסה המכירה.</strong> ברוב החברות, RSU מוקצות במסלול ההוני של סעיף 102 דרך נאמן. בחברה ציבורית, שווי ההקצאה (ממוצע 30 ימי המסחר שלפני ההקצאה) ממוסה כהכנסת עבודה במס השולי, והרווח שמעליו ב-<span class="num">25%</span> כרווח הון. מכירה לפני שעברו שנתיים מההקצאה הופכת את כל הרווח להכנסת עבודה. גם ב-ESPP עם נאמן, חלק מההטבה ממוסה כהכנסת עבודה וחלק כרווח הון.</p>'+
+           '<p><strong>מס יסף.</strong> מכירה גדולה יכולה להעביר אותך את תקרת מס היסף: <span class="num">721,560 ₪</span> הכנסה חייבת בשנה, כולל המשכורת. מעל התקרה משלמים 3% נוספים. על החלק ההוני של המכירה משלמים עוד 2%, אם ההכנסה ההונית לבדה עוברת את התקרה. אם המכירה לא דחופה, פיצול בין דצמבר לינואר יכול להשאיר כל אחת מהשנים מתחת לתקרה. אבל שים לב: דחיית מכירה רק בגלל המס משאירה אותך חשוף למניה אחת, של החברה שבה אתה גם עובד. המס הוא שיקול אחד, לא היחיד.</p>'+
+           '<p><strong>קיזוז הפסדים.</strong> מימשת השנה הפסדים בשוק ההון? אפשר לקזז אותם מול החלק ההוני של המכירה, אבל לא מול החלק שממוסה כהכנסת עבודה. הנאמן לא עושה את זה לבד, הקיזוז נעשה בדוח שנתי למס הכנסה. ואם יש לך בתיק ניירות בהפסד שעוד לא מכרת, מכירה עד 31.12 יוצרת הפסד שאפשר לקזז מול הרווח של השנה.</p>',
+      links:[L('/tools/net-return/','כמה מהתשואה נשאר אחרי מס','pri')] },
+
     { id:'surtax', lvl:'soft', title:'מס יסף: לתזמן מימושים גדולים בין דצמבר לינואר',
       when:function(s){return s.ev.highInc || s.ev.soldRE;},
       body:'<p>מי שההכנסה החייבת שלו בשנה עוברת <span class="num">721,560 ₪</span> משלם מס יסף של 3% על החלק שמעל התקרה. מ-2025 נוספה שכבה נוספת: כשההכנסה ממקורות הוניים לבדה (רווחי הון, דיבידנד, ריבית, שכר דירה ושבח) עוברת את אותה תקרה, משולמים עוד 2% על החלק ההוני שמעליה. ביחד זה עד 5%.</p>'+
@@ -856,6 +871,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   function step1Ready(){ return !!st.work && Object.keys(st.ev).some(function(k){return st.ev[k];}); }
 
   /* ---------- step 2 ---------- */
+  var WEBINAR_WA = 'https://wa.me/972527700599?text=' + encodeURIComponent('אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עובד הייטק ואשמח לשמוע כשייקבע מועד נוסף להרצאה על הפנסיה.');
+  function webinarCta(){
+    return '<div class="webinar-cta"><h3>🎙️ וובינר חינם: פנסיה לעובדי הייטק</h3>'+
+      '<p>דברים שמעטים יודעים, טעויות שרבים עושים. 45 דקות ב-Google Meet.</p>'+
+      '<div class="wc-btns"><a class="btn btn-wa" href="'+WEBINAR_WA+'" target="_blank" rel="noopener">עדכן אותי בוואטסאפ</a>'+
+      '<a class="btn btn-light" style="border:1px solid var(--primary)" href="/services/pension-webinar/">מידע נוסף על הוובינר</a></div></div>';
+  }
   function renderList(){
     var items = activeItems(), out = '';
     ['hard','soft','calm'].forEach(function(lv){
@@ -877,10 +899,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           });
           out += '</div>';
         }
+        if(it.cta) out += webinarCta();
         out += '</div>';
       });
       out += '</div>';
     });
+    if(items.length && st.ev.hitech && st.work!=='self') out = webinarCta() + out;
     if(!items.length) out = '<p class="empty-note">עוד לא ענית על השאלות.</p>';
     $('list-out').innerHTML = out;
   }
