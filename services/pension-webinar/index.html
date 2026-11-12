@@ -22,35 +22,6 @@
 <meta property="og:image:alt" content="הרצאה מקוונת על פנסיה לעובדי הייטק עם איתן אחיטוב, יועץ פנסיוני בעל רישיון">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- זיהוי בעל האתר (?notrack=1 / ?draft=1) — הביקורים שלו לא נספרים. זהה לשאר האתר -->
-<script>
-(function(){
-  window.__pensyaOwner = false;
-  try{
-    var p = new URLSearchParams(location.search);
-    var d = p.get('draft'), n = p.get('notrack');
-    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
-    if(d==='0') localStorage.removeItem('pensyaDraftMode');
-    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
-    if(n==='0') localStorage.removeItem('pensyaNoTrack');
-    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
-                        || localStorage.getItem('pensyaNoTrack')==='1';
-  }catch(e){}
-})();
-</script>
-<!-- Google Analytics 4 — אותו נכס כמו שאר האתר; לא נטען עבור בעל האתר -->
-<script>
-(function(){
-  if(window.__pensyaOwner) return;
-  var s=document.createElement('script');
-  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function(){dataLayer.push(arguments);};
-  gtag('js', new Date());
-  gtag('config', 'G-E3PV7TKMLP');
-})();
-</script>
 <link rel="icon" href="/design-assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/design-assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
