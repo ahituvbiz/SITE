@@ -225,6 +225,10 @@ textarea:focus-visible,
 .rc .track .tn{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.rc *{transition:none!important}}
 .rc [hidden]{display:none!important}
+.rc .seg button{white-space:nowrap}
+.rc .person .dob{flex:1 1 150px;min-width:150px}
+.rc .persons{grid-template-columns:repeat(auto-fit,minmax(440px,1fr))}
+@media (max-width:520px){.rc .persons{grid-template-columns:1fr}}
 .rc p{margin:0}
 .rc .note p{margin:4px 0}
 .rc .band h2{margin:0}
@@ -465,7 +469,7 @@ const st = {
     {name:'בן/בת זוג', dob:'1988-07-10', g:'F', s:0}
   ],
   offers: [
-    {co:'הראל', d:[50,50]}, {co:'מגדל', d:[40,40]}, {co:'כלל', d:[55,55]}, {co:'ליברה', d:[20,20]}
+    {co:'הראל', d:[60,60]}, {co:'מגדל', d:[60,60]}, {co:'כלל', d:[60,60]}, {co:'ליברה', d:[60,60]}
   ]
 };
 const fmt = n => n==null ? '' : Math.round(n).toLocaleString('he-IL');
@@ -534,8 +538,8 @@ function renderPersons(){
     const age = insAge(p.dob);
     const card = el('div',{class:'person'});
     card.innerHTML = `<h3>${i===0?'מבוטח ראשי':'בן/בת זוג'} <span class="age">גיל ביטוח: <b>${age??'-'}</b></span></h3>
-      <label for="dob${i}">תאריך לידה<input type="date" id="dob${i}" value="${p.dob}"></label>
       <div class="row">
+        <label for="dob${i}" class="dob">תאריך לידה<input type="date" id="dob${i}" value="${p.dob}"></label>
         <label>מין<span class="seg" role="group" aria-label="מין">
           <button type="button" data-p="${i}" data-g="M" aria-pressed="${p.g==='M'}">גבר</button>
           <button type="button" data-p="${i}" data-g="F" aria-pressed="${p.g==='F'}">אישה</button></span></label>
@@ -647,6 +651,13 @@ $('modeAge').addEventListener('click',()=>{ if(st.mode!=='age'){st.mode='age'; s
 $('togglePartner').addEventListener('click',()=>{st.partner=!st.partner; renderAll();});
 $('sumIns').addEventListener('input',e=>{st.sum=+e.target.value||0; renderResults();});
 $('addTrack').addEventListener('click',()=>{ if(st.tracks.length<5){ st.tracks.push({amt:300000,r:5,y:20,m:'sp'}); renderTracks(); renderResults(); }});
+// ברירת מחדל: 4 החברות עם תעריף הספר הזול ביותר (ערך מהוון לכל התקופה) לנתוני הדוגמה, הנחה 60% בכולן
+(function(){
+  const ps=st.persons.filter((p,i)=>i===0||st.partner);
+  const sc=COS.map(co=>{let s=0; for(const p of ps){const r=calc(p,co,0); if(r.err) return null; s+=r.pAll;} return {co,s};})
+    .filter(Boolean).sort((a,b)=>a.s-b.s).slice(0,4);
+  if(sc.length) st.offers=sc.map(x=>({co:x.co,d:[60,60]}));
+})();
 renderAll();
 })();
 </script>
