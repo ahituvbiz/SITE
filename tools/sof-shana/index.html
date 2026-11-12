@@ -220,6 +220,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .webinar-cta p{font-size:15px;color:var(--text-1);margin:0 0 14px;max-width:none}
 .webinar-cta .wc-btns{display:flex;flex-wrap:wrap;gap:10px}
 .webinar-cta .btn{padding:11px 20px;font-size:15px}
+.webinar-cta.wc-se{background:var(--primary);border-color:var(--primary)}
+.webinar-cta.wc-se h3{color:#fff;font-size:19px}
+.webinar-cta.wc-se p{color:#fff}
+#se-webinar-slot .webinar-cta{margin:0 0 22px}
 .item .webinar-cta{margin:12px 32px 0 0;padding:14px 16px}
 .item .webinar-cta h3{font-size:16px}
 @media(max-width:560px){.item-body,.item-links{margin-right:0}}
@@ -456,7 +460,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <span class="dot">·</span>
       <span class="chip">בלי הרשמה, נשמר רק בדפדפן שלך</span>
       <span class="dot">·</span>
-      <span>עודכן: 11 בנובמבר 2026</span>
+      <span>עודכן: 12 בנובמבר 2026</span>
     </div>
     <div class="countdown" id="countdown" aria-live="polite">
       <span class="cd-num" id="cd-num">–</span><span class="cd-lbl" id="cd-lbl">ימים עד סוף שנת המס</span>
@@ -489,6 +493,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
             </div>
           </div>
 
+          <div id="se-webinar-slot" aria-live="polite"></div>
           <div class="q" id="q-events-wrap" hidden>
             <div class="q-title" id="q-events">מה מהדברים האלה נכון לגביך?</div>
             <p class="q-hint">אפשר לסמן כמה. כל סימון מוסיף לרשימה את מה שרלוונטי רק למי שזה קרה לו.</p>
@@ -878,6 +883,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       '<div class="wc-btns"><a class="btn btn-wa" href="'+WEBINAR_WA+'" target="_blank" rel="noopener">עדכן אותי בוואטסאפ</a>'+
       '<a class="btn btn-light" style="border:1px solid var(--primary)" href="/services/pension-webinar/">מידע נוסף על הוובינר</a></div></div>';
   }
+  /* וובינר לעצמאים: מוצג למי שסימן "עצמאי" או "גם וגם". אחרי מועד ההרצאה עובר לבד ל"עדכן אותי". */
+  var SE_WEBINAR_END = new Date('2026-11-22T21:45:00+02:00');
+  var SE_WEBINAR_URL = '/services/pension-webinar/self-employed/';
+  function isSelf(){ return st.work==='self' || st.work==='both'; }
+  function seWebinarCta(){
+    var open = new Date() < SE_WEBINAR_END;
+    var wa = 'https://wa.me/972527700599?text=' + encodeURIComponent(open
+      ? 'אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עצמאי ואשמח להירשם להרצאה על פנסיה וחיסכון לעצמאים (יום ראשון, 22.11). המייל שלי לזימון: '
+      : 'אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עצמאי ואשמח לשמוע כשייקבע מועד נוסף להרצאה על פנסיה וחיסכון לעצמאים.');
+    return '<div class="webinar-cta wc-se"><h3>🎙️ '+(open ? 'וובינר חינם לעצמאים: יום ראשון 22.11 בשעה 21:00' : 'וובינר חינם: פנסיה וחיסכון לעצמאים')+'</h3>'+
+      '<p>איזה מכשיר פיננסי מתאים לעצמאי: מיסוי, נזילות, כיסוי סיכונים ודאגה לעתיד. 45 דקות ב-Google Meet.</p>'+
+      '<div class="wc-btns"><a class="btn btn-wa" href="'+wa+'" target="_blank" rel="noopener">'+(open ? 'להרשמה בוואטסאפ' : 'עדכן אותי בוואטסאפ')+'</a>'+
+      '<a class="btn btn-light" href="'+SE_WEBINAR_URL+'">מידע נוסף על הוובינר</a></div></div>';
+  }
+  function renderSeBanner(){ var s = $('se-webinar-slot'); if(s) s.innerHTML = isSelf() ? seWebinarCta() : ''; }
   function renderList(){
     var items = activeItems(), out = '';
     ['hard','soft','calm'].forEach(function(lv){
@@ -905,6 +925,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       out += '</div>';
     });
     if(items.length && st.ev.hitech && st.work!=='self') out = webinarCta() + out;
+    if(items.length && isSelf()) out = seWebinarCta() + out;
     if(!items.length) out = '<p class="empty-note">עוד לא ענית על השאלות.</p>';
     $('list-out').innerHTML = out;
   }
@@ -1012,6 +1033,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     for(var i=0;i<r.length;i++) r[i].checked = (r[i].value===st.work);
     $('q-events-wrap').hidden = !st.work;
     if(st.work) renderEvents();
+    renderSeBanner();
     $('to-2').disabled = !step1Ready();
   }
   function reset(){
@@ -1032,7 +1054,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   /* ---------- events ---------- */
   document.addEventListener('change', function(e){
     var t = e.target;
-    if(t.name==='work'){ st.work = t.value; renderEvents(); $('q-events-wrap').hidden = false; }
+    if(t.name==='work'){ st.work = t.value; renderEvents(); $('q-events-wrap').hidden = false; renderSeBanner(); }
     else if(t.closest && t.closest('#event-opts')){
       if(t.value==='none' && t.checked){ st.ev = {none:true}; renderEvents(); }
       else { st.ev[t.value] = t.checked; if(!t.checked) delete st.ev[t.value]; if(t.checked && st.ev.none){ delete st.ev.none; renderEvents(); } }
