@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון ריסק קבוע: השוואת ביטוח חיים בין חברות הביטוח | איתן אחיטוב</title>
+<meta name="description" content="מחשבון ביטוח חיים (ריסק) עם סכום ביטוח קבוע: הזינו את ההנחות שקיבלתם מכל חברה וראו מי הזולה ביותר ל-10 שנות ההנחה ולכל תקופת הביטוח.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "מחשבון ריסק קבוע", "description": "מחשבון ביטוח חיים (ריסק) עם סכום ביטוח קבוע: הזינו את ההנחות שקיבלתם מכל חברה וראו מי הזולה ביותר ל-10 שנות ההנחה ולכל תקופת הביטוח.", "url": "https://pensya.info/tools/risk-kavua/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "author": {"@type": "Person", "name": "איתן אחיטוב", "jobTitle": "יועץ פנסיוני בעל רישיון משרד האוצר"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ILS"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "בית", "item": "https://pensya.info/"}, {"@type": "ListItem", "position": 2, "name": "מחשבונים", "item": "https://pensya.info/tools/"}, {"@type": "ListItem", "position": 3, "name": "מחשבון ריסק קבוע", "item": "https://pensya.info/tools/risk-kavua/"}]}]}
+</script>
+<style>
+:root {
+  --primary:#007DA8; --primary-soft:#E1F3FB; --cta:#D74E3C; --cta-hover:#B83E2E;
+  --text-1:#1A1A1A; --text-2:#555; --text-meta:#999;
+  --bg:#fff; --bg-cream:#F8F6F2; --border:#E2E0DC;
+  --positive:#5C8D5A; --warning:#C9A227; --negative:#C53030;
+  --s-sm:12px; --s-md:20px; --s-lg:32px; --s-xl:48px; --s-2xl: clamp(28px, 4.5vw, 44px); --s-3xl: clamp(32px, 6vw, 48px);
+  --radius:14px; --container:1120px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;overflow-x: hidden;
+  color:var(--text-1);background:var(--bg);line-height:1.65;font-size:17px}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+
+/* HEADER */
+.header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:200;height:64px}
+.header-inner{display:flex;align-items:center;gap:20px;height:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;flex-shrink:0}
+.logo-sub{font-weight:400;font-size:12px;color:var(--text-2)}
+.nav{display:flex;gap:4px;margin-right:auto}
+.nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--primary-soft);color:var(--primary);text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px}
+.hamburger span{display:block;height:2px;background:var(--text-1);border-radius:2px;transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){.nav{display:none}.hamburger{display:flex}}
+/* Header search */
+.header-search{position:relative;display:flex;align-items:center}
+.header-search input{width:220px;height:40px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:999px;font-family:inherit;font-size:14px;color:var(--text-1);background:var(--bg-cream);transition:all .15s;outline:none}
+.header-search input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(0,125,168,0.1);width:260px}
+.header-search input::placeholder{color:var(--text-meta)}
+.header-search-icon{position:absolute;left:12px;pointer-events:none;color:var(--text-meta);display:flex}
+.header-search-icon svg{width:18px;height:18px}
+.search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.12);max-height:320px;overflow-y:auto;z-index:10;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;text-decoration:none}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--bg-cream)}
+.search-results .no-results{padding:16px;color:var(--text-meta);font-size:14px;text-align:center}
+@media(max-width:900px){.header-search input{width:160px}.header-search input:focus{width:200px}}
+@media(max-width:600px){.header-search input{width:130px}}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--bg-cream);border-bottom:1px solid var(--border);padding:10px 0;font-size: 14px;color:var(--text-meta)}
+.breadcrumb .container{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb .sep{color:var(--border)}
+.breadcrumb .current{color:var(--text-2)}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#fafbfd 0%,var(--primary-soft) 100%);padding:var(--s-2xl) 0 var(--s-xl)}
+.page-hero h1{font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px}
+.page-hero h1 .accent{color:var(--primary)}
+.page-hero .lead{font-size:18px;color:var(--text-2);line-height:1.7}
+.stats-strip{display:flex;gap:32px;flex-wrap:wrap;margin-top:var(--s-lg);padding-top:var(--s-lg);border-top:1px solid var(--border)}
+.stat-item .stat-val{font-size:32px;font-weight:700;color:var(--primary)}
+.stat-item .stat-label{font-size:13px;color:var(--text-2);margin-top:4px}
+
+/* CALCULATOR SECTION */
+.calc-wrap{padding:var(--s-2xl) 0}
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:768px){.calc-layout{grid-template-columns:1fr}}
+.calc-intro h2{font-size:26px;font-weight:700;margin-bottom:16px}
+.calc-intro p{color:var(--text-2);line-height:1.7;margin-bottom:16px}
+.insight-box{background:var(--primary-soft);border-right:4px solid var(--primary);border-radius:10px;padding:16px 20px;font-size:15px;margin-top:16px}
+.calc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
+.calc-card h3{font-size:18px;font-weight:700;margin-bottom:20px}
+.form-group{margin-bottom:20px}
+.form-group label{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-2)}
+.val-display{font-weight:700;color:var(--primary)}
+.form-group input[type=range]{width:100%;accent-color:var(--primary)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc-results{background:var(--bg-cream);border-radius:10px;padding:20px;margin-top:20px}
+.res-title{font-size:13px;font-weight:600;color:var(--text-meta);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.res-big{font-size:36px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.res-big.good{color:var(--positive)}
+.res-sub{font-size:13px;color:var(--text-2);margin-bottom:16px}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.res-item{background:#fff;border-radius:8px;padding:12px}
+.ri-val{font-size:18px;font-weight:700;color:var(--primary)}
+.ri-label{font-size:12px;color:var(--text-meta);margin-top:2px}
+.res-note{font-size:12px;color:var(--text-meta);margin-top:12px;line-height:1.5}
+
+/* CTA SECTION */
+.cta-section{background:var(--primary);color:#fff;padding:var(--s-2xl) 0;text-align:center}
+.cta-section h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.cta-section p{font-size:16px;opacity:.85;margin-bottom:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s}
+.btn-primary{background:var(--cta);color:#fff}.btn-primary:hover{background:var(--cta-hover);text-decoration:none}
+.btn-light{background:#fff;color:var(--primary)}.btn-light:hover{background:var(--primary-soft);text-decoration:none}
+
+/* RELATED */
+.related-section{padding:var(--s-xl) 0;background:var(--bg-cream);border-top:1px solid var(--border)}
+.related-section h3{font-size:18px;font-weight:700;margin-bottom:16px}
+.related-links{display:flex;gap:12px;flex-wrap:wrap}
+.related-link-card{padding:10px 18px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--primary);text-decoration:none}
+.related-link-card:hover{border-color:var(--primary);text-decoration:none}
+
+/* FOOTER */
+footer{background:var(--text-1);color:rgba(255,255,255,.75);padding:var(--s-xl) 0}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}
+.footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+.footer-tagline{font-size:13px;line-height:1.6;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:8px;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:20px;font-size:12px;opacity:.6;text-align:center}
+
+/* FAB */
+.fab-whatsapp{position:fixed;bottom:24px;left:24px;z-index:300;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:.2s}
+.fab-whatsapp:hover{transform:scale(1.08)}
+.fab-whatsapp svg{width:28px;height:28px;fill:#fff}
+
+/* === נגישות: skip link (תקן 5568) === */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  left: 0;
+  background: #007DA8;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+  border-radius: 0 0 8px 8px;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #D74E3C;
+  outline-offset: 2px;
+}
+
+/* === נגישות: focus-visible === */
+:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #007DA8 !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+    .page-updated { font-size: 13px; color: #999999; margin-top: -8px; margin-bottom: 24px; }
+/* RISK CALCULATOR */
+.rc{--bg:#f3f5f4; --surface:#ffffff; --ink:#18241f; --muted:#5b6b64; --line:#d6dedb;
+  --accent:#007DA8; --accent-soft:#E1F3FB; --best:#1f6b57; --best-bg:#dcefe6; --warn:#9a4a1f; --input:#f9fbfa;
+  --display:'Heebo',sans-serif;
+  --body:'Heebo',sans-serif;}
+.rc *{box-sizing:border-box}
+.rc{color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;direction:rtl;text-align:right}
+.rc .wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.rc section.band{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.rc .band h2{margin:0;font-family:var(--display);font-size:1.15rem;font-weight:700}
+.rc .band h2 small{font-family:var(--body);font-weight:400;color:var(--muted);font-size:.85rem;margin-inline-start:8px}
+.rc .grid{display:grid;gap:12px 16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.rc .persons{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.rc .person{border:1px dashed var(--line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rc .person h3{margin:0;font-size:1rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rc label{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--muted);font-weight:600;letter-spacing:.01em}
+.rc input,.rc select{font:inherit;font-size:15px;color:var(--ink);background:var(--input);border:1px solid var(--line);border-radius:4px;padding:7px 9px;min-width:0;width:100%}
+.rc input:focus,.rc select:focus,.rc button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.rc input[type=number]{font-variant-numeric:tabular-nums}
+.rc .seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.rc .seg button{font:inherit;font-size:14px;border:0;background:var(--input);color:var(--ink);padding:7px 12px;cursor:pointer}
+.rc .seg button[aria-pressed=true]{background:var(--accent);color:var(--surface);font-weight:700}
+.rc .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.rc .age{font-size:.9rem;color:var(--muted)}
+.rc .age b{color:var(--ink);font-variant-numeric:tabular-nums}
+.rc .btn{font:inherit;font-weight:600;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:4px;padding:6px 12px;cursor:pointer}
+.rc .btn:hover{background:var(--accent-soft)}
+.rc .offers{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.rc .offer{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;background:var(--input)}
+.rc .offer .tag{font-size:.75rem;color:var(--muted);letter-spacing:.06em}
+.rc .results{display:flex;flex-direction:column;gap:18px}
+.rc .res h3{margin:0 0 8px;font-family:var(--display);font-size:1.1rem}
+.rc .res .verdict{margin:0 0 10px;font-size:.95rem}
+.rc .res .verdict b{color:var(--best)}
+.rc .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.rc table{border-collapse:collapse;width:100%;min-width:720px;font-variant-numeric:tabular-nums}
+.rc th,.rc td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+.rc th{font-size:.78rem;color:var(--muted);font-weight:700;background:var(--input)}
+.rc th.grp{font-size:.8rem;color:var(--ink);border-bottom:1px solid var(--line)}
+.rc td.co{text-align:right;font-weight:700}
+.rc td.best{background:var(--best-bg);color:var(--best);font-weight:700}
+.rc tr.na td{color:var(--muted)}
+.rc .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--best-bg);color:var(--best);margin-inline-start:6px}
+.rc .note{font-size:.82rem;color:var(--muted)}
+.rc .note p{max-width:95ch}
+.rc .note p{margin:4px 0}
+.rc .warn{color:var(--warn);font-size:.85rem}
+.rc .tracks{display:flex;flex-direction:column;gap:10px}
+.rc .track{display:grid;grid-template-columns:auto repeat(4,minmax(110px,1fr)) auto;gap:8px 12px;align-items:end;border:1px dashed var(--line);border-radius:6px;padding:10px}
+.rc .track .tn{font-weight:700;color:var(--muted);align-self:center}
+.rc .track .del{border:0;background:transparent;color:var(--warn);font:inherit;cursor:pointer;padding:6px}
+@media (max-width:640px){.rc .track{grid-template-columns:1fr 1fr}
+.rc .track .tn{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.rc *{transition:none!important}}
+.rc [hidden]{display:none!important}
+.rc p{margin:0}
+.rc .note p{margin:4px 0}
+.rc .band h2{margin:0}
+
+  </style>
+  <link rel="canonical" href="https://pensya.info/tools/risk-kavua/" />
+<link rel="stylesheet" href="/site-chrome.css?v=3">
+<!--@CHROME:HEAD@-->
+<!-- זיהוי בעל האתר — חייב לרוץ לפני GA4 -->
+<script>
+(function(){
+  window.__pensyaOwner = false;
+  try{
+    var p = new URLSearchParams(location.search);
+    var d = p.get('draft'), n = p.get('notrack');
+    if(d==='1') localStorage.setItem('pensyaDraftMode','1');
+    if(d==='0') localStorage.removeItem('pensyaDraftMode');
+    if(n==='1') localStorage.setItem('pensyaNoTrack','1');
+    if(n==='0') localStorage.removeItem('pensyaNoTrack');
+    window.__pensyaOwner = localStorage.getItem('pensyaDraftMode')==='1'
+                        || localStorage.getItem('pensyaNoTrack')==='1';
+  }catch(e){}
+})();
+</script>
+<!-- Google Analytics 4 — לא נטען כלל עבור בעל האתר -->
+<script>
+(function(){
+  if(window.__pensyaOwner) return;
+  var s=document.createElement('script');
+  s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-E3PV7TKMLP';
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  gtag('config', 'G-E3PV7TKMLP');
+})();
+</script>
+<!-- שלט טיוטא — מקור האמת הוא גיליון Google דרך Apps Script.
+     מוצג רק לבעל האתר (?draft=1), ורק אם הדף אינו מסומן כמוגה בגיליון. -->
+<script>
+(function(){
+  try{ if(localStorage.getItem('pensyaDraftMode')!=='1') return; }catch(e){ return; }
+
+  var API = 'https://script.google.com/macros/s/AKfycbyDN7sz74mDKmnvcL9dWH5NK2tpTH-99iwjlX8xt_18I9ME70xL9D2yIDpuayP3VS8/exec';
+  var TOKEN = 'pensya-proof-df67a53f804b7528';
+
+  function pathKey(){
+    var p = location.pathname.replace(/index\.html$/,'');
+    if(p.charAt(p.length-1) !== '/') p += '/';
+    return p;
+  }
+
+  function post(url, done){
+    // text/plain במכוון — מונע preflight של CORS, ש-Apps Script אינו מטפל בו
+    return fetch(API, {
+      method:'POST', redirect:'follow',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({token:TOKEN, url:url, done:done})
+    });
+  }
+
+  function render(){
+    var h = document.querySelector('header.header'); if(!h) return;
+    var key = pathKey();
+    var d = document.createElement('div');
+    d.id = 'pensya-draft-sign';
+    d.setAttribute('data-nosnippet','');
+    d.style.cssText = 'text-align:center;padding:12px 16px;background:#FFF8E6;border-bottom:2px solid #E8B450';
+    d.innerHTML =
+      '<img src="/design-assets/draft-sign.png" alt="" width="360" height="240"'+
+      ' style="max-width:min(360px,70vw);height:auto;display:block;margin:0 auto">'+
+      '<button type="button" id="pensya-mark-done" style="margin-top:10px;font:600 15px Heebo,sans-serif;'+
+      'background:#5C8D5A;color:#fff;border:0;border-radius:8px;padding:9px 20px;cursor:pointer">'+
+      '✓ סמן כמוגה</button>'+
+      '<div style="font:600 13px/1.5 Heebo,sans-serif;color:#7A5B00;margin-top:8px">'+
+      'סימון פנימי — לא גלוי לגולשים · הביקור הזה לא נספר ב-Analytics<br>'+
+      'כיבוי בכל הדפים: <code>?draft=0</code> · '+
+      '<a href="/proof/" style="color:#7A5B00">מעקב הגהה</a></div>';
+    h.insertAdjacentElement('afterend', d);
+
+    d.querySelector('#pensya-mark-done').addEventListener('click', function(){
+      var b = this;
+      b.disabled = true; b.textContent = 'שומר בגיליון…'; b.style.background = '#999';
+      function fail(msg){
+        b.disabled = false; b.style.background = '#C53030';
+        b.textContent = '✗ ' + msg;
+      }
+      post(key, true)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          // חובה לוודא שהשרת אישר — אחרת השלט ייעלם בלי שנשמר כלום
+          if(!j || !j.ok){
+            fail((j && /not found/.test(j.error||'')) ? 'הדף לא נמצא בגיליון — הרץ sync()' : 'השמירה נכשלה');
+            return;
+          }
+          d.style.transition = 'opacity .25s'; d.style.opacity = '0';
+          setTimeout(function(){ d.remove(); }, 250);
+        })
+        .catch(function(){ fail('השמירה נכשלה — נסה שוב'); });
+    });
+  }
+
+  fetch(API + '?token=' + encodeURIComponent(TOKEN), {redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      var e = j.pages[pathKey()];
+      if(e && e.done) return;                  // כבר מוגה — אין שלט
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', render);
+      } else { render(); }
+    })
+    .catch(function(){ /* אין רשת / ה-API נפל — לא מציגים שלט */ });
+})();
+</script>
+<!-- התנהגות ה-header המשותף (תפריט נייד) - מקור: site-chrome/site-chrome.js -->
+<script src="/site-chrome.js?v=1" defer></script>
+<!--@/CHROME:HEAD@-->
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+      <img src="/design-assets/logo.svg" alt="אחיטוב תכנון פיננסי" width="63" height="44" class="logo-img">
+    </a>
+    <nav class="nav" aria-label="ראשי">
+      <a href="/">בית</a>
+      <a href="/robyectivi/">🤖 רובייקטיבי</a>
+      <a href="/investment/ira/">IRA</a>
+      <a href="/services/">שירותים</a>
+      <a href="/tools/" class="active" aria-current="page">מחשבונים</a>
+      <a href="/articles/">כדאי לדעת</a>
+      <a href="/about/">אודות</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay"></div>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="חיפוש באתר..." aria-label="חיפוש באתר" autocomplete="off">
+      <span class="header-search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </span>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="נתיב ניווט">
+  <div class="container">
+    <a href="/">בית</a><span class="sep">›</span>
+    <a href="/tools/">מחשבונים</a><span class="sep">›</span>
+    <span class="current">מחשבון ריסק קבוע</span>
+  </div>
+</nav>
+
+<section class="page-hero" id="main-content">
+  <div class="container">
+    <h1>מחשבון ריסק קבוע</h1>
+    <p class="page-updated">עודכן: 12 בנובמבר 2026</p>
+    <p class="lead">רוכשים ביטוח חיים (ריסק) עם סכום ביטוח קבוע? החל מה-1/2/2027 תוכלו לבצע השוואה קלה בין חברות הביטוח. בקשו הצעות הנחה מסוכנים וחברות ביטוח שונות, הזינו את שיעור ההנחה ותוכלו לראות מי החברה הזולה ביותר עבורכם הן למשך 10 שנים (תקופת ההנחה המובטחת) והן לטווח ארוך יותר.</p>
+    <p class="lead" style="font-size:15px;margin-top:10px">החישוב מבוסס על תעריף הספר שכל חברה דיווחה לרשות שוק ההון, ההנחה שהזנתם ושיעור היוון. פרמיה משתנה כל שנה. ההנחה חלה ב-10 שנות הביטוח הראשונות בלבד.</p>
+  </div>
+</section>
+
+<section class="calc-wrap">
+  <div class="container">
+<div class="rc">
+<div class="wrap">
+
+
+<section class="band" aria-labelledby="h-ins">
+  <h2 id="h-ins">המבוטחים <small>הנתונים שמולאו הם דוגמה</small></h2>
+  <div class="persons" id="persons"></div>
+  <div><button class="btn" id="togglePartner" type="button">+ הוספת בן/בת זוג</button></div>
+</section>
+
+<section class="band" aria-labelledby="h-terms">
+  <h2 id="h-terms">תנאי החישוב</h2>
+  <div class="grid">
+    <label for="rate">שיעור היוון שנתי (%)<input id="rate" type="number" step="0.1" min="0" value="6"></label>
+  </div>
+  <div class="grid" id="regFields">
+    <label for="sumIns">סכום ביטוח (ש"ח)<input id="sumIns" type="number" min="10000" step="10000" value="1000000"></label>
+    <label>משך הביטוח לפי
+      <span class="seg" role="group" aria-label="משך הביטוח לפי">
+        <button type="button" id="modeYears" aria-pressed="true">שנים</button>
+        <button type="button" id="modeAge" aria-pressed="false">גיל סיום</button>
+      </span>
+    </label>
+    <label for="termVal" id="termLbl">מספר שנים<input id="termVal" type="number" min="1" max="65" value="20"></label>
+  </div>
+  <p class="note" id="termNote"></p>
+  <div id="mortFields" hidden>
+    <div class="tracks" id="tracks"></div>
+    <div class="row"><button class="btn" id="addTrack" type="button">+ הוספת מסלול</button><span class="note" id="mortSum"></span></div>
+    <p class="note">סכום הביטוח בכל שנה שווה ליתרת ההלוואה בתחילת השנה, סך כל המסלולים. תקופת הביטוח היא תקופת המסלול הארוך ביותר.</p>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="h-off">
+  <h2 id="h-off">ההצעות <small>עד 4 חברות, הנחה נפרדת לכל מבוטח</small></h2>
+  <div class="offers" id="offers"></div>
+</section>
+
+<section class="results" id="results" aria-live="polite"></section>
+
+<section class="band note">
+  <h2>על הנתונים</h2>
+  <p>תעריף הספר הוא הפרמיה המרבית שכל חברה דיווחה למחשבון ביטוח החיים של רשות שוק ההון (life.cma.gov.il), כפי שנשלפה ב-29.10.2026, לכל 1,000,000 ש"ח כיסוי. הפרמיה בכל שנה נקבעת לפי גיל המבוטח באותה שנה ולפי סכום הביטוח באותה שנה.</p>
+  <p>ההיוון חודשי, בתשלום בתחילת כל חודש, לפי שיעור שנתי אפקטיבי.</p>
+  <p>לא נכללו: הצמדה למדד, תוספות חיתום, דמי פוליסה ושינויי תעריף עתידיים. ההנחה מניחה שיעור קבוע ל-10 שנים ואחריו תעריף מלא.</p>
+  <p id="limitsNote"></p>
+</section>
+</div>
+</div>
+  </div>
+</section>
+
+<a href="https://wa.me/972527700599" class="fab-whatsapp" aria-label="צור קשר בוואטסאפ">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .4C7.4.4.4 7.3.4 16c0 2.8.7 5.4 2 7.7L.3 31.6l8.1-2.1A15.5 15.5 0 0 0 16 31.6c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.2a13 13 0 0 1-6.6-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A13 13 0 0 1 3 16C3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.6-13 12.6zm7.1-9.5c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.4-.6.1-.3 0-.5 0-.7l-1-2.5c-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.4-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.5 4.9 2 .8 2.7.9 3.7.7.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.4-.2-.8-.4z"/></svg>
+</a>
+
+<script>
+(function(){
+const DATA = {"cos":["הראל","מגדל","כלל","הפניקס","מנורה","איילון","הכשרה","שלמה","ביטוח ישיר","AIG","ליברה"],"limits":{"הראל":{"maxEntry":70,"maxEnd":76},"מגדל":{"maxEntry":67,"maxEnd":75},"כלל":{"maxEntry":70,"maxEnd":80},"הפניקס":{"maxEntry":70,"maxEnd":80},"מנורה":{"maxEntry":70,"maxEnd":80},"איילון":{"maxEntry":70,"maxEnd":86},"הכשרה":{"maxEntry":70,"maxEnd":86},"שלמה":{"maxEntry":74,"maxEnd":83},"ביטוח ישיר":{"maxEntry":69,"maxEnd":86},"AIG":{"maxEntry":65,"maxEnd":86},"ליברה":{"maxEntry":65,"maxEnd":76}},"t":{"M0":{"הראל":[66.67,66.67,66.67,65.0,64.17,62.5,61.67,60.0,59.17,58.33,59.17,60.83,61.67,64.17,65.83,67.5,70.0,72.5,75.0,79.17,82.5,86.67,90.83,96.67,103.33,110.0,120.0,131.67,145.83,160.83,177.5,196.67,217.5,240.83,268.33,298.33,330.83,366.67,407.5,451.67,500.83,555.0,615.0,684.17,760.83,847.5,942.5,1049.17,1189.17,1344.17,1519.17,1718.33,1940.0,2190.83,2468.33,2778.33,3135.0,3574.17],"מגדל":[60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,66.36,69.14,75.81,83.37,92.36,100.81,111.17,123.21,136.63,151.77,172.77,195.12,219.24,243.27,269.19,296.26,329.37,364.64,405.85,454.42,521.99,594.34,681.08,778.74,876.74,976.83,1091.12,1229.84,1395.0,1558.61,1712.32,1863.04,2107.63,2399.54,2758.95,3105.61],"כלל":[55.36,55.36,55.36,55.36,55.36,55.36,55.36,55.97,55.97,55.97,55.97,56.58,56.58,57.18,58.4,60.0,61.67,64.17,68.33,71.67,76.67,83.33,88.33,97.65,104.74,112.88,121.93,132.3,144.12,157.5,172.59,189.92,209.34,231.53,256.59,285.08,299.86,314.65,351.52,393.28,440.77,494.44,555.33,624.28,702.45,791.12,891.33,1004.97,1133.65,1279.25,1444.1,1630.65,1841.7,2080.4,2350.25,2655.22,2999.73,3388.93,3828.19,4323.67,4882.39,5511.92],"הפניקס":[70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,70.0,72.5,76.67,80.83,85.83,91.67,97.5,104.17,111.67,121.67,132.5,144.17,158.33,174.17,192.5,212.5,235.83,261.67,291.67,325.0,363.33,405.83,455.0,510.83,573.33,645.0,725.0,816.67,920.0,1037.5,1170.83,1320.83,1490.83,1684.17,1901.67,2148.33,2426.67,2741.67,2906.67,3092.5,3493.33,3945.83,4455.83,5030.0],"מנורה":[70.3,67.25,65.21,62.51,63.06,61.49,59.91,58.86,56.76,56.23,57.42,58.58,59.42,60.85,61.42,63.72,66.36,68.69,73.78,77.32,80.67,83.02,87.75,93.92,100.88,107.11,117.46,127.68,140.55,153.93,169.38,188.76,212.91,234.91,262.21,290.38,321.26,348.28,385.44,426.86,479.13,530.34,586.93,658.05,727.51,804.64,887.79,1009.62,1149.67,1307.8,1486.21,1599.93,1818.05,2065.07,2320.88,2611.11,2940.67,3317.31,4168.03,5076.67,5688.03,6384.66],"איילון":[null,null,60.0,60.0,60.0,60.0,60.0,60.0,59.17,58.33,59.17,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,66.67,69.17,75.83,83.33,92.5,100.83,110.83,123.33,136.67,151.67,172.5,192.5,212.5,235.83,261.67,291.67,325.0,363.33,405.83,454.17,510.83,573.33,645.0,725.0,816.67,920.0,1037.5,1170.83,1320.83,1490.83,1684.17,1863.33,2107.5,2399.17,2741.67,2906.67,3092.5,3705.83,4017.5,4378.33,4770.0,5196.67,5642.5,6200.83,6979.17,7910.83,15437.5],"הכשרה":[66.67,66.67,66.67,72.5,76.67,80.0,80.0,80.0,76.67,72.5,68.33,64.17,60.83,59.17,60.0,61.67,65.0,68.33,71.67,75.0,79.17,85.0,86.67,92.5,98.33,105.83,112.5,120.83,130.0,140.83,151.67,167.5,184.17,202.5,220.83,240.0,260.83,297.5,328.33,365.0,407.5,465.83,528.33,603.33,687.5,775.0,865.0,967.5,1089.17,1232.5,1375.83,1512.5,1646.67,1830.83,2081.67,2359.17,2625.0,2862.5,3080.0,3310.0,3570.0,3845.83,4139.17,4452.5,4846.67,5403.33,6066.67,6755.0],"שלמה":[null,null,56.67,56.67,56.67,56.67,56.67,56.67,56.67,56.67,57.5,58.33,59.17,59.17,60.0,60.0,60.0,60.0,60.0,61.67,65.0,67.5,70.83,75.83,83.33,92.5,100.83,110.83,123.33,136.67,151.67,172.5,192.5,212.5,235.83,261.67,284.17,308.33,340.0,395.83,442.5,494.17,539.17,610.0,687.5,775.0,865.0,967.5,1089.17,1232.5,1375.83,1600.0,1818.33,2065.0,2320.83,2610.83,2906.67,3039.17,3360.83,3729.17,4148.33,4618.33,5152.5,5769.17,6491.67],"ביטוח ישיר":[56.39,56.39,56.39,56.39,56.39,56.39,56.39,56.39,57.25,58.25,59.4,60.55,61.99,63.56,65.43,67.44,69.73,72.32,74.44,76.93,79.64,82.84,86.51,91.7,98.41,105.95,114.47,124.15,135.01,147.53,161.61,177.58,195.65,216.33,239.68,266.41,296.61,330.99,370.16,414.73,465.33,522.94,588.6,663.36,748.31,844.93,955.1,1080.39,1223.17,1371.8,1523.96,1693.89,1902.21,2136.93,2401.48,2703.25,3059.39,3484.29,3991.86,4580.85,5249.02,6025.68,6948.72,8103.95,9422.33,10920.77,12649.29,14662.51],"AIG":[null,null,51.86,52.14,52.62,53.0,53.58,54.14,54.14,54.14,54.14,54.92,55.99,57.15,58.49,60.09,61.79,63.86,66.09,68.68,71.54,74.86,78.61,82.9,87.73,93.27,99.44,106.5,114.55,123.67,133.95,145.76,158.98,174.1,191.18,228.61,272.73,316.83,360.95,438.35,489.3,546.88,546.88,546.88,554.73,622.68,699.49,786.58,885.2,996.78,1123.13,1266.1,1427.84,1610.78,1817.59,2051.32,2315.35,2613.63,2950.27,3330.01,3758.2,4240.68,4783.77,5394.81,6081.49,6852.33,7713.73,8557.87],"ליברה":[null,null,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,42.52,44.18,47.52,51.46,54.61,56.74,61.82,67.61,74.47,79.25,87.0,96.01,106.06,117.37,131.21,147.71,165.5,183.22,202.35,225.49,250.25,276.64,307.46,343.81,366.58,416.91,477.22,545.15,613.29,682.9,762.39,858.86,973.72,1087.5,1194.41,1299.22,1469.33,1672.33,1922.29,2163.37,2380.73]},"F0":{"הראל":[45.0,45.0,45.0,45.0,45.0,45.0,45.0,45.0,45.0,45.0,45.83,46.67,48.33,50.83,53.33,55.83,58.33,61.67,65.0,68.33,72.5,76.67,81.67,86.67,91.67,98.33,105.83,112.5,120.83,130.0,140.0,151.67,163.33,176.67,191.67,208.33,226.67,246.67,269.17,294.17,322.5,355.0,390.83,428.33,471.67,517.5,569.17,624.17,705.0,797.5,900.83,1018.33,1150.0,1300.83,1501.67,1761.67,2052.5,2405.83],"מגדל":[31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,34.24,38.27,42.32,45.78,47.84,50.76,54.85,55.71,62.15,72.12,82.99,95.27,110.78,127.65,145.55,164.05,181.75,190.11,197.47,207.78,226.03,251.8,283.57,318.69,348.11,376.15,416.43,470.49,543.13,630.86,726.26,817.94,905.91,988.09,1077.84,1193.19,1321.42,1490.73,1684.24,1912.75,2136.09,2351.37],"כלל":[45.63,45.63,45.63,45.63,45.63,45.63,45.63,46.23,46.23,46.84,46.84,47.45,48.06,48.67,49.28,50.0,51.67,53.33,56.67,60.0,62.5,66.67,70.83,75.83,81.67,88.33,95.83,103.33,115.0,125.0,137.5,152.5,166.67,183.33,202.5,206.67,225.0,246.67,271.67,299.17,330.83,365.0,405.0,448.33,496.67,551.67,641.67,720.83,808.33,858.33,975.83,1100.0,1341.67,1533.33,1760.0,1985.0,2207.5,2450.83,2838.33,3100.0,3441.67,3891.67],"הפניקס":[66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,66.67,70.0,75.0,80.0,86.67,94.17,102.5,111.67,122.5,134.17,147.5,162.5,179.17,198.33,220.0,243.33,270.83,300.83,335.0,373.33,415.83,464.17,518.33,579.17,647.5,725.0,810.83,908.33,1016.67,1139.17,1276.67,1430.83,1604.17,1798.33,1892.5,1999.17,2241.67,2513.33,2818.33,3160.0],"מנורה":[43.92,43.92,43.92,43.92,43.92,43.92,43.92,43.92,44.41,44.41,44.89,45.87,47.85,50.18,52.27,54.68,57.34,59.52,62.21,64.89,69.7,72.42,77.39,83.59,89.2,96.77,103.13,110.44,117.12,125.44,135.43,145.42,160.28,172.7,187.05,202.72,220.36,237.32,262.27,286.94,313.75,347.26,376.51,417.44,460.61,506.35,555.89,611.97,685.76,779.88,876.88,988.74,1117.94,1263.7,1459.11,1720.36,2008.54,2347.75,2923.81,3217.67,3622.29,4086.44],"איילון":[null,null,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,30.83,34.17,38.33,42.5,45.83,47.5,50.83,55.0,55.83,62.5,72.5,80.0,86.67,94.17,102.5,111.67,122.5,134.17,147.5,162.5,179.17,198.33,220.0,243.33,269.17,294.17,322.5,355.0,390.83,428.33,471.67,517.5,569.17,624.17,705.0,797.5,900.83,1018.33,1150.0,1300.83,1501.67,1761.67,1892.5,1999.17,2749.17,2972.5,3252.5,3652.5,4113.33,4625.83,5224.17,5895.83,6619.17,9137.5],"הכשרה":[44.17,44.17,44.17,43.33,43.33,43.33,43.33,43.33,42.5,42.5,41.67,42.5,42.5,44.17,45.83,48.33,50.83,52.5,55.0,56.67,58.33,61.67,62.5,66.67,72.5,79.17,86.67,96.67,106.67,117.5,129.17,140.83,146.67,152.5,160.83,172.5,189.17,220.0,246.67,270.0,293.33,325.83,367.5,423.33,490.0,565.0,640.0,715.0,789.17,870.83,974.17,1090.83,1240.83,1400.83,1589.17,1775.83,1958.33,2122.5,2304.17,2499.17,2735.0,3061.67,3435.0,3867.5,4375.0,4945.0,5561.67,6215.83],"שלמה":[null,null,33.33,34.17,35.0,35.83,35.83,37.5,37.5,37.5,37.5,37.5,37.5,38.33,40.0,41.67,43.33,44.17,45.83,48.33,50.83,55.0,55.83,62.5,72.5,80.0,86.67,94.17,102.5,111.67,122.5,134.17,147.5,162.5,179.17,198.33,220.0,237.5,262.5,286.67,314.17,347.5,376.67,423.33,471.67,517.5,569.17,624.17,705.0,797.5,900.83,1018.33,1150.0,1300.83,1501.67,1761.67,1892.5,2041.67,2415.0,2684.17,3002.5,3400.83,3859.17,4389.17,5013.33],"ביטוח ישיר":[39.03,39.03,39.03,39.03,39.03,39.03,39.03,39.03,40.32,41.75,43.33,44.6,45.98,47.61,49.2,51.03,52.95,55.1,57.33,59.9,62.68,69.83,74.67,80.16,86.17,92.86,100.11,108.22,117.21,127.12,138.1,150.35,164.06,179.25,196.13,212.77,231.44,254.49,280.35,309.28,341.67,378.11,419.04,465.08,519.62,581.19,650.94,730.26,820.08,922.28,1038.64,1171.07,1334.9,1523.8,1741.4,1949.63,2201.73,2512.05,2890.69,3341.87,3869.02,4477.37,5185.29,6032.2,7058.87,8275.58,9689.95,11339.31],"AIG":[null,null,37.2,37.73,38.48,39.23,40.08,41.06,41.67,41.67,41.67,41.67,41.67,42.5,44.17,46.0,47.67,49.26,51.09,53.09,55.34,57.93,60.78,65.18,68.03,71.7,76.29,81.47,87.31,93.83,101.08,109.34,118.6,128.96,140.63,162.72,187.95,213.18,238.41,283.8,329.18,374.57,374.57,374.57,401.12,446.37,497.15,554.19,618.3,690.37,771.19,862.04,964.06,1078.6,1207.18,1351.39,1513.32,1695.01,1898.78,2127.32,2383.39,2670.5,2992.03,3352.08,3754.98,4205.71,4709.55,5272.31],"ליברה":[null,null,25.0,25.0,25.0,25.0,25.0,25.0,25.0,25.0,25.0,25.0,25.11,26.75,28.87,31.03,33.74,33.86,36.02,37.32,39.13,39.02,39.51,43.29,49.12,55.48,60.51,69.3,78.83,88.94,99.42,109.41,114.14,118.31,124.14,134.45,151.17,169.37,189.52,206.4,222.48,228.28,257.1,295.82,342.6,393.46,442.35,489.24,533.05,580.9,642.39,710.75,801.02,904.18,1026.01,1145.08,1259.86,1359.51]},"M1":{"הראל":[85.0,85.0,85.0,85.0,84.17,82.5,82.5,81.67,80.83,80.0,80.0,79.17,78.33,81.67,85.0,87.5,90.83,93.33,102.5,109.17,119.17,128.33,139.17,155.0,170.83,190.0,210.0,233.33,260.83,290.83,325.0,368.33,416.67,470.0,530.0,597.5,673.33,757.5,850.83,955.0,1070.0,1198.33,1339.17,1440.83,1550.83,1669.17,2015.0,2339.17,2725.83,3113.33,3501.67,3924.17,4409.17,4917.5,5457.5,6033.33,6626.67,7250.0],"מגדל":[88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,91.19,94.04,96.9,99.75,102.61,110.45,118.29,126.14,133.98,141.82,154.56,168.95,186.06,201.87,221.28,243.8,268.77,296.77,335.86,377.1,421.21,464.61,511.08,559.13,617.92,680.04,752.4,837.46,956.3,1082.41,1233.02,1401.46,1568.41,1737.02,1928.65,2160.85,2436.39,2705.81,2954.81,3195.55,3623.55,4135.05,4765.51,5376.72],"כלל":[77.87,77.87,77.87,77.87,78.47,78.47,78.47,79.08,79.69,80.3,80.3,80.91,80.91,81.52,83.95,86.99,90.64,95.51,102.2,110.72,118.63,130.18,142.35,156.34,173.98,192.23,214.74,240.29,267.67,299.3,336.41,376.56,422.18,470.85,471.45,476.62,476.62,503.07,551.67,614.03,675.52,762.48,858.04,981.84,1104.11,1238.39,1374.22,1543.31,1715.74,1931.84,2158.64,2349.51,2968.65,3388.44,3886.39,4427.36,5015.23,5541.61,5788.45,6354.52,6966.31,7627.22],"הפניקס":[100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,100.83,104.17,107.5,110.83,115.0,119.17,125.83,133.33,142.5,152.5,164.17,176.67,191.67,208.33,230.0,254.17,281.67,314.17,350.83,392.5,440.0,494.17,555.83,625.83,705.0,795.0,895.83,1010.0,1138.33,1281.67,1442.5,1621.67,1821.67,2045.0,2292.5,2566.67,2870.0,3205.0,3574.17,3980.0,4425.0,4911.67,5442.5,5650.0,5877.5,6480.0,7131.67,7835.0,8592.5],"מנורה":[107.73,103.53,84.12,82.5,82.58,81.08,80.42,79.98,79.28,78.54,78.3,77.78,76.98,78.83,80.41,83.03,87.24,91.44,97.75,105.11,112.88,124.55,136.64,150.3,163.85,182.88,203.38,223.79,248.36,275.03,313.67,347.09,400.92,456.68,508.44,578.42,656.73,726.23,829.0,921.93,1037.5,1159.57,1294.42,1402.73,1518.76,1619.77,1949.47,2270.69,2667.45,3027.11,3389.7,3794.74,4229.59,4737.21,5170.73,5612.86,5995.37,6359.82,6693.08,6835.93,7041.06,7144.83],"איילון":[null,null,85.0,85.0,84.17,82.5,82.5,81.67,80.83,80.0,80.0,79.17,78.33,81.67,85.0,87.5,90.83,93.33,102.5,109.17,119.17,128.33,139.17,154.17,169.17,185.83,201.67,221.67,244.17,269.17,296.67,335.83,377.5,420.83,465.0,510.83,559.17,618.33,680.0,752.5,837.5,956.67,1082.5,1233.33,1401.67,1568.33,1736.67,1928.33,2160.83,2436.67,2705.83,2955.0,3195.83,3623.33,4135.0,4765.83,5376.67,5877.5,6445.0,7002.5,7650.0,8353.33,9121.67,9926.67,10933.33,12335.83,14013.33,21781.67],"הכשרה":[101.67,101.67,101.67,111.67,119.17,123.33,124.17,122.5,116.67,109.17,100.83,92.5,88.33,87.5,89.17,94.17,101.67,110.0,117.5,125.83,135.0,146.67,152.5,165.0,179.17,195.0,210.0,228.33,250.0,273.33,300.0,335.83,370.83,408.33,445.83,487.5,530.0,590.0,646.67,711.67,789.17,894.17,1005.83,1139.17,1288.33,1437.5,1589.17,1759.17,1962.5,2200.0,2430.0,2642.5,2825.83,3145.0,3580.83,4062.5,4523.33,4934.17,5306.67,5701.67,6150.0,6624.17,7127.5,7668.33,8350.0,9313.33,10460.0,11650.0],"שלמה":[null,null,84.17,82.5,82.5,80.83,80.0,80.0,80.83,80.83,80.0,79.17,78.33,81.67,85.0,87.5,90.83,93.33,102.5,109.17,119.17,128.33,139.17,154.17,169.17,185.83,201.67,221.67,244.17,269.17,296.67,335.83,377.5,420.83,465.0,487.5,530.0,590.0,655.0,735.83,837.5,956.67,1046.67,1175.83,1320.0,1481.67,1660.83,1860.0,2080.83,2325.83,2595.0,2955.0,3195.83,3623.33,4135.0,4765.83,5376.67,5569.17,6090.83,6643.33,7255.0,7941.67,8698.33,9516.67,10455.0],"ביטוח ישיר":[79.6,79.6,79.6,79.6,79.6,79.6,79.6,79.6,80.8,82.33,84.04,85.92,87.97,90.36,93.1,96.17,99.59,103.35,106.71,112.73,120.76,131.9,147.12,167.97,189.83,214.89,240.72,269.85,302.34,338.76,379.32,424.56,474.82,530.76,592.68,661.02,736.69,820.08,911.7,1012.38,1122.88,1243.77,1375.78,1519.85,1693.55,1884.46,2093.76,2323.09,2573.63,2847.02,3144.58,3468.1,3857.08,4240.16,4654.03,5100.47,5580.81,6096.7,6694.09,7357.24,8068.76,8948.21,9961.26,11096.09,12315.09,13618.89,15043.67,16623.02],"AIG":[null,null,98.28,98.63,99.23,99.83,100.54,101.38,101.38,101.38,101.38,101.38,101.38,101.79,104.36,107.37,110.91,115.08,120.03,125.72,132.36,140.19,149.21,159.73,171.85,186.01,202.22,220.99,242.66,267.45,295.88,328.5,365.73,408.22,456.61,511.55,573.88,644.59,724.42,814.44,931.13,1078.15,1157.68,1300.81,1460.78,1639.11,1837.6,2058.09,2302.52,2572.79,2871.18,3199.83,3560.98,3957.11,4390.58,4863.86,5379.31,5939.6,6546.88,7203.86,7912.53,8675.41,9494.17,10370.98,11307.24,12304.56,13363.78,14485.76],"ליברה":[null,null,70.83,70.83,71.26,74.79,75.45,70.83,70.83,70.83,70.83,70.83,70.83,70.83,70.83,70.83,70.83,70.83,75.8,81.11,87.39,89.07,92.01,99.73,108.47,118.84,123.85,135.22,148.39,162.99,179.38,209.74,234.75,261.53,287.86,316.05,350.14,386.32,424.54,469.08,521.42,552.68,624.82,710.97,807.34,902.83,999.29,1108.92,1241.74,1399.37,1553.5,1695.94,1833.65,2078.49,2371.11,2731.77,3081.41,3398.75]},"F1":{"הראל":[55.83,55.83,55.83,55.83,55.83,55.83,55.83,55.83,56.67,57.5,58.33,59.17,62.5,65.83,69.17,72.5,76.67,80.83,85.83,90.83,96.67,102.5,110.83,123.33,136.67,151.67,169.17,188.33,210.0,235.0,262.5,293.33,328.33,368.33,412.5,462.5,520.0,583.33,648.33,718.33,795.83,880.83,975.83,1079.17,1192.5,1318.33,1457.5,1610.83,1801.67,2013.33,2253.33,2528.33,2839.17,3184.17,3574.17,4011.67,4501.67,5051.67],"מגדל":[61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,67.6,73.66,78.69,81.44,85.49,91.35,92.08,101.47,116.18,132.1,149.97,172.52,196.84,222.39,248.54,273.16,283.75,292.72,305.88,330.32,365.27,408.34,455.61,494.28,530.51,583.34,654.6,750.52,865.92,990.3,1108.14,1219.51,1321.78,1432.81,1576.21,1734.71,1944.74,2201.9,2506.02,2804.72,3094.17],"כלל":[62.05,62.05,62.05,62.05,62.05,62.05,62.05,62.66,63.27,63.27,63.27,63.88,64.48,65.09,66.92,69.35,72.39,75.43,79.69,86.99,93.08,100.38,110.11,120.45,133.23,147.82,163.03,180.07,201.36,223.26,248.2,278.62,310.25,343.1,385.68,385.68,403.29,440.82,487.17,526.5,572.66,631.35,707.73,809.28,932.32,1069.74,1215.88,1349.12,1477.11,1623.79,1800.45,2017.42,2700.78,3086.27,3601.82,4082.7,4582.03,5100.5,5369.22,6139.25,6777.95,7517.82],"הפניקס":[95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,95.83,100.83,111.67,123.33,136.67,151.67,170.83,191.67,215.0,242.5,273.33,308.33,347.5,392.5,442.5,499.17,563.33,635.0,715.83,805.83,907.5,1020.0,1146.67,1287.5,1444.17,1618.33,1811.67,2025.83,2263.33,2525.83,2815.0,3134.17,3485.0,3870.83,4294.17,4463.33,4650.83,5139.17,5670.83,6248.33,6875.83],"מנורה":[57.29,55.57,55.57,55.57,55.57,55.57,55.57,55.57,55.57,56.72,56.72,59.38,61.49,63.59,66.74,69.37,73.05,78.29,83.12,87.95,93.84,100.28,107.25,121.18,134.36,148.42,166.32,182.76,205.0,228.39,256.79,285.39,321.15,361.5,402.05,451.28,507.09,568.97,624.96,695.14,765.23,851.24,947.68,1044.7,1151.12,1282.5,1415.21,1578.69,1748.35,1957.11,2189.48,2498.01,2755.54,2996.04,3244.75,3496.75,3747.1,3989.25,4216.62,4414.44,4570.4,4664.8],"איילון":[null,null,44.17,44.17,44.17,44.17,44.17,45.0,45.83,46.67,48.33,50.0,51.67,54.17,57.5,60.83,65.0,69.17,75.0,80.83,85.83,91.67,91.67,101.67,115.83,132.5,150.0,170.83,187.5,210.0,236.67,265.83,299.17,337.5,351.67,379.17,420.0,470.0,524.17,568.33,610.83,670.83,766.67,878.33,1013.33,1158.33,1296.67,1427.5,1546.67,1676.67,1843.33,2030.0,2275.83,2575.83,2931.67,3281.67,3620.0,3916.67,4250.83,4607.5,5052.5,5685.0,6417.5,7233.33,8186.67,9260.83,10420.0,17514.17],"הכשרה":[61.67,61.67,61.67,60.0,59.17,58.33,58.33,58.33,57.5,56.67,55.0,55.0,57.5,60.83,65.83,70.0,75.83,80.83,86.67,90.83,95.83,101.67,105.0,115.0,128.33,143.33,160.0,182.5,205.0,230.83,257.5,285.0,295.0,305.0,318.33,340.83,372.5,419.17,463.33,499.17,533.33,582.5,647.5,735.0,839.17,951.67,1060.0,1164.17,1261.67,1367.5,1503.33,1653.33,1849.17,2089.17,2371.67,2651.67,2925.83,3170.0,3442.5,3731.67,4084.17,4574.17,5132.5,5782.5,6542.5,7398.33,8324.17,9305.83],"שלמה":[null,null,55.83,55.83,55.83,55.83,55.83,55.83,55.83,55.83,56.67,59.17,61.67,61.67,62.5,62.5,67.5,73.33,78.33,81.67,85.83,91.67,94.17,102.5,115.83,132.5,150.0,170.83,191.67,215.0,242.5,273.33,284.17,295.0,318.33,340.83,372.5,419.17,463.33,499.17,533.33,583.33,655.0,750.83,865.83,990.0,1108.33,1219.17,1321.67,1432.5,1575.83,1735.0,1945.0,2201.67,2505.83,2805.0,3094.17,3724.17,4095.0,4497.5,4952.5,5515.0,6135.83,6825.83,7605.83],"ביטוח ישיר":[53.11,53.11,53.11,53.11,53.11,53.11,53.11,53.11,55.16,57.52,60.03,62.7,65.69,68.83,72.29,76.22,80.3,84.71,88.68,93.03,97.74,102.65,110.0,120.44,132.13,145.16,162.87,183.14,206.19,232.4,262.16,295.88,331.13,370.85,415.49,465.84,517.26,574.71,638.87,710.26,790.12,879.04,978.3,1088.83,1212.25,1349.8,1502.94,1673.76,1864.12,2076.05,2312.28,2572.29,2877.26,3198.68,3542.84,3918.51,4342.84,4832.07,5388.26,5999.49,6648.18,7392.53,8177.3,9031.26,9973.58,10971.0,11985.02,13012.88],"AIG":[null,null,62.88,63.77,64.66,65.73,67.16,68.77,68.77,68.77,68.77,68.77,68.77,68.77,68.77,68.77,68.77,71.43,76.24,81.83,88.15,95.56,103.93,113.58,124.64,137.29,151.68,168.2,186.88,208.22,232.36,259.83,290.84,326.02,365.84,410.58,461.23,518.08,582.03,653.82,734.29,824.32,824.32,867.32,971.83,1088.17,1217.46,1361.06,1520.21,1696.35,1891.08,2105.94,2342.8,2603.26,2889.48,3203.31,3546.93,3922.46,4332.33,4778.67,5264.08,5790.91,6361.54,6978.66,7644.52,8361.61,9132.34,9958.96],"ליברה":[null,null,37.5,37.5,37.5,37.5,37.5,37.5,37.5,37.5,37.5,37.5,37.5,37.5,38.26,40.93,44.31,51.07,54.05,55.69,58.09,57.48,57.88,63.08,71.23,80.06,86.76,98.79,111.8,125.45,139.43,158.25,164.11,169.09,176.38,189.93,212.29,236.51,263.08,284.82,305.19,311.31,348.56,398.68,458.99,523.99,585.58,643.78,697.24,755.26,830.2,913.03,1022.8,1157.19,1316.12,1472.23,1623.5,1755.93]}},"tm":{"M0":{"ביטוח ישיר":[54.3,54.3,54.3,54.3,54.3,54.3,54.3,54.3,55.13,56.1,57.2,58.31,59.69,61.21,63.01,64.94,67.15,69.64,71.68,74.08,76.69,79.77,83.31,88.3,94.77,102.03,110.23,119.55,130.02,142.07,155.63,171.01,188.41,208.32,230.81,256.55,285.63,318.74,356.46,399.38,448.11,503.59,566.82,638.82,720.62,813.67,919.76,1040.42,1177.91,1321.04,1467.57,1631.22,1831.82,2057.86,2312.63,2603.23,2946.19,3355.37,3844.16,4411.36,5054.8,5802.73,6691.62,7804.11,9073.7,10516.7,12181.27,14120.0],"שלמה":[56.67,56.67,56.67,56.67,56.67,56.67,56.67,56.67,56.67,56.67,57.5,58.33,59.17,59.17,60.0,60.0,60.0,60.0,60.0,61.67,65.0,67.5,70.83,75.83,83.33,92.5,100.83,110.83,123.33,136.67,151.67,172.5,192.5,212.5,235.83,261.67,284.17,308.33,340.0,395.83,442.5,494.17,539.17,610.0,687.5,775.0,865.0,967.5,1089.17,1232.5,1375.83,1600.0,1818.33,2065.0,2320.83,2610.83,2906.67,3039.17,3360.83,3729.17,4148.33,4618.33,5152.5,5769.17,6491.67,7374.17],"מגדל":[60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,66.36,69.14,75.81,83.37,92.36,100.81,111.17,123.21,136.63,151.77,172.77,195.12,219.24,243.27,269.19,296.26,329.37,364.64,405.85,454.42,521.99,594.34,681.08,778.74,876.74,976.83,1091.12,1229.84,1395.0,1558.61,1712.32,1863.04,2107.63,2399.54,2758.95,3105.61,3418.15,3705.55,4017.11,4378.2,4769.69],"כלל":[60.8,60.8,60.8,60.8,60.8,60.8,60.8,61.43,61.43,61.43,61.43,61.43,61.43,61.43,62.5,64.38,66.25,68.75,72.15,75.85,80.78,87.57,93.73,102.37,112.23,122.1,134.43,148.62,160.2,178.2,198.0,221.4,244.8,271.8,289.84,289.84,320.79,351.02,389.17,431.91,479.73,533.65,591.65,625.12,696.91,771.15,852.7,935.24,1039.75,1153.54,1270.27,1406.03,1563.29,1710.78,1891.48,2090.25,2294.88,2518.07,2776.9,3079.21,3412.29,3779.54],"הפניקס":[60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,60.83,63.33,66.67,70.0,75.0,80.0,85.0,90.83,97.5,105.83,115.0,125.83,137.5,151.67,167.5,185.0,205.0,227.5,254.17,282.5,315.83,353.33,395.83,444.17,499.17,560.83,630.83,710.83,800.0,902.5,1018.33,1149.17,1296.67,1465.0,1654.17,1869.17,2110.83,2385.0,2529.17,2690.83,3039.17,3432.5,3876.66,4375.83],"הכשרה":[62.5,62.5,62.5,67.5,70.83,73.33,74.17,73.33,70.83,67.5,64.17,60.0,57.5,55.83,55.83,57.5,60.83,64.17,66.67,70.0,73.33,78.33,80.0,85.0,90.0,96.67,101.67,109.17,117.5,125.83,135.83,150.0,175.83,191.67,207.5,224.17,242.5,266.67,294.17,325.83,362.5,412.5,466.67,531.67,605.0,680.83,758.33,846.67,952.5,1076.67,1200.83,1319.17,1435.0,1595.0,1811.67,2052.5,2282.5,2488.33,2675.83,2875.0,3100.83,3339.17,3593.33,3864.17,4205.83,4688.33,5261.67,5857.5],"מנורה":[72.52,69.37,67.27,64.48,65.05,63.43,61.8,60.72,58.55,58.01,59.23,60.43,61.3,62.77,63.36,65.73,68.46,70.86,76.11,79.76,83.21,85.64,90.53,96.88,104.07,110.49,121.17,130.36,143.51,157.17,172.94,192.73,217.39,239.86,267.73,296.49,328.02,355.61,393.56,435.84,489.22,541.5,599.28,671.9,742.83,821.58,906.48,1030.88,1173.88,1335.34,1517.5,1633.61,1856.33,2108.54,2369.74,2666.08,3002.58,3387.14,4255.78,5183.55,5807.78,6519.07],"הראל":[75.83,75.83,75.83,75.0,73.33,72.5,70.83,70.0,69.17,67.5,65.83,65.0,65.83,67.5,69.17,71.67,74.17,76.67,80.0,83.33,86.67,91.67,96.67,102.5,110.0,119.17,129.17,140.83,155.0,170.0,186.67,205.83,226.67,250.83,277.5,306.67,339.17,376.67,415.83,460.0,510.0,563.33,624.17,693.33,770.83,856.67,952.5,1059.17,1198.33,1362.5,1540.0,1756.67,2018.33,2292.5,2604.17,2957.5,3358.33,3828.33,4315.83,4860.0,5673.33,6425.0,7235.83],"AIG":[null,null,34.21,34.21,34.74,34.74,34.34,34.24,34.14,33.44,33.2,33.45,33.93,34.9,35.39,36.36,37.33,38.78,39.75,41.69,43.15,48.31,54.3,57.07,60.39,64.27,68.15,73.13,83.33,89.01,102.5,110.0,123.39,138.72,155.95,172.77,191.4,212.05,243.67,280.0,306.99,336.59,369.04,409.33,454.02,503.59,558.57,619.55,687.44,762.76,846.34,939.07,1041.97,1156.14,1282.83,1423.39,1579.36,1752.41,1944.43,2157.49,2393.89,2656.2,2947.24,3270.18,3628.51,4026.1,4467.25,4956.74],"ליברה":[null,null,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,39.54,41.08,44.2,47.86,50.79,52.77,57.49,62.87,69.25,73.7,80.91,89.29,98.64,109.16,122.03,140.32,157.22,174.06,192.23,214.21,237.74,262.8,292.09,326.62,348.25,396.06,453.36,517.89,582.63,648.76,724.27,815.91,925.03,1033.13,1134.69,1234.26,1395.86,1588.72,1826.17,2055.2,2261.69,2451.58,2657.41,2895.98,3154.64,3436.84,3731.33,4099.9,4614.67,5230.02,5877.71],"איילון":[null,null,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,60.0,66.36,69.14,75.81,83.37,90.83,97.5,105.83,115.0,125.83,137.5,151.67,167.5,185.0,205.0,227.5,254.17,282.5,315.83,353.33,395.83,444.17,499.17,560.83,630.83,710.83,800.0,902.5,1018.33,1149.17,1296.67,1465.0,1654.17,1869.17,2110.83,2385.0,2529.17,2690.83,3039.17,3432.5,3876.67,4375.83,4938.33,5642.58,6200.44,6979.58,7910.98,8891.31]},"F0":{"מגדל":[31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,34.24,38.27,42.32,45.78,47.84,50.76,54.85,55.71,62.15,72.12,82.99,95.27,110.78,127.65,145.55,164.05,181.75,190.11,197.47,207.78,226.03,251.8,283.57,318.69,348.11,376.15,416.43,470.49,543.13,630.86,726.26,817.94,905.91,988.09,1077.84,1193.19,1321.42,1490.73,1684.24,1912.75,2136.09,2351.37,2538.3,2748.77,2972.87,3252.67,3652.11],"שלמה":[33.33,33.33,33.33,34.17,35.0,35.83,35.83,37.5,37.5,37.5,37.5,37.5,37.5,38.33,40.0,41.67,43.33,44.17,45.83,48.33,50.83,55.0,55.83,62.5,72.5,80.0,86.67,94.17,102.5,111.67,122.5,134.17,147.5,162.5,179.17,198.33,220.0,237.5,262.5,286.67,314.17,347.5,376.67,423.33,471.67,517.5,569.17,624.17,705.0,797.5,900.83,1018.33,1150.0,1300.83,1501.67,1761.67,1892.5,2041.67,2415.0,2684.17,3002.5,3400.83,3859.17,4389.17,5013.33,5729.17],"ביטוח ישיר":[40.39,40.39,40.39,40.39,40.39,40.39,40.39,40.39,41.73,43.21,44.85,46.16,47.59,49.28,50.93,52.82,54.81,57.03,59.34,62.0,64.87,69.83,74.67,82.96,89.18,96.11,103.61,112.01,121.32,131.57,142.94,155.62,169.8,185.52,202.99,212.77,231.44,241.76,252.32,278.35,307.5,340.3,377.13,418.58,467.66,523.07,585.85,657.24,738.07,830.05,934.78,1053.96,1201.41,1371.42,1567.26,1754.67,1981.56,2260.84,2601.62,3007.69,3482.12,4029.63,4666.76,5428.98,6352.99,7448.03,8720.96,10205.38],"הכשרה":[42.5,42.5,42.5,41.67,41.67,41.67,41.67,41.67,41.67,41.67,40.83,40.83,41.67,42.5,44.17,45.83,48.33,50.0,52.5,53.33,55.0,57.5,58.33,62.5,67.5,73.33,80.0,88.33,96.67,106.67,116.67,126.67,143.33,148.33,155.0,165.83,180.0,200.0,223.33,243.33,263.33,291.67,327.5,375.83,434.17,499.17,564.17,628.33,692.5,763.33,853.33,954.17,1084.17,1222.5,1385.0,1546.67,1705.0,1846.67,2005.0,2173.33,2377.5,2660.83,2983.33,3358.33,3797.5,4290.83,4825.0,5391.67],"מנורה":[45.31,45.31,45.31,45.31,45.31,45.31,45.31,45.31,45.81,45.81,46.31,47.32,49.36,51.77,53.92,56.41,59.15,61.4,64.17,66.94,71.9,74.71,79.83,86.23,92.02,99.83,106.39,112.77,119.58,128.08,138.28,148.48,163.66,176.33,190.99,206.99,225.0,242.32,267.79,292.98,320.36,354.57,384.43,426.22,470.31,517.01,567.6,624.86,700.2,796.29,895.34,1009.56,1141.47,1290.3,1489.83,1756.58,2050.83,2397.17,2985.36,3285.41,3698.55,4172.46],"כלל":[52.57,52.57,52.57,52.57,52.57,52.57,52.57,53.2,53.2,53.83,53.83,53.83,53.83,53.83,55.0,55.63,58.13,60.0,62.28,65.37,68.45,72.77,77.08,82.63,88.8,96.82,104.83,110.38,117.0,127.8,138.6,153.0,167.4,183.6,193.75,193.75,211.8,233.0,257.92,285.39,314.9,344.92,381.54,406.82,448.33,494.72,543.07,601.68,664.19,736.47,813.15,893.73,987.01,1089.57,1190.66,1314.22,1442.17,1591.13,1745.46,1869.99,2072.18,2282.18],"הראל":[54.17,54.17,54.17,54.17,54.17,54.17,54.17,54.17,55.0,55.0,55.83,55.83,55.83,57.5,59.17,60.0,61.67,65.0,68.33,72.5,76.67,80.83,85.83,91.67,97.5,104.17,110.83,119.17,127.5,137.5,147.5,159.17,172.5,186.67,202.5,219.17,238.33,260.0,284.17,310.0,339.17,372.5,408.33,438.33,480.83,526.67,578.33,634.17,716.67,805.83,909.17,1027.5,1188.33,1382.5,1609.17,1887.5,2198.33,2577.5,2993.33,3470.0,3927.5,4438.33,5021.67],"הפניקס":[58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,58.33,60.83,65.0,70.0,75.0,81.67,89.17,97.5,106.67,116.67,128.33,141.67,155.83,172.5,191.67,211.67,235.83,261.67,291.67,325.0,361.67,404.17,450.83,504.17,563.33,630.83,705.83,790.0,884.17,990.83,1110.83,1245.0,1395.83,1564.17,1646.67,1739.17,1950.0,2186.67,2451.67,2749.17],"ליברה":[null,null,23.25,23.25,23.25,23.25,23.25,23.25,23.25,23.25,23.25,23.25,23.35,24.88,26.85,28.86,31.38,31.49,33.5,34.71,36.39,36.29,36.74,40.26,45.68,51.6,56.28,64.44,73.31,82.72,92.46,101.75,108.44,112.39,117.93,127.73,143.61,160.91,180.05,196.08,211.35,216.87,244.25,281.03,325.47,373.79,420.23,464.78,506.4,551.86,610.27,675.22,760.97,858.97,974.71,1087.82,1196.87,1291.54,1398.13,1511.63,1653.35,1855.65,2089.11,2348.75,2651.88,2992.11,3358.47,3745.29],"AIG":[null,null,24.74,25.26,25.79,26.32,26.14,26.18,26.61,26.06,25.88,25.69,25.69,26.18,27.15,28.12,29.09,30.06,31.03,32.48,33.45,37.92,42.11,44.88,47.09,49.31,52.63,55.96,64.31,73.91,80.71,88.14,96.25,101.59,107.22,118.65,131.3,145.3,162.37,181.45,198.35,215.83,237.02,263.77,293.55,326.69,363.57,404.61,447.64,495.25,547.92,606.19,670.65,741.98,820.88,908.18,1004.77,1111.62,1229.84,1360.64,1505.34,1665.43,1842.54,2038.49,2255.29,2495.13,2760.49,3054.06],"איילון":[null,null,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,31.05,34.24,38.27,42.32,45.78,47.84,50.76,54.85,55.71,60.83,65.0,70.0,75.0,81.67,89.17,97.5,106.67,116.67,128.33,141.67,155.83,172.5,191.67,211.67,235.83,261.67,291.67,325.0,361.13,402.0,447.98,499.68,557.71,622.87,696.11,778.43,870.74,974.48,1090.97,1221.75,1368.56,1533.23,1646.67,1739.17,1950.0,2186.67,2451.67,2749.17,3082.5,3816.6,4281.13,4805.5,5398.67,6101.19]},"M1":{"ביטוח ישיר":[75.62,75.62,75.62,75.62,75.62,75.62,75.62,75.62,76.76,78.22,79.84,81.62,83.57,85.84,88.44,91.36,94.61,98.18,101.37,107.09,114.72,125.3,139.76,159.57,180.34,204.15,216.65,242.87,272.1,304.88,341.39,382.1,427.34,477.68,533.41,594.92,663.02,738.07,820.53,911.14,1010.59,1119.4,1238.2,1367.86,1524.2,1696.01,1884.39,2090.78,2316.27,2562.32,2830.12,3121.29,3471.37,3816.14,4188.63,4590.42,5022.73,5487.03,6024.68,6621.52,7261.89,8053.39,8965.13,9986.48,11083.58,12257.0,13539.3,14960.72],"שלמה":[84.17,84.17,84.17,82.5,82.5,80.83,80.0,80.0,80.83,80.83,80.0,79.17,78.33,81.67,85.0,87.5,90.83,93.33,102.5,109.17,119.17,128.33,139.17,154.17,169.17,185.83,201.67,221.67,244.17,269.17,296.67,335.83,377.5,420.83,465.0,487.5,530.0,590.0,655.0,735.83,837.5,956.67,1046.67,1175.83,1320.0,1481.67,1660.83,1860.0,2080.83,2325.83,2595.0,2955.0,3195.83,3623.33,4135.0,4765.83,5376.67,5569.17,6090.83,6643.33,7255.0,7941.67,8698.33,9516.67,10455.0,11597.5],"כלל":[86.77,86.77,86.77,86.77,86.77,86.77,86.77,87.4,88.03,88.03,88.03,88.03,88.13,88.13,90.63,93.75,97.5,102.5,107.92,116.55,125.18,136.9,149.85,164.03,182.53,201.65,225.08,251.6,272.4,303.6,341.4,381.0,426.6,475.8,512.68,512.68,566.0,623.7,696.44,779.88,868.39,963.02,1067.31,1137.92,1262.94,1399.69,1549.62,1719.57,1898.81,2104.9,2334.44,2575.21,2836.49,3153.44,3474.8,3808.36,4213.22,4601.48,5073.25,5562.6,6088.1,6651.19],"הפניקס":[87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,90.83,93.33,96.67,100.0,103.33,109.17,115.83,124.17,132.5,142.5,153.33,166.67,181.67,200.0,220.83,245.0,273.33,305.0,341.67,382.5,430.0,483.33,544.17,613.33,691.67,779.17,878.33,990.0,1115.0,1255.0,1410.83,1585.0,1779.17,1994.17,2233.33,2496.67,2788.33,3109.17,3462.5,3850.0,4273.33,4735.0,4915.83,5113.33,5637.5,6204.17,6816.67,7475.83],"מגדל":[88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,88.33,91.19,94.04,96.9,99.75,102.61,110.45,118.29,126.14,133.98,141.82,154.56,168.95,186.06,201.87,221.28,243.8,268.77,296.77,335.86,377.1,421.21,464.61,511.08,559.13,617.92,680.04,752.4,837.46,956.3,1082.41,1233.02,1401.46,1568.41,1737.02,1928.65,2160.85,2436.39,2705.81,2954.81,3195.55,3623.55,4135.05,4765.51,5376.72,5931.46,6444.97,7002.9,7649.9,8353.06],"הכשרה":[92.5,92.5,92.5,101.67,107.5,111.67,111.67,110.0,105.83,99.17,91.67,85.0,80.83,80.0,81.67,85.83,92.5,100.0,106.67,113.33,121.67,131.67,136.67,147.5,159.17,173.33,186.67,202.5,220.83,241.67,264.17,295.0,337.5,370.0,402.5,438.33,475.0,520.0,569.17,625.83,692.5,783.33,880.83,995.83,1125.0,1254.17,1385.0,1533.33,1708.33,1914.17,2114.17,2297.5,2455.83,2732.5,3110.0,3526.67,3925.83,4281.67,4604.17,4946.67,5334.17,5744.17,6180.83,6649.17,7239.17,8073.33,9065.83,10095.83],"הראל":[94.17,94.17,94.17,93.33,92.5,92.5,91.67,90.83,90.83,90.0,89.17,88.33,88.33,90.83,93.33,96.67,100.0,103.33,110.83,119.17,127.5,137.5,149.17,164.17,180.0,199.17,219.17,242.5,270.0,303.33,343.33,388.33,438.33,495.0,558.33,630.0,709.17,797.5,895.83,1005.83,1126.67,1261.67,1410.0,1523.33,1645.83,1776.67,2151.67,2505.0,2812.5,3144.17,3516.67,3944.17,4421.67,4949.17,5540.83,6200.83,6934.17,7751.67,8392.5,9055.83,10121.67,10965.83,11805.83],"מנורה":[111.13,106.8,86.78,85.11,85.19,83.64,82.96,82.51,81.78,81.02,80.78,80.23,79.42,81.32,82.94,85.66,89.99,94.33,100.83,108.42,116.44,128.48,140.95,155.05,169.03,188.66,209.8,228.5,253.59,280.82,320.28,354.4,409.36,466.29,519.14,590.59,670.56,741.52,846.45,941.34,1059.34,1183.98,1321.67,1432.26,1550.73,1653.87,1990.51,2318.5,2723.61,3090.84,3461.06,3874.63,4318.63,4836.94,5279.59,5731.02,6121.58,6493.71,6833.98,6979.85,7189.29,7295.25],"ליברה":[null,null,65.88,65.88,66.27,69.55,70.17,65.88,65.88,65.88,65.88,65.88,65.88,65.88,65.88,65.88,65.88,65.88,70.49,75.43,81.27,82.84,85.57,92.75,100.88,110.53,115.18,125.75,138.0,151.58,166.83,195.06,223.01,248.45,273.46,300.25,332.63,367.0,403.32,445.62,495.35,525.04,593.58,675.42,766.97,857.69,949.33,1053.47,1179.66,1329.4,1475.83,1611.15,1741.97,1974.57,2252.55,2595.18,2927.34,3228.81,3507.89,3811.09,4162.71,4544.85,4962.71,5400.23,5947.18,6709.16,7621.16,8584.49],"AIG":[null,null,68.6,69.15,69.15,69.69,69.45,69.19,68.39,67.6,67.6,67.6,67.6,67.6,69.68,71.24,73.84,80.04,83.3,87.11,91.47,96.37,102.36,109.44,117.6,126.86,137.75,150.27,164.97,181.31,191.36,201.68,203.89,227.29,253.85,284.0,318.21,357.37,401.03,450.54,514.9,595.46,639.12,717.89,806.11,904.22,1013.15,1134.67,1268.79,1417.32,1581.61,1742.29,1762.72,1958.53,2172.55,2406.4,2661.28,2938.41,3238.6,3563.07,3913.43,4290.49,4695.47,5128.76,5591.59,6084.36,6607.88,7162.55],"איילון":[null,null,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,87.5,90.83,93.33,96.67,100.0,103.33,109.17,115.83,124.17,132.5,142.5,153.33,166.67,181.67,200.0,220.83,245.0,273.33,304.94,340.35,380.78,426.83,479.1,538.42,605.71,680.04,752.4,837.46,956.3,1082.41,1230.08,1382.3,1551.98,1737.02,1928.65,2160.85,2436.39,2705.81,2954.81,3195.55,3623.55,4135.05,4627.65,4915.83,5113.33,5637.5,6204.17,6816.67,7475.83,8181.67,9927.06,10874.26,11844.59,12974.98,14265.52]},"F1":{"ביטוח ישיר":[55.5,55.5,55.5,55.5,55.5,55.5,55.5,55.5,57.64,60.1,62.73,65.52,68.64,71.93,75.54,79.65,83.92,88.52,92.67,97.22,102.14,107.27,114.95,125.86,138.07,151.7,161.24,181.31,204.13,230.08,259.54,284.04,314.58,333.77,373.95,419.25,465.54,517.24,574.98,639.24,711.11,791.14,880.47,979.95,1091.02,1214.82,1352.65,1506.39,1677.71,1868.44,2081.05,2315.06,2589.53,2878.81,3188.55,3526.66,3908.56,4348.86,4849.44,5399.54,5983.36,6653.28,7359.57,8128.13,8976.22,9873.9,10786.52,11711.59],"שלמה":[55.83,55.83,55.83,55.83,55.83,55.83,55.83,55.83,55.83,55.83,56.67,59.17,61.67,61.67,62.5,62.5,67.5,73.33,78.33,81.67,85.83,91.67,94.17,102.5,115.83,132.5,150.0,170.83,191.67,215.0,242.5,273.33,284.17,295.0,318.33,340.83,372.5,419.17,463.33,499.17,533.33,583.33,655.0,750.83,865.83,990.0,1108.33,1219.17,1321.67,1432.5,1575.83,1735.0,1945.0,2201.67,2505.83,2805.0,3094.17,3724.17,4095.0,4497.5,4952.5,5515.0,6135.83,6825.83,7605.83,8460.83],"הכשרה":[58.33,58.33,58.33,56.67,55.83,55.0,55.0,55.0,54.17,53.33,52.5,52.5,54.17,57.5,61.67,65.0,70.0,75.0,80.0,82.5,87.5,92.5,95.83,104.17,115.83,128.33,143.33,162.5,182.5,204.17,227.5,250.83,271.67,280.0,291.67,311.67,338.33,372.5,410.0,441.67,471.67,514.17,570.83,645.83,735.83,833.33,927.5,1017.5,1101.67,1193.33,1310.83,1441.67,1610.83,1818.33,2063.33,2305.83,2542.5,2754.17,2990.0,3240.83,3545.83,3970.0,4453.33,5015.83,5674.17,6415.0,7216.67,8066.67],"מנורה":[59.1,57.32,57.32,57.32,57.32,57.32,57.32,57.32,57.32,58.51,58.51,61.26,63.43,65.6,68.85,71.56,75.35,80.76,85.74,90.72,96.81,103.45,110.64,125.0,138.6,153.1,171.57,186.61,209.32,233.2,262.2,291.4,327.91,369.12,410.51,460.78,517.76,580.95,638.12,709.78,781.34,869.16,967.63,1066.69,1175.35,1309.5,1445.01,1611.93,1785.15,1998.31,2235.57,2550.6,2813.55,3059.12,3313.07,3570.37,3825.99,4073.23,4305.39,4507.38,4666.62,4763.0],"מגדל":[61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,61.51,67.6,73.66,78.69,81.44,85.49,91.35,92.08,101.47,116.18,132.1,149.97,172.52,196.84,222.39,248.54,273.16,283.75,292.72,305.88,330.32,365.27,408.34,455.61,494.28,530.51,583.34,654.6,750.52,865.92,990.3,1108.14,1219.51,1321.78,1432.81,1576.21,1734.71,1944.74,2201.9,2506.02,2804.72,3094.17,3347.56,3633.19,3938.14,4318.36,4859.4],"הראל":[65.0,65.0,65.0,65.0,65.0,65.0,65.0,65.0,65.0,66.67,67.5,69.17,69.17,71.67,75.0,77.5,80.83,85.83,90.83,95.83,101.67,108.33,117.5,130.0,144.17,160.0,178.33,198.33,221.67,247.5,275.83,309.17,345.83,387.5,435.0,487.5,541.67,597.5,660.83,730.0,806.67,893.33,988.33,1091.67,1204.17,1330.0,1468.33,1622.5,1813.33,2025.83,2264.17,2540.0,2850.83,3195.0,3585.0,4023.33,4512.5,5063.33,5661.67,6326.67,7074.17,7907.5,8835.0],"כלל":[69.03,69.03,69.03,69.03,69.03,69.03,69.67,69.67,69.67,70.3,70.3,70.93,71.25,72.5,74.38,76.88,80.0,83.13,86.95,94.35,100.52,108.53,118.4,129.5,142.45,155.4,171.43,189.32,201.0,222.0,246.0,276.0,307.2,339.6,365.68,365.68,406.64,446.66,493.46,547.39,609.96,675.59,751.39,801.91,885.43,981.64,1088.1,1204.34,1330.83,1478.31,1628.73,1805.04,1983.3,2192.32,2434.55,2700.72,2991.79,3310.21,3657.45,4035.94,4447.15,4893.52],"הפניקס":[83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,83.33,87.5,97.5,107.5,119.17,131.67,148.33,166.67,186.67,210.83,237.5,268.33,302.5,341.67,385.0,434.17,490.0,552.5,622.5,700.83,789.17,887.5,997.5,1120.0,1256.67,1408.33,1575.83,1762.5,1969.17,2197.5,2449.17,2726.67,3031.67,3367.5,3735.83,3883.33,4045.83,4470.83,4933.33,5435.83,5981.67],"ליברה":[null,null,34.88,34.88,34.88,34.88,34.88,34.88,34.88,34.88,34.88,34.88,34.88,34.88,35.59,38.06,41.21,47.5,50.27,51.79,54.03,53.45,53.83,58.66,66.25,74.45,80.68,91.88,103.97,116.67,129.67,147.17,155.9,160.63,167.56,180.44,201.68,224.68,249.92,270.58,289.93,295.74,331.13,378.75,436.04,497.79,556.3,611.59,662.37,717.5,788.69,867.38,971.66,1099.33,1250.32,1398.62,1542.33,1668.14,1809.95,1961.35,2150.12,2418.74,2729.27,3075.49,3480.32,3935.81,4427.8,4949.05],"AIG":[null,null,45.19,45.73,46.28,46.82,47.37,47.9,47.35,46.8,46.8,46.8,46.8,46.8,46.8,46.8,46.8,50.63,53.9,57.71,62.07,66.97,72.41,78.95,86.02,94.74,103.99,115.43,127.4,141.56,150.8,160.55,162.48,181.84,203.89,228.64,256.55,287.61,322.71,362.32,406.43,455.94,455.94,479.79,536.95,601.32,671.98,751.19,838.51,935.73,1042.85,1147.73,1160.31,1289.37,1430.57,1585.92,1755.84,1941.14,2143.83,2364.32,2604.23,2864.78,3146.76,3451.81,3781.13,4135.54,4516.24,4924.86],"איילון":[null,null,46.69,46.73,46.7,46.79,47.18,47.69,48.31,49.21,50.37,51.79,53.61,55.67,58.4,61.5,65.23,69.58,74.66,80.61,83.33,83.33,87.5,97.5,107.5,119.17,131.67,148.33,166.67,186.67,210.83,237.5,288.83,302.43,340.38,379.87,420.06,469.59,523.96,568.42,610.08,670.84,765.88,878.11,1013.12,1158.66,1296.52,1426.83,1546.49,1676.39,1844.16,2029.61,2275.35,2576.22,2932.04,3281.52,3620.18,3916.65,4250.83,4607.62,5052.48,5685.5,6417.27,7233.16,8187.2,9260.59,10420.0,11648.36]}},"limitsM":{"הראל":{"maxEntry":70,"maxEnd":81},"מגדל":{"maxEntry":69,"maxEnd":80},"כלל":{"maxEntry":74,"maxEnd":80},"הפניקס":{"maxEntry":74,"maxEnd":80},"מנורה":{"maxEntry":70,"maxEnd":80},"איילון":{"maxEntry":70,"maxEnd":86},"הכשרה":{"maxEntry":70,"maxEnd":86},"שלמה":{"maxEntry":74,"maxEnd":84},"ביטוח ישיר":{"maxEntry":69,"maxEnd":86},"AIG":{"maxEntry":65,"maxEnd":86},"ליברה":{"maxEntry":75,"maxEnd":86}}};
+const COS = DATA.cos;
+const st = {
+  rate: 6, mode: 'years', term: 20, partner: true, ins: 'reg', sum: 1000000,
+  tracks: [{amt:900000, r:4.5, y:25, m:'sp'}, {amt:400000, r:5.2, y:15, m:'sp'}],
+  persons: [
+    {name:'מבוטח ראשי', dob:'1986-03-15', g:'M', s:0},
+    {name:'בן/בת זוג', dob:'1988-07-10', g:'F', s:0}
+  ],
+  offers: [
+    {co:'הראל', d:[50,50]}, {co:'מגדל', d:[40,40]}, {co:'כלל', d:[55,55]}, {co:'ליברה', d:[20,20]}
+  ]
+};
+const fmt = n => n==null ? '' : Math.round(n).toLocaleString('he-IL');
+
+function insAge(dobStr, now=new Date()){
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const d = new Date(dobStr+'T00:00:00'); if (isNaN(d)) return null;
+  let y = today.getFullYear()-d.getFullYear();
+  let last = new Date(today.getFullYear(), d.getMonth(), d.getDate());
+  if (last > today){ y--; last = new Date(today.getFullYear()-1, d.getMonth(), d.getDate()); }
+  const half = new Date(last); half.setMonth(half.getMonth()+6);
+  return today > half ? y+1 : y;
+}
+
+function balances(){
+  // total balance at the start of each loan year, summed over tracks
+  const Y = Math.max(0, ...st.tracks.map(t=>t.y||0)); const out = new Array(Y).fill(0);
+  st.tracks.forEach(t=>{
+    const A=+t.amt||0, n=Math.round((+t.y||0)*12), i=(+t.r||0)/1200; if(!A||!n) return;
+    const P = i ? A*i/(1-Math.pow(1+i,-n)) : A/n;
+    for(let k=0;k<Math.ceil(n/12);k++){
+      const m=k*12; let b;
+      if (t.m==='eq') b = A*(1-m/n);
+      else b = i ? A*Math.pow(1+i,m) - P*(Math.pow(1+i,m)-1)/i : A-P*m;
+      out[k]+=Math.max(0,b);
+    }
+  });
+  return out;
+}
+
+function calc(person, co, disc){
+  const age = insAge(person.dob); const key = person.g + person.s;
+  if (age==null) return {err:'תאריך לידה חסר'};
+  const mort = st.ins==='mort';
+  const lim = (mort?DATA.limitsM:DATA.limits)[co];
+  let years, factor;
+  if (mort){ const b=balances(); years=b.length; factor=k=>b[k]/1e6; if(!years) return {err:'לא הוזנו מסלולי הלוואה'}; }
+  else { years = st.mode==='years' ? st.term : st.term - age; factor=()=>st.sum/1e6; }
+  if (!(years>0)) return {err:'גיל הסיום קטן מהגיל הנוכחי'};
+  if (age < 18) return {err:'מתחת לגיל 18'};
+  if (!lim || age > lim.maxEntry) return {err:'גיל כניסה מרבי '+(lim?lim.maxEntry:'-')};
+  if (age+years > lim.maxEnd) return {err:'כיסוי עד גיל '+lim.maxEnd+' לכל היותר'};
+  const tab = (mort?DATA.tm:DATA.t)[key][co];
+  const r = st.rate/100, vm = Math.pow(1+r, -1/12);
+  let n10=0,p10=0,nAll=0,pAll=0, first=null;
+  for (let k=0;k<years;k++){
+    const book = tab[age+k-18];
+    if (book==null) return {err:'אין תעריף זמין לגיל '+(age+k)};
+    const prem = book*factor(k)*(k<10 ? 1-disc/100 : 1);
+    if (k===0) first = prem;
+    for (let j=0;j<12;j++){
+      const m = k*12+j, pv = prem*Math.pow(vm,m);
+      nAll+=prem; pAll+=pv; if (k<10){ n10+=prem; p10+=pv; }
+    }
+  }
+  return {age, years, first, n10, p10, nAll, pAll};
+}
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs={}, html=''){ const e=document.createElement(tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(html) e.innerHTML=html; return e; }
+
+function renderPersons(){
+  const box=$('persons'); box.innerHTML='';
+  st.persons.forEach((p,i)=>{
+    if (i===1 && !st.partner) return;
+    const age = insAge(p.dob);
+    const card = el('div',{class:'person'});
+    card.innerHTML = `<h3>${i===0?'מבוטח ראשי':'בן/בת זוג'} <span class="age">גיל ביטוח: <b>${age??'-'}</b></span></h3>
+      <label for="dob${i}">תאריך לידה<input type="date" id="dob${i}" value="${p.dob}"></label>
+      <div class="row">
+        <label>מין<span class="seg" role="group" aria-label="מין">
+          <button type="button" data-p="${i}" data-g="M" aria-pressed="${p.g==='M'}">גבר</button>
+          <button type="button" data-p="${i}" data-g="F" aria-pressed="${p.g==='F'}">אישה</button></span></label>
+        <label>עישון<span class="seg" role="group" aria-label="עישון">
+          <button type="button" data-p="${i}" data-s="0" aria-pressed="${p.s===0}">לא מעשן</button>
+          <button type="button" data-p="${i}" data-s="1" aria-pressed="${p.s===1}">מעשן</button></span></label>
+      </div>`;
+    box.appendChild(card);
+    card.querySelector('#dob'+i).addEventListener('change',e=>{p.dob=e.target.value; renderAll();});
+    card.querySelectorAll('button[data-g]').forEach(b=>b.addEventListener('click',()=>{p.g=b.dataset.g; renderAll();}));
+    card.querySelectorAll('button[data-s]').forEach(b=>b.addEventListener('click',()=>{p.s=+b.dataset.s; renderAll();}));
+  });
+  $('togglePartner').textContent = st.partner ? '− הסרת בן/בת זוג' : '+ הוספת בן/בת זוג';
+}
+
+function renderOffers(){
+  const box=$('offers'); box.innerHTML='';
+  st.offers.forEach((o,i)=>{
+    const c = el('div',{class:'offer'});
+    const opts = ['<option value="">ללא</option>'].concat(COS.map(n=>`<option value="${n}" ${o.co===n?'selected':''}>${n}</option>`)).join('');
+    c.innerHTML = `<span class="tag">הצעה ${i+1}</span>
+      <label for="co${i}">חברת ביטוח<select id="co${i}">${opts}</select></label>
+      <label for="d${i}a">הנחה למבוטח הראשי (%)<input id="d${i}a" type="number" min="0" max="100" step="1" value="${o.d[0]}"></label>
+      ${st.partner?`<label for="d${i}b">הנחה לבן/בת הזוג (%)<input id="d${i}b" type="number" min="0" max="100" step="1" value="${o.d[1]}"></label>`:''}`;
+    box.appendChild(c);
+    c.querySelector('#co'+i).addEventListener('change',e=>{o.co=e.target.value; renderResults();});
+    c.querySelector('#d'+i+'a').addEventListener('input',e=>{o.d[0]=+e.target.value||0; renderResults();});
+    if (st.partner) c.querySelector('#d'+i+'b').addEventListener('input',e=>{o.d[1]=+e.target.value||0; renderResults();});
+  });
+}
+
+function renderResults(){
+  const box=$('results'); box.innerHTML='';
+  st.persons.forEach((p,pi)=>{
+    if (pi===1 && !st.partner) return;
+    const rows = st.offers.filter(o=>o.co).map(o=>({co:o.co, d:o.d[pi], r:calc(p,o.co,o.d[pi])}));
+    const ok = rows.filter(x=>!x.r.err);
+    const best = f => ok.length ? Math.min(...ok.map(x=>x.r[f])) : null;
+    const b = {n10:best('n10'), p10:best('p10'), nAll:best('nAll'), pAll:best('pAll')};
+    const age = insAge(p.dob);
+    const yrs = st.ins==='mort' ? balances().length : (st.mode==='years' ? st.term : st.term-age);
+    const sec = el('div',{class:'res'});
+    const winner = ok.find(x=>x.r.pAll===b.pAll);
+    const win10 = ok.find(x=>x.r.p10===b.p10);
+    const who = pi===0?'מבוטח ראשי':'בן/בת זוג';
+    const desc = `${p.g==='M'?'גבר':'אישה'}${p.s?' מעשן':''}, גיל ${age??'-'}, ${yrs>0?yrs+' שנים (עד גיל '+(age+yrs)+')':''}, ${st.ins==='mort'?'ריסק משכנתא':'כיסוי '+fmt(st.sum)+' ש"ח'}`;
+    let verdict = winner ? `ההצעה הזולה ביותר בערך מהוון לכל התקופה: <b>${winner.co}</b>${win10 && win10.co!==winner.co ? `. ב-10 השנים הראשונות דווקא <b>${win10.co}</b> זולה יותר` : ''}.` : 'אין הצעה תקפה לנתונים שהוזנו.';
+    sec.innerHTML = `<h3>${who}: ${desc}</h3><p class="verdict">${verdict}</p>`;
+    const t = el('div',{class:'tbl'});
+    let html = `<table><thead><tr><th rowspan="2">חברה</th><th rowspan="2">הנחה</th><th rowspan="2">פרמיה חודשית<br>ראשונה</th>
+      <th class="grp" colspan="2">10 שנים</th><th class="grp" colspan="2">כל התקופה</th></tr>
+      <tr><th>סך תשלומים</th><th>מהוון</th><th>סך תשלומים</th><th>מהוון</th></tr></thead><tbody>`;
+    rows.forEach(x=>{
+      if (x.r.err){ html += `<tr class="na"><td class="co">${x.co}</td><td>${x.d}%</td><td colspan="5" class="warn">לא זמין: ${x.r.err}</td></tr>`; return; }
+      const c = (f)=> x.r[f]===b[f] && ok.length>1 ? 'best':'';
+      html += `<tr><td class="co">${x.co}${x.r.pAll===b.pAll&&ok.length>1?'<span class="pill">הזולה</span>':''}</td><td>${x.d}%</td>
+        <td>${fmt(x.r.first)}</td>
+        <td class="${c('n10')}">${fmt(x.r.n10)}</td><td class="${c('p10')}">${fmt(x.r.p10)}</td>
+        <td class="${c('nAll')}">${fmt(x.r.nAll)}</td><td class="${c('pAll')}">${fmt(x.r.pAll)}</td></tr>`;
+    });
+    if (!rows.length) html += `<tr class="na"><td colspan="7">לא נבחרו חברות</td></tr>`;
+    html += '</tbody></table>';
+    t.innerHTML = html; sec.appendChild(t); box.appendChild(sec);
+  });
+}
+
+function renderTerms(){
+  $('modeYears').setAttribute('aria-pressed', st.mode==='years');
+  $('modeAge').setAttribute('aria-pressed', st.mode==='age');
+  $('termLbl').firstChild.textContent = st.mode==='years' ? 'מספר שנים' : 'גיל סיום הביטוח';
+  $('termNote').textContent = st.mode==='years' ? 'אותו מספר שנים לכל מבוטח.' : 'הביטוח של כל מבוטח מסתיים בגיל הזה, כך שמשך התקופה שונה לכל אחד.';
+}
+function renderTracks(){
+  const box=$('tracks'); box.innerHTML='';
+  st.tracks.forEach((t,i)=>{
+    const d=el('div',{class:'track'});
+    d.innerHTML=`<span class="tn">מסלול ${i+1}</span>
+      <label for="ta${i}">סכום (ש"ח)<input id="ta${i}" type="number" min="0" step="10000" value="${t.amt}"></label>
+      <label for="tr${i}">ריבית שנתית (%)<input id="tr${i}" type="number" min="0" step="0.05" value="${t.r}"></label>
+      <label for="ty${i}">תקופה (שנים)<input id="ty${i}" type="number" min="1" max="40" value="${t.y}"></label>
+      <label for="tm${i}">לוח סילוקין<select id="tm${i}"><option value="sp" ${t.m==='sp'?'selected':''}>שפיצר</option><option value="eq" ${t.m==='eq'?'selected':''}>קרן שווה</option></select></label>
+      ${st.tracks.length>1?`<button type="button" class="del" aria-label="מחיקת מסלול ${i+1}">מחיקה</button>`:'<span></span>'}`;
+    box.appendChild(d);
+    d.querySelector('#ta'+i).addEventListener('input',e=>{t.amt=+e.target.value||0; mortSum(); renderResults();});
+    d.querySelector('#tr'+i).addEventListener('input',e=>{t.r=+e.target.value||0; renderResults();});
+    d.querySelector('#ty'+i).addEventListener('input',e=>{t.y=+e.target.value||0; mortSum(); renderResults();});
+    d.querySelector('#tm'+i).addEventListener('change',e=>{t.m=e.target.value; renderResults();});
+    const del=d.querySelector('.del'); if(del) del.addEventListener('click',()=>{st.tracks.splice(i,1); renderTracks(); renderResults();});
+  });
+  $('addTrack').hidden = st.tracks.length>=5;
+  mortSum();
+}
+function mortSum(){
+  const tot=st.tracks.reduce((a,t)=>a+(+t.amt||0),0), Y=Math.max(0,...st.tracks.map(t=>+t.y||0));
+  $('mortSum').textContent = `סך ההלוואה ${fmt(tot)} ש"ח, ${Y} שנים`;
+}
+function renderIns(){
+  const m=st.ins==='mort';
+  
+  $('regFields').hidden=m; $('termNote').hidden=m; $('mortFields').hidden=!m;
+  $('limitsNote').textContent = 'גיל כניסה מרבי / גיל סיום כיסוי מרבי לפי חברה ('+(m?'ריסק משכנתא':'ריסק כיסוי קבוע')+'): ' + COS.map(c=>{const l=(m?DATA.limitsM:DATA.limits)[c]; return l?`${c} ${l.maxEntry}/${l.maxEnd}`:`${c} לא זמין`;}).join(', ') + '.';
+}
+function renderAll(){ renderPersons(); renderOffers(); renderTerms(); renderIns(); renderTracks(); renderResults(); }
+
+$('rate').addEventListener('input',e=>{st.rate=+e.target.value||0; renderResults();});
+$('termVal').addEventListener('input',e=>{st.term=+e.target.value||0; renderResults();});
+$('modeYears').addEventListener('click',()=>{ if(st.mode!=='years'){st.mode='years'; st.term=20; $('termVal').value=20;} renderTerms(); renderResults();});
+$('modeAge').addEventListener('click',()=>{ if(st.mode!=='age'){st.mode='age'; st.term=67; $('termVal').value=67;} renderTerms(); renderResults();});
+$('togglePartner').addEventListener('click',()=>{st.partner=!st.partner; renderAll();});
+$('sumIns').addEventListener('input',e=>{st.sum=+e.target.value||0; renderResults();});
+$('addTrack').addEventListener('click',()=>{ if(st.tracks.length<5){ st.tracks.push({amt:300000,r:5,y:20,m:'sp'}); renderTracks(); renderResults(); }});
+renderAll();
+})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('hamburger');
+  var nav=document.querySelector('.nav');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!nav)return;
+  function toggle(open){btn.classList.toggle('open',open);nav.classList.toggle('open',open);if(overlay)overlay.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));}
+  btn.addEventListener('click',function(){toggle(!btn.classList.contains('open'));});
+  if(overlay)overlay.addEventListener('click',function(){toggle(false);});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false);});});
+})();
+</script>
+<script src="/search.js"></script>
+<!-- Unified site footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-inner">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="/" class="logo-footer" aria-label="אחיטוב - תכנון פיננסי אובייקטיבי">
+          <img src="/design-assets/logo-footer.svg" alt="אחיטוב תכנון פיננסי" width="60" height="42" class="logo-footer-img">
+          <span class="logo-obj">אובייקטיבי</span>
+        </a>
+        <p>איתן אחיטוב - יועץ פנסיוני בעל רישיון משרד האוצר. אסור לי לקבל עמלות מחברות הביטוח או הקרנות - ההכנסה היחידה היא שכר טרחה ישיר ושקוף מהלקוח.</p>
+      </div>
+      <div>
+        <h4>מוצרי השקעה</h4>
+        <ul>
+          <li><a href="/savings/">חיסכון והשקעות - כל המדריכים</a></li>
+          <li><a href="/investment/ira/">דף שירות IRA</a></li>
+          <li><a href="/investment/why-not-sp500/">למה לא רק S&amp;P 500</a></li>
+          <li><a href="/savings/keren-kaspit/">קרן כספית</a></li>
+          <li><a href="/savings/hisachon-layeled/">חיסכון לכל ילד</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>כדאי לדעת</h4>
+        <ul>
+          <li><a href="/savings/keren-hishtalmut/">קרן השתלמות</a></li>
+          <li><a href="/articles/lectures/">הרצאות מומלצות</a></li>
+          <li><a href="/about/license/">רישיון יועץ פנסיוני</a></li>
+          <li><a href="/about/advisor-vs-planner-vs-agent/">יועץ מול סוכן מול מתכנן</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>אודות</h4>
+        <ul>
+          <li><a href="/about/">אודות איתן אחיטוב</a></li>
+          <li><a href="/#contact">יצירת קשר</a></li>
+          <li><a href="https://wa.me/972527700599">וואטסאפ: 052-770-0599</a></li>
+          <li><a href="/clients/">אזור הלקוחות 🔒</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bottom">
+      <span>© 2026 אחיטוב תכנון פיננסי. כל הזכויות שמורות.</span>
+      <ul class="sf-social" aria-label="רשתות חברתיות">
+        <li class="sf-fb"><a href="https://www.facebook.com/profile.php?id=100002497065818" target="_blank" rel="noopener" aria-label="פייסבוק" title="פייסבוק"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg></a></li>
+        <li class="sf-li"><a href="https://www.linkedin.com/in/eitan-ahituv/" target="_blank" rel="noopener" aria-label="לינקדאין" title="לינקדאין"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.69 22 11.1 22 14.24V21h-4v-6c0-1.43-.03-3.27-2-3.27-2 0-2.3 1.56-2.3 3.17V21h-4V9z"/></svg></a></li>
+        <li class="sf-ig"><a href="https://www.instagram.com/ahituv.pensya/" target="_blank" rel="noopener" aria-label="אינסטגרם" title="אינסטגרם"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a></li>
+        <li class="sf-wa"><a href="https://whatsapp.com/channel/0029Vb7rZwECcW4iWMbmRn1D" target="_blank" rel="noopener" aria-label="ערוץ וואטסאפ" title="ערוץ וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.87 9.87 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.13.82.84-3.05-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.46 3.63-8.09 8.15-8.09zm4.5 10.13c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.77.96-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.97-1.21-.73-.65-1.22-1.45-1.36-1.69-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.75-1.82-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.17.2-.57.2-1.06.14-1.17-.06-.1-.22-.16-.46-.28z"/></svg></a></li>
+      </ul>
+      <span class="license-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L2 4v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V4l-8-4z"/></svg>
+        <a href="/about/license/">רישיון יועץ פנסיוני</a> · משרד האוצר
+      </span>
+    </div>
+    <div class="sf-disclaimer">המידע באתר זה הוא כללי בלבד ואינו מהווה ייעוץ פנסיוני אישי.</div>
+    <div class="sf-access"><a href="/accessibility/">הצהרת נגישות</a></div>
+  </div>
+</footer>
+</body>
+</html>
