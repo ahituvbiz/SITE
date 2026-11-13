@@ -25,13 +25,6 @@
     <!-- תכנון פיננסי -->
   </url>
 
-  <url>
-    <loc>https://pensya.info/ai/</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <!-- בדיקת קרן פנסיה -->
-  </url>
 
   <url>
     <loc>https://pensya.info/about/</loc>

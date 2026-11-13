@@ -97,3 +97,7 @@
 # דף הוובינר הועבר מ-share/ לכתובת ציבורית מאונדקסת (1.11.26)
 /share/pension-webinar-hitech/*   /services/pension-webinar/:splat   301
 /share/pension-webinar-hitech     /services/pension-webinar/         301
+
+# מרכז הביטוחים עדיין לא קיים; הקישור "לכל מאמרי הביטוחים" במרכז הידע מופנה למאמר הביטוח היחיד (13.11.26)
+/insurance     /insurance/cancel-siudi/   302
+/insurance/    /insurance/cancel-siudi/   302
