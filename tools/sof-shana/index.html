@@ -461,7 +461,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <span class="dot">·</span>
       <span class="chip">בלי הרשמה, נשמר רק בדפדפן שלך</span>
       <span class="dot">·</span>
-      <span>עודכן: 13 בנובמבר 2026</span>
+      <span>עודכן: 15 בנובמבר 2026</span>
     </div>
     <div class="countdown" id="countdown" aria-live="polite">
       <span class="cd-num" id="cd-num">–</span><span class="cd-lbl" id="cd-lbl">ימים עד סוף שנת המס</span>
@@ -909,15 +909,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       '<a class="btn btn-light" style="border:1px solid var(--primary)" href="/services/pension-webinar/">מידע נוסף על הוובינר</a></div></div>';
   }
   /* וובינר לעצמאים: מוצג למי שסימן "עצמאי" או "גם וגם". אחרי מועד ההרצאה עובר לבד ל"עדכן אותי". */
-  var SE_WEBINAR_END = new Date('2026-11-22T21:45:00+02:00');
+  var SE_WEBINAR_END = new Date('2026-11-26T21:45:00+02:00');
   var SE_WEBINAR_URL = '/services/pension-webinar/self-employed/';
   function isSelf(){ return st.work==='self' || st.work==='both'; }
   function seWebinarCta(){
     var open = new Date() < SE_WEBINAR_END;
     var wa = 'https://wa.me/972527700599?text=' + encodeURIComponent(open
-      ? 'אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עצמאי ואשמח להירשם להרצאה על פנסיה וחיסכון לעצמאים (יום ראשון, 22.11). המייל שלי לזימון: '
+      ? 'אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עצמאי ואשמח להירשם להרצאה על פנסיה וחיסכון לעצמאים (יום חמישי, 26.11). המייל שלי לזימון: '
       : 'אחיטוב ייעוץ פנסיוני אובייקטיבי שלום, אני עצמאי ואשמח לשמוע כשייקבע מועד נוסף להרצאה על פנסיה וחיסכון לעצמאים.');
-    return '<div class="webinar-cta wc-se"><h3>🎙️ '+(open ? 'וובינר חינם לעצמאים: יום ראשון 22.11 בשעה 21:00' : 'וובינר חינם: פנסיה וחיסכון לעצמאים')+'</h3>'+
+    return '<div class="webinar-cta wc-se"><h3>🎙️ '+(open ? 'וובינר חינם לעצמאים: יום חמישי 26.11 בשעה 21:00' : 'וובינר חינם: פנסיה וחיסכון לעצמאים')+'</h3>'+
       '<p>איזה מכשיר פיננסי מתאים לעצמאי: מיסוי, נזילות, כיסוי סיכונים ודאגה לעתיד. 45 דקות ב-Google Meet.</p>'+
       '<div class="wc-btns"><a class="btn btn-wa" href="'+wa+'" target="_blank" rel="noopener">'+(open ? 'להרשמה בוואטסאפ' : 'עדכן אותי בוואטסאפ')+'</a>'+
       '<a class="btn btn-light" href="'+SE_WEBINAR_URL+'">מידע נוסף על הוובינר</a></div></div>';
