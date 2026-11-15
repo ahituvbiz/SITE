@@ -259,7 +259,10 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
 
 /* ---------- תוספות לדף העצמאים ---------- */
 .soft{background:var(--bg-soft);border-block:1px solid var(--line)}
-.calc-alt{background:#fff;border-block:0}
+.calc-duo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(44px,6vw,64px) clamp(20px,2.5vw,32px)}
+.calc-col{display:grid;gap:clamp(16px,2vw,24px);align-content:start;min-width:0}
+.calc-col .sec-head{margin-bottom:0}
+@media(min-width:1000px){.calc-duo{grid-template-columns:repeat(2,minmax(0,1fr))}.calc-col{grid-template-rows:subgrid;grid-row:span 3}.calc-col h2{font-size:clamp(24px,2.5vw,31px)}}
 .intro{background:#fff}
 .intro-body{max-width:820px}
 .intro-body p{font-size:clamp(17px,1.6vw,19px);line-height:1.8;color:var(--text);margin-bottom:18px}
@@ -472,103 +475,7 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
     </div>
   </section>
 
-  <!-- ============ 2. מחשבון חיסכון במס ============ -->
-  <section class="calc" id="calc" aria-labelledby="t-calc">
-    <div class="container">
-      <div class="sec-head">
-        <span class="kicker">מחשבון · מיסוי</span>
-        <h2 id="t-calc">כמה המדינה משתתפת בהפקדות שלך</h2>
-        <p class="lede calc-lede"><span>הזן את הרווח השנתי שלך ותראה איזה חלק מההפקדות לפנסיה ולקרן השתלמות חוזר אליך כחיסכון במס.</span> <span>איך מחלקים את ההפקדות נכון? <a href="#register">בוא לשמוע!</a></span></p>
-      </div>
-      <div class="calc-grid">
-        <div class="panel tx-card" data-calc="tax">
-          <fieldset>
-            <legend><span class="n">1</span>הכנסה ונקודות זיכוי</legend>
-            <div class="fields">
-              <div class="field"><label for="tx-profit">הרווח השנתי <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-profit" value="240,000" maxlength="9"></div>
-              <div class="field"><label for="tx-points">מספר נקודות הזיכוי</label><input type="text" inputmode="decimal" id="tx-points" value="2.25" maxlength="4"></div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend><span class="n">2</span>זיכויים נוספים <span class="unit">(לא חובה)</span></legend>
-            <div class="fields">
-              <div class="field"><label for="tx-donations">סכום התרומות <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-donations" value="0" maxlength="9"></div>
-              <div class="field"><label for="tx-life">תשלומי ביטוח חיים <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-life" value="0" maxlength="9"></div>
-            </div>
-          </fieldset>
-          <p class="calc-tip">כל הסכומים שנתיים. החישוב מתעדכן תוך כדי הקלדה.</p>
-        </div>
-
-        <div class="panel">
-          <div aria-live="polite">
-            <div class="pc-gapbox">
-              <div class="g1">השתתפות המדינה בהפקדות שלך (החיסכון במס)</div>
-              <div class="g2"><span id="tx-save">0</span><small>₪ בשנה</small></div>
-              <div class="g3" id="tx-sub"></div>
-            </div>
-            <div class="tx-split" role="img" aria-label="חלוקת ההפקדות בין החלק שלך לבין השתתפות המדינה"><span class="u" id="tx-bar-u"></span><span class="s" id="tx-bar-s"></span></div>
-            <div class="tx-legend"><span><i style="background:var(--ink)"></i>החלק שלך בהפקדות: <b id="tx-net"></b></span><span><i style="background:var(--teal)"></i>השתתפות המדינה: <b id="tx-save2"></b></span></div>
-            <table class="pc-tbl">
-              <tbody>
-                <tr><td class="pc-lbl">ביטוח לאומי בלי הפקדות</td><td class="pc-big" id="tx-ni"></td></tr>
-                <tr><td class="pc-lbl">מס הכנסה בלי הפקדות</td><td class="pc-big" id="tx-it"></td></tr>
-                <tr class="pc-mid"><td class="pc-lbl">הפקדה לפנסיה לחיסכון מקסימלי במס</td><td class="pc-big" id="tx-pension"></td></tr>
-                <tr class="pc-mid"><td class="pc-lbl">הפקדה לקרן השתלמות</td><td class="pc-big" id="tx-study"></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="calc-note">הנתונים חינוכיים בלבד ואינם מהווים ייעוץ מס. שנת המס 2026. <a href="/tools/tax-savings/" target="_blank" rel="noopener">למחשבון המלא ולהסבר על התקרות</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 3. מחשבון פנסיה לעצמאים ============ -->
-  <section class="calc calc-alt" id="calc-pension" aria-labelledby="t-calc2">
-    <div class="container">
-      <div class="sec-head">
-        <span class="kicker">מחשבון · כיסוי סיכונים ודאגה לעתיד</span>
-        <h2 id="t-calc2">מה ההפקדה החודשית שלך קונה</h2>
-        <p class="lede calc-lede"><span>בחר גיל וסכום הפקדה חודשי ותראה את הקצבה הצפויה בפרישה, ואת מה שהמשפחה תקבל אם חלילה יקרה משהו בדרך.</span></p>
-      </div>
-      <div class="calc-grid">
-        <div class="panel se-card" data-calc="pension">
-          <fieldset>
-            <legend><span class="n">1</span>הנתונים שלך</legend>
-            <div class="fields">
-              <div class="field"><label for="se-age">גיל</label><select id="se-age"></select></div>
-              <div class="field"><label for="se-deposit">הפקדה חודשית <span class="unit">(₪)</span></label><input type="number" inputmode="numeric" id="se-deposit" value="2000" min="0" step="100"></div>
-            </div>
-          </fieldset>
-          <p class="calc-tip">שווה "לשחק" עם הגיל: הוסף כמה שנים ותראה מה תעשה לקצבה דחייה של תחילת ההפקדות, והחל מגיל 40 גם לכיסויים הביטוחיים.</p>
-        </div>
-
-        <div class="panel">
-          <div aria-live="polite">
-            <div class="res-group">
-              <h3>פנסיה חזויה בגיל 67, לפי תשואה שנתית</h3>
-              <div class="hb"><span>תשואה 4%</span><div class="track"><div class="fill" id="se-b4"></div></div><span class="val" id="se-v4"></span></div>
-              <div class="hb"><span>תשואה 5%</span><div class="track"><div class="fill" id="se-b5"></div></div><span class="val" id="se-v5"></span></div>
-              <div class="hb"><span>תשואה 6%</span><div class="track"><div class="fill" id="se-b6"></div></div><span class="val" id="se-v6"></span></div>
-              <div class="hb"><span>תשואה 7%</span><div class="track"><div class="fill" id="se-b7"></div></div><span class="val" id="se-v7"></span></div>
-            </div>
-            <div class="res-group">
-              <h3>קצבת שארים חודשית</h3>
-              <div class="hb"><span>בת זוג</span><div class="track"><div class="fill b2" id="se-bs"></div></div><span class="val" id="se-vs"></span></div>
-              <div class="hb"><span>ילד/ים</span><div class="track"><div class="fill b2" id="se-bc"></div></div><span class="val" id="se-vc"></span></div>
-            </div>
-            <div class="res-group">
-              <h3>קצבת נכות חודשית</h3>
-              <div class="hb"><span>קצבה</span><div class="track"><div class="fill b3" id="se-bd"></div></div><span class="val" id="se-vd"></span></div>
-            </div>
-          </div>
-          <p class="calc-note">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. המחשה בלבד, אינה מהווה ייעוץ פנסיוני. <a href="/tools/pension-calc-self-employed/" target="_blank" rel="noopener">למחשבון המלא ולהסברים</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 4. למה לעצמאים ============ -->
+  <!-- ============ 2. למה לעצמאים ============ -->
   <section class="soft" aria-labelledby="t-why">
     <div class="container">
       <div class="sec-head">
@@ -597,7 +504,7 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
     </div>
   </section>
 
-  <!-- ============ 5. תוכן ההרצאה ============ -->
+  <!-- ============ 3. תוכן ההרצאה ============ -->
   <section class="learn" aria-labelledby="t-take">
     <div class="container">
       <div class="sec-head">
@@ -626,8 +533,98 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
     </div>
   </section>
 
+  <!-- ============ 4. שני המחשבונים, זה לצד זה ============ -->
+  <section class="calc" id="calc" aria-label="מחשבונים לעצמאים">
+    <div class="container">
+      <div class="calc-duo">
+        <div class="calc-col" id="calc-tax">
+          <div class="sec-head">
+            <span class="kicker">מחשבון · מיסוי</span>
+            <h2 id="t-calc">כמה המדינה משתתפת בהפקדות שלך</h2>
+            <p class="lede calc-lede"><span>הזן את הרווח השנתי שלך ותראה איזה חלק מההפקדות לפנסיה ולקרן השתלמות חוזר אליך כחיסכון במס.</span> <span>איך מחלקים את ההפקדות נכון? <a href="#register">בוא לשמוע!</a></span></p>
+          </div>
+          <div class="panel tx-card" data-calc="tax">
+            <fieldset>
+              <legend><span class="n">1</span>הכנסה ונקודות זיכוי</legend>
+              <div class="fields">
+                <div class="field"><label for="tx-profit">הרווח השנתי <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-profit" value="240,000" maxlength="9"></div>
+                <div class="field"><label for="tx-points">מספר נקודות הזיכוי</label><input type="text" inputmode="decimal" id="tx-points" value="2.25" maxlength="4"></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend><span class="n">2</span>זיכויים נוספים <span class="unit">(לא חובה)</span></legend>
+              <div class="fields">
+                <div class="field"><label for="tx-donations">סכום התרומות <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-donations" value="0" maxlength="9"></div>
+                <div class="field"><label for="tx-life">תשלומי ביטוח חיים <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-life" value="0" maxlength="9"></div>
+              </div>
+            </fieldset>
+            <p class="calc-tip">כל הסכומים שנתיים. החישוב מתעדכן תוך כדי הקלדה.</p>
+          </div>
+          <div class="panel">
+            <div aria-live="polite">
+              <div class="pc-gapbox">
+                <div class="g1">השתתפות המדינה בהפקדות שלך (החיסכון במס)</div>
+                <div class="g2"><span id="tx-save">0</span><small>₪ בשנה</small></div>
+                <div class="g3" id="tx-sub"></div>
+              </div>
+              <div class="tx-split" role="img" aria-label="חלוקת ההפקדות בין החלק שלך לבין השתתפות המדינה"><span class="u" id="tx-bar-u"></span><span class="s" id="tx-bar-s"></span></div>
+              <div class="tx-legend"><span><i style="background:var(--ink)"></i>החלק שלך בהפקדות: <b id="tx-net"></b></span><span><i style="background:var(--teal)"></i>השתתפות המדינה: <b id="tx-save2"></b></span></div>
+              <table class="pc-tbl">
+                <tbody>
+                  <tr><td class="pc-lbl">ביטוח לאומי בלי הפקדות</td><td class="pc-big" id="tx-ni"></td></tr>
+                  <tr><td class="pc-lbl">מס הכנסה בלי הפקדות</td><td class="pc-big" id="tx-it"></td></tr>
+                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לפנסיה לחיסכון מקסימלי במס</td><td class="pc-big" id="tx-pension"></td></tr>
+                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לקרן השתלמות</td><td class="pc-big" id="tx-study"></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="calc-note">הנתונים חינוכיים בלבד ואינם מהווים ייעוץ מס. שנת המס 2026. <a href="/tools/tax-savings/" target="_blank" rel="noopener">למחשבון המלא ולהסבר על התקרות</a></p>
+          </div>
+        </div>
+        <div class="calc-col" id="calc-pension">
+          <div class="sec-head">
+            <span class="kicker">מחשבון · כיסוי סיכונים ודאגה לעתיד</span>
+            <h2 id="t-calc2">מה ההפקדה החודשית שלך קונה</h2>
+            <p class="lede calc-lede"><span>בחר גיל וסכום הפקדה חודשי ותראה את הקצבה הצפויה בפרישה, ואת מה שהמשפחה תקבל אם חלילה יקרה משהו בדרך.</span></p>
+          </div>
+          <div class="panel se-card" data-calc="pension">
+            <fieldset>
+              <legend><span class="n">1</span>הנתונים שלך</legend>
+              <div class="fields">
+                <div class="field"><label for="se-age">גיל</label><select id="se-age"></select></div>
+                <div class="field"><label for="se-deposit">הפקדה חודשית <span class="unit">(₪)</span></label><input type="number" inputmode="numeric" id="se-deposit" value="2000" min="0" step="100"></div>
+              </div>
+            </fieldset>
+            <p class="calc-tip">שווה "לשחק" עם הגיל: הוסף כמה שנים ותראה מה תעשה לקצבה דחייה של תחילת ההפקדות, והחל מגיל 40 גם לכיסויים הביטוחיים.</p>
+          </div>
+          <div class="panel">
+            <div aria-live="polite">
+              <div class="res-group">
+                <h3>פנסיה חזויה בגיל 67, לפי תשואה שנתית</h3>
+                <div class="hb"><span>תשואה 4%</span><div class="track"><div class="fill" id="se-b4"></div></div><span class="val" id="se-v4"></span></div>
+                <div class="hb"><span>תשואה 5%</span><div class="track"><div class="fill" id="se-b5"></div></div><span class="val" id="se-v5"></span></div>
+                <div class="hb"><span>תשואה 6%</span><div class="track"><div class="fill" id="se-b6"></div></div><span class="val" id="se-v6"></span></div>
+                <div class="hb"><span>תשואה 7%</span><div class="track"><div class="fill" id="se-b7"></div></div><span class="val" id="se-v7"></span></div>
+              </div>
+              <div class="res-group">
+                <h3>קצבת שארים חודשית</h3>
+                <div class="hb"><span>בת זוג</span><div class="track"><div class="fill b2" id="se-bs"></div></div><span class="val" id="se-vs"></span></div>
+                <div class="hb"><span>ילד/ים</span><div class="track"><div class="fill b2" id="se-bc"></div></div><span class="val" id="se-vc"></span></div>
+              </div>
+              <div class="res-group">
+                <h3>קצבת נכות חודשית</h3>
+                <div class="hb"><span>קצבה</span><div class="track"><div class="fill b3" id="se-bd"></div></div><span class="val" id="se-vd"></span></div>
+              </div>
+            </div>
+            <p class="calc-note">הסימולציה מניחה: נשוי, אין צבירה התחלתית, דמי ניהול 1%+0.145%, פרישה בגיל 67. המחשה בלבד, אינה מהווה ייעוץ פנסיוני. <a href="/tools/pension-calc-self-employed/" target="_blank" rel="noopener">למחשבון המלא ולהסברים</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 5. אובייקטיביות ============ -->
-  <section class="soft" aria-labelledby="t-who">
+  <section aria-labelledby="t-who">
     <div class="container">
       <div class="trust-top">
         <div>
