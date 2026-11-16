@@ -411,7 +411,7 @@ textarea:focus-visible,
 <section class="page-hero" id="main-content">
   <div class="container">
     <h1>מחשבון משיכת פיצויים - <span class="accent">כמה זה יעלה לכם בפנסיה?</span></h1>
-    <p class="page-updated">עודכן: 10 בנובמבר 2026</p>
+    <p class="page-updated">עודכן: 16 בנובמבר 2026</p>
     <p class="lead">
       משיכת פיצויים פוגעת בפנסיה פעמיים: הצבירה קטנה, וגם הפטור ממס על הקצבה נשחק. הזינו את הנתונים שלכם ואת הסכומים שאתם שוקלים למשוך, וקבלו את הקצבה החודשית נטו ממס עם המשיכה ובלעדיה - בערכי היום.
     </p>
@@ -609,7 +609,7 @@ function pwSync32(){
   var show=age<PW.hideSwitchAge;
   pwEl('pw-32row').style.display=show?'':'none';
   if(!show){cb.checked=false;return;}
-  if(!pwTouched)cb.checked=age<35;
+  if(!pwTouched)cb.checked=false;
   hint.textContent=cb.checked?'אם כן, הפיצויים שנמשכים היום נמצאים מחוץ ל-32 שנות העבודה האחרונות ולא ייגרעו מסל הפטור על הקצבה.':'אם לא, הפיצויים הפטורים שנמשכים ייגרעו מסל הפטור על הקצבה בתוספת 35% והצמדה למדד.';
   if(cb.checked&&left<=PW.window32)hint.textContent+=' שימו לב: זה אפשרי רק אם תעבדו כשכירים עד גיל '+(Math.floor(age)+PW.window32)+' לפחות, מאוחר מגיל הפרישה שנבחר.';
   pwEl('pw-32state').textContent=cb.checked?'כן':'לא';
