@@ -411,7 +411,7 @@ textarea:focus-visible,
 <section class="page-hero" id="main-content">
   <div class="container">
     <h1>מחשבון משיכת פיצויים - <span class="accent">כמה זה יעלה לכם בפנסיה?</span></h1>
-    <p class="page-updated">עודכן: 16 בנובמבר 2026</p>
+    <p class="page-updated">עודכן: 17 בנובמבר 2026</p>
     <p class="lead">
       משיכת פיצויים פוגעת בפנסיה פעמיים: הצבירה קטנה, וגם הפטור ממס על הקצבה נשחק. הזינו את הנתונים שלכם ואת הסכומים שאתם שוקלים למשוך, וקבלו את הקצבה החודשית נטו ממס עם המשיכה ובלעדיה - בערכי היום.
     </p>
@@ -426,7 +426,7 @@ textarea:focus-visible,
         <div class="form-group"><label for="pc-bdate">תאריך לידה</label><input type="date" id="pc-bdate" oninput="pcShowAge();pcUpdateFactor();pwSync32()"><span class="pc-agehint" id="pc-agehint" style="display:block;margin-top:6px"></span></div>
         <div class="form-group"><label>מין</label><div class="pc-toggle" id="pc-genderToggle"><button type="button" class="on" data-v="M" onclick="pcSetGender('M');pwSync32()">גבר</button><button type="button" data-v="F" onclick="pcSetGender('F');pwSync32()">אישה</button></div><input type="hidden" id="pc-gender" value="M"></div>
         <div class="form-group"><label for="pc-retage">גיל פרישה</label><select id="pc-retage" onchange="pcUpdateFactor();pwSync32()"><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67" selected>67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option></select></div>
-        <div class="form-group"><label for="pc-balance">צבירה קיימת (₪)</label><input type="text" inputmode="numeric" id="pc-balance" value="150,000" oninput="pcGrp(this)"></div>
+        <div class="form-group"><label for="pc-balance">צבירה קיימת (לא כולל כספים שהופקדו לקצבה מוכרת)</label><input type="text" inputmode="numeric" id="pc-balance" value="150,000" oninput="pcGrp(this)"></div>
         <div class="form-group"><label for="pc-salary">שכר מבוטח חודשי (₪)</label><input type="text" inputmode="numeric" id="pc-salary" value="12,000" oninput="pcGrp(this)"></div>
         <div class="form-group"><label for="pc-deprate">שיעור הפקדה כולל (%)</label><input type="number" id="pc-deprate" value="20.83" step="0.1"></div>
         <div class="form-group pw-withdraw"><label for="pw-withdraw">משיכת פיצויים פטורים ממס (₪)</label><input type="text" inputmode="numeric" id="pw-withdraw" value="50,000" oninput="pcGrp(this)"></div>
