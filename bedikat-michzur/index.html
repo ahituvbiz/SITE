@@ -401,7 +401,7 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="page-updated">עודכן: 16 בנובמבר 2026</p>
+  <p class="page-updated">עודכן: 18 בנובמבר 2026</p>
   <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
@@ -928,6 +928,8 @@ function ovText(e){ return calcText(e, true); }
 
 function render(){
   var d = data, hasM = d.mode === 'full';
+  // מסלול יחיד: אין "מיחזור חלקי". החלקי הוא מיחזור פנימי של כל ההלוואה, והמלא הוא מעבר לבנק אחר.
+  var single = d.tracks.length === 1;
   show('progress-card', false); show('result', true);
   document.querySelectorAll('#toggle-wrap .toggle button').forEach(function(b){ b.classList.toggle('sel', b.dataset.mode === mode); });
 
@@ -936,12 +938,16 @@ function render(){
   if (hasM) {
     var T = totalsOf(mode);
     var plbl = T.n_refi + ' מסלולים עכשיו' + (T.n_wait ? ', ועוד ' + T.n_wait + ' במועד עדכון הריבית' : '');
-    ans += '<div class="box"><div class="lbl">מיחזור חלקי (' + plbl + ')</div><div class="val">' + ((T.n_refi || T.n_wait) ? signed(T.partial) : '<span>אין מסלול למחזר</span>') + '</div>' + (TIER_BOX[T.tier] ? '<div class="sub rec">' + TIER_BOX[T.tier] + '</div>' : '') + '</div>';
+    var lbl1 = single ? 'מיחזור פנימי (באותו בנק' + (T.n_wait ? ', במועד עדכון הריבית' : '') + ')' : 'מיחזור חלקי (' + plbl + ')';
+    var val1 = (T.n_refi || T.n_wait) ? signed(T.partial)
+             : (single ? (T.missing.length ? '<span>לא ניתן לחשב</span>' : '<span>לא כדאי</span>') : '<span>אין מסלול למחזר</span>');
+    ans += '<div class="box"><div class="lbl">' + lbl1 + '</div><div class="val">' + val1 + '</div>' + (TIER_BOX[T.tier] ? '<div class="sub rec">' + TIER_BOX[T.tier] + '</div>' : '') + '</div>';
     if (T.full == null) {
-      ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val" style="font-size:18px">לא ניתן לחשב</div>'
-           + '<div class="sub bargain">מיחזור מלא מחליף את כל המסלולים, ואין ריבית להשוואה למסלול ' + missingTxt(T.missing) + '. אם קיבלתם הצעת ריבית למסלול הזה, הקלידו אותה בטבלה למטה והחישוב יושלם.</div></div>';
+      ans += '<div class="box"><div class="lbl">' + (single ? 'מיחזור לבנק אחר' : 'מיחזור מלא (כל המשכנתא)') + '</div><div class="val" style="font-size:18px">לא ניתן לחשב</div>'
+           + '<div class="sub bargain">' + (single ? 'אין' : 'מיחזור מלא מחליף את כל המסלולים, ואין') + ' ריבית להשוואה למסלול ' + missingTxt(T.missing) + '. אם קיבלתם הצעת ריבית למסלול הזה, הקלידו אותה בטבלה למטה והחישוב יושלם.</div></div>';
     } else {
-      ans += '<div class="box"><div class="lbl">מיחזור מלא (כל המשכנתא)</div><div class="val">' + signed(T.full) + '</div>' + (TIER_BOX[T.tier_full] ? '<div class="sub rec">' + TIER_BOX[T.tier_full] + '</div>' : '') + '<div class="sub bargain">במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.</div></div>';
+      ans += '<div class="box"><div class="lbl">' + (single ? 'מיחזור לבנק אחר' : 'מיחזור מלא (כל המשכנתא)') + '</div><div class="val">' + signed(T.full) + '</div>' + (TIER_BOX[T.tier_full] ? '<div class="sub rec">' + TIER_BOX[T.tier_full] + '</div>' : '')
+           + '<div class="sub bargain">' + (single ? 'במעבר לבנק אחר יש לכם כושר מיקוח, וצפוי שתוכלו לקבל ריבית נמוכה יותר מאשר במיחזור פנימי.' : 'במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.') + '</div></div>';
     }
   } else {
     ans += '<div class="box" style="grid-column:1/-1"><div class="lbl">השוואה לשוק</div><div class="val" style="font-size:18px">טבלת ריביות השוק אינה עדכנית כרגע, ולכן מוצגים רק נתוני המסלולים, בלי המלצה.</div></div>';
@@ -991,8 +997,15 @@ function render(){
     var mixed = d.tracks.some(function(t){ var c = verdictOf(t).code; return c === 'refi' || c === 'wait'; });
     show('scope-wrap', mixed);
     var sc = mixed ? scope : 'full';
-    document.querySelectorAll('#scope-wrap button').forEach(function(b){ b.classList.toggle('sel', b.dataset.scope === sc); });
-    $('scope-help').textContent = sc === 'partial'
+    document.querySelectorAll('#scope-wrap button').forEach(function(b){
+      b.classList.toggle('sel', b.dataset.scope === sc);
+      b.textContent = b.dataset.scope === 'partial' ? (single ? 'מיחזור פנימי' : 'מיחזור חלקי') : (single ? 'מיחזור לבנק אחר' : 'מיחזור מלא');
+    });
+    $('scope-help').textContent = single
+      ? (sc === 'partial'
+         ? 'מיחזור פנימי: ממחזרים את ההלוואה באותו בנק, בריבית שניתן לקבל היום בשוק.'
+         : 'מיחזור לבנק אחר: עוברים עם ההלוואה לבנק אחר. במעבר יש לכם כושר מיקוח, ולכן החישוב לפי ריבית נמוכה יותר.')
+      : sc === 'partial'
       ? 'מיחזור חלקי: ממחזרים עכשיו את המסלולים שיש בהם רווח ממיחזור, ומסלולים שקיבלו "לחכות" ממחזרים במועד עדכון הריבית שלהם. שאר המסלולים נשארים כמו שהם, באותו החזר חודשי, ולכן הרווח או ההפסד בהם 0.'
       : 'מיחזור מלא: ממחזרים את כל המסלולים, כולל אלה שזולים היום מהשוק. מוצג החישוב של כל מסלול בנפרד, והסכום של כולם. במיחזור מלא ניתן לעבור לבנק אחר, ולכן יש לכם כושר מיקוח וצפוי שתוכלו לקבל את הריביות הנמוכות יותר.';
     $('rf-sub').textContent = (d.anchors_as_of ? 'עוגני בנק ישראל לפי ממוצע ' + d.anchors_as_of + '. ' : '') + 'הסכומים ברוטו, אחרי עמלות הפירעון שבדוח.';
@@ -1043,7 +1056,8 @@ function render(){
       }
       r += head + '<td class="n" data-l="הריבית אותה ניתן לקבל היום">' + mk + '</td><td class="n" data-l="' + colName + '">' + extra + '</td><td class="n" data-l="רווח או הפסד">' + saving + '</td>' + (recCol ? '<td data-l="המלצה"><span class="vd ' + v.code + '">' + vt + '</span></td>' : '') + '</tr>';
     });
-    var footLbl = sc === 'partial' ? 'סה"כ, מיחזור חלקי' : 'סה"כ, מיחזור מלא';
+    var footLbl = single ? (sc === 'partial' ? 'סה"כ, מיחזור פנימי' : 'סה"כ, מיחזור לבנק אחר')
+                         : (sc === 'partial' ? 'סה"כ, מיחזור חלקי' : 'סה"כ, מיחזור מלא');
     var predTot = d.tracks.reduce(function(a,t){ var e = eff(t); return a + ((e.modes && e.modes.monthly_after_change) || t.monthly); }, 0);
     var hasRise = Math.round(predTot) !== Math.round(d.total_monthly);
     var hasWaitRefi = sc === 'partial' && d.tracks.some(function(t){ return verdictOf(t).code === 'wait' && eff(t).at_change; });
@@ -1083,6 +1097,7 @@ function render(){
   $('conclusions').innerHTML = c;
   var pvf = (n.partial_vs_full || {})[mode];
   if (mode === 'shorten' && d.tracks.some(function(t){ return eff(t).recalc; })) pvf = '';   // הטקסט של השרת מבוסס על החישוב הישן
+  if (single) pvf = '';   // הטקסט של השרת משווה חלקי למלא, ובמסלול יחיד אין מיחזור חלקי
   $('pvf').innerHTML = hasM && pvf ? '<h3>מיחזור חלקי או מלא</h3><p>' + esc(pvf) + '</p>' : '';
   $('ai-notes').innerHTML = (n.notes && n.notes.length) ? '<div class="ai-notes"><div class="tag">הערות שהמודל הוסיף (לא חלק מהחישוב)</div><ul>' + n.notes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
 
