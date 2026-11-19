@@ -401,7 +401,7 @@ table.t td:last-child { min-width: 120px; }
 <div class="wrap">
 
   <h1>בדיקת מיחזור משכנתא: ניתוח AI של דוח היתרות</h1>
-  <p class="page-updated">עודכן: 18 בנובמבר 2026</p>
+  <p class="page-updated">עודכן: 19 בנובמבר 2026</p>
   <p class="lede">מעלים את דוח היתרות לסילוק שהורדתם מאתר הבנק, ומקבלים בתוך כ-60 שניות השוואה בין הריביות של המשכנתא שלכם לריביות אותן ניתן לקבל היום בשוק, ואת ההמלצה האם כדאי לבצע מיחזור חלקי, מלא או בכלל לא.</p>
   <div class="ai-note" role="note"><span aria-hidden="true">⚠️</span><span>זה ניתוח AI אוטומטי. הוא לא נבדק על ידי אדם, הוא עלול לטעות, ואינו ייעוץ.</span></div>
 
@@ -1097,8 +1097,8 @@ function render(){
   $('conclusions').innerHTML = c;
   var pvf = (n.partial_vs_full || {})[mode];
   if (mode === 'shorten' && d.tracks.some(function(t){ return eff(t).recalc; })) pvf = '';   // הטקסט של השרת מבוסס על החישוב הישן
-  if (single) pvf = '';   // הטקסט של השרת משווה חלקי למלא, ובמסלול יחיד אין מיחזור חלקי
-  $('pvf').innerHTML = hasM && pvf ? '<h3>מיחזור חלקי או מלא</h3><p>' + esc(pvf) + '</p>' : '';
+  // במסלול יחיד השרת (narrate, 19.11.2026) משווה מיחזור פנימי למעבר לבנק אחר
+  $('pvf').innerHTML = hasM && pvf ? '<h3>' + (single ? 'מיחזור פנימי או לבנק אחר' : 'מיחזור חלקי או מלא') + '</h3><p>' + esc(pvf) + '</p>' : '';
   $('ai-notes').innerHTML = (n.notes && n.notes.length) ? '<div class="ai-notes"><div class="tag">הערות שהמודל הוסיף (לא חלק מהחישוב)</div><ul>' + n.notes.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
 
   // 5. not checked
