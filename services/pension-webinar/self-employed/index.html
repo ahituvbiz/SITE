@@ -547,7 +547,7 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
             <fieldset>
               <legend><span class="n">1</span>הכנסה ונקודות זיכוי</legend>
               <div class="fields">
-                <div class="field"><label for="tx-profit">הרווח השנתי <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-profit" value="240,000" maxlength="9"></div>
+                <div class="field"><label for="tx-profit">הרווח השנתי <span class="unit">(₪)</span></label><input type="text" inputmode="numeric" id="tx-profit" value="300,000" maxlength="9"></div>
                 <div class="field"><label for="tx-points">מספר נקודות הזיכוי</label><input type="text" inputmode="decimal" id="tx-points" value="2.25" maxlength="4"></div>
               </div>
             </fieldset>
@@ -562,6 +562,12 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
           </div>
           <div class="panel">
             <div aria-live="polite">
+              <table class="pc-tbl">
+                <tbody>
+                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לפנסיה לחיסכון מקסימלי במס</td><td class="pc-big" id="tx-pension"></td></tr>
+                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לקרן השתלמות</td><td class="pc-big" id="tx-study"></td></tr>
+                </tbody>
+              </table>
               <div class="pc-gapbox">
                 <div class="g1">השתתפות המדינה בהפקדות שלך (החיסכון במס)</div>
                 <div class="g2"><span id="tx-save">0</span><small>₪ בשנה</small></div>
@@ -570,11 +576,13 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
               <div class="tx-split" role="img" aria-label="חלוקת ההפקדות בין החלק שלך לבין השתתפות המדינה"><span class="u" id="tx-bar-u"></span><span class="s" id="tx-bar-s"></span></div>
               <div class="tx-legend"><span><i style="background:var(--ink)"></i>החלק שלך בהפקדות: <b id="tx-net"></b></span><span><i style="background:var(--teal)"></i>השתתפות המדינה: <b id="tx-save2"></b></span></div>
               <table class="pc-tbl">
+                <thead>
+                  <tr><th></th><th>בלי ההפקדות</th><th>עם ההפקדות</th></tr>
+                </thead>
                 <tbody>
-                  <tr><td class="pc-lbl">ביטוח לאומי בלי הפקדות</td><td class="pc-big" id="tx-ni"></td></tr>
-                  <tr><td class="pc-lbl">מס הכנסה בלי הפקדות</td><td class="pc-big" id="tx-it"></td></tr>
-                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לפנסיה לחיסכון מקסימלי במס</td><td class="pc-big" id="tx-pension"></td></tr>
-                  <tr class="pc-mid"><td class="pc-lbl">הפקדה לקרן השתלמות</td><td class="pc-big" id="tx-study"></td></tr>
+                  <tr><td class="pc-lbl">ביטוח לאומי</td><td class="pc-big" id="tx-ni"></td><td class="pc-big" id="tx-ni2"></td></tr>
+                  <tr><td class="pc-lbl">מס הכנסה</td><td class="pc-big" id="tx-it"></td><td class="pc-big" id="tx-it2"></td></tr>
+                  <tr class="pc-mid"><td class="pc-lbl">סה"כ</td><td class="pc-big" id="tx-tot"></td><td class="pc-big" id="tx-tot2"></td></tr>
                 </tbody>
               </table>
             </div>
@@ -926,8 +934,16 @@ var LECTURE = {
         el('tx-save2').textContent = fmt(savings) + ' ₪';
         el('tx-net').textContent = fmt(userNetCost) + ' ₪';
         el('tx-sub').textContent = 'מתוך הפקדות של ' + fmt(deposits) + ' ₪ בשנה לפנסיה ולהשתלמות';
+        /* המס עם ההפקדות: אותה חלוקה מיטיבה בין זיכוי לניכוי ש-bestPension בחר בה */
+        const wA = totals(profit, res3_pension, res4_study, points, dons, life, false);
+        const wB = totals(profit, res3_pension, res4_study, points, dons, life, true);
+        const withDep = wB.total < wA.total ? wB : wA;
         el('tx-ni').textContent = fmt(opt.base.ni) + ' ₪';
         el('tx-it').textContent = fmt(opt.base.it) + ' ₪';
+        el('tx-tot').textContent = fmt(opt.base.total) + ' ₪';
+        el('tx-ni2').textContent = fmt(withDep.ni) + ' ₪';
+        el('tx-it2').textContent = fmt(withDep.it) + ' ₪';
+        el('tx-tot2').textContent = fmt(withDep.total) + ' ₪';
         el('tx-pension').textContent = fmt(res3_pension) + ' ₪';
         el('tx-study').textContent = fmt(res4_study) + ' ₪';
         const tot = Math.max(userNetCost + savings, 1);
