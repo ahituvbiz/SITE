@@ -566,6 +566,7 @@ section{padding:var(--sec) 0;scroll-margin-top:12px}
                 <tbody>
                   <tr class="pc-mid"><td class="pc-lbl">הפקדה לפנסיה לחיסכון מקסימלי במס</td><td class="pc-big" id="tx-pension"></td></tr>
                   <tr class="pc-mid"><td class="pc-lbl">הפקדה לקרן השתלמות</td><td class="pc-big" id="tx-study"></td></tr>
+                  <tr class="pc-mid"><td class="pc-lbl" colspan="2">ניתן להפקיד עוד <b id="tx-study-extra"></b> ולקבל גם על הרווחים ממנו פטור ממס רווחי הון</td></tr>
                 </tbody>
               </table>
               <div class="pc-gapbox">
@@ -807,6 +808,7 @@ var LECTURE = {
     const MOTAV_MIN = 26436;    // 16% מהשכר הממוצע במשק (165,228) - סף "עמית מוטב", 47(א)(7)
     const CREDIT_FLOOR = 1632;  // 45א(ד)(1)
     const HISH_CAP = 13203;     // 4.5% מ-293,397 - ניכוי קרן השתלמות לעצמאי
+    const HISH_EXEMPT_CAP = 20566; // תקרת ההפקדה לקרן השתלמות שהרווחים עליה פטורים ממס רווחי הון
 
     /* דמי ביטוח לאומי ובריאות לעצמאי - סעיף 345 לחוק הביטוח הלאומי:
        ההכנסה לצורך דמי ביטוח היא ההכנסה בניכוי 52% מדמי הביטוח הלאומי עצמם (ללא דמי בריאות).
@@ -946,6 +948,7 @@ var LECTURE = {
         el('tx-tot2').textContent = fmt(withDep.total) + ' ₪';
         el('tx-pension').textContent = fmt(res3_pension) + ' ₪';
         el('tx-study').textContent = fmt(res4_study) + ' ₪';
+        el('tx-study-extra').textContent = fmt(Math.max(0, HISH_EXEMPT_CAP - Math.round(res4_study))) + ' ₪';
         const tot = Math.max(userNetCost + savings, 1);
         el('tx-bar-u').style.width = (userNetCost / tot * 100) + '%';
         el('tx-bar-s').style.width = (savings / tot * 100) + '%';
