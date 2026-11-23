@@ -1308,7 +1308,7 @@ textarea:focus-visible,
         const res3_pension = opt.D;
         const savings = Math.max(0, opt.savings);
         const deposits = res3_pension + res4_study;
-        const userNetCost = savings < 1 ? 0 : Math.max(0, deposits - savings);
+        const userNetCost = Math.max(0, deposits - savings);
         
         document.getElementById('results-text').innerHTML = `
             <p>אם לא תפקיד לפנסיה ולהשתלמות תשלם לביטוח לאומי <span class="highlight">${Math.round(res1.total).toLocaleString()} ₪</span> ולמס הכנסה <span class="highlight">${Math.round(res2_it).toLocaleString()} ₪</span>.</p>
@@ -1319,7 +1319,7 @@ textarea:focus-visible,
         if (profit > 0 && savings < 1) {
             document.getElementById('results-text').innerHTML = `
             <p>ברמת הרווח הזו הפקדה לפנסיה ולהשתלמות לא מקטינה את המס: נקודות הזיכוי כבר מאפסות את מס ההכנסה, ודמי הביטוח הלאומי מחושבים לפי ההכנסה המזערית (3,442 ₪ בחודש).</p>
-            <p>לכן מבחינת מס אין סיבה להפקיד השנה.</p>
+            <p>חובת ההפקדה לפנסיה חלה גם בלי הטבת מס, והכסף שתפקיד נשאר שלך.</p>
         `;
         }
 
