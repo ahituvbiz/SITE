@@ -1191,6 +1191,7 @@ textarea:focus-visible,
     function calcNI(income) {
         const threshold = 92436;
         const ceiling = 622920;
+        const MIN_NI_BASE = 41304;   /* הכנסה מזערית לעצמאי: 3,442 ₪ לחודש, 25% מהשכר הממוצע */
         const y = Math.max(0, income);
         const niOf = x => { x = Math.min(x, ceiling);
             return x <= threshold ? x * 0.0447 : threshold * 0.0447 + (x - threshold) * 0.1283; };
@@ -1201,7 +1202,8 @@ textarea:focus-visible,
             const mid = (lo + hi) / 2;
             if (mid + 0.52 * niOf(mid) < y) lo = mid; else hi = mid;
         }
-        const ni = niOf(lo), health = healthOf(lo);
+        const base = y ? Math.max(lo, MIN_NI_BASE) : 0;
+        const ni = niOf(base), health = healthOf(base);
         return { total: ni + health, niOnly: ni };
     }
 
@@ -1313,6 +1315,13 @@ textarea:focus-visible,
             <p>בכדי ליצור חיסכון מקסימלי במיסים כדאי לך להפקיד השנה לפנסיה <span class="highlight">${Math.round(res3_pension).toLocaleString()} ₪</span> ולהשתלמות <span class="highlight">${Math.round(res4_study).toLocaleString()} ₪</span>.</p>
             <p>הפקדה של סכומים אלו תחסוך לך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span> בתשלומי מס כך שבעצם אתה הפקדת רק <span class="highlight">${Math.round(userNetCost).toLocaleString()} ₪</span> והמדינה סבסדה הפקדות בסך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span>.</p>
         `;
+
+        if (profit > 0 && savings < 1) {
+            document.getElementById('results-text').innerHTML = `
+            <p>ברמת הרווח הזו הפקדה לפנסיה ולהשתלמות לא מקטינה את המס: נקודות הזיכוי כבר מאפסות את מס ההכנסה, ודמי הביטוח הלאומי מחושבים לפי ההכנסה המזערית (3,442 ₪ בחודש).</p>
+            <p>חובת ההפקדה לפנסיה חלה גם בלי הטבת מס, והכסף שתפקיד נשאר שלך.</p>
+        `;
+        }
 
         // לוגיקת גובה עמודות: הגבוהה תמיד 400 פיקסלים
         const maxVal = Math.max(userNetCost, savings, 1);

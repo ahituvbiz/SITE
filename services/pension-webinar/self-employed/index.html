@@ -817,6 +817,7 @@ var LECTURE = {
     function calcNI(income) {
         const threshold = 92436;
         const ceiling = 622920;
+        const MIN_NI_BASE = 41304;   /* הכנסה מזערית לעצמאי: 3,442 ₪ לחודש, 25% מהשכר הממוצע */
         const y = Math.max(0, income);
         const niOf = x => { x = Math.min(x, ceiling);
             return x <= threshold ? x * 0.0447 : threshold * 0.0447 + (x - threshold) * 0.1283; };
@@ -827,7 +828,8 @@ var LECTURE = {
             const mid = (lo + hi) / 2;
             if (mid + 0.52 * niOf(mid) < y) lo = mid; else hi = mid;
         }
-        const ni = niOf(lo), health = healthOf(lo);
+        const base = y ? Math.max(lo, MIN_NI_BASE) : 0;
+        const ni = niOf(base), health = healthOf(base);
         return { total: ni + health, niOnly: ni };
     }
 
