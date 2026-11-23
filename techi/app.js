@@ -23,7 +23,8 @@
   var BANK = D.bank;
   var BMAP = new Map(BANK.map(function (b) { return [b.id, b]; }));
   var STORAGE_KEY = 'techi.v1';
-  var STRENGTH_CAP = 7;
+  var STRENGTH_CAP = 8;   /* תקרת מוקדי כוח אוטומטיים לתחום */
+  var STRENGTH_FILL = 5;  /* מתחת לזה משלימים מפרמטרים בעדיפות 2 */
   var MAX_GOALS = 5;
 
   /* ---------- כלים ---------- */
@@ -121,7 +122,7 @@
   function childName() { var n = (cur.info.name || '').trim(); return n || (gender() === 'f' ? 'הילדה' : 'הילד'); }
   function G(text) {
     var g = gender(), name = childName();
-    return String(text).replace(/\{([^{}|]*)\|([^{}|]*)\}/g, function (m, f, mm) { return g === 'f' ? f : mm; }).replace(/\{שם\}/g, name);
+    return String(text).replace(/\{([^{}|]*)\|([^{}|]*)\}/g, function (m, f, mm) { return g === 'f' ? f : mm; }).replace(/\{שם\}/g, name).replace(/\{יעד_ספרות\}/g, String(digitTarget()));
   }
   function bankText(b) { return gender() === 'f' ? b.f : b.m; }
 
@@ -161,26 +162,59 @@
     }
     var l = cur.literacy[trig]; return !!(l && l.status === 'yes');
   }
-  /* סיכום קבוצתי במיפוי: לפחות 3 פריטים סומנו, אף אחד לא "לא קיים", ולפחות 75% "קיים באופן עקבי" */
+  /* סיכום קבוצתי במיפוי.
+     שיבוץ אוטומטי (mapGroupSummaryOk): לפחות 3 פריטים סומנו וכולם "קיים באופן עקבי". בתח"י המוכנים משפט "תקין לגיל"
+     נמחק כמעט תמיד כשאחד מפריטי הקבוצה היה "קיים לעיתים".
+     הצעה בלבד (mapGroupSummarySuggest): הכלל הקודם, לפחות 3 פריטים, אף אחד לא "לא קיים", ולפחות 75% "קיים". */
+  function mapGroupRated(gid) { return MAPI.filter(function (i) { return i.group === gid && mapStatus(i.id); }); }
   function mapGroupSummaryOk(gid) {
-    var its = MAPI.filter(function (i) { return i.group === gid; });
-    var rated = its.filter(function (i) { return mapStatus(i.id); });
+    var rated = mapGroupRated(gid);
+    return rated.length >= 3 && rated.every(function (i) { return mapStatus(i.id) === 'yes'; });
+  }
+  function mapGroupSummarySuggest(gid) {
+    var rated = mapGroupRated(gid);
     if (rated.length < 3) return false;
     if (rated.some(function (i) { return mapStatus(i.id) === 'no'; })) return false;
     var yes = rated.filter(function (i) { return mapStatus(i.id) === 'yes'; }).length;
     return yes / rated.length >= 0.75;
   }
+  /* ---------- רמת הספרות של הילד/ה ---------- */
+  function numIn(v) { var m = String(v || '').match(/\d+/g); return m ? Math.max.apply(null, m.map(Number)) : null; }
+  /* עד כמה מזהה ספרות, לפי מה שנרשם במבדק או במיפוי (null = לא נרשם) */
+  function digitsKnown() {
+    var srcs = [(cur.literacy.n3 || {}).value, ((cur.mapping || {}).m4_5 || {}).note, (cur.literacy.n4 || {}).value, ((cur.mapping || {}).m4_7 || {}).note];
+    for (var i = 0; i < srcs.length; i++) { var n = numIn(srcs[i]); if (n !== null) return n; }
+    return null;
+  }
+  /* יעד הספרות: 5 למי שמזהה פחות מ-5 ספרות (או צעיר/ה מגיל 4.75 בלי נתון), אחרת 10 */
+  function digitTarget() {
+    var k = digitsKnown();
+    if (k !== null) return k < 5 ? 5 : 10;
+    if ((cur.literacy.n3 || {}).status === 'yes') return 10;
+    var age = childAge();
+    return age && age.dec < 4.75 ? 5 : 10;
+  }
   function ratedCount() { return Object.keys(cur.ratings).filter(function (k) { return cur.ratings[k] && cur.ratings[k].level; }).length; }
 
   /* ---------- טקסט של פריטי פרופיל ---------- */
+  /* הערך שהוקלד, בלי לחזור על מילה שכבר נמצאת בתבנית ("עד 14" בתוך "ספירה עד {v}", "3 פריטים" בתוך "({v} פריטים)") */
+  function litFill(tpl, v) {
+    if (/עד\s*\{v\}/.test(tpl)) {
+      v = v.replace(/^עד\s+/, '');
+      if (/[,،\/]/.test(v)) return tpl.replace(/עד\s*\{v\}/, '(' + v + ')'); /* "1,2" הוא פירוט ולא גבול עליון */
+    }
+    if (/\{v\}\s*פריטים/.test(tpl)) v = v.replace(/\s*פריטים$/, '');
+    return tpl.replace('{v}', v);
+  }
   function litText(it, pol) {
     var l = cur.literacy[it.id] || {};
     var v = (l.value || '').trim();
-    if (pol === 's') return v && it.s.indexOf('{v}') >= 0 ? it.s.replace('{v}', v) : it.sNoV;
-    if (v && it.w.indexOf('{v}') >= 0) return it.w.replace('{v}', v);
+    if (pol === 's') return v && it.s.indexOf('{v}') >= 0 ? litFill(it.s, v) : it.sNoV;
+    if (v && it.w.indexOf('{v}') >= 0) return litFill(it.w, v);
     if (it.w.indexOf('{t}') >= 0) {
-      var t = parseInt(it.target, 10), vn = parseInt(v, 10);
-      if (!isNaN(vn) && !isNaN(t) && vn >= t) t = t + 10;
+      var t = parseInt(it.target, 10), vn = numIn(v);
+      if (it.lowTarget && digitTarget() === 5) t = parseInt(it.lowTarget, 10); /* מי שמזהה ספרה או שתיים: היעד עד 5 ולא עד 10 */
+      else if (vn !== null && !isNaN(t) && vn >= t) t = t + 10;
       return it.w.replace('{t}', String(t));
     }
     return it.wNoV;
@@ -196,16 +230,41 @@
   function sameItem(a, b) { return a.k === b.k && String(a.id) === String(b.id) && (a.k !== 'c' || a.text === b.text); }
   function hasItem(list, item) { return list.some(function (x) { return sameItem(x, item); }); }
 
-  /* ---------- יצירת פרופיל ברירת מחדל ---------- */
+  /* ---------- יצירת פרופיל ברירת מחדל ----------
+     הכללים כוילו (נובמבר 2026) מול תח"י מוכנים: מה נשאר מברירת המחדל, מה נמחק ומה נוסף ביד.
+     - "בינוני": לפרמטרים שבהם היא נוהגת לבחור "מוקד חיזוק" (midW בנתונים) זו ברירת המחדל; השאר נשארים להכרעה.
+     - מוקדי כוח: פרמטרים בעדיפות 1 (נורמלי או בינוני-נורמלי) עד התקרה; עדיפות 2 רק להשלמת רשימה קצרה; עדיפות 3 בהצעות בלבד.
+     - כל ממצא פעם אחת: פריט מיפוי שחוזר על פרמטר רמזור או על פריט מבדק שכבר משובץ באותה עמודה לא משובץ שוב.
+     - משפט סיכום קבוצתי במיפוי רק כשכל הפריטים שסומנו "קיים באופן עקבי"; בלי סיכום, פריטי "קיים" בודדים משובצים רק במוטוריקה.
+     - היגדי הבנק אינם משובצים אוטומטית (ברוב התח"י הם נמחקו); הם מופיעים ראשונים ב"הצעות". */
   function genProfile(keepMid) {
-    var mid = (keepMid && cur.profile && cur.profile.mid) ? cur.profile.mid : {};
+    var prevMid = (keepMid && cur.profile && cur.profile.mid) ? cur.profile.mid : {};
+    var mid = {};
+    PARAMS.forEach(function (p) {
+      var pid = String(p.id), r = cur.ratings[pid];
+      if (!r || r.level !== 'mid') return;
+      if (prevMid[pid]) mid[pid] = prevMid[pid];
+      else if (p.midW) mid[pid] = 'w';
+    });
     var cells = {}; DOMS.forEach(function (d) { cells[d.id] = { s: [], w: [] }; });
+    cur.profile = { mid: mid, cells: cells, genAt: Date.now() }; /* מוגדר כבר עכשיו: המשקלים שלמטה קוראים את הכרעות ה"בינוני" */
+    function placedOwn(pol, t) {
+      t = String(t);
+      var item = isParamTrig(t) ? { k: 'p', id: t } : { k: 'l', id: t };
+      return DOMS.some(function (d) { return hasItem(cells[d.id][pol], item); });
+    }
+    function dropOwn(pol, t) {
+      t = String(t);
+      var item = isParamTrig(t) ? { k: 'p', id: t } : { k: 'l', id: t };
+      DOMS.forEach(function (d) { cells[d.id][pol] = cells[d.id][pol].filter(function (x) { return !sameItem(x, item); }); });
+    }
+    var basicDigits = digitTarget() === 5;
     var cands = {}; DOMS.forEach(function (d) { cands[d.id] = []; });
     PARAMS.forEach(function (p) {
       var pid = String(p.id), r = cur.ratings[pid]; if (!r || !r.level) return;
       var dW = p.domW || p.dom;
-      if (r.level === 'low' || r.level === 'lowmid') cells[dW].w.push({ k: 'p', id: pid });
-      else if (r.level === 'norm' || r.level === 'midnorm') { if (!mapWeakFor(pid)) cands[p.dom].push(p); } /* המיפוי מצא קושי בפריט שקול: לא מציבים כמוקד כוח אוטומטית */
+      if (r.level === 'low' || r.level === 'lowmid') { if (p.wAuto !== false) cells[dW].w.push({ k: 'p', id: pid }); }
+      else if (r.level === 'norm' || r.level === 'midnorm') { if (!mapWeakFor(pid)) cands[p.dom].push({ p: p, norm: r.level === 'norm' }); } /* המיפוי מצא קושי בפריט שקול: לא מציבים כמוקד כוח אוטומטית */
       else if (r.level === 'mid') {
         var d = mid[pid];
         if (d === 'w') cells[dW].w.push({ k: 'p', id: pid });
@@ -213,51 +272,48 @@
       }
     });
     DOMS.forEach(function (d) {
-      /* מוקדי כוח: קודם הפרמטרים שהיא נוהגת לציין (דרגת עדיפות 1), ואז השאר, עד התקרה */
       var c = cands[d.id];
-      var pri = c.filter(function (p) { return p.pri === 1; }), rest = c.filter(function (p) { return p.pri !== 1; });
-      var pick = pri.concat(rest).slice(0, STRENGTH_CAP);
-      pick.sort(function (a, b) { return a.id - b.id; });
-      pick.forEach(function (p) { cells[d.id].s.push({ k: 'p', id: String(p.id) }); });
+      var core = c.filter(function (x) { return x.p.pri === 1; });
+      core.sort(function (x, y) { return (y.norm ? 1 : 0) - (x.norm ? 1 : 0); }); /* נורמלי לפני בינוני-נורמלי */
+      var pick = core.slice(0, STRENGTH_CAP);
+      if (pick.length < STRENGTH_FILL) pick = pick.concat(c.filter(function (x) { return x.p.pri === 2 && x.norm; }).slice(0, STRENGTH_FILL - pick.length));
+      pick.sort(function (x, y) { return x.p.id - y.p.id; });
+      pick.forEach(function (x) { cells[d.id].s.push({ k: 'p', id: String(x.p.id) }); });
     });
     LIT.forEach(function (it) {
       var l = cur.literacy[it.id]; if (!l || !l.status) return;
       if (l.status === 'yes') cells.cog.s.push({ k: 'l', id: it.id });
-      else cells.cog.w.push({ k: 'l', id: it.id });
+      else if (!(basicDigits && it.basicSkip)) cells.cog.w.push({ k: 'l', id: it.id }); /* מי שעוד לא מזהה ספרות: סרגל מספרים, חיבור וחיסור וכתיבת ספרות נשארים בהצעות */
     });
-    /* מיפוי פרופיל הילד: "לא קיים" ו"קיים לעיתים" -> מוקדי חיזוק; "קיים" -> סיכום קבוצתי כשהקבוצה תקינה ברובה,
+    /* מיפוי פרופיל הילד: "לא קיים" ו"קיים לעיתים" -> מוקדי חיזוק; "קיים" -> סיכום קבוצתי כשכל הקבוצה תקינה,
        אחרת עד 3 פריטים לקבוצה (השאר בהצעות). פריט "קיים" שפרמטר שקול לו ברמזור חלש לא מוצב אוטומטית. */
     (D.mapping ? D.mapping.groups : []).forEach(function (g) {
       var its = MAPI.filter(function (i) { return i.group === g.id; });
       var yes = [];
       its.forEach(function (it) {
         var s = mapStatus(it.id); if (!s) return;
-        if (s === 'yes') yes.push(it);
-        else cells[g.dom].w.push({ k: 'm', id: it.id });
+        if (s === 'yes') { yes.push(it); return; }
+        var overW = it.overW || [];
+        if ((it.dup || []).some(function (t) { return overW.indexOf(t) < 0 && placedOwn('w', t); })) return; /* כבר נאמר בנוסח הרמזור/המבדק */
+        overW.forEach(function (t) { dropOwn('w', t); }); /* כאן נוסח המיפוי עדיף ("מנייה מדויקת של עצמים", "סידור רצף המספרים") */
+        cells[g.dom].w.push({ k: 'm', id: it.id });
       });
       if (!yes.length) return;
-      if (mapGroupSummaryOk(g.id)) { cells[g.dom].s.push({ k: 'mg', id: g.id }); return; }
-      var n = 0;
+      if (mapGroupSummaryOk(g.id)) {
+        (g.covers || []).forEach(function (t) { dropOwn('s', t); }); /* המשפט המסכם מחליף את הפירוט */
+        cells[g.dom].s.push({ k: 'mg', id: g.id });
+        return;
+      }
+      var n = 0, maxYes = g.autoYes === undefined ? 3 : g.autoYes; /* בקבוצות הקוגניטיביות פריטי "קיים" בודדים נשארים בהצעות */
       yes.forEach(function (it) {
-        if (n >= 3) return;
+        if (n >= maxYes) return;
         if ((it.eq || []).some(function (t) { return ownWeakWeight(String(t)) >= 1; })) return;
+        var over = it.over || [];
+        if ((it.dup || []).some(function (t) { return over.indexOf(t) < 0 && placedOwn('s', t); })) return;
+        over.forEach(function (t) { dropOwn('s', t); }); /* כאן נוסח המיפוי עדיף ("אחיזת עיפרון תקינה") */
         cells[g.dom].s.push({ k: 'm', id: it.id }); n++;
       });
     });
-    /* היגד בנק ראשי אחד לכל פרמטר/פריט חלש */
-    var trigs = PARAMS.map(function (p) { return String(p.id); }).concat(LIT.map(function (i) { return i.id; }));
-    trigs.forEach(function (t) {
-      if (!isWeak(t)) return;
-      for (var i = 0; i < BANK.length; i++) {
-        var b = BANK[i];
-        if (b.pol !== 'w' || !b.primary || b.low) continue;
-        if (b.params.indexOf(t) < 0) continue;
-        var item = { k: 'b', id: b.id };
-        if (!hasItem(cells[b.dom].w, item)) { cells[b.dom].w.push(item); }
-        break;
-      }
-    });
-    cur.profile = { mid: mid, cells: cells, genAt: Date.now() };
     derivedDirty = false;
   }
   function midParams() {
@@ -327,40 +383,84 @@
     return genNarrative();
   }
 
-  /* ---------- תכנית עבודה ---------- */
-  function objScore(obj) { return obj.triggers.reduce(function (s, t) { return s + weakWeight(t); }, 0); }
+  /* ---------- תכנית עבודה ----------
+     שדות רשות ביעד (templates.json):
+       old       נוסח קודם: לא נבחר אוטומטית, מופיע בסוף רשימת התבניות (תכניות שמורות ממשיכות להצביע עליו)
+       auto      false = לבחירה ידנית בלבד
+       group     קבוצות בלעדיות: יעד אחד מכל קבוצה בתכנית כולה
+       when      תנאים: age5, notYoung, digitsBasic, digitsAdv
+       need      לפחות אחד מהפרמטרים האלה חלש במשקל needMin ומעלה (ברירת מחדל 1); יעד ייעודי שמתקיים מקבל תוספת 1
+       needAll   כל הפרמטרים האלה חלשים
+       minScore  ציון מזערי לבחירה אוטומטית
+       minTrig   מספר מזערי של פרמטרים חלשים שונים (יעד כללי שמחליף כמה יעדים ממוקדים)
+       at5       פריטי מבדק: כשאינם מדורגים והילד/ה בגיל 4.75 ומעלה היעד מוצע בכל זאת (אותיות לקראת כיתה א')
+       tags      תגיות לבחירת כותרת המטרה */
   function childAge() { return ageAt(cur.info.birth, cur.info.date); }
+  var COND = {
+    age5: function () { var a = childAge(); return !!a && a.dec >= 4.75; },
+    notYoung: function () { var a = childAge(); return !a || a.dec >= 4.5; },
+    digitsBasic: function () { return digitTarget() === 5; },
+    digitsAdv: function () { return digitTarget() !== 5; }
+  };
+  function condOk(o) { return (o.when || []).every(function (c) { return COND[c] ? COND[c]() : true; }); }
+  function needOk(o) {
+    if (o.needAll && !o.needAll.every(isWeak)) return false;
+    if (!o.need) return true;
+    var min = o.needMin || 1;
+    return o.need.some(function (t) { return weakWeight(t) >= min; });
+  }
+  function at5Bonus(o) {
+    if (!o.at5 || !COND.age5()) return 0;
+    if (LIT.filter(function (i) { var l = cur.literacy[i.id]; return l && l.status; }).length < 3) return 0; /* המבדק לא מולא: אין על מה להתבסס */
+    return o.at5.every(function (t) { var l = cur.literacy[t]; return !(l && l.status); }) ? 1.5 : 0;
+  }
+  function objScore(obj) {
+    var s = obj.triggers.reduce(function (sum, t) { return sum + weakWeight(t); }, 0) + at5Bonus(obj);
+    if (s > 0 && obj.need && needOk(obj)) s += 1;
+    return s;
+  }
+  /* ציון להצגה ולבחירה: 0 כשהתנאים של היעד לא מתקיימים */
+  function fitScore(obj) { return condOk(obj) && needOk(obj) ? objScore(obj) : 0; }
   function pickTitle(gt, selectedIds) {
-    var age = childAge();
     var tags = {};
-    if (age && age.dec >= 4.75) tags.age5 = true;
-    if (selectedIds.indexOf('regulation') >= 0) tags.regulation = true;
-    var att = selectedIds.indexOf('attention_circle') >= 0 || selectedIds.indexOf('participate_circle') >= 0;
-    var conf = selectedIds.indexOf('strengths_aware') >= 0 || selectedIds.indexOf('approach_staff') >= 0 || selectedIds.indexOf('emotions') >= 0;
-    if (att && !conf) tags.attention = true;
-    if (selectedIds.indexOf('group_talk') >= 0) tags.talk = true;
-    if (selectedIds.indexOf('social_situations') >= 0) tags.situations = true;
+    if (COND.age5()) tags.age5 = true;
+    selectedIds.slice(0, 2).forEach(function (id) { /* הכותרת נקבעת לפי שני היעדים המובילים */
+      var o = gt.objectives.filter(function (x) { return x.id === id; })[0];
+      ((o && o.tags) || []).forEach(function (t) { tags[t] = true; });
+    });
     var best = null;
     gt.titles.forEach(function (t) {
-      var w = t.when || [];
-      var hit = w.some(function (x) { return tags[x]; });
-      if (hit && (!best || best.score < 2)) best = { t: t, score: 2 };
-      else if (w.indexOf('default') >= 0 && !best) best = { t: t, score: 1 };
+      if ((t.unless || []).some(function (x) { return tags[x]; })) return;
+      var w = t.when || [], sc = 0;
+      if (t.whenAll && t.whenAll.every(function (x) { return tags[x]; })) sc = 3;
+      else if (w.some(function (x) { return x !== 'default' && tags[x]; })) sc = 2;
+      else if (w.indexOf('default') >= 0) sc = 1;
+      if (!sc) return;
+      var key = sc * 10 + (t.pri || 0);
+      if (!best || key > best.key) best = { t: t, key: key };
     });
     return best ? best.t.text : gt.titles[0].text;
   }
   function makeTplObjective(gt, obj) { return { src: 'tpl', ref: gt.id + ':' + obj.id, text: G(obj.text), means: G(obj.means), edited: false }; }
+  var THIRD_MIN = 2; /* יעד שלישי במטרה רק כשיש לו ביסוס של ממש (ברוב התח"י המוכנים יש שני יעדים למטרה) */
   function genPlan() {
-    var goals = [];
+    if (!cur.profile) genProfile(false);
+    var goals = [], usedGroups = {};
     GT.forEach(function (gt) {
-      var scored = gt.objectives.map(function (o) { return { o: o, s: objScore(o) }; }).filter(function (x) { return x.s >= 1; });
+      var scored = gt.objectives.filter(function (o) { return !o.old && o.auto !== false; })
+        .map(function (o) { return { o: o, s: fitScore(o) }; })
+        .filter(function (x) { return x.s >= 1 && x.s >= (x.o.minScore || 0) && (!x.o.minTrig || x.o.triggers.filter(isWeak).length >= x.o.minTrig); });
       scored.sort(function (a, b) { return b.s - a.s; });
       var covered = {}, chosen = [];
       scored.forEach(function (x) {
         if (chosen.length >= 3) return;
+        var grp = x.o.group || [];
+        if (grp.some(function (g) { return usedGroups[g]; })) return;
         var newTrig = x.o.triggers.filter(function (t) { return isWeak(t) && !covered[t]; });
-        if (!newTrig.length) return;
+        if (!newTrig.length && !at5Bonus(x.o)) return;
+        if (chosen.length >= 2 && x.s < THIRD_MIN) return;
         chosen.push(x.o);
+        grp.forEach(function (g) { usedGroups[g] = true; });
         x.o.triggers.forEach(function (t) { covered[t] = true; });
       });
       if (!chosen.length) return;
@@ -645,7 +745,7 @@
     var mids = midParams();
     if (mids.length) {
       var mp = h('div', { class: 'card mid-panel' });
-      mp.appendChild(h('h2', null, 'פרמטרים שדורגו "בינוני": לאן לשייך?', h('span', { class: 'hint' }, 'לא משובצים אוטומטית. כוח / חיזוק / להשאיר בחוץ')));
+      mp.appendChild(h('h2', null, 'פרמטרים שדורגו "בינוני": לאן לשייך?', h('span', { class: 'hint' }, 'חלקם שובצו כברירת מחדל כמוקד חיזוק; אפשר לשנות: כוח / חיזוק / בחוץ')));
       var rowsWrap = h('div', { class: 'rows' });
       mp.appendChild(rowsWrap);
       mids.forEach(function (p) {
@@ -695,7 +795,7 @@
     var sugs = suggestions(d.id, pol);
     if (sugs.length) {
       var sg = h('div', { class: 'sug' });
-      sugs.slice(0, 14).forEach(function (s) {
+      sugs.slice(0, 18).forEach(function (s) {
         sg.appendChild(h('span', { class: 'item k-' + s.item.k + (s.strong ? ' strong' : ''), role: 'button', tabindex: '0', title: 'הוסף', onclick: function () { list.push(s.item); save(); redraw(); } }, '+ ' + s.text));
       });
       col.appendChild(h('div', { class: 'muted', style: 'margin-top:6px' }, 'הצעות:'));
@@ -759,7 +859,7 @@
     }
     (D.mapping ? D.mapping.groups : []).forEach(function (g) {
       if (g.dom !== domId) return;
-      if (pol === 's' && mapGroupSummaryOk(g.id)) { var gi = { k: 'mg', id: g.id }; if (!selectedHas(domId, pol, gi)) out.push({ item: gi, text: g.summary, strong: true }); }
+      if (pol === 's' && mapGroupSummarySuggest(g.id)) { var gi = { k: 'mg', id: g.id }; if (!selectedHas(domId, pol, gi)) out.push({ item: gi, text: g.summary, strong: true }); }
       MAPI.filter(function (i) { return i.group === g.id; }).forEach(function (it) {
         var ok = pol === 'w' ? isWeak(it.id) : isStrong(it.id);
         if (!ok) return;
@@ -768,15 +868,18 @@
         out.push({ item: item, text: itemText(item, pol), strong: true });
       });
     });
+    /* היגדי הבנק: קודם ההיגד הראשי של כל פרמטר חלש (אלה שובצו פעם אוטומטית), ואחריהם ההיגדים הכלליים.
+       לחיזוק: רק לפי חולשה שדורגה ישירות, לא לפי פריט מיפוי שקול (כך לא יוצע "מתקשה לבנות לפי דגם" כשהדגם דורג תקין). */
+    var bankPrim = [], bankRest = [];
     BANK.forEach(function (b) {
       if (b.dom !== domId || b.pol !== pol || !b.generic || b.low) return;
-      var ok = b.params.some(function (t) { return pol === 'w' ? isWeak(t) : isStrong(t); });
+      var ok = b.params.some(function (t) { return pol === 'w' ? ownWeakWeight(t) >= 1 : isStrong(t); });
       if (!ok) return;
       var item = { k: 'b', id: b.id };
       if (selectedHas(domId, pol, item)) return;
-      out.push({ item: item, text: bankText(b), strong: false });
+      (b.primary ? bankPrim : bankRest).push({ item: item, text: bankText(b), strong: false });
     });
-    return out;
+    return out.concat(bankPrim, bankRest);
   }
   function moreOptions(domId, pol, q) {
     var ql = (q || '').toLowerCase();
@@ -826,7 +929,7 @@
     if (!cur.plan) genPlan();
     var card = h('div', { class: 'card' });
     var age = childAge();
-    card.appendChild(h('h2', null, 'תכנית עבודה', h('span', { class: 'hint' }, 'ברירת המחדל: עד 4 מטרות לפי חומרת הדירוג, 2-3 יעדים לכל מטרה' + (age ? ' · גיל ' + ageLabel(age) : ''))));
+    card.appendChild(h('h2', null, 'תכנית עבודה', h('span', { class: 'hint' }, 'ברירת המחדל: עד 4 מטרות לפי חומרת הדירוג, 2-3 יעדים לכל מטרה (יעד שלישי רק כשהדירוג מבסס אותו)' + (age ? ' · גיל ' + ageLabel(age) : ''))));
     card.appendChild(h('div', { class: 'note' }, 'אפשר לערוך כל טקסט ישירות, להסיר יעדים, להוסיף יעדים מהתבניות, מהבנק הפורמלי (מסונן לפי גיל) או בכתיבה חופשית, ולהוסיף מטרות (עד ' + MAX_GOALS + ').'));
     var goalsWrap = h('div');
     cur.plan.goals.forEach(function (g, gi) { goalsWrap.appendChild(renderGoal(g, gi)); });
@@ -863,7 +966,7 @@
     if (!g.objectives.length) objWrap.appendChild(h('div', { class: 'muted', style: 'padding:6px 0' }, 'אין יעדים עדיין. הוסיפו יעד למטה.'));
     g.objectives.forEach(function (ob, oi) {
       var tIn = h('textarea', { value: objText(ob), 'aria-label': 'יעד' });
-      var mIn = h('textarea', { value: objMeans(ob), 'aria-label': 'אופן הביצוע / אחריות', style: 'min-height:90px' });
+      var mIn = h('textarea', { value: objMeans(ob), 'aria-label': 'אופן הביצוע / אחריות', style: 'min-height:150px' });
       function markEdited() { ob.text = tIn.value; ob.means = mIn.value; ob.edited = true; save(); }
       tIn.addEventListener('input', markEdited); mIn.addEventListener('input', markEdited);
       var row = h('div', { class: 'obj' },
@@ -898,12 +1001,12 @@
       typeSel.addEventListener('change', function () { g.pickerType = typeSel.value; renderStep3(); });
       list.appendChild(h('div', null, h('label', null, 'תבניות של:'), typeSel));
       var src = GTMAP.get(g.pickerType || gt.id);
-      var rows = src.objectives.map(function (o) { return { o: o, s: objScore(o) }; });
-      rows.sort(function (a, b) { return b.s - a.s; });
+      var rows = src.objectives.map(function (o) { return { o: o, s: fitScore(o) }; });
+      rows.sort(function (a, b) { return ((a.o.old ? 1 : 0) - (b.o.old ? 1 : 0)) || (b.s - a.s); });
       rows.forEach(function (x) {
         var used = already('tpl', src.id + ':' + x.o.id);
         list.appendChild(h('div', { class: 'pk' + (x.s >= 1 ? ' sug' : '') + (used ? ' dim' : '') },
-          h('div', { class: 'pt' }, G(x.o.text), x.s >= 1 ? h('span', { class: 'badge', style: 'margin-inline-start:6px' }, 'מתאים לרמזור') : null, h('div', { class: 'muted' }, G(x.o.means).slice(0, 140) + (x.o.means.length > 140 ? '...' : ''))),
+          h('div', { class: 'pt' }, G(x.o.text), x.s >= 1 ? h('span', { class: 'badge', style: 'margin-inline-start:6px' }, 'מתאים לרמזור') : null, x.o.old ? h('span', { class: 'muted', style: 'margin-inline-start:6px;font-weight:400' }, '(נוסח קודם)') : null, h('div', { class: 'muted' }, G(x.o.means).replace(/\n+/g, ' ').slice(0, 140) + (x.o.means.length > 140 ? '...' : ''))),
           h('button', { class: 'btn btn-ghost btn-small', type: 'button', disabled: used, onclick: function () { g.objectives.push(makeTplObjective(src, x.o)); save(); renderStep3(); } }, used ? 'נוסף' : 'הוסף')));
       });
     } else if (tab === 'formal') {
