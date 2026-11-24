@@ -1428,14 +1428,14 @@ textarea:focus-visible,
     function readField(el,cap){var v=parseInt(String(el.value).replace(/[^0-9]/g,''),10)||0;v=Math.min(v,MON?Math.floor(cap/12):cap);el.value=nf.format(v);return MON?v*12:v;}
     function onAmount(){dons=readField(fDons,9999999);life=readField(fLife,999999);clearTimeout(tmr);tmr=setTimeout(function(){recompute();apply();},140);}
     fDons.addEventListener('input',onAmount);fLife.addEventListener('input',onAmount);
-    /* נקודות זיכוי: שדה להקלדה, 0 עד 15. חצי הקלדה (ריק, "2.") לא משנה את הגרף; ביציאה מהשדה הערך מנורמל */
+    /* נקודות זיכוי: שדה להקלדה, בלי תקרה. חצי הקלדה (ריק, "2.") לא משנה את הגרף; ביציאה מהשדה הערך מנורמל */
     function ptsText(){return String(parseFloat(points.toFixed(2)));}
-    function onPts(){var v=parseFloat(String(fPts.value).replace(',','.'));if(isNaN(v))return;points=Math.max(0,Math.min(15,v));
+    function onPts(){var v=parseFloat(String(fPts.value).replace(',','.'));if(isNaN(v))return;points=Math.max(0,v);
       clearTimeout(tmr);tmr=setTimeout(function(){recompute();apply();},140);}
     fPts.addEventListener('input',onPts);
     fPts.addEventListener('blur',function(){fPts.value=ptsText();});
     fPts.addEventListener('keydown',function(e){if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;e.preventDefault();
-      points=Math.max(0,Math.min(15,Math.round((points+(e.key==='ArrowUp'?0.25:-0.25))*4)/4));fPts.value=ptsText();recompute();apply();});
+      points=Math.max(0,Math.round((points+(e.key==='ArrowUp'?0.25:-0.25))*4)/4);fPts.value=ptsText();recompute();apply();});
     [fPts,fDons,fLife].forEach(function(el){el.addEventListener('focus',function(){var e=this;setTimeout(function(){e.select();},0);});});
     var bPer=document.getElementById('dlPer');
     bPer.addEventListener('click',function(){MON=!MON;bPer.setAttribute('aria-pressed',MON?'true':'false');
