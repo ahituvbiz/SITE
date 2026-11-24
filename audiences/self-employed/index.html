@@ -1240,15 +1240,13 @@ textarea:focus-visible,
           <button type="button" role="radio" data-m="2" aria-checked="false" style="min-height:48px;border:0;background:transparent;font:inherit;font-size:14px;line-height:1.3;text-align:center;padding:8px 4px;cursor:pointer;color:var(--text-2);">השתלמות לפטור<br>ממס רווח הון</button>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;margin:0 0 4px;">
-        <span id="dlPtsLbl" style="font-size:15px;color:var(--text-1);">נקודות זיכוי</span>
-        <div dir="ltr" role="group" aria-labelledby="dlPtsLbl" style="display:flex;align-items:center;gap:6px;">
-          <button type="button" id="dlMinus" aria-label="הפחת רבע נקודת זיכוי" style="width:44px;height:40px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:22px;line-height:1;cursor:pointer;color:var(--text-1);padding:0;">&minus;</button>
-          <span id="dlPts" aria-live="polite" style="min-width:52px;text-align:center;font-size:18px;font-weight:600;color:var(--text-1);">2.25</span>
-          <button type="button" id="dlPlus" aria-label="הוסף רבע נקודת זיכוי" style="width:44px;height:40px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:22px;line-height:1;cursor:pointer;color:var(--text-1);padding:0;">+</button>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0 4px;">
+        <div>
+          <label for="dlPts" id="dlPtsLbl" style="display:block;font-size:14px;color:var(--text-1);margin:0 0 4px;">נקודות זיכוי</label>
+          <div style="position:relative;">
+            <input type="text" id="dlPts" inputmode="decimal" autocomplete="off" maxlength="5" value="2.25" dir="ltr" style="width:100%;height:42px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:17px;color:var(--text-1);padding:0 12px 0 12px;text-align:right;box-sizing:border-box;">
+          </div>
         </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0 8px;">
         <div>
           <label for="dlDons" id="dlDonsLbl" style="display:block;font-size:14px;color:var(--text-1);margin:0 0 4px;">תרומות בשנה (סעיף 46)</label>
           <div style="position:relative;">
@@ -1264,7 +1262,6 @@ textarea:focus-visible,
           </div>
         </div>
       </div>
-      <div id="dlNote" style="font-size:13px;color:var(--text-2);margin:0 0 4px;"></div>
       <div class="per-toggle-row" style="justify-content:flex-start;margin:12px 0 14px"><button type="button" class="per-toggle" id="dlPer" aria-pressed="false"><span class="pt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg></span><span class="pt-tx">הצג במונחים חודשיים</span></button></div>
       <div style="display:flex;align-items:center;gap:6px;margin:0 0 8px;font-size:13px;color:var(--text-2);">
         <span style="flex:none;width:18px;height:0;border-top:3px solid #185fa5;"></span><span id="dlLegend">חיסכון במס הכנסה ובביטוח לאומי, בשנה</span>
@@ -1336,7 +1333,6 @@ textarea:focus-visible,
 
     var grid='#e1e0d9',tick='#6b6b66',gn='#6bcba8',og='#f3a485',blue='#185fa5',vd='#9f94e6',vx='#d9d4f7',clear='rgba(0,0,0,0)';
     var rail=document.getElementById('dlRail'),knob=document.getElementById('dlKnob');
-    var bMinus=document.getElementById('dlMinus'),bPlus=document.getElementById('dlPlus');
     var nf=new Intl.NumberFormat('he-IL');
     function kfmt(v){return (v/1000)+'K';}
     var mode=0,points=2.25,dons=0,life=0,MON=false,G=[null,null];   /* dons, life תמיד שנתיים; MON = תצוגה חודשית */
@@ -1400,7 +1396,7 @@ textarea:focus-visible,
           x:{type:'linear',min:66.86,max:800,grid:{display:false},border:{color:grid},afterBuildTicks:function(ax){var o=ax.min,t=[o],st=MON?120:100;for(var v=st;v<=800;v+=st){if(v>o+45)t.push(v);}ax.ticks=t.map(function(v){return {value:v};});},ticks:{color:tick,font:{size:12},callback:function(v){if(!MON)return Math.round(v);var m=v/12;return Math.abs(m-Math.round(m))<0.01?Math.round(m):m.toFixed(1);}},title:{display:true,text:'רווח שנתי (אלפי ₪), מתחיל ברווח שממנו משלמים מס הכנסה',color:tick,font:{size:13}}},
           y:{position:'left',stacked:true,min:0,max:50000,grid:{color:grid},border:{display:false},ticks:{color:tick,font:{size:12},stepSize:10000,callback:function(v){return MON?(v/12000)+'K':kfmt(v);}},title:{display:true,text:'הפקדה שנתית ב-₪',color:tick,font:{size:13}}}
         }}});
-    var btns=document.querySelectorAll('#dlSeg button'),ptsEl=document.getElementById('dlPts'),noteEl=document.getElementById('dlNote'),legEl=document.getElementById('dlLegend');
+    var btns=document.querySelectorAll('#dlSeg button'),legEl=document.getElementById('dlLegend');
     function apply(){
       knob.style.right='calc('+mode+' * 100% / 3 + (100% / 3 - 60px) / 2)';
       for(var b=0;b<btns.length;b++){var sel=Number(btns[b].getAttribute('data-m'))===mode;btns[b].setAttribute('aria-checked',sel?'true':'false');btns[b].style.color=sel?'var(--text-1)':'var(--text-2)';btns[b].style.fontWeight=sel?'600':'400';}
@@ -1420,28 +1416,27 @@ textarea:focus-visible,
       chart.options.scales.y.ticks.stepSize=MON?12000:10000;
       chart.options.scales.y.title.text=MON?'הפקדה חודשית ב-₪':'הפקדה שנתית ב-₪';
       chart.update();
-      ptsEl.textContent=points.toFixed(2);
-      var parts=[points.toFixed(2)+' נקודות זיכוי'];if(dons>207)parts.push('התרומות');if(life>0)parts.push('ביטוח החיים');
-      var who=parts.length===1?parts[0]:parts.slice(0,-1).join(', ')+' ו'+parts[parts.length-1];
-      noteEl.textContent=g.oReal>0?('עם '+who+' אין מס הכנסה עד רווח של '+amt(g.oReal)+(MON?' ₪ בחודש':' ₪ בשנה')+'. הגרף מתחיל שם.'):'בלי נקודות זיכוי משלמים מס הכנסה מהשקל הראשון.';
-      if(dons>0&&dons<=207)noteEl.textContent+=' תרומה של עד 207 ₪ בשנה אינה מזכה.';
       legEl.textContent='חיסכון במס הכנסה ובביטוח לאומי, '+(MON?'בחודש':'בשנה');
-      bMinus.disabled=points<=0;bPlus.disabled=points>=15;bMinus.style.opacity=points<=0?'0.35':'1';bPlus.style.opacity=points>=15?'0.35':'1';
     }
     function setMode(v){mode=Math.max(0,Math.min(2,v));apply();}
-    function setPts(v){points=Math.max(0,Math.min(15,Math.round(v*4)/4));recompute();apply();}
     for(var b=0;b<btns.length;b++){btns[b].addEventListener('click',function(){setMode(Number(this.getAttribute('data-m')));});}
-    bMinus.addEventListener('click',function(){setPts(points-0.25);});
-    bPlus.addEventListener('click',function(){setPts(points+0.25);});
     /* שדות סכום: הערך השנתי נשמר במדויק, והשדה מציג אותו שנתי או חלקי 12 */
-    var fDons=document.getElementById('dlDons'),fLife=document.getElementById('dlLife'),tmr=null;
+    var fPts=document.getElementById('dlPts'),fDons=document.getElementById('dlDons'),fLife=document.getElementById('dlLife'),tmr=null;
     function showFields(){fDons.value=nf.format(Math.round(MON?dons/12:dons));fLife.value=nf.format(Math.round(MON?life/12:life));
       document.getElementById('dlDonsLbl').textContent=MON?'תרומות בחודש (סעיף 46)':'תרומות בשנה (סעיף 46)';
       document.getElementById('dlLifeLbl').textContent=MON?'ביטוח חיים בחודש':'ביטוח חיים בשנה';}
     function readField(el,cap){var v=parseInt(String(el.value).replace(/[^0-9]/g,''),10)||0;v=Math.min(v,MON?Math.floor(cap/12):cap);el.value=nf.format(v);return MON?v*12:v;}
     function onAmount(){dons=readField(fDons,9999999);life=readField(fLife,999999);clearTimeout(tmr);tmr=setTimeout(function(){recompute();apply();},140);}
     fDons.addEventListener('input',onAmount);fLife.addEventListener('input',onAmount);
-    [fDons,fLife].forEach(function(el){el.addEventListener('focus',function(){var e=this;setTimeout(function(){e.select();},0);});});
+    /* נקודות זיכוי: שדה להקלדה, 0 עד 15. חצי הקלדה (ריק, "2.") לא משנה את הגרף; ביציאה מהשדה הערך מנורמל */
+    function ptsText(){return String(parseFloat(points.toFixed(2)));}
+    function onPts(){var v=parseFloat(String(fPts.value).replace(',','.'));if(isNaN(v))return;points=Math.max(0,Math.min(15,v));
+      clearTimeout(tmr);tmr=setTimeout(function(){recompute();apply();},140);}
+    fPts.addEventListener('input',onPts);
+    fPts.addEventListener('blur',function(){fPts.value=ptsText();});
+    fPts.addEventListener('keydown',function(e){if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;e.preventDefault();
+      points=Math.max(0,Math.min(15,Math.round((points+(e.key==='ArrowUp'?0.25:-0.25))*4)/4));fPts.value=ptsText();recompute();apply();});
+    [fPts,fDons,fLife].forEach(function(el){el.addEventListener('focus',function(){var e=this;setTimeout(function(){e.select();},0);});});
     var bPer=document.getElementById('dlPer');
     bPer.addEventListener('click',function(){MON=!MON;bPer.setAttribute('aria-pressed',MON?'true':'false');
       bPer.querySelector('.pt-tx').textContent=MON?'הצג במונחים שנתיים':'הצג במונחים חודשיים';showFields();apply();});
