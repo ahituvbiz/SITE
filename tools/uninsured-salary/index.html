@@ -124,6 +124,10 @@ a:hover{text-decoration:underline}
 .form-group{margin-bottom:18px}
 .form-group label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14.5px;font-weight:600;margin-bottom:7px;color:var(--text-2)}
 .form-group .hint{display:block;font-size:12.5px;font-weight:400;color:var(--text-meta);margin:-3px 0 7px}
+.yishuv-ctl{display:flex;gap:8px}
+.yishuv-ctl input,.yishuv-ctl select{height:42px;padding:0 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:16px;background:#fff;color:var(--text-1);min-width:0}
+.yishuv-ctl input{flex:1 1 40%}
+.yishuv-ctl select{flex:1.4 1 60%;font-weight:600}
 .val-display{font-weight:700;color:var(--primary);white-space:nowrap}
 .form-group input[type=range]{width:100%;accent-color:var(--primary)}
 .form-group input[type=number]{width:100%;height:42px;padding:0 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:16px;background:#fff;color:var(--text-1)}
@@ -508,6 +512,15 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
           <input type="range" id="us-points" min="2.25" max="25" step="0.25" value="2.25" aria-describedby="us-points-out">
         </div>
 
+        <div class="form-group" id="us-yishuv-wrap">
+          <label for="us-yishuv">מגורים ביישוב שמזכה בהטבת מס <span class="val-display" id="us-yishuv-out">ללא</span></label>
+          <span class="hint" id="us-yishuv-hint">תושבי יישובים מוטבים (סעיף 11 לפקודת מס הכנסה) מקבלים זיכוי ממס על הכנסה מיגיעה אישית. ההטבה מקטינה את המס שנותר לקזז, ולעיתים גם את שווי הניכוי</span>
+          <div class="yishuv-ctl">
+            <input type="search" id="us-yishuv-q" placeholder="חיפוש יישוב" aria-label="חיפוש יישוב מזכה" autocomplete="off">
+            <select id="us-yishuv"><option value="">ללא</option></select>
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="us-donation"><span id="us-donation-lbl">תרומות שנתיות למוסד מוכר</span> <span class="val-display" id="us-donation-out">0 ₪</span></label>
           <span class="hint">סכום התרומה עצמה, למוסד בעל אישור לפי סעיף 46. המחשבון יחשב את הזיכוי (35%, מעל 207 ₪ ועד 30% מההכנסה החייבת)</span>
@@ -593,7 +606,8 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
             החישוב לפי נתוני שנת המס 2026 ומבוסס על סעיפים 45א ו־47 לפקודת מס הכנסה. הוא מניח הכנסה
             קבועה לאורך כל השנה. כשיש הכנסה מעסק הוא מחשב גם את החיסכון בדמי ביטוח לאומי ומס בריאות (בשיעורי 2026, בהנחה
             שאתה רשום בביטוח לאומי כעובד עצמאי), בניכוי המס הנוסף שנובע מכך שגם ניכוי 52% מדמי הביטוח הלאומי קטן. תרומות לפי סעיף 46 וביטוח
-            חיים לפי סעיף 45א(א) נלקחים בחשבון רק אם הזנת אותם, והם מקטינים את המס שנותר לקזז; זיכויים אחרים
+            חיים לפי סעיף 45א(א) נלקחים בחשבון רק אם הזנת אותם, והם מקטינים את המס שנותר לקזז; כך גם הטבת המס לתושבי יישוב מוטב לפי סעיף 11, אם בחרת יישוב
+            (בהנחה של תושבות לאורך כל שנת המס ושכל ההכנסה היא מיגיעה אישית); זיכויים אחרים
             (שכר דירה, סיום תואר וכדומה) אינם מחושבים כאן. שיעורי הניכוי המוגדלים לבני 50 ומעלה חלים, לפי התקנות, רק במסלול הרגיל של סעיף 47(ב) -
             המחשבון בודק את שני המסלולים ומציג את המשתלם. מספרי השדות בדוח השנתי מצוינים לפי הדוח לשנת 2025 ומשתנים משנה לשנה. אינו מהווה ייעוץ מס,
             ייעוץ פנסיוני או תחליף לבדיקה פרטנית. <a href="#sources">המקורות שהחישוב נשען עליהם ←</a>
@@ -769,7 +783,7 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
     <ol class="sources">
       <li>
         <a href="https://www.gov.il/he/pages/income-tax-monthly-deductions-booklet" target="_blank" rel="noopener"><strong>רשות המסים - לוח עזר לחישוב מס הכנסה ממשכורת ושכר עבודה, 2026</strong></a>
-        <span>פרק הסכומים המתואמים: תקרת הכנסה מזכה 47(א)(1), תקרת הכנסה נוספת 47(א)(5) - 24,250 ₪, סף עמית מוטב 47(א)(7) - 26,436 ₪, מדרגות המס ונקודת הזיכוי. כל התקרות במחשבון מגיעות מכאן.</span>
+        <span>פרק הסכומים המתואמים: תקרת הכנסה מזכה 47(א)(1), תקרת הכנסה נוספת 47(א)(5) - 24,250 ₪, סף עמית מוטב 47(א)(7) - 26,436 ₪, מדרגות המס ונקודת הזיכוי. כל התקרות במחשבון מגיעות מכאן. פרק ח מפרט את רשימת היישובים המוטבים לשנת 2026 (סעיף 11), עם שיעור הזיכוי ותקרת ההכנסה בכל יישוב; יישובי אזור קו העימות המזרחי נוספו בהנחיית רשות המסים למעסיקים מיום 9.7.2026 (7% עד 146,640 ₪, בתחולה מ־1.1.2026).</span>
       </li>
       <li>
         <a href="https://www.gov.il/he/pages/income-tax-guide-knowyourright" target="_blank" rel="noopener"><strong>רשות המסים - דע זכויותיך וחובותיך, המדריך למילוי הדוח השנתי</strong></a>
@@ -836,6 +850,7 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
   </div>
 </section>
 
+<script src="/tools/yishuvim-data.js?v=2026a"></script>
 <script>
 /* ============================================================
    מחשבון שכר לא מבוטח — סעיפים 45א ו-47 לפקודת מס הכנסה
@@ -904,7 +919,7 @@ function usBLvalue(b, ded, taxLeft){
   var cut = Math.min(ded, b.biz);
   var c0 = usBLcontrib(b, b.biz), c1 = usBLcontrib(b, b.biz - cut);
   var dNI = c0.ni - c1.ni;
-  var offset = Math.min(US.BL.NI_DED * dNI * usMarginal(Math.max(0, b.totalTaxable - ded)), Math.max(0, taxLeft || 0));
+  var offset = Math.min(US.BL.NI_DED * dNI * usMarginalEff(b, Math.max(0, b.totalTaxable - ded)), Math.max(0, taxLeft || 0));
   return Math.max(0, (c0.total - c1.total) - offset);
 }
 
@@ -921,6 +936,17 @@ function usMarginal(taxable){
   for (var i=0;i<US.LIMITS.length;i++) if (taxable <= US.LIMITS[i]) return US.RATES[i];
   return US.RATES[US.RATES.length-1];
 }
+/* הטבת מס ביישוב מוטב - סעיף 11 לפקודה: זיכוי בשיעור yRate מההכנסה החייבת מיגיעה אישית,
+   עד תקרת הכנסה yCap. ההכנסה החייבת היא ההכנסה שאחרי הניכויים, ולכן ניכוי לפי סעיף 47
+   מקטין גם את הזיכוי הזה כל עוד ההכנסה החייבת נמוכה מהתקרה. */
+function usYishuv(b, taxable){
+  return b.yRate > 0 ? b.yRate * Math.min(Math.max(0, taxable), b.yCap) : 0;
+}
+/* שווי שקל של ניכוי במס הכנסה: המס השולי, פחות שיעור הטבת היישוב כשההכנסה החייבת מתחת לתקרתה */
+function usMarginalEff(b, taxable){
+  var m = usMarginal(taxable);
+  return (b.yRate > 0 && taxable <= b.yCap) ? Math.max(0, m - b.yRate) : m;
+}
 /* זיכוי תרומות לפי סעיף 46: 35% מהתרומה, רק מעל סכום מינימלי, ועד 30% מההכנסה החייבת */
 function usDonCredit(b){
   if (b.donation < US.DON_MIN) return 0;
@@ -933,9 +959,9 @@ function usLifeElig(b, s, pensionInIns){
   if (!b.lifePrem) return 0;
   return Math.max(0, Math.min(b.lifePrem, s.lifeCap, s.credRoomIns - (pensionInIns || 0)));
 }
-/* המס שנותר לקזז ממנו את הטבת ההפקדה: אחרי נקודות הזיכוי, זיכוי התרומות וזיכוי ביטוח החיים.
+/* המס שנותר לקזז ממנו את הטבת ההפקדה: אחרי נקודות הזיכוי, הטבת היישוב, זיכוי התרומות וזיכוי ביטוח החיים.
    כל אלה אינם מוחזרים במזומן, ולכן הם מקטינים את התקרה של ההטבה. */
-function usTaxNet(b, taxable, otherCred){ return Math.max(0, usTax(taxable, b.points) - (otherCred || 0)); }
+function usTaxNet(b, taxable, otherCred){ return Math.max(0, usTax(taxable, b.points) - usYishuv(b, taxable) - (otherCred || 0)); }
 function usFmt(n){ return Math.round(n).toLocaleString('en-US') + ' ₪'; }
 function usPct(n){ return (n*100).toFixed(1).replace(/\.0$/,'') + '%'; }
 
@@ -1129,7 +1155,12 @@ function usEngine(p){
   b.uninsuredTotal  = b.uninsuredSalary + b.biz;
   b.empOwn   = b.insured * p.rEmp;
   b.empDep   = b.insured * (p.rEmp + p.rEmployer);
+  b.yRate   = (p.yRate > 0 && p.yCap > 0) ? p.yRate : 0;
+  b.yCap    = b.yRate > 0 ? p.yCap : 0;
+  b.yName   = p.yName || '';
   b.marginal = usMarginal(b.totalTaxable);
+  b.marginalEff = usMarginalEff(b, b.totalTaxable);      /* שווי שקל ראשון של ניכוי במס הכנסה */
+  b.yCredit  = usYishuv(b, b.totalTaxable);              /* הטבת היישוב לפני ההפקדה */
   b.motavByPayroll = b.empDep >= US.MOTAV;
 
   var main, upgrade = null;
@@ -1165,10 +1196,14 @@ function usEngine(p){
   var ids = ['us-salary','us-insured','us-emp','us-employer','us-biz','us-points','us-donation','us-life','us-paid'];
   function v(id){ var e=document.getElementById(id); return e?parseFloat(e.value):0; }
   function on(id){ var e=document.getElementById(id); return !!(e && e.checked); }
+  var US_YISHUV_HINT = document.getElementById('us-yishuv-hint').textContent;
   var DED_FIELD  = 'שדה הניכוי לעמית עצמאי - סעיף 53 בדוח 2025';  var CRED_FIELD = 'שדה הזיכוי לעמית עצמאי - סעיף 76 בדוח 2025';
   /* תצוגה במונחים חודשיים: בתוך render כל סכום שנתי מוצג חלקי 12. RAW מציג סכום כמות שהוא
      (לסכומים שכבר חודשיים ולסף התרומה המזערי שבחוק). */
-  var RAW = usFmt, MON = false;  function render(){
+  var RAW = usFmt, MON = false;
+  /* יישוב מזכה בהטבת מס - הרשימה והבורר נטענים מ-/tools/yishuvim-data.js */
+  var yPick = null;
+  function render(){
     var usFmt = function(n){ return RAW(MON ? n/12 : n); };
     var PER = MON ? 'בחודש' : 'בשנה';
     var salaryM  = v('us-salary');
@@ -1184,6 +1219,8 @@ function usEngine(p){
     var lifePrem = v('us-life');
     var age50    = on('us-age50');
     var noAkw    = on('us-no-akw');
+    var yish     = yPick ? yPick.get() : null;
+    document.getElementById('us-yishuv-out').textContent = yish ? yPick.describe(yish) : 'ללא';
 
     document.getElementById('us-salary-out').textContent   = RAW(salaryM);
     document.getElementById('us-insured-out').textContent  = RAW(insuredM);
@@ -1199,7 +1236,8 @@ function usEngine(p){
 
     var R = usEngine({ salary:salaryM*12, insured:insuredM*12, biz:bizM*12,
                        rEmp:v('us-emp')/100, rEmployer:v('us-employer')/100, points:points,
-                       age50:age50, noAkw:noAkw, donation:donation, lifePrem:lifePrem });
+                       age50:age50, noAkw:noAkw, donation:donation, lifePrem:lifePrem,
+                       yRate: yish ? yish.rate : 0, yCap: yish ? yish.cap : 0, yName: yish ? yish.name : '' });
     var b = R.b, s = R.s, up = R.upgrade;
     var rW = usPct(s.rates.work), rB = usPct(s.rates.base), rT = usPct(s.rates.base + s.rates.extra);
 
@@ -1208,7 +1246,8 @@ function usEngine(p){
     var noTax = (s.taxBefore <= 0 && s.benefit <= 0.5);
     /* שיעור החיסכון השולי בביטוח לאומי על שקל ניכוי (נטו, אחרי קיזוז המס) — לצורך ההשוואה בין ניכוי לזיכוי */
     var blRate = b.biz > 0 ? usBLvalue(b, Math.min(1000, b.biz), 1e9) / Math.min(1000, b.biz) : 0;
-    var effDed = b.marginal + blRate;
+    var effDed = b.marginalEff + blRate;
+    var yCut   = b.marginal - b.marginalEff;   /* כמה מהמס השולי "נבלע" בקיטון הטבת היישוב */
     recEl.textContent = noTax ? 'אין הטבה' : RAW(s.deposit/12) + ' לחודש';
     recEl.className = 'res-big' + ((noTax || s.deposit <= 0) ? ' zero' : '');
     document.getElementById('us-rec-sub').textContent =
@@ -1233,11 +1272,14 @@ function usEngine(p){
         '</div>' +
         '<p class="split-note">' +
         (blRate > 0.005
-          ? 'שקל שמנוכה שווה לך ' + usPct(effDed) + ': ' + usPct(b.marginal) + ' מס שולי ועוד כ־' + usPct(blRate) + ' חיסכון בביטוח לאומי ובריאות - ' +
+          ? 'שקל שמנוכה שווה לך ' + usPct(effDed) + ': ' + usPct(b.marginal) + ' מס שולי' + (yCut > 0 ? ', פחות ' + usPct(yCut) + ' קיטון בהטבת היישוב,' : '') + ' ועוד כ־' + usPct(blRate) + ' חיסכון בביטוח לאומי ובריאות - ' +
             (effDed > 0.35 ? 'יותר מ־35%, ולכן משתלם למצות קודם את הניכוי.' : 'פחות מ־35%, ולכן משתלם למצות קודם את הזיכוי.')
+          : (yCut > 0
+          ? 'המס השולי שלך ' + usPct(b.marginal) + ', אבל כל שקל שמנוכה מקטין גם את הטבת היישוב ב־' + usPct(yCut) + ', כך ששקל שמנוכה שווה לך ' + usPct(b.marginalEff) + ' - ' +
+            (b.marginalEff > 0.35 ? 'יותר מ־35%, ולכן משתלם למצות קודם את הניכוי.' : 'פחות מ־35%, ולכן משתלם למצות קודם את הזיכוי.')
           : (b.marginal < 0.35
           ? 'המס השולי שלך ' + usPct(b.marginal) + ' - נמוך מ־35%, ולכן משתלם למצות קודם את הזיכוי.'
-          : 'המס השולי שלך ' + usPct(b.marginal) + ' - ' + (b.marginal > 0.35 ? 'גבוה מ־35%, ולכן משתלם למצות קודם את הניכוי.' : 'שווה ל־35%, כך שאין הפרש בין המסלולים.'))) +
+          : 'המס השולי שלך ' + usPct(b.marginal) + ' - ' + (b.marginal > 0.35 ? 'גבוה מ־35%, ולכן משתלם למצות קודם את הניכוי.' : 'שווה ל־35%, כך שאין הפרש בין המסלולים.')))) +
         (sp.track === 'A' && b.empDep + already*12 >= US.MOTAV ? ' הניכוי כאן חושב לפי המסלול הרגיל של סעיף 47(ב) ולא לפי מסלול עמית מוטב - מבקשים זאת בדוח בסימון "חישוב כעמית יחיד" (שדות 233/234).' : '') +
         ' החלוקה היא שלך - מסמנים אותה בדוח השנתי; מספרי הסעיפים משתנים משנה לשנה.</p></div>';
     }
@@ -1264,14 +1306,23 @@ function usEngine(p){
     } else if (s.taxBefore <= 0){
 f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</strong> - ' +
              (s.donCredit + 0.25*s.lifeElig > 0
-                ? 'נקודות הזיכוי, זיכוי התרומות (' + usFmt(s.donCredit) + ') וזיכוי ביטוח החיים (' + usFmt(0.25*s.lifeElig) + ') מאפסים יחד את חבות המס'
-                : 'נקודות הזיכוי מאפסות את חבות המס') +
+                ? 'נקודות הזיכוי, ' + (b.yRate > 0 ? 'הטבת היישוב, ' : '') + 'זיכוי התרומות (' + usFmt(s.donCredit) + ') וזיכוי ביטוח החיים (' + usFmt(0.25*s.lifeElig) + ') מאפסים יחד את חבות המס'
+                : (b.yRate > 0 ? 'נקודות הזיכוי והטבת היישוב מאפסות יחד את חבות המס' : 'נקודות הזיכוי מאפסות את חבות המס')) +
              ', ולכן הפקדה עצמאית לא תחזיר לך כלום. היא עדיין תגדיל את החיסכון הפנסיוני - אבל בלי הטבת מס, ' +
              'ובתמורה לנעילת הכסף עד גיל פרישה.</div>');
     } else if (s.taxCapped){
       f.push('<div class="flag flag-warn"><strong>חבות המס שלך היא הגבול, לא התקרות:</strong> לפי התקרות אפשר היה להפקיד ' +
              usFmt(s.depFull) + ' ' + PER + ', אבל מעבר ל־' + usFmt(s.deposit) + ' לא יוחזר יותר מס - אי אפשר לקבל בחזרה יותר ממה ששילמת ' +
              '(' + usFmt(s.taxBefore) + ' ' + PER + '). ההמלצה כאן היא הסכום הקטן ביותר שממצה את ההחזר.</div>');
+    }
+    if (b.yRate > 0){
+      f.push('<div class="flag flag-ok"><strong>הטבת מס ליישוב מוטב - ' + b.yName + ':</strong> זיכוי של ' + usPct(b.yRate) +
+             ' מההכנסה החייבת מיגיעה אישית, עד תקרת הכנסה של ' + usFmt(b.yCap) + ' ' + PER + ' - ' + usFmt(b.yCredit) + ' ' + PER +
+             ' לפני ההפקדה. ההטבה כבר מקטינה את המס שנותר לקזז. ' +
+             (yCut > 0
+               ? 'היא מחושבת על ההכנסה שאחרי הניכויים, ולכן כל שקל שמנוכה מקטין גם אותה: שקל של ניכוי שווה לך ' + usPct(b.marginalEff) + ' במס הכנסה ולא ' + usPct(b.marginal) + '. הזיכוי של 35% על ההפקדה לא נפגע.'
+               : 'ההכנסה החייבת שלך גבוהה מהתקרה, ולכן הניכוי אינו מקטין את ההטבה' + (b.totalTaxable - s.ded < b.yCap ? ' - מלבד החלק שמוריד את ההכנסה אל מתחת לתקרה' : '') + '.') +
+             '</div>');
     }
     if (b.insured >= US.ADDL){
       f.push('<div class="flag flag-warn"><strong>השכר המבוטח חצה ' + RAW(US.ADDL/12) + ' לחודש</strong> - תקרת ההכנסה ' +
@@ -1353,7 +1404,10 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
       row('ניכוי - משכורת לא מבוטחת', usFmt(s.base1), rW, usFmt(dW));
       if (s.addl > 0) row('ניכוי - הכנסה מעסק', usFmt(s.addl), 'עד ' + rT, usFmt(dN));
     }
-    row('סה״כ ניכוי - שווה את המס השולי', usFmt(s.ded), usPct(b.marginal), usFmt(s.dedValue), 'total');
+    if (b.yRate > 0 && s.ded > 0.5 && Math.abs(s.dedValue/s.ded - b.marginal) > 0.0005)
+      row('סה״כ ניכוי - המס השולי, בקיזוז הקיטון בהטבת היישוב', usFmt(s.ded), usPct(s.dedValue/s.ded), usFmt(s.dedValue), 'total');
+    else
+      row('סה״כ ניכוי - שווה את המס השולי', usFmt(s.ded), usPct(b.marginal), usFmt(s.dedValue), 'total');
     var credIns = Math.min(s.credRoomIns, s.credUsed);
     var credUn  = Math.max(0, s.credUsed - credIns);
     if (s.credRoomIns > 0.5) row('זיכוי - יתרה על השכר המבוטח', usFmt(s.credBaseIns), 'עד 7%', usFmt(credIns));
@@ -1362,6 +1416,7 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     if (s.lifeLost > 0.5) row('בניכוי זיכוי ביטוח חיים שההפקדה דוחקת מהתקרה', usFmt(s.lifeLost), '25%', '−' + usFmt(0.25*s.lifeLost));
     var credTot = s.credUsed + s.credExtraUsed;
     row('סה״כ זיכוי על ההפקדה', usFmt(credTot), credTot > 0.5 ? usPct(s.credValue/credTot) : '35%', usFmt(s.credValue), 'total');
+    if (b.yCredit > 0.5) row('הטבת מס ביישוב מוטב - סעיף 11 (לא חלק מההפקדה)', usFmt(Math.min(b.totalTaxable, b.yCap)), usPct(b.yRate), usFmt(b.yCredit));
     if (s.donCredit > 0.5) row('זיכוי תרומות - סעיף 46 (לא חלק מההפקדה)', usFmt(Math.min(b.donation, US.DON_SHARE*b.totalTaxable)), '35%', usFmt(s.donCredit));
     if (s.lifeElig > 0.5)  row('זיכוי ביטוח חיים - 45א(א) (לא חלק מההפקדה)', usFmt(s.lifeElig), '25%', usFmt(0.25*s.lifeElig));
     if (s.blValue > 0.5) row('חיסכון בביטוח לאומי ובריאות - הניכוי מקטין את ההכנסה מהעסק (נטו, אחרי קיזוז המס)', usFmt(s.blCut), usPct(s.blValue/s.blCut), usFmt(s.blValue));
@@ -1397,7 +1452,9 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
          (s.credRoomExtra > 0.5 ? ', ועוד ' + usFmt(s.credRoomExtra) + ' זיכוי נוסף לפי 45א(ו) על ההכנסה מהעסק' : '') +
          '. הזיכוי הוא 35% מהסכומים האלה.</p>';
     x += '<p><strong>6. שווי ההטבה:</strong> המס השולי שלך ' + usPct(b.marginal) + '. ' +
+         (yCut > 0 ? 'כל שקל שמנוכה מקטין גם את הטבת היישוב ב־' + usPct(yCut) + ', ולכן שקל של ניכוי שווה ' + usPct(b.marginalEff) + ' במס הכנסה. ' : '') +
          'המס שנותר לקזז אחרי נקודות הזיכוי' +
+         (b.yCredit > 0.5 ? ', אחרי הטבת היישוב (' + usFmt(b.yCredit) + ')' : '') +
          (s.donCredit > 0.5 ? ', אחרי זיכוי התרומות (' + usFmt(s.donCredit) + ')' : '') +
          (s.lifeElig > 0.5 ? ', ואחרי זיכוי ביטוח החיים (' + usFmt(0.25*s.lifeElig) + ')' : '') +
          ' הוא ' + usFmt(s.taxBefore) + '. ניכוי של ' + usFmt(s.ded) +
@@ -1420,6 +1477,14 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     render();
   });
 ['us-already','us-age50','us-no-akw'].forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('change', render); });
+  if (window.pensyaYishuvPicker)
+    yPick = window.pensyaYishuvPicker(document.getElementById('us-yishuv'), document.getElementById('us-yishuv-q'), function(y){
+      document.getElementById('us-yishuv-hint').textContent = y
+        ? y.name + ': זיכוי של ' + y.pct + '% מההכנסה החייבת מיגיעה אישית, עד תקרת הכנסה של ' + y.cap.toLocaleString('en-US') + ' ₪ בשנה. החישוב מניח תושבות ביישוב לאורך כל שנת המס' + (y.note ? '. ' + y.note : '')
+        : US_YISHUV_HINT;
+      render();
+    });
+  else document.getElementById('us-yishuv-wrap').style.display = 'none';
   render();
 })();
 </script>
