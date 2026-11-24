@@ -912,26 +912,33 @@ function usBLcontrib(b, y){
   return r;
 }
 /* החיסכון נטו בביטוח לאומי ובריאות מניכוי ded לפי סעיף 47: הניכוי מקטין את ההכנסה מהעסק (עד גובהה),
-   ומנגד ניכוי 52% מדמי הביטוח הלאומי במס הכנסה קטן — מקזזים את המס הנוסף לפי המס השולי.
-   taxLeft — המס שנותר אחרי הניכוי; אי אפשר לשלם מס נוסף מעבר אליו. */
-function usBLvalue(b, ded, taxLeft){
+   ומנגד ניכוי 52% מדמי הביטוח הלאומי במס הכנסה קטן, כלומר ההכנסה החייבת גדלה בחזרה בסכום back.
+   המס הנוסף מחושב במדויק: המס על ההכנסה החייבת עם back פחות המס בלעדיו, כל אחד אחרי הזיכויים.
+   credits — כל הזיכויים שאינם מוחזרים במזומן וחלים אחרי הניכוי (תרומות, ביטוח חיים, 35% על ההפקדה).
+   רק זיכוי שלא נוצל (מס שהתאפס) סופג את המס הנוסף; מס חיובי קטן אינו מגביל אותו. */
+function usBLvalue(b, ded, credits){
   if (!(b.biz > 0) || !(ded > 0)) return 0;
   var cut = Math.min(ded, b.biz);
   var c0 = usBLcontrib(b, b.biz), c1 = usBLcontrib(b, b.biz - cut);
-  var dNI = c0.ni - c1.ni;
-  var offset = Math.min(US.BL.NI_DED * dNI * usMarginalEff(b, Math.max(0, b.totalTaxable - ded)), Math.max(0, taxLeft || 0));
+  var back = US.BL.NI_DED * (c0.ni - c1.ni);
+  var t1 = Math.max(0, b.totalTaxable - ded), cr = credits || 0;
+  var offset = Math.max(0, usTaxRaw(b, t1 + back) - cr) - Math.max(0, usTaxRaw(b, t1) - cr);
   return Math.max(0, (c0.total - c1.total) - offset);
 }
 
-function usTax(taxable, points){
+/* המס לפי המדרגות, לפני נקודות זיכוי */
+function usGross(taxable){
   var t = Math.max(0, taxable), tax = 0, prev = 0, i;
   for (i=0;i<US.LIMITS.length;i++){
     if (t > US.LIMITS[i]) { tax += (US.LIMITS[i]-prev)*US.RATES[i]; prev = US.LIMITS[i]; }
     else { tax += (t-prev)*US.RATES[i]; prev = t; break; }
   }
   if (t > US.LIMITS[US.LIMITS.length-1]) tax += (t-prev)*US.RATES[US.RATES.length-1];
-  return Math.max(0, tax - points*US.POINT);
+  return tax;
 }
+function usTax(taxable, points){ return Math.max(0, usGross(taxable) - points*US.POINT); }
+/* המס אחרי נקודות הזיכוי והטבת היישוב, בלי לעגל לאפס: ערך שלילי הוא זיכוי שלא נוצל */
+function usTaxRaw(b, taxable){ return usGross(taxable) - b.points*US.POINT - usYishuv(b, taxable); }
 function usMarginal(taxable){
   for (var i=0;i<US.LIMITS.length;i++) if (taxable <= US.LIMITS[i]) return US.RATES[i];
   return US.RATES[US.RATES.length-1];
@@ -1055,7 +1062,7 @@ function usBestFor(b, s, deposit){
     var lost  = US.LIFE_RATE * (life0 - life1);
     var taxA  = usTaxNet(b, b.totalTaxable - ded, don + US.LIFE_RATE*life1);
     var credV = Math.min(0.35*(pIns + pUn + credX), taxA) - lost;
-    var blV   = usBLvalue(b, ded, Math.max(0, taxA - Math.max(0, credV)));
+    var blV   = usBLvalue(b, ded, don + US.LIFE_RATE*life1 + 0.35*(pIns + pUn + credX));
     var tot   = dedV + credV + blV;
     if (!best || tot > best.total + 0.5)
       best = { ded:ded, dedV:dedV, cred:pIns+pUn, credX:credX, credV:credV, blV:blV, total:tot,
@@ -1132,7 +1139,7 @@ function usSplit(b, deposit){
       var life1 = usLifeElig(b, s, pIns);
       var taxA  = usTaxNet(b, b.totalTaxable - ded, don + US.LIFE_RATE*life1);
       var credV = Math.min(0.35*(pIns + pUn + credX), taxA) - US.LIFE_RATE*(life0 - life1);
-      var blV   = usBLvalue(b, ded, Math.max(0, taxA - Math.max(0, credV)));
+      var blV   = usBLvalue(b, ded, don + US.LIFE_RATE*life1 + 0.35*(pIns + pUn + credX));
       var tot   = dedV + credV + blV;
       if (!best || tot > best.total + 0.5) best = { ded:ded, dedV:dedV, cred:pIns+pUn+credX, credV:credV, blV:blV, total:tot, track:s.track };
     }
@@ -1245,7 +1252,7 @@ function usEngine(p){
     var recEl = document.getElementById('us-rec');
     var noTax = (s.taxBefore <= 0 && s.benefit <= 0.5);
     /* שיעור החיסכון השולי בביטוח לאומי על שקל ניכוי (נטו, אחרי קיזוז המס) — לצורך ההשוואה בין ניכוי לזיכוי */
-    var blRate = b.biz > 0 ? usBLvalue(b, Math.min(1000, b.biz), 1e9) / Math.min(1000, b.biz) : 0;
+    var blRate = b.biz > 0 ? usBLvalue(b, Math.min(1000, b.biz), -1e12) / Math.min(1000, b.biz) : 0;   /* -1e12: בלי מגבלת זיכויים, השיעור השולי בלבד */
     var effDed = b.marginalEff + blRate;
     var yCut   = b.marginal - b.marginalEff;   /* כמה מהמס השולי "נבלע" בקיטון הטבת היישוב */
     recEl.textContent = noTax ? 'אין הטבה' : RAW(s.deposit/12) + ' לחודש';
