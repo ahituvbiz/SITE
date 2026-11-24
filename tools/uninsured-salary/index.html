@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"WebApplication","name":"מחשבון שכר לא מבוטח","description":"מחשבון להפקדה עצמאית לקופת גמל לקצבה בשל הכנסה שאינה מבוטחת - מחשב את הניכוי לפי סעיף 47 ואת הזיכוי לפי סעיף 45א לשנת המס 2026.","url":"https://pensya.info/tools/uninsured-salary/","applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"he-IL","datePublished":"2026-08-31","dateModified":"2026-11-23","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר","url":"https://pensya.info/about/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},
+{"@type":"WebApplication","name":"מחשבון שכר לא מבוטח","description":"מחשבון להפקדה עצמאית לקופת גמל לקצבה בשל הכנסה שאינה מבוטחת - מחשב את הניכוי לפי סעיף 47 ואת הזיכוי לפי סעיף 45א לשנת המס 2026.","url":"https://pensya.info/tools/uninsured-salary/","applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"he-IL","datePublished":"2026-08-31","dateModified":"2026-11-24","author":{"@type":"Person","name":"איתן אחיטוב","jobTitle":"יועץ פנסיוני בעל רישיון משרד האוצר","url":"https://pensya.info/about/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"}},
 {"@type":"BreadcrumbList","itemListElement":[
 {"@type":"ListItem","position":1,"name":"בית","item":"https://pensya.info/"},
 {"@type":"ListItem","position":2,"name":"מחשבונים","item":"https://pensya.info/tools/"},
@@ -390,7 +390,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="page-hero" id="main-content">
   <div class="container">
     <h1>יש לך <span class="accent">שכר לא מבוטח?</span> אתה יכול לחסוך במס</h1>
-    <p class="page-updated">עודכן: 23 בנובמבר 2026</p>
+    <p class="page-updated">עודכן: 24 בנובמבר 2026</p>
     <p class="lead">
       רוב השכירים בישראל בטוחים שהטבות המס על הפנסיה מסתדרות מעצמן בתלוש. ברוב המקרים זה נכון -
       אבל רק על החלק מהשכר שהמעסיק מפקיד עליו. כל שקל שנשאר מחוץ להפקדה, ויש כאלה כמעט בכל תלוש,
@@ -437,8 +437,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <p>
       מלאו את הנתונים מהתלוש. שכר מבוטח הוא השכר שמופיע בתלוש כבסיס להפקדה לפנסיה - לא הברוטו,
       אלא הסכום שההפרשות מחושבות ממנו.
-    </p>
-
+    </p><style>
+/* כפתור תצוגה חודשית/שנתית */
+.per-toggle-row{display:flex;justify-content:center;margin:14px 0 18px}
+button.per-toggle{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 10px;border-radius:999px;border:1.5px solid var(--primary,#007DA8);background:#fff;color:var(--primary,#007DA8);font-family:inherit;font-size:15px;font-weight:600;line-height:1.2;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:background .18s,color .18s,box-shadow .18s,transform .08s;-webkit-tap-highlight-color:transparent}
+button.per-toggle:hover{background:var(--primary-soft,#E1F3FB);box-shadow:0 3px 8px rgba(0,125,168,.2)}
+button.per-toggle:active{transform:translateY(1px)}
+button.per-toggle:focus-visible{border-radius:999px}
+button.per-toggle .pt-ic{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--primary,#007DA8);color:#fff;transition:transform .35s,background .18s,color .18s}
+button.per-toggle .pt-ic svg{width:16px;height:16px;display:block}
+button.per-toggle[aria-pressed="true"]{background:var(--primary,#007DA8);color:#fff;box-shadow:inset 0 2px 5px rgba(0,0,0,.22)}
+button.per-toggle[aria-pressed="true"]:hover{background:#006A8F}
+button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primary,#007DA8);transform:rotate(180deg)}
+</style>
     <div class="calc-layout">
       <!-- INPUTS -->
       <div class="calc-card">
@@ -498,13 +509,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </div>
 
         <div class="form-group">
-          <label for="us-donation">תרומות שנתיות למוסד מוכר <span class="val-display" id="us-donation-out">0 ₪</span></label>
+          <label for="us-donation"><span id="us-donation-lbl">תרומות שנתיות למוסד מוכר</span> <span class="val-display" id="us-donation-out">0 ₪</span></label>
           <span class="hint">סכום התרומה עצמה, למוסד בעל אישור לפי סעיף 46. המחשבון יחשב את הזיכוי (35%, מעל 207 ₪ ועד 30% מההכנסה החייבת)</span>
           <input type="range" id="us-donation" min="0" max="60000" step="250" value="0" aria-describedby="us-donation-out">
         </div>
 
         <div class="form-group">
-          <label for="us-life">פרמיה שנתית לביטוח חיים <span class="val-display" id="us-life-out">0 ₪</span></label>
+          <label for="us-life"><span id="us-life-lbl">פרמיה שנתית לביטוח חיים</span> <span class="val-display" id="us-life-out">0 ₪</span></label>
           <span class="hint">רק מרכיב הסיכון (ריסק), בלי חיסכון. המחשבון יחשב את הזיכוי (25%) ואת התחרות שלו על אותה תקרה כמו ההפקדה לפנסיה</span>
           <input type="range" id="us-life" min="0" max="20000" step="100" value="0" aria-describedby="us-life-out">
         </div>
@@ -528,9 +539,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
       <!-- RESULTS -->
       <div>
-        <div class="calc-card">
-          <h3>מה יוצא לך מזה</h3>
-          <div id="us-flags"></div>
+        <div class="calc-card">          <h3>מה יוצא לך מזה</h3>
+          <div class="per-toggle-row" style="margin:4px 0 16px"><button type="button" class="per-toggle" id="us-per" aria-pressed="false"><span class="pt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg></span><span class="pt-tx">הצג במונחים חודשיים</span></button></div>
+<div id="us-flags"></div>
 
           <div class="res-hero">
             <div class="res-title">כדאי להפקיד באופן עצמאי</div>
@@ -567,7 +578,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
             <table class="calc-tbl">
               <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">פירוט החישוב השנתי</caption>
               <thead>
-                <tr><th scope="col">רכיב</th><th scope="col">בסיס / סכום שנתי</th><th scope="col">שיעור</th><th scope="col">הטבה</th></tr>
+                <tr><th scope="col">רכיב</th><th scope="col" id="us-th-base">בסיס / סכום שנתי</th><th scope="col">שיעור</th><th scope="col">הטבה</th></tr>
               </thead>
               <tbody id="us-tbody"></tbody>
             </table>
@@ -1154,10 +1165,12 @@ function usEngine(p){
   var ids = ['us-salary','us-insured','us-emp','us-employer','us-biz','us-points','us-donation','us-life','us-paid'];
   function v(id){ var e=document.getElementById(id); return e?parseFloat(e.value):0; }
   function on(id){ var e=document.getElementById(id); return !!(e && e.checked); }
-  var DED_FIELD  = 'שדה הניכוי לעמית עצמאי - סעיף 53 בדוח 2025';
-  var CRED_FIELD = 'שדה הזיכוי לעמית עצמאי - סעיף 76 בדוח 2025';
-
-  function render(){
+  var DED_FIELD  = 'שדה הניכוי לעמית עצמאי - סעיף 53 בדוח 2025';  var CRED_FIELD = 'שדה הזיכוי לעמית עצמאי - סעיף 76 בדוח 2025';
+  /* תצוגה במונחים חודשיים: בתוך render כל סכום שנתי מוצג חלקי 12. RAW מציג סכום כמות שהוא
+     (לסכומים שכבר חודשיים ולסף התרומה המזערי שבחוק). */
+  var RAW = usFmt, MON = false;  function render(){
+    var usFmt = function(n){ return RAW(MON ? n/12 : n); };
+    var PER = MON ? 'בחודש' : 'בשנה';
     var salaryM  = v('us-salary');
     /* השכר המבוטח לא יכול לעלות על הברוטו — המחוון מוגבל אליו ומתכווץ יחד איתו */
     var insEl = document.getElementById('us-insured');
@@ -1172,15 +1185,15 @@ function usEngine(p){
     var age50    = on('us-age50');
     var noAkw    = on('us-no-akw');
 
-    document.getElementById('us-salary-out').textContent   = usFmt(salaryM);
-    document.getElementById('us-insured-out').textContent  = usFmt(insuredM);
+    document.getElementById('us-salary-out').textContent   = RAW(salaryM);
+    document.getElementById('us-insured-out').textContent  = RAW(insuredM);
     document.getElementById('us-emp-out').textContent      = v('us-emp').toFixed(1)+'%';
     document.getElementById('us-employer-out').textContent = v('us-employer').toFixed(2)+'%';
-    document.getElementById('us-biz-out').textContent      = usFmt(bizM);
+    document.getElementById('us-biz-out').textContent      = RAW(bizM);
     document.getElementById('us-points-out').textContent   = points.toFixed(2);
     document.getElementById('us-donation-out').textContent = usFmt(donation);
     document.getElementById('us-life-out').textContent     = usFmt(lifePrem);
-    document.getElementById('us-paid-out').textContent     = usFmt(already);
+    document.getElementById('us-paid-out').textContent     = RAW(already);
     document.getElementById('us-already-wrap').style.display = on('us-already') ? '' : 'none';
     document.getElementById('us-no-akw-wrap').style.display  = bizM > 0 ? '' : 'none';
 
@@ -1196,11 +1209,12 @@ function usEngine(p){
     /* שיעור החיסכון השולי בביטוח לאומי על שקל ניכוי (נטו, אחרי קיזוז המס) — לצורך ההשוואה בין ניכוי לזיכוי */
     var blRate = b.biz > 0 ? usBLvalue(b, Math.min(1000, b.biz), 1e9) / Math.min(1000, b.biz) : 0;
     var effDed = b.marginal + blRate;
-    recEl.textContent = noTax ? 'אין הטבה' : usFmt(s.deposit/12) + ' לחודש';
+    recEl.textContent = noTax ? 'אין הטבה' : RAW(s.deposit/12) + ' לחודש';
     recEl.className = 'res-big' + ((noTax || s.deposit <= 0) ? ' zero' : '');
     document.getElementById('us-rec-sub').textContent =
       noTax ? 'אינך משלם מס הכנסה - אין מה להחזיר'
       : (s.deposit <= 0) ? 'לפי הנתונים האלה אין הטבה לא מנוצלת'
+      : MON ? 'הסכום החודשי שממצה את מלוא ההטבה'
       : usFmt(s.deposit) + ' בשנה - הסכום שממצה את מלוא ההטבה';
 
     /* ---------- חלוקה מיטבית לסכום שהמשתמש בחר ---------- */
@@ -1208,7 +1222,7 @@ function usEngine(p){
     if (already > 0){
       var sp = usSplit(b, already*12);
       splitHtml =
-        '<div class="split-box"><div class="split-title">איך לחלק הפקדה של ' + usFmt(already*12) + ' בשנה</div>' +
+        '<div class="split-box"><div class="split-title">איך לחלק הפקדה של ' + usFmt(already*12) + ' ' + PER + '</div>' +
         '<div class="split-rows">' +
           '<div class="split-row"><span>לדרוש כ<strong>ניכוי</strong> (' + DED_FIELD + ')</span><b>' + usFmt(sp.ded) + '</b></div>' +
           '<div class="split-row"><span>לדרוש כ<strong>זיכוי</strong> (' + CRED_FIELD + ')</span><b>' + usFmt(sp.cred) + '</b></div>' +
@@ -1236,7 +1250,7 @@ function usEngine(p){
     document.getElementById('us-bl').textContent      = usFmt(s.blValue);
     document.getElementById('us-bl-wrap').style.display = b.biz > 0 ? '' : 'none';
     document.getElementById('us-benefit-label').textContent = b.biz > 0
-      ? 'סך ההחזר בגין ההפקדה - מס הכנסה וביטוח לאומי (שנתי)' : 'סך החזר המס בגין ההפקדה (שנתי)';
+      ? 'סך ההחזר בגין ההפקדה - מס הכנסה וביטוח לאומי (' + (MON ? 'חודשי' : 'שנתי') + ')' : 'סך החזר המס בגין ההפקדה (' + (MON ? 'חודשי' : 'שנתי') + ')';
 
     /* ---------- התראות ---------- */
     var f = [];
@@ -1246,7 +1260,7 @@ function usEngine(p){
     }
     if (s.taxBefore <= 0 && s.blValue > 0.5){
       f.push('<div class="flag flag-warn"><strong>לא נשאר לך מס הכנסה לקזז</strong> - ההטבה היחידה כאן היא החיסכון בביטוח לאומי ובריאות (' +
-             usFmt(s.blValue) + ' בשנה), כי הניכוי מקטין את ההכנסה מהעסק לצורך דמי הביטוח. הכסף נעול עד גיל פרישה - שווה לשקול אם זה מצדיק.</div>');
+             usFmt(s.blValue) + ' ' + PER + '), כי הניכוי מקטין את ההכנסה מהעסק לצורך דמי הביטוח. הכסף נעול עד גיל פרישה - שווה לשקול אם זה מצדיק.</div>');
     } else if (s.taxBefore <= 0){
 f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</strong> - ' +
              (s.donCredit + 0.25*s.lifeElig > 0
@@ -1256,17 +1270,17 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
              'ובתמורה לנעילת הכסף עד גיל פרישה.</div>');
     } else if (s.taxCapped){
       f.push('<div class="flag flag-warn"><strong>חבות המס שלך היא הגבול, לא התקרות:</strong> לפי התקרות אפשר היה להפקיד ' +
-             usFmt(s.depFull) + ' בשנה, אבל מעבר ל־' + usFmt(s.deposit) + ' לא יוחזר יותר מס - אי אפשר לקבל בחזרה יותר ממה ששילמת ' +
-             '(' + usFmt(s.taxBefore) + ' בשנה). ההמלצה כאן היא הסכום הקטן ביותר שממצה את ההחזר.</div>');
+             usFmt(s.depFull) + ' ' + PER + ', אבל מעבר ל־' + usFmt(s.deposit) + ' לא יוחזר יותר מס - אי אפשר לקבל בחזרה יותר ממה ששילמת ' +
+             '(' + usFmt(s.taxBefore) + ' ' + PER + '). ההמלצה כאן היא הסכום הקטן ביותר שממצה את ההחזר.</div>');
     }
     if (b.insured >= US.ADDL){
-      f.push('<div class="flag flag-warn"><strong>השכר המבוטח חצה ' + usFmt(US.ADDL/12) + ' לחודש</strong> - תקרת ההכנסה ' +
+      f.push('<div class="flag flag-warn"><strong>השכר המבוטח חצה ' + RAW(US.ADDL/12) + ' לחודש</strong> - תקרת ההכנסה ' +
              'הנוספת לפי סעיף 47(א)(5). הניכוי לעמית מוטב נשלל לחלוטין. הזיכוי לפי סעיף 45א נשאר בתוקף, ' +
              'וזו כל ההטבה שנותרה לך.</div>');
     } else if (s.track === 'B' && s.addl > 0 && s.addl < Math.min(b.uninsuredTotal, US.MZ_WORK) - 1){
       f.push('<div class="flag flag-warn"><strong>השכר המבוטח הגבוה מקצץ לך את הניכוי:</strong> ' +
-             'ההכנסה הנוספת המוכרת היא ' + usFmt(s.addl) + ' בשנה במקום ' +
-             usFmt(Math.min(b.uninsuredTotal, US.MZ_WORK)) + ' - כי היא נגזרת מתקרה של ' + usFmt(US.ADDL/12) + ' לחודש בניכוי השכר המבוטח.</div>');
+             'ההכנסה הנוספת המוכרת היא ' + usFmt(s.addl) + ' ' + PER + ' במקום ' +
+             usFmt(Math.min(b.uninsuredTotal, US.MZ_WORK)) + ' - כי היא נגזרת מתקרה של ' + RAW(US.ADDL/12) + ' לחודש בניכוי השכר המבוטח.</div>');
     }
     if (!b.motavByPayroll){
       if (s.motav){
@@ -1291,7 +1305,7 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     }
     if (b.donation > 0 && b.donation < US.DON_MIN){
       f.push('<div class="flag flag-warn"><strong>התרומה קטנה מהסכום המינימלי לזיכוי</strong> - סעיף 46 מזכה רק מ־' +
-             usFmt(US.DON_MIN) + ' בשנה ומעלה, ולכן לא חושב עליה זיכוי.</div>');
+             RAW(US.DON_MIN) + ' בשנה ומעלה, ולכן לא חושב עליה זיכוי.</div>');
     }
     if (b.donation >= US.DON_MIN && b.donation > US.DON_SHARE*b.totalTaxable){
       f.push('<div class="flag flag-warn"><strong>התרומה חורגת מתקרת 30% מההכנסה החייבת:</strong> הזיכוי חושב על ' +
@@ -1307,7 +1321,7 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     }
     if (s.credRoomIns > 50){
       f.push('<div class="flag flag-ok"><strong>יש לך יתרת זיכוי גם על השכר המבוטח:</strong> ' +
-             usFmt(s.credRoomIns) + ' בשנה. חלק העובד בתלוש נמוך מ־7% מההכנסה המבוטחת (עד התקרה), וההפרש עדיין זכאי לזיכוי של 35%.</div>');
+             usFmt(s.credRoomIns) + ' ' + PER + '. חלק העובד בתלוש נמוך מ־7% מההכנסה המבוטחת (עד התקרה), וההפרש עדיין זכאי לזיכוי של 35%.</div>');
     }
     if (s.benefit > 0 && s.deposit > 0 && s.benefit/s.deposit < US.UPGRADE_MIN_RETURN){
       f.push('<div class="flag flag-warn"><strong>ההחזר כאן קטן ביחס להפקדה - ' + usPct(s.benefit/s.deposit) +
@@ -1318,7 +1332,7 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
     }
     if (up){
       f.push('<div class="flag flag-ok"><strong>שווה לשקול השלמה למעמד "עמית מוטב":</strong> בהפקדה של ' +
-             usFmt(up.deposit) + ' בשנה (במקום ' + usFmt(s.deposit) + ', כולל ' + usFmt(up.gap) + ' להשלמת הסף) ההחזר גדל ל־' + usFmt(up.benefit) +
+             usFmt(up.deposit) + ' ' + PER + ' (במקום ' + usFmt(s.deposit) + ', כולל ' + usFmt(up.gap) + ' להשלמת הסף) ההחזר גדל ל־' + usFmt(up.benefit) +
              ' - תוספת של ' + usFmt(up.benefit - s.benefit) + ' על תוספת הפקדה של ' + usFmt(up.deposit - s.deposit) +
              '. הכסף נעול עד גיל פרישה, אז זו החלטה ולא אוטומט.</div>');
     }
@@ -1356,9 +1370,9 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
 
     /* ---------- הסבר צעד אחר צעד ---------- */
     var x = '<p><strong>1. ההכנסה הלא מבוטחת:</strong> ' + usFmt(b.uninsuredSalary) + ' מהשכר' +
-            (b.biz > 0 ? ' ועוד ' + usFmt(b.biz) + ' מהעסק' : '') + ' - ' + usFmt(b.uninsuredTotal) + ' בשנה.</p>';
+            (b.biz > 0 ? ' ועוד ' + usFmt(b.biz) + ' מהעסק' : '') + ' - ' + usFmt(b.uninsuredTotal) + ' ' + PER + '.</p>';
     x += '<p><strong>2. מעמד:</strong> הופקדו בעדך בתלוש ' + usFmt(b.empDep) + '; סף "עמית מוטב" הוא ' +
-         usFmt(US.MOTAV) + ' (16% מהשכר השנתי הממוצע במשק). ' +
+         usFmt(US.MOTAV) + (MON ? ' (16% מהשכר הממוצע במשק). ' : ' (16% מהשכר השנתי הממוצע במשק). ') +
          (b.motavByPayroll ? 'אתה עומד בו מהתלוש.'
            : s.motav ? 'אינך עומד בו מהתלוש, אבל ההפקדה המומלצת (כולל ' + usFmt(s.gap || Math.max(0, US.MOTAV - b.empDep)) + ' להשלמת הסף) מעבירה אותך אליו.'
            : 'אינך עומד בו - הניכוי לפי המסלול הרגיל של סעיף 47(ב).') +
@@ -1394,10 +1408,18 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
          ' על הפקדה של ' + usFmt(s.deposit) + ' - ' + usPct(s.deposit > 0 ? s.benefit/s.deposit : 0) +
          ' מההפקדה חוזרים אליך, והשאר נשאר שלך בקופה.</p>';
     document.getElementById('us-steps').innerHTML = x;
-  }
-
-  ids.forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('input', render); });
-  ['us-already','us-age50','us-no-akw'].forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('change', render); });
+  }  ids.forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('input', render); });
+  var perBtn = document.getElementById('us-per');
+  if (perBtn) perBtn.addEventListener('click', function(){
+    MON = !MON;
+    perBtn.setAttribute('aria-pressed', MON ? 'true' : 'false');
+    perBtn.querySelector('.pt-tx').textContent = MON ? 'הצג במונחים שנתיים' : 'הצג במונחים חודשיים';
+    document.getElementById('us-donation-lbl').textContent = MON ? 'תרומות למוסד מוכר, ממוצע חודשי' : 'תרומות שנתיות למוסד מוכר';
+    document.getElementById('us-life-lbl').textContent = MON ? 'פרמיה חודשית לביטוח חיים' : 'פרמיה שנתית לביטוח חיים';
+    document.getElementById('us-th-base').textContent = MON ? 'בסיס / סכום חודשי' : 'בסיס / סכום שנתי';
+    render();
+  });
+['us-already','us-age50','us-no-akw'].forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('change', render); });
   render();
 })();
 </script>

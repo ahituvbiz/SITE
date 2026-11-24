@@ -23,7 +23,7 @@
     {
       "@type": "WebApplication",
       "datePublished": "2026-05-26",
-      "dateModified": "2026-11-23",
+      "dateModified": "2026-11-24",
       "name": "מחשבון חיסכון במס לעצמאים",
       "description": "מחשבון אינטראקטיבי לחישוב הטבות מס מהפקדות לפנסיה, קרן השתלמות וקופת גמל - לעצמאים.",
       "applicationCategory": "FinanceApplication",
@@ -983,7 +983,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span><a href="/about/license/">יועץ פנסיוני בעל רישיון</a> משרד האוצר</span>
       <span class="dot">·</span>
-      <span>עודכן: 23 בנובמבר 2026</span>
+      <span>עודכן: 24 בנובמבר 2026</span>
       <span class="pill">מחשבון חינמי</span>
     </div>
     <h1>
@@ -1111,13 +1111,27 @@ textarea:focus-visible,
 </style>
 
 <div class="calc-widget-wrap">
-  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הנתונים חינוכיים בלבד. אינם מהווים ייעוץ מס. כל הסכומים בשקלים שנתיים.</p>
-  <div class="calculator-card">
+  <p class="calc-disclaimer" style="background:#FFF3CD;border-right:4px solid #F0AD4E;padding:.6rem 1rem;border-radius:6px;font-size:.9rem;margin-bottom:1.5rem;">הנתונים חינוכיים בלבד. אינם מהווים ייעוץ מס. <span id="per-note">כל הסכומים בשקלים שנתיים.</span></p>
+  <style>
+/* כפתור תצוגה חודשית/שנתית */
+.per-toggle-row{display:flex;justify-content:center;margin:14px 0 18px}
+button.per-toggle{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 10px;border-radius:999px;border:1.5px solid var(--primary,#007DA8);background:#fff;color:var(--primary,#007DA8);font-family:inherit;font-size:15px;font-weight:600;line-height:1.2;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:background .18s,color .18s,box-shadow .18s,transform .08s;-webkit-tap-highlight-color:transparent}
+button.per-toggle:hover{background:var(--primary-soft,#E1F3FB);box-shadow:0 3px 8px rgba(0,125,168,.2)}
+button.per-toggle:active{transform:translateY(1px)}
+button.per-toggle:focus-visible{border-radius:999px}
+button.per-toggle .pt-ic{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--primary,#007DA8);color:#fff;transition:transform .35s,background .18s,color .18s}
+button.per-toggle .pt-ic svg{width:16px;height:16px;display:block}
+button.per-toggle[aria-pressed="true"]{background:var(--primary,#007DA8);color:#fff;box-shadow:inset 0 2px 5px rgba(0,0,0,.22)}
+button.per-toggle[aria-pressed="true"]:hover{background:#006A8F}
+button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primary,#007DA8);transform:rotate(180deg)}
+</style>
+<div class="calculator-card">
     <h2>מחשבון חיסכון במס בהפקדות 2026</h2>
 
-    <div class="input-grid">
+    <div class="per-toggle-row"><button type="button" class="per-toggle" id="per-toggle" aria-pressed="false"><span class="pt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg></span><span class="pt-tx">הצג במונחים חודשיים</span></button></div>
+<div class="input-grid">
         <div class="input-item">
-            <label>הרווח השנתי:</label>
+            <label id="lbl-profit">הרווח השנתי:</label>
             <input type="text" id="profit" value="240,000" maxlength="9">
         </div>
         <div class="input-item">
@@ -1125,11 +1139,11 @@ textarea:focus-visible,
             <input type="text" id="creditPoints" value="2.25" maxlength="4">
         </div>
         <div class="input-item">
-            <label>סכום התרומות:</label>
+            <label id="lbl-donations">סכום התרומות:</label>
             <input type="text" id="donations" value="0" maxlength="9">
         </div>
         <div class="input-item">
-            <label>תשלומי ביטוח חיים:</label>
+            <label id="lbl-lifeInsurance">תשלומי ביטוח חיים:</label>
             <input type="text" id="lifeInsurance" value="0" maxlength="9">
         </div>
     </div>
@@ -1157,7 +1171,15 @@ textarea:focus-visible,
 </div>
 
 <script>
-    const ids = ['profit', 'creditPoints', 'donations', 'lifeInsurance'];
+    const ids = ['profit', 'creditPoints', 'donations', 'lifeInsurance'];    /* תצוגה במונחים חודשיים: כל סכום שנתי מוצג חלקי 12. הערכים השנתיים של שדות הסכום נשמרים
+       במדויק ב-annual, כדי שמעבר בין התצוגות לא יעגל אותם ולא ישנה את החישוב. */
+    let monthly = false;
+    const amountIds = ['profit', 'donations', 'lifeInsurance'];
+    const annual = {};
+    function raw(id) {
+        return parseFloat(document.getElementById(id).value.replace(/,/g, '')) || 0;
+    }
+    amountIds.forEach(id => { annual[id] = raw(id); });
 
     ids.forEach(id => {
         const el = document.getElementById(id);
@@ -1167,16 +1189,39 @@ textarea:focus-visible,
                 if (!isNaN(val) && val !== '') {
                     e.target.value = Number(val).toLocaleString();
                 }
+                annual[id] = raw(id) * (monthly ? 12 : 1);
             }
             calculate();
         });
     });
 
     function parse(id) {
-        return parseFloat(document.getElementById(id).value.replace(/,/g, '')) || 0;
+        return id === 'creditPoints' ? raw(id) : annual[id];
+    }
+    /* סכום לתצוגה: שנתי, או חלקי 12 בתצוגה חודשית */
+    function per(x) {
+        return Math.round(monthly ? x / 12 : x).toLocaleString();
     }
 
-    // ── קבועים לשנת המס 2026 ──
+    const PER_LABELS = {
+        profit: ['הרווח השנתי:', 'הרווח החודשי:'],
+        donations: ['סכום התרומות:', 'סכום התרומות בחודש:'],
+        lifeInsurance: ['תשלומי ביטוח חיים:', 'תשלומי ביטוח חיים בחודש:']
+    };
+    document.getElementById('per-toggle').addEventListener('click', function () {
+        monthly = !monthly;
+        this.setAttribute('aria-pressed', monthly ? 'true' : 'false');
+        this.querySelector('.pt-tx').textContent = monthly ? 'הצג במונחים שנתיים' : 'הצג במונחים חודשיים';
+        amountIds.forEach(id => {
+            document.getElementById(id).value = Math.round(monthly ? annual[id] / 12 : annual[id]).toLocaleString();
+            document.getElementById('lbl-' + id).textContent = PER_LABELS[id][monthly ? 1 : 0];
+        });
+        document.getElementById('per-note').textContent = monthly
+            ? 'כל הסכומים בשקלים חודשיים: הסכום השנתי חלקי 12.'
+            : 'כל הסכומים בשקלים שנתיים.';
+        calculate();
+    });
+// ── קבועים לשנת המס 2026 ──
     const P1 = 116400;          // הסכום בפסקה (1) להגדרת "הכנסה מזכה", סעיף 47(א)(1)
     const CAP_MOTAV = 232800;   // פעמיים P1 — תקרת ההכנסה לזיכוי לעמית מוטב, 45א(ה)
     const CAP_NON = 164400;     // הכנסה מזכה ליחיד שאין לו הכנסת עבודה (שאינו עמית מוטב), 47(א)(1)(2)
@@ -1310,11 +1355,10 @@ textarea:focus-visible,
         const deposits = res3_pension + res4_study;
         const userNetCost = Math.max(0, deposits - savings);
         
-        document.getElementById('results-text').innerHTML = `
-            <p>אם לא תפקיד לפנסיה ולהשתלמות תשלם לביטוח לאומי <span class="highlight">${Math.round(res1.total).toLocaleString()} ₪</span> ולמס הכנסה <span class="highlight">${Math.round(res2_it).toLocaleString()} ₪</span>.</p>
-            <p>בכדי ליצור חיסכון מקסימלי במיסים כדאי לך להפקיד השנה לפנסיה <span class="highlight">${Math.round(res3_pension).toLocaleString()} ₪</span> ולהשתלמות <span class="highlight">${Math.round(res4_study).toLocaleString()} ₪</span>.</p>
-            <p>הפקדה של סכומים אלו תחסוך לך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span> בתשלומי מס כך שבעצם אתה הפקדת רק <span class="highlight">${Math.round(userNetCost).toLocaleString()} ₪</span> והמדינה סבסדה הפקדות בסך <span class="highlight">${Math.round(savings).toLocaleString()} ₪</span>.</p>
-        `;
+        document.getElementById('results-text').innerHTML = `            <p>אם לא תפקיד לפנסיה ולהשתלמות תשלם ${monthly ? 'בממוצע בכל חודש ' : ''}לביטוח לאומי <span class="highlight">${per(res1.total)} ₪</span> ולמס הכנסה <span class="highlight">${per(res2_it)} ₪</span>.</p>
+            <p>בכדי ליצור חיסכון מקסימלי במיסים כדאי לך להפקיד ${monthly ? 'בכל חודש' : 'השנה'} לפנסיה <span class="highlight">${per(res3_pension)} ₪</span> ולהשתלמות <span class="highlight">${per(res4_study)} ₪</span>.</p>
+            <p>הפקדה של סכומים אלו תחסוך לך <span class="highlight">${per(savings)} ₪</span> ${monthly ? 'בחודש ' : ''}בתשלומי מס כך שבעצם אתה הפקדת רק <span class="highlight">${per(userNetCost)} ₪</span> והמדינה סבסדה הפקדות בסך <span class="highlight">${per(savings)} ₪</span>.</p>
+`;
 
         if (profit > 0 && savings < 1) {
             document.getElementById('results-text').innerHTML = `
@@ -1330,8 +1374,8 @@ textarea:focus-visible,
         document.getElementById('user-bar').style.height = (userNetCost / maxVal * highBarPx) + 'px';
         document.getElementById('state-bar').style.height = (savings / maxVal * highBarPx) + 'px';
         
-        document.getElementById('user-val').innerText = Math.round(userNetCost).toLocaleString() + ' ₪';
-        document.getElementById('state-val').innerText = Math.round(savings).toLocaleString() + ' ₪';
+        document.getElementById('user-val').innerText = per(userNetCost) + ' ₪';
+        document.getElementById('state-val').innerText = per(savings) + ' ₪';
     }
 
     calculate();

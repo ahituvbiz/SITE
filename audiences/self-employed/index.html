@@ -32,7 +32,7 @@
       },
       "publisher": { "@type": "Organization", "name": "אחיטוב | תכנון פיננסי" },
       "datePublished": "2026-01-01",
-      "dateModified": "2026-11-23",
+      "dateModified": "2026-11-24",
       "inLanguage": "he-IL",
       "about": ["פנסיה לעצמאים", "קרן השתלמות לעצמאי", "תכנון פיננסי לעצמאים"]
     },
@@ -929,7 +929,7 @@ textarea:focus-visible,
       <span class="dot">·</span>
       <span>14 דק' קריאה</span>
       <span class="dot">·</span>
-      <span>עודכן: 23 בנובמבר 2026</span>
+      <span>עודכן: 24 בנובמבר 2026</span>
       <span class="pill">מדריך מלא</span>
     </div>
     <h1>
@@ -1197,6 +1197,8 @@ textarea:focus-visible,
     <p>
       הטבלה מציגה ארבע רמות הכנסה. הגרף מציג את כל הטווח: לכל רווח שנתי, מהי ההפקדה לפנסיה
       שממצה את הטבות המס, ממה היא מורכבת, וכמה מס הכנסה וביטוח לאומי היא חוסכת.
+      אפשר לשנות את מספר נקודות הזיכוי ולהזין תרומות ופרמיות ביטוח חיים: שלושתם מקטינים את מס ההכנסה,
+      ולכן משנים את הרווח שממנו ההפקדה משתלמת, ולעיתים גם את גובהה.
     </p>
     <ul>
       <li><strong>זיכוי</strong> - החלק בהפקדה שמזכה בזיכוי ממס בגובה 35% ממנו.</li>
@@ -1205,6 +1207,19 @@ textarea:focus-visible,
       <li><strong>הקו הכחול</strong> - סך החיסכון במס הכנסה ובביטוח לאומי.</li>
     </ul>
 
+    <style>
+    /* כפתור תצוגה חודשית/שנתית */
+    .per-toggle-row{display:flex;justify-content:center;margin:14px 0 18px}
+    button.per-toggle{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 10px;border-radius:999px;border:1.5px solid var(--primary,#007DA8);background:#fff;color:var(--primary,#007DA8);font-family:inherit;font-size:15px;font-weight:600;line-height:1.2;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:background .18s,color .18s,box-shadow .18s,transform .08s;-webkit-tap-highlight-color:transparent}
+    button.per-toggle:hover{background:var(--primary-soft,#E1F3FB);box-shadow:0 3px 8px rgba(0,125,168,.2)}
+    button.per-toggle:active{transform:translateY(1px)}
+    button.per-toggle:focus-visible{border-radius:999px}
+    button.per-toggle .pt-ic{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--primary,#007DA8);color:#fff;transition:transform .35s,background .18s,color .18s}
+    button.per-toggle .pt-ic svg{width:16px;height:16px;display:block}
+    button.per-toggle[aria-pressed="true"]{background:var(--primary,#007DA8);color:#fff;box-shadow:inset 0 2px 5px rgba(0,0,0,.22)}
+    button.per-toggle[aria-pressed="true"]:hover{background:#006A8F}
+    button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primary,#007DA8);transform:rotate(180deg)}
+    </style>
     <div class="dl-chart" id="dlChart" style="margin:24px 0 8px;">
       <div style="display:flex;align-items:center;gap:6px;margin:4px 0 10px;font-size:14px;color:var(--text-2);">
         <span aria-hidden="true">👈</span>
@@ -1233,12 +1248,29 @@ textarea:focus-visible,
           <button type="button" id="dlPlus" aria-label="הוסף רבע נקודת זיכוי" style="width:44px;height:40px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:22px;line-height:1;cursor:pointer;color:var(--text-1);padding:0;">+</button>
         </div>
       </div>
-      <div id="dlNote" style="font-size:13px;color:var(--text-2);margin:0 0 10px;"></div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0 8px;">
+        <div>
+          <label for="dlDons" id="dlDonsLbl" style="display:block;font-size:14px;color:var(--text-1);margin:0 0 4px;">תרומות בשנה (סעיף 46)</label>
+          <div style="position:relative;">
+            <input type="text" id="dlDons" inputmode="numeric" autocomplete="off" maxlength="9" value="0" dir="ltr" style="width:100%;height:42px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:17px;color:var(--text-1);padding:0 12px 0 30px;text-align:right;box-sizing:border-box;">
+            <span aria-hidden="true" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text-2);pointer-events:none;">₪</span>
+          </div>
+        </div>
+        <div>
+          <label for="dlLife" id="dlLifeLbl" style="display:block;font-size:14px;color:var(--text-1);margin:0 0 4px;">ביטוח חיים בשנה</label>
+          <div style="position:relative;">
+            <input type="text" id="dlLife" inputmode="numeric" autocomplete="off" maxlength="7" value="0" dir="ltr" style="width:100%;height:42px;border-radius:8px;border:1px solid rgba(0,0,0,0.28);background:#fff;font:inherit;font-size:17px;color:var(--text-1);padding:0 12px 0 30px;text-align:right;box-sizing:border-box;">
+            <span aria-hidden="true" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text-2);pointer-events:none;">₪</span>
+          </div>
+        </div>
+      </div>
+      <div id="dlNote" style="font-size:13px;color:var(--text-2);margin:0 0 4px;"></div>
+      <div class="per-toggle-row" style="justify-content:flex-start;margin:12px 0 14px"><button type="button" class="per-toggle" id="dlPer" aria-pressed="false"><span class="pt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg></span><span class="pt-tx">הצג במונחים חודשיים</span></button></div>
       <div style="display:flex;align-items:center;gap:6px;margin:0 0 8px;font-size:13px;color:var(--text-2);">
-        <span style="flex:none;width:18px;height:0;border-top:3px solid #185fa5;"></span>חיסכון במס הכנסה ובביטוח לאומי
+        <span style="flex:none;width:18px;height:0;border-top:3px solid #185fa5;"></span><span id="dlLegend">חיסכון במס הכנסה ובביטוח לאומי, בשנה</span>
       </div>
       <div style="position:relative;width:100%;height:400px;">
-        <canvas id="dlCanvas" role="img" aria-label="שכבות ההפקדה לפנסיה שממצה את הטבות המס לעצמאי, לפי רווח שנתי, מהרווח שממנו משלמים מס הכנסה ועד 800 אלף שקל. מלמטה למעלה: זיכוי, ניכוי בסיסי, ללא הטבה, ניכוי נוסף, ולפי המתג גם שכבות קרן השתלמות. קו כחול מראה את החיסכון במס הכנסה ובביטוח לאומי.">עם 2.25 נקודות זיכוי הגרף מתחיל ברווח של 66,860 שקל. ברווח של 232,800 שקל ומעלה ההפקדה לפנסיה שממצה את הטבות המס היא 45,060 שקל בשנה.</canvas>
+        <canvas id="dlCanvas" role="img" aria-label="שכבות ההפקדה לפנסיה שממצה את הטבות המס לעצמאי, לפי רווח שנתי, מהרווח שממנו משלמים מס הכנסה ועד 800 אלף שקל. מלמטה למעלה: זיכוי, ניכוי בסיסי, ללא הטבה, ניכוי נוסף, ולפי המתג גם שכבות קרן השתלמות. קו כחול מראה את החיסכון במס הכנסה ובביטוח לאומי.">עם 2.25 נקודות זיכוי, בלי תרומות ובלי ביטוח חיים, הגרף מתחיל ברווח של 66,860 שקל בשנה. ברווח של 232,800 שקל ומעלה ההפקדה לפנסיה שממצה את הטבות המס היא 45,060 שקל בשנה.</canvas>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -1255,11 +1287,14 @@ textarea:focus-visible,
       if(x>TH){x=(y-0.52*TH*(0.0447-0.1283))/(1+0.52*0.1283);if(x>CE)x=y-0.52*niOf(CE);}
       var b=Math.max(x,MINB),n=niOf(b);return{total:n+heOf(b),niOnly:n};}
     var LIM=[84120,120720,228000,301200,560280,721560],RT=[0.10,0.14,0.20,0.31,0.35,0.47,0.50];
-    function calcIT(inc,pts,pc){var tax=0,rem=Math.max(0,inc),prev=0;
+    function calcIT(inc,pts,dons,lc,I,pc){var tax=0,rem=Math.max(0,inc),prev=0;
       for(var i=0;i<RT.length;i++){var lim=i<LIM.length?LIM[i]:Infinity,w=lim-prev;
         if(rem>w){tax+=w*RT[i];rem-=w;prev=lim;}else{tax+=rem*RT[i];break;}}
-      return Math.max(0,tax-pts*CPV-pc);}
-    function alloc(I,D,df){var motav=D>=MM,room5=Math.max(CF,0.05*Math.min(I,motav?CAPM:CAPN)),room05=0.005*Math.min(I,CAPM),B=Math.min(I,CAPN);
+      tax-=pts*CPV;
+      if(dons>207)tax-=0.35*Math.min(dons,I*0.30,10354816);   /* תרומות, סעיף 46 */
+      return Math.max(0,tax-lc-pc);}
+    /* L = פרמיית ביטוח חיים: חולקת עם הפנסיה תקרת זיכוי אחת של 5%, והפנסיה (35%) קודמת לה (25%) */
+    function alloc(I,D,L,df){var motav=D>=MM,room5=Math.max(CF,0.05*Math.min(I,motav?CAPM:CAPN)),room05=0.005*Math.min(I,CAPM),B=Math.min(I,CAPN);
       var left=D,c5=0,c05=0,d1=0,ded=0,dA=0,dB=0;
       function tc(){c5=Math.min(left,room5);left-=c5;c05=Math.min(left,room05);left-=c05;}
       function td(){if(motav){d1=Math.min(left,0.11*Math.min(I,P1));left-=d1;}
@@ -1270,41 +1305,43 @@ textarea:focus-visible,
         var d2=Math.min(e2,Math.min(bal,0.07*hn)+Math.min(0.04*hn,Math.max(0,bal-0.12*hn)));
         ded=d1+d2;dA=d1;dB=d2;}
       else{dA=Math.min(ded,0.07*B);dB=ded-dA;}
-      return{cr:c5+c05,credit:0.35*(c5+c05),ded:ded,dA:dA,dB:dB,nb:Math.max(0,D-c5-c05-ded),motav:motav};}
-    function tot(I,D,H,pts,df){var a=alloc(I,D,df),n=calcNI(I-a.ded-H);
-      return n.total+calcIT(Math.max(0,I-0.52*n.niOnly-a.ded-H),pts,a.credit);}
-    function best(I,H,pts){var base=tot(I,0,0,pts,false);
-      function sv(D){return base-Math.min(tot(I,D,H,pts,false),tot(I,D,H,pts,true));}
+      return{cr:c5+c05,credit:0.35*(c5+c05),life:0.25*Math.min(L,Math.max(0,room5-c5)),ded:ded,dA:dA,dB:dB,nb:Math.max(0,D-c5-c05-ded),motav:motav};}
+    function tot(I,D,H,pts,dons,L,df){var a=alloc(I,D,L,df),n=calcNI(I-a.ded-H);
+      return n.total+calcIT(Math.max(0,I-0.52*n.niOnly-a.ded-H),pts,dons,a.life,I,a.credit);}
+    function best(I,H,pts,dons,L){var base=tot(I,0,0,pts,dons,L,false);
+      function sv(D){return base-Math.min(tot(I,D,H,pts,dons,L,false),tot(I,D,H,pts,dons,L,true));}
       var sA=sv(MM-1),sB=sv(60000),bst=Math.max(sA,sB),lo,hi;
       if(sA>=bst-0.01){lo=0;hi=MM-1;}else{lo=MM;hi=60000;}
       while(lo<hi){var m=(lo+hi)>>1;if(sv(m)>=bst-0.01)hi=m;else lo=m+1;}
-      var D=lo,t0=tot(I,D,H,pts,false),t1=tot(I,D,H,pts,true),a=alloc(I,D,t1<t0-0.005);
+      var D=lo,t0=tot(I,D,H,pts,dons,L,false),t1=tot(I,D,H,pts,dons,L,true),a=alloc(I,D,L,t1<t0-0.005);
       return{D:D,s:sv(D),cr:a.cr,dA:a.dA,nb:a.nb,dB:a.dB,motav:a.motav};}
-    function origin(pts){var lo=0,hi=600000;
-      function tx(I){var n=calcNI(I);return calcIT(Math.max(0,I-0.52*n.niOnly),pts,0);}
-      if(tx(1)>0)return 0;
-      while(hi-lo>1){var m=(lo+hi)/2;if(tx(m)>0)hi=m;else lo=m;}return Math.ceil(lo/10)*10;}
-    function build(pts,hm){var o=origin(pts),xs=[o],x;
+    function itOf(I,pts,dons,L){var n=calcNI(I),a=alloc(I,0,L,false);return calcIT(Math.max(0,I-0.52*n.niOnly),pts,dons,a.life,I,0);}
+    /* הרווח שעד אליו אין מס הכנסה גם בלי להפקיד */
+    function origin(pts,dons,L){var lo=0,hi=5000000;
+      if(itOf(1,pts,dons,L)>0)return 0;
+      while(hi-lo>1){var m=(lo+hi)/2;if(itOf(m,pts,dons,L)>0)hi=m;else lo=m;}return Math.ceil(lo/10)*10;}
+    function build(pts,hm,dons,L){var oReal=origin(pts,dons,L),o=Math.min(oReal,700000),xs=[o],x;
       for(x=Math.ceil((o+1)/2000)*2000;x<240000;x+=2000)xs.push(x);
       for(x=Math.max(240000,Math.ceil((o+1)/4000)*4000);x<=800000;x+=4000)xs.push(x);
       [116400,232800].forEach(function(v){if(v>o&&xs.indexOf(v)<0)xs.push(v);});
       xs.sort(function(a,b){return a-b;});
-      function at(I){var H=hm?Math.min(0.045*I,HCAP):0,r=best(I,H,pts);r.I=I;r.hd=Math.min(0.045*I,HCAP);return r;}
+      function at(I){var H=hm?Math.min(0.045*I,HCAP):0,r=best(I,H,pts,dons,L);r.I=I;r.hd=Math.min(0.045*I,HCAP);return r;}
       var rows=xs.map(at),out=[rows[0]];
       for(var i=1;i<rows.length;i++){var a=rows[i-1],b=rows[i];
         if(a.motav!==b.motav){var lo=a.I,hi=b.I;
           while(hi-lo>10){var m=Math.round((lo+hi)/2),r=at(m);if(r.motav===a.motav)lo=m;else hi=m;}
           if(lo>a.I)out.push(at(lo));if(hi<b.I)out.push(at(hi));}
         out.push(b);}
-      return{o:o,rows:out};}
+      return{o:o,oReal:oReal,rows:out};}
 
     var grid='#e1e0d9',tick='#6b6b66',gn='#6bcba8',og='#f3a485',blue='#185fa5',vd='#9f94e6',vx='#d9d4f7',clear='rgba(0,0,0,0)';
     var rail=document.getElementById('dlRail'),knob=document.getElementById('dlKnob');
     var bMinus=document.getElementById('dlMinus'),bPlus=document.getElementById('dlPlus');
     var nf=new Intl.NumberFormat('he-IL');
     function kfmt(v){return (v/1000)+'K';}
-    var mode=0,points=2.25,G=[null,null];
-    function recompute(){G[0]=build(points,0);G[1]=build(points,1);}
+    var mode=0,points=2.25,dons=0,life=0,MON=false,G=[null,null];   /* dons, life תמיד שנתיים; MON = תצוגה חודשית */
+    function recompute(){G[0]=build(points,0,dons,life);G[1]=build(points,1,dons,life);}
+    function amt(v){return nf.format(Math.round(MON?v/12:v));}
     function ser(g,fn){return g.rows.map(function(r){return {x:r.I/1000,y:Math.round(fn(r))};});}
     function area(label,bg,fill){return {label:label,data:[],stack:'p',borderWidth:1,borderColor:bg,backgroundColor:bg,pointRadius:0,pointHoverRadius:3,pointHoverBackgroundColor:bg,pointHoverBorderWidth:0,tension:0,fill:fill};}
     var white=area('פנסיה: ללא הטבה','#ffffff','-1');
@@ -1355,15 +1392,15 @@ textarea:focus-visible,
       plugins:[areaLabels],
       options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},interaction:{mode:'index',intersect:false},
         plugins:{legend:{display:false},filler:{propagate:false},tooltip:{rtl:true,textDirection:'rtl',itemSort:function(a,b){if(a.datasetIndex===0)return -1;if(b.datasetIndex===0)return 1;return b.datasetIndex-a.datasetIndex;},callbacks:{
-          title:function(t){return 'רווח שנתי: '+nf.format(Math.round(t[0].parsed.x*1000))+' ₪';},
-          label:function(c){return c.dataset.label+': '+nf.format(Math.round(c.parsed.y))+' ₪';},
+          title:function(t){return (MON?'רווח חודשי: ':'רווח שנתי: ')+amt(t[0].parsed.x*1000)+' ₪';},
+          label:function(c){return c.dataset.label+': '+amt(c.parsed.y)+' ₪';},
           labelColor:function(c){var w=c.datasetIndex===3;return {borderColor:w?'#b4b2a9':c.dataset.backgroundColor,backgroundColor:w?'#ffffff':c.dataset.backgroundColor};},
-          footer:function(t){var p=0,h=0,s=0;t.forEach(function(c){if(c.datasetIndex===0)s=c.parsed.y;else if(c.datasetIndex>=5)h+=c.parsed.y;else p+=c.parsed.y;});var out=['סך ההפקדה לפנסיה: '+nf.format(Math.round(p))+' ₪'];if(h>0)out.push('סך ההפקדה להשתלמות: '+nf.format(Math.round(h))+' ₪');if(p+h>0)out.push('החיסכון הוא '+(100*s/(p+h)).toFixed(0)+'% מסך ההפקדות');return out;}}}},
+          footer:function(t){var p=0,h=0,s=0;t.forEach(function(c){if(c.datasetIndex===0)s=c.parsed.y;else if(c.datasetIndex>=5)h+=c.parsed.y;else p+=c.parsed.y;});var sfx=MON?' ₪ בחודש':' ₪ בשנה',out=['סך ההפקדה לפנסיה: '+amt(p)+sfx];if(h>0)out.push('סך ההפקדה להשתלמות: '+amt(h)+sfx);if(p+h>0)out.push('החיסכון הוא '+(100*s/(p+h)).toFixed(0)+'% מסך ההפקדות');return out;}}}},
         scales:{
-          x:{type:'linear',min:66.86,max:800,grid:{display:false},border:{color:grid},afterBuildTicks:function(ax){var o=ax.min,t=[o];for(var v=100;v<=800;v+=100){if(v>o+45)t.push(v);}ax.ticks=t.map(function(v){return {value:v};});},ticks:{color:tick,font:{size:12},callback:function(v){return Math.round(v);}},title:{display:true,text:'רווח שנתי (אלפי ₪), מתחיל ברווח שממנו משלמים מס הכנסה',color:tick,font:{size:13}}},
-          y:{position:'left',stacked:true,min:0,max:50000,grid:{color:grid},border:{display:false},ticks:{color:tick,font:{size:12},stepSize:10000,callback:kfmt},title:{display:true,text:'הפקדה שנתית ב-₪',color:tick,font:{size:13}}}
+          x:{type:'linear',min:66.86,max:800,grid:{display:false},border:{color:grid},afterBuildTicks:function(ax){var o=ax.min,t=[o],st=MON?120:100;for(var v=st;v<=800;v+=st){if(v>o+45)t.push(v);}ax.ticks=t.map(function(v){return {value:v};});},ticks:{color:tick,font:{size:12},callback:function(v){if(!MON)return Math.round(v);var m=v/12;return Math.abs(m-Math.round(m))<0.01?Math.round(m):m.toFixed(1);}},title:{display:true,text:'רווח שנתי (אלפי ₪), מתחיל ברווח שממנו משלמים מס הכנסה',color:tick,font:{size:13}}},
+          y:{position:'left',stacked:true,min:0,max:50000,grid:{color:grid},border:{display:false},ticks:{color:tick,font:{size:12},stepSize:10000,callback:function(v){return MON?(v/12000)+'K':kfmt(v);}},title:{display:true,text:'הפקדה שנתית ב-₪',color:tick,font:{size:13}}}
         }}});
-    var btns=document.querySelectorAll('#dlSeg button'),ptsEl=document.getElementById('dlPts'),noteEl=document.getElementById('dlNote');
+    var btns=document.querySelectorAll('#dlSeg button'),ptsEl=document.getElementById('dlPts'),noteEl=document.getElementById('dlNote'),legEl=document.getElementById('dlLegend');
     function apply(){
       knob.style.right='calc('+mode+' * 100% / 3 + (100% / 3 - 60px) / 2)';
       for(var b=0;b<btns.length;b++){var sel=Number(btns[b].getAttribute('data-m'))===mode;btns[b].setAttribute('aria-checked',sel?'true':'false');btns[b].style.color=sel?'var(--text-1)':'var(--text-2)';btns[b].style.fontWeight=sel?'600':'400';}
@@ -1377,9 +1414,18 @@ textarea:focus-visible,
       ds[6].data=ser(g,function(r){return 20566-Math.round(r.hd);});
       ds[5].hidden=mode<1;ds[6].hidden=mode<2;
       chart.options.scales.x.min=g.o/1000;
-      chart.options.scales.y.max=mode===2?70000:(mode===1?60000:50000);chart.update();
+      chart.options.scales.x.title.text=(MON?'רווח חודשי':'רווח שנתי')+' (אלפי ₪), מתחיל ברווח שממנו משלמים מס הכנסה';
+      /* בתצוגה חודשית הציר האנכי מחולק לפי אלף ₪ בחודש (12 אלף בשנה) */
+      chart.options.scales.y.max=MON?(mode===2?72000:(mode===1?60000:48000)):(mode===2?70000:(mode===1?60000:50000));
+      chart.options.scales.y.ticks.stepSize=MON?12000:10000;
+      chart.options.scales.y.title.text=MON?'הפקדה חודשית ב-₪':'הפקדה שנתית ב-₪';
+      chart.update();
       ptsEl.textContent=points.toFixed(2);
-      noteEl.textContent=g.o>0?('עם '+points.toFixed(2)+' נקודות זיכוי אין מס הכנסה עד רווח של '+nf.format(g.o)+' ₪. הגרף מתחיל שם.'):'בלי נקודות זיכוי משלמים מס הכנסה מהשקל הראשון.';
+      var parts=[points.toFixed(2)+' נקודות זיכוי'];if(dons>207)parts.push('התרומות');if(life>0)parts.push('ביטוח החיים');
+      var who=parts.length===1?parts[0]:parts.slice(0,-1).join(', ')+' ו'+parts[parts.length-1];
+      noteEl.textContent=g.oReal>0?('עם '+who+' אין מס הכנסה עד רווח של '+amt(g.oReal)+(MON?' ₪ בחודש':' ₪ בשנה')+'. הגרף מתחיל שם.'):'בלי נקודות זיכוי משלמים מס הכנסה מהשקל הראשון.';
+      if(dons>0&&dons<=207)noteEl.textContent+=' תרומה של עד 207 ₪ בשנה אינה מזכה.';
+      legEl.textContent='חיסכון במס הכנסה ובביטוח לאומי, '+(MON?'בחודש':'בשנה');
       bMinus.disabled=points<=0;bPlus.disabled=points>=15;bMinus.style.opacity=points<=0?'0.35':'1';bPlus.style.opacity=points>=15?'0.35':'1';
     }
     function setMode(v){mode=Math.max(0,Math.min(2,v));apply();}
@@ -1387,6 +1433,18 @@ textarea:focus-visible,
     for(var b=0;b<btns.length;b++){btns[b].addEventListener('click',function(){setMode(Number(this.getAttribute('data-m')));});}
     bMinus.addEventListener('click',function(){setPts(points-0.25);});
     bPlus.addEventListener('click',function(){setPts(points+0.25);});
+    /* שדות סכום: הערך השנתי נשמר במדויק, והשדה מציג אותו שנתי או חלקי 12 */
+    var fDons=document.getElementById('dlDons'),fLife=document.getElementById('dlLife'),tmr=null;
+    function showFields(){fDons.value=nf.format(Math.round(MON?dons/12:dons));fLife.value=nf.format(Math.round(MON?life/12:life));
+      document.getElementById('dlDonsLbl').textContent=MON?'תרומות בחודש (סעיף 46)':'תרומות בשנה (סעיף 46)';
+      document.getElementById('dlLifeLbl').textContent=MON?'ביטוח חיים בחודש':'ביטוח חיים בשנה';}
+    function readField(el,cap){var v=parseInt(String(el.value).replace(/[^0-9]/g,''),10)||0;v=Math.min(v,MON?Math.floor(cap/12):cap);el.value=nf.format(v);return MON?v*12:v;}
+    function onAmount(){dons=readField(fDons,9999999);life=readField(fLife,999999);clearTimeout(tmr);tmr=setTimeout(function(){recompute();apply();},140);}
+    fDons.addEventListener('input',onAmount);fLife.addEventListener('input',onAmount);
+    [fDons,fLife].forEach(function(el){el.addEventListener('focus',function(){var e=this;setTimeout(function(){e.select();},0);});});
+    var bPer=document.getElementById('dlPer');
+    bPer.addEventListener('click',function(){MON=!MON;bPer.setAttribute('aria-pressed',MON?'true':'false');
+      bPer.querySelector('.pt-tx').textContent=MON?'הצג במונחים שנתיים':'הצג במונחים חודשיים';showFields();apply();});
     function fromX(clientX){var r=rail.getBoundingClientRect();return Math.floor((r.right-clientX)/(r.width/3));}
     var dragging=false;
     rail.addEventListener('pointerdown',function(e){dragging=true;try{rail.setPointerCapture(e.pointerId);}catch(err){}setMode(fromX(e.clientX));});
@@ -1398,8 +1456,9 @@ textarea:focus-visible,
     </script>
 
     <p style="font-size:14px; color: var(--text-2);">
-      <em>הנחות הגרף: נתוני 2026; הרווח מהעסק הוא ההכנסה היחידה; אין ניכוי בגין ביטוח אובדן כושר עבודה,
-      אין תרומות ואין ביטוח חיים. הגרף מציג הטבות מס בלבד: ההפקדה הנמוכה ביותר שמביאה את החיסכון במס לשיאו.
+      <em>הנחות הגרף: נתוני 2026; הרווח מהעסק הוא ההכנסה היחידה; אין ניכוי בגין ביטוח אובדן כושר עבודה.
+      תרומות מזכות ב-35% לפי סעיף 46 (מעל 207 ₪ בשנה ועד 30% מההכנסה), וביטוח חיים ב-25%, בתוך אותה תקרה של הזיכוי על ההפקדה לפנסיה.
+      הגרף מציג הטבות מס בלבד: ההפקדה הנמוכה ביותר שמביאה את החיסכון במס לשיאו.
       קרוב לתחילת הציר מס ההכנסה נמוך, ולכן הזיכוי מנוצל רק בחלקו. לחישוב לפי הנתונים שלך:
       <a href="/tools/tax-savings/">מחשבון חיסכון במס לעצמאים</a>.</em>
     </p>
