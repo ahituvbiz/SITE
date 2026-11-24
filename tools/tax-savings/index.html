@@ -1128,9 +1128,8 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
 /* בחירת יישוב מזכה בהטבת מס */
 .calc-widget-wrap .input-item.yishuv-item{grid-column:1/-1;flex-wrap:wrap;gap:10px 15px;min-width:0}
 .calc-widget-wrap .input-item.yishuv-item label{flex:1 1 200px;min-width:0}
-.calc-widget-wrap .yishuv-ctl{display:flex;gap:8px;flex:2 1 300px;min-width:0;max-width:100%}
-.calc-widget-wrap .input-item.yishuv-item input.yishuv-q{width:0;flex:1 1 0;min-width:0;margin-right:0;font-size:15px;font-weight:400;text-align:right;padding:8px 10px}
-.calc-widget-wrap .input-item.yishuv-item select{width:0;flex:1.4 1 0;min-width:0;padding:8px;font-size:16px;font-weight:700;border:1px solid #ccc;border-radius:5px;background:#fff;color:#1A1A1A}
+.calc-widget-wrap .yishuv-ctl{display:flex;flex:1 1 240px;min-width:0;max-width:100%}
+.calc-widget-wrap .input-item.yishuv-item select{width:0;flex:1 1 0;min-width:0;padding:8px;font-size:16px;font-weight:700;border:1px solid #ccc;border-radius:5px;background:#fff;color:#1A1A1A}
 .calc-widget-wrap .yishuv-hint{flex:1 1 100%;min-width:0;margin:0;font-size:13.5px;line-height:1.55;color:#555}
 .calc-widget-wrap .ts-res,.calc-widget-wrap .ts-chart{min-width:0}
 
@@ -1192,10 +1191,9 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
         <div class="input-item yishuv-item" id="yishuv-item">
             <label for="yishuv">מגורים ביישוב שמזכה בהטבת מס:</label>
             <div class="yishuv-ctl">
-                <input type="search" class="yishuv-q" id="yishuv-q" placeholder="חיפוש יישוב" aria-label="חיפוש יישוב מזכה" autocomplete="off">
                 <select id="yishuv"><option value="">ללא</option></select>
             </div>
-            <p class="yishuv-hint" id="yishuv-hint">תושבי יישובים מוטבים (סעיף 11 לפקודת מס הכנסה) מקבלים זיכוי ממס על הכנסה מיגיעה אישית. הרשימה לפי פרסומי רשות המסים לשנת 2026.</p>
+            <p class="yishuv-hint" id="yishuv-hint" hidden></p>
         </div>
     </div>
 
@@ -1469,13 +1467,13 @@ el('per-toggle').addEventListener('click',function(){
 });
 
 /* בחירת יישוב מזכה */
-var HINT0=el('yishuv-hint').textContent;
 if(window.pensyaYishuvPicker){
-  var picker=window.pensyaYishuvPicker(el('yishuv'),el('yishuv-q'),function(y){
+  var picker=window.pensyaYishuvPicker(el('yishuv'),null,function(y){
     Y=y;
     el('yishuv-hint').textContent=y
       ? y.name+': זיכוי של '+y.pct+'% מההכנסה החייבת מיגיעה אישית, עד תקרת הכנסה של '+y.cap.toLocaleString('en-US')+' ₪ בשנה. החישוב מניח תושבות ביישוב לאורך כל שנת המס.'
-      : HINT0;
+      : '';
+    el('yishuv-hint').hidden=!y;
     refresh();
   });
 } else el('yishuv-item').style.display='none';

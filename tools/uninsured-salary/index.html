@@ -125,9 +125,7 @@ a:hover{text-decoration:underline}
 .form-group label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14.5px;font-weight:600;margin-bottom:7px;color:var(--text-2)}
 .form-group .hint{display:block;font-size:12.5px;font-weight:400;color:var(--text-meta);margin:-3px 0 7px}
 .yishuv-ctl{display:flex;gap:8px}
-.yishuv-ctl input,.yishuv-ctl select{height:42px;padding:0 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:16px;background:#fff;color:var(--text-1);min-width:0}
-.yishuv-ctl input{flex:1 1 40%}
-.yishuv-ctl select{flex:1.4 1 60%;font-weight:600}
+.yishuv-ctl select{flex:1 1 100%;width:100%;height:42px;padding:0 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:16px;font-weight:600;background:#fff;color:var(--text-1);min-width:0}
 .val-display{font-weight:700;color:var(--primary);white-space:nowrap}
 .form-group input[type=range]{width:100%;accent-color:var(--primary)}
 .form-group input[type=number]{width:100%;height:42px;padding:0 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:16px;background:#fff;color:var(--text-1)}
@@ -516,7 +514,6 @@ button.per-toggle[aria-pressed="true"] .pt-ic{background:#fff;color:var(--primar
           <label for="us-yishuv">מגורים ביישוב שמזכה בהטבת מס <span class="val-display" id="us-yishuv-out">ללא</span></label>
           <span class="hint" id="us-yishuv-hint">תושבי יישובים מוטבים (סעיף 11 לפקודת מס הכנסה) מקבלים זיכוי ממס על הכנסה מיגיעה אישית. ההטבה מקטינה את המס שנותר לקזז, ולעיתים גם את שווי הניכוי</span>
           <div class="yishuv-ctl">
-            <input type="search" id="us-yishuv-q" placeholder="חיפוש יישוב" aria-label="חיפוש יישוב מזכה" autocomplete="off">
             <select id="us-yishuv"><option value="">ללא</option></select>
           </div>
         </div>
@@ -1485,7 +1482,7 @@ f.push('<div class="flag flag-bad"><strong>לא נשאר לך מס לקזז</str
   });
 ['us-already','us-age50','us-no-akw'].forEach(function(id){ var e = document.getElementById(id); if (e) e.addEventListener('change', render); });
   if (window.pensyaYishuvPicker)
-    yPick = window.pensyaYishuvPicker(document.getElementById('us-yishuv'), document.getElementById('us-yishuv-q'), function(y){
+    yPick = window.pensyaYishuvPicker(document.getElementById('us-yishuv'), null, function(y){
       document.getElementById('us-yishuv-hint').textContent = y
         ? y.name + ': זיכוי של ' + y.pct + '% מההכנסה החייבת מיגיעה אישית, עד תקרת הכנסה של ' + y.cap.toLocaleString('en-US') + ' ₪ בשנה. החישוב מניח תושבות ביישוב לאורך כל שנת המס' + (y.note ? '. ' + y.note : '')
         : US_YISHUV_HINT;
