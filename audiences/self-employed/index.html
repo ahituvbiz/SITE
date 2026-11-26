@@ -1054,7 +1054,7 @@ textarea:focus-visible,
     </p>
     <style>
     .rv-card{margin:var(--s-md) 0 var(--s-xs)}
-    .rv-title{font-size:20px;margin:0 0 var(--s-md);color:var(--text-1)}
+    .rv-title{font-size:20px;margin:0 0 var(--s-md);color:var(--text-1);scroll-margin-top:110px}
     .rv-card .calc-controls{margin-bottom:var(--s-md);padding-bottom:var(--s-md)}
     .rv-card .calc-control>label,.rv-card .rv-lbl{display:block;font-size:14px;color:var(--text-2);font-weight:600;line-height:1.4}
     .rv-card input[type="text"],.rv-card input[type="date"],.rv-card input[type="number"],.rv-card select{width:100%;height:44px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--radius-btn);font-family:inherit;font-size:16px;background:var(--bg-cream);color:var(--text-1);outline:none;transition:border-color .15s,background .15s}
@@ -1100,7 +1100,7 @@ textarea:focus-visible,
     @media (max-width:480px){.rv-ticks .rv-pc{display:none}}
     </style>
     <div class="calc-card rv-card" id="rvCalc">
-      <h4 class="rv-title">מחשבון הפוך: מהקצבה הרצויה להפקדה החודשית</h4>
+      <h4 class="rv-title" id="reverse-calculator">מחשבון הפוך: מהקצבה הרצויה להפקדה החודשית</h4>
       <div class="calc-controls">
         <div class="calc-control">
           <label for="rvBd">תאריך לידה</label>
